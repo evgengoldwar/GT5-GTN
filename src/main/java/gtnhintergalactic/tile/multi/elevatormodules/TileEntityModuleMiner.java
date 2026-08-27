@@ -28,7 +28,6 @@ import com.gtnewhorizons.modularui.api.forge.ItemStackHandler;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ggfab.mte.MTELinkedInputBus;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Textures;
@@ -428,8 +427,7 @@ public abstract class TileEntityModuleMiner extends TileEntityModuleBase
         for (MTEHatchInputBus inputBus : validMTEList(mInputBusses)) {
             IGregTechTileEntity tileEntity = inputBus.getBaseMetaTileEntity();
             boolean isMEBus = inputBus instanceof MTEHatchInputBusME;
-            boolean isLinkedBus = inputBus instanceof MTELinkedInputBus;
-            boolean isSharableBus = isMEBus || isLinkedBus;
+            boolean isSharableBus = isMEBus;
             for (int i = tileEntity.getSizeInventory() - 1; i >= 0; i--) {
                 ItemStack itemStack = tileEntity.getStackInSlot(i);
                 if (itemStack != null) {

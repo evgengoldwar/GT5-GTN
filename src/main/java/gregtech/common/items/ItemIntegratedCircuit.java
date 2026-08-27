@@ -1,6 +1,5 @@
 package gregtech.common.items;
 
-import static ggfab.GGItemList.SingleUseScrewdriver;
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.Mods.GregTech;
 
@@ -371,13 +370,8 @@ public class ItemIntegratedCircuit extends GTGenericItem
             for (int id : OreDictionary.getOreIDs(potentialStack)) {
                 if (id == screwdriverOreId) {
                     if (doDamage) {
-                        if (potentialStack.getItem()
-                            .equals(SingleUseScrewdriver.getItem())) {
-                            potentialStack.stackSize -= 1;
-                        } else {
-                            potentialStack = potentialStack.getItem()
-                                .getContainerItem(potentialStack);
-                        }
+                        potentialStack = potentialStack.getItem()
+                            .getContainerItem(potentialStack);
                         if (potentialStack != null && potentialStack.stackSize <= 0) {
                             mainInventory[i] = null;
                         } else {

@@ -14,7 +14,6 @@ import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
-import ggfab.GGItemList;
 import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
@@ -62,15 +61,7 @@ public class MTEHatchSolidifier extends MTEHatchInput implements IConfigurationC
             ItemList.Shape_Mold_Pipe_Medium.get(1),
             ItemList.Shape_Mold_Pipe_Large.get(1),
             ItemList.Shape_Mold_Pipe_Huge.get(1),
-            ItemList.Shape_Mold_ToolHeadDrill.get(1),
-            GGItemList.SingleUseFileMold.get(1),
-            GGItemList.SingleUseWrenchMold.get(1),
-            GGItemList.SingleUseCrowbarMold.get(1),
-            GGItemList.SingleUseWireCutterMold.get(1),
-            GGItemList.SingleUseHardHammerMold.get(1),
-            GGItemList.SingleUseSoftMalletMold.get(1),
-            GGItemList.SingleUseScrewdriverMold.get(1),
-            GGItemList.SingleUseSawMold.get(1)));
+            ItemList.Shape_Mold_ToolHeadDrill.get(1)));
 
     public MTEHatchSolidifier(int aID, String aName, String aNameRegional, int aTier) {
         super(aID, aName, aNameRegional, aTier);
