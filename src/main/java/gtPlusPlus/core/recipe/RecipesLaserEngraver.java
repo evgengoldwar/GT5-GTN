@@ -1,7 +1,6 @@
 package gtPlusPlus.core.recipe;
 
 import static gregtech.api.recipe.RecipeMaps.laserEngraverRecipes;
-import static gregtech.api.util.GTRecipeBuilder.HOURS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 
@@ -115,7 +114,6 @@ public class RecipesLaserEngraver implements IOreRecipeRegistrator {
                 .eut(TierEU.RECIPE_LuV)
                 .addTo(laserEngraverRecipes);
 
-        } else if (aOreDictName.equals(OreDictNames.craftingLensOrange.toString())) {
-        }
+        } else if (aOreDictName.equals(OreDictNames.craftingLensOrange.toString())) {}
     }
 }

@@ -124,7 +124,7 @@ public class MTEExoticModule extends MTEBaseModule {
                     powerForRecipe = predictDrainedEnergy(recipe).multiply(BigInteger.valueOf(actualParallel));
                     if (getUserEU(userUUID).compareTo(powerForRecipe) < 0) {
                         setPlasmaRecipe(null);
-                        return CheckRecipeResultRegistry.insufficientStartupPower(powerForRecipe);
+                        return CheckRecipeResultRegistry.NO_RECIPE;
                     }
 
                     if (numberOfFluids != 0) {
@@ -165,7 +165,7 @@ public class MTEExoticModule extends MTEBaseModule {
 
                 if (!addEUToGlobalEnergyMap(userUUID, powerForRecipe.negate())) {
                     stopMachine(ShutDownReasonRegistry.POWER_LOSS);
-                    return CheckRecipeResultRegistry.insufficientStartupPower(powerForRecipe);
+                    return CheckRecipeResultRegistry.NO_RECIPE;
                 }
 
                 addToPowerTally(powerForRecipe);

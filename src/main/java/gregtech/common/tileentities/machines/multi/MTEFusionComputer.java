@@ -13,7 +13,6 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.filterByMTETier;
 import static gregtech.api.util.GTUtility.validMTEList;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Set;
 
@@ -295,8 +294,7 @@ public abstract class MTEFusionComputer extends MTEEnhancedMultiBlockBase<MTEFus
             protected CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
                 if (!mRunningOnLoad
                     && recipe.getMetadataOrDefault(GTRecipeConstants.FUSION_THRESHOLD, 0L) > maxEUStore()) {
-                    return CheckRecipeResultRegistry.insufficientStartupPower(
-                        BigInteger.valueOf(recipe.getMetadataOrDefault(FUSION_THRESHOLD, 0L)));
+                    return CheckRecipeResultRegistry.NO_RECIPE;
                 }
                 return CheckRecipeResultRegistry.SUCCESSFUL;
             }

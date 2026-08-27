@@ -11,7 +11,6 @@ import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.util.GTModHandler.RecipeBits.BUFFERED;
 import static gregtech.api.util.GTModHandler.RecipeBits.NOT_REMOVABLE;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
-import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;

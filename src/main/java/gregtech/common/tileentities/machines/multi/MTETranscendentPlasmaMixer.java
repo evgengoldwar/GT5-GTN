@@ -17,7 +17,6 @@ import static gregtech.common.misc.WirelessNetworkManager.processInitialSettings
 import static gregtech.common.tileentities.machines.multi.MTEPlasmaForge.DIM_BRIDGE_CASING;
 import static gregtech.common.tileentities.machines.multi.MTEPlasmaForge.DIM_INJECTION_CASING;
 import static gregtech.common.tileentities.machines.multi.MTEPlasmaForge.DIM_TRANS_CASING;
-import static kekztech.util.Util.toStandardForm;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -180,7 +179,7 @@ public class MTETranscendentPlasmaMixer extends MTEEnhancedMultiBlockBase<MTETra
                 recipeEU = BigInteger.valueOf(multiplier * recipe.mEUt * recipe.mDuration);
                 if (availableEU.compareTo(recipeEU) < 0) {
                     finalConsumption = BigInteger.ZERO;
-                    return CheckRecipeResultRegistry.insufficientStartupPower(recipeEU);
+                    return CheckRecipeResultRegistry.NO_RECIPE;
                 }
                 maxParallel = availableEU.divide(recipeEU)
                     .min(BigInteger.valueOf(maxParallel))
@@ -195,7 +194,7 @@ public class MTETranscendentPlasmaMixer extends MTEEnhancedMultiBlockBase<MTETra
                 // This will void the inputs if wireless energy has dropped
                 // below the required amount between validateRecipe and here.
                 if (!addEUToGlobalEnergyMap(ownerUUID, finalConsumption)) {
-                    return CheckRecipeResultRegistry.insufficientStartupPower(finalConsumption);
+                    return CheckRecipeResultRegistry.NO_RECIPE;
                 }
                 // Energy consumed all at once from wireless net.
                 overwriteCalculatedEut(0);
@@ -295,12 +294,6 @@ public class MTETranscendentPlasmaMixer extends MTEEnhancedMultiBlockBase<MTETra
                 "GT5U.infodata.progress",
                 EnumChatFormatting.GREEN + formatNumber(mProgresstime / 20) + EnumChatFormatting.RESET,
                 EnumChatFormatting.YELLOW + formatNumber(mMaxProgresstime / 20) + EnumChatFormatting.RESET),
-            IGregTechDeviceInformation.encode(
-                "GT5U.multiblock.usage.fmt",
-                EnumChatFormatting.RED
-                    + (mMaxProgresstime == 0 ? "0"
-                        : toStandardForm(finalConsumption.divide(BigInteger.valueOf(-mMaxProgresstime))))
-                    + EnumChatFormatting.RESET),
             IGregTechDeviceInformation.encode(
                 "GT5U.multiblock.recipesDone.fmt",
                 EnumChatFormatting.GREEN + formatNumber(recipesDone) + EnumChatFormatting.RESET) };

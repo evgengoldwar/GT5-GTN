@@ -60,7 +60,6 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.common.misc.GTStructureChannels;
 import gregtech.common.tileentities.generators.MTEDieselGenerator;
-import kekztech.common.blocks.BlockTFFTStorageField;
 
 public class Loaders {
 
@@ -530,8 +529,6 @@ public class Loaders {
             Textures.BlockIcons.casingTexturePages[GoodGeneratorTexturePage][10] = TextureFactory
                 .of(gravityStabilizationCasing, 0);
             // index 126 taken by GTNH-Lanthanides
-            Textures.BlockIcons.casingTexturePages[GoodGeneratorTexturePage][127] = TextureFactory
-                .of(BlockTFFTStorageField.TFFTCasingIcon.INSTANCE);
         }
     }
 

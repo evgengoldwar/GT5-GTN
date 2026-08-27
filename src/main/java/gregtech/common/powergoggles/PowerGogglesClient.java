@@ -15,7 +15,6 @@ import appeng.api.util.DimensionalCoord;
 import gregtech.api.net.GTPacketOverwritePowerGogglesMeasurements;
 import gregtech.api.net.GTPacketUpdatePowerGoggles;
 import gregtech.common.misc.WirelessNetworkManager;
-import kekztech.common.tileentities.MTELapotronicSuperCapacitor;
 
 public class PowerGogglesClient {
 
@@ -106,22 +105,6 @@ public class PowerGogglesClient {
     }
 
     public void measure(EntityPlayerMP playerMP) {
-        MTELapotronicSuperCapacitor lsc = PowerGogglesUtil.getLsc(lscLink);
-
-        // LSC got destroyed, or something else happened to it
-        if (lsc == null && lscLink != null) {
-            return;
-        }
-        if (lsc == null) {
-            measurements
-                .addLast(new PowerGogglesMeasurement(true, WirelessNetworkManager.getUserEU(playerMP.getUniqueID())));
-        } else {
-            measurements.addLast(new PowerGogglesMeasurement(false, lsc.getStored(), lsc.maxEUStore()));
-        }
-        if (measurements.size() > PowerGogglesConstants.STORED_MEASUREMENTS) {
-            measurements.removeFirst();
-        }
-        PowerGogglesWorldSavedData.INSTANCE.markDirty();
 
     }
 

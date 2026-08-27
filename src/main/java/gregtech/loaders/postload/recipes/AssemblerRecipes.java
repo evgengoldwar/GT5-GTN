@@ -26,7 +26,6 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gtPlusPlus.core.material.MaterialsAlloy.INCONEL_690;
-import static kekztech.common.Blocks.lscLapotronicEnergyUnit;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -3245,19 +3244,6 @@ public class AssemblerRecipes implements Runnable {
             .itemOutputs(ItemList.FieldEnergyAbsorberCasing.get(2L))
             .fluidInputs(Materials.ExcitedDTSC.getFluid(16_000L))
             .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_UXV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.SpaceTime, 1L),
-                GTUtility.copyAmount(8, ItemRegistry.energyDistributor[12]),
-                new ItemStack(lscLapotronicEnergyUnit, 1, 5),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.MagMatter, 6L),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UXV, 1L))
-            .itemOutputs(ItemList.LoadbearingDistributionCasing.get(1L))
-            .fluidInputs(Materials.CosmicNeutronium.getPlasma(1L * STACKS))
-            .duration(1 * SECONDS)
             .eut(TierEU.RECIPE_UXV)
             .addTo(assemblerRecipes);
 

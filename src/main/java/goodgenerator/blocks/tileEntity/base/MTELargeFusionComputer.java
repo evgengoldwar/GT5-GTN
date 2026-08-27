@@ -10,7 +10,6 @@ import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gregtech.api.util.GTUtility.validMTEList;
 import static net.minecraft.util.StatCollector.translateToLocal;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -459,7 +458,7 @@ public abstract class MTELargeFusionComputer extends TTMultiblockBase
                 long powerToStart = recipe.getMetadataOrDefault(GTRecipeConstants.FUSION_THRESHOLD, 0L);
                 if (!mRunningOnLoad) {
                     if (powerToStart > maxEUStore()) {
-                        return CheckRecipeResultRegistry.insufficientStartupPower(BigInteger.valueOf(powerToStart));
+                        return CheckRecipeResultRegistry.NONE;
                     }
                     if (recipe.mEUt > GTValues.V[tier()]) {
                         return CheckRecipeResultRegistry.insufficientPower(recipe.mEUt);

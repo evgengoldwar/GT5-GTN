@@ -68,7 +68,7 @@ public class MTEMoltenModule extends MTEBaseModule {
 
                 BigInteger powerForRecipe = predictDrainedEnergy(recipe);
                 if (getUserEU(userUUID).compareTo(powerForRecipe) < 0) {
-                    return CheckRecipeResultRegistry.insufficientStartupPower(powerForRecipe);
+                    return CheckRecipeResultRegistry.NO_RECIPE;
                 }
                 return CheckRecipeResultRegistry.SUCCESSFUL;
             }
@@ -93,7 +93,7 @@ public class MTEMoltenModule extends MTEBaseModule {
                     .multiply(BigInteger.valueOf(duration));
                 if (!addEUToGlobalEnergyMap(userUUID, powerForRecipe.negate())) {
                     stopMachine(ShutDownReasonRegistry.POWER_LOSS);
-                    return CheckRecipeResultRegistry.insufficientStartupPower(powerForRecipe);
+                    return CheckRecipeResultRegistry.NO_RECIPE;
                 }
                 addToPowerTally(powerForRecipe);
                 addToRecipeTally(calculatedParallels);

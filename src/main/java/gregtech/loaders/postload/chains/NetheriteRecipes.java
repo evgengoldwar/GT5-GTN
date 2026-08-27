@@ -22,7 +22,6 @@ import static gregtech.api.recipe.RecipeMaps.formingPressRecipes;
 import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
 import static gregtech.api.recipe.RecipeMaps.laserEngraverRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
-import static gregtech.api.recipe.RecipeMaps.mixerNonCellRecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
 import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
 import static gregtech.api.recipe.RecipeMaps.vacuumFreezerRecipes;
@@ -54,8 +53,6 @@ import gregtech.loaders.misc.GTBees;
 import gtPlusPlus.core.fluids.GTPPFluids;
 import gtPlusPlus.core.material.MaterialMisc;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import kekztech.Items;
-import kekztech.common.items.MetaItemCraftingComponent;
 
 public class NetheriteRecipes {
 
@@ -190,28 +187,6 @@ public class NetheriteRecipes {
                 .duration(20 * SECONDS)
                 .eut(TierEU.RECIPE_LuV)
                 .addTo(alloyBlastSmelterRecipes);
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(
-                    MetaItemCraftingComponent.getInstance()
-                        .getStackOfAmountFromDamage(Items.YSZCeramicDust.getMetaID(), 4),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Mica, 32))
-                .fluidInputs(Materials.PrismaticNaquadah.getMolten(576))
-                .fluidOutputs(Materials.PrismaticNaquadahCompositeSlurry.getFluid(2000))
-                .duration(5 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(mixerNonCellRecipes);
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(
-                    MetaItemCraftingComponent.getInstance()
-                        .getStackOfAmountFromDamage(Items.YSZCeramicDust.getMetaID(), 4),
-                    WerkstoffLoader.RawFluorophlogopite.get(OrePrefixes.dust, 24))
-                .fluidInputs(Materials.PrismaticNaquadah.getMolten(576))
-                .fluidOutputs(Materials.PrismaticNaquadahCompositeSlurry.getFluid(2000))
-                .duration(5 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(mixerNonCellRecipes);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(

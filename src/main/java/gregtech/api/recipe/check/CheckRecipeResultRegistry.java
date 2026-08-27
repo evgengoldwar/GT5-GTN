@@ -1,6 +1,5 @@
 package gregtech.api.recipe.check;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -190,11 +189,6 @@ public final class CheckRecipeResultRegistry {
     }
 
     @Nonnull
-    public static CheckRecipeResult insufficientStartupPower(BigInteger required) {
-        return new ResultInsufficientStartupPowerBigInt(required);
-    }
-
-    @Nonnull
     public static CheckRecipeResult noValidOutputColor(byte color) {
         return new ResultNoValidOutputColor(color);
     }
@@ -206,7 +200,6 @@ public final class CheckRecipeResultRegistry {
         register(new ResultInsufficientHeat(0));
         register(new ResultInsufficientMachineTier(0));
         register(new ResultInsufficientStartupPower(0));
-        register(new ResultInsufficientStartupPowerBigInt(BigInteger.ZERO));
         register(new ResultMissingItem());
         register(new ResultMissingApiaryFlowers());
         register(new ResultNoValidOutputColor((byte) 0));

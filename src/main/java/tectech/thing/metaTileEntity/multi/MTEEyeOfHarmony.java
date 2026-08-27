@@ -13,7 +13,6 @@ import static gregtech.api.util.ParallelHelper.calculateIntegralChancedOutputMul
 import static gregtech.common.misc.WirelessNetworkManager.addEUToGlobalEnergyMap;
 import static gregtech.common.misc.WirelessNetworkManager.strongCheckOrAddUser;
 import static java.lang.Math.exp;
-import static kekztech.util.Util.toStandardForm;
 import static net.minecraft.util.EnumChatFormatting.AQUA;
 import static net.minecraft.util.EnumChatFormatting.BLUE;
 import static net.minecraft.util.EnumChatFormatting.RED;
@@ -1187,7 +1186,7 @@ public class MTEEyeOfHarmony extends TTMultiblockBase implements ISurvivalConstr
 
         // Remove EU from the users network.
         if (!addEUToGlobalEnergyMap(userUUID, usedEU)) {
-            return CheckRecipeResultRegistry.insufficientStartupPower(usedEU.abs());
+            return CheckRecipeResultRegistry.NO_RECIPE;
         }
 
         mMaxProgresstime = recipeProcessTimeCalculator(
@@ -1480,12 +1479,6 @@ public class MTEEyeOfHarmony extends TTMultiblockBase implements ISurvivalConstr
             str.add(
                 IGregTechDeviceInformation
                     .encode("tt.infodata.eoh.total_parallel", RED + formatNumber(parallelAmount)));
-            str.add(
-                IGregTechDeviceInformation
-                    .encode("tt.infodata.eoh.eu_output", RED + toStandardForm(outputEU_BigInt) + RESET));
-            str.add(
-                IGregTechDeviceInformation
-                    .encode("tt.infodata.eoh.eu_input", RED + toStandardForm(usedEU.abs()) + RESET));
             int currentMaxProgresstime = Math.max(maxProgresstime(), 1);
             if (starMatter != null && starMatter.fluidStack != null) {
                 FluidStackLong starMatterOutput = new FluidStackLong(
@@ -1510,10 +1503,6 @@ public class MTEEyeOfHarmony extends TTMultiblockBase implements ISurvivalConstr
             }
             BigInteger euPerTick = (outputEU_BigInt.subtract(usedEU.abs()))
                 .divide(BigInteger.valueOf(currentMaxProgresstime));
-
-            str.add(
-                IGregTechDeviceInformation
-                    .encode("tt.infodata.eoh.estimated_eu", RED + toStandardForm(euPerTick) + RESET));
         }
         str.add("tt.infodata.eoh.divider");
         return str.toArray(new String[0]);

@@ -3,8 +3,6 @@ package tectech.loader.recipe;
 import static goodgenerator.loader.Loaders.NeutronAccelerators;
 import static goodgenerator.loader.Loaders.compactFusionCoil;
 import static gregtech.api.enums.Mods.Avaritia;
-import static gregtech.api.enums.Mods.BloodMagic;
-import static gregtech.api.enums.Mods.DraconicEvolution;
 import static gregtech.api.enums.Mods.EtFuturumRequiem;
 import static gregtech.api.enums.Mods.EternalSingularity;
 import static gregtech.api.enums.Mods.ExtraUtilities;
@@ -12,7 +10,6 @@ import static gregtech.api.enums.Mods.GalacticraftAmunRa;
 import static gregtech.api.enums.Mods.IndustrialCraft2;
 import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.enums.Mods.Railcraft;
-import static gregtech.api.enums.Mods.Thaumcraft;
 import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
@@ -52,7 +49,6 @@ import gtPlusPlus.core.material.MaterialsAlloy;
 import gtPlusPlus.core.material.MaterialsElements;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtnhlanth.common.register.LanthItemList;
-import kekztech.common.Blocks;
 import tectech.recipe.TTRecipeAdder;
 import tectech.thing.CustomItemList;
 import tectech.thing.block.BlockGodforgeGlass;
@@ -2441,25 +2437,6 @@ public class ResearchStationAssemblyLine implements Runnable {
             new FluidStack[] { MaterialMisc.MUTATED_LIVING_SOLDER.getFluidStack(32 * INGOTS),
                 Materials.SuperconductorUIVBase.getMolten(32 * INGOTS), Materials.Infinity.getMolten(32 * INGOTS) },
             CustomItemList.Godforge_GravitonFlowModulatorTier1.get(2),
-            10 * SECONDS,
-            (int) TierEU.RECIPE_UIV);
-
-        // Phonon Transmission Conduit
-        TTRecipeAdder.addResearchableAssemblylineRecipe(
-            ItemList.Relativistic_Heat_Capacitor.get(1),
-            48_000_000,
-            8_192,
-            (int) TierEU.RECIPE_UMV,
-            64,
-            new Object[] { GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.TranscendentMetal, 1),
-                GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Creon, 12),
-                new ItemStack(Blocks.tfftStorageField, 1, 9), ItemList.Tesseract.get(8),
-                ItemList.Relativistic_Heat_Capacitor.get(4), ItemList.Thermal_Superconductor.get(6),
-                ItemList.Field_Generator_UEV.get(4),
-                GTOreDictUnificator.get(OrePrefixes.bolt, Materials.SixPhasedCopper, 24) },
-            new FluidStack[] { MaterialMisc.MUTATED_LIVING_SOLDER.getFluidStack(1 * STACKS),
-                Materials.PhononMedium.getFluid(1_000), Materials.Plutonium241.getPlasma(16 * INGOTS) },
-            CustomItemList.Godforge_HarmonicPhononTransmissionConduit.get(1),
             10 * SECONDS,
             (int) TierEU.RECIPE_UIV);
 

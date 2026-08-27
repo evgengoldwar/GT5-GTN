@@ -68,7 +68,7 @@ public class MTEPlasmaModule extends MTEBaseModule {
             protected CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
                 BigInteger powerForRecipe = predictDrainedEnergy(recipe);
                 if (getUserEU(userUUID).compareTo(powerForRecipe) < 0) {
-                    return CheckRecipeResultRegistry.insufficientStartupPower(powerForRecipe);
+                    return CheckRecipeResultRegistry.NO_RECIPE;
                 }
                 if (recipe.getMetadataOrDefault(FOG_PLASMA_TIER, 0) > getPlasmaTier()
                     || (recipe.getMetadataOrDefault(FOG_PLASMA_MULTISTEP, false) && !isMultiStepPlasmaCapable)) {
@@ -84,7 +84,7 @@ public class MTEPlasmaModule extends MTEBaseModule {
                     .multiply(BigInteger.valueOf(duration));
                 if (!addEUToGlobalEnergyMap(userUUID, powerForRecipe.negate())) {
                     stopMachine(ShutDownReasonRegistry.POWER_LOSS);
-                    return CheckRecipeResultRegistry.insufficientStartupPower(powerForRecipe);
+                    return CheckRecipeResultRegistry.NO_RECIPE;
                 }
                 addToPowerTally(powerForRecipe);
                 addToRecipeTally(calculatedParallels);
