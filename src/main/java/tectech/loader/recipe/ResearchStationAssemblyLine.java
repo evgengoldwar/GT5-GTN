@@ -1,6 +1,5 @@
 package tectech.loader.recipe;
 
-import static goodgenerator.loader.Loaders.NeutronAccelerators;
 import static goodgenerator.loader.Loaders.compactFusionCoil;
 import static gregtech.api.enums.Mods.Avaritia;
 import static gregtech.api.enums.Mods.EtFuturumRequiem;

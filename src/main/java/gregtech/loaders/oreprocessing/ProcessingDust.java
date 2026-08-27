@@ -224,8 +224,7 @@ public class ProcessingDust implements gregtech.api.interfaces.IOreRecipeRegistr
                                 }
                                 if (!tList.isEmpty()) {
                                     ItemStack[] outputsArray = tList.toArray(new ItemStack[Math.min(tList.size(), 6)]);
-                                    if (aMaterial == Materials.Bastnasite) {
-                                    } else {
+                                    if (aMaterial == Materials.Bastnasite) {} else {
                                         outputsArray = convert(aMaterial, outputsArray);
                                     }
                                     recipeBuilder.itemOutputs(outputsArray);
@@ -488,19 +487,13 @@ public class ProcessingDust implements gregtech.api.interfaces.IOreRecipeRegistr
                             1L);
                         if (tImpureStack == null) {
                             tImpureStack = GTOreDictUnificator.get(OrePrefixes.cell, tByProduct, 1L);
-                            if (tImpureStack == null) {
-                            } else {
+                            if (tImpureStack == null) {} else {
                                 FluidStack tFluid = GTUtility.getFluidForFilledItem(tImpureStack, true);
-                                if (tFluid == null) {
-                                } else {
-                                }
+                                if (tFluid == null) {} else {}
                             }
-                        } else {
-                        }
-                    } else {
-                    }
-                } else {
-                }
+                        } else {}
+                    } else {}
+                } else {}
             }
             case "dustSmall" -> {
                 GTValues.RA.stdBuilder()

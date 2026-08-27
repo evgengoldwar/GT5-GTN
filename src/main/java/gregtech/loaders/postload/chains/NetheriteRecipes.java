@@ -34,7 +34,6 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
-import static gregtech.api.util.GTRecipeConstants.DISSOLUTION_TANK_RATIO;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

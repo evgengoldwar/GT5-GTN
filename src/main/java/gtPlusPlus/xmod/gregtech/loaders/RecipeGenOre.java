@@ -1,15 +1,10 @@
 package gtPlusPlus.xmod.gregtech.loaders;
 
 import static bartworks.system.material.gtenhancement.PlatinumSludgeOutputs.convert;
-import static gregtech.api.enums.GTValues.RA;
-import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.chemicalBathRecipes;
 import static gregtech.api.recipe.RecipeMaps.chemicalDehydratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.electrolyzerRecipes;
 import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
-import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
-import static gregtech.api.recipe.RecipeMaps.oreWasherRecipes;
-import static gregtech.api.recipe.RecipeMaps.thermalCentrifugeRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 
@@ -27,13 +22,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTModHandler;
 import gtPlusPlus.core.material.Material;
 import gtPlusPlus.core.material.MaterialGenerator;
 import gtPlusPlus.core.material.MaterialStack;
-import gtPlusPlus.core.material.MaterialsElements;
 import gtPlusPlus.core.material.MaterialsOres;
 import gtPlusPlus.core.material.nuclear.MaterialsFluorides;
 import gtPlusPlus.core.material.state.MaterialState;
@@ -153,7 +146,6 @@ public class RecipeGenOre extends RecipeGenBase {
          * Macerate
          */
 
-
         // Fluorite Hydrogen Chemical Bath
         if (material == MaterialsFluorides.FLUORITE) {
             GTValues.RA.stdBuilder()
@@ -165,8 +157,6 @@ public class RecipeGenOre extends RecipeGenBase {
                 .eut(TierEU.RECIPE_HV / 2)
                 .addTo(chemicalBathRecipes);
         }
-
-
 
         // Forge Hammer
 
@@ -256,8 +246,7 @@ public class RecipeGenOre extends RecipeGenBase {
                 int[] chances = new int[internalOutputs.size()];
                 System.arraycopy(mChances, 0, chances, 0, internalOutputs.size());
                 ItemStack[] outputs = internalOutputs.toArray(new ItemStack[0]);
-                if (usesLanthanidesElectrolyzerOutputs(material)) {
-                } else {
+                if (usesLanthanidesElectrolyzerOutputs(material)) {} else {
                     outputs = convert(outputs);
                 }
                 ItemStack[] inputs;
@@ -328,8 +317,7 @@ public class RecipeGenOre extends RecipeGenBase {
                 int[] chances = new int[internalOutputs.size()];
                 System.arraycopy(mChances, 0, chances, 0, internalOutputs.size());
                 ItemStack[] outputs = internalOutputs.toArray(new ItemStack[0]);
-                if (usesLanthanidesDehydratorOutputs(material)) {
-                } else {
+                if (usesLanthanidesDehydratorOutputs(material)) {} else {
                     outputs = convert(outputs);
                 }
 

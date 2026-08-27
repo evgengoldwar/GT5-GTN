@@ -27,7 +27,6 @@ public class LatheRecipes implements Runnable {
             .eut(TierEU.RECIPE_ULV)
             .addTo(latheRecipes);
 
-
         GTValues.RA.stdBuilder()
             .itemInputs(new OreDictItemStack("plankWood", 1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.stick, Materials.Wood, 2L))
