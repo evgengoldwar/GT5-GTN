@@ -1,0 +1,535 @@
+package gtnhlanth.common.tileentity;
+
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAdder;
+import static gregtech.api.enums.GTValues.VN;
+import static gregtech.api.enums.HatchElement.BeamlineInput;
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_OIL_CRACKER;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_OIL_CRACKER_ACTIVE;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_OIL_CRACKER_ACTIVE_GLOW;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_OIL_CRACKER_GLOW;
+import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.GTUtility.validMTEList;
+import static gtnhlanth.api.recipe.LanthanidesRecipeMaps.TARGET_CHAMBER_METADATA;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
+import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+
+import bartworks.common.loaders.ItemRegistry;
+import gregtech.api.casing.Casings;
+import gregtech.api.enums.GTValues;
+import gregtech.api.enums.Textures;
+import gregtech.api.enums.TickTime;
+import gregtech.api.enums.VoltageIndex;
+import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.implementations.MTEEnhancedMultiBlockBase;
+import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
+import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrors;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.extensions.ArrayExt;
+import gregtech.common.misc.GTStructureChannels;
+import gregtech.common.tileentities.machines.IRecipeProcessingAwareHatch;
+import gtnhlanth.api.recipe.LanthanidesRecipeMaps;
+import gtnhlanth.common.beamline.BeamInformation;
+import gtnhlanth.common.beamline.Particle;
+import gtnhlanth.common.hatch.MTEHatchInputBeamline;
+import gtnhlanth.common.item.ItemPhotolithographicMask;
+import gtnhlanth.common.register.LanthItemList;
+import gtnhlanth.common.tileentity.recipe.beamline.TargetChamberMetadata;
+
+@IMetaTileEntity.SkipGenerateDescription
+public class MTETargetChamber extends MTEEnhancedMultiBlockBase<MTETargetChamber>
+    implements ISurvivalConstructable, ICasingTextureProvider {
+
+    private static final IStructureDefinition<MTETargetChamber> STRUCTURE_DEFINITION;
+
+    private static final int GrateMachineCasingTextureID = Casings.GrateMachineCasing.getTextureId();
+    private static final int ShieldedAccCasingTextureID = Casings.ShieldedAcceleratorCasing.getTextureId();
+    private final ArrayList<MTEHatchInputBus> mMaskInputBusses = new ArrayList<>();
+    private GTRecipe lastRecipe;
+    private int lastTCRecipeRate;
+    private float lastTCRecipeMinFocus;
+    private float lastTCRecipeMinEnergy;
+    private float lastTCRecipeMaxEnergy;
+    private int lastTCRecipeInputParticle = -1;
+
+    // spotless:off
+    static {
+    	STRUCTURE_DEFINITION = StructureDefinition.<MTETargetChamber>builder()
+    			.addShape(
+    					"base",
+    					new String[][] {
+    						{"ggggg", "gjjjg", "gjbjg", "gjjjg", "ff~ff"},
+    						{"cslsc", "s-r-s", "srhrs", "s-r-s", "ccccc"},
+    						{"csssc", "s---s", "s---s", "s---s", "ccccc"},
+    						{"csssc", "s---s", "s---s", "s---s", "ccccc"},
+    						{"cstsc", "s-u-s", "suius", "s-u-s", "ccccc"},
+    						{"ggggg", "gjjjg", "gjojg", "gjjjg", "ggggg"}})
+
+    			.addElement('g', Casings.GrateMachineCasing.asElement())
+    			.addElement(
+    					'f',
+    					buildHatchAdder(MTETargetChamber.class).atLeast(Maintenance, Energy)
+    					.casingIndex(GrateMachineCasingTextureID).hint(4).buildAndChain(Casings.GrateMachineCasing.asElement()))
+
+    			.addElement('j', ofBlockAdder(MTETargetChamber::addGlass, ItemRegistry.bw_glasses[0], 1))
+    			.addElement('b', buildHatchAdder(MTETargetChamber.class).atLeast(BeamlineInput).casingIndex(ShieldedAccCasingTextureID).hint(1).build())
+    			.addElement('c', Casings.ShieldedAcceleratorCasing.asElement())
+
+    			.addElement('l', buildHatchAdder(MTETargetChamber.class).atLeast(InputBus).adder(MTETargetChamber::addMaskInputBus).casingIndex(ShieldedAccCasingTextureID).hint(2).build())
+
+    			.addElement('t', buildHatchAdder(MTETargetChamber.class).atLeast(InputBus).casingIndex(ShieldedAccCasingTextureID).hint(3).build())
+    			.addElement('s', ofBlock(LanthItemList.SHIELDED_ACCELERATOR_GLASS, 0))
+    			.addElement('r', ofBlock(LanthItemList.FOCUS_MANIPULATION_CASING, 0))
+    			.addElement('h', ofBlock(LanthItemList.FOCUS_HOLDER, 0))
+    			.addElement('u', ofBlock(LanthItemList.TARGET_RECEPTACLE_CASING, 0))
+    			.addElement('i', ofBlock(LanthItemList.TARGET_HOLDER, 0))
+    			.addElement('o', buildHatchAdder(MTETargetChamber.class).atLeast(OutputBus).casingIndex(ShieldedAccCasingTextureID).hint(5).build())
+    			.build();
+    }
+    //spotless:on
+
+    private boolean addGlass(Block block, int meta) {
+        return block == ItemRegistry.bw_glasses[0];
+    }
+
+    // distinct bus registration in order to check masks only in one hatch
+    private boolean addMaskInputBus(IGregTechTileEntity te, int casingIndex) {
+        if (te == null) return false;
+        var mte = te.getMetaTileEntity();
+        if (!(mte instanceof MTEHatchInputBus bus)) return false;
+        bus.updateTexture(casingIndex);
+        bus.updateCraftingIcon(getMachineCraftingIcon());
+        return mMaskInputBusses.add(bus);
+    }
+
+    @Override
+    protected void incrementProgressTime() {
+        if (this.lastTCRecipeInputParticle >= 0) {
+            BeamInformation inputInfo = this.getInputInformation();
+            if (inputInfo == null) return;
+            float inputEnergy = inputInfo.getEnergy();
+            float inputRate = inputInfo.getRate();
+            int inputParticle = inputInfo.getParticleId();
+            float inputFocus = inputInfo.getFocus();
+
+            if (inputEnergy < this.lastTCRecipeMinEnergy) {
+                return;
+            } else if (inputEnergy > this.lastTCRecipeMaxEnergy) {
+                return;
+            }
+            if (inputFocus < this.lastTCRecipeMinFocus) return;
+            if (inputParticle != this.lastTCRecipeInputParticle) return;
+            if (inputRate < this.lastTCRecipeRate) return;
+            mProgresstime++;
+            return;
+        }
+        mProgresstime++;
+    }
+
+    @Override
+    public void saveNBTData(NBTTagCompound aNBT) {
+        super.saveNBTData(aNBT);
+        aNBT.setInteger("lastTCRecipeRate", this.lastTCRecipeRate);
+        aNBT.setFloat("lastTCRecipeMinFocus", this.lastTCRecipeMinFocus);
+        aNBT.setFloat("lastTCRecipeMinEnergy", this.lastTCRecipeMinEnergy);
+        aNBT.setFloat("lastTCRecipeMaxEnergy", this.lastTCRecipeMaxEnergy);
+        aNBT.setInteger("lastTCRecipeInputParticle", this.lastTCRecipeInputParticle);
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound aNBT) {
+        super.loadNBTData(aNBT);
+        this.lastTCRecipeRate = aNBT.getInteger("lastTCRecipeRate");
+        this.lastTCRecipeMinFocus = aNBT.getFloat("lastTCRecipeMinFocus");
+        this.lastTCRecipeMinEnergy = aNBT.getFloat("lastTCRecipeMinEnergy");
+        this.lastTCRecipeMaxEnergy = aNBT.getFloat("lastTCRecipeMaxEnergy");
+        this.lastTCRecipeInputParticle = aNBT.hasKey("lastTCRecipeInputParticle")
+            ? aNBT.getInteger("lastTCRecipeInputParticle")
+            : -1;
+    }
+
+    @Override
+    public void updateSlots() {
+        super.updateSlots();
+        for (MTEHatchInputBus bus : validMTEList(mMaskInputBusses)) {
+            bus.updateSlots();
+        }
+    }
+
+    private ArrayList<ItemStack> getMaskItemStack() {
+        ArrayList<ItemStack> out = new ArrayList<>();
+        for (MTEHatchInputBus bus : validMTEList(mMaskInputBusses)) {
+            IGregTechTileEntity base = bus.getBaseMetaTileEntity();
+            for (int i = 0; i < base.getSizeInventory(); i++) {
+                ItemStack s = base.getStackInSlot(i);
+                if (s != null) out.add(s);
+            }
+        }
+        return out;
+    }
+
+    public MTETargetChamber(int id, String name, String nameRegional) {
+        super(id, name, nameRegional);
+    }
+
+    public MTETargetChamber(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean supportsPowerPanel() {
+        return false;
+    }
+
+    @Override
+    public IMetaTileEntity newMetaEntity(IGregTechTileEntity te) {
+        return new MTETargetChamber(this.mName);
+    }
+
+    @Override
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
+        int colorIndex, boolean aActive, boolean redstoneLevel) {
+        return Textures.BlockIcons.createTextureWithCasing(
+            this,
+            side,
+            aFacing,
+            aActive,
+            OVERLAY_FRONT_OIL_CRACKER,
+            OVERLAY_FRONT_OIL_CRACKER_GLOW,
+            OVERLAY_FRONT_OIL_CRACKER_ACTIVE,
+            OVERLAY_FRONT_OIL_CRACKER_ACTIVE_GLOW);
+    }
+
+    @Override
+    public ITexture getCasingTexture() {
+        return Casings.RobustTungstenSteelMachineCasing.getCasingTexture();
+    }
+
+    @Override
+    protected MultiblockTooltipBuilder createTooltip() {
+        final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
+        // spotless:off
+        tt.addMachineType(StatCollector.translateToLocal("gtnhlanth.tt.tc.machinetype"))
+            .addMarkdown(new ResourceLocation("gregtech", "target-chamber"))
+            .beginStructureBlock(5, 5, 6, true)
+            .addController(StatCollector.translateToLocal("gt.mbtt.structure.front_bottom_center"))
+            .addCasing("34", LanthItemList.SHIELDED_ACCELERATOR_GLASS.getLocalizedName(), false)
+            .addCasing("27-29", Casings.GrateMachineCasing.getLocalizedName(), false)
+            .addCasing("28", Casings.ShieldedAcceleratorCasing.getLocalizedName(), false)
+            .addCasing("16", StatCollector.translateToLocalFormatted("gt.mbtt.structure.min_tiered_glass", GTValues.VN[VoltageIndex.LuV]), false)
+            .addCasing("4", LanthItemList.TARGET_RECEPTACLE_CASING.getLocalizedName(), false)
+            .addCasing("4", LanthItemList.FOCUS_MANIPULATION_CASING.getLocalizedName(), false)
+            .addCasing("1", LanthItemList.TARGET_HOLDER.getLocalizedName(), false)
+            .addCasing("1", LanthItemList.FOCUS_HOLDER.getLocalizedName(), false)
+            .addMiscHatch("1", StatCollector.translateToLocal("gtnhlanth.tt.hatch.beaminput"), StatCollector.translateToLocal("gt.mbtt.structure.front_center_casing"), 1)
+            .addEnergyHatch("1+", StatCollector.translateToLocal("gt.mbtt.structure.any_front_bottom_casing"), 4)
+            .addMaintenanceHatch("1", StatCollector.translateToLocal("gt.mbtt.structure.any_front_bottom_casing"), 4)
+            .addInputBus("2", StatCollector.translateToLocal("gtnhlanth.tt.tc.structure.input_bus_pos"), 2, 3)
+            .addOutputBus("1", StatCollector.translateToLocal("gt.mbtt.structure.back_center_casing"), 5)
+            .addAir(StatCollector.translateToLocal("gt.mbtt.structure.interior"))
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
+            .toolTipFinisher();
+        // spotless:on
+        return tt;
+    }
+
+    @Override
+    public void construct(ItemStack stackSize, boolean hintsOnly) {
+        buildPiece("base", stackSize, hintsOnly, 2, 4, 0);
+    }
+
+    @Override
+    public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
+        if (this.mMachine) return -1;
+        return survivalBuildPiece("base", stackSize, 2, 4, 0, elementBudget, env, false, true);
+    }
+
+    @Override
+    public IStructureDefinition<MTETargetChamber> getStructureDefinition() {
+        return STRUCTURE_DEFINITION;
+    }
+
+    @Override
+    public RecipeMap<?> getRecipeMap() {
+        return LanthanidesRecipeMaps.targetChamberRecipes;
+    }
+
+    @NotNull
+    @Override
+    public CheckRecipeResult checkProcessing() {
+        ArrayList<ItemStack> tItems = this.getStoredInputs();
+        // renamed in order to not confuse with focus bus
+        ArrayList<ItemStack> tMaskItemArray = this.getMaskItemStack();
+        // run recipe only if masks present in bus for masks
+        for (ItemStack stack : tMaskItemArray) {
+            if (stack != null && !(stack.getItem() instanceof ItemPhotolithographicMask)) {
+                return CheckRecipeResultRegistry.NO_RECIPE;
+            }
+        }
+        for (ItemStack stack : tItems) {
+            if (stack != null && stack.getItem() instanceof ItemPhotolithographicMask) {
+                return CheckRecipeResultRegistry.NO_RECIPE;
+            }
+        }
+
+        ArrayList<ItemStack> tItemsWithFocusItem = new ArrayList<>();
+        tItemsWithFocusItem.addAll(tMaskItemArray);
+        tItemsWithFocusItem.addAll(tItems);
+        ItemStack[] tItemsWithFocusItemArray = tItemsWithFocusItem.toArray(new ItemStack[0]);
+
+        long tVoltageActual = GTValues.VP[(int) this.getInputVoltageTier()];
+
+        GTRecipe tRecipe = LanthanidesRecipeMaps.targetChamberRecipes.findRecipeQuery()
+            .items(tItemsWithFocusItemArray)
+            .voltage(tVoltageActual)
+            .filter((GTRecipe recipe) -> {
+                TargetChamberMetadata metadata = recipe.getMetadata(TARGET_CHAMBER_METADATA);
+                if (metadata == null) return false;
+
+                BeamInformation recipeInInfo = this.getInputInformation();
+                int particle = metadata.particleID;
+
+                if (recipeInInfo != null) {
+                    return (particle == recipeInInfo.getParticleId() && !(recipeInInfo.getEnergy() < metadata.minEnergy
+                        || recipeInInfo.getEnergy() > metadata.maxEnergy));
+                }
+
+                return false;
+            })
+            .cachedRecipe(this.lastRecipe)
+            .find();
+        if (tRecipe == null) return CheckRecipeResultRegistry.NO_RECIPE;
+
+        TargetChamberMetadata metadata = tRecipe.getMetadata(TARGET_CHAMBER_METADATA);
+        if (metadata == null) return CheckRecipeResultRegistry.NO_RECIPE;
+
+        BeamInformation inputInfo = this.getInputInformation();
+        if (inputInfo == null) return CheckRecipeResultRegistry.NO_RECIPE;
+        float inputEnergy = inputInfo.getEnergy();
+        int inputRate = inputInfo.getRate();
+        int inputParticle = inputInfo.getParticleId();
+        float inputFocus = inputInfo.getFocus();
+
+        if (inputEnergy < metadata.minEnergy) {
+            return CheckRecipeResultRegistry.LOW_ENERGY;
+        } else if (inputEnergy > metadata.maxEnergy) {
+            return CheckRecipeResultRegistry.HIGH_ENERGY;
+        }
+        if (inputFocus < metadata.minFocus) return CheckRecipeResultRegistry.NO_RECIPE;
+        if (inputParticle != metadata.particleID) return CheckRecipeResultRegistry.NO_RECIPE;
+
+        this.lastTCRecipeMinFocus = metadata.minFocus;
+        this.lastTCRecipeMinEnergy = metadata.minEnergy;
+        this.lastTCRecipeMaxEnergy = metadata.maxEnergy;
+        this.lastTCRecipeInputParticle = metadata.particleID;
+        this.lastTCRecipeRate = inputRate;
+
+        // 5 seconds per integer multiple over the rate
+        float progressTime = calculateProgressTime(metadata.amount, inputRate);
+        int batchAmount = 1;
+        if (progressTime < 1) { // Subticking
+            batchAmount = (int) Math.round(1.0 / progressTime);
+
+            if (metadata.focusItem != null) {
+                int maskLimit = 0;
+
+                if (tMaskItemArray != null) {
+                    for (ItemStack t : tMaskItemArray) {
+                        maskLimit += t.stackSize;
+                    }
+                }
+
+                // Limited by mask durability first
+                if (batchAmount > maskLimit) batchAmount = maskLimit;
+                progressTime = 1;
+
+                // If enough mask durability is present, attempt to batch up to 128 instances
+                // while remaining within the mask limit. 128 chosen from normal batch mode
+                if (batchAmount < maskLimit) {
+                    int ratio = Math.min(maskLimit / batchAmount, 128);
+                    batchAmount *= ratio;
+                    progressTime = ratio;
+                }
+            }
+
+        }
+
+        this.mMaxProgresstime = (int) progressTime;
+
+        if (this.mMaxProgresstime == Integer.MAX_VALUE - 1 && this.mEUt == Integer.MAX_VALUE - 1)
+            return CheckRecipeResultRegistry.NO_RECIPE;
+
+        double maxParallel = tRecipe
+            .maxParallelCalculatedByInputs(batchAmount, GTValues.emptyFluidStackArray, tItemsWithFocusItemArray);
+        if (batchAmount > maxParallel) batchAmount = (int) maxParallel;
+
+        if (!tRecipe.equals(this.lastRecipe)) this.lastRecipe = tRecipe;
+
+        tRecipe.consumeInput(batchAmount, GTValues.emptyFluidStackArray, tItemsWithFocusItemArray);
+        ItemStack[] itemOutputArray = ArrayExt.copyItemsIfNonEmpty(tRecipe.mOutputs);
+        for (ItemStack stack : itemOutputArray) {
+            stack.stackSize *= batchAmount;
+        }
+        this.mOutputItems = itemOutputArray;
+
+        this.mEfficiency = (10000 - (this.getIdealStatus() - this.getRepairStatus()) * 1000);
+        this.mEfficiencyIncrease = 10000;
+
+        mEUt = (int) -tVoltageActual;
+        if (this.mEUt > 0) this.mEUt = (-this.mEUt);
+
+        this.updateSlots();
+
+        return CheckRecipeResultRegistry.SUCCESSFUL;
+    }
+
+    private static float calculateProgressTime(int particleAmount, int particleRate) {
+        return (float) particleAmount / particleRate * 5 * TickTime.SECOND;
+    }
+
+    @Nullable
+    private BeamInformation getInputInformation() {
+        for (MTEHatchInputBeamline in : this.mBeamlineInputHatches) {
+            if (in.dataPacket == null) return new BeamInformation(0, 0, 0, 0);
+            return in.dataPacket.getContent();
+        }
+        return null;
+    }
+
+    @Override
+    public void checkMachine(IGregTechTileEntity arg0, ItemStack arg1, List<StructureError> errors) {
+        this.lastRecipe = null;
+        if (!checkPiece("base", 2, 4, 0, errors)) return;
+        checkHasEnergyHatch(errors);
+        checkOneMaintenanceHatch(errors);
+        checkHatchExact(errors, InputBus, 1);
+        if (this.mMaskInputBusses.size() != 1) {
+            errors.add(StructureErrors.of("GT5U.gui.text.structure_error.need_exactly_one_focus_input"));
+        }
+        checkHatchExact(errors, OutputBus, 1);
+    }
+
+    @Override
+    public String[] getInfoData() {
+        long storedEnergy = 0;
+        long maxEnergy = 0;
+
+        for (MTEHatchEnergy tHatch : mEnergyHatches) {
+            if (tHatch.isValid()) {
+                storedEnergy += tHatch.getBaseMetaTileEntity()
+                    .getStoredEU();
+                maxEnergy += tHatch.getBaseMetaTileEntity()
+                    .getEUCapacity();
+            }
+        }
+
+        BeamInformation information = this.getInputInformation();
+        if (information == null) {
+            information = new BeamInformation(0, 0, 0, 0);
+        }
+
+        return new String[] {
+            // from super()
+            /* 1 */ IGregTechDeviceInformation.encode(
+                "GT5U.multiblock.Progress.fmt.s",
+                formatNumber(mProgresstime / 20),
+                formatNumber(mMaxProgresstime / 20)),
+            /* 2 */ IGregTechDeviceInformation
+                .encode("GT5U.multiblock.energy.fmt", formatNumber(storedEnergy), formatNumber(maxEnergy)),
+            /* 3 */ IGregTechDeviceInformation
+                .encode("GT5U.multiblock.usage.fmt", formatNumber(getActualEnergyUsage())),
+            /* 4 */ IGregTechDeviceInformation.encode(
+                "GT5U.multiblock.mei.fmt.2A",
+                formatNumber(getMaxInputVoltage()),
+                VN[GTUtility.getTier(getMaxInputVoltage())]),
+            /* 5 */ IGregTechDeviceInformation.encode(
+                "GT5U.multiblock.problems.efficiency.fmt",
+                getIdealStatus() - getRepairStatus(),
+                mEfficiency / 100.0F + " %"),
+            /* 6 Pollution not included */
+            // Beamline-specific
+            "beamline.in_pre.hdr", Particle.getParticleFromId(information.getParticleId())
+                .encodeInfoData(),
+            IGregTechDeviceInformation.encode("beamline.energy.eV.fmt", information.getEnergy() * 1000),
+            IGregTechDeviceInformation.encode("beamline.focus.fmt", information.getFocus()),
+            IGregTechDeviceInformation.encode("beamline.amount.fmt", information.getRate()) };
+    }
+
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
+
+    @Override
+    public void startRecipeProcessing() {
+        super.startRecipeProcessing();
+        for (MTEHatchInputBus hatch : validMTEList(mMaskInputBusses)) {
+            if (hatch instanceof IRecipeProcessingAwareHatch aware) {
+                aware.startRecipeProcessing();
+            }
+        }
+    }
+
+    @Override
+    public void endRecipeProcessing() {
+        for (MTEHatchInputBus hatch : validMTEList(mMaskInputBusses)) {
+            if (hatch instanceof IRecipeProcessingAwareHatch aware) {
+                setResultIfFailure(aware.endRecipeProcessing(this));
+            }
+        }
+        super.endRecipeProcessing();
+    }
+
+    @Override
+    public void clearHatches() {
+        super.clearHatches();
+        mMaskInputBusses.clear();
+    }
+
+    private String createMaskText(String text) {
+        return String.format("%s%s%s", EnumChatFormatting.GREEN, text, EnumChatFormatting.GRAY);
+    }
+
+    private String createRateText(String text) {
+        return String.format("%s%s%s", EnumChatFormatting.YELLOW, text, EnumChatFormatting.GRAY);
+    }
+
+    private String createFocusText(String text) {
+        return String.format("%s%s%s", EnumChatFormatting.RED, text, EnumChatFormatting.GRAY);
+    }
+}

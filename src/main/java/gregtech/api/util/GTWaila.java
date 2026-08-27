@@ -1,0 +1,58 @@
+package gregtech.api.util;
+
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
+import net.minecraft.util.StatCollector;
+
+import gregtech.common.config.Client;
+import mcp.mobius.waila.overlay.tooltiprenderers.TTRenderBar;
+
+public abstract class GTWaila {
+
+    public static String getMachineProgressString(int maxProgressTime, int progressTime) {
+        return getMachineProgressString(true, true, maxProgressTime, progressTime);
+    }
+
+    public static String getMachineProgressString(boolean isActive, int maxProgressTime, int progressTime) {
+        return getMachineProgressString(isActive, true, maxProgressTime, (long) progressTime);
+    }
+
+    public static String getMachineProgressString(boolean isActive, boolean isAllowedToWork, int maxProgressTime,
+        int progressTime) {
+        return getMachineProgressString(isActive, isAllowedToWork, maxProgressTime, (long) progressTime);
+    }
+
+    public static String getMachineProgressString(boolean isActive, long maxProgressTime, long progressTime) {
+        return getMachineProgressString(isActive, true, maxProgressTime, progressTime);
+    }
+
+    public static String getMachineProgressString(boolean isActive, boolean isAllowedToWork, long maxProgressTime,
+        long progressTime) {
+
+        if (Client.waila.showWorkingDisable) {
+            if (!isAllowedToWork && !isActive) {
+                return StatCollector.translateToLocal("GT5U.waila.machine.working_disabled");
+            }
+        }
+
+        if (Client.waila.showIdle) {
+            if (!isActive) {
+                return StatCollector.translateToLocal("GT5U.waila.machine.idle");
+            }
+        }
+
+        String progressText;
+
+        if (maxProgressTime < 20) {
+            progressText = StatCollector
+                .translateToLocalFormatted("GT5U.waila.machine.progress_tick", progressTime, maxProgressTime);
+        } else {
+            progressText = StatCollector.translateToLocalFormatted(
+                "GT5U.waila.machine.progress_second",
+                formatNumber(progressTime / 20),
+                formatNumber(maxProgressTime / 20));
+        }
+
+        return TTRenderBar.create(progressText, 0xFFFF0000, 0xFF8B0000, (double) progressTime / maxProgressTime);
+    }
+}

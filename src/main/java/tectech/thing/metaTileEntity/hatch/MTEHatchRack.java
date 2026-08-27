@@ -1,0 +1,378 @@
+package tectech.thing.metaTileEntity.hatch;
+
+import static gregtech.api.enums.Mods.GraviSuite;
+import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
+import static gregtech.api.enums.Mods.OpenComputers;
+import static gregtech.api.recipe.RecipeMaps.quantumComputerFakeRecipes;
+import static gregtech.api.util.GTModHandler.getModItem;
+import static gregtech.api.util.GTRecipeConstants.QUANTUM_COMPUTER_DATA;
+import static net.minecraft.util.StatCollector.translateToLocal;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import com.cleanroommc.modularui.factory.PosGuiData;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.UISettings;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.GTValues;
+import gregtech.api.enums.ItemList;
+import gregtech.api.enums.Textures;
+import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.implementations.MTEHatch;
+import gregtech.api.modularui2.GTGuiTheme;
+import gregtech.api.modularui2.GTGuiThemes;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTModHandler;
+import gregtech.api.util.recipe.QuantumComputerRecipeData;
+import gregtech.common.gui.modularui.hatch.MTEHatchRackGui;
+import gregtech.mixin.interfaces.accessors.EntityPlayerMPAccessor;
+import tectech.TecTech;
+import tectech.loader.ConfigHandler;
+import tectech.util.CommonValues;
+import tectech.util.TTUtility;
+
+/**
+ * Created by Tec on 03.04.2017.
+ */
+public class MTEHatchRack extends MTEHatch {
+
+    private static IIconContainer EM_R;
+    private static IIconContainer EM_R_ACTIVE;
+    private int heat = 0;
+    private float overClock = 1, overVolt = 1;
+    private static final Map<String, RackComponent> componentBinds = new HashMap<>();
+    public static final List<ItemStack> validRackItems = new ArrayList<>();
+
+    private String clientLocale = "en_US";
+
+    public MTEHatchRack(int aID, String aName, String aNameRegional, int aTier) {
+        super(
+            aID,
+            aName,
+            aNameRegional,
+            aTier,
+            4,
+            new String[] { CommonValues.TEC_MARK_EM, translateToLocal("gt.blockmachines.hatch.rack.desc.0"),
+                EnumChatFormatting.AQUA + translateToLocal("gt.blockmachines.hatch.rack.desc.1") });
+    }
+
+    public MTEHatchRack(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
+        super(aName, aTier, 4, aDescription, aTextures);
+    }
+
+    @Override
+    public void saveNBTData(NBTTagCompound aNBT) {
+        super.saveNBTData(aNBT);
+        aNBT.setInteger("eHeat", heat);
+        aNBT.setFloat("eOverClock", overClock);
+        aNBT.setFloat("eOverVolt", overVolt);
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound aNBT) {
+        super.loadNBTData(aNBT);
+        heat = aNBT.getInteger("eHeat");
+        overClock = aNBT.getFloat("eOverClock");
+        overVolt = aNBT.getFloat("eOverVolt");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister aBlockIconRegister) {
+        super.registerIcons(aBlockIconRegister);
+        EM_R_ACTIVE = Textures.BlockIcons.custom("iconsets/EM_RACK_ACTIVE");
+        EM_R = Textures.BlockIcons.custom("iconsets/EM_RACK");
+    }
+
+    @Override
+    public ITexture[] getTexturesActive(ITexture aBaseTexture) {
+        return new ITexture[] { aBaseTexture, TextureFactory.of(EM_R_ACTIVE) };
+    }
+
+    @Override
+    public ITexture[] getTexturesInactive(ITexture aBaseTexture) {
+        return new ITexture[] { aBaseTexture, TextureFactory.of(EM_R) };
+    }
+
+    @Override
+    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+        return new MTEHatchRack(mName, mTier, mDescriptionArray, mTextures);
+    }
+
+    @Override
+    public boolean isFacingValid(ForgeDirection facing) {
+        return true;
+    }
+
+    @Override
+    public boolean isValidSlot(int aIndex) {
+        return true;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    public int getHeat() {
+        return Math.max(0, heat);
+    }
+
+    public void setHeat(int heat) {
+        this.heat = heat;
+    }
+
+    public boolean isValidItem(ItemStack itemStack) {
+        return MTEHatchRack.validRackItems.stream()
+            .anyMatch(itemStack::isItemEqual);
+    }
+
+    @Override
+    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
+        ItemStack aStack) {
+        if (aBaseMetaTileEntity.isActive() || heat > 2000) {
+            return false;
+        }
+        return side == aBaseMetaTileEntity.getFrontFacing();
+    }
+
+    @Override
+    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
+        ItemStack aStack) {
+        if (aBaseMetaTileEntity.isActive() || heat > 2000) {
+            return false;
+        }
+        return side == aBaseMetaTileEntity.getFrontFacing() && isValidItem(aStack);
+    }
+
+    @Override
+    public int getSizeInventory() { // HACK TO NOT DROP CONTENTS!!!
+        return heat > 2000 || getBaseMetaTileEntity().isActive() ? 0 : mInventory.length;
+    }
+
+    @Override
+    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+        if (aBaseMetaTileEntity.isClientSide()) {
+            return true;
+        }
+        if (aPlayer instanceof EntityPlayerMPAccessor) {
+            clientLocale = ((EntityPlayerMPAccessor) aPlayer).gt5u$getTranslator();
+        }
+        openGui(aPlayer);
+        return true;
+    }
+
+    private int getComputationPower(float overclock, float overvolt, boolean tickingComponents) {
+        float computation = 0, heat = 0;
+        for (int i = 0; i < mInventory.length; i++) {
+            if (mInventory[i] == null || mInventory[i].stackSize != 1) {
+                continue;
+            }
+            RackComponent comp = componentBinds.get(TTUtility.getUniqueIdentifier(mInventory[i]));
+            if (comp == null) {
+                continue;
+            }
+            if (tickingComponents) {
+                if (this.heat > comp.maxHeat) {
+                    mInventory[i] = null;
+                } else if (comp.subZero || this.heat >= 0) {
+                    heat += (1f + comp.coolConstant * this.heat / 100000f)
+                        * (comp.heatConstant > 0 ? comp.heatConstant * overclock * overvolt * overvolt : -10f);
+
+                    if (overvolt > TecTech.RANDOM.nextFloat()) {
+                        computation += comp.computation * (1 + overclock * overclock)
+                            / (1 + (overclock - overvolt) * (overclock - overvolt));
+                    }
+                }
+            } else {
+                computation += comp.computation * (1 + overclock * overclock)
+                    / (1 + (overclock - overvolt) * (overclock - overvolt)); // For getInfoData()
+            }
+        }
+        if (tickingComponents) {
+            this.heat += Math.ceil(heat);
+        }
+        return (int) Math.floor(computation);
+    }
+
+    public int tickComponents(float oc, float ov) {
+        overClock = oc;
+        overVolt = ov;
+        return getComputationPower(overClock, overVolt, true);
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        if (aBaseMetaTileEntity.isServerSide()) {
+            if (aTick % 20 == CommonValues.MULTI_CHECK_AT) {
+                if (heat > 0) {
+                    float heatC = 0;
+                    for (int i = 0; i < mInventory.length; i++) {
+                        if (mInventory[i] == null || mInventory[i].stackSize != 1) {
+                            continue;
+                        }
+                        RackComponent comp = componentBinds.get(TTUtility.getUniqueIdentifier(mInventory[i]));
+                        if (comp == null) {
+                            continue;
+                        }
+                        if (heat - 20 > comp.maxHeat) {
+                            mInventory[i] = null;
+                        } else if (comp.heatConstant < 0) {
+                            heatC += comp.heatConstant * (heat / 10000f);
+                        }
+                    }
+                    heat += Math.max(-heat, Math.ceil(heatC));
+                    heat -= Math.max(heat / 1000, 20);
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean isGivingInformation() {
+        return true;
+    }
+
+    @Override
+    public String[] getInfoData() {
+        return new String[] {
+            IGregTechDeviceInformation
+                .encode("tt.infodata.rack.base_computation", getComputationPower(overClock, overVolt, false)),
+            IGregTechDeviceInformation.encode("tt.infodata.rack.heat_accumulated", heat) };
+    }
+
+    public static void run() { // 20k heat cap max!
+        new RackComponent(ItemList.Circuit_Crystalprocessor.get(1), 60, 56, -1f, 2000, true); // IV
+        new RackComponent(ItemList.Circuit_Crystalcomputer.get(1), 80, 54, -1f, 2000, true); // LuV
+        new RackComponent(ItemList.Circuit_Ultimatecrystalcomputer.get(1), 100, 52, -1f, 2000, true); // ZPM
+        new RackComponent(ItemList.Circuit_Crystalmainframe.get(1), 120, 50, -1f, 2000, true); // UV
+
+        new RackComponent(ItemList.Circuit_Neuroprocessor.get(1), 160, 46, -1f, 4000, true); // LuV
+        new RackComponent(ItemList.Circuit_Wetwarecomputer.get(1), 180, 44, -1f, 4000, true); // ZPM
+        new RackComponent(ItemList.Circuit_Wetwaresupercomputer.get(1), 200, 42, -1f, 4000, true); // UV
+        new RackComponent(ItemList.Circuit_Wetwaremainframe.get(1), 220, 40, -1f, 4000, true); // UHV
+
+        new RackComponent(GTModHandler.getIC2Item("reactorVent", 1), 0, -1, 40f, 2000, false); // Heat Vent
+        new RackComponent(GTModHandler.getIC2Item("reactorVentCore", 1), 0, -1, 80f, 4000, false); // Reactor Heat Vent
+        new RackComponent(GTModHandler.getIC2Item("reactorVentGold", 1), 0, -1, 120f, 6000, false); // Overclocked Heat
+                                                                                                    // Vent
+        new RackComponent(GTModHandler.getIC2Item("reactorVentDiamond", 1), 0, -1, 160f, 8000, false); // Advanced Heat
+                                                                                                       // Vent
+
+        if (NewHorizonsCoreMod.isModLoaded()) {
+            // GTNH-GT5u circuits (these components causes crashes when used with the original GT5u)
+            new RackComponent(ItemList.Circuit_Bioprocessor.get(1), 200, 36, -1f, 6000, true); // ZPM
+            new RackComponent(ItemList.Circuit_Biowarecomputer.get(1), 220, 34, -1f, 6000, true); // UV
+            new RackComponent(ItemList.Circuit_Biowaresupercomputer.get(1), 240, 32, -1f, 6000, true); // UHV
+            new RackComponent(ItemList.Circuit_Biomainframe.get(1), 260, 30, -1f, 6000, true); // UEV
+
+            new RackComponent(ItemList.Circuit_OpticalProcessor.get(1), 200, 26, -1f, 8000, true); // UV
+            new RackComponent(ItemList.Circuit_OpticalAssembly.get(1), 220, 24, -1f, 8000, true); // UHV
+            new RackComponent(ItemList.Circuit_OpticalComputer.get(1), 240, 22, -1f, 8000, true); // UEV
+            new RackComponent(ItemList.Circuit_OpticalMainframe.get(1), 260, 20, -1f, 8000, true); // UIV
+
+            new RackComponent(getModItem(NewHorizonsCoreMod.ID, "PikoCircuit", 1), 260, 12, -1f, 9500, true); // UMV
+            new RackComponent(getModItem(NewHorizonsCoreMod.ID, "QuantumCircuit", 1), 320, 10, -1f, 10000, true); // UXV
+            new RackComponent(getModItem(NewHorizonsCoreMod.ID, "PlanckCircuit", 1), 360, 8, -1f, 10000, true); // MAX
+        }
+
+        if (OpenComputers.isModLoaded()) {
+            new RackComponent(getModItem(OpenComputers.ID, "item", 1, 43), 80, 46, -1f, 2000, true); // CPU T3
+            new RackComponent(getModItem(OpenComputers.ID, "item", 1, 10), 100, 44, -1f, 2000, true); // GPU T3
+            new RackComponent(getModItem(OpenComputers.ID, "item", 1, 102), 120, 42, -1f, 2000, true); // APU T3
+            new RackComponent(getModItem(OpenComputers.ID, "item", 1, 103), 240, 40, -1f, 2000, true); // APU Creative
+        }
+
+        if (GraviSuite.isModLoaded()) {
+            new RackComponent(getModItem(GraviSuite.ID, "itemSimpleItem", 1, 2), 0, -1, 200f, 10000, false); // CC
+        }
+    }
+
+    public static class RackComponent implements Comparable<RackComponent> {
+
+        private final String unlocalizedName;
+        private final float heatConstant, coolConstant, computation, maxHeat;
+        private final boolean subZero;
+
+        RackComponent(ItemStack is, float computation, float heatConstant, float coolConstant, float maxHeat,
+            boolean subZero) {
+            this(TTUtility.getUniqueIdentifier(is), computation, heatConstant, coolConstant, maxHeat, subZero);
+
+            GTValues.RA.stdBuilder()
+                .itemInputs(is)
+                .metadata(
+                    QUANTUM_COMPUTER_DATA,
+                    new QuantumComputerRecipeData(heatConstant, coolConstant, computation, maxHeat, subZero))
+                .duration(0)
+                .eut(0)
+                .fake()
+                .addTo(quantumComputerFakeRecipes);
+
+            MTEHatchRack.validRackItems.add(is);
+        }
+
+        RackComponent(String is, float computation, float heatConstant, float coolConstant, float maxHeat,
+            boolean subZero) {
+            unlocalizedName = is;
+            this.computation = computation;
+            this.heatConstant = heatConstant;
+            this.coolConstant = coolConstant;
+            this.maxHeat = maxHeat;
+            this.subZero = subZero;
+            componentBinds.put(unlocalizedName, this);
+            if (ConfigHandler.debug.DEBUG_MODE) {
+                TecTech.LOGGER.info("Component registered: {}", unlocalizedName);
+            }
+        }
+
+        @Override
+        public int compareTo(RackComponent o) {
+            return unlocalizedName.compareTo(o.unlocalizedName);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof RackComponent) {
+                return compareTo((RackComponent) obj) == 0;
+            }
+            return false;
+        }
+    }
+
+    @Override
+    protected boolean useMui2() {
+        return true;
+    }
+
+    @Override
+    public ModularPanel buildUI(PosGuiData guiData, PanelSyncManager syncManager, UISettings uiSettings) {
+        return new MTEHatchRackGui(this).build(guiData, syncManager, uiSettings);
+    }
+
+    @Override
+    public GTGuiTheme getGuiTheme() {
+        return GTGuiThemes.TECTECH_STANDARD;
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack itemStack) {
+        return isValidItem(itemStack) && super.isItemValidForSlot(index, itemStack);
+    }
+}

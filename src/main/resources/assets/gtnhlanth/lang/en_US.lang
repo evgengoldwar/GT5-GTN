@@ -1,0 +1,191 @@
+# RecipeMaps
+gtnhlanth.recipe.digester=Digester
+gtnhlanth.recipe.disstank=Dissolution Tank
+gtnhlanth.recipe.tc=Target Chamber
+gtnhlanth.recipe.sc=Source Chamber
+
+gtnhlanth.tt.beaminfo=Use a §bportable scanner §7for info about the input/output of this multiblock
+gtnhlanth.tt.blueprint=Follow the §9Structure§2Lib §7hologram projector to build the main structure.
+
+gtnhlanth.tt.hintNumber=Hint block with number %s
+
+# Digester
+gtnhlanth.tt.digester.machinetype=Digester
+gtnhlanth.tt.digester.structure.any_casing=Any tungstensteel casing
+gtnhlanth.tt.digester.structure.air=Interior and top of the structure
+gtnhlanth.tt.disstank.structure.any_casing=Any stainless steel casing
+gtnhlanth.tt.linac.structure.hatch_pos=Any bottom edge casing 3-8 blocks from front
+gtnhlanth.tt.linac.structure.input_hatch_pos=Top center casing 8th block from front
+gtnhlanth.tt.linac.structure.output_hatch_pos=Top center casing 8th block from back
+gtnhlanth.tt.sc.structure.output_pos=Behind controller
+gtnhlanth.tt.synch.structure.antenna_casing=Antenna Casing
+gtnhlanth.tt.synch.structure.energy_pos=Above each antenna casing
+gtnhlanth.tt.synch.structure.input_hatch_pos=Between the energy hatches
+gtnhlanth.tt.synch.structure.output_hatch_pos=Opposite the input hatches
+gtnhlanth.tt.synch.structure.beam_input_pos=Left of controller
+gtnhlanth.tt.synch.structure.beam_output_pos=Right and back of controller
+gtnhlanth.tt.tc.structure.input_bus_pos=2nd top center casing from front (masks) and back (wafers)
+
+# Dissolution Tank
+gtnhlanth.tt.disstank.machinetype=Dissolution Tank
+
+# Source Chamber
+gtnhlanth.tt.sc.machinetype=Particle Source
+gtnhlanth.tt.sc.input=§cRequires 1 input bus OR 1 input hatch
+
+# Linear Accelerator
+gtnhlanth.tt.linac.machinetype=Particle Accelerator, LINAC
+
+# Synchrotron
+gtnhlanth.tt.synch.machinetype=Particle Accelerator
+
+# Target Chamber
+gtnhlanth.tt.tc.machinetype=Collision Chamber
+
+# Beam Coolant
+gtnhlanth.tt.coolant.oxygen=§bLiquid Oxygen§f: 90 K
+gtnhlanth.tt.coolant.nitrogen=§bLiquid Nitrogen§f: 77 K
+gtnhlanth.tt.coolant.coolant=§bCoolant§f: 60 K
+gtnhlanth.tt.coolant.Scoolant=§bSuper Coolant§f: 1 K
+
+# Beam Hatches
+gtnhlanth.tt.hatch.beaminput=Beam Input Hatch
+gtnhlanth.tt.hatch.beamoutput=Beam Output Hatch
+gtnhlanth.tt.hatch.beamoutputfiltered=Filtered Beam Output Hatch
+gtnhlanth.tt.hatch.focus=Focus Input Bus
+
+GT5U.gui.text.shutdown_reason.gtnhlanth.nocoolant=No coolant present in machine!
+GT5U.gui.text.shutdown_reason.gtnhlanth.inscoolant=Insufficient coolant in machine!
+GT5U.gui.text.shutdown_reason.gtnhlanth.noaccel=Particle type can't be accelerated!
+GT5U.gui.text.shutdown_reason.gtnhlanth.low_input_eut=Input EU/t too low to produce photons!
+GT5U.gui.text.shutdown_reason.gtnhlanth.scerror=Math error, broken recipe?
+GT5U.gui.text.shutdown_reason.gtnhlanth.inputinterrupt=Input Beam must not be interrupted or changed!
+GT5U.gui.text.recipe_result.dissolution_ratio=§7Wrong fluid input ratio!
+GT5U.gui.text.recipe_result.gtnhlanth.wrongparticle=Incorrect Particle!
+GT5U.gui.text.recipe_result.gtnhlanth.toolowenergy=Below Required Energy!
+GT5U.gui.text.recipe_result.gtnhlanth.toohighenergy=Above Required Energy!
+GT5U.gui.text.shutdown_reason.gtnhlanth.noparticle=Particle absent (rate is 0)!
+
+# NEI
+value.disstank=Ratio: %s:1
+
+fluid.Antimony Pentafluoride Solution=Antimony Pentafluoride Solution
+fluid.Hafnium Tetrachloride Solution=Hafnium Tetrachloride Solution
+fluid.Zirconium Tetrachloride Solution=Zirconium Tetrachloride Solution
+fluid.Iodine=Iodine
+fluid.Muddy Monazite Rare Earth Solution=Muddy Monazite Rare Earth Solution
+fluid.Diluted Monazite Rare Earth Mud=Diluted Monazite Rare Earth Mud
+fluid.Diluted Monazite Sulfate=Diluted Monazite Sulfate
+fluid.Nitrogenated Monazite Rare Earth Concentrate=Nitrogenated Monazite Rare Earth Concentrate
+fluid.Nitric Monazite Leached Concentrate=Nitric Monazite Leached Concentrate
+fluid.Ammonium Nitrate Solution=Ammonium Nitrate Solution
+fluid.Seaweed Concentrate=Seaweed Concentrate
+fluid.Potassium Permanganate Solution=Potassium Permanganate Solution
+fluid.Seaweed Byproducts=Seaweed Byproducts
+fluid.Nitric-Leached Monazite Mixture=Nitric-Leached Monazite Mixture
+fluid.Muddy Bastnasite Rare Earth Solution=Muddy Bastnasite Rare Earth Solution
+fluid.Sodiumfluorosilicate=Sodiumfluorosilicate
+fluid.Steam-Cracked Bastnasite Mud=Steam-Cracked Bastnasite Mud
+fluid.Conditioned Bastnasite Mud=Conditioned Bastnasite Mud
+fluid.Diluted Bastnasite Mud=Diluted Bastnasite Mud
+fluid.Filtered Bastnasite Mud=Filtered Bastnasite Mud
+fluid.Nitrogenated Bastnasite Rarer Earth Oxides=Nitrogenated Bastnasite Rarer Earth Oxides
+fluid.Bastnasite Rarer Earth Oxide Suspension=Bastnasite Rarer Earth Oxide Suspension
+fluid.Calcium Fluoride=Calcium Fluoride
+fluid.Tetrahydrofuran=Tetrahydrofuran
+"fluid.1,4-Butanediol"="1,4-butanediol"
+"fluid.Acidicised 1,4-Butanediol"="acidicised 1,4-butanediol"
+fluid.Polytetrahydrofuran=Polytetrahydrofuran
+fluid.Tungstophosphoric Acid=Tungstophosphoric Acid
+fluid.Toluene Diisocyanate=Toluene Diisocyanate
+fluid.Dinitrotoluene=Dinitrotoluene
+fluid.Diaminotoluene=Diaminotoluene
+fluid.Toluene Tetramethyl Diisocyanate=Toluene Tetramethyl Diisocyanate
+fluid.Diluted Acetone=Diluted Acetone
+
+tile.casing.shielded_accelerator_glass.name=Shielded Accelerator Glass
+casing.electrode.name=Electrode Casing
+casing.coolant_delivery.name=Coolant Delivery Casing
+casing.antenna_t1.name=Antenna Casing (T1)
+casing.antenna_t2.name=Antenna Casing (T2)
+casing.niobium_cavity.name=Niobium Cavity Machine Casing
+casing.focus_manipulator.name=Focus Manipulator
+casing.focus_holder.name=Focus Holder
+casing.target_receptacle.name=Target Receptacle
+casing.target_holder.name=Target Holder
+casing.shielded_accelerator.name=Shielded Accelerator Casing
+
+item.capillary_exchange.name=Capillary Exchange
+item.mm_lattice.name=Mu-Metal Lattice
+item.iron_quartz_plate.name=Iron Quartz Plate
+item.mask_substrate.name=Mask Substrate
+item.etched_mask1.name=Etched Mask
+item.substrate_precursor.name=Substrate Precursor
+item.masked_mask_substrate.name=Processed Mask Substrate
+
+
+beamline.info=Machine Information
+beamline.info.hdr=§lMachine Information: §r
+
+beamline.in_pre=Multiblock Beamline Input
+beamline.in_pre.hdr=§lMultiblock Beamline Input: §r
+beamline.particle=Particle
+beamline.particle.fmt=Particle: §6%s (%s)§r
+beamline.energy=Energy
+beamline.energy.eV.fmt=Energy: §4%s§r eV
+beamline.energy.keV.fmt=Energy: §4%s§r keV
+beamline.focus=Focus
+beamline.focus.fmt=Focus: §9%s§r
+beamline.amount=Amount
+beamline.amount.fmt=Amount: §d%s§r
+beamline.rate=Rate
+beamline.materialenergy=Max Material Energy
+beamline.particleenergy=Max Particle Energy
+beamline.energyratio=Energy Ratio
+beamline.temperature=Temperature
+beamline.temperature.fmt=Temperature: §4%s§r K
+beamline.coolusage=Coolant Usage
+beamline.coolusage.fmt=Coolant Usage: §b%s§r kL/s
+
+beamline.out_pre=Multiblock Beamline Output
+beamline.out_pre.hdr=§lMultiblock Beamline Output: §r
+
+gt.blockmachines.beamline_pipe.name=Beam Pipe
+
+beamline.pipe.desc.0=Transport for particles
+beamline.pipe.desc.1=Beams cannot cross or bend
+
+
+tile.recipe.tc=Target Chamber
+tile.recipe.sc=Source Chamber
+
+item.particle.name=Particle
+particle.photon=Photon
+particle.zboson=Z Boson
+particle.wboson=W Boson
+particle.higgs=Higgs Boson
+particle.graviton=Graviton
+particle.electron=Electron
+particle.muon=Muon
+particle.tau=Tau
+particle.electron_neutrino=Electron Neutrino
+particle.muon_neutrino=Muon Neutrino
+particle.tau_neutrino=Tau Neutrino
+particle.proton=Proton
+particle.neutron=Neutron
+particle.lambda=Lambda
+particle.omega=Omega
+particle.eta=Eta
+particle.jpsi=J/Psi
+particle.upsilon=Upsilon
+particle.alpha=Alpha
+
+beamcrafting.energy_A=min Energy 1
+beamcrafting.energy_B=min Energy 2
+beamcrafting.amount_A=Amount 1
+beamcrafting.amount_B=Amount 2
+
+tooltip.gtnhlanth.particle.rest_mass=Rest Mass: %f MeV
+tooltip.gtnhlanth.particle.charge=Charge: %s e
+tooltip.gtnhlanth.photomask.desc_spectrum=Suitable for the %s segment of the electromagnetic spectrum and lower
+tooltip.gtnhlanth.photomask.max_uses=Max Uses: %d

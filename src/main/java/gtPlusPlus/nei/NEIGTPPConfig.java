@@ -1,0 +1,64 @@
+package gtPlusPlus.nei;
+
+import java.util.Arrays;
+
+import net.minecraft.item.ItemStack;
+
+import codechicken.nei.api.API;
+import codechicken.nei.api.IConfigureNEI;
+import gregtech.api.enums.ItemList;
+import gregtech.api.recipe.RecipeMaps;
+import gtPlusPlus.core.block.ModBlocks;
+import gtPlusPlus.core.util.Utils;
+import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
+
+@SuppressWarnings("unused")
+public class NEIGTPPConfig implements IConfigureNEI {
+
+    @Override
+    public synchronized void loadConfig() {
+        API.registerRecipeHandler(new DecayableRecipeHandler());
+        API.registerUsageHandler(new DecayableRecipeHandler());
+        API.addRecipeCatalyst(new ItemStack(ModBlocks.blockDecayablesChest, 1), "GTPP_Decayables");
+
+        for (GregtechItemList item : Arrays.asList(
+            GregtechItemList.GT4_Electric_Auto_Workbench_LV,
+            GregtechItemList.GT4_Electric_Auto_Workbench_MV,
+            GregtechItemList.GT4_Electric_Auto_Workbench_HV,
+            GregtechItemList.GT4_Electric_Auto_Workbench_EV,
+            GregtechItemList.GT4_Electric_Auto_Workbench_IV,
+            GregtechItemList.GT4_Electric_Auto_Workbench_LuV,
+            GregtechItemList.GT4_Electric_Auto_Workbench_ZPM,
+            GregtechItemList.GT4_Electric_Auto_Workbench_UV)) {
+            API.addRecipeCatalyst(item.get(1), "crafting", -10);
+        }
+
+        // Moved to its own handler
+        API.removeRecipeCatalyst(
+            GregtechItemList.Controller_Vacuum_Furnace.get(1),
+            RecipeMaps.chemicalDehydratorRecipes.unlocalizedName);
+
+        API.removeRecipeCatalyst(
+            GregtechItemList.Controller_IndustrialRockBreaker.get(1),
+            RecipeMaps.rockBreakerFakeRecipes.unlocalizedName);
+
+        API.removeRecipeCatalyst(ItemList.Boldarnator.get(1), RecipeMaps.rockBreakerFakeRecipes.unlocalizedName);
+
+        // Hide Flasks
+        if (Utils.isClient()) {
+            API.addItemListEntry(GregtechItemList.VOLUMETRIC_FLASK_8k.get(1));
+            API.addItemListEntry(GregtechItemList.VOLUMETRIC_FLASK_32k.get(1));
+            API.addItemListEntry(GregtechItemList.KLEIN_BOTTLE.get(1));
+        }
+    }
+
+    @Override
+    public String getName() {
+        return "GT++ NEI Plugin";
+    }
+
+    @Override
+    public String getVersion() {
+        return "(1.12)";
+    }
+}

@@ -1,0 +1,2515 @@
+package tectech.thing.metaTileEntity.multi.base;
+
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static gregtech.api.enums.GTValues.V;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.Muffler;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.enums.HatchElement.OutputHatch;
+import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
+import static gregtech.api.util.GTUtility.filterValidMTEs;
+import static gregtech.api.util.GTUtility.validMTEList;
+import static java.lang.Math.min;
+import static tectech.thing.casing.BlockGTCasingsTT.texturePage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+
+import org.jetbrains.annotations.NotNull;
+import org.lwjgl.opengl.GL11;
+
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+import com.gtnewhorizon.structurelib.structure.IStructureElement;
+import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import com.gtnewhorizons.modularui.api.NumberFormatMUI;
+import com.gtnewhorizons.modularui.api.drawable.IDrawable;
+import com.gtnewhorizons.modularui.api.drawable.UITexture;
+import com.gtnewhorizons.modularui.api.math.Alignment;
+import com.gtnewhorizons.modularui.api.math.Color;
+import com.gtnewhorizons.modularui.api.math.Pos2d;
+import com.gtnewhorizons.modularui.api.screen.ModularWindow;
+import com.gtnewhorizons.modularui.api.screen.UIBuildContext;
+import com.gtnewhorizons.modularui.api.widget.Widget;
+import com.gtnewhorizons.modularui.common.internal.wrapper.BaseSlot;
+import com.gtnewhorizons.modularui.common.widget.ButtonWidget;
+import com.gtnewhorizons.modularui.common.widget.DrawableWidget;
+import com.gtnewhorizons.modularui.common.widget.DynamicPositionedColumn;
+import com.gtnewhorizons.modularui.common.widget.FakeSyncWidget;
+import com.gtnewhorizons.modularui.common.widget.Scrollable;
+import com.gtnewhorizons.modularui.common.widget.SlotWidget;
+import com.gtnewhorizons.modularui.common.widget.TextWidget;
+import com.gtnewhorizons.modularui.common.widget.textfield.NumericWidget;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.GTLoggers;
+import gregtech.api.enums.GTValues;
+import gregtech.api.enums.HarvestTool;
+import gregtech.api.enums.SoundResource;
+import gregtech.api.enums.Textures;
+import gregtech.api.gui.modularui.GTUITextures;
+import gregtech.api.interfaces.IHatchElement;
+import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.BaseTileEntity;
+import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
+import gregtech.api.metatileentity.implementations.MTEHatch;
+import gregtech.api.metatileentity.implementations.MTEHatchDynamo;
+import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
+import gregtech.api.metatileentity.implementations.MTEHatchEnergyDebug;
+import gregtech.api.metatileentity.implementations.MTEHatchInput;
+import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
+import gregtech.api.metatileentity.implementations.MTEHatchMaintenance;
+import gregtech.api.metatileentity.implementations.MTEHatchMuffler;
+import gregtech.api.metatileentity.implementations.MTEHatchOutput;
+import gregtech.api.metatileentity.implementations.MTEHatchOutputBus;
+import gregtech.api.modularui2.GTGuiTheme;
+import gregtech.api.modularui2.GTGuiThemes;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.structure.error.ErrorType;
+import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrorRegistry;
+import gregtech.api.structure.error.StructureErrors;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.HatchElementBuilder;
+import gregtech.api.util.IGTHatchAdder;
+import gregtech.api.util.shutdown.ShutDownReason;
+import gregtech.api.util.shutdown.ShutDownReasonRegistry;
+import gregtech.api.util.shutdown.SimpleShutDownReason;
+import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
+import gregtech.common.gui.modularui.multiblock.base.TTMultiblockBaseGui;
+import gregtech.common.tileentities.machines.IDualInputHatch;
+import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
+import tectech.TecTech;
+import tectech.loader.ConfigHandler;
+import tectech.thing.gui.TecTechUITextures;
+import tectech.thing.metaTileEntity.hatch.MTEHatchDataConnector;
+import tectech.thing.metaTileEntity.hatch.MTEHatchDataInput;
+import tectech.thing.metaTileEntity.hatch.MTEHatchDataOutput;
+import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
+import tectech.thing.metaTileEntity.hatch.MTEHatchEnergyMulti;
+import tectech.thing.metaTileEntity.hatch.MTEHatchUncertainty;
+import tectech.thing.metaTileEntity.multi.base.parameter.IParametrized;
+import tectech.thing.metaTileEntity.multi.base.parameter.Parameter;
+import tectech.thing.metaTileEntity.multi.base.render.TTRenderedExtendedFacingTexture;
+import tectech.util.CommonValues;
+
+/**
+ * Created by danie_000 on 27.10.2016.
+ */
+public abstract class TTMultiblockBase extends MTEExtendedPowerMultiBlockBase<TTMultiblockBase> {
+    // region Client side variables (static - one per class)
+
+    // Front icon holders - static so it is default one for my blocks
+    // just add new static ones in your class and and override getTexture
+    protected static IIconContainer ScreenOFF;
+    protected static IIconContainer ScreenON;
+
+    /** Base ID for the LED window popup. LED 1 I0 will have ID 100, LED 1 I1 101... */
+    protected static int LED_WINDOW_BASE_ID = 100;
+
+    // endregion
+
+    // region HATCHES ARRAYS - they hold info about found hatches, add hatches to them... (auto structure magic does it
+    // tho)
+
+    // HATCHES!!!, should be added and removed in check machine
+    protected ArrayList<MTEHatchUncertainty> eUncertainHatches = new ArrayList<>();
+    // multi amp hatches in/out
+    protected ArrayList<MTEHatchEnergyMulti> eEnergyMulti = new ArrayList<>();
+    protected ArrayList<MTEHatchDynamoMulti> eDynamoMulti = new ArrayList<>();
+    // data hatches
+    protected ArrayList<MTEHatchDataInput> eInputData = new ArrayList<>();
+    protected ArrayList<MTEHatchDataOutput> eOutputData = new ArrayList<>();
+
+    // endregion
+
+    // region parameters
+    public final Parameters parametrization;
+    // endregion
+
+    // region Control variables
+
+    // should explode on dismatle?, set it in constructor, if true machine will explode if invalidated structure while
+    // active
+    protected boolean eDismantleBoom = false;
+
+    // what is the amount of A required
+    public long eAmpereFlow = 1; // analogue of EU/t but for amperes used (so eu/t is actually eu*A/t) USE ONLY POSITIVE
+                                 // NUMBERS!
+
+    // set to what you need it to be in check recipe
+    // data required to operate
+    protected long eRequiredData = 0;
+
+    // Counter for the computation timeout. Will be initialized one to the max time and then only decreased.
+    protected int eComputationTimeout = MAX_COMPUTATION_TIMEOUT;
+
+    // Max timeout of computation in ticks
+    protected static int MAX_COMPUTATION_TIMEOUT = 100;
+
+    // are parameters correct - change in check recipe/output/update params etc. (maintenance status boolean)
+    protected boolean eParameters = true;
+
+    // what type of certainty inconvenience is used - can be used as in Computer - more info in uncertainty hatch
+    protected byte eCertainMode = 0, eCertainStatus = 0;
+
+    // is power pass cover present
+    public boolean ePowerPassCover = false;
+
+    // functionality toggles - changed by buttons in gui also
+    public boolean ePowerPass = false, eSafeVoid = false;
+
+    // endregion
+
+    // region READ ONLY unless u really need to change it
+
+    // max amperes machine can take in after computing it to the lowest tier (exchange packets to min tier count)
+    protected long eMaxAmpereFlow = 0, eMaxAmpereGen = 0;
+
+    // What is the max and minimal tier of eu hatches installed
+    protected long maxEUinputMin = 0, maxEUinputMax = 0, maxEUoutputMin = 0, maxEUoutputMax = 0;
+
+    // read only unless you are making computation generator - read computer class
+    protected long eAvailableData = 0; // data being available
+
+    /** Flag if the new long power variable should be used */
+    protected boolean useLongPower = false;
+
+    private Vec3Impl pos;
+
+    // Locale-aware formatting of numbers.
+    protected static NumberFormatMUI numberFormat;
+    static {
+        numberFormat = new NumberFormatMUI();
+        numberFormat.setMaximumFractionDigits(8);
+    }
+
+    // endregion
+
+    protected TTMultiblockBase(int aID, String aName, String aNameRegional) {
+        super(aID, aName, aNameRegional);
+        parametrization = new Parameters(this);
+        parametersInstantiation_EM();
+        parametrization.setToDefaults(true, true);
+        if (this instanceof IParametrized parametrized) {
+            parametrized.initParameters();
+        }
+    }
+
+    protected TTMultiblockBase(String aName) {
+        super(aName);
+        parametrization = new Parameters(this);
+        parametersInstantiation_EM();
+        parametrization.setToDefaults(true, true);
+        if (this instanceof IParametrized parametrized) {
+            parametrized.initParameters();
+        }
+    }
+
+    // region SUPER STRUCT
+
+    /**
+     * Gets structure
+     *
+     * @return STATIC INSTANCE OF STRUCTURE
+     */
+    public abstract IStructureDefinition<? extends TTMultiblockBase> getStructure_EM();
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public final IStructureDefinition<TTMultiblockBase> getStructureDefinition() {
+        return (IStructureDefinition<TTMultiblockBase>) getStructure_EM();
+    }
+    // endregion
+
+    // region METHODS TO OVERRIDE - general functionality, recipe check, output
+
+    /**
+     * Checks Recipes (when all machine is complete and can work)
+     * <p>
+     * can get/set Parameters here also
+     *
+     * @deprecated Use {@link #createProcessingLogic()} ()} or {@link #checkProcessing_EM()}
+     *
+     * @param itemStack item in the controller
+     * @return is recipe is valid
+     */
+    @Deprecated
+    public boolean checkRecipe_EM(ItemStack itemStack) {
+        return false;
+    }
+
+    @NotNull
+    protected CheckRecipeResult checkProcessing_EM() {
+        if (processingLogic == null) {
+            return checkRecipe_EM(getControllerSlot()) ? CheckRecipeResultRegistry.SUCCESSFUL
+                : CheckRecipeResultRegistry.NO_RECIPE;
+        }
+        return super.checkProcessing();
+    }
+
+    /**
+     * Put EM stuff from outputEM into EM output hatches here or do other stuff - it is basically on recipe succeded
+     * <p>
+     * based on "machine state" do output, this must move to outputEM to EM output hatches and can also modify output
+     * items/fluids/EM, remaining EM is NOT overflowed. (Well it can be overflowed if machine didn't finished,
+     * soft-hammered/disabled/not enough EU) Setting available data processing
+     */
+    public void outputAfterRecipe_EM() {}
+    // endregion
+
+    // region tooltip and scanner result
+
+    public ArrayList<String> getFullLedDescriptionIn(int hatchNo, int paramID) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(
+            EnumChatFormatting.WHITE + StatCollector.translateToLocalFormatted(
+                "tt.gui.tooltip.full_led_desc.in.id",
+                "" + EnumChatFormatting.AQUA + hatchNo + EnumChatFormatting.YELLOW,
+                "" + EnumChatFormatting.AQUA + paramID + EnumChatFormatting.YELLOW,
+                parametrization.getStatusIn(hatchNo, paramID).name.get()));
+        list.add(
+            EnumChatFormatting.WHITE + StatCollector.translateToLocalFormatted(
+                "tt.gui.tooltip.full_led_desc.value",
+                EnumChatFormatting.AQUA + numberFormat.format(parametrization.getIn(hatchNo, paramID))));
+        try {
+            list.add(parametrization.groups[hatchNo].parameterIn[paramID].getBrief());
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            list.add(StatCollector.translateToLocal("tt.gui.tooltip.full_led_desc.unused"));
+        }
+        return list;
+    }
+
+    public ArrayList<String> getFullLedDescriptionOut(int hatchNo, int paramID) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(
+            EnumChatFormatting.WHITE + StatCollector.translateToLocalFormatted(
+                "tt.gui.tooltip.full_led_desc.out.id",
+                "" + EnumChatFormatting.AQUA + hatchNo + EnumChatFormatting.YELLOW,
+                "" + EnumChatFormatting.AQUA + paramID + EnumChatFormatting.YELLOW,
+                parametrization.getStatusOut(hatchNo, paramID).name.get()));
+        list.add(
+            EnumChatFormatting.WHITE + StatCollector.translateToLocalFormatted(
+                "tt.gui.tooltip.full_led_desc.value",
+                EnumChatFormatting.AQUA + numberFormat.format(parametrization.getOut(hatchNo, paramID))));
+        try {
+            list.add(parametrization.groups[hatchNo].parameterOut[paramID].getBrief());
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            list.add(StatCollector.translateToLocal("tt.gui.tooltip.full_led_desc.unused"));
+        }
+        return list;
+    }
+
+    /**
+     * scanner gives it
+     */
+    @Override
+    public String[] getInfoData() {
+        ArrayList<String> info = new ArrayList<>(Arrays.asList(super.getInfoData()));
+
+        info.add(
+            IGregTechDeviceInformation
+                .encode("tt.infodata.multi.computation", formatNumber(eAvailableData), formatNumber(eRequiredData)));
+
+        info.add(IGregTechDeviceInformation.encode("tt.keyphrase.Amp_Rating", formatNumber(eMaxAmpereFlow)));
+
+        info.add(IGregTechDeviceInformation.encode("tt.keyword.PowerPass", ePowerPass));
+
+        info.add(IGregTechDeviceInformation.encode("tt.keyword.SafeVoid", eSafeVoid));
+
+        return info.toArray(new String[0]);
+    }
+
+    /**
+     * should it work with scanner? HELL YES
+     */
+    @Override
+    public boolean isGivingInformation() {
+        return true;
+    }
+
+    // endregion
+
+    // region GUI/SOUND/RENDER
+
+    /**
+     * add more textures
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister aBlockIconRegister) {
+        ScreenOFF = Textures.BlockIcons.custom("iconsets/EM_CONTROLLER");
+        ScreenON = Textures.BlockIcons.custom("iconsets/EM_CONTROLLER_ACTIVE");
+        super.registerIcons(aBlockIconRegister);
+    }
+
+    /**
+     * actually use textures
+     */
+    @Override
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection facing,
+        int colorIndex, boolean aActive, boolean aRedstone) {
+        if (side == facing) {
+            return new ITexture[] { Textures.BlockIcons.casingTexturePages[texturePage][4],
+                new TTRenderedExtendedFacingTexture(aActive ? ScreenON : ScreenOFF) };
+        }
+        return new ITexture[] { Textures.BlockIcons.casingTexturePages[texturePage][4] };
+    }
+
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.TECTECH_MACHINES_FX_LOW_FREQ;
+    }
+
+    // endregion
+
+    // region Methods to maybe override (if u implement certain stuff)
+
+    /**
+     * called when removing from map - not when unloading? //todo check
+     */
+    @Override
+    public void onRemoval() {
+        try {
+            if (ePowerPass && getEUVar() > V[3]
+                || eDismantleBoom && mMaxProgresstime > 0 && areChunksAroundLoaded_EM()) {
+                explodeMultiblock();
+            }
+        } catch (Exception e) {
+            if (ConfigHandler.debug.DEBUG_MODE) {
+                TecTech.LOGGER.error(e);
+            }
+        }
+    }
+
+    /**
+     * prevents spontaneous explosions when the chunks unloading would cause them should cover 3 chunks radius
+     */
+    protected boolean areChunksAroundLoaded_EM() {
+        if (this.isValid() && getBaseMetaTileEntity().isServerSide()) {
+            IGregTechTileEntity base = getBaseMetaTileEntity();
+            return base.getWorld()
+                .doChunksNearChunkExist(base.getXCoord(), base.getYCoord(), base.getZCoord(), 3);
+            // todo check if it is actually checking if chunks are loaded
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * instantiate parameters in CONSTRUCTOR! CALLED ONCE on creation, don't call it in your classes
+     */
+    protected void parametersInstantiation_EM() {}
+
+    /**
+     * It is automatically called OFTEN update status of parameters in guis (and "machine state" if u wish) Called
+     * before check recipe, before outputting, and every second the machine is complete
+     * <p>
+     * good place to update parameter statuses, default implementation handles it well
+     *
+     * @param machineBusy is machine doing stuff
+     */
+    protected void parametersStatusesWrite_EM(boolean machineBusy) { // todo unimplement?
+        if (!machineBusy) {
+            for (Parameters.Group.ParameterIn parameterIn : parametrization.parameterInArrayList) {
+                if (parameterIn != null) {
+                    parameterIn.updateStatus();
+                }
+            }
+        } else {
+            for (Parameters.Group hatch : parametrization.groups) {
+                if (hatch != null && hatch.updateWhileRunning) {
+                    for (Parameters.Group.ParameterIn in : hatch.parameterIn) {
+                        if (in != null) {
+                            in.updateStatus();
+                        }
+                    }
+                }
+            }
+        }
+        for (Parameters.Group.ParameterOut parameterOut : parametrization.parameterOutArrayList) {
+            if (parameterOut != null) {
+                parameterOut.updateStatus();
+            }
+        }
+    }
+
+    /**
+     * For extra types of hatches initiation, LOOK HOW IT IS CALLED! in onPostTick
+     *
+     * @param mMachine was the machine considered complete at that point in onPostTick
+     */
+    protected void hatchInit_EM(boolean mMachine) {}
+
+    /**
+     * called when the multiblock is exploding - if u want to add more EXPLOSIONS, for ex. new types of hatches also
+     * have to explode
+     */
+    protected void extraExplosions_EM() {} // For that extra hatches explosions, and maybe some MOORE EXPLOSIONS
+
+    /**
+     * Get Available data, Override only on data outputters should return mAvailableData that is set in check recipe
+     *
+     * @return available data
+     */
+    protected long getAvailableData_EM() {
+        long result = 0;
+        IGregTechTileEntity baseMetaTileEntity = getBaseMetaTileEntity();
+        Vec3Impl pos = new Vec3Impl(
+            baseMetaTileEntity.getXCoord(),
+            baseMetaTileEntity.getYCoord(),
+            baseMetaTileEntity.getZCoord());
+        for (MTEHatchDataInput in : eInputData) {
+            if (in.q != null) {
+                Long value = in.q.contentIfNotInTrace(pos);
+                if (value != null) {
+                    result += value;
+                }
+            }
+        }
+        return result;
+    }
+
+    protected long getPowerFlow() {
+        return useLongPower ? lEUt : mEUt;
+    }
+
+    protected void setPowerFlow(long lEUt) {
+        if (useLongPower) {
+            this.lEUt = lEUt;
+        } else {
+            mEUt = (int) Math.min(Integer.MAX_VALUE, lEUt);
+        }
+    }
+
+    @Override
+    protected long getActualEnergyUsage() {
+        long base = -(useLongPower ? lEUt : mEUt) * eAmpereFlow;
+        long maxEfficiency = 10_000;
+        long efficiency = Math.max(1_000, mEfficiency);
+
+        return GTUtility.fastDivMul(base, maxEfficiency, efficiency);
+    }
+
+    /**
+     * Extra hook on cyclic updates (not really needed for machines smaller than 1 chunk) BUT NEEDED WHEN - machine
+     * blocks are not touching each other or they don't implement IMachineBlockUpdateable (ex. air,stone,weird TE's)
+     */
+    protected boolean cyclicUpdate_EM() {
+        return mUpdate <= -1000; // set to false to disable cyclic update
+        // default is once per 50s; mUpdate is decremented every tick
+    }
+
+    /**
+     * EM pollution per tick
+     *
+     * @param itemStack - item in controller
+     * @return how much excess matter is there
+     */
+    public float getExcessMassPerTick_EM(ItemStack itemStack) {
+        return 0f;
+    }
+
+    /**
+     * triggered if machine is not allowed to work after completing a recipe, override to make it not shutdown for
+     * instance (like turbines). bu just replacing it with blank - active transformer is doing it
+     * <p>
+     * CALLED DIRECTLY when soft hammered to offline state - usually should stop the machine unless some other mechanics
+     * should do it
+     */
+    protected void notAllowedToWork_stopMachine_EM() {
+        stopMachine(ShutDownReasonRegistry.NONE);
+    }
+
+    /**
+     * store data
+     */
+    @Override
+    public void saveNBTData(NBTTagCompound aNBT) {
+        super.saveNBTData(aNBT);
+        aNBT.setLong("eMaxGenEUmin", maxEUoutputMin);
+        aNBT.setLong("eMaxGenEUmax", maxEUoutputMax);
+        aNBT.setLong("eGenRating", eMaxAmpereGen);
+        aNBT.setLong("eMaxEUmin", maxEUinputMin);
+        aNBT.setLong("eMaxEUmax", maxEUinputMax);
+        aNBT.setLong("eRating", eAmpereFlow);
+        aNBT.setLong("eMaxA", eMaxAmpereFlow);
+        aNBT.setLong("eDataR", eRequiredData);
+        aNBT.setLong("eDataA", eAvailableData);
+        aNBT.setByte("eCertainM", eCertainMode);
+        aNBT.setByte("eCertainS", eCertainStatus);
+        aNBT.setBoolean("eParam", eParameters);
+        aNBT.setBoolean("ePass", ePowerPass);
+        aNBT.setBoolean("ePowerPassCover", ePowerPassCover);
+        aNBT.setBoolean("eVoid", eSafeVoid);
+        aNBT.setBoolean("eBoom", eDismantleBoom);
+        aNBT.setBoolean("eOK", mMachine);
+        // Ensures compatibility
+        if (mOutputItems != null) {
+            aNBT.setInteger("mOutputItemsLength", mOutputItems.length);
+            for (int i = 0; i < mOutputItems.length; i++) {
+                if (mOutputItems[i] != null) {
+                    GTUtility.saveItem(aNBT, "mOutputItem" + i, mOutputItems[i]);
+                }
+            }
+        }
+
+        // Ensures compatibility
+        if (mOutputFluids != null) {
+            aNBT.setInteger("mOutputFluidsLength", mOutputFluids.length);
+            for (int i = 0; i < mOutputFluids.length; i++) {
+                if (mOutputFluids[i] != null) {
+                    NBTTagCompound tNBT = new NBTTagCompound();
+                    mOutputFluids[i].writeToNBT(tNBT);
+                    aNBT.setTag("mOutputFluids" + i, tNBT);
+                }
+            }
+        }
+
+        aNBT.setInteger("eOutputStackCount", 0);
+        aNBT.removeTag("outputEM");
+        // TODO: REMOVE AFTER NEW PARAMETER PORT COMPLETE
+        NBTTagCompound paramI = new NBTTagCompound();
+        for (int i = 0; i < parametrization.iParamsIn.length; i++) {
+            paramI.setDouble(Integer.toString(i), parametrization.iParamsIn[i]);
+        }
+        aNBT.setTag("eParamsInD", paramI);
+
+        NBTTagCompound paramO = new NBTTagCompound();
+        for (int i = 0; i < parametrization.iParamsOut.length; i++) {
+            paramO.setDouble(Integer.toString(i), parametrization.iParamsOut[i]);
+        }
+        aNBT.setTag("eParamsOutD", paramO);
+
+        NBTTagCompound paramIs = new NBTTagCompound();
+        for (int i = 0; i < parametrization.eParamsInStatus.length; i++) {
+            paramIs.setByte(Integer.toString(i), parametrization.eParamsInStatus[i].getOrdinalByte());
+        }
+        aNBT.setTag("eParamsInS", paramIs);
+
+        NBTTagCompound paramOs = new NBTTagCompound();
+        for (int i = 0; i < parametrization.eParamsOutStatus.length; i++) {
+            paramOs.setByte(Integer.toString(i), parametrization.eParamsOutStatus[i].getOrdinalByte());
+        }
+        aNBT.setTag("eParamsOutS", paramOs);
+
+        if (this instanceof IParametrized parametrized) {
+            NBTTagCompound parameterTag = new NBTTagCompound();
+
+            for (Parameter<?, ?> parameter : parametrized.getParameters()) parameter.saveNBT(parameterTag);
+
+            aNBT.setTag("parameters", parameterTag);
+        }
+    }
+
+    /**
+     * load data
+     */
+    @Override
+    public void loadNBTData(NBTTagCompound aNBT) {
+        super.loadNBTData(aNBT);
+        maxEUoutputMin = aNBT.getLong("eMaxGenEUmin");
+        maxEUoutputMax = aNBT.getLong("eMaxGenEUmax");
+        eMaxAmpereGen = aNBT.getLong("eGenRating");
+        maxEUinputMin = aNBT.getLong("eMaxEUmin");
+        maxEUinputMax = aNBT.getLong("eMaxEUmax");
+        eAmpereFlow = aNBT.hasKey("eRating") ? aNBT.getLong("eRating") : 1;
+        eMaxAmpereFlow = aNBT.getLong("eMaxA");
+        eRequiredData = aNBT.getLong("eDataR");
+        eAvailableData = aNBT.getLong("eDataA");
+        eCertainMode = aNBT.getByte("eCertainM");
+        eCertainStatus = aNBT.getByte("eCertainS");
+        eParameters = !aNBT.hasKey("eParam") || aNBT.getBoolean("eParam");
+        ePowerPass = aNBT.getBoolean("ePass");
+        ePowerPassCover = aNBT.getBoolean("ePowerPassCover");
+        eSafeVoid = aNBT.getBoolean("eVoid");
+        eDismantleBoom = aNBT.getBoolean("eBoom");
+        mMachine = aNBT.getBoolean("eOK");
+
+        // Ensures compatibility
+        int aOutputItemsLength = aNBT.getInteger("mOutputItemsLength");
+        if (aOutputItemsLength > 0) {
+            mOutputItems = new ItemStack[aOutputItemsLength];
+            for (int i = 0; i < mOutputItems.length; i++) {
+                mOutputItems[i] = GTUtility.loadItem(aNBT, "mOutputItem" + i);
+            }
+        }
+
+        // Ensures compatibility
+        int aOutputFluidsLength = aNBT.getInteger("mOutputFluidsLength");
+        if (aOutputFluidsLength > 0) {
+            mOutputFluids = new FluidStack[aOutputFluidsLength];
+            for (int i = 0; i < mOutputFluids.length; i++) {
+                mOutputFluids[i] = GTUtility.loadFluid(aNBT, "mOutputFluids" + i);
+            }
+        }
+
+        if (aNBT.hasKey("eParamsIn") && aNBT.hasKey("eParamsOut") && aNBT.hasKey("eParamsB")) {
+            NBTTagCompound paramI = aNBT.getCompoundTag("eParamsIn");
+            NBTTagCompound paramO = aNBT.getCompoundTag("eParamsOut");
+            NBTTagCompound paramB = aNBT.getCompoundTag("eParamsB");
+            for (int i = 0; i < 10; i++) {
+                if (paramB.getBoolean(Integer.toString(i))) {
+                    parametrization.iParamsIn[i] = Float.intBitsToFloat(paramI.getInteger(Integer.toString(i)));
+                    parametrization.iParamsOut[i] = Float.intBitsToFloat(paramO.getInteger(Integer.toString(i)));
+                } else {
+                    parametrization.iParamsIn[i] = paramI.getInteger(Integer.toString(i));
+                    parametrization.iParamsOut[i] = paramO.getInteger(Integer.toString(i));
+                }
+            }
+        } else {
+            NBTTagCompound paramI = aNBT.getCompoundTag("eParamsInD");
+            for (int i = 0; i < parametrization.iParamsIn.length; i++) {
+                parametrization.iParamsIn[i] = paramI.getDouble(Integer.toString(i));
+            }
+            NBTTagCompound paramO = aNBT.getCompoundTag("eParamsOutD");
+            for (int i = 0; i < parametrization.iParamsOut.length; i++) {
+                parametrization.iParamsOut[i] = paramO.getDouble(Integer.toString(i));
+            }
+        }
+
+        NBTTagCompound paramIs = aNBT.getCompoundTag("eParamsInS");
+        for (int i = 0; i < parametrization.eParamsInStatus.length; i++) {
+            parametrization.eParamsInStatus[i] = LedStatus.getStatus(paramIs.getByte(Integer.toString(i)));
+        }
+
+        NBTTagCompound paramOs = aNBT.getCompoundTag("eParamsOutS");
+        for (int i = 0; i < parametrization.eParamsOutStatus.length; i++) {
+            parametrization.eParamsOutStatus[i] = LedStatus.getStatus(paramOs.getByte(Integer.toString(i)));
+        }
+
+        // this needs to be last because legacy loading will return from this function
+        if (this instanceof IParametrized parametrized) {
+            if (!aNBT.hasKey("parameters")) {
+                parametrized.loadLegacyParameters(aNBT);
+                return;
+            }
+
+            NBTTagCompound parameterTag = aNBT.getCompoundTag("parameters");
+
+            for (Parameter<?, ?> parameter : parametrized.getParameters()) parameter.loadNBT(parameterTag);
+        }
+    }
+
+    /**
+     * Override if needed but usually call super method at start! On machine stop - NOT called directly when soft
+     * hammered to offline state! - it SHOULD cause a full stop like power failure does
+     */
+    @Override
+    public void stopMachine(@Nonnull ShutDownReason reason) {
+        super.stopMachine(reason);
+
+        for (MTEHatchDataOutput data : eOutputData) {
+            data.q = null;
+        }
+
+        eAvailableData = 0;
+        hatchesStatusUpdate_EM();
+    }
+
+    /**
+     * After recipe check failed helper method so i don't have to set that params to nothing at all times
+     */
+    protected void afterRecipeCheckFailed() {
+
+        for (MTEHatchDataOutput data : eOutputData) {
+            data.q = null;
+        }
+
+        mOutputItems = null;
+        mOutputFluids = null;
+        mEfficiency = 0;
+        mEfficiencyIncrease = 0;
+        mProgresstime = 0;
+        mMaxProgresstime = 0;
+        eAvailableData = 0;
+    }
+
+    /**
+     * cyclic check even when not working, called LESS frequently
+     */
+    private boolean cyclicUpdate() {
+        if (cyclicUpdate_EM()) {
+            mUpdate = 0;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public byte getTileEntityBaseType() {
+        return HarvestTool.WrenchLevel3.toTileEntityBaseType();
+    }
+
+    // endregion
+
+    // region internal
+
+    /**
+     * internal check recipe
+     */
+    @Override
+    public final boolean checkRecipe(ItemStack itemStack) { // do recipe checks, based on "machine content and state"
+        hatchesStatusUpdate_EM();
+        startRecipeProcessing();
+        boolean result = checkRecipe_EM(itemStack); // if had no - set default params
+        endRecipeProcessing();
+        hatchesStatusUpdate_EM();
+        return result;
+    }
+
+    @Override
+    protected boolean shouldCheckRecipeThisTick(long aTick) {
+        // Recipe checks are purely event-driven: hatches and config changes push via scheduleRecipeCheck(reason)
+        // instead of being polled on a periodic timer.
+        if (recipeCheckImmediately) {
+            // An immediate push (new inputs, drained output, user/structure change) always runs, and covers any
+            // pending throttled push too.
+            recipeCheckImmediately = false;
+            recipeCheckThrottled = false;
+            return true;
+        }
+        if (recipeCheckThrottled && mTotalRunTime >= recipeCheckCooldownUntil) {
+            // A throttleable push (ME restock, power trickle) runs once the post-failure cooldown has expired.
+            recipeCheckThrottled = false;
+            return true;
+        }
+        if (doPeriodicChecks) {
+            return CommonValues.RECIPE_AT == aTick % 20;
+        }
+        return false;
+    }
+
+    @NotNull
+    @Override
+    public final CheckRecipeResult checkProcessing() {
+        hatchesStatusUpdate_EM();
+        CheckRecipeResult result = checkProcessing_EM();
+        hatchesStatusUpdate_EM();
+        return result;
+    }
+
+    /**
+     * callback for updating parameters and new hatches
+     */
+    protected void hatchesStatusUpdate_EM() {
+        if (getBaseMetaTileEntity().isClientSide()) {
+            return;
+        }
+        boolean busy = mMaxProgresstime > 0;
+        for (MTEHatchUncertainty uncertainty : eUncertainHatches) {
+            eCertainStatus = uncertainty.update(eCertainMode);
+        }
+        eAvailableData = getAvailableData_EM();
+
+        if (!GTValues.DEVENV) {
+            parametersStatusesWrite_EM(busy);
+        } else {
+            try {
+                parametersStatusesWrite_EM(busy);
+            } catch (NoSuchMethodError e) {
+                GTLoggers.GT_FML_LOGGER.info("Caught exception that was probably thrown because of a hotswap", e);
+
+                Arrays.fill(parametrization.groups, null);
+                parametrization.parameterInArrayList.clear();
+                parametrization.parameterOutArrayList.clear();
+                Arrays.fill(parametrization.eParamsInStatus, LedStatus.STATUS_UNUSED);
+                Arrays.fill(parametrization.eParamsOutStatus, LedStatus.STATUS_UNUSED);
+
+                parametersInstantiation_EM();
+
+                parametersStatusesWrite_EM(busy);
+            }
+        }
+    }
+
+    @Deprecated
+    public final int getAmountOfOutputs() {
+        throw new NoSuchMethodError("Deprecated Do not use");
+    }
+    // endregion
+
+    // region TICKING functions
+
+    public void onFirstTick_EM(IGregTechTileEntity aBaseMetaTileEntity) {}
+
+    @Override
+    public final void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
+        isFacingValid(aBaseMetaTileEntity.getFrontFacing());
+        pos = new Vec3Impl(
+            aBaseMetaTileEntity.getXCoord(),
+            aBaseMetaTileEntity.getYCoord(),
+            aBaseMetaTileEntity.getZCoord());
+        onFirstTick_EM(aBaseMetaTileEntity);
+    }
+
+    /**
+     * called every tick the machines is active
+     */
+    @Override
+    public boolean onRunningTick(ItemStack aStack) {
+        return onRunningTickCheck(aStack);
+    }
+
+    public boolean onRunningTickCheck_EM(ItemStack aStack) {
+        if (eRequiredData > eAvailableData) {
+            if (!checkComputationTimeout()) {
+                if (energyFlowOnRunningTick_EM(aStack, false)) {
+                    stopMachine(SimpleShutDownReason.ofCritical("computation_loss"));
+                }
+                return false;
+            }
+        }
+        return energyFlowOnRunningTick_EM(aStack, true);
+    }
+
+    public boolean onRunningTickCheck(ItemStack aStack) {
+        if (eRequiredData > eAvailableData) {
+            if (!checkComputationTimeout()) {
+                if (energyFlowOnRunningTick(aStack, false)) {
+                    stopMachine(SimpleShutDownReason.ofCritical("computation_loss"));
+                }
+                return false;
+            }
+        }
+        return energyFlowOnRunningTick(aStack, true);
+    }
+
+    /**
+     * CAREFUL!!! it calls most of the callbacks, like everything else in here
+     */
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        if (aBaseMetaTileEntity.isServerSide()) {
+            mTotalRunTime++;
+            if (mEfficiency < 0) {
+                mEfficiency = 0;
+            }
+
+            if (--mUpdate == 0 || --mStartUpCheck == 0
+                || cyclicUpdate()
+                || aBaseMetaTileEntity.hasWorkJustBeenEnabled()) {
+                clearHatches();
+
+                if (aBaseMetaTileEntity instanceof BaseTileEntity) {
+                    ((BaseTileEntity) aBaseMetaTileEntity).ignoreUnloadedChunks = mMachine;
+                }
+
+                mMachine = checkMachine_TT(aBaseMetaTileEntity);
+                onStructureCheckFinished(aBaseMetaTileEntity);
+
+                if (!mMachine) {
+                    if (ePowerPass && getEUVar() > V[3]
+                        || eDismantleBoom && mMaxProgresstime > 0 && areChunksAroundLoaded_EM()) {
+                        explodeMultiblock();
+                    }
+                }
+
+                if (eUncertainHatches.size() > 1) {
+                    mMachine = false;
+                }
+
+                if (mMachine) {
+                    setupHatches_EM();
+
+                    setupEnergyHatchesVariables_EM();
+
+                    if (getEUVar() > maxEUStore()) {
+                        setEUVar(maxEUStore());
+                    }
+
+                    scheduleRecipeCheckImmediate();
+                } else {
+                    maxEUinputMin = 0;
+                    maxEUinputMax = 0;
+                    eMaxAmpereFlow = 0;
+                    setEUVar(0);
+                }
+                hatchInit_EM(mMachine);
+            }
+
+            if (mStartUpCheck < 0) { // E
+                if (mMachine) { // S
+                    byte Tick = (byte) (aTick % 20);
+                    if (CommonValues.MULTI_CHECK_AT == Tick) {
+                        checkMaintenance();
+                    }
+
+                    if (getRepairStatus() >= 3) { // S
+                        if (CommonValues.MULTI_CHECK_AT == Tick) {
+                            hatchesStatusUpdate_EM();
+                        }
+
+                        dischargeController_EM(aBaseMetaTileEntity);
+                        chargeController_EM(aBaseMetaTileEntity);
+
+                        if (mMaxProgresstime > 0 && doRandomMaintenanceDamage()) { // Start
+                            if (onRunningTick(mInventory[1])) { // Compute EU
+                                if (!polluteEnvironment(getPollutionPerTick(mInventory[1]))) {
+                                    stopMachine(ShutDownReasonRegistry.POLLUTION_FAIL);
+                                }
+
+                                // progress increase and done
+                                if (mMaxProgresstime > 0) {
+                                    incrementProgressTime();
+
+                                    if (getProgresstime() >= mMaxProgresstime) {
+                                        hatchesStatusUpdate_EM();
+
+                                        outputAfterRecipe_EM();
+
+                                        addClassicOutputs_EM();
+
+                                        updateSlots();
+                                        mProgresstime = 0;
+                                        mMaxProgresstime = 0;
+                                        mEfficiencyIncrease = 0;
+                                        mLastWorkingTick = mTotalRunTime;
+                                        if (processingLogic != null) {
+                                            recipesDone += Math
+                                                .max(processingLogic.getCurrentParallels(), lastParallel);
+                                        } else {
+                                            recipesDone += 1;
+                                        }
+                                        if (aBaseMetaTileEntity.isAllowedToWork()) {
+                                            if (checkRecipe()) {
+                                                mEfficiency = Math.max(
+                                                    0,
+                                                    min(
+                                                        mEfficiency + mEfficiencyIncrease,
+                                                        getMaxEfficiency(mInventory[1])
+                                                            - (getIdealStatus() - getRepairStatus()) * 1000));
+                                            } else {
+                                                afterRecipeCheckFailed();
+                                            }
+                                            updateSlots();
+                                        } else {
+                                            notAllowedToWork_stopMachine_EM();
+                                        }
+                                    }
+                                }
+                            } // else {//failed to consume power/resources - inside on running tick
+                              // stopMachine();
+                              // }
+                        } else if (aBaseMetaTileEntity.isAllowedToWork()) {
+                            if (aBaseMetaTileEntity.hasWorkJustBeenEnabled()
+                                || aBaseMetaTileEntity.hasInventoryBeenModified()
+                                || shouldCheckRecipeThisTick(aTick)) {
+                                if (checkRecipe()) {
+                                    mEfficiency = Math.max(
+                                        0,
+                                        min(
+                                            mEfficiency + mEfficiencyIncrease,
+                                            getMaxEfficiency(mInventory[1])
+                                                - (getIdealStatus() - getRepairStatus()) * 1000));
+                                } else {
+                                    afterRecipeCheckFailed();
+                                }
+                                updateSlots();
+                            }
+                        }
+                    } else if (aBaseMetaTileEntity.isAllowedToWork()) { // not repaired
+                        stopMachine(ShutDownReasonRegistry.NO_REPAIR);
+                    }
+                } else if (aBaseMetaTileEntity.isAllowedToWork()) { // not complete
+                    stopMachine(ShutDownReasonRegistry.STRUCTURE_INCOMPLETE);
+                }
+            }
+
+            setErrorDisplayID(
+                getErrorDisplayID() & -512 | (mWrench ? 0 : 1)
+                    | (mScrewdriver ? 0 : 2)
+                    | (mSoftMallet ? 0 : 4)
+                    | (mHardHammer ? 0 : 8)
+                    | (mSolderingTool ? 0 : 16)
+                    | (mCrowbar ? 0 : 32)
+                    | (mMachine ? 0 : 64)
+                    | (eCertainStatus == 0 ? 0 : 128)
+                    | (eParameters ? 0 : 256));
+            aBaseMetaTileEntity.setActive(mMaxProgresstime > 0);
+            boolean active = aBaseMetaTileEntity.isActive() && mPollution > 0;
+            setMufflersIfChanged(active);
+        }
+    }
+
+    protected void addClassicOutputs_EM() {
+        if (mOutputItems != null) {
+            addItemOutputs(mOutputItems);
+        }
+        mOutputItems = null;
+
+        if (mOutputFluids != null) {
+            addFluidOutputs(mOutputFluids);
+        }
+        mOutputFluids = null;
+    }
+
+    @Override
+    public void clearHatches() {
+        super.clearHatches();
+
+        for (MTEHatchDataConnector<?> hatch_data : validMTEList(eOutputData)) {
+            hatch_data.id = -1;
+        }
+        for (MTEHatchDataConnector<?> hatch_data : validMTEList(eInputData)) {
+            hatch_data.id = -1;
+        }
+
+        for (MTEHatchUncertainty hatch : validMTEList(eUncertainHatches)) {
+            hatch.getBaseMetaTileEntity()
+                .setActive(false);
+        }
+
+        eUncertainHatches.clear();
+        eEnergyMulti.clear();
+        eDynamoMulti.clear();
+        eOutputData.clear();
+        eInputData.clear();
+    }
+
+    protected void setupHatches_EM() {
+        short id = 1;
+
+        for (MTEHatchDataConnector<?> hatch_data : validMTEList(eOutputData)) {
+            hatch_data.id = id++;
+        }
+        id = 1;
+        for (MTEHatchDataConnector<?> hatch_data : validMTEList(eInputData)) {
+            hatch_data.id = id++;
+        }
+
+        for (MTEHatchUncertainty hatch : validMTEList(eUncertainHatches)) {
+            hatch.getBaseMetaTileEntity()
+                .setActive(true);
+        }
+    }
+
+    protected void setupEnergyHatchesVariables_EM() {
+        if (!mEnergyHatches.isEmpty() || !eEnergyMulti.isEmpty()
+            || !mDynamoHatches.isEmpty()
+            || !eDynamoMulti.isEmpty()) {
+            maxEUinputMin = V[15];
+            maxEUinputMax = V[0];
+            maxEUoutputMin = V[15];
+            maxEUoutputMax = V[0];
+            for (MTEHatchEnergy hatch : validMTEList(mEnergyHatches)) {
+                if (hatch.maxEUInput() < maxEUinputMin) {
+                    maxEUinputMin = hatch.maxEUInput();
+                }
+                if (hatch.maxEUInput() > maxEUinputMax) {
+                    maxEUinputMax = hatch.maxEUInput();
+                }
+            }
+            for (MTEHatchEnergyMulti hatch : validMTEList(eEnergyMulti)) {
+                if (hatch.maxEUInput() < maxEUinputMin) {
+                    maxEUinputMin = hatch.maxEUInput();
+                }
+                if (hatch.maxEUInput() > maxEUinputMax) {
+                    maxEUinputMax = hatch.maxEUInput();
+                }
+            }
+            for (MTEHatchDynamo hatch : validMTEList(mDynamoHatches)) {
+                if (hatch.maxEUOutput() < maxEUoutputMin) {
+                    maxEUoutputMin = hatch.maxEUOutput();
+                }
+                if (hatch.maxEUOutput() > maxEUoutputMax) {
+                    maxEUoutputMax = hatch.maxEUOutput();
+                }
+            }
+            for (MTEHatchDynamoMulti hatch : validMTEList(eDynamoMulti)) {
+                if (hatch.maxEUOutput() < maxEUoutputMin) {
+                    maxEUoutputMin = hatch.maxEUOutput();
+                }
+                if (hatch.maxEUOutput() > maxEUoutputMax) {
+                    maxEUoutputMax = hatch.maxEUOutput();
+                }
+            }
+            eMaxAmpereFlow = 0;
+            eMaxAmpereGen = 0;
+            // Regular energy hatches are rated at one amp of their voltage here; the debug hatch instead emulates its
+            // configured amperage, as MTEMultiBlockBase.setProcessingLogicPower also does.
+            for (MTEHatchEnergy hatch : validMTEList(mEnergyHatches)) {
+                long amps = hatch instanceof MTEHatchEnergyDebug ? hatch.maxWorkingAmperesIn() : 1;
+                eMaxAmpereFlow += hatch.maxEUInput() / maxEUinputMin * amps;
+            }
+            for (MTEHatchEnergyMulti hatch : validMTEList(eEnergyMulti)) {
+                eMaxAmpereFlow += hatch.maxEUInput() / maxEUinputMin * hatch.getAmperes();
+            }
+            for (MTEHatchDynamo hatch : validMTEList(mDynamoHatches)) {
+                eMaxAmpereGen += hatch.maxEUOutput() / maxEUoutputMin;
+            }
+            for (MTEHatchDynamoMulti hatch : validMTEList(eDynamoMulti)) {
+                eMaxAmpereGen += hatch.maxEUOutput() / maxEUoutputMin * hatch.Amperes;
+            }
+        } else {
+            maxEUinputMin = 0;
+            maxEUinputMax = 0;
+            eMaxAmpereFlow = 0;
+            maxEUoutputMin = 0;
+            maxEUoutputMax = 0;
+            eMaxAmpereGen = 0;
+        }
+    }
+
+    protected void dischargeController_EM(IGregTechTileEntity aBaseMetaTileEntity) {
+        if (ePowerPass) {
+            if (getEUVar() > getMinimumStoredEU()) {
+                powerPass(aBaseMetaTileEntity);
+            } else {
+                onPostPowerPass(0);
+            }
+        }
+    }
+
+    protected final void powerPass(IGregTechTileEntity igte) {
+        double injectedEU = 0;
+
+        for (MTEHatchDynamo hatch : validMTEList(mDynamoHatches)) {
+            long euToInject = hatch.maxEUOutput() * hatch.maxAmperesOut();
+
+            if (hatch.getEUVar() + euToInject > hatch.maxEUStore()) continue;
+
+            long withInefficiency = euToInject + Math.max(euToInject / 24576, hatch.maxAmperesOut());
+
+            if (igte.decreaseStoredEnergyUnits(withInefficiency, false)) {
+                hatch.setEUVar(hatch.getEUVar() + euToInject);
+                injectedEU += euToInject;
+            }
+        }
+
+        for (MTEHatchDynamoMulti hatch : validMTEList(eDynamoMulti)) {
+            long euToInject = hatch.maxEUOutput() * hatch.maxAmperesOut();
+
+            if (hatch.getEUVar() + euToInject > hatch.maxEUStore()) continue;
+
+            long withInefficiency = euToInject + Math.max(euToInject / 24576, hatch.maxAmperesOut());
+
+            if (igte.decreaseStoredEnergyUnits(withInefficiency, false)) {
+                hatch.setEUVar(hatch.getEUVar() + euToInject);
+                injectedEU += euToInject;
+            }
+        }
+
+        onPostPowerPass(injectedEU);
+    }
+
+    protected void onPostPowerPass(double eu) {
+
+    }
+
+    protected void chargeController_EM(IGregTechTileEntity aBaseMetaTileEntity) {
+        powerInput();
+    }
+
+    protected final void powerInput() {
+        long euVar;
+        for (MTEHatchEnergy tHatch : validMTEList(mEnergyHatches)) {
+            if (getEUVar() > getMinimumStoredEU()) {
+                break;
+            }
+            euVar = Math.min(tHatch.maxEUInput() * tHatch.maxAmperesIn(), tHatch.getEUVar());
+            if (tHatch.getBaseMetaTileEntity()
+                .decreaseStoredEnergyUnits(euVar, false)) {
+                setEUVar(GTUtility.addSafe(getEUVar(), euVar));
+            }
+        }
+        for (MTEHatchEnergyMulti tHatch : validMTEList(eEnergyMulti)) {
+            if (getEUVar() > getMinimumStoredEU()) {
+                break;
+            }
+            euVar = Math.min(tHatch.maxEUInput() * tHatch.maxAmperesIn(), tHatch.getEUVar());
+            if (tHatch.getBaseMetaTileEntity()
+                .decreaseStoredEnergyUnits(euVar, false)) {
+                setEUVar(GTUtility.addSafe(getEUVar(), euVar));
+            }
+        }
+    }
+
+    // endregion
+
+    // region EFFICIENCY AND FIXING LIMITS
+
+    @Override
+    public int getIdealStatus() {
+        return super.getIdealStatus() + 2;
+    }
+
+    @Override
+    public int getRepairStatus() {
+        return super.getRepairStatus() + (eCertainStatus == 0 ? 1 : 0) + (eParameters ? 1 : 0);
+    }
+
+    public Vec3Impl getPos() {
+        return pos;
+    }
+
+    // endregion
+
+    // region ENERGY!!!!
+
+    // new method
+    public boolean energyFlowOnRunningTick_EM(ItemStack aStack, boolean allowProduction) {
+        long euFlow = GTUtility.mulSafe(getPowerFlow(), eAmpereFlow); // quick scope sign
+        if (allowProduction && euFlow > 0) {
+            addEnergyOutput_EM(
+                GTUtility.fastDivMul(getPowerFlow(), getMaxEfficiency(aStack), mEfficiency),
+                eAmpereFlow);
+        } else if (euFlow < 0) {
+            if (!drainEnergyInput_EM(
+                getPowerFlow(),
+                GTUtility.fastDivMul(getPowerFlow(), Math.max(1000L, mEfficiency), getMaxEfficiency(aStack)),
+                eAmpereFlow)) {
+                stopMachine(ShutDownReasonRegistry.POWER_LOSS);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean energyFlowOnRunningTick(ItemStack aStack, boolean allowProduction) {
+        long euFlow = GTUtility.mulSafe(getPowerFlow(), eAmpereFlow); // quick scope sign
+        if (allowProduction && euFlow > 0) {
+            addEnergyOutput_EM(
+                GTUtility.fastDivMul(getPowerFlow(), getMaxEfficiency(aStack), mEfficiency),
+                eAmpereFlow);
+        } else if (euFlow < 0) {
+            if (!drainEnergyInput(
+                GTUtility.fastDivMul(getPowerFlow(), Math.max(1000L, mEfficiency), getMaxEfficiency(aStack)),
+                eAmpereFlow)) {
+                stopMachine(ShutDownReasonRegistry.POWER_LOSS);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public long maxEUStore() {
+        return Math.max(
+            GTUtility.mulSafe(maxEUinputMin << 3, eMaxAmpereFlow),
+            GTUtility.mulSafe(maxEUoutputMin << 3, eMaxAmpereGen));
+    }
+
+    @Override
+    public final long getMinimumStoredEU() {
+        return maxEUStore() >> 1;
+    }
+
+    @Override
+    public final long maxAmperesIn() {
+        return 0L;
+    }
+
+    @Override
+    public final long maxAmperesOut() {
+        return 0L;
+    }
+
+    @Deprecated
+    @Override
+    public final boolean addEnergyOutput(long eu) {
+        return addEnergyOutput_EM(eu, 1);
+    }
+
+    public boolean addEnergyOutput_EM(long EU, long Amperes) {
+        if (EU < 0) {
+            EU = -EU;
+        }
+        if (Amperes < 0) {
+            Amperes = -Amperes;
+        }
+        long euVar = EU * Amperes;
+        long diff;
+        for (MTEHatchDynamo tHatch : validMTEList(mDynamoHatches)) {
+            if (tHatch.maxEUOutput() < EU) {
+                explodeMultiblock();
+            }
+            diff = tHatch.maxEUStore() - tHatch.getBaseMetaTileEntity()
+                .getStoredEU();
+            if (diff > 0) {
+                if (euVar > diff) {
+                    tHatch.setEUVar(tHatch.maxEUStore());
+                    euVar -= diff;
+                } else if (euVar <= diff) {
+                    tHatch.setEUVar(
+                        tHatch.getBaseMetaTileEntity()
+                            .getStoredEU() + euVar);
+                    return true;
+                }
+            }
+        }
+        for (MTEHatchDynamoMulti tHatch : validMTEList(eDynamoMulti)) {
+            if (tHatch.maxEUOutput() < EU) {
+                explodeMultiblock();
+            }
+            diff = tHatch.maxEUStore() - tHatch.getBaseMetaTileEntity()
+                .getStoredEU();
+            if (diff > 0) {
+                if (euVar > diff) {
+                    tHatch.setEUVar(tHatch.maxEUStore());
+                    euVar -= diff;
+                } else if (euVar <= diff) {
+                    tHatch.setEUVar(
+                        tHatch.getBaseMetaTileEntity()
+                            .getStoredEU() + euVar);
+                    return true;
+                }
+            }
+        }
+        setEUVar(min(getEUVar() + euVar, maxEUStore()));
+        return false;
+    }
+
+    @Deprecated
+    @Override
+    public final boolean drainEnergyInput(long eu) {
+        return drainEnergyInput_EM(0, eu, 1);
+    }
+
+    public boolean drainEnergyInput_EM(long EUtTierVoltage, long EUtEffective, long Amperes) {
+        long EUuse = GTUtility.mulSafe(EUtEffective, Amperes);
+        if (EUuse == 0) {
+            return true;
+        }
+        if (maxEUinputMin == 0) {
+            return false;
+        }
+        if (EUuse < 0) {
+            EUuse = -EUuse;
+        }
+        if (EUuse > getEUVar() || // not enough power
+        // TIER IS BASED ON BEST HATCH! not total EUtEffective input
+            (EUtTierVoltage == 0 ? EUuse > getMaxInputEnergy() : (EUtTierVoltage > maxEUinputMax) ||
+            // EUuse==0? --> (EUuse - 1) / maxEUinputMin + 1 = 1!
+                (EUtTierVoltage * Amperes - 1) / maxEUinputMin + 1 > eMaxAmpereFlow)) {
+            // not too much A
+            if (ConfigHandler.debug.DEBUG_MODE) {
+                TecTech.LOGGER.debug("L1 {} {} {}", EUuse, getEUVar(), EUuse > getEUVar());
+                TecTech.LOGGER.debug("L2 {} {} {}", EUtEffective, maxEUinputMax, EUtEffective > maxEUinputMax);
+                TecTech.LOGGER.debug("L3 {} {}", Amperes, getMaxInputEnergy());
+                TecTech.LOGGER.debug(
+                    "L4 {} {} {}",
+                    (EUuse - 1) / maxEUinputMin + 1,
+                    eMaxAmpereFlow,
+                    (EUuse - 1) / maxEUinputMin + 1 > eMaxAmpereFlow);
+            }
+            return false;
+        }
+        // sub eu
+        setEUVar(getEUVar() - EUuse);
+        return true;
+    }
+
+    public boolean drainEnergyInput(long EUtEffective, long Amperes) {
+        long EUuse = GTUtility.mulSafe(EUtEffective, Amperes);
+        if (EUuse == 0) {
+            return true;
+        }
+        if (maxEUinputMin == 0) {
+            return false;
+        }
+        if (EUuse < 0) {
+            EUuse = -EUuse;
+        }
+        // not enough power
+        if (EUuse > getEUVar() || EUuse > getMaxInputEnergy()) { // EUuse==0? --> (EUuse - 1) / maxEUinputMin + 1 = 1!
+                                                                 // //if not too much
+            // A
+            return false;
+        }
+        // sub eu
+        setEUVar(getEUVar() - EUuse);
+        return true;
+    }
+
+    // new method
+    public final boolean overclockAndPutValuesIn_EM(long EU, int time) { // TODO revise
+        if (EU == 0L) {
+            setPowerFlow(0);
+            mMaxProgresstime = time;
+            return true;
+        }
+        long tempEUt = Math.max(EU, V[1]);
+        long tempTier = maxEUinputMax >> 2;
+        while (tempEUt < tempTier) {
+            tempEUt <<= 2;
+            time >>= 1;
+            EU = time == 0 ? EU >> 1 : EU << 2; // U know, if the time is less than 1 tick make the machine use less
+                                                // power
+        }
+        if (EU > Integer.MAX_VALUE || EU < Integer.MIN_VALUE) {
+            setPowerFlow(Integer.MAX_VALUE - 1);
+            mMaxProgresstime = Integer.MAX_VALUE - 1;
+            return false;
+        }
+        setPowerFlow(EU);
+        mMaxProgresstime = time == 0 ? 1 : time;
+        return true;
+    } // Use in EM check recipe return statement if you want overclocking
+
+    /**
+     * Use {@link #getMaxInputVoltage()}
+     */
+    @Deprecated
+    public final long getMaxInputVoltageSum() {
+        return getMaxInputVoltage();
+    }
+
+    /**
+     * Use {@link #getMaxInputEu()}
+     */
+    @Deprecated
+    public final long getMaxInputEnergy() {
+        return getMaxInputEu();
+    }
+
+    /**
+     * Use {@link #getMaxInputEu()}
+     */
+    @Deprecated
+    public final long getMaxInputEnergy_EM() {
+        return getMaxInputEu();
+    }
+
+    // new Method
+    public final int getMaxEnergyInputTier_EM() {
+        return GTUtility.getTier(maxEUinputMax);
+    }
+
+    // new Method
+    public final int getMinEnergyInputTier_EM() {
+        return GTUtility.getTier(maxEUinputMin);
+    }
+
+    public final long getMaxAmpereFlowAtMinTierOfEnergyHatches() {
+        return eAmpereFlow;
+    }
+
+    @Override
+    public List<MTEHatch> getExoticAndNormalEnergyHatchList() {
+        List<MTEHatch> list = new ArrayList<>(mEnergyHatches.size() + eEnergyMulti.size());
+        list.addAll(filterValidMTEs(mEnergyHatches));
+        list.addAll(filterValidMTEs(eEnergyMulti));
+        return list;
+    }
+
+    @Override
+    public List<MTEHatch> getExoticEnergyHatches() {
+        return new ArrayList<>(eEnergyMulti);
+    }
+
+    @Override
+    public List<MTEHatch> getExoticDynamoHatches() {
+        return new ArrayList<>(eDynamoMulti);
+    }
+
+    // empty body to prevent any explosion
+    @Override
+    public final void explodeMultiblock() {}
+
+    // empty body to prevent any explosion
+    @Override
+    public void doExplosion(long aExplosionPower) {}
+
+    // region adder methods
+    @Override
+    public final boolean addToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) return false;
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) return false;
+        if (aMetaTileEntity instanceof MTEHatch hatch) {
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+        }
+        if (aMetaTileEntity instanceof MTEHatchUncertainty hatch) return eUncertainHatches.add(hatch);
+        if (aMetaTileEntity instanceof MTEHatchEnergyMulti hatch) return eEnergyMulti.add(hatch);
+        if (aMetaTileEntity instanceof MTEHatchDynamoMulti hatch) return eDynamoMulti.add(hatch);
+        if (aMetaTileEntity instanceof MTEHatchDataInput hatch) return eInputData.add(hatch);
+        if (aMetaTileEntity instanceof MTEHatchDataOutput hatch) return eOutputData.add(hatch);
+
+        return super.addToMachineList(aTileEntity, aBaseCasingIndex);
+    }
+
+    public final boolean addClassicToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        if (aMetaTileEntity instanceof MTEHatch hatch) {
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+        }
+        addIfSmartInput(aMetaTileEntity);
+        switch (aMetaTileEntity) {
+            case IDualInputHatch iDualInputHatch -> {
+                return mDualInputHatches.add(iDualInputHatch);
+            }
+            case MTEHatchInput mteHatchInput -> {
+                return mInputHatches.add(mteHatchInput);
+            }
+            case MTEHatchInputBus mteHatchInputBus -> {
+                return mInputBusses.add(mteHatchInputBus);
+            }
+            case MTEHatchOutput mteHatchOutput -> {
+                return mOutputHatches.add(mteHatchOutput);
+            }
+            case MTEHatchOutputBus mteHatchOutputBus -> {
+                return mOutputBusses.add(mteHatchOutputBus);
+            }
+            case MTEHatchEnergyMulti mteHatchEnergyMulti -> {
+                return eEnergyMulti.add(mteHatchEnergyMulti);
+            }
+            case MTEHatchEnergy mteHatchEnergy -> {
+                return mEnergyHatches.add(mteHatchEnergy);
+            }
+            case MTEHatchDynamoMulti mteHatchDynamoMulti -> {
+                return eDynamoMulti.add(mteHatchDynamoMulti);
+            }
+            case MTEHatchDynamo mteHatchDynamo -> {
+                return mDynamoHatches.add(mteHatchDynamo);
+            }
+            case MTEHatchMaintenance hatch -> {
+                if (hatch instanceof MTEHatchDroneDownLink droneDownLink) {
+                    droneDownLink.registerMachineController(this);
+                }
+                return mMaintenanceHatches.add(hatch);
+            }
+            case MTEHatchMuffler mteHatchMuffler -> {
+                return mMufflerHatches.add(mteHatchMuffler);
+            }
+            case MTEHatchUncertainty mteHatchUncertainty -> {
+                return eUncertainHatches.add(mteHatchUncertainty);
+            }
+            case MTEHatchDataInput mteHatchDataInput -> {
+                return eInputData.add(mteHatchDataInput);
+            }
+            case MTEHatchDataOutput mteHatchDataOutput -> {
+                return eOutputData.add(mteHatchDataOutput);
+            }
+            default -> {
+            }
+        }
+        return false;
+    }
+
+    public final boolean addElementalToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        if (aMetaTileEntity instanceof MTEHatch hatch) {
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+        }
+
+        return false;
+    }
+
+    public final boolean addElementalMufflerToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        return false;
+    }
+
+    @Override
+    public final boolean addMufflerToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        if (aMetaTileEntity instanceof MTEHatchMuffler muffler) {
+            muffler.updateTexture(aBaseCasingIndex);
+            muffler.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mMufflerHatches.add(muffler);
+        }
+
+        return false;
+    }
+
+    @Override
+    public final boolean addInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        addIfSmartInput(aMetaTileEntity);
+        switch (aMetaTileEntity) {
+            case IDualInputHatch hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return mDualInputHatches.add(hatch);
+            }
+            case MTEHatchInput hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return mInputHatches.add(hatch);
+            }
+            case MTEHatchInputBus hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                hatch.mRecipeMap = getRecipeMap();
+                return mInputBusses.add(hatch);
+            }
+            default -> {
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public final boolean addOutputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        addIfSmartInput(aMetaTileEntity);
+        if (aMetaTileEntity instanceof MTEHatchOutput hatch) {
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mOutputHatches.add(hatch);
+        }
+        if (aMetaTileEntity instanceof MTEHatchOutputBus hatch) {
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mOutputBusses.add(hatch);
+        }
+
+        return false;
+    }
+
+    @Deprecated
+    @Override
+    public final boolean addEnergyInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        switch (aMetaTileEntity) {
+            case null -> {
+                return false;
+            }
+            case MTEHatchEnergyMulti hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return eEnergyMulti.add(hatch);
+            }
+            case MTEHatchEnergy hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return mEnergyHatches.add(hatch);
+            }
+            default -> {
+            }
+        }
+        return false;
+    }
+
+    @Deprecated
+    @Override
+    public final boolean addDynamoToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        switch (aMetaTileEntity) {
+            case null -> {
+                return false;
+            }
+            case MTEHatchDynamoMulti hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return eDynamoMulti.add(hatch);
+            }
+            case MTEHatchDynamo hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return mDynamoHatches.add(hatch);
+            }
+            default -> {
+            }
+        }
+        return false;
+    }
+
+    // New Method
+    public final boolean addEnergyIOToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        switch (aMetaTileEntity) {
+            case null -> {
+                return false;
+            }
+            case MTEHatchEnergyMulti hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return eEnergyMulti.add(hatch);
+            }
+            case MTEHatchEnergy hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return mEnergyHatches.add(hatch);
+            }
+            case MTEHatchDynamoMulti hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return eDynamoMulti.add(hatch);
+            }
+            case MTEHatchDynamo hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return mDynamoHatches.add(hatch);
+            }
+            default -> {
+            }
+        }
+        return false;
+    }
+
+    // NEW METHOD
+    public final boolean addElementalInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        return false;
+    }
+
+    // NEW METHOD
+    public final boolean addElementalOutputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        return false;
+    }
+
+    // NEW METHOD
+    public final boolean addParametrizerToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        return false;
+    }
+
+    // NEW METHOD
+    public final boolean addUncertainToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        if (aMetaTileEntity instanceof MTEHatchUncertainty hatch) {
+            addIfSmartInput(hatch);
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+            return eUncertainHatches.add(hatch);
+        }
+        return false;
+    }
+
+    @Override
+    public final boolean addMaintenanceToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        switch (aMetaTileEntity) {
+            case null -> {
+                return false;
+            }
+            case MTEHatchMaintenance hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                if (hatch instanceof MTEHatchDroneDownLink droneDownLink) {
+                    droneDownLink.registerMachineController(this);
+                }
+                return mMaintenanceHatches.add(hatch);
+            }
+            case MTEHatchUncertainty hatch -> {
+                hatch.updateTexture(aBaseCasingIndex);
+                hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+                return eUncertainHatches.add(hatch);
+            }
+            default -> {
+            }
+        }
+        return false;
+    }
+
+    // NEW METHOD
+    public final boolean addClassicMaintenanceToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        if (aMetaTileEntity instanceof MTEHatchMaintenance hatch) {
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mMaintenanceHatches.add(hatch);
+        }
+        return false;
+    }
+
+    // NEW METHOD
+    public final boolean addDataInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        if (aMetaTileEntity instanceof MTEHatchDataInput hatch) {
+            addIfSmartInput(hatch);
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+            return eInputData.add(hatch);
+        }
+        return false;
+    }
+
+    // NEW METHOD
+    public final boolean addDataOutputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) {
+            return false;
+        }
+        if (aMetaTileEntity instanceof MTEHatchDataOutput hatch) {
+            hatch.updateTexture(aBaseCasingIndex);
+            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
+            return eOutputData.add(hatch);
+        }
+        return false;
+    }
+    // endregion
+
+    @Override
+    protected void checkHasAnyEnergy(List<StructureError> errors) {
+        if (mEnergyHatches.isEmpty() && mExoticEnergyHatches.isEmpty() && eEnergyMulti.isEmpty()) {
+            errors.add(StructureErrors.hatchCount(ErrorType.TOO_FEW, gregtech.api.enums.HatchElement.Energy, 0, 1));
+        }
+    }
+
+    protected final void checkOneUncertaintyHatch(List<StructureError> errors) {
+        if (eUncertainHatches.isEmpty()) {
+            errors.add(StructureErrorRegistry.ONE_UNCERTAINTY_HATCH);
+        }
+    }
+
+    protected final void checkHasDataInput(List<StructureError> errors) {
+        if (eInputData.isEmpty()) {
+            errors.add(StructureErrors.of("GT5U.gui.text.structure_error.missing_data_input_hatch"));
+        }
+    }
+
+    protected final void checkHasDataOutput(List<StructureError> errors) {
+        if (eOutputData.isEmpty()) {
+            errors.add(StructureErrors.of("GT5U.gui.text.structure_error.missing_data_output_hatch"));
+        }
+    }
+
+    protected static <T extends TTMultiblockBase> IStructureElement<T> classicHatches(int casingIndex, int dot,
+        Block casingBlock, int casingMeta) {
+        return HatchElementBuilder.<T>builder()
+            .atLeast(
+                InputBus,
+                InputHatch,
+                OutputHatch,
+                OutputBus,
+                Maintenance,
+                Muffler,
+                HatchElement.EnergyMulti,
+                HatchElement.DynamoMulti,
+                HatchElement.InputData,
+                HatchElement.OutputData,
+                HatchElement.Uncertainty)
+            .casingIndex(casingIndex)
+            .hint(dot)
+            .buildAndChain(casingBlock, casingMeta);
+    }
+
+    protected static <T extends TTMultiblockBase> IStructureElement<T> allHatches(int casingIndex, int dot,
+        Block casingBlock, int casingMeta) {
+        return HatchElementBuilder.<T>builder()
+            .atLeast(
+                InputBus,
+                InputHatch,
+                OutputHatch,
+                OutputBus,
+                Maintenance,
+                Muffler,
+                HatchElement.EnergyMulti,
+                HatchElement.DynamoMulti,
+                HatchElement.InputData,
+                HatchElement.OutputData,
+                HatchElement.Uncertainty)
+            .casingIndex(casingIndex)
+            .hint(dot)
+            .buildAndChain(casingBlock, casingMeta);
+    }
+
+    public enum HatchElement implements IHatchElement<TTMultiblockBase> {
+
+        Uncertainty("GT5U.MBTT.Uncertainty", TTMultiblockBase::addUncertainToMachineList, MTEHatchUncertainty.class) {
+
+            @Override
+            public long count(TTMultiblockBase t) {
+                return t.eUncertainHatches.size();
+            }
+        },
+        EnergyMulti("GT5U.MBTT.ExoticEnergyHatch", TTMultiblockBase::addEnergyInputToMachineList,
+            MTEHatchEnergyMulti.class) {
+
+            @Override
+            public long count(TTMultiblockBase t) {
+                return t.eEnergyMulti.size();
+            }
+        },
+        DynamoMulti("GT5U.MBTT.ExoticEnergyDynamo", TTMultiblockBase::addDynamoToMachineList,
+            MTEHatchDynamoMulti.class) {
+
+            @Override
+            public long count(TTMultiblockBase t) {
+                return t.eDynamoMulti.size();
+            }
+        },
+        InputData("GT5U.MBTT.InputData", TTMultiblockBase::addDataInputToMachineList, MTEHatchDataInput.class) {
+
+            @Override
+            public long count(TTMultiblockBase t) {
+                return t.eInputData.size();
+            }
+        },
+        OutputData("GT5U.MBTT.OutputData", TTMultiblockBase::addDataOutputToMachineList, MTEHatchDataOutput.class) {
+
+            @Override
+            public long count(TTMultiblockBase t) {
+                return t.eOutputData.size();
+            }
+        },;
+
+        private final String name;
+        private final List<Class<? extends IMetaTileEntity>> mteClasses;
+        private final IGTHatchAdder<TTMultiblockBase> adder;
+
+        @SafeVarargs
+        HatchElement(String name, IGTHatchAdder<TTMultiblockBase> adder,
+            Class<? extends IMetaTileEntity>... mteClasses) {
+            this.name = name;
+            this.mteClasses = Collections.unmodifiableList(Arrays.asList(mteClasses));
+            this.adder = adder;
+        }
+
+        @Override
+        public List<? extends Class<? extends IMetaTileEntity>> mteClasses() {
+            return mteClasses;
+        }
+
+        @Override
+        public String getDisplayName() {
+            return StatCollector.translateToLocal(name);
+        }
+
+        @Override
+        public String getDescriptionLangKey() {
+            return name;
+        }
+
+        @Override
+        public IGTHatchAdder<? super TTMultiblockBase> adder() {
+            return adder;
+        }
+    }
+
+    /**
+     * Check if the computation timeout is still active
+     *
+     * @return True if the timeout is still active or false if the machine should fail
+     */
+    protected boolean checkComputationTimeout() {
+        if (eComputationTimeout > 0) {
+            return --eComputationTimeout > 0;
+        }
+        return false;
+    }
+
+    // region ModularUI
+
+    public boolean isPowerPassButtonEnabled() {
+        return true;
+    }
+
+    public boolean isSafeVoidButtonEnabled() {
+        return true;
+    }
+
+    public boolean isAllowedToWorkButtonEnabled() {
+        return true;
+    }
+
+    @Override
+    public void addGregTechLogo(ModularWindow.Builder builder) {
+        builder.widget(
+            new DrawableWidget().setDrawable(TecTechUITextures.PICTURE_TECTECH_LOGO_DARK)
+                .setSize(18, 18)
+                .setPos(173, 74));
+    }
+
+    private static byte LEDCounter = 0;
+
+    @Override
+    protected boolean useMui2() {
+        return false;
+    }
+
+    @Override
+    public GTGuiTheme getGuiTheme() {
+        return GTGuiThemes.TECTECH_STANDARD;
+    }
+
+    @Override
+    protected @NotNull MTEMultiBlockBaseGui<?> getGui() {
+        return new TTMultiblockBaseGui<>(this);
+    }
+
+    @Override
+    public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
+        if (doesBindPlayerInventory()) {
+            builder.widget(
+                new DrawableWidget().setDrawable(TecTechUITextures.BACKGROUND_SCREEN_BLUE)
+                    .setPos(4, 4)
+                    .setSize(190, 91));
+        } else {
+            builder.widget(
+                new DrawableWidget().setDrawable(TecTechUITextures.BACKGROUND_SCREEN_BLUE_NO_INVENTORY)
+                    .setPos(4, 4)
+                    .setSize(190, 171));
+        }
+        final SlotWidget inventorySlot = new SlotWidget(new BaseSlot(inventoryHandler, 1) {
+
+            @Override
+            public int getSlotStackLimit() {
+                return getInventoryStackLimit();
+            }
+        });
+        if (doesBindPlayerInventory()) {
+            builder
+                .widget(
+                    inventorySlot.setBackground(getGUITextureSet().getItemSlot(), TecTechUITextures.OVERLAY_SLOT_MESH)
+                        .setPos(173, 167))
+                .widget(
+                    new DrawableWidget().setDrawable(TecTechUITextures.PICTURE_HEAT_SINK_SMALL)
+                        .setPos(173, 185)
+                        .setSize(18, 6));
+        }
+
+        final DynamicPositionedColumn screenElements = new DynamicPositionedColumn();
+        drawTexts(screenElements, inventorySlot);
+        builder.widget(
+            new Scrollable().setVerticalScroll()
+                .widget(screenElements)
+                .setPos(10, 7)
+                .setSize(182, doesBindPlayerInventory() ? 79 : 165));
+
+        Widget powerPassButton = createPowerPassButton();
+        builder.widget(powerPassButton)
+            .widget(new FakeSyncWidget.BooleanSyncer(() -> ePowerPass, val -> ePowerPass = val))
+            .widget(new FakeSyncWidget.BooleanSyncer(() -> ePowerPassCover, val -> ePowerPassCover = val));
+        Widget safeVoidButton = createSafeVoidButton();
+        builder.widget(safeVoidButton)
+            .widget(new FakeSyncWidget.BooleanSyncer(() -> eSafeVoid, val -> eSafeVoid = val));
+        Widget powerSwitchButton = createPowerSwitchButton();
+        builder.widget(powerSwitchButton)
+            .widget(new FakeSyncWidget.BooleanSyncer(() -> getBaseMetaTileEntity().isAllowedToWork(), val -> {
+                if (val) getBaseMetaTileEntity().enableWorking();
+                else getBaseMetaTileEntity().disableWorking();
+            }));
+
+        builder.widget(new DrawableWidget() {
+
+            @Override
+            public void draw(float partialTicks) {
+                super.draw(partialTicks);
+                LEDCounter = (byte) ((1 + LEDCounter) % 6);
+            }
+        }.setDrawable(TecTechUITextures.PICTURE_PARAMETER_BLANK)
+            .setPos(5, doesBindPlayerInventory() ? 96 : 176)
+            .setSize(166, 12));
+        for (int hatch = 0; hatch < 10; hatch++) {
+            for (int param = 0; param < 2; param++) {
+                int ledID = hatch + param * 10;
+                buildContext
+                    .addSyncedWindow(LED_WINDOW_BASE_ID + ledID, (player) -> createLEDConfigurationWindow(ledID));
+                addParameterLED(builder, hatch, param, true);
+                addParameterLED(builder, hatch, param, false);
+            }
+        }
+
+        if (doesBindPlayerInventory()) {
+            builder.widget(
+                new DrawableWidget().setDrawable(TecTechUITextures.PICTURE_UNCERTAINTY_MONITOR_MULTIMACHINE)
+                    .setPos(173, 96)
+                    .setSize(18, 18));
+            for (int i = 0; i < 9; i++) {
+                final int index = i;
+                builder.widget(new DrawableWidget().setDrawable(() -> {
+                    UITexture valid = TecTechUITextures.PICTURE_UNCERTAINTY_VALID[index];
+                    UITexture invalid = TecTechUITextures.PICTURE_UNCERTAINTY_INVALID[index];
+                    switch (eCertainMode) {
+                        case 1: // ooo oxo ooo
+                            if (index == 4) return eCertainStatus == 0 ? valid : invalid;
+                            break;
+                        case 2: // ooo xox ooo
+                            if (index == 3) return (eCertainStatus & 1) == 0 ? valid : invalid;
+                            if (index == 5) return (eCertainStatus & 2) == 0 ? valid : invalid;
+                            break;
+                        case 3: // oxo xox oxo
+                            if (index == 1) return (eCertainStatus & 1) == 0 ? valid : invalid;
+                            if (index == 3) return (eCertainStatus & 2) == 0 ? valid : invalid;
+                            if (index == 5) return (eCertainStatus & 4) == 0 ? valid : invalid;
+                            if (index == 7) return (eCertainStatus & 8) == 0 ? valid : invalid;
+                            break;
+                        case 4: // xox ooo xox
+                            if (index == 0) return (eCertainStatus & 1) == 0 ? valid : invalid;
+                            if (index == 2) return (eCertainStatus & 2) == 0 ? valid : invalid;
+                            if (index == 6) return (eCertainStatus & 4) == 0 ? valid : invalid;
+                            if (index == 8) return (eCertainStatus & 8) == 0 ? valid : invalid;
+                            break;
+                        case 5: // xox oxo xox
+                            if (index == 0) return (eCertainStatus & 1) == 0 ? valid : invalid;
+                            if (index == 2) return (eCertainStatus & 2) == 0 ? valid : invalid;
+                            if (index == 4) return (eCertainStatus & 4) == 0 ? valid : invalid;
+                            if (index == 6) return (eCertainStatus & 8) == 0 ? valid : invalid;
+                            if (index == 8) return (eCertainStatus & 16) == 0 ? valid : invalid;
+                            break;
+                    }
+                    return null;
+                })
+                    .setPos(174 + (index % 3) * 6, 97 + (index / 3) * 6)
+                    .setSize(4, 4));
+            }
+            builder.widget(new FakeSyncWidget.ByteSyncer(() -> eCertainMode, val -> eCertainMode = val))
+                .widget(new FakeSyncWidget.ByteSyncer(() -> eCertainStatus, val -> eCertainStatus = val));
+        }
+    }
+
+    protected ButtonWidget createPowerPassButton() {
+        Widget button = new ButtonWidget().setOnClick((clickData, widget) -> {
+            if (isPowerPassButtonEnabled() || ePowerPassCover) {
+                TecTech.proxy.playSound(getBaseMetaTileEntity(), "fx_click");
+                ePowerPass = !ePowerPass;
+                if (!isAllowedToWorkButtonEnabled()) { // TRANSFORMER HACK
+                    if (ePowerPass) {
+                        getBaseMetaTileEntity().enableWorking();
+                    } else {
+                        getBaseMetaTileEntity().disableWorking();
+                    }
+                }
+            }
+        })
+            .setPlayClickSound(false)
+            .setBackground(() -> {
+                List<UITexture> ret = new ArrayList<>();
+                ret.add(TecTechUITextures.BUTTON_STANDARD_16x16);
+                if (!isPowerPassButtonEnabled() && !ePowerPassCover) {
+                    ret.add(TecTechUITextures.OVERLAY_BUTTON_POWER_PASS_DISABLED);
+                } else {
+                    if (ePowerPass) {
+                        ret.add(TecTechUITextures.OVERLAY_BUTTON_POWER_PASS_ON);
+                    } else {
+                        ret.add(TecTechUITextures.OVERLAY_BUTTON_POWER_PASS_OFF);
+                    }
+                }
+                return ret.toArray(new IDrawable[0]);
+            })
+            .setPos(174, doesBindPlayerInventory() ? 116 : 140)
+            .setSize(16, 16);
+        if (isPowerPassButtonEnabled()) {
+            button.addTooltip(StatCollector.translateToLocal("tt.gui.tooltip.power_pass"))
+                .setTooltipShowUpDelay(TOOLTIP_DELAY);
+        }
+        return (ButtonWidget) button;
+    }
+
+    protected ButtonWidget createSafeVoidButton() {
+        Widget button = new ButtonWidget().setOnClick((clickData, widget) -> {
+            if (isSafeVoidButtonEnabled()) {
+                TecTech.proxy.playSound(getBaseMetaTileEntity(), "fx_click");
+                eSafeVoid = !eSafeVoid;
+            }
+        })
+            .setPlayClickSound(false)
+            .setBackground(() -> {
+                List<UITexture> ret = new ArrayList<>();
+                ret.add(TecTechUITextures.BUTTON_STANDARD_16x16);
+                if (!isSafeVoidButtonEnabled()) {
+                    ret.add(TecTechUITextures.OVERLAY_BUTTON_SAFE_VOID_DISABLED);
+                } else {
+                    if (eSafeVoid) {
+                        ret.add(TecTechUITextures.OVERLAY_BUTTON_SAFE_VOID_ON);
+                    } else {
+                        ret.add(TecTechUITextures.OVERLAY_BUTTON_SAFE_VOID_OFF);
+                    }
+                }
+                return ret.toArray(new IDrawable[0]);
+            })
+            .setPos(174, doesBindPlayerInventory() ? 132 : 156)
+            .setSize(16, 16);
+        if (isSafeVoidButtonEnabled()) {
+            button.addTooltip(StatCollector.translateToLocal("tt.gui.tooltip.safe_void"))
+                .setTooltipShowUpDelay(TOOLTIP_DELAY);
+        }
+        return (ButtonWidget) button;
+    }
+
+    protected ButtonWidget createPowerSwitchButton() {
+        Widget button = new ButtonWidget().setOnClick((clickData, widget) -> {
+            if (isAllowedToWorkButtonEnabled()) {
+                TecTech.proxy.playSound(getBaseMetaTileEntity(), "fx_click");
+                if (getBaseMetaTileEntity().isAllowedToWork()) {
+                    getBaseMetaTileEntity().disableWorking();
+                } else {
+                    getBaseMetaTileEntity().enableWorking();
+                }
+            }
+        })
+            .setPlayClickSound(false)
+            .setBackground(() -> {
+                List<UITexture> ret = new ArrayList<>();
+                ret.add(TecTechUITextures.BUTTON_STANDARD_16x16);
+                if (!isAllowedToWorkButtonEnabled()) {
+                    ret.add(TecTechUITextures.OVERLAY_BUTTON_POWER_SWITCH_DISABLED);
+                } else {
+                    if (getBaseMetaTileEntity().isAllowedToWork()) {
+                        ret.add(TecTechUITextures.OVERLAY_BUTTON_POWER_SWITCH_ON);
+                    } else {
+                        ret.add(TecTechUITextures.OVERLAY_BUTTON_POWER_SWITCH_OFF);
+                    }
+                }
+                return ret.toArray(new IDrawable[0]);
+            })
+            .setPos(174, doesBindPlayerInventory() ? 148 : 172)
+            .setSize(16, 16);
+        if (isAllowedToWorkButtonEnabled()) {
+            button.addTooltip(StatCollector.translateToLocal("tt.gui.tooltip.power_switch"))
+                .setTooltipShowUpDelay(TOOLTIP_DELAY);
+        }
+        return (ButtonWidget) button;
+    }
+
+    private ModularWindow createLEDConfigurationWindow(int ledID) {
+        return ModularWindow.builder(100, 40)
+            .setBackground(TecTechUITextures.BACKGROUND_SCREEN_BLUE)
+            .setPos(
+                (screenSize, mainWindow) -> new Pos2d(
+                    (screenSize.width / 2 - mainWindow.getSize().width / 2) - 110,
+                    (screenSize.height / 2 - mainWindow.getSize().height / 2)))
+            .widget(
+                ButtonWidget.closeWindowButton(true)
+                    .setPos(85, 3))
+            .widget(
+                new NumericWidget().setGetter(() -> parametrization.iParamsIn[ledID])
+                    .setSetter(val -> parametrization.iParamsIn[ledID] = val)
+                    .setIntegerOnly(false)
+                    .modifyNumberFormat(format -> format.setMaximumFractionDigits(8))
+                    .setTextColor(Color.LIGHT_BLUE.normal)
+                    .setTextAlignment(Alignment.CenterLeft)
+                    .setFocusOnGuiOpen(true)
+                    .setBackground(GTUITextures.BACKGROUND_TEXT_FIELD)
+                    .setPos(5, 20)
+                    .setSize(90, 15))
+            .widget(
+                new TextWidget((ledID % 10) + ":" + (ledID / 10) + ":I").setDefaultColor(Color.WHITE.normal)
+                    .setTextAlignment(Alignment.Center)
+                    .setPos(5, 5))
+            .build();
+    }
+
+    private void addParameterLED(ModularWindow.Builder builder, int hatch, int param, boolean input) {
+        final int parameterIndex = hatch + param * 10;
+        final int posIndex = hatch * 2 + param;
+        ButtonWidget ledWidget = new ButtonWidget() {
+
+            @Override
+            public void draw(float partialTicks) {
+                IDrawable texture = null;
+                final LedStatus status = input ? parametrization.eParamsInStatus[parameterIndex]
+                    : parametrization.eParamsOutStatus[parameterIndex];
+                switch (status) {
+                    case STATUS_WTF: {
+                        int c = LEDCounter;
+                        if (c > 4) {
+                            c = TecTech.RANDOM.nextInt(5);
+                        }
+                        switch (c) {
+                            case 0:
+                                texture = TecTechUITextures.PICTURE_PARAMETER_BLUE[posIndex];
+                                break;
+                            case 1:
+                                texture = TecTechUITextures.PICTURE_PARAMETER_CYAN[posIndex];
+                                break;
+                            case 2:
+                                texture = TecTechUITextures.PICTURE_PARAMETER_GREEN[posIndex];
+                                break;
+                            case 3:
+                                texture = TecTechUITextures.PICTURE_PARAMETER_ORANGE[posIndex];
+                                break;
+                            case 4:
+                                texture = TecTechUITextures.PICTURE_PARAMETER_RED[posIndex];
+                                break;
+                        }
+                        break;
+                    }
+                    case STATUS_WRONG: // fallthrough
+                        if (LEDCounter < 2) {
+                            texture = TecTechUITextures.PICTURE_PARAMETER_BLUE[posIndex];
+                            break;
+                        } else if (LEDCounter < 4) {
+                            texture = TecTechUITextures.PICTURE_PARAMETER_RED[posIndex];
+                            break;
+                        }
+                    case STATUS_OK: // ok
+                        texture = TecTechUITextures.PICTURE_PARAMETER_GREEN[posIndex];
+                        break;
+                    case STATUS_TOO_LOW: // too low blink
+                        if (LEDCounter < 3) {
+                            texture = TecTechUITextures.PICTURE_PARAMETER_BLUE[posIndex];
+                            break;
+                        }
+                    case STATUS_LOW: // too low
+                        texture = TecTechUITextures.PICTURE_PARAMETER_CYAN[posIndex];
+                        break;
+                    case STATUS_TOO_HIGH: // too high blink
+                        if (LEDCounter < 3) {
+                            texture = TecTechUITextures.PICTURE_PARAMETER_RED[posIndex];
+                            break;
+                        }
+                    case STATUS_HIGH: // too high
+                        texture = TecTechUITextures.PICTURE_PARAMETER_ORANGE[posIndex];
+                        break;
+                    case STATUS_NEUTRAL:
+                        if (LEDCounter < 3) {
+                            GL11.glColor4f(.85f, .9f, .95f, .5F);
+                        } else {
+                            GL11.glColor4f(.8f, .9f, 1f, .5F);
+                        }
+                        texture = TecTechUITextures.PICTURE_PARAMETER_GRAY;
+                        break;
+                    case STATUS_UNDEFINED:
+                        if (LEDCounter < 3) {
+                            GL11.glColor4f(.5f, .1f, .15f, .5F);
+                        } else {
+                            GL11.glColor4f(0f, .1f, .2f, .5F);
+                        }
+                        texture = TecTechUITextures.PICTURE_PARAMETER_GRAY;
+                        break;
+                    case STATUS_UNUSED:
+                    default:
+                        // no-op
+                        break;
+                }
+                setBackground(texture);
+                GL11.glColor4f(1f, 1f, 1f, 1f);
+            }
+        }.setOnClick((clickData, widget) -> {
+            if (!widget.isClient() && input
+                && parametrization.eParamsInStatus[parameterIndex] != LedStatus.STATUS_UNUSED) {
+                // We don't use CloseAllButMain here in case MB implementation adds their own window
+                for (int i = 0; i < parametrization.eParamsInStatus.length; i++) {
+                    if (widget.getContext()
+                        .isWindowOpen(LED_WINDOW_BASE_ID + i)) {
+                        widget.getContext()
+                            .closeWindow(LED_WINDOW_BASE_ID + i);
+                    }
+                }
+                widget.getContext()
+                    .openSyncedWindow(LED_WINDOW_BASE_ID + parameterIndex);
+            }
+        });
+        builder.widget(ledWidget.dynamicTooltip(() -> {
+            if (input) {
+                return getFullLedDescriptionIn(hatch, param);
+            } else {
+                return getFullLedDescriptionOut(hatch, param);
+            }
+        })
+            .setPos(12 + posIndex * 8, (doesBindPlayerInventory() ? 97 : 177) + (input ? 0 : 1) * 6)
+            .setSize(6, 4));
+        if (input) {
+            builder
+                .widget(
+                    new FakeSyncWidget.ByteSyncer(
+                        () -> parametrization.eParamsInStatus[parameterIndex].getOrdinalByte(),
+                        val -> parametrization.eParamsInStatus[parameterIndex] = LedStatus.getStatus(val))
+                            .setOnClientUpdate(val -> ledWidget.notifyTooltipChange()))
+                .widget(
+                    new FakeSyncWidget.DoubleSyncer(
+                        () -> parametrization.iParamsIn[parameterIndex],
+                        val -> parametrization.iParamsIn[parameterIndex] = val)
+                            .setOnClientUpdate(val -> ledWidget.notifyTooltipChange()));
+        } else {
+            builder
+                .widget(
+                    new FakeSyncWidget.ByteSyncer(
+                        () -> parametrization.eParamsOutStatus[parameterIndex].getOrdinalByte(),
+                        val -> parametrization.eParamsOutStatus[parameterIndex] = LedStatus.getStatus(val))
+                            .setOnClientUpdate(val -> ledWidget.notifyTooltipChange()))
+                .widget(
+                    new FakeSyncWidget.DoubleSyncer(
+                        () -> parametrization.iParamsOut[parameterIndex],
+                        val -> parametrization.iParamsOut[parameterIndex] = val)
+                            .setOnClientUpdate(val -> ledWidget.notifyTooltipChange()));
+        }
+    }
+
+    // endregion
+}

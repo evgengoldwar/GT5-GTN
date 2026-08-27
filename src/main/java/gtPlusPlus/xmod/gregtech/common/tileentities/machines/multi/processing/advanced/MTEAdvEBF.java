@@ -1,0 +1,365 @@
+package gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.advanced;
+
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.Muffler;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.enums.HatchElement.OutputHatch;
+import static gregtech.api.enums.HatchElement.PyrotheumHatch;
+import static gregtech.api.util.GTStructureUtility.activeCoils;
+import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.GTStructureUtility.ofCoil;
+import static gregtech.api.util.GTUtility.validMTEList;
+
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
+import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.HeatingCoilLevel;
+import gregtech.api.enums.SoundResource;
+import gregtech.api.enums.TAE;
+import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.logic.ProcessingLogic;
+import gregtech.api.metatileentity.implementations.MTEHatch;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrorRegistry;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.OverclockCalculator;
+import gregtech.api.util.shutdown.ShutDownReasonRegistry;
+import gregtech.api.util.tooltip.TooltipHelper;
+import gregtech.common.misc.GTStructureChannels;
+import gregtech.common.pollution.PollutionConfig;
+import gtPlusPlus.core.block.ModBlocks;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
+import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
+import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
+
+public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurvivalConstructable {
+
+    public static int CASING_TEXTURE_ID;
+    public static String mHotFuelName = "Blazing Pyrotheum";
+    public static String mCasingName = "Volcanus Casing";
+    public static String mHatchName = "Pyrotheum Hatch";
+    private static IStructureDefinition<MTEAdvEBF> STRUCTURE_DEFINITION = null;
+    private int mCasing;
+
+    private HeatingCoilLevel mHeatingCapacity = HeatingCoilLevel.None;
+
+    public MTEAdvEBF(int aID, String aName, String aNameRegional) {
+        super(aID, aName, aNameRegional);
+        CASING_TEXTURE_ID = TAE.getIndexFromPage(2, 11);
+    }
+
+    public MTEAdvEBF(String aName) {
+        super(aName);
+        CASING_TEXTURE_ID = TAE.getIndexFromPage(2, 11);
+    }
+
+    @Override
+    public String getMachineType() {
+        return "Blast Furnace";
+    }
+
+    @Override
+    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+        return new MTEAdvEBF(this.mName);
+    }
+
+    @Override
+    protected MultiblockTooltipBuilder createTooltip() {
+        MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
+        tt.addMachineType(getMachineType())
+            .addInfo("Factory Grade Advanced Blast Furnace")
+            .addStaticParallelInfo(8)
+            .addStaticSpeedInfo(2.2f)
+            .addStaticEuEffInfo(0.9f)
+            .addInfo("Consumes 10L of " + mHotFuelName + " per second during operation")
+            .addInfo("Constructed exactly the same as a normal EBF")
+            .addInfo(
+                "Reduces " + TooltipHelper.effText("EU Usage")
+                    + " by "
+                    + EnumChatFormatting.WHITE
+                    + "5%"
+                    + EnumChatFormatting.GRAY
+                    + " every "
+                    + EnumChatFormatting.RED
+                    + "900K"
+                    + EnumChatFormatting.GRAY
+                    + " above the recipe requirement")
+            .addInfo(
+                "Every " + EnumChatFormatting.RED
+                    + "1800K"
+                    + EnumChatFormatting.GRAY
+                    + " over the recipe requirement grants 1 "
+                    + EnumChatFormatting.LIGHT_PURPLE
+                    + "Perfect Overclock")
+            .addPollutionAmount(getPollutionPerSecond(null))
+            .beginStructureBlock(3, 4, 3, true)
+            .addController("Front bottom center")
+            .addCasing("16", "Heating Coil", true)
+            .addCasing("6-13", mCasingName, false)
+            .addMiscHatch("1", mHatchName, "Any casing", 1)
+            .addEnergyHatch("1+", "Any casing", 1)
+            .addMaintenanceHatch("1", "Any casing", 1)
+            .addMufflerHatch("1", "Any casing", 1)
+            .addInputAny("1+", "Any casing", 1)
+            .addOutputAny("1+", "Any casing", 1)
+            .addAir("Interior of the structure")
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
+            .toolTipFinisher();
+        return tt;
+    }
+
+    @Override
+    public IStructureDefinition<MTEAdvEBF> getStructureDefinition() {
+        if (STRUCTURE_DEFINITION == null) {
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEAdvEBF>builder()
+                .addShape(
+                    mName,
+                    transpose(
+                        new String[][] { { "CCC", "CCC", "CCC" }, { "HHH", "H-H", "HHH" }, { "HHH", "H-H", "HHH" },
+                            { "C~C", "CCC", "CCC" }, }))
+                .addElement(
+                    'C',
+                    ofChain(
+                        buildHatchAdder(MTEAdvEBF.class)
+                            .atLeast(
+                                PyrotheumHatch,
+                                InputBus,
+                                OutputBus,
+                                Maintenance,
+                                Energy,
+                                Muffler,
+                                InputHatch,
+                                OutputHatch)
+                            .casingIndex(CASING_TEXTURE_ID)
+                            .hint(1)
+                            .build(),
+                        onElementPass(x -> ++x.mCasing, ofBlock(ModBlocks.blockCasings3Misc, 11))))
+                .addElement(
+                    'H',
+                    GTStructureChannels.HEATING_COIL
+                        .use(activeCoils(ofCoil(MTEAdvEBF::setCoilLevel, MTEAdvEBF::getCoilLevel))))
+                .build();
+        }
+        return STRUCTURE_DEFINITION;
+    }
+
+    @Override
+    public void construct(ItemStack stackSize, boolean hintsOnly) {
+        buildPiece(mName, stackSize, hintsOnly, 1, 3, 0);
+    }
+
+    @Override
+    public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
+        if (mMachine) return -1;
+        return survivalBuildPiece(mName, stackSize, 1, 3, 0, elementBudget, env, false, true);
+    }
+
+    @Override
+    public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
+        mCasing = 0;
+        setCoilLevel(HeatingCoilLevel.None);
+        if (!checkPiece(mName, 1, 3, 0, errors)) return;
+        checkCasingMin(errors, mCasing, 6);
+
+        if (getCoilLevel() == HeatingCoilLevel.None) {
+            errors.add(StructureErrorRegistry.COIL_LEVEL_NOT_ENOUGH);
+        }
+
+        checkHatchMin(errors, PyrotheumHatch, 1);
+
+        checkHasEnergyHatch(errors);
+        checkHasMaintenanceHatch(errors);
+        checkHasMufflerHatch(errors);
+        checkHasAnyInput(errors);
+        checkHasAnyOutput(errors);
+    }
+
+    @Override
+    protected IIconContainer getActiveOverlay() {
+        return TexturesGtBlock.oMCAAdvancedEBFActive;
+    }
+
+    @Override
+    protected IIconContainer getActiveGlowOverlay() {
+        return TexturesGtBlock.oMCAAdvancedEBFActiveGlow;
+    }
+
+    @Override
+    protected IIconContainer getInactiveOverlay() {
+        return TexturesGtBlock.oMCAAdvancedEBF;
+    }
+
+    @Override
+    protected IIconContainer getInactiveGlowOverlay() {
+        return TexturesGtBlock.oMCAAdvancedEBFGlow;
+    }
+
+    @Override
+    protected int getCasingTextureId() {
+        return CASING_TEXTURE_ID;
+    }
+
+    @Override
+    public RecipeMap<?> getRecipeMap() {
+        return RecipeMaps.blastFurnaceRecipes;
+    }
+
+    @Override
+    public int getRecipeCatalystPriority() {
+        return -1;
+    }
+
+    @Override
+    protected ProcessingLogic createProcessingLogic() {
+        return new ProcessingLogic() {
+
+            @NotNull
+            @Override
+            protected CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
+                return recipe.mSpecialValue <= getCoilLevel().getHeat() ? CheckRecipeResultRegistry.SUCCESSFUL
+                    : CheckRecipeResultRegistry.insufficientHeat(recipe.mSpecialValue);
+            }
+
+            @NotNull
+            @Override
+            protected OverclockCalculator createOverclockCalculator(@NotNull GTRecipe recipe) {
+                return super.createOverclockCalculator(recipe).setHeatOC(true)
+                    .setHeatDiscount(true)
+                    .setRecipeHeat(recipe.mSpecialValue)
+                    .setMachineHeat((int) getCoilLevel().getHeat());
+            }
+        }.setSpeedBonus(1F / 2.2F)
+            .setEuModifier(0.9F)
+            .setMaxParallelSupplier(this::getTrueParallel);
+    }
+
+    @Override
+    public int getPollutionPerSecond(ItemStack aStack) {
+        return PollutionConfig.pollutionPerSecondMultiAdvEBF;
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        super.onPostTick(aBaseMetaTileEntity, aTick);
+        // Try dry Pyrotheum after all other logic
+        if (this.mStartUpCheck < 0) {
+            if (this.mMaxProgresstime > 0 && this.mProgresstime != 0 || this.getBaseMetaTileEntity()
+                .hasWorkJustBeenEnabled()) {
+                if (aTick % 20 == 0 || this.getBaseMetaTileEntity()
+                    .hasWorkJustBeenEnabled()) {
+                    if (!drainPyrotheum(10)) {
+                        this.causeMaintenanceIssue();
+                        this.stopMachine(
+                            ShutDownReasonRegistry.outOfFluid(new FluidStack(TFFluids.fluidPyrotheum, 10)));
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean drainPyrotheum(int amount) {
+        FluidStack toDrain = new FluidStack(TFFluids.fluidPyrotheum, amount);
+        for (MTEHatch hatch : validMTEList(mPyrotheumHatches)) {
+            if (!(hatch instanceof MTEHatchCustomFluidBase pyroHatch)) continue;
+            if (pyroHatch.getBaseMetaTileEntity() == null) continue;
+            FluidStack drained = pyroHatch.drain(ForgeDirection.UNKNOWN, toDrain, true);
+            if (drained != null && drained.amount >= amount) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int getMaxParallelRecipes() {
+        return 8;
+    }
+
+    @Override
+    public void onModeChangeByScrewdriver(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ) {
+        inputSeparation = !inputSeparation;
+        aPlayer.addChatMessage(
+            new ChatComponentTranslation(
+                inputSeparation ? "interaction.separateBuses.enabled" : "interaction.separateBuses.disabled"));
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound aNBT) {
+        super.loadNBTData(aNBT);
+        if (!aNBT.hasKey(INPUT_SEPARATION_NBT_KEY)) {
+            inputSeparation = aNBT.getBoolean("isBussesSeparate");
+        }
+    }
+
+    public HeatingCoilLevel getCoilLevel() {
+        return mHeatingCapacity;
+    }
+
+    public void setCoilLevel(HeatingCoilLevel aCoilLevel) {
+        mHeatingCapacity = aCoilLevel;
+    }
+
+    @Override
+    public boolean supportsInputSeparation() {
+        return true;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GT_MACHINES_ADV_EBF_LOOP;
+    }
+
+    @Override
+    public void getExtraWailaNBT(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
+        int z) {
+        tag.setInteger("heatingCapacity", (int) mHeatingCapacity.getHeat());
+    }
+
+    @Override
+    public void getExtraWailaBody(ItemStack itemStack, List<String> list, NBTTagCompound tag,
+        IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        list.add(
+            StatCollector
+                .translateToLocalFormatted("GT5U.multiblock.heat", formatNumber(tag.getInteger("heatingCapacity"))));
+    }
+}

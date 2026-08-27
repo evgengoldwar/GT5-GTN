@@ -1,0 +1,1082 @@
+package gregtech.common.tileentities.machines.multi;
+
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
+import static gregtech.api.enums.GTAuthors.AuthorColen;
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.ExoticEnergy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.enums.HatchElement.OutputHatch;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_DTPF_OFF;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_DTPF_OFF_GLOW;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_DTPF_ON;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FUSION1_GLOW;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_RAINBOWSCREEN_GLOW;
+import static gregtech.api.enums.Textures.BlockIcons.casingTexturePages;
+import static gregtech.api.util.GTStructureUtility.activeCoils;
+import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.GTStructureUtility.ofCoil;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+
+import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
+import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.GregTechAPI;
+import gregtech.api.enums.HeatingCoilLevel;
+import gregtech.api.enums.ItemList;
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.SoundResource;
+import gregtech.api.enums.Textures;
+import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.logic.ProcessingLogic;
+import gregtech.api.metatileentity.GregTechTileClientEvents;
+import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
+import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.structure.error.ErrorType;
+import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrorRegistry;
+import gregtech.api.structure.error.StructureErrors;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.OverclockCalculator;
+import gregtech.api.util.ParallelHelper;
+import gregtech.common.gui.modularui.multiblock.MTEPlasmaForgeGui;
+import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
+import gregtech.common.misc.GTStructureChannels;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
+
+public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForge>
+    implements ISurvivalConstructable, ICasingTextureProvider {
+
+    // 3600 seconds in an hour, 8 hours, 20 ticks in a second.
+    private static final double max_efficiency_time_in_ticks = 3600d * 8d * 20d;
+    // Multiplier for the efficiency decay rate
+    private static final double efficiency_decay_rate = 100;
+    private static final double maximum_discount = 0.5d;
+    private static final int CONVERGENCE_BITMAP = 0b1;
+    private static final int DISCOUNT_BITMAP = 0b10;
+
+    // Valid fuels which the discount will get applied to.
+    private static final FluidStack[] valid_fuels = { Materials.ExcitedDTCC.getFluid(1L),
+        Materials.ExcitedDTPC.getFluid(1L), Materials.ExcitedDTRC.getFluid(1L), Materials.ExcitedDTEC.getFluid(1L),
+        Materials.ExcitedDTSC.getFluid(1L) };
+
+    private static final HashMap<Fluid, Pair<Long, Float>> FUEL_ENERGY_VALUES = new HashMap<>() {
+
+        {
+            put(
+                Materials.ExcitedDTCC.getFluid(1L)
+                    .getFluid(),
+                Pair.of(14_514_983L, 1 / 8f));
+            put(
+                Materials.ExcitedDTPC.getFluid(1L)
+                    .getFluid(),
+                Pair.of(66_768_460L, 1 / 4f));
+            put(
+                Materials.ExcitedDTRC.getFluid(1L)
+                    .getFluid(),
+                Pair.of(269_326_451L, 1 / 2f));
+            put(
+                Materials.ExcitedDTEC.getFluid(1L)
+                    .getFluid(),
+                Pair.of(1_073_007_393L, 1f));
+            put(
+                Materials.ExcitedDTSC.getFluid(1L)
+                    .getFluid(),
+                Pair.of(4_276_767_521L, 2f));
+        }
+    };
+
+    // Current discount rate. 1 = 0%, 0 = 100%.
+    private double discount = 1;
+    private int mHeatingCapacity = 0;
+    private int mCasing = 0;
+    private long running_time = 0;
+    private boolean convergence = false;
+    private HeatingCoilLevel mCoilLevel;
+    private OverclockCalculator overclockCalculator;
+    private boolean enoughCatalyst = false;
+
+    @SuppressWarnings("SpellCheckingInspection")
+    private static final String[][] structure_string = new String[][] { { "                                 ",
+        "         N   N     N   N         ", "         N   N     N   N         ", "         N   N     N   N         ",
+        "                                 ", "                                 ", "                                 ",
+        "         N   N     N   N         ", "         N   N     N   N         ", " NNN   NNN   N     N   NNN   NNN ",
+        "                                 ", "                                 ", "                                 ",
+        " NNN   NNN             NNN   NNN ", "                                 ", "                                 ",
+        "                                 ", "                                 ", "                                 ",
+        " NNN   NNN             NNN   NNN ", "                                 ", "                                 ",
+        "                                 ", " NNN   NNN             NNN   NNN " },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "         bCCCb     bCCCb         ",
+            "         bCCCb     bCCCb         ", "         N   N     N   N         ",
+            "                                 ", "         N   N     N   N         ",
+            "         bCCCb     bCCCb         ", "         bCCCb     bCCCb         ",
+            "NbbbN NbbNCCCb     bCCCNbbN NbbbN", " CCC   CCC   N     N   CCC   CCC ",
+            " CCC   CCC             CCC   CCC ", " CCC   CCC             CCC   CCC ",
+            "NbbbN NbbbN           NbbbN NbbbN", "  N     N               N     N  ",
+            "  N     N               N     N  ", "                                 ",
+            "  N     N               N     N  ", "  N     N               N     N  ",
+            "NbbbN NbbbN           NbbbN NbbbN", " CCC   CCC             CCC   CCC ",
+            " CCC   CCC             CCC   CCC ", " CCC   CCC             CCC   CCC ",
+            "NbbbN NbbbN    N N    NbbbN NbbbN", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "      NNNbbbbbNNsNNbbbbbNNN      ",
+            "    ss   bCCCb     bCCCb   ss    ", "   s     N   N     N   N     s   ",
+            "   s                         s   ", "  N      N   N     N   N      N  ",
+            "  N      bCCCb     bCCCb      N  ", "  N     sbbbbbNNsNNbbbbbs     N  ",
+            "NbbbN NbbNCCCb     bCCCNbbN NbbbN", " CbC   CbC   N     N   CbC   CbC ",
+            " CbC   CbC             CbC   CbC ", " CbC   CbC             CbC   CbC ",
+            "NbbbN NbbbN           NbbbN NbbbN", " NNN   NNN             NNN   NNN ",
+            " NNN   NNN             NNN   NNN ", "  s     s               s     s  ",
+            " NNN   NNN             NNN   NNN ", " NNN   NNN             NNN   NNN ",
+            "NbbbN NbbbN           NbbbN NbbbN", " CbC   CbC             CbC   CbC ",
+            " CbC   CbC             CbC   CbC ", " CbC   CbC             CbC   CbC ",
+            "NbbbN NbbbNNNNNsNsNNNNNbbbN NbbbN", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "    ss   bCCCb     bCCCb   ss    ",
+            "         bCCCb     bCCCb         ", "  s      NCCCN     NCCCN      s  ",
+            "  s      NCCCN     NCCCN      s  ", "         NCCCN     NCCCN         ",
+            "         bCCCb     bCCCb         ", "         bCCCb     bCCCb         ",
+            "NbbbNNNbbNCCCb     bCCCNbbNNNbbbN", " CCCCCCCCC   N     N   CCCCCCCCC ",
+            " CCCCCCCCC             CCCCCCCCC ", " CCCCCCCCC             CCCCCCCCC ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", "  N     N               N     N  ",
+            "  N     N               N     N  ", "                                 ",
+            "  N     N               N     N  ", "  N     N               N     N  ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", " CCCCCCCCC             CCCCCCCCC ",
+            " CCCCCCCCC             CCCCCCCCC ", " CCCCCCCCC             CCCCCCCCC ",
+            "NbbbNNNbbbN    NbN    NbbbNNNbbbN", },
+        { "                                 ", "         N   N     N   N         ", "   s     N   N     N   N     s   ",
+            "  s      NCCCN     NCCCN      s  ", "                                 ",
+            "                                 ", "                                 ",
+            "         NCCCN     NCCCN         ", "         N   N     N   N         ",
+            " NNN   NN    N     N    NN   NNN ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " NNN   NNN     NbN     NNN   NNN ", },
+        { "                                 ", "                                 ", "   s                         s   ",
+            "  s      NCCCN     NCCCN      s  ", "                                 ",
+            "                                 ", "                                 ",
+            "         NCCCN     NCCCN         ", "                                 ",
+            "   N   N                 N   N   ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            "   N   N                 N   N   ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "   N   N                 N   N   ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            "   N   N       NbN       N   N   ", },
+        { "                                 ", "         N   N     N   N         ", "  N      N   N     N   N      N  ",
+            "         NCCCN     NCCCN         ", "                                 ",
+            "                                 ", "                                 ",
+            "         NCCCN     NCCCN         ", "         N   N     N   N         ",
+            " NNN   NN    N     N    NN   NNN ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " NNN   NNN     NbN     NNN   NNN ", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "  N      bCCCb     bCCCb      N  ",
+            "         bCCCb     bCCCb         ", "         NCCCN     NCCCN         ",
+            "         NCCCN     NCCCN         ", "         NCCCN     NCCCN         ",
+            "         bCCCb     bCCCb         ", "         bCCCb     bCCCb         ",
+            "NbbbNNNbbNCCCb     bCCCNbbNNNbbbN", " CCCCCCCCC   N     N   CCCCCCCCC ",
+            " CCCCCCCCC             CCCCCCCCC ", " CCCCCCCCC             CCCCCCCCC ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", "  N     N               N     N  ",
+            "  N     N               N     N  ", "                                 ",
+            "  N     N               N     N  ", "  N     N               N     N  ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", " CCCCCCCCC             CCCCCCCCC ",
+            " CCCCCCCCC             CCCCCCCCC ", " CCCCCCCCC             CCCCCCCCC ",
+            "NbbbNNNbbbN    NbN    NbbbNNNbbbN", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "  N     sbbbbbNNsNNbbbbbs     N  ",
+            "         bCCCb     bCCCb         ", "         N   N     N   N         ",
+            "                                 ", "         N   N     N   N         ",
+            "         bCCCb     bCCCb         ", "  s     sbbbbbNNsNNbbbbbs     s  ",
+            "NbbbN NbbNCCCb     bCCCNbbN NbbbN", " CbC   CbC   N     N   CbC   CbC ",
+            " CbC   CbC             CbC   CbC ", " CbC   CbC             CbC   CbC ",
+            "NbbbN NbbbN           NbbbN NbbbN", " NNN   NNN             NNN   NNN ",
+            " NNN   NNN             NNN   NNN ", "  s     s               s     s  ",
+            " NNN   NNN             NNN   NNN ", " NNN   NNN             NNN   NNN ",
+            "NbbbN NbbbN           NbbbN NbbbN", " CbC   CbC             CbC   CbC ",
+            " CbC   CbC             CbC   CbC ", " CbC   CbC             CbC   CbC ",
+            "NbbbN NbbbNNNNNsNsNNNNNbbbN NbbbN", },
+        { " NNN   NNN   N     N   NNN   NNN ", "NbbbN NbbNCCCb     bCCCNbbN NbbbN", "NbbbN NbbNCCCb     bCCCNbbN NbbbN",
+            "NbbbNNNbbNCCCb     bCCCNbbNNNbbbN", " NNN   NNN   N     N   NNN   NNN ",
+            "   N   N                 N   N   ", " NNN   NNN   N     N   NNN   NNN ",
+            "NbbbNNNbbNCCCb     bCCCNbbNNNbbbN", "NbbbN NbbNCCCb     bCCCNbbN NbbbN",
+            "NNNN   NNNCCCb     bCCCNNN   NNNN", " CCC   CCC   N     N   CCC   CCC ",
+            " CCC   CCC             CCC   CCC ", " CCC   CCC             CCC   CCC ",
+            "NbbbN NbbbN           NbbbN NbbbN", "  N     N               N     N  ",
+            "  N     N               N     N  ", "                                 ",
+            "  N     N               N     N  ", "  N     N               N     N  ",
+            "NbbbN NbbbN           NbbbN NbbbN", " CCC   CCC             CCC   CCC ",
+            " CCC   CCC             CCC   CCC ", " CCC   CCC             CCC   CCC ",
+            "NbbbN NbbbN    NbN    NbbbN NbbbN", },
+        { "                                 ", " CCC   CCC   N     N   CCC   CCC ", " CbC   CbC   N     N   CbC   CbC ",
+            " CCCCCCCCC   N     N   CCCCCCCCC ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " CCCCCCCCC   N     N   CCCCCCCCC ", " CbC   CbC   N     N   CbC   CbC ",
+            " CCC   CCC   N     N   CCC   CCC ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN     NbN     NNN   NNN ", },
+        { "                                 ", " CCC   CCC             CCC   CCC ", " CbC   CbC             CbC   CbC ",
+            " CCCCCCCCC             CCCCCCCCC ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " CCCCCCCCC             CCCCCCCCC ", " CbC   CbC             CbC   CbC ",
+            " CCC   CCC             CCC   CCC ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "  N     N      NbN      N     N  ", },
+        { "                                 ", " CCC   CCC             CCC   CCC ", " CbC   CbC             CbC   CbC ",
+            " CCCCCCCCC             CCCCCCCCC ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " CCCCCCCCC             CCCCCCCCC ", " CbC   CbC             CbC   CbC ",
+            " CCC   CCC             CCC   CCC ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "  N     N      NbN      N     N  ", },
+        { " NNN   NNN             NNN   NNN ", "NbbbN NbbbN           NbbbN NbbbN", "NbbbN NbbbN           NbbbN NbbbN",
+            "NbbbNNNbbbN           NbbbNNNbbbN", " NNN   NNN             NNN   NNN ",
+            "   N   N                 N   N   ", " NNN   NNN             NNN   NNN ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", "NbbbN NbbbN           NbbbN NbbbN",
+            "NbbbN NbbbN           NbbbN NbbbN", " NNN   NNN             NNN   NNN ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "  N     N     NsNsN     N     N  ", },
+        { "                                 ", "                                 ", "  N     N               N     N  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "  N     N               N     N  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "  N     N    NbbbbbN    N     N  ", },
+        { "                                 ", "                                 ", "  N     N               N     N  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "  N     N               N     N  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                N                ",
+            " NsNNNNNsNNNNsbbbbbsNNNNsNNNNNsN ", },
+        { "                                 ", "                                 ", "  s     s               s     s  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "  s     s               s     s  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                ~                ", "               NNN               ",
+            "  NbbbbbNbbbbNbbbbbNbbbbNbbbbbN  ", },
+        { "                                 ", "                                 ", "  N     N               N     N  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "  N     N               N     N  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                N                ",
+            " NsNNNNNsNNNNsbbbbbsNNNNsNNNNNsN ", },
+        { "                                 ", "                                 ", "  N     N               N     N  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "  N     N               N     N  ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "  N     N    NbbbbbN    N     N  ", },
+        { " NNN   NNN             NNN   NNN ", "NbbbN NbbbN           NbbbN NbbbN", "NbbbN NbbbN           NbbbN NbbbN",
+            "NbbbNNNbbbN           NbbbNNNbbbN", " NNN   NNN             NNN   NNN ",
+            "   N   N                 N   N   ", " NNN   NNN             NNN   NNN ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", "NbbbN NbbbN           NbbbN NbbbN",
+            "NbbbN NbbbN           NbbbN NbbbN", " NNN   NNN             NNN   NNN ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "  N     N     NsNsN     N     N  ", },
+        { "                                 ", " CCC   CCC             CCC   CCC ", " CbC   CbC             CbC   CbC ",
+            " CCCCCCCCC             CCCCCCCCC ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " CCCCCCCCC             CCCCCCCCC ", " CbC   CbC             CbC   CbC ",
+            " CCC   CCC             CCC   CCC ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "  N     N      NbN      N     N  ", },
+        { "                                 ", " CCC   CCC             CCC   CCC ", " CbC   CbC             CbC   CbC ",
+            " CCCCCCCCC             CCCCCCCCC ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " CCCCCCCCC             CCCCCCCCC ", " CbC   CbC             CbC   CbC ",
+            " CCC   CCC             CCC   CCC ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "  N     N      NbN      N     N  ", },
+        { "                                 ", " CCC   CCC   N     N   CCC   CCC ", " CbC   CbC   N     N   CbC   CbC ",
+            " CCCCCCCCC   N     N   CCCCCCCCC ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " CCCCCCCCC   N     N   CCCCCCCCC ", " CbC   CbC   N     N   CbC   CbC ",
+            " CCC   CCC   N     N   CCC   CCC ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN     NbN     NNN   NNN ", },
+        { " NNN   NNN   N     N   NNN   NNN ", "NbbbN NbbNCCCb     bCCCNbbN NbbbN", "NbbbN NbbNCCCb     bCCCNbbN NbbbN",
+            "NbbbNNNbbNCCCb     bCCCNbbNNNbbbN", " NNN   NNN   N     N   NNN   NNN ",
+            "   N   N                 N   N   ", " NNN   NNN   N     N   NNN   NNN ",
+            "NbbbNNNbbNCCCb     bCCCNbbNNNbbbN", "NbbbN NbbNCCCb     bCCCNbbN NbbbN",
+            "NNNN   NNNCCCb     bCCCNNN   NNNN", " CCC   CCC   N     N   CCC   CCC ",
+            " CCC   CCC             CCC   CCC ", " CCC   CCC             CCC   CCC ",
+            "NbbbN NbbbN           NbbbN NbbbN", "  N     N               N     N  ",
+            "  N     N               N     N  ", "                                 ",
+            "  N     N               N     N  ", "  N     N               N     N  ",
+            "NbbbN NbbbN           NbbbN NbbbN", " CCC   CCC             CCC   CCC ",
+            " CCC   CCC             CCC   CCC ", " CCC   CCC             CCC   CCC ",
+            "NbbbN NbbbN    NbN    NbbbN NbbbN", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "  N     sbbbbbNNsNNbbbbbs     N  ",
+            "         bCCCb     bCCCb         ", "         N   N     N   N         ",
+            "                                 ", "         N   N     N   N         ",
+            "         bCCCb     bCCCb         ", "  s     sbbbbbNNsNNbbbbbs     s  ",
+            "NbbbN NbbNCCCb     bCCCNbbN NbbbN", " CbC   CbC   N     N   CbC   CbC ",
+            " CbC   CbC             CbC   CbC ", " CbC   CbC             CbC   CbC ",
+            "NbbbN NbbbN           NbbbN NbbbN", " NNN   NNN             NNN   NNN ",
+            " NNN   NNN             NNN   NNN ", "  s     s               s     s  ",
+            " NNN   NNN             NNN   NNN ", " NNN   NNN             NNN   NNN ",
+            "NbbbN NbbbN           NbbbN NbbbN", " CbC   CbC             CbC   CbC ",
+            " CbC   CbC             CbC   CbC ", " CbC   CbC             CbC   CbC ",
+            "NbbbN NbbbNNNNNsNsNNNNNbbbN NbbbN", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "  N      bCCCb     bCCCb      N  ",
+            "         bCCCb     bCCCb         ", "         NCCCN     NCCCN         ",
+            "         NCCCN     NCCCN         ", "         NCCCN     NCCCN         ",
+            "         bCCCb     bCCCb         ", "         bCCCb     bCCCb         ",
+            "NbbbNNNbbNCCCb     bCCCNbbNNNbbbN", " CCCCCCCCC   N     N   CCCCCCCCC ",
+            " CCCCCCCCC             CCCCCCCCC ", " CCCCCCCCC             CCCCCCCCC ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", "  N     N               N     N  ",
+            "  N     N               N     N  ", "                                 ",
+            "  N     N               N     N  ", "  N     N               N     N  ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", " CCCCCCCCC             CCCCCCCCC ",
+            " CCCCCCCCC             CCCCCCCCC ", " CCCCCCCCC             CCCCCCCCC ",
+            "NbbbNNNbbbN    NbN    NbbbNNNbbbN", },
+        { "                                 ", "         N   N     N   N         ", "  N      N   N     N   N      N  ",
+            "         NCCCN     NCCCN         ", "                                 ",
+            "                                 ", "                                 ",
+            "         NCCCN     NCCCN         ", "         N   N     N   N         ",
+            " NNN   NN    N     N    NN   NNN ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " NNN   NNN     NbN     NNN   NNN ", },
+        { "                                 ", "                                 ", "   s                         s   ",
+            "  s      NCCCN     NCCCN      s  ", "                                 ",
+            "                                 ", "                                 ",
+            "         NCCCN     NCCCN         ", "                                 ",
+            "   N   N                 N   N   ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            "   N   N                 N   N   ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            "   N   N                 N   N   ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            "   N   N       NbN       N   N   ", },
+        { "                                 ", "         N   N     N   N         ", "   s     N   N     N   N     s   ",
+            "  s      NCCCN     NCCCN      s  ", "                                 ",
+            "                                 ", "                                 ",
+            "         NCCCN     NCCCN         ", "         N   N     N   N         ",
+            " NNN   NN    N     N    NN   NNN ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "   C   C                 C   C   ",
+            "   C   C                 C   C   ", "   C   C                 C   C   ",
+            " NNN   NNN     NbN     NNN   NNN ", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "    ss   bCCCb     bCCCb   ss    ",
+            "         bCCCb     bCCCb         ", "  s      NCCCN     NCCCN      s  ",
+            "  s      NCCCN     NCCCN      s  ", "         NCCCN     NCCCN         ",
+            "         bCCCb     bCCCb         ", "         bCCCb     bCCCb         ",
+            "NbbbNNNbbNCCCb     bCCCNbbNNNbbbN", " CCCCCCCCC   N     N   CCCCCCCCC ",
+            " CCCCCCCCC             CCCCCCCCC ", " CCCCCCCCC             CCCCCCCCC ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", "  N     N               N     N  ",
+            "  N     N               N     N  ", "                                 ",
+            "  N     N               N     N  ", "  N     N               N     N  ",
+            "NbbbNNNbbbN           NbbbNNNbbbN", " CCCCCCCCC             CCCCCCCCC ",
+            " CCCCCCCCC             CCCCCCCCC ", " CCCCCCCCC             CCCCCCCCC ",
+            "NbbbNNNbbbN    NbN    NbbbNNNbbbN", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "      NNNbbbbbNNsNNbbbbbNNN      ",
+            "    ss   bCCCb     bCCCb   ss    ", "   s     N   N     N   N     s   ",
+            "   s                         s   ", "  N      N   N     N   N      N  ",
+            "  N      bCCCb     bCCCb      N  ", "  N     sbbbbbNNsNNbbbbbs     N  ",
+            "NbbbN NbbNCCCb     bCCCNbbN NbbbN", " CbC   CbC   N     N   CbC   CbC ",
+            " CbC   CbC             CbC   CbC ", " CbC   CbC             CbC   CbC ",
+            "NbbbN NbbbN           NbbbN NbbbN", " NNN   NNN             NNN   NNN ",
+            " NNN   NNN             NNN   NNN ", "  s     s               s     s  ",
+            " NNN   NNN             NNN   NNN ", " NNN   NNN             NNN   NNN ",
+            "NbbbN NbbbN           NbbbN NbbbN", " CbC   CbC             CbC   CbC ",
+            " CbC   CbC             CbC   CbC ", " CbC   CbC             CbC   CbC ",
+            "NbbbN NbbbNNNNNsNsNNNNNbbbN NbbbN", },
+        { "         N   N     N   N         ", "         bCCCb     bCCCb         ", "         bCCCb     bCCCb         ",
+            "         bCCCb     bCCCb         ", "         N   N     N   N         ",
+            "                                 ", "         N   N     N   N         ",
+            "         bCCCb     bCCCb         ", "         bCCCb     bCCCb         ",
+            "NbbbN NbbNCCCb     bCCCNbbN NbbbN", " CCC   CCC   N     N   CCC   CCC ",
+            " CCC   CCC             CCC   CCC ", " CCC   CCC             CCC   CCC ",
+            "NbbbN NbbbN           NbbbN NbbbN", "  N     N               N     N  ",
+            "  N     N               N     N  ", "                                 ",
+            "  N     N               N     N  ", "  N     N               N     N  ",
+            "NbbbN NbbbN           NbbbN NbbbN", " CCC   CCC             CCC   CCC ",
+            " CCC   CCC             CCC   CCC ", " CCC   CCC             CCC   CCC ",
+            "NbbbN NbbbN    N N    NbbbN NbbbN", },
+        { "                                 ", "         N   N     N   N         ", "         N   N     N   N         ",
+            "         N   N     N   N         ", "                                 ",
+            "                                 ", "                                 ",
+            "         N   N     N   N         ", "         N   N     N   N         ",
+            " NNN   NNN   N     N   NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", "                                 ",
+            "                                 ", "                                 ",
+            " NNN   NNN             NNN   NNN ", } };
+
+    protected static final int DIM_TRANS_CASING = 12;
+    protected static final int DIM_INJECTION_CASING = 13;
+    protected static final int DIM_BRIDGE_CASING = 14;
+
+    protected static final String STRUCTURE_PIECE_MAIN = "main";
+    private static final IStructureDefinition<MTEPlasmaForge> STRUCTURE_DEFINITION = StructureDefinition
+        .<MTEPlasmaForge>builder()
+        .addShape(STRUCTURE_PIECE_MAIN, structure_string)
+        .addElement(
+            'C',
+            GTStructureChannels.HEATING_COIL
+                .use(activeCoils(ofCoil(MTEPlasmaForge::setCoilLevel, MTEPlasmaForge::getCoilLevel))))
+        .addElement(
+            'b',
+            ofChain(
+                buildHatchAdder(MTEPlasmaForge.class)
+                    .atLeast(InputHatch, OutputHatch, InputBus, OutputBus, Energy, ExoticEnergy)
+                    .casingIndex(DIM_INJECTION_CASING)
+                    .hint(1)
+                    .build(),
+                onElementPass(
+                    MTEPlasmaForge::onCasingFound,
+                    ofBlock(GregTechAPI.sBlockCasings1, DIM_INJECTION_CASING))))
+        .addElement('N', ofBlock(GregTechAPI.sBlockCasings1, DIM_TRANS_CASING))
+        .addElement('s', ofBlock(GregTechAPI.sBlockCasings1, DIM_BRIDGE_CASING))
+        .build();
+
+    public MTEPlasmaForge(int aID, String aName, String aNameRegional) {
+        super(aID, aName, aNameRegional);
+    }
+
+    public MTEPlasmaForge(String aName) {
+        super(aName);
+    }
+
+    @Override
+    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+        return new MTEPlasmaForge(mName);
+    }
+
+    @Override
+    protected MultiblockTooltipBuilder createTooltip() {
+        MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
+        tt.addMachineType("Plasma Forge, DTPF")
+            .addInfo("Transcending Dimensional Boundaries.")
+            .addInfo(
+                "Takes " + EnumChatFormatting.RED
+                    + formatNumber(max_efficiency_time_in_ticks / (3600 * 20))
+                    + EnumChatFormatting.GRAY
+                    + " hours of continuous run time to fully breach dimensional")
+            .addInfo(
+                "boundaries and achieve maximum efficiency, reducing fuel consumption by up to "
+                    + EnumChatFormatting.RED
+                    + formatNumber(100 * maximum_discount)
+                    + "%")
+            .addInfo(
+                "When no recipe is running, fuel discount decays x" + EnumChatFormatting.RED
+                    + formatNumber(efficiency_decay_rate)
+                    + EnumChatFormatting.GRAY
+                    + " as fast as it builds up, draining")
+            .addInfo("the total amount of stored runtime")
+            .addSeparator()
+            .addInfo("Multidimensional spaces can be perfectly aligned and synchronized in this state, ")
+            .addInfo(
+                "allowing " + EnumChatFormatting.GOLD
+                    + "Dimensional Convergence "
+                    + EnumChatFormatting.GRAY
+                    + "to occur. To reach the required stability threshold,")
+            .addInfo(
+                "a " + EnumChatFormatting.AQUA
+                    + "Transdimensional Alignment Matrix "
+                    + EnumChatFormatting.GRAY
+                    + "must be placed in the controller")
+            .addInfo(
+                "When " + EnumChatFormatting.GOLD
+                    + "Convergence "
+                    + EnumChatFormatting.GRAY
+                    + "is active, it allows the forge to perform "
+                    + EnumChatFormatting.RED
+                    + "Perfect Overclocks"
+                    + EnumChatFormatting.GRAY
+                    + ",")
+            .addInfo("but the extra power cost is instead added in form of increased catalyst amounts")
+            .addUnlimitedTierSkips()
+            .addSupportAny()
+            .beginStructureBlock(33, 24, 33, false)
+            .addController("Middle of the structure, 3rd layer")
+            .addCasing("2121", "Dimensionally Transcendent Casing", false)
+            .addCasing("2112", "Heating Coil", true)
+            .addCasing("1250-1270", "Dimensional Injection Casing", false)
+            .addCasing("120", "Dimensional Bridge", false)
+            .addEnergyHatch("1-2", "Any injection casing", 1)
+            .addInputAny("1+", "Any injection casing", 1)
+            .addOutputAny("1+", "Any injection casing", 1)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
+            .toolTipFinisher(AuthorColen);
+        return tt;
+    }
+
+    @Override
+    public boolean addToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        boolean exotic = addExoticEnergyInputToMachineList(aTileEntity, aBaseCasingIndex);
+        return super.addToMachineList(aTileEntity, aBaseCasingIndex) || exotic;
+    }
+
+    @Override
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
+        int colorIndex, boolean aActive, boolean redstoneLevel) {
+        IIconContainer glow = OVERLAY_FUSION1_GLOW;
+        if (convergence && discount == maximum_discount) {
+            glow = OVERLAY_RAINBOWSCREEN_GLOW;
+        }
+        return Textures.BlockIcons.createTextureWithCasing(
+            this,
+            side,
+            aFacing,
+            aActive,
+            OVERLAY_DTPF_OFF,
+            OVERLAY_DTPF_OFF_GLOW,
+            OVERLAY_DTPF_ON,
+            glow);
+    }
+
+    @Override
+    public ITexture getCasingTexture() {
+        return casingTexturePages[0][DIM_BRIDGE_CASING];
+    }
+
+    @Override
+    public RecipeMap<?> getRecipeMap() {
+        return RecipeMaps.plasmaForgeRecipes;
+    }
+
+    @Override
+    public IStructureDefinition<MTEPlasmaForge> getStructureDefinition() {
+        return STRUCTURE_DEFINITION;
+    }
+
+    @Override
+    @NotNull
+    public CheckRecipeResult checkProcessing() {
+        CheckRecipeResult recipe_process = super.checkProcessing();
+        if (recipe_process.wasSuccessful()) {
+            running_time = running_time + mMaxProgresstime;
+        }
+        return recipe_process;
+    }
+
+    @Override
+    protected ProcessingLogic createProcessingLogic() {
+        return new ProcessingLogic() {
+
+            @Override
+            @Nonnull
+            protected Stream<GTRecipe> findRecipeMatches(@Nullable RecipeMap<?> map) {
+                if (map == null) {
+                    return Stream.empty();
+                }
+
+                recalculateDiscount();
+                // Allow recipes to start without having 100% of the catalyst required, aka discount > 0%
+                FluidStack[] queryFluids = new FluidStack[inputFluids.length];
+                for (int i = 0; i < inputFluids.length; i++) {
+                    queryFluids[i] = new FluidStack(inputFluids[i].getFluid(), inputFluids[i].amount);
+                    for (FluidStack fuel : valid_fuels) {
+                        if (queryFluids[i].isFluidEqual(fuel)) {
+                            queryFluids[i].amount = (int) Math
+                                .min(Math.round(queryFluids[i].amount / discount), Integer.MAX_VALUE);
+                            break;
+                        }
+                    }
+                }
+
+                return map.findRecipeQuery()
+                    .items(inputItems)
+                    .fluids(queryFluids)
+                    .specialSlot(specialSlotItem)
+                    .cachedRecipe(lastRecipe)
+                    .findAll();
+            }
+
+            @Nonnull
+            @Override
+            protected OverclockCalculator createOverclockCalculator(@Nonnull GTRecipe recipe) {
+                overclockCalculator = super.createOverclockCalculator(recipeAfterAdjustments(recipe, inputFluids))
+                    .setRecipeHeat(recipe.mSpecialValue)
+                    .setMachineHeat(mHeatingCapacity);
+                if (convergence && discount == maximum_discount && enoughCatalyst) {
+                    overclockCalculator = overclockCalculator.enablePerfectOC();
+                }
+                return overclockCalculator;
+            }
+
+            @NotNull
+            @Override
+            protected ParallelHelper createParallelHelper(@Nonnull GTRecipe recipe) {
+                return super.createParallelHelper(recipeAfterAdjustments(recipe, inputFluids));
+            }
+
+            @Override
+            protected @Nonnull CheckRecipeResult validateRecipe(@Nonnull GTRecipe recipe) {
+                return recipe.mSpecialValue <= mHeatingCapacity ? CheckRecipeResultRegistry.SUCCESSFUL
+                    : CheckRecipeResultRegistry.insufficientHeat(recipe.mSpecialValue);
+            }
+        }.setUnlimitedTierSkips();
+    }
+
+    @Nonnull
+    protected GTRecipe recipeAfterAdjustments(@Nonnull GTRecipe recipe, FluidStack[] inputFluids) {
+        extraCatalystNeeded = 0;
+        GTRecipe tRecipe = recipe.copy();
+        for (int i = 0; i < recipe.mFluidInputs.length; i++) {
+            for (FluidStack fuel : valid_fuels) {
+                if (tRecipe.mFluidInputs[i].isFluidEqual(fuel)) {
+                    recalculateDiscount();
+                    if (convergence && discount == maximum_discount) {
+                        calculateCatalystIncrease(tRecipe, inputFluids, i);
+                        getBaseMetaTileEntity()
+                            .sendBlockEvent(GregTechTileClientEvents.CHANGE_CUSTOM_DATA, getUpdateData());
+                    }
+                    tRecipe.mFluidInputs[i].amount = (int) Math.round(tRecipe.mFluidInputs[i].amount * discount);
+                    return tRecipe;
+                }
+            }
+        }
+        // Convergence adjusts the recipe even if it has no catalyst input
+        if (convergence && discount == maximum_discount) {
+            // Append 0 of the chosen catalyst to input fluids for calculations.
+            FluidStack[] fluidInputsWithCatalyst = new FluidStack[tRecipe.mFluidInputs.length + 1];
+            for (int i = 0; i < tRecipe.mFluidInputs.length; i++) {
+                fluidInputsWithCatalyst[i] = tRecipe.mFluidInputs[i].copy();
+            }
+            fluidInputsWithCatalyst[tRecipe.mFluidInputs.length] = new FluidStack(
+                valid_fuels[catalystTypeForRecipesWithoutCatalyst - 1],
+                0);
+            tRecipe.mFluidInputs = fluidInputsWithCatalyst;
+
+            // Append 0 residue to output fluids for calculations.
+            FluidStack[] fluidOutputsWithResidue = new FluidStack[tRecipe.mFluidOutputs.length + 1];
+            for (int i = 0; i < tRecipe.mFluidOutputs.length; i++) {
+                fluidOutputsWithResidue[i] = tRecipe.mFluidOutputs[i].copy();
+            }
+            fluidOutputsWithResidue[tRecipe.mFluidOutputs.length] = Materials.DTR.getFluid(0);
+            tRecipe.mFluidOutputs = fluidOutputsWithResidue;
+            recalculateDiscount();
+
+            calculateCatalystIncrease(tRecipe, inputFluids, tRecipe.mFluidInputs.length - 1);
+            // We know that we have max discount here, so divide by 2.
+            tRecipe.mFluidInputs[tRecipe.mFluidInputs.length - 1].amount /= 2;
+            getBaseMetaTileEntity().sendBlockEvent(GregTechTileClientEvents.CHANGE_CUSTOM_DATA, getUpdateData());
+        }
+        return tRecipe;
+    }
+
+    private void onCasingFound() {
+        mCasing++;
+    }
+
+    @Override
+    public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
+        mHeatingCapacity = 0;
+        mCasing = 0;
+        setCoilLevel(HeatingCoilLevel.None);
+        if (!checkPiece(STRUCTURE_PIECE_MAIN, 16, 21, 16, errors)) return;
+        if (getCoilLevel() == HeatingCoilLevel.None) {
+            errors.add(StructureErrorRegistry.COIL_LEVEL_NOT_ENOUGH);
+        }
+        if (!mExoticEnergyHatches.isEmpty()) {
+            if (!mEnergyHatches.isEmpty() || mExoticEnergyHatches.size() > 1) {
+                errors.add(StructureErrorRegistry.ONE_ENERGY_HATCH_ON_MULTI_OR_LASER);
+            }
+        }
+        if (!mEnergyHatches.isEmpty()) {
+            if (mEnergyHatches.size() > 2) {
+                errors.add(StructureErrors.hatchCount(ErrorType.TOO_MANY, Energy, mEnergyHatches.size(), 2));
+            } else {
+                byte tier_of_hatch = mEnergyHatches.get(0).mTier;
+                for (MTEHatchEnergy energyHatch : mEnergyHatches) {
+                    if (energyHatch.mTier != tier_of_hatch) {
+                        errors.add(StructureErrors.of("GT5U.gui.text.structure_error.energy_hatch_tier_mismatch"));
+                        break;
+                    }
+                }
+            }
+        }
+        // max 1273 - 2 - 7 - 6 - 1 - 1 = 1256
+        checkCasingMin(errors, mCasing, 1250);
+        checkHasAnyEnergy(errors);
+        checkHasAnyInput(errors);
+        checkHasAnyOutput(errors);
+        if (errors.isEmpty()) {
+            mHeatingCapacity = (int) getCoilLevel().getHeat();
+        }
+    }
+
+    @Override
+    public void clearHatches() {
+        super.clearHatches();
+        mExoticEnergyHatches.clear();
+    }
+
+    @Override
+    public boolean addOutput(FluidStack aLiquid) {
+        if (aLiquid == null) return false;
+        FluidStack tLiquid = aLiquid.copy();
+        addOutputPartial(tLiquid);
+        return tLiquid.amount == 0;
+    }
+
+    @Override
+    public void getExtraInfoData(List<String> info) {
+        info.add(IGregTechDeviceInformation.encode("GT5U.EBF.heat.s", formatNumber(this.mHeatingCapacity)));
+
+        // Calculate discount to make sure it is shown properly even when machine is off but decaying
+        recalculateDiscount();
+
+        info.add(
+            IGregTechDeviceInformation.encode(
+                "GT5U.infodata.plasma_forge.ticks_run_fuel_discount",
+                EnumChatFormatting.GREEN + formatNumber(running_time) + EnumChatFormatting.RESET,
+                EnumChatFormatting.RED + formatNumber(100 * (1 - discount)) + EnumChatFormatting.RESET + "%",
+                extraCatalystNeeded));
+
+        String convergenceStatus;
+        if (convergence) {
+            String progressStr;
+            if (discount == maximum_discount) {
+                progressStr = IGregTechDeviceInformation.decode("GT5U.infodata.plasma_forge.convergence.achieved");
+            } else {
+                progressStr = IGregTechDeviceInformation.decode(
+                    IGregTechDeviceInformation.encode(
+                        "GT5U.infodata.plasma_forge.convergence.progress",
+                        formatNumber((max_efficiency_time_in_ticks - running_time) / (20 * 60))));
+            }
+            convergenceStatus = EnumChatFormatting.GREEN
+                + IGregTechDeviceInformation.decode("GT5U.infodata.plasma_forge.convergence.active")
+                + EnumChatFormatting.RESET
+                + progressStr;
+        } else {
+            convergenceStatus = EnumChatFormatting.RED
+                + IGregTechDeviceInformation.decode("GT5U.infodata.plasma_forge.convergence.inactive");
+        }
+        info.add(IGregTechDeviceInformation.encode("GT5U.infodata.plasma_forge.convergence", convergenceStatus));
+    }
+
+    private void recalculateDiscount() {
+        double time_percentage = running_time / max_efficiency_time_in_ticks;
+        time_percentage = Math.min(time_percentage, 1.0d);
+        // Multiplied by 0.5 because that is the maximum achievable discount
+        discount = 1 - time_percentage * 0.5;
+        discount = Math.max(maximum_discount, discount);
+    }
+
+    private int catalystTypeForRecipesWithoutCatalyst = 1;
+
+    private int extraCatalystNeeded = 0;
+
+    private void calculateCatalystIncrease(GTRecipe recipe, FluidStack[] inputFluids, int fuelIndex) {
+        FluidStack validFuelStack = recipe.mFluidInputs[fuelIndex];
+        Fluid validFuel = validFuelStack.getFluid();
+
+        long numberOfOverclocks = GTUtility.log4(getMaxInputEu() / recipe.mEUt);
+        long machineConsumption = recipe.mEUt * (1L << (2 * numberOfOverclocks));
+        double recipeDuration = recipe.mDuration / GTUtility.powInt(4, numberOfOverclocks);
+        // Power difference between regular and perfect OCs for this recipe duration
+        long extraPowerNeeded = (long) (((1L << numberOfOverclocks) - 1) * machineConsumption * recipeDuration);
+        extraCatalystNeeded = (int) (extraPowerNeeded / FUEL_ENERGY_VALUES.get(validFuel)
+            .getLeft());
+
+        // Check if we have enough catalyst,
+        // if we don't leave the recipe unchanged.
+        // if we do then enable perfect overclocks and update the recipe.
+        enoughCatalyst = true;
+        int needed = (validFuelStack.amount + extraCatalystNeeded) / 2;
+        for (FluidStack stack : inputFluids) {
+            if (needed <= 0) {
+                break;
+            }
+
+            if (stack.isFluidEqual(validFuelStack)) {
+                needed -= stack.amount;
+            }
+        }
+        if (needed > 0) {
+            enoughCatalyst = false;
+            return;
+        }
+
+        recipe.mFluidInputs[fuelIndex].amount += extraCatalystNeeded;
+
+        // Increase present catalyst and residue by calculated amount
+        for (FluidStack outputFluid : recipe.mFluidOutputs) {
+            if (outputFluid.isFluidEqual(Materials.DTR.getFluid(1))) {
+                outputFluid.amount += (int) (extraCatalystNeeded * FUEL_ENERGY_VALUES.get(validFuel)
+                    .getRight());
+            }
+        }
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        super.onPostTick(aBaseMetaTileEntity, aTick);
+
+        if (aBaseMetaTileEntity.isServerSide()) {
+            if (mMaxProgresstime == 0) {
+                running_time = Math.max(0, running_time - (long) efficiency_decay_rate);
+            }
+            if (aTick % 100 == 0) {
+                ItemStack controllerStack = this.getControllerSlot();
+                if (convergence && (controllerStack == null
+                    || !controllerStack.isItemEqual(ItemList.Transdimensional_Alignment_Matrix.get(1)))) {
+                    convergence = false;
+                    getBaseMetaTileEntity()
+                        .sendBlockEvent(GregTechTileClientEvents.CHANGE_CUSTOM_DATA, getUpdateData());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void construct(ItemStack stackSize, boolean hintsOnly) {
+        buildPiece(STRUCTURE_PIECE_MAIN, stackSize, hintsOnly, 16, 21, 16);
+    }
+
+    @Override
+    public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
+        if (mMachine) return -1;
+        int realBudget = elementBudget >= 200 ? elementBudget : Math.min(200, elementBudget * 5);
+        return survivalBuildPiece(STRUCTURE_PIECE_MAIN, stackSize, 16, 21, 16, realBudget, env, false, true);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GT_MACHINES_PLASMAFORGE_LOOP;
+    }
+
+    @Override
+    public byte getUpdateData() {
+        byte data = 0;
+        if (discount == maximum_discount) {
+            data += DISCOUNT_BITMAP;
+        }
+        if (convergence) {
+            data += CONVERGENCE_BITMAP;
+        }
+        return data;
+    }
+
+    @Override
+    public void receiveClientEvent(byte aEventID, byte aValue) {
+        if (aEventID == GregTechTileClientEvents.CHANGE_CUSTOM_DATA) {
+            convergence = (aValue & CONVERGENCE_BITMAP) == CONVERGENCE_BITMAP;
+            if ((aValue & DISCOUNT_BITMAP) == DISCOUNT_BITMAP) {
+                discount = maximum_discount;
+            }
+        }
+    }
+
+    private static final int CATALYST_WINDOW_ID = 10;
+
+    @Override
+    protected @NotNull MTEMultiBlockBaseGui<?> getGui() {
+        return new MTEPlasmaForgeGui(this);
+    }
+
+    public boolean getConvergenceStatus() {
+        return this.convergence;
+    }
+
+    public void setConvergenceStatus(boolean value) {
+        this.convergence = value;
+    }
+
+    public int getCatalystTypeForRecipesWithoutCatalyst() {
+        return this.catalystTypeForRecipesWithoutCatalyst;
+    }
+
+    public void setCatalystTypeForRecipesWithoutCatalyst(int value) {
+        this.catalystTypeForRecipesWithoutCatalyst = value;
+    }
+
+    @Override
+    public void saveNBTData(NBTTagCompound aNBT) {
+        aNBT.setLong("eRunningTime", running_time);
+        aNBT.setDouble("eLongDiscountValue", discount);
+        aNBT.setInteger("catalystType", catalystTypeForRecipesWithoutCatalyst);
+        aNBT.setBoolean("convergence", convergence);
+        super.saveNBTData(aNBT);
+    }
+
+    @Override
+    public void loadNBTData(final NBTTagCompound aNBT) {
+        running_time = aNBT.getLong("eRunningTime");
+        discount = aNBT.getDouble("eLongDiscountValue");
+        if (aNBT.hasKey("catalystType")) catalystTypeForRecipesWithoutCatalyst = aNBT.getInteger("catalystType");
+        convergence = aNBT.getBoolean("convergence");
+        super.loadNBTData(aNBT);
+    }
+
+    public HeatingCoilLevel getCoilLevel() {
+        return mCoilLevel;
+    }
+
+    public void setCoilLevel(HeatingCoilLevel aCoilLevel) {
+        mCoilLevel = aCoilLevel;
+    }
+
+    @Override
+    public boolean supportsVoidProtection() {
+        return true;
+    }
+
+    @Override
+    public boolean supportsBatchMode() {
+        return true;
+    }
+
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
+
+    @Override
+    public boolean getDefaultHasMaintenanceChecks() {
+        return false;
+    }
+
+    @Override
+    public void getExtraWailaNBT(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
+        int z) {
+        tag.setDouble("discount", discount);
+    }
+
+    @Override
+    public void getExtraWailaBody(ItemStack itemStack, List<String> list, NBTTagCompound tag,
+        IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        if (tag.hasKey("discount")) {
+            list.add(
+                StatCollector.translateToLocalFormatted(
+                    "GT5U.infodata.plasma_forge.fuel_discount",
+                    EnumChatFormatting.GOLD + formatNumber(100 * (1 - tag.getDouble("discount")))
+                        + EnumChatFormatting.RESET
+                        + "%"));
+
+        }
+    }
+}

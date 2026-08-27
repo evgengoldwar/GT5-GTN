@@ -1,0 +1,658 @@
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+// Jad home page: http://www.kpdus.com/jad.html
+// Decompiler options: packimports(3)
+// Source File Name: GT_Client.java
+
+package gregtech.common;
+
+import static gregtech.api.enums.Mods.Forestry;
+import static gregtech.api.enums.Mods.GregTech;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeSet;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourceManagerReloadListener;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.launchwrapper.Launch;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovementInput;
+import net.minecraft.util.MovementInputFromOptions;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.event.sound.SoundSetupEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.world.ChunkEvent;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.oredict.OreDictionary;
+
+import org.lwjgl.input.Keyboard;
+
+import com.gtnewhorizons.navigator.api.NavigatorApi;
+
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.network.FMLNetworkEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.GTMod;
+import gregtech.api.GregTechAPI;
+import gregtech.api.covers.CoverRegistry;
+import gregtech.api.enums.GTValues;
+import gregtech.api.enums.ItemList;
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.MetaTileEntityIDs;
+import gregtech.api.enums.Mods;
+import gregtech.api.enums.Textures;
+import gregtech.api.enums.ToolboxSlot;
+import gregtech.api.gui.GUIColorOverride;
+import gregtech.api.gui.modularui.FallbackableSteamTexture;
+import gregtech.api.hazards.Hazard;
+import gregtech.api.hazards.HazardProtection;
+import gregtech.api.hazards.HazardProtectionTooltip;
+import gregtech.api.interfaces.IToolStats;
+import gregtech.api.interfaces.IUpdatePlayerMovement;
+import gregtech.api.items.CircuitComponentFakeItem;
+import gregtech.api.items.MetaGeneratedItem;
+import gregtech.api.items.MetaGeneratedTool;
+import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
+import gregtech.api.metatileentity.CommonMetaTileEntity;
+import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.net.GTPacketClientPreference;
+import gregtech.api.net.cape.GTPacketSetCape;
+import gregtech.api.render.RenderOverlay;
+import gregtech.api.util.ColorsMetadataSection;
+import gregtech.api.util.ColorsMetadataSectionSerializer;
+import gregtech.api.util.GTClientPreference;
+import gregtech.api.util.GTModHandler;
+import gregtech.api.util.GTMusicSystem;
+import gregtech.api.util.GTPlayedSound;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.client.DynamicLangManager;
+import gregtech.api.util.client.ResourceUtils;
+import gregtech.client.BlockOverlayRenderer;
+import gregtech.client.GTMouseEventHandler;
+import gregtech.client.GTPowerfailRenderer;
+import gregtech.client.GTWorkAreaRenderer;
+import gregtech.client.SeekingOggCodec;
+import gregtech.client.handler.CondensateAnimationTickHandler;
+import gregtech.client.renderer.entity.RenderDrone;
+import gregtech.client.renderer.entity.RenderPowderBarrel;
+import gregtech.client.renderer.waila.TTRenderGTProgressBar;
+import gregtech.common.blocks.ItemMachines;
+import gregtech.common.config.Client;
+import gregtech.common.data.drone.CameraViewportClientManager;
+import gregtech.common.entity.EntityDrone;
+import gregtech.common.entity.EntityPowderBarrelPrimed;
+import gregtech.common.items.ItemGTToolbox;
+import gregtech.common.items.toolbox.ToolboxUtil;
+import gregtech.common.misc.GTCapeCommand;
+import gregtech.common.misc.GTPowerfailCommandClient;
+import gregtech.common.networkanalyzer.events.WorldOverlayRenderer;
+import gregtech.common.pollution.Pollution;
+import gregtech.common.pollution.PollutionRenderer;
+import gregtech.common.powergoggles.PowerGogglesCommand;
+import gregtech.common.render.BaseMetaTileEntityRenderer;
+import gregtech.common.render.BlackholeRenderer;
+import gregtech.common.render.FlaskRenderer;
+import gregtech.common.render.FluidDisplayStackRenderer;
+import gregtech.common.render.GTRendererBlock;
+import gregtech.common.render.GTRendererCasing;
+import gregtech.common.render.LaserRenderer;
+import gregtech.common.render.MetaGeneratedToolRenderer;
+import gregtech.common.render.NanoForgeRenderer;
+import gregtech.common.render.RenderInit;
+import gregtech.common.render.WormholeRenderer;
+import gregtech.common.render.items.CircuitComponentItemRenderer;
+import gregtech.common.render.items.DataStickRenderer;
+import gregtech.common.render.items.InfiniteSprayCanRenderer;
+import gregtech.common.render.items.MechanicalArmorRenderer;
+import gregtech.common.render.items.MetaGeneratedItemRenderer;
+import gregtech.common.render.items.ToolboxRenderer;
+import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
+import gregtech.common.tileentities.machines.multi.nanochip.factory.VacuumFactoryGrid;
+import gregtech.common.tileentities.render.RenderingTileEntityBlackhole;
+import gregtech.common.tileentities.render.RenderingTileEntityLaser;
+import gregtech.common.tileentities.render.RenderingTileEntityNanoForge;
+import gregtech.common.tileentities.render.RenderingTileEntityWormhole;
+import gregtech.crossmod.navigator.PowerfailLayerManager;
+import gregtech.loaders.ExtraIcons;
+import gregtech.loaders.misc.GTBees;
+import gregtech.loaders.preload.GTPreLoad;
+import gregtech.nei.NEIGTConfig;
+import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
+import mcp.mobius.waila.api.impl.ModuleRegistrar;
+import paulscode.sound.SoundSystemConfig;
+import paulscode.sound.SoundSystemException;
+import tectech.mechanics.boseEinsteinCondensate.BECFactoryGrid;
+
+public class GTClient extends GTProxy {
+
+    public final PollutionRenderer mPollutionRenderer = new PollutionRenderer();
+    public final MetaGeneratedItemRenderer metaItemRenderer = new MetaGeneratedItemRenderer();
+    public GTPowerfailRenderer powerfailRenderer;
+    public KeyBinding shakeLockKey;
+    public final boolean fixedBottomFaceUV;
+    private long mAnimationTick;
+    private GTClientPreference mPreference;
+    private boolean mFirstTick = false;
+    private int mReloadCount;
+    private float renderTickTime;
+
+    @SideOnly(Side.CLIENT)
+    private static MovementInput manualInputCheck;
+
+    public GTClient() {
+        mAnimationTick = 0L;
+        fixedBottomFaceUV = (boolean) Launch.blackboard
+            .getOrDefault("hodgepodge.FixesConfig.fixBottomFaceUV", Boolean.FALSE);
+    }
+
+    @Override
+    public final boolean isClientSide() {
+        return true;
+    }
+
+    @Override
+    public EntityPlayer getThePlayer() {
+        return Minecraft.getMinecraft().thePlayer;
+    }
+
+    @Override
+    public void onPreInitialization(FMLPreInitializationEvent event) {
+        super.onPreInitialization(event);
+        SoundSystemConfig.setNumberNormalChannels(Client.preference.maxNumSounds);
+        MinecraftForge.EVENT_BUS.register(new ExtraIcons());
+        RenderInit.registerEarly();
+        Minecraft.getMinecraft()
+            .getResourcePackRepository().rprMetadataSerializer
+                .registerMetadataSectionType(new ColorsMetadataSectionSerializer(), ColorsMetadataSection.class);
+        mPreference = new GTClientPreference();
+        cameraViewportManager = new CameraViewportClientManager();
+        Materials.initClient();
+
+        ClientCommandHandler.instance.registerCommand(new GTPowerfailCommandClient());
+        ClientCommandHandler.instance.registerCommand(new PowerGogglesCommand());
+        ClientCommandHandler.instance.registerCommand(new GTCapeCommand());
+
+        if (Mods.Navigator.isModLoaded()) {
+            registerMapLayers();
+        }
+    }
+
+    @Optional.Method(modid = Mods.ModIDs.NAVIGATOR)
+    private void registerMapLayers() {
+        NavigatorApi.registerLayerManager(PowerfailLayerManager.INSTANCE);
+    }
+
+    @Override
+    public void onInitialization(FMLInitializationEvent event) {
+        // spotless:off
+        super.onInitialization(event);
+        RenderingRegistry.registerBlockHandler(new GTRendererBlock());
+        RenderingRegistry.registerBlockHandler(new GTRendererCasing());
+
+        ClientRegistry.bindTileEntitySpecialRenderer(RenderingTileEntityLaser.class, new LaserRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(RenderingTileEntityWormhole.class, new WormholeRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(RenderingTileEntityBlackhole.class, new BlackholeRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(RenderingTileEntityNanoForge.class, new NanoForgeRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(BaseMetaTileEntity.class, new BaseMetaTileEntityRenderer());
+
+        for (MetaGeneratedItem item : MetaGeneratedItem.sInstances.values()) {
+            metaItemRenderer.registerItem(item);
+        }
+        if (Forestry.isModLoaded()) {
+            metaItemRenderer.registerItem(GTBees.combs);
+        }
+
+        final MetaGeneratedToolRenderer metaToolRenderer = new MetaGeneratedToolRenderer();
+        for (MetaGeneratedTool tItem : MetaGeneratedTool.sInstances.values()) {
+            if (tItem != null) {
+                MinecraftForgeClient.registerItemRenderer(tItem, metaToolRenderer);
+            }
+        }
+
+        MinecraftForgeClient.registerItemRenderer(CircuitComponentFakeItem.INSTANCE, new CircuitComponentItemRenderer());
+
+        final FlaskRenderer flaskRenderer = new FlaskRenderer();
+        MinecraftForgeClient.registerItemRenderer(ItemList.VOLUMETRIC_FLASK.getItem(), flaskRenderer);
+        MinecraftForgeClient.registerItemRenderer(GregtechItemList.VOLUMETRIC_FLASK_8k.getItem(), flaskRenderer);
+        MinecraftForgeClient.registerItemRenderer(GregtechItemList.VOLUMETRIC_FLASK_32k.getItem(), flaskRenderer);
+        MinecraftForgeClient.registerItemRenderer(GregtechItemList.KLEIN_BOTTLE.getItem(), flaskRenderer);
+
+        MinecraftForgeClient.registerItemRenderer(ItemList.ToolBox.getItem(), new ToolboxRenderer());
+
+        MinecraftForgeClient.registerItemRenderer(ItemList.Display_Fluid.getItem(), new FluidDisplayStackRenderer());
+
+        MinecraftForgeClient.registerItemRenderer(
+            ItemList.Ice_Cream_Machine.getItem(),
+            (IItemRenderer) GregTechAPI.METATILEENTITIES[MetaTileEntityIDs.ICE_CREAM_MACHINE.ID]);
+
+        final MechanicalArmorRenderer mechanicalArmorRenderer = new MechanicalArmorRenderer();
+        MinecraftForgeClient.registerItemRenderer(ItemList.Mechanical_Helmet.getItem(), mechanicalArmorRenderer);
+        MinecraftForgeClient.registerItemRenderer(ItemList.Mechanical_Chestplate.getItem(), mechanicalArmorRenderer);
+        MinecraftForgeClient.registerItemRenderer(ItemList.Mechanical_Leggings.getItem(), mechanicalArmorRenderer);
+        MinecraftForgeClient.registerItemRenderer(ItemList.Mechanical_Boots.getItem(), mechanicalArmorRenderer);
+
+        metaItemRenderer.registerSpecialRenderer(ItemList.Tool_DataStick, new DataStickRenderer());
+        metaItemRenderer.registerSpecialRenderer(ItemList.Spray_Color_Infinite, new InfiniteSprayCanRenderer());
+        MinecraftForge.EVENT_BUS.register(new NEIGTConfig());
+        MinecraftForge.EVENT_BUS.register(mPollutionRenderer);
+        FMLCommonHandler.instance().bus().register(mPollutionRenderer);
+        MinecraftForge.EVENT_BUS.register(new GTMouseEventHandler());
+        MinecraftForge.EVENT_BUS.register(new BlockOverlayRenderer());
+        MinecraftForge.EVENT_BUS.register(new MTEDebugStructureWriter.EventHandler());
+        MinecraftForge.EVENT_BUS.register(new GTWorkAreaRenderer());
+        WorldOverlayRenderer.init();
+        powerfailRenderer = new GTPowerfailRenderer();
+        MinecraftForge.EVENT_BUS.register(powerfailRenderer);
+        shakeLockKey = new KeyBinding("GTPacketInfiniteSpraycan.Action.TOGGLE_SHAKE_LOCK", Keyboard.KEY_NONE, "Gregtech");
+        ClientRegistry.registerKeyBinding(shakeLockKey);
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new CondensateAnimationTickHandler());
+
+        RenderManager.instance.entityRenderMap.put(EntityPowderBarrelPrimed.class, new RenderPowderBarrel());
+        RenderManager.instance.entityRenderMap.put(EntityDrone.class, new RenderDrone());
+        // spotless:on
+    }
+
+    @Override
+    public void onPostInitialization(FMLPostInitializationEvent event) {
+        super.onPostInitialization(event);
+
+        // reobf doesn't work with lambda, so this must be a class
+        // noinspection Convert2Lambda
+        ((IReloadableResourceManager) Minecraft.getMinecraft()
+            .getResourceManager()).registerReloadListener(new IResourceManagerReloadListener() {
+
+                @Override
+                public void onResourceManagerReload(IResourceManager l) {
+                    GUIColorOverride.onResourceManagerReload();
+                    FallbackableSteamTexture.reload();
+                    CoverRegistry.reloadCoverColorOverrides();
+                    DynamicLangManager.reload();
+                }
+            });
+        RenderInit.register();
+        Pollution.onPostInitClient();
+
+        ModuleRegistrar.instance()
+            .registerTooltipRenderer("waila.gt.progress", new TTRenderGTProgressBar());
+    }
+
+    @Override
+    public void onLoadComplete(FMLLoadCompleteEvent event) {
+        super.onLoadComplete(event);
+
+        Textures.ItemIcons.cleanup();
+        Textures.BlockIcons.cleanup();
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void speedupPlayer(TickEvent.PlayerTickEvent event) {
+        EntityPlayerSP player = (EntityPlayerSP) event.player;
+        Block below = player.worldObj.getBlock(
+            MathHelper.floor_double(player.posX),
+            MathHelper.floor_double(player.posY) - 2,
+            MathHelper.floor_double(player.posZ));
+        if (manualInputCheck == null) {
+            manualInputCheck = new MovementInputFromOptions(Minecraft.getMinecraft().gameSettings);
+        }
+        if (below instanceof IUpdatePlayerMovement walkedOverBlock) {
+            manualInputCheck.updatePlayerMoveState();
+            if (manualInputCheck.moveForward != 0 || manualInputCheck.moveStrafe != 0) {
+                walkedOverBlock.updatePlayerMovement(player);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onSoundSetup(SoundSetupEvent event) {
+        try {
+            SoundSystemConfig.setCodec(SeekingOggCodec.EXTENSION, SeekingOggCodec.class);
+        } catch (SoundSystemException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SubscribeEvent
+    public void onClientConnectedToServerEvent(FMLNetworkEvent.ClientConnectedToServerEvent aEvent) {
+        mFirstTick = true;
+        mReloadCount++;
+        GTMusicSystem.ClientSystem.reset();
+        RenderOverlay.reset();
+    }
+
+    @Override
+    public void reloadNEICache() {
+        mReloadCount++;
+    }
+
+    @Override
+    public int getNEIReloadCount() {
+        return mReloadCount;
+    }
+
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onPlayerTickEventClient(TickEvent.PlayerTickEvent event) {
+        if (!event.side.isClient()) return;
+        if (event.phase == TickEvent.Phase.START && event.player.onGround && event.player instanceof EntityPlayerSP) {
+            speedupPlayer(event);
+        }
+        if ((event.phase == TickEvent.Phase.END) && (!event.player.isDead)) {
+            if (mFirstTick) {
+                onPlayerFirstTick();
+            }
+            tickPlayedSounds();
+            if (!GregTechAPI.mServerStarted) GregTechAPI.mServerStarted = true;
+        }
+    }
+
+    private void onPlayerFirstTick() {
+        mFirstTick = false;
+        GTValues.NW.sendToServer(new GTPacketClientPreference(mPreference));
+        GTValues.NW.sendToServer(new GTPacketSetCape(Client.preference.selectedCape));
+
+        if (!Minecraft.getMinecraft()
+            .isSingleplayer()) {
+            GTModHandler.removeAllIC2Recipes();
+        }
+    }
+
+    private static void tickPlayedSounds() {
+        for (Iterator<Map.Entry<GTPlayedSound, Integer>> iterator = GTUtility.sPlayedSoundMap.entrySet()
+            .iterator(); iterator.hasNext();) {
+            Map.Entry<GTPlayedSound, Integer> tEntry = iterator.next();
+            if (tEntry.getValue() < 0) {
+                iterator.remove();
+            } else {
+                tEntry.setValue(tEntry.getValue() - 1);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onConfigChange(ConfigChangedEvent.OnConfigChangedEvent e) {
+        if (GregTech.ID.equals(e.modID)) {
+            // refresh client preference and send to server, since it's the only config we allow changing at runtime.
+            mPreference = new GTClientPreference();
+            final boolean renderIndicatorsOnHatch = GTMod.proxy.mRenderIndicatorsOnHatch;
+            GTPreLoad.loadClientConfig();
+            if (renderIndicatorsOnHatch != GTMod.proxy.mRenderIndicatorsOnHatch) {
+                for (int i = 1; i < GregTechAPI.METATILEENTITIES.length; i++) {
+                    if (GregTechAPI.METATILEENTITIES[i] instanceof CommonMetaTileEntity metaTileEntity) {
+                        metaTileEntity.clearInventoryTextureCache();
+                    }
+                }
+            }
+            if (e.isWorldRunning) {
+                GTValues.NW.sendToServer(new GTPacketClientPreference(mPreference));
+                GTValues.NW.sendToServer(new GTPacketSetCape(Client.preference.selectedCape));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void receiveRenderEvent(net.minecraftforge.client.event.RenderPlayerEvent.Pre aEvent) {
+        if (GTUtility.getFullInvisibility(aEvent.entityPlayer)) {
+            aEvent.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onClientTickEvent(ClientTickEvent aEvent) {
+        if (aEvent.phase == TickEvent.Phase.END) {
+            mTicksUntilNextCraftSound--;
+            GTMusicSystem.ClientSystem.tick();
+
+            if (changeDetected > 0) changeDetected--;
+            final boolean newHideValue = shouldHeldItemHideThings();
+            if (newHideValue != hideThings) {
+                hideThings = newHideValue;
+                changeDetected = 5;
+            }
+            if (changeDetected >= 1 && changeDetected <= 4) {
+                refreshTileEntityTextures(4 - changeDetected);
+            }
+            heldItemForcesFullBlockBB = shouldHeldItemForceFullBlockBB();
+
+            // Animation related bits need to cease when game is paused in singleplayer.
+            if (!Minecraft.getMinecraft()
+                .isGamePaused()) {
+                mAnimationTick++;
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onItemTooltip(ItemTooltipEvent event) {
+        if (HazardProtection.providesFullHazmatProtection(event.itemStack)) {
+            addHazmatTooltip(event, HazardProtectionTooltip.FULL_PROTECTION_TRANSLATION_KEY);
+            return;
+        }
+
+        // TreeSet so it's always the same order
+        TreeSet<Hazard> protections = new TreeSet<>();
+        for (Hazard hazard : Hazard.VALUES) {
+            if (HazardProtection.protectsAgainstHazard(event.itemStack, hazard)) {
+                protections.add(hazard);
+            }
+        }
+        if (protections.containsAll(Hazard.CBRN_HAZARDS)) {
+            protections.removeAll(Hazard.CBRN_HAZARDS);
+            addHazmatTooltip(event, HazardProtectionTooltip.CBRN_TRANSLATION_KEY);
+        }
+
+        if (protections.containsAll(Hazard.TEMPERATURE_HAZARDS)) {
+            protections.removeAll(Hazard.TEMPERATURE_HAZARDS);
+            addHazmatTooltip(event, HazardProtectionTooltip.EXTREME_TEMP_TRANSLATION_KEY);
+        }
+        for (Hazard hazard : protections) {
+            // Handled by GalaxySpace
+            if (hazard == Hazard.SPACE) continue;
+            addHazmatTooltip(event, HazardProtectionTooltip.singleHazardTranslationKey(hazard));
+        }
+    }
+
+    @SubscribeEvent
+    public void onFinishTextureStitch(TextureStitchEvent.Post event) {
+        ResourceUtils.clearCache();
+    }
+
+    private void addHazmatTooltip(ItemTooltipEvent event, String translationKey) {
+        event.toolTip.add(EnumChatFormatting.LIGHT_PURPLE + StatCollector.translateToLocal(translationKey));
+    }
+
+    private int mTicksUntilNextCraftSound = 0;
+
+    // Used for tool sounds in the crafting grid
+    @SubscribeEvent
+    public void onPlayerCrafting(PlayerEvent.ItemCraftedEvent event) {
+        if (!MetaGeneratedTool.playSound) return;
+        if (this.mTicksUntilNextCraftSound > 0) return;
+        for (int i = 0; i < event.craftMatrix.getSizeInventory(); i++) {
+            ItemStack stack = event.craftMatrix.getStackInSlot(i);
+            if (stack != null && stack.getItem() instanceof MetaGeneratedTool mgt) {
+                IToolStats tStats = mgt.getToolStats(stack);
+                boolean playBreak = (MetaGeneratedTool.getToolDamage(stack) + tStats.getToolDamagePerContainerCraft())
+                    >= MetaGeneratedTool.getToolMaxDamage(stack);
+                String sound = playBreak ? tStats.getBreakingSound() : tStats.getCraftingSound();
+                GTUtility.doSoundAtClient(sound, 1, 1.0F);
+                this.mTicksUntilNextCraftSound = 10;
+                return;
+            }
+        }
+    }
+
+    public short getSafeRGBValue(short aRBG, int aDelta) {
+        int tmp = aRBG + aDelta;
+        if (tmp > 255) tmp = 255;
+        if (tmp < 0) tmp = 0;
+        return (short) tmp;
+    }
+
+    public float getAnimationRenderTicks() {
+        return mAnimationTick + renderTickTime;
+    }
+
+    private boolean hideThings = false;
+
+    public boolean shouldHideThings() {
+        return hideThings;
+    }
+
+    /** Re-issues a texture update on every loaded GT tile after the pipe/cover hiding state changes. */
+    private static void refreshTileEntityTextures(int quarter) {
+        final Minecraft mc = Minecraft.getMinecraft();
+        if (mc.theWorld == null || mc.thePlayer == null) return;
+
+        final int radius = mc.gameSettings.renderDistanceChunks;
+        final int centerX = MathHelper.floor_double(mc.thePlayer.posX) >> 4;
+        final int centerZ = MathHelper.floor_double(mc.thePlayer.posZ) >> 4;
+
+        final int span = 2 * radius + 1;
+        final int from = centerX - radius + (span * quarter) / 4;
+        final int to = centerX - radius + (span * (quarter + 1)) / 4;
+
+        for (int cx = from; cx < to; cx++) {
+            for (int cz = centerZ - radius; cz <= centerZ + radius; cz++) {
+                final Chunk chunk = mc.theWorld.getChunkFromChunkCoords(cx, cz);
+                if (chunk == null || !chunk.isChunkLoaded) continue;
+                for (Object tile : chunk.chunkTileEntityMap.values()) {
+                    if (tile instanceof CommonBaseMetaTileEntity gtTile) {
+                        gtTile.issueTextureUpdate();
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * <p>
+     * Client tick counter that is set to 5 on hiding pipes and covers.
+     * </p>
+     * <p>
+     * It triggers a texture update next client tick when reaching 4, with provision for 3 more update tasks, spreading
+     * client change detection related work and network traffic on different ticks, until it reaches 0.
+     * </p>
+     */
+    private int changeDetected = 0;
+
+    public int changeDetected() {
+        return changeDetected;
+    }
+
+    private static boolean shouldHeldItemHideThings() {
+        final EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        if (player == null) return false;
+        final ItemStack tCurrentItem = player.getCurrentEquippedItem();
+        if (tCurrentItem == null) return false;
+        if (tCurrentItem.getItem() instanceof ItemGTToolbox && ToolboxUtil.getSelectedToolType(tCurrentItem)
+            .map(toolboxSlot -> toolboxSlot == ToolboxSlot.SOLDERING_IRON)
+            .orElse(false)) {
+            return true;
+        }
+        final int[] ids = OreDictionary.getOreIDs(tCurrentItem);
+        for (int i : ids) {
+            String oreName = OreDictionary.getOreName(i);
+            if (oreName != null && oreName.equals("craftingToolSolderingIron")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isRenderingWorld;
+    private boolean isComputingPickBlock;
+    private boolean heldItemForcesFullBlockBB;
+
+    public void setComputingPickBlock(boolean b) {
+        isComputingPickBlock = b;
+    }
+
+    @SubscribeEvent
+    public void onRenderStart(TickEvent.RenderTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) {
+            RenderInit.runPendingReload();
+            renderTickTime = event.renderTickTime;
+            isRenderingWorld = true;
+        } else if (event.phase == TickEvent.Phase.END) {
+            isRenderingWorld = false;
+        }
+    }
+
+    public boolean forceFullBlockBB() {
+        return heldItemForcesFullBlockBB && (isRenderingWorld || isComputingPickBlock);
+    }
+
+    private static boolean shouldHeldItemForceFullBlockBB() {
+        final EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        if (player == null) return false;
+        final ItemStack stack = player.getCurrentEquippedItem();
+        if (stack == null) return false;
+        return GTUtility.isStackInList(stack, GregTechAPI.sWrenchList)
+            || GTUtility.isStackInList(stack, GregTechAPI.sHardHammerList)
+            || GTUtility.isStackInList(stack, GregTechAPI.sSoftMalletList)
+            || GTUtility.isStackInList(stack, GregTechAPI.sWireCutterList)
+            || GTUtility.isStackInList(stack, GregTechAPI.sSolderingToolList)
+            || GTUtility.isStackInList(stack, GregTechAPI.sCrowbarList)
+            || CoverRegistry.isCover(stack)
+            || (stack.getItem() instanceof ItemMachines
+                && GregTechAPI.METATILEENTITIES[stack.getItemDamage()] instanceof MetaPipeEntity
+                && player.isSneaking());
+    }
+
+    public void processChunkPollutionPacket(ChunkCoordIntPair chunk, int pollution) {
+        mPollutionRenderer.processPacket(chunk, pollution);
+    }
+
+    @Override
+    @SubscribeEvent
+    public void onWorldUnload(WorldEvent.Unload event) {
+        super.onWorldUnload(event);
+        RenderOverlay.onWorldUnload(event.world);
+    }
+
+    @SubscribeEvent
+    public void onClientDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+        VacuumFactoryGrid.clearAll();
+        BECFactoryGrid.clearAll();
+    }
+
+    @SubscribeEvent
+    public void onChunkUnload(ChunkEvent.Unload event) {
+        RenderOverlay.onChunkUnload(
+            event.world,
+            event.getChunk()
+                .getChunkCoordIntPair());
+    }
+}

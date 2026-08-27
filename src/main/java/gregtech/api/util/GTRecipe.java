@@ -1,0 +1,1620 @@
+package gregtech.api.util;
+
+import static gregtech.GTLoggers.GT_FML_LOGGER;
+import static gregtech.api.enums.GTValues.D2;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModContainer;
+import gregtech.GTMod;
+import gregtech.api.GregTechAPI;
+import gregtech.api.enums.GTValues;
+import gregtech.api.enums.ItemList;
+import gregtech.api.enums.Materials;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.implementations.MTEHatchInput;
+import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
+import gregtech.api.metatileentity.implementations.MTEHatchMultiInput;
+import gregtech.api.objects.ItemData;
+import gregtech.api.recipe.RecipeCategory;
+import gregtech.api.recipe.RecipeLookupValidator;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.recipe.RecipeMetadataKey;
+import gregtech.api.recipe.metadata.EmptyRecipeMetadataStorage;
+import gregtech.api.recipe.metadata.IRecipeMetadataStorage;
+import gregtech.api.util.extensions.ArrayExt;
+import gregtech.common.tileentities.machines.MTEHatchInputBusME;
+import gregtech.common.tileentities.machines.MTEHatchInputME;
+import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.Reference2LongArrayMap;
+import it.unimi.dsi.fastutil.objects.Reference2LongMap;
+import it.unimi.dsi.fastutil.objects.Reference2LongOpenHashMap;
+
+public class GTRecipe implements Comparable<GTRecipe> {
+
+    private static ItemStack dataStick;
+    private static ItemStack dataOrb;
+    private static ItemStack ic2FluidCell;
+
+    public static void setItemStacks() {
+        ic2FluidCell = ItemList.Cell_Universal_Fluid.get(1);
+        dataStick = ItemList.Tool_DataStick.get(1L);
+        dataOrb = ItemList.Tool_DataOrb.get(1L);
+    }
+
+    /**
+     * If you want to change the Output, feel free to modify or even replace the whole ItemStack Array, for Inputs,
+     * please add a new Recipe, because of the HashMaps.
+     */
+    @NotNull
+    public ItemStack[] mInputs, mOutputs;
+    /**
+     * If you want to change the Output, feel free to modify or even replace the whole ItemStack Array, for Inputs,
+     * please add a new Recipe, because of the HashMaps.
+     */
+    @NotNull
+    public FluidStack[] mFluidInputs, mFluidOutputs;
+
+    public @NotNull FluidStack @Nullable [] @Nullable [] mAltFluidInputs;
+    /**
+     * These arrays define the chance behavior for each respective input or output.
+     * Values range from 1 to 10000 (10000 = 100%).
+     * Logic & Constraints:
+     * 1. If an array is null, all corresponding items/fluids default to 100% chance.
+     * 2. If defined, the length of each 'Chances' array must be >= the length of its
+     * corresponding content array (mInputs, mOutputs, mFluidInputs, or mFluidOutputs).
+     * Mapping:
+     * - mInputChances -> Maps to mInputs
+     * (Input must always be present to start the recipe; chance controls whether it is consumed.)
+     * - mOutputChances -> Maps to mOutputs
+     * (Chance for each output to be produced.)
+     * - mFluidInputChances -> Maps to mFluidInputs
+     * (Chance for each fluid input to be consumed.)
+     * - mFluidOutputChances -> Maps to mFluidOutputs
+     * (Chance for each fluid output to be produced.)
+     */
+    public int @Nullable [] mInputChances, mOutputChances, mFluidInputChances, mFluidOutputChances;
+    /**
+     * An Item that needs to be inside the Special Slot, like for example the Copy Slot inside the Printer. This is only
+     * useful for Fake Recipes in NEI, since findRecipe() and containsInput() don't give a shit about this Field. Lists
+     * are also possible.
+     */
+    public Object mSpecialItems;
+
+    public int mDuration, mEUt, mSpecialValue;
+    /**
+     * Use this to just disable a specific Recipe, but the Configuration enables that already for every single Recipe.
+     */
+    public boolean mEnabled = true;
+    /**
+     * If this Recipe is hidden from NEI
+     */
+    public boolean mHidden = false;
+    /**
+     * If this Recipe is Fake and therefore doesn't get found by the findRecipe Function (It is still in the HashMaps,
+     * so that containsInput does return T on those fake Inputs)
+     */
+    public boolean mFakeRecipe = false;
+    /**
+     * If this Recipe can be stored inside a Machine in order to make Recipe searching more Efficient by trying the
+     * previously used Recipe first. In case you have a Recipe Map overriding things and returning one time use Recipes,
+     * you have to set this to F.
+     */
+    public boolean mCanBeBuffered = true;
+    /**
+     * If this Recipe needs the Output Slots to be completely empty. Needed in case you have randomised Outputs
+     */
+    public boolean mNeedsEmptyOutput = false;
+    /**
+     * If this is set to true, NBT equality is required for recipe check.
+     */
+    public boolean isNBTSensitive = false;
+    /**
+     * Used for describing recipes that do not fit the default recipe pattern (for example Large Boiler Fuels)
+     */
+    private String[] neiDesc = null;
+    /**
+     * Holds a set of metadata for this recipe.
+     */
+    @NotNull
+    private final IRecipeMetadataStorage metadataStorage;
+    /**
+     * Category this recipe belongs to. Recipes belonging to recipemap are forced to have non-null category when added,
+     * otherwise it can be null.
+     */
+    private RecipeCategory recipeCategory;
+    /**
+     * Stores which mod added this recipe
+     */
+    @Nullable
+    public List<ModContainer> owners = shouldCaptureRecipeOwnerInfo() ? new ArrayList<>() : null;
+    /**
+     * Stores stack traces where this recipe was added
+     */
+    // BW wants to overwrite it, so no final
+    @Nullable
+    public List<List<String>> stackTraces = shouldCaptureRecipeCallsites() ? new ArrayList<>() : null;
+
+    /** Used for simple cache validation */
+    private ItemStack[] inputsAtCacheTime = null;
+    /** Unified and type-merged stacks of mInputs, each item is guaranteed to be unique */
+    private RecipeItemInput[] mergedInputCache = null;
+    private static final RecipeItemInput[] EMPTY_INPUT_CACHE = new RecipeItemInput[0];
+
+    private GTRecipe(GTRecipe aRecipe, boolean shallow) {
+        mInputs = shallow ? aRecipe.mInputs : ArrayExt.copyItemsIfNonEmpty(aRecipe.mInputs);
+        mOutputs = shallow ? aRecipe.mOutputs : ArrayExt.copyItemsIfNonEmpty(aRecipe.mOutputs);
+        mSpecialItems = aRecipe.mSpecialItems;
+        mInputChances = aRecipe.mInputChances;
+        mOutputChances = aRecipe.mOutputChances;
+        mFluidInputChances = aRecipe.mFluidInputChances;
+        mFluidOutputChances = aRecipe.mFluidOutputChances;
+        mFluidInputs = shallow ? aRecipe.mFluidInputs : ArrayExt.copyFluidsIfNonEmpty(aRecipe.mFluidInputs);
+        mFluidOutputs = shallow ? aRecipe.mFluidOutputs : ArrayExt.copyFluidsIfNonEmpty(aRecipe.mFluidOutputs);
+        mDuration = aRecipe.mDuration;
+        mSpecialValue = aRecipe.mSpecialValue;
+        mEUt = aRecipe.mEUt;
+        mNeedsEmptyOutput = aRecipe.mNeedsEmptyOutput;
+        isNBTSensitive = aRecipe.isNBTSensitive;
+        mCanBeBuffered = aRecipe.mCanBeBuffered;
+        mFakeRecipe = aRecipe.mFakeRecipe;
+        mEnabled = aRecipe.mEnabled;
+        mHidden = aRecipe.mHidden;
+        metadataStorage = EmptyRecipeMetadataStorage.INSTANCE;
+        owners = aRecipe.owners == null ? null : new ArrayList<>(aRecipe.owners);
+        reloadOwner();
+    }
+
+    /**
+     * Only for {@link GTRecipeBuilder}.
+     */
+    GTRecipe(ItemStack[] mInputs, ItemStack[] mOutputs, FluidStack[] mFluidInputs, FluidStack[] mFluidOutputs,
+        int[] mInputChances, int[] mOutputChances, int[] mFluidInputChances, int[] mFluidOutputChances, int mEUt,
+        int mSpecialValue, boolean mEnabled, boolean mHidden, boolean mFakeRecipe, boolean mCanBeBuffered,
+        boolean mNeedsEmptyOutput, boolean nbtSensitive, String[] neiDesc,
+        @Nullable IRecipeMetadataStorage metadataStorage, RecipeCategory recipeCategory, Object mSpecialItems,
+        int mDuration) {
+        this.mInputs = mInputs;
+        this.mOutputs = mOutputs;
+        this.mFluidInputs = mFluidInputs;
+        this.mFluidOutputs = mFluidOutputs;
+        this.mInputChances = ArrayExt.fixChancesArray(mInputChances, -1);
+        this.mOutputChances = ArrayExt.fixChancesArray(mOutputChances, -1);
+        this.mFluidInputChances = ArrayExt.fixChancesArray(mFluidInputChances, -1);
+        this.mFluidOutputChances = ArrayExt.fixChancesArray(mFluidOutputChances, -1);
+        this.mSpecialItems = mSpecialItems;
+        this.mDuration = mDuration;
+        this.mEUt = mEUt;
+        this.mSpecialValue = mSpecialValue;
+        this.mEnabled = mEnabled;
+        this.mHidden = mHidden;
+        this.mFakeRecipe = mFakeRecipe;
+        this.mCanBeBuffered = mCanBeBuffered;
+        this.mNeedsEmptyOutput = mNeedsEmptyOutput;
+        this.isNBTSensitive = nbtSensitive;
+        this.neiDesc = neiDesc;
+        this.metadataStorage = metadataStorage == null ? EmptyRecipeMetadataStorage.INSTANCE : metadataStorage.copy();
+        this.recipeCategory = recipeCategory;
+
+        reloadOwner();
+    }
+
+    public GTRecipe(boolean aOptimize, ItemStack[] aInputs, ItemStack[] aOutputs, Object aSpecialItems,
+        int[] aInputChances, int[] aOutputChances, int[] aFluidInputChances, int[] aFluidOutputChances,
+        FluidStack[] aFluidInputs, FluidStack[] aFluidOutputs, int aDuration, int aEUt, int aSpecialValue) {
+        if (aInputs == null) aInputs = GTValues.emptyItemStackArray;
+        else aInputs = ArrayExt.removeTrailingNulls(aInputs);
+        if (aOutputs == null) aOutputs = GTValues.emptyItemStackArray;
+        else aOutputs = ArrayExt.removeTrailingNulls(aOutputs);
+        if (aFluidInputs == null) aFluidInputs = GTValues.emptyFluidStackArray;
+        else aFluidInputs = ArrayExt.removeNullFluids(aFluidInputs);
+        if (aFluidOutputs == null) aFluidOutputs = GTValues.emptyFluidStackArray;
+        else aFluidOutputs = ArrayExt.removeNullFluids(aFluidOutputs);
+
+        GTOreDictUnificator.setStackArray(true, true, aInputs);
+        GTOreDictUnificator.setStackArray(true, true, aOutputs);
+
+        for (final ItemStack s : aOutputs) GTUtility.updateItemStack(s);
+
+        for (int i = 0; i < aFluidInputs.length; i++) aFluidInputs[i] = aFluidInputs[i].copy();
+        for (int i = 0; i < aFluidOutputs.length; i++) aFluidOutputs[i] = aFluidOutputs[i].copy();
+
+        mInputs = aInputs;
+        mOutputs = aOutputs;
+        mSpecialItems = aSpecialItems;
+        mInputChances = ArrayExt.fixChancesArray(aInputChances, aInputs.length);
+        mOutputChances = ArrayExt.fixChancesArray(aOutputChances, aOutputs.length);
+        mFluidInputChances = ArrayExt.fixChancesArray(aFluidInputChances, aFluidInputs.length);
+        mFluidOutputChances = ArrayExt.fixChancesArray(aFluidOutputChances, aFluidOutputs.length);
+        mFluidInputs = aFluidInputs;
+        mFluidOutputs = aFluidOutputs;
+        mDuration = aDuration;
+        mSpecialValue = aSpecialValue;
+        mEUt = aEUt;
+        metadataStorage = EmptyRecipeMetadataStorage.INSTANCE;
+        // checkCellBalance();
+        reloadOwner();
+    }
+
+    // aSpecialValue = EU per Liter! If there is no Liquid for this Object, then it gets multiplied with 1000!
+    public GTRecipe(ItemStack aInput1, ItemStack aOutput1, ItemStack aOutput2, ItemStack aOutput3, ItemStack aOutput4,
+        int aSpecialValue, int aType) {
+        this(
+            new ItemStack[] { aInput1 },
+            new ItemStack[] { aOutput1, aOutput2, aOutput3, aOutput4 },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0,
+            0,
+            Math.max(1, aSpecialValue));
+
+        if (mInputs.length > 0 && aSpecialValue > 0) {
+            switch (aType) {
+                // Diesel Generator
+                case 0 -> {
+                    RecipeMaps.dieselFuels.addRecipe(this);
+                    RecipeMaps.largeBoilerFakeFuels.getBackend()
+                        .addDieselGasRecipe(this);
+                }
+                // Gas Turbine
+                case 1 -> RecipeMaps.gasTurbineFuels.addRecipe(this);
+
+                // Thermal Generator
+                case 2 -> RecipeMaps.hotFuels.addRecipe(this);
+
+                // Plasma Generator
+                case 4 -> RecipeMaps.plasmaFuels.addRecipe(this);
+
+                // Magic Generator
+                case 5 -> RecipeMaps.magicFuels.addRecipe(this);
+
+                // Fluid Generator. Usually 3. Every wrong Type ends up in the Semifluid Generator
+                default -> {
+                    RecipeMaps.denseLiquidFuels.addRecipe(this);
+                    RecipeMaps.largeBoilerFakeFuels.getBackend()
+                        .addDenseLiquidRecipe(this);
+                }
+            }
+        }
+    }
+
+    // Dummy GTRecipe maker...
+    public GTRecipe(ItemStack[] aInputs, ItemStack[] aOutputs, Object aSpecialItems, int[] aInputChances,
+        int[] aOutputChances, int[] aFluidInputChances, int[] aFluidOutputChances, FluidStack[] aFluidInputs,
+        FluidStack[] aFluidOutputs, int aDuration, int aEUt, int aSpecialValue) {
+        this(
+            true,
+            aInputs,
+            aOutputs,
+            aSpecialItems,
+            aInputChances,
+            aOutputChances,
+            aFluidInputChances,
+            aFluidOutputChances,
+            aFluidInputs,
+            aFluidOutputs,
+            aDuration,
+            aEUt,
+            aSpecialValue);
+    }
+
+    /**
+     * Re-unificates all the items present in recipes.
+     */
+    public static void reInit() {
+        GT_FML_LOGGER.debug("GTMod: Re-Unificating Recipes.");
+        for (RecipeMap<?> map : RecipeMap.ALL_RECIPE_MAPS.values()) {
+            map.getBackend()
+                .reInit();
+        }
+        RecipeAssemblyLine.reInit();
+    }
+
+    public ItemStack getRepresentativeInput(int aIndex) {
+        if (aIndex < 0 || aIndex >= mInputs.length) return null;
+        return GTUtility.copyOrNull(mInputs[aIndex]);
+    }
+
+    public ItemStack getOutput(int aIndex) {
+        if (aIndex < 0 || aIndex >= mOutputs.length) return null;
+        return GTUtility.copyOrNull(mOutputs[aIndex]);
+    }
+
+    public int getInputChance(int aIndex) {
+        if (mInputChances == null) return 10000;
+        if (aIndex < 0 || aIndex >= mInputChances.length) return 10000;
+        return mInputChances[aIndex];
+    }
+
+    public int getOutputChance(int aIndex) {
+        if (mOutputChances == null) return 10000;
+        if (aIndex < 0 || aIndex >= mOutputChances.length) return 10000;
+        return mOutputChances[aIndex];
+    }
+
+    public ItemStack rollOutput(IGregTechTileEntity te, int aIndex) {
+        if (te == null) return null;
+        return rollOutput(te.getRandomNumber(10000), aIndex);
+    }
+
+    public ItemStack rollOutput(int rng, int aIndex) {
+        if (rng < getOutputChance(aIndex)) {
+            return getOutput(aIndex);
+        }
+        return null;
+    }
+
+    public FluidStack getRepresentativeFluidInput(int aIndex) {
+        if (aIndex < 0 || aIndex >= mFluidInputs.length || mFluidInputs[aIndex] == null) return null;
+        return mFluidInputs[aIndex].copy();
+    }
+
+    public FluidStack getFluidOutput(int aIndex) {
+        if (aIndex < 0 || aIndex >= mFluidOutputs.length || mFluidOutputs[aIndex] == null) return null;
+        return mFluidOutputs[aIndex].copy();
+    }
+
+    public int getFluidInputChance(int aIndex) {
+        if (mFluidInputChances == null) return 10000;
+        if (aIndex < 0 || aIndex >= mFluidInputChances.length) return 10000;
+        return mFluidInputChances[aIndex];
+    }
+
+    public int getFluidOutputChance(int aIndex) {
+        if (mFluidOutputChances == null) return 10000;
+        if (aIndex < 0 || aIndex >= mFluidOutputChances.length) return 10000;
+        return mFluidOutputChances[aIndex];
+    }
+
+    public void checkCellBalance() {
+        if (!D2 || mInputs.length < 1) return;
+
+        int tInputAmount = GTModHandler.getCapsuleCellContainerCountMultipliedWithStackSize(mInputs);
+        int tOutputAmount = GTModHandler.getCapsuleCellContainerCountMultipliedWithStackSize(mOutputs);
+
+        if (tInputAmount < tOutputAmount) {
+            if (!Materials.Tin.contains(mInputs)) {
+                GT_FML_LOGGER.error("You get more Cells, than you put in? There must be something wrong.");
+                GT_FML_LOGGER.error(new Exception());
+            }
+        } else if (tInputAmount > tOutputAmount) {
+            if (!Materials.Tin.contains(mOutputs)) {
+                GT_FML_LOGGER.error("You get less Cells, than you put in? GT Machines usually don't destroy Cells.");
+                GT_FML_LOGGER.error(new Exception());
+            }
+        }
+    }
+
+    public GTRecipe copy() {
+        return new GTRecipe(this, false);
+    }
+
+    public GTRecipe copyShallow() {
+        return new GTRecipe(this, true);
+    }
+
+    public boolean isRecipeInputEqual(boolean aDecreaseStacksizeBySuccess, FluidStack[] aFluidInputs,
+        ItemStack... aInputs) {
+        return isRecipeInputEqual(aDecreaseStacksizeBySuccess, false, 1, aFluidInputs, aInputs);
+    }
+
+    // For non-multiplied recipe amount values
+    public boolean isRecipeInputEqual(boolean aDecreaseStacksizeBySuccess, boolean aDontCheckStackSizes,
+        FluidStack[] aFluidInputs, ItemStack... aInputs) {
+        return isRecipeInputEqual(aDecreaseStacksizeBySuccess, aDontCheckStackSizes, 1, aFluidInputs, aInputs);
+    }
+
+    /**
+     * Okay, did some code archeology to figure out what's going on here.
+     *
+     * <p>
+     * This variable was added in <a
+     * href=https://github.com/GTNewHorizons/GT5-Unofficial/commit/9959ab7443982a19ad329bca424ab515493432e9>this
+     * commit,</a> in order to fix the issues mentioned in <a
+     * href=https://github.com/GTNewHorizons/GT5-Unofficial/pull/183>the PR</a>.
+     *
+     * <p>
+     * It looks like it controls checking NBT. At this point, since we are still using universal fluid cells which store
+     * their fluids in NBT, it probably will not be safe to disable the NBT checks in the near future. Data sticks may
+     * be another case. Anyway, we probably can't get rid of this without some significant changes to clean up recipe
+     * inputs.
+     */
+    public static boolean GTppRecipeHelper;
+
+    /**
+     * Builds the merged-input cache array. Override in subclasses to support alternative input representations (e.g.
+     * oredict slots). Called once per recipe, result is cached by {@link #getCachedCombinedItemInputs()}.
+     */
+    protected @NotNull RecipeItemInput @NotNull [] buildItemInputCache() {
+        final ItemStack[] inputs = mInputs;
+        if (inputs == null || inputs.length == 0) return EMPTY_INPUT_CACHE;
+
+        final int[] chances = mInputChances;
+        final ObjectArrayList<@NotNull RecipeItemInput> newCache = ObjectArrayList
+            .wrap(new RecipeItemInput[inputs.length], 0);
+
+        for (int i = 0; i < inputs.length; i++) {
+            final ItemStack itemStack = inputs[i];
+            if (itemStack == null) continue;
+
+            // Get the consumption chance for this specific input slot (default 100%)
+            int chance = (chances != null && i < chances.length) ? chances[i] : 10000;
+
+            final RecipeItemInput existingInput = newCache.stream()
+                .filter(existing -> existing.matchesType(itemStack))
+                .findAny()
+                .orElse(null);
+
+            if (existingInput == null) {
+                RecipeItemInput newInput = new RecipeItemInput(itemStack, isNBTSensitive);
+                // Initialize weighted amount: (actual stack size * chance percentage)
+                newInput.chanceWeightedAmount = (itemStack.stackSize * (double) chance) / 10000.0;
+                newCache.add(newInput);
+            } else {
+                existingInput.inputAmount = Math.addExact(existingInput.inputAmount, itemStack.stackSize);
+                // Accumulate weighted amount: sum of (slot_size * slot_chance)
+                existingInput.chanceWeightedAmount += (itemStack.stackSize * (double) chance) / 10000.0;
+            }
+        }
+
+        return newCache.toArray(new RecipeItemInput[0]);
+    }
+
+    /**
+     * Returns true to skip the early-exit check that requires at least as many provided item types as recipe input
+     * slots. Must be overridden when a recipe type can satisfy multiple distinct slots with the same item type (e.g.
+     * oredict recipes where multiple slots may resolve to the same item).
+     */
+    protected boolean skipItemInputCountCheck() {
+        return false;
+    }
+
+    /**
+     * @return Computes a (cached) array of all input items, combined by type into stacks. Do not mutate.
+     */
+    private @NotNull RecipeItemInput @NotNull [] getCachedCombinedItemInputs() {
+        if (mergedInputCache != null) {
+            if (mInputs != inputsAtCacheTime) {
+                throw new IllegalStateException(
+                    "Inputs to this recipe have been modified since first recipe match: " + this);
+            }
+            return mergedInputCache;
+        }
+
+        synchronized (this) {
+            // In case another thread initialized it while this synchronized block was locked:
+            if (mergedInputCache != null) {
+                if (mInputs != inputsAtCacheTime) {
+                    throw new IllegalStateException(
+                        "Inputs to this recipe have been modified since first recipe match: " + this);
+                }
+                return mergedInputCache;
+            }
+
+            inputsAtCacheTime = mInputs;
+            final RecipeItemInput[] frozenCache = buildItemInputCache();
+            // Cache empty results always; non-empty results only after full load to avoid stale caches during
+            // recipe registration.
+            if (frozenCache == EMPTY_INPUT_CACHE || GregTechAPI.sFullLoadFinished) {
+                mergedInputCache = frozenCache;
+            }
+            return frozenCache;
+        }
+    }
+
+    /**
+     * WARNING: Do not call this method with both {@code aDecreaseStacksizeBySuccess} and {@code aDontCheckStackSizes}
+     * set to {@code true}! You'll get weird behavior.
+     */
+    public boolean isRecipeInputEqual(boolean aDecreaseStacksizeBySuccess, boolean aDontCheckStackSizes,
+        int amountMultiplier, FluidStack[] aFluidInputs, ItemStack... aInputs) {
+        double maxParallel = maxParallelCalculatedByInputs(amountMultiplier, aFluidInputs, aInputs);
+        if (aDontCheckStackSizes) {
+            return maxParallel > 0;
+        } else if (maxParallel >= amountMultiplier) {
+            if (aDecreaseStacksizeBySuccess) {
+                consumeInput(amountMultiplier, aFluidInputs, aInputs);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * WARNING: Ensure that item inputs and fluid inputs are enough to be consumed with
+     * {@link #maxParallelCalculatedByInputs} before calling this method!
+     */
+    public void consumeInput(int amountMultiplier, FluidStack[] fluidInputs, ItemStack... itemInputs) {
+        if (amountMultiplier <= 0) return;
+
+        if (fluidInputs != null) {
+            for (int i = 0; i < mFluidInputs.length; i++) {
+                // Alternative FluidStacks for SubstituteFluidStack recipes
+                FluidStack[] alternatives = (mAltFluidInputs != null && i < mAltFluidInputs.length
+                    && mAltFluidInputs[i] != null) ? mAltFluidInputs[i]
+                        : (mFluidInputs[i] != null ? new FluidStack[] { mFluidInputs[i] } : null);
+
+                if (alternatives == null || alternatives.length == 0) continue;
+
+                FluidStack selectedAlt = null;
+                double bestParallelForSlot = 0;
+
+                for (FluidStack alt : alternatives) {
+                    if (alt == null) continue;
+                    long totalAvailable = 0;
+                    for (FluidStack provided : fluidInputs) {
+                        if (provided != null && provided.isFluidEqual(alt)) {
+                            totalAvailable += provided.amount;
+                        }
+                    }
+                    if (totalAvailable > 0 && alt.amount > 0) {
+                        double parallelForThisAlt = (double) totalAvailable / alt.amount;
+                        if (parallelForThisAlt > bestParallelForSlot) {
+                            bestParallelForSlot = parallelForThisAlt;
+                            selectedAlt = alt;
+                        }
+                    }
+                }
+
+                if (selectedAlt == null) continue;
+
+                // Determine fluid consumption chance
+                int chance = (mFluidInputChances != null && i < mFluidInputChances.length) ? mFluidInputChances[i]
+                    : 10000;
+                long actualMultiplier = amountMultiplier;
+
+                // Optimization: Only calculate binomial distribution if chance is not 100%
+                if (chance < 10000) {
+                    actualMultiplier = ParallelHelper
+                        .calculateIntegralChancedOutputMultiplier(chance, amountMultiplier);
+                    if (actualMultiplier <= 0) continue;
+                }
+
+                long remainingCost = (long) selectedAlt.amount * actualMultiplier;
+
+                for (FluidStack providedFluid : fluidInputs) {
+                    if (providedFluid == null || providedFluid.amount <= 0 || remainingCost <= 0) continue;
+
+                    if (providedFluid.isFluidEqual(selectedAlt)) {
+                        if (providedFluid.amount >= remainingCost) {
+                            providedFluid.amount -= (int) remainingCost;
+                            remainingCost = 0;
+                        } else {
+                            remainingCost -= providedFluid.amount;
+                            providedFluid.amount = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (itemInputs == null || itemInputs.length == 0) {
+            return;
+        }
+
+        final ItemData[] unifiedProvidedInputs = new ItemData[itemInputs.length];
+        for (int i = 0; i < itemInputs.length; i++) {
+            unifiedProvidedInputs[i] = GTOreDictUnificator.getAssociation(itemInputs[i]);
+        }
+        final @NotNull RecipeItemInput @NotNull [] combinedInputs = getCachedCombinedItemInputs();
+
+        for (final RecipeItemInput recipeItemCost : combinedInputs) {
+            long actualMultiplier = amountMultiplier;
+
+            // Calculate probabilistic multiplier for items
+            // We use the pre-calculated chanceWeightedAmount from the cache to derive an equivalent chance
+            if (mInputChances != null) {
+                // Equivalent chance is (Sum of (count * chance) / Sum of count)
+                int equivalentChance = (int) Math
+                    .round((recipeItemCost.chanceWeightedAmount / recipeItemCost.inputAmount) * 10000);
+
+                if (equivalentChance < 10000) {
+                    actualMultiplier = ParallelHelper
+                        .calculateIntegralChancedOutputMultiplier(equivalentChance, amountMultiplier);
+                    if (actualMultiplier <= 0) continue;
+                }
+            }
+
+            long remainingCost = recipeItemCost.inputAmount * actualMultiplier;
+
+            for (int iProvided = 0; iProvided < itemInputs.length && remainingCost > 0; iProvided++) {
+                final ItemStack providedItem = itemInputs[iProvided];
+                if (providedItem == null || providedItem.stackSize == 0) {
+                    continue;
+                }
+
+                if (!recipeItemCost.matchesRecipe(unifiedProvidedInputs[iProvided], providedItem)) {
+                    continue;
+                }
+
+                if (providedItem.stackSize >= remainingCost) {
+                    providedItem.stackSize -= (int) remainingCost;
+                    break;
+                } else {
+                    remainingCost -= providedItem.stackSize;
+                    providedItem.stackSize = 0;
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns the number of parallel recipes, or 0 if recipe is not satisfied at all. 0 < number < 1 means that inputs
+     * are found but not enough.
+     */
+    public double maxParallelCalculatedByInputs(int maxParallel, FluidStack[] aFluidInputs, ItemStack... aInputs) {
+        if (mInputs.length > 0 && aInputs == null) return 0;
+        if (mFluidInputs.length > 0 && aFluidInputs == null) return 0;
+
+        double currentParallel = maxParallel;
+
+        // We need to have any fluids inputs, otherwise the code below does nothing. The second check is always true
+        // because of early exit condition above.
+        if (mFluidInputs.length > 0 /* && aFluidInputs != null */) {
+
+            Reference2LongMap<Fluid> fluidMap = new Reference2LongArrayMap<>(2);
+            for (FluidStack fluidStack : aFluidInputs) {
+                if (fluidStack == null) continue;
+                fluidMap.mergeLong(fluidStack.getFluid(), fluidStack.amount, Long::sum);
+            }
+
+            for (int i = 0; i < mFluidInputs.length; i++) {
+                if (mFluidInputs[i].amount <= 0) continue; // Needed by DTPF, don't check "NC" for parallel
+                FluidStack[] alternatives = (mAltFluidInputs != null && i < mAltFluidInputs.length
+                    && mAltFluidInputs[i] != null) ? mAltFluidInputs[i]
+                        : (mFluidInputs[i] != null ? new FluidStack[] { mFluidInputs[i] } : null);
+
+                if (alternatives == null || alternatives.length == 0) continue;
+
+                double bestParallelForSlot = 0;
+                FluidStack selectedAlt = null;
+
+                for (FluidStack alt : alternatives) {
+                    if (alt == null) continue;
+                    long available = fluidMap.getOrDefault(alt.getFluid(), 0L);
+                    if (alt.amount > 0 && available > 0) {
+                        double parallelForThisAlt = (double) available / alt.amount;
+                        if (parallelForThisAlt > bestParallelForSlot) {
+                            bestParallelForSlot = parallelForThisAlt;
+                            selectedAlt = alt;
+                        }
+                    }
+                }
+
+                if (bestParallelForSlot <= 0) return 0;
+
+                // Consume from the chosen alternatives fluid pool
+                if (selectedAlt != null) {
+                    long consumed = (long) (selectedAlt.amount * Math.min(currentParallel, bestParallelForSlot));
+                    fluidMap.mergeLong(selectedAlt.getFluid(), -consumed, Long::sum);
+                }
+
+                currentParallel = Math.min(currentParallel, bestParallelForSlot);
+                if (currentParallel <= 0) return 0;
+            }
+        }
+
+        if (mInputs.length > 0) {
+            final @NotNull RecipeItemInput @NotNull [] combinedInputs = getCachedCombinedItemInputs();
+
+            if (!skipItemInputCountCheck() && aInputs.length < combinedInputs.length) {
+                // Fewer item types provided than required by the recipe, making it impossible to satisfy.
+                return 0;
+            }
+
+            final ItemData[] unifiedProvidedInputs = new ItemData[aInputs.length];
+            for (int i = 0; i < aInputs.length; i++) {
+                unifiedProvidedInputs[i] = GTOreDictUnificator.getAssociation(aInputs[i]);
+            }
+
+            recipeItemLoop: for (final RecipeItemInput combinedInput : combinedInputs) {
+                double remainingCost = combinedInput.inputAmount * currentParallel;
+                long providedAmount = 0;
+
+                for (int i = 0; i < aInputs.length; i++) {
+                    final ItemStack providedItem = aInputs[i];
+                    if (!combinedInput.matchesRecipe(unifiedProvidedInputs[i], providedItem)) {
+                        continue;
+                    }
+
+                    providedAmount += providedItem.stackSize;
+
+                    if (providedAmount >= remainingCost) {
+                        continue recipeItemLoop;
+                    }
+                }
+                if (providedAmount == 0) {
+                    return 0;
+                }
+                currentParallel = Math.min(currentParallel, (double) providedAmount / combinedInput.inputAmount);
+            }
+        }
+        return currentParallel;
+    }
+
+    /**
+     * Please see JavaDoc on {@link #GTppRecipeHelper} for why this is here.
+     */
+    private static boolean shouldCheckNBT(ItemStack item) {
+        if (GTppRecipeHelper) {
+            return GTUtility.areStacksEqual(item, ic2FluidCell, true) || GTUtility.areStacksEqual(item, dataStick, true)
+                || GTUtility.areStacksEqual(item, dataOrb, true);
+        }
+        return false;
+    }
+
+    @Override
+    public int compareTo(GTRecipe recipe) {
+        // first lowest tier recipes
+        // then fastest
+        // then with lowest special value
+        // then dry recipes
+        // then with fewer inputs
+        if (this.mEUt != recipe.mEUt) {
+            return Integer.compare(this.mEUt, recipe.mEUt);
+        } else if (this.mDuration != recipe.mDuration) {
+            return Integer.compare(this.mDuration, recipe.mDuration);
+        } else if (this.mSpecialValue != recipe.mSpecialValue) {
+            return Integer.compare(this.mSpecialValue, recipe.mSpecialValue);
+        } else if (this.mFluidInputs.length != recipe.mFluidInputs.length) {
+            return Integer.compare(this.mFluidInputs.length, recipe.mFluidInputs.length);
+        } else if (this.mInputs.length != recipe.mInputs.length) {
+            return Integer.compare(this.mInputs.length, recipe.mInputs.length);
+        }
+        return 0;
+    }
+
+    public String[] getNeiDesc() {
+        return neiDesc;
+    }
+
+    /**
+     * Sets description shown on NEI. <br>
+     * If you have a large number of recipes for the recipemap, this is not efficient memory wise, so use
+     * {@link gregtech.api.recipe.RecipeMapBuilder#neiSpecialInfoFormatter} instead.
+     */
+    public void setNeiDesc(String... neiDesc) {
+        this.neiDesc = neiDesc;
+    }
+
+    // region metadata
+
+    // Don't try implementing setMetadata, as metadataStorage can be EmptyRecipeMetadataStorage
+
+    /**
+     * Gets metadata associated with this recipe. Can return null. Use
+     * {@link #getMetadataOrDefault(RecipeMetadataKey, Object)} if you want to specify default value.
+     */
+    @Nullable
+    public <T> T getMetadata(RecipeMetadataKey<T> key) {
+        return key.cast(metadataStorage.getMetadata(key));
+    }
+
+    /**
+     * Gets metadata associated with this recipe with default value. Does not return null unless default value is null.
+     */
+    @Contract("_, !null -> !null")
+    @Nullable
+    public <T> T getMetadataOrDefault(RecipeMetadataKey<T> key, @Nullable T defaultValue) {
+        return key.cast(metadataStorage.getMetadataOrDefault(key, defaultValue));
+    }
+
+    @NotNull
+    public IRecipeMetadataStorage getMetadataStorage() {
+        return metadataStorage;
+    }
+
+    // endregion
+
+    public RecipeCategory getRecipeCategory() {
+        return recipeCategory;
+    }
+
+    /**
+     * Exists only for recipe copying from external. For ordinal use case, use {@link GTRecipeBuilder#recipeCategory}.
+     */
+    public void setRecipeCategory(RecipeCategory recipeCategory) {
+        this.recipeCategory = recipeCategory;
+    }
+
+    private static final List<String> excludedStacktraces = Arrays.asList(
+        "java.lang.Thread",
+        "gregtech.api.interfaces.IRecipeMap",
+        "gregtech.api.interfaces.IRecipeMap$1",
+        "gregtech.api.recipe.RecipeMap",
+        "gregtech.api.recipe.RecipeMapBackend",
+        "gregtech.api.recipe.RecipeMapBackendPropertiesBuilder",
+        "gregtech.api.util.GTRecipe",
+        "gregtech.api.util.GTRecipeBuilder",
+        "gregtech.api.util.GTRecipeConstants",
+        "gregtech.api.util.GTRecipeMapUtil",
+        "gregtech.common.GTRecipeAdder");
+
+    private static boolean shouldCaptureRecipeOwnerInfo() {
+        return GTMod.proxy.mNEIRecipeOwner || RecipeLookupValidator.shouldCaptureRecipeCallsites();
+    }
+
+    private static boolean shouldCaptureRecipeCallsites() {
+        return GTMod.proxy.mNEIRecipeOwnerStackTrace || RecipeLookupValidator.shouldCaptureRecipeCallsites();
+    }
+
+    public void reloadOwner() {
+        if (owners != null) {
+            setOwner(
+                Loader.instance()
+                    .activeModContainer());
+        }
+
+        if (stackTraces != null) {
+            List<String> toAdd = new ArrayList<>();
+            for (StackTraceElement stackTrace : Thread.currentThread()
+                .getStackTrace()) {
+                if (excludedStacktraces.stream()
+                    .noneMatch(
+                        c -> stackTrace.getClassName()
+                            .equals(c))) {
+                    toAdd.add(formatStackTrace(stackTrace));
+                }
+            }
+            stackTraces.add(toAdd);
+        }
+    }
+
+    private static String formatStackTrace(StackTraceElement stackTraceElement) {
+        String raw = stackTraceElement.toString();
+        int startParen = raw.lastIndexOf('(');
+        int colon = raw.lastIndexOf(':');
+        if (colon == -1) {
+            // native or unknown source
+            return raw;
+        }
+        // strip class name and leave line number, as class name is already shown
+        return raw.substring(0, startParen + 1) + raw.substring(colon);
+    }
+
+    public void setOwner(ModContainer newOwner) {
+        if (owners == null) return;
+        ModContainer oldOwner = !owners.isEmpty() ? this.owners.get(owners.size() - 1) : null;
+        if (newOwner != null && newOwner != oldOwner) {
+            owners.add(newOwner);
+        }
+    }
+
+    /**
+     * Use in case {@link Loader#activeModContainer()} isn't helpful
+     */
+    public void setOwner(String modId) {
+        if (owners == null) return;
+        for (ModContainer mod : Loader.instance()
+            .getModList()) {
+            if (mod.getModId()
+                .equals(modId)) {
+                setOwner(mod);
+                return;
+            }
+        }
+    }
+
+    public GTRecipe setInputs(ItemStack... aInputs) {
+        // TODO determine if we need this without trailing nulls call
+        this.mInputs = ArrayExt.removeTrailingNulls(aInputs);
+        return this;
+    }
+
+    public GTRecipe setOutputs(ItemStack... aOutputs) {
+        this.mOutputs = ArrayExt.removeTrailingNulls(aOutputs);
+        return this;
+    }
+
+    public GTRecipe setFluidInputs(FluidStack... aInputs) {
+        this.mFluidInputs = ArrayExt.removeTrailingNulls(aInputs);
+        return this;
+    }
+
+    public GTRecipe setFluidOutputs(FluidStack... aOutputs) {
+        this.mFluidOutputs = ArrayExt.removeTrailingNulls(aOutputs);
+        return this;
+    }
+
+    public GTRecipe setInputChances(int... aChances) {
+        this.mInputChances = ArrayExt.fixChancesArray(aChances, -1);
+        return this;
+    }
+
+    public GTRecipe setOutputChances(int... aChances) {
+        this.mOutputChances = ArrayExt.fixChancesArray(aChances, -1);
+        return this;
+    }
+
+    public GTRecipe setFluidInputChances(int... aChances) {
+        this.mFluidInputChances = ArrayExt.fixChancesArray(aChances, -1);
+        return this;
+    }
+
+    public GTRecipe setFluidOutputChances(int... aChances) {
+        this.mFluidOutputChances = ArrayExt.fixChancesArray(aChances, -1);
+        return this;
+    }
+
+    public GTRecipe setDuration(int aDuration) {
+        this.mDuration = aDuration;
+        return this;
+    }
+
+    public GTRecipe setEUt(int aEUt) {
+        this.mEUt = aEUt;
+        return this;
+    }
+
+    /** A single recipe input, used for an internal cache to speed up recipe matching */
+    public static final class RecipeItemInput {
+
+        /** Item count is ignored on this stack, do not mutate it either */
+        public final ItemStack unifiedStack;
+        /** Number of input items required */
+        public long inputAmount;
+        /** True if the input is NBT-sensitive */
+        public final boolean usesNbtMatching;
+
+        /**
+         * * The theoretical average amount consumed per recipe run, considering probability.
+         * sum(stackSize * chance / 10000)
+         */
+        public double chanceWeightedAmount;
+
+        /**
+         * OreDict ID for this slot, or -1 if not an oredict slot. When >= 0, matching checks
+         * {@link OreDictionary#getOreIDs(ItemStack)} dynamically before falling back to static alternatives.
+         */
+        public final int oreDictId;
+        private final ItemStack[] alternativeStacks;
+
+        public RecipeItemInput(ItemStack stack, boolean recipeIsNBTSensitive) {
+            Objects.requireNonNull(stack);
+            this.inputAmount = stack.stackSize;
+            // Initialize weighted amount with 100% chance by default.
+            // This will be overwritten or accumulated in getCachedCombinedItemInputs.
+            this.chanceWeightedAmount = stack.stackSize;
+            this.oreDictId = -1;
+            this.alternativeStacks = null;
+
+            final boolean stackNeedsNBT = GTRecipe.shouldCheckNBT(stack);
+            this.usesNbtMatching = recipeIsNBTSensitive | stackNeedsNBT;
+            if (stackNeedsNBT) {
+                this.unifiedStack = stack;
+            } else {
+                this.unifiedStack = GTOreDictUnificator.get_nocopy(true, stack);
+                if (!this.usesNbtMatching) {
+                    this.unifiedStack.setTagCompound(null);
+                }
+            }
+        }
+
+        /**
+         * Constructor for oredict slots that match by OreDict ID at runtime. This is the preferred constructor for
+         * oredict inputs as it dynamically matches items registered after recipe creation.
+         */
+        public RecipeItemInput(int oreDictId, ItemStack representative, long amount, boolean nbtSensitive) {
+            this(oreDictId, representative, amount, nbtSensitive, null);
+        }
+
+        public RecipeItemInput(int oreDictId, ItemStack representative, long amount, boolean nbtSensitive,
+            ItemStack[] alternativeStacks) {
+            this.oreDictId = oreDictId;
+            this.unifiedStack = representative != null ? GTOreDictUnificator.get_nocopy(true, representative) : null;
+            this.inputAmount = amount;
+            this.chanceWeightedAmount = amount;
+            this.usesNbtMatching = nbtSensitive;
+            this.alternativeStacks = alternativeStacks == null || alternativeStacks.length == 0 ? null
+                : alternativeStacks;
+        }
+
+        /**
+         * @return True if the passed in stack is of the same item type as this input (respecting
+         *         {@link RecipeItemInput#usesNbtMatching}).
+         */
+        public boolean matchesType(final ItemStack other) {
+            if (oreDictId >= 0) {
+                return hasOreDictId(other, oreDictId) || matchesAlternativeStack(other);
+            }
+            return GTUtility.areStacksEqual(this.unifiedStack, other, !usesNbtMatching);
+        }
+
+        /**
+         * @return True if the given item can be used as a valid recipe ingredient for this input slot. For oredict
+         *         slots, checks the OreDict ID dynamically. For regular slots, uses GT unification matching.
+         */
+        public boolean matchesRecipe(final ItemData oredictOther, final ItemStack other) {
+            if (oreDictId >= 0) {
+                return hasOreDictId(other, oreDictId) || matchesAlternativeStack(other);
+            }
+            if (usesNbtMatching) {
+                return GTUtility.areStacksEqual(this.unifiedStack, other, false);
+            } else {
+                return GTOreDictUnificator.isInputStackEqual(other, oredictOther, unifiedStack);
+            }
+        }
+
+        private boolean matchesAlternativeStack(final ItemStack other) {
+            if (alternativeStacks == null) return false;
+            for (ItemStack alternative : alternativeStacks) {
+                if (GTUtility.areStacksEqual(alternative, other, !usesNbtMatching)) return true;
+            }
+            return false;
+        }
+
+        private static boolean hasOreDictId(final ItemStack stack, final int oreDictId) {
+            if (stack == null) return false;
+            try {
+                for (int id : OreDictionary.getOreIDs(stack)) if (id == oreDictId) return true;
+            } catch (ExceptionInInitializerError | NoClassDefFoundError ignored) {
+                return false;
+            }
+            return false;
+        }
+    }
+
+    public static class RecipeAssemblyLine {
+
+        public static final ArrayList<RecipeAssemblyLine> sAssemblylineRecipes = new ArrayList<>();
+
+        static {
+            if (!Boolean.getBoolean("com.gtnh.gt5u.ignore-invalid-assline-recipe"))
+                GregTechAPI.sFirstWorldTick.add(RecipeAssemblyLine::checkInvalidRecipes);
+            else GT_FML_LOGGER.debug("NOT CHECKING INVALID ASSLINE RECIPE.");
+        }
+
+        private static void checkInvalidRecipes() {
+            int invalidCount = 0;
+            GT_FML_LOGGER.info("Started assline validation");
+            for (RecipeAssemblyLine recipe : sAssemblylineRecipes) {
+                if (recipe.getPersistentHash() == 0) {
+                    invalidCount++;
+                    GT_FML_LOGGER.error("Invalid recipe: {}", recipe);
+                }
+            }
+            if (invalidCount > 0) throw new RuntimeException(
+                "There are " + invalidCount + " invalid assembly line recipe(s)! Check GregTech.log for details!");
+        }
+
+        public ItemStack mResearchItem;
+        public int mResearchTime;
+        public int mResearchVoltage;
+        public ItemStack[] mInputs;
+        public FluidStack[] mFluidInputs;
+        public ItemStack mOutput;
+        public int mDuration;
+        public int mEUt;
+        public ItemStack[][] mOreDictAlt;
+        private int mPersistentHash;
+
+        private final List<ItemStack> dataSticksForNEI = new ArrayList<>();
+
+        /**
+         * THIS CONSTRUCTOR DOES SET THE PERSISTENT HASH.
+         * <p>
+         * if you set one yourself, it will give you one of the RunetimeExceptions!
+         */
+        public RecipeAssemblyLine(ItemStack aResearchItem, int aResearchTime, int aResearchVoltage, ItemStack[] aInputs,
+            FluidStack[] aFluidInputs, ItemStack aOutput, int aDuration, int aEUt) {
+            this(
+                aResearchItem,
+                aResearchTime,
+                aResearchVoltage,
+                aInputs,
+                aFluidInputs,
+                aOutput,
+                aDuration,
+                aEUt,
+                new ItemStack[aInputs.length][]);
+            int tPersistentHash = 1;
+            for (final ItemStack tInput : aInputs) {
+                tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash(tInput, true, false);
+            }
+            tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash(aResearchItem, true, false);
+            tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash(aOutput, true, false);
+            for (final FluidStack tFluidInput : aFluidInputs) {
+                tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash(tFluidInput, true, false);
+            }
+            tPersistentHash = tPersistentHash * 31 + aResearchTime;
+            tPersistentHash = tPersistentHash * 31 + aResearchVoltage;
+            tPersistentHash = tPersistentHash * 31 + aDuration;
+            tPersistentHash = tPersistentHash * 31 + aEUt;
+            setPersistentHash(tPersistentHash);
+        }
+
+        /**
+         * THIS CONSTRUCTOR DOES <b>NOT</b> SET THE PERSISTENT HASH.
+         * <p>
+         * if you don't set one yourself, it will break a lot of stuff!
+         */
+        public RecipeAssemblyLine(ItemStack aResearchItem, int aResearchTime, int aResearchVoltage, ItemStack[] aInputs,
+            FluidStack[] aFluidInputs, ItemStack aOutput, int aDuration, int aEUt, ItemStack[][] aAlt) {
+            mResearchItem = aResearchItem;
+            mResearchTime = aResearchTime;
+            mResearchVoltage = aResearchVoltage;
+            mInputs = aInputs;
+            mFluidInputs = aFluidInputs;
+            mOutput = aOutput;
+            mDuration = aDuration;
+            mEUt = aEUt;
+            mOreDictAlt = aAlt;
+        }
+
+        public int getPersistentHash() {
+            if (mPersistentHash == 0)
+                GT_FML_LOGGER.error("Assline recipe persistent hash has not been set! Recipe: {}", mOutput);
+            return mPersistentHash;
+        }
+
+        @Override
+        public String toString() {
+            return "GTRecipe_AssemblyLine{" + "mResearchItem="
+                + mResearchItem
+                + ", mResearchTime="
+                + mResearchTime
+                + ", mInputs="
+                + Arrays.toString(mInputs)
+                + ", mFluidInputs="
+                + Arrays.toString(mFluidInputs)
+                + ", mOutput="
+                + mOutput
+                + ", mDuration="
+                + mDuration
+                + ", mEUt="
+                + mEUt
+                + ", mOreDictAlt="
+                + Arrays.toString(mOreDictAlt)
+                + '}';
+        }
+
+        /**
+         * @param aPersistentHash the persistent hash. it should reflect the exact input used to generate this recipe If
+         *                        0 is passed in, the actual persistent hash will be automatically remapped to 1
+         *                        instead.
+         * @throws IllegalStateException if the persistent hash has been set already
+         */
+        public void setPersistentHash(int aPersistentHash) {
+            if (this.mPersistentHash != 0) throw new IllegalStateException("Cannot set persistent hash twice!");
+            if (aPersistentHash == 0) this.mPersistentHash = 1;
+            else this.mPersistentHash = aPersistentHash;
+        }
+
+        /**
+         * WARNING: this class will maintain a strong reference over ALL data sticks created this way. DO NOT call this
+         * methods recklessly as it will cause memory leak!
+         */
+        public ItemStack newDataStickForNEI(String aDisplayName, long amount) {
+            ItemStack dataStick = ItemList.Tool_DataStick.getWithName(amount, aDisplayName);
+            // we don't actually needs to set the recipe data here. no one will read the recipe data before a world load
+            // and before a world load id remap will happen and the recipe data will be finally set in the below
+            // reInit() method
+            // AssemblyLineUtils.setAssemblyLineRecipeOnDataStick(dataStick, this, false);
+            dataSticksForNEI.add(dataStick);
+            return dataStick;
+        }
+
+        public static void reInit() {
+            for (RecipeAssemblyLine recipe : sAssemblylineRecipes) {
+                for (ItemStack stack : recipe.dataSticksForNEI) {
+                    AssemblyLineUtils.setAssemblyLineRecipeOnDataStick(stack, recipe, false);
+                }
+            }
+        }
+
+        /**
+         * @param inputBusses List of input busses to check.
+         * @return An array containing the amount of item to consume from the first slot of every input bus.
+         *         {@code null} if at least one item fails to match the recipe ingredient.
+         */
+        public static int[] getItemConsumptionAmountArray(ArrayList<MTEHatchInputBus> inputBusses,
+            RecipeAssemblyLine recipe) {
+            int itemCount = recipe.mInputs.length;
+            if (itemCount == 0) return null;
+            int[] tStacks = new int[itemCount];
+            for (int i = 0; i < itemCount; i++) {
+                MTEHatchInputBus inputBus = inputBusses.get(i);
+                if (!inputBus.isValid()) return null;
+                ItemStack slotStack;
+                if (inputBus instanceof MTEHatchInputBusME meBus) {
+                    slotStack = meBus.getFirstValidStack(true);
+                } else {
+                    slotStack = inputBus.getFirstStack();
+                }
+                if (slotStack == null) return null;
+
+                int amount = getMatchedIngredientAmount(slotStack, recipe.mInputs[i], recipe.mOreDictAlt[i]);
+                if (amount < 0) return null;
+
+                tStacks[i] = amount;
+            }
+            return tStacks;
+        }
+
+        public static int getMatchedIngredientAmount(ItemStack aSlotStack, ItemStack aIngredient, ItemStack[] alts) {
+            if (alts == null || alts.length == 0) {
+                if (GTUtility.areStacksEqual(aSlotStack, aIngredient, true)) {
+                    return aIngredient.stackSize;
+                }
+                return -1;
+            }
+            for (ItemStack tAltStack : alts) {
+                if (GTUtility.areStacksEqual(aSlotStack, tAltStack, true)) {
+                    return tAltStack.stackSize;
+                }
+            }
+            return -1;
+        }
+
+        /**
+         * @param inputBusses      Input bus list to check. Usually the input bus list of multi.
+         * @param itemConsumptions Should be generated by {@link RecipeAssemblyLine#getItemConsumptionAmountArray}.
+         * @Return The number of parallel recipes, or 0 if recipe is not satisfied at all. 0 < number < 1 means that
+         *         inputs are found but not enough.
+         */
+        public static double maxParallelCalculatedByInputItems(ArrayList<MTEHatchInputBus> inputBusses, int maxParallel,
+            int[] itemConsumptions, Map<GTUtility.ItemId, ItemStack> inputsFromME) {
+            // Recipe item matching is done in the generation of itemConsumptions.
+
+            Map<GTUtility.ItemId, Long> itemConsumptionsFromME = new Object2LongOpenHashMap<>();
+            double currentParallel = maxParallel;
+
+            // Calculate the amount of each item to consume from ME
+            for (int i = 0; i < itemConsumptions.length; i++) {
+                MTEHatchInputBus inputBus = inputBusses.get(i);
+                if (!inputBus.isValid()) return 0;
+                if (inputBus instanceof MTEHatchInputBusME meBus) {
+                    ItemStack item = meBus.getFirstValidStack(true);
+                    if (item == null) return 0;
+                    GTUtility.ItemId id = GTUtility.ItemId.createNoCopy(item);
+                    itemConsumptionsFromME.merge(id, (long) itemConsumptions[i], Long::sum);
+                }
+            }
+            // Calculate parallel from ME input busses
+            for (Entry<GTUtility.ItemId, Long> entry : itemConsumptionsFromME.entrySet()) {
+                if (!inputsFromME.containsKey(entry.getKey())) return 0;
+                long consume = entry.getValue();
+                // For non-consumed inputs
+                if (consume == 0) continue;
+                currentParallel = Math
+                    .min(currentParallel, (double) inputsFromME.get(entry.getKey()).stackSize / consume);
+                if (currentParallel <= 0) return 0;
+            }
+
+            // Calculate parallel from regular input busses
+            for (int i = 0; i < itemConsumptions.length; i++) {
+                MTEHatchInputBus inputBus = inputBusses.get(i);
+                if (!inputBus.isValid()) return 0;
+                if (inputBus instanceof MTEHatchInputBusME) continue;
+
+                ItemStack item = inputBus.getFirstStack();
+                if (item == null) return 0;
+                // For non-consumed inputs
+                if (itemConsumptions[i] == 0) continue;
+                currentParallel = Math.min(currentParallel, (double) item.stackSize / itemConsumptions[i]);
+                if (currentParallel <= 0) return 0;
+            }
+            return currentParallel;
+        }
+
+        /**
+         * @param inputHatches      Input hatch list to check. Usually the input hatch list of multi.
+         * @param fluidConsumptions Fluid inputs of the recipe.
+         * @return The number of parallel recipes, or 0 if recipe is not satisfied at all. 0 < number < 1 means that
+         *         fluids are found but not enough.
+         */
+        public static double maxParallelCalculatedByInputFluids(ArrayList<MTEHatchInput> inputHatches, int maxParallel,
+            FluidStack[] fluidConsumptions, Map<Fluid, FluidStack> fluidsFromME) {
+            Map<Fluid, Long> fluidConsumptionsFromME = new Reference2LongOpenHashMap<>();
+            double currentParallel = maxParallel;
+
+            // Calculate the amount of each fluid to consume from ME
+            for (int i = 0; i < fluidConsumptions.length; i++) {
+                MTEHatchInput inputHatch = inputHatches.get(i);
+                if (!inputHatch.isValid()) return 0;
+                if (inputHatch instanceof MTEHatchInputME meHatch) {
+                    FluidStack fluid = meHatch.getFirstValidStack(true);
+                    if (fluid == null) return 0;
+                    if (!GTUtility.areFluidsEqual(fluid, fluidConsumptions[i])) return 0;
+                    fluidConsumptionsFromME.merge(fluid.getFluid(), (long) fluidConsumptions[i].amount, Long::sum);
+                }
+            }
+            // Calculate parallel from ME input hatches
+            for (Entry<Fluid, Long> entry : fluidConsumptionsFromME.entrySet()) {
+                Fluid fluid = entry.getKey();
+                if (!fluidsFromME.containsKey(fluid)) return 0;
+                long consume = entry.getValue();
+                currentParallel = Math.min(currentParallel, (double) fluidsFromME.get(fluid).amount / consume);
+                if (currentParallel <= 0) return 0;
+            }
+
+            // Calculate parallel from regular input hatches
+            for (int i = 0; i < fluidConsumptions.length; i++) {
+                MTEHatchInput inputHatch = inputHatches.get(i);
+                if (!inputHatch.isValid()) return 0;
+                if (inputHatch instanceof MTEHatchInputME) continue;
+
+                FluidStack fluid;
+                if (inputHatch instanceof MTEHatchMultiInput multiInput) {
+                    fluid = multiInput.getFluid();
+                } else {
+                    fluid = inputHatch.getFillableStack();
+                }
+                if (fluid == null) return 0;
+                if (!GTUtility.areFluidsEqual(fluid, fluidConsumptions[i])) return 0;
+                currentParallel = Math.min(currentParallel, (double) fluid.amount / fluidConsumptions[i].amount);
+                if (currentParallel <= 0) return 0;
+            }
+            return currentParallel;
+        }
+
+        /**
+         * WARNING: Ensure that item inputs are enough to be consumed with
+         * {@link RecipeAssemblyLine#maxParallelCalculatedByInputItems} before calling this method!
+         *
+         * @param inputBusses      Input bus list to check. Usually the input bus list of multi.
+         * @param itemConsumptions Should be generated by {@link RecipeAssemblyLine#getItemConsumptionAmountArray}.
+         */
+        public static void consumeInputItems(ArrayList<MTEHatchInputBus> inputBusses, int amountMultiplier,
+            int[] itemConsumptions, Map<GTUtility.ItemId, ItemStack> inputsFromME) {
+            for (int i = 0; i < itemConsumptions.length; i++) {
+                MTEHatchInputBus inputBus = inputBusses.get(i);
+                if (!inputBus.isValid()) continue;
+                ItemStack item;
+                if (inputBus instanceof MTEHatchInputBusME meBus) {
+                    ItemStack itemStack = meBus.getFirstValidStack(true);
+                    item = inputsFromME.get(GTUtility.ItemId.createNoCopy(itemStack));
+                } else {
+                    item = inputBus.getFirstStack();
+                }
+                item.stackSize -= itemConsumptions[i] * amountMultiplier;
+            }
+        }
+
+        /**
+         * WARNING: Ensure that fluid inputs are enough to be consumed with
+         * {@link RecipeAssemblyLine#maxParallelCalculatedByInputFluids} before calling this method!
+         *
+         * @param inputHatches      Input hatch list to check. Usually the input hatch list of multi.
+         * @param fluidConsumptions Fluid inputs of the recipe.
+         */
+        public static void consumeInputFluids(ArrayList<MTEHatchInput> inputHatches, int amountMultiplier,
+            FluidStack[] fluidConsumptions, Map<Fluid, FluidStack> fluidsFromME) {
+            for (int i = 0; i < fluidConsumptions.length; i++) {
+                MTEHatchInput inputHatch = inputHatches.get(i);
+                if (!inputHatch.isValid()) continue;
+                FluidStack fluid;
+                if (inputHatch instanceof MTEHatchInputME meHatch) {
+                    FluidStack fluidStack = meHatch.getFirstValidStack(true);
+                    fluid = fluidsFromME.get(fluidStack.getFluid());
+                } else if (inputHatch instanceof MTEHatchMultiInput multiInput) {
+                    fluid = multiInput.getFluid();
+                } else {
+                    fluid = inputHatch.getFillableStack();
+                }
+                fluid.amount -= fluidConsumptions[i].amount * amountMultiplier;
+            }
+        }
+    }
+
+    public static class GTRecipe_WithAlt extends GTRecipe {
+
+        public @NotNull ItemStack @Nullable [] @Nullable [] mOreDictAlt;
+        /**
+         * OreDict IDs parallel to mOreDictAlt/mInputs; -1 means not an oredict slot. May be null for legacy recipes.
+         */
+        public int @Nullable [] mOreDictIds;
+
+        /**
+         * Only for {@link GTRecipeBuilder}.
+         */
+        GTRecipe_WithAlt(ItemStack[] mInputs, ItemStack[] mOutputs, FluidStack[] mFluidInputs,
+            FluidStack[] mFluidOutputs, int[] mInputChances, int[] mOutputChances, int[] mFluidInputChances,
+            int[] mFluidOutputChances, Object mSpecialItems, int mDuration, int mEUt, int mSpecialValue,
+            boolean mEnabled, boolean mHidden, boolean mFakeRecipe, boolean mCanBeBuffered, boolean mNeedsEmptyOutput,
+            boolean nbtSensitive, String[] neiDesc, @Nullable IRecipeMetadataStorage metadataStorage,
+            RecipeCategory recipeCategory, ItemStack[][] mOreDictAlt, int[] mOreDictIds,
+            FluidStack[][] mAltFluidInputs) {
+            super(
+                mInputs,
+                mOutputs,
+                mFluidInputs,
+                mFluidOutputs,
+                mInputChances,
+                mOutputChances,
+                mFluidInputChances,
+                mFluidOutputChances,
+                mEUt,
+                mSpecialValue,
+                mEnabled,
+                mHidden,
+                mFakeRecipe,
+                mCanBeBuffered,
+                mNeedsEmptyOutput,
+                nbtSensitive,
+                neiDesc,
+                metadataStorage,
+                recipeCategory,
+                mSpecialItems,
+                mDuration);
+            this.mOreDictAlt = mOreDictAlt;
+            this.mOreDictIds = mOreDictIds;
+            this.mAltFluidInputs = mAltFluidInputs;
+        }
+
+        public GTRecipe_WithAlt(boolean aOptimize, ItemStack[] aInputs, ItemStack[] aOutputs, Object aSpecialItems,
+            int[] aInputChances, int[] aOutputChances, int[] aFluidInputChances, int[] aFluidOutputChances,
+            FluidStack[] aFluidInputs, FluidStack[] aFluidOutputs, int aDuration, int aEUt, int aSpecialValue,
+            ItemStack[][] aAlt, FluidStack[][] aFluidAlt) {
+            super(
+                aInputs,
+                aOutputs,
+                aSpecialItems,
+                aInputChances,
+                aOutputChances,
+                aFluidInputChances,
+                aFluidOutputChances,
+                aFluidInputs,
+                aFluidOutputs,
+                aDuration,
+                aEUt,
+                aSpecialValue);
+            mOreDictAlt = aAlt;
+            mAltFluidInputs = aFluidAlt;
+        }
+
+        private GTRecipe_WithAlt(GTRecipe_WithAlt aRecipe, boolean shallow) {
+            super(aRecipe, shallow);
+            if (shallow) {
+                mOreDictAlt = aRecipe.mOreDictAlt;
+                mOreDictIds = aRecipe.mOreDictIds;
+                mAltFluidInputs = aRecipe.mAltFluidInputs;
+            } else {
+                if (aRecipe.mOreDictAlt != null) {
+                    mOreDictAlt = new ItemStack[aRecipe.mOreDictAlt.length][];
+                    for (int i = 0; i < aRecipe.mOreDictAlt.length; i++) {
+                        mOreDictAlt[i] = ArrayExt.copyItemsIfNonEmpty(aRecipe.mOreDictAlt[i]);
+                    }
+                }
+                if (aRecipe.mOreDictIds != null) {
+                    mOreDictIds = aRecipe.mOreDictIds.clone();
+                }
+                if (aRecipe.mAltFluidInputs != null) {
+                    mAltFluidInputs = new FluidStack[aRecipe.mAltFluidInputs.length][];
+                    for (int i = 0; i < aRecipe.mAltFluidInputs.length; i++) {
+                        mAltFluidInputs[i] = ArrayExt.copyFluidsIfNonEmpty(aRecipe.mAltFluidInputs[i]);
+                    }
+                }
+            }
+        }
+
+        public Object getAltRepresentativeInput(int aIndex) {
+            if (aIndex < 0) return null;
+            if (mOreDictAlt != null && aIndex < mOreDictAlt.length) {
+                ItemStack[] alts = mOreDictAlt[aIndex];
+                if (alts != null && alts.length > 0) {
+                    ItemStack[] copy = new ItemStack[alts.length];
+                    for (int i = 0; i < alts.length; i++) {
+                        copy[i] = GTUtility.copyOrNull(alts[i]);
+                    }
+                    return copy;
+                }
+            }
+
+            // fallback
+            if (mInputs != null && aIndex < mInputs.length) {
+                return GTUtility.copyOrNull(mInputs[aIndex]);
+            }
+
+            return null;
+        }
+
+        public ArrayList<ItemStack> getAltRepresentativeFluidInput(int aIndex) {
+            if (aIndex < 0) return null;
+            if (mFluidInputs == null || aIndex >= mFluidInputs.length) return null;
+
+            FluidStack mainFluid = mFluidInputs[aIndex];
+
+            ArrayList<ItemStack> display = new ArrayList<>();
+
+            if (mAltFluidInputs != null && aIndex < mAltFluidInputs.length) {
+                FluidStack[] alts = mAltFluidInputs[aIndex];
+                if (alts != null) {
+                    for (FluidStack alt : alts) {
+                        if (alt != null && alt.getFluid() != null) {
+                            display.add(GTUtility.getFluidDisplayStack(alt, true));
+                        }
+                    }
+                }
+            }
+
+            // fallback
+            if (display.isEmpty()) {
+                if (mainFluid.getFluid() == null) return null;
+                display.add(GTUtility.getFluidDisplayStack(mainFluid, true));
+            }
+
+            return display;
+        }
+
+        @Override
+        protected RecipeItemInput[] buildItemInputCache() {
+            if (mInputs == null || mInputs.length == 0) return EMPTY_INPUT_CACHE;
+
+            final ObjectArrayList<RecipeItemInput> newCache = new ObjectArrayList<>(mInputs.length);
+
+            for (int i = 0; i < mInputs.length; i++) {
+                if (mInputs[i] == null) continue;
+
+                final long amount = mInputs[i].stackSize;
+                final int chance = (mInputChances != null && i < mInputChances.length) ? mInputChances[i] : 10000;
+                final double weighted = (amount * (double) chance) / 10000.0;
+
+                final int slotOreDictId = (mOreDictIds != null && i < mOreDictIds.length) ? mOreDictIds[i] : -1;
+                final ItemStack representative = mInputs[i];
+                final ItemStack[] alternatives = (mOreDictAlt != null && i < mOreDictAlt.length) ? mOreDictAlt[i]
+                    : null;
+
+                RecipeItemInput existing = null;
+                for (int j = 0; j < newCache.size(); j++) {
+                    RecipeItemInput cached = newCache.get(j);
+                    if ((slotOreDictId >= 0 && cached.oreDictId == slotOreDictId)
+                        || cached.matchesType(representative)) {
+                        existing = cached;
+                        break;
+                    }
+                }
+
+                if (existing != null) {
+                    existing.inputAmount += amount;
+                    existing.chanceWeightedAmount += weighted;
+                } else {
+                    RecipeItemInput ri = (slotOreDictId >= 0)
+                        ? new RecipeItemInput(slotOreDictId, mInputs[i], amount, isNBTSensitive, alternatives)
+                        : new RecipeItemInput(mInputs[i], isNBTSensitive);
+                    ri.chanceWeightedAmount = weighted;
+                    newCache.add(ri);
+                }
+            }
+
+            return newCache.toArray(new RecipeItemInput[0]);
+        }
+
+        @Override
+        protected boolean skipItemInputCountCheck() {
+            return true;
+        }
+
+        @Override
+        public GTRecipe copy() {
+            return new GTRecipe_WithAlt(this, false);
+        }
+
+        @Override
+        public GTRecipe copyShallow() {
+            return new GTRecipe_WithAlt(this, true);
+        }
+    }
+}

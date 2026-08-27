@@ -1,0 +1,82 @@
+package gregtech.common.items.behaviors;
+
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
+import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
+
+import gregtech.api.items.MetaBaseItem;
+import gregtech.api.util.GTUtility;
+
+public class BehaviourDataOrb extends BehaviourNone {
+
+    public static void copyInventory(ItemStack[] aInventory, ItemStack[] aNewContent, int aIndexlength) {
+        for (int i = 0; i < aIndexlength; i++) {
+            if (aNewContent[i] == null) {
+                aInventory[i] = null;
+            } else {
+                aInventory[i] = GTUtility.copyOrNull(aNewContent[i]);
+            }
+        }
+    }
+
+    public static String getDataName(ItemStack aStack) {
+        return ItemStackNBT.getString(aStack, "mDataName");
+    }
+
+    public static String getDataTitle(ItemStack aStack) {
+        return ItemStackNBT.getString(aStack, "mDataTitle");
+    }
+
+    public static void setDataName(ItemStack aStack, String aDataName) {
+        ItemStackNBT.setString(aStack, "mDataName", aDataName);
+    }
+
+    public static void setDataTitle(ItemStack aStack, String aDataTitle) {
+        ItemStackNBT.setString(aStack, "mDataTitle", aDataTitle);
+    }
+
+    public static ItemStack[] getNBTInventory(ItemStack aStack) {
+        ItemStack[] tInventory = new ItemStack[256];
+        NBTTagCompound tNBT = aStack.getTagCompound();
+        if (tNBT == null) {
+            return tInventory;
+        }
+        NBTTagList tNBT_ItemList = tNBT.getTagList("Inventory", 10);
+        for (int i = 0; i < tNBT_ItemList.tagCount(); i++) {
+            NBTTagCompound tag = tNBT_ItemList.getCompoundTagAt(i);
+            byte slot = tag.getByte("Slot");
+            if (slot >= 0) {
+                tInventory[slot] = GTUtility.loadItem(tag);
+            }
+        }
+        return tInventory;
+    }
+
+    public static void setNBTInventory(ItemStack aStack, ItemStack[] aInventory) {
+        final NBTTagCompound tNBT = ItemStackNBT.get(aStack);
+        final NBTTagList tNBT_ItemList = new NBTTagList();
+        for (int i = 0; i < aInventory.length; i++) {
+            ItemStack stack = aInventory[i];
+            if (stack != null) {
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setByte("Slot", (byte) i);
+                stack.writeToNBT(tag);
+                tNBT_ItemList.appendTag(tag);
+            }
+        }
+        tNBT.setTag("Inventory", tNBT_ItemList);
+    }
+
+    @Override
+    public List<String> getAdditionalToolTips(MetaBaseItem aItem, List<String> aList, ItemStack aStack) {
+        if (!(getDataTitle(aStack).isEmpty())) {
+            aList.add(getDataTitle(aStack));
+            aList.add(getDataName(aStack));
+        }
+        return aList;
+    }
+}

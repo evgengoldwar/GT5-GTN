@@ -1,0 +1,292 @@
+package gregtech.api.util;
+
+import static cpw.mods.fml.common.registry.GameRegistry.findBlock;
+import static gregtech.GTLoggers.GT_FML_LOGGER;
+import static gregtech.api.enums.GTValues.VN;
+import static gregtech.api.enums.Mods.AppliedEnergistics2;
+import static gregtech.api.enums.Mods.BloodArsenal;
+import static gregtech.api.enums.Mods.Botania;
+import static gregtech.api.enums.Mods.EnderIO;
+import static gregtech.api.enums.Mods.Thaumcraft;
+import static gregtech.api.util.GTUtility.getColoredTierNameFromTier;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
+
+import javax.annotation.Nullable;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+
+import bartworks.common.loaders.ItemRegistry;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import goodgenerator.loader.Loaders;
+import gregtech.api.GregTechAPI;
+import gregtech.api.enums.VoltageIndex;
+import gregtech.common.misc.GTStructureChannels;
+import tectech.thing.block.BlockGodforgeGlass;
+import tectech.thing.block.BlockQuantumGlass;
+
+public class GlassTier {
+
+    private static final Comparator<Pair<Integer, Integer>> tierComparator = Comparator
+        .comparing(Pair<Integer, Integer>::getLeft)
+        .thenComparing(Pair::getRight);
+    private static final Map<Pair<Integer, Integer>, Pair<Block, Integer>> tierToGlass = new TreeMap<>(tierComparator);
+    private static final HashMap<Pair<Block, Integer>, Pair<Integer, Integer>> glassToTierAndIndex = new HashMap<>();
+    // For default tier ordering, so the primary (borosilicate) glasses come before the variants
+    private static final int minTier = VoltageIndex.HV;
+    private static final int maxTier = VoltageIndex.UXV;
+    private static final Pair<Integer, Integer> defaultGlassTier = Pair.of(null, 0);
+    private static final List<Pair<Block, Integer>> mainGlass = new ArrayList<>(
+        Collections.nCopies(maxTier + 1 - minTier, null));
+    private static final List<Pair<Block, Integer>> glassList = new ArrayList<>();
+    private static final List<String> tierLangKeys = new ArrayList<>();
+
+    /**
+     * Register a glass as a tiered glass.
+     *
+     * @param modname              The modid owning the block
+     * @param unlocalisedBlockName The name of the block itself
+     * @param meta                 The meta of the block
+     * @param tier                 The glasses Tier = Voltage tier (MIN 3)
+     * @param subtier              Where the glass falls within a tier (must be unique, increasing 0,1,2...)
+     */
+    public static void addCustomGlass(String modname, String unlocalisedBlockName, int meta, int tier, int subtier) {
+        Block block = findBlock(modname, unlocalisedBlockName);
+        if (block != null) {
+            addCustomGlass(block, meta, tier, subtier);
+        } else {
+            GT_FML_LOGGER.error(
+                new IllegalArgumentException(
+                    "Block: " + unlocalisedBlockName
+                        + " of the Mod: "
+                        + modname
+                        + " was NOT found when attempting to register a glass!"));
+        }
+    }
+
+    public static void addCustomGlass(@NotNull Block block, int meta, int tier, int subtier) {
+        Objects.requireNonNull(block, "Glass block cannot be null");
+        GlassTier.glassToTierAndIndex.put(Pair.of(block, meta), Pair.of(tier, -1));
+        GlassTier.tierToGlass.put(Pair.of(tier, subtier), Pair.of(block, meta));
+        if (subtier == 0) {
+            mainGlass.set(tier - minTier, Pair.of(block, meta));
+        }
+    }
+
+    /**
+     * Used for determining maximum tier of a multiblock, extra glass type should not be considered tiered.
+     */
+    public static int getMaxTierIndex() {
+        return maxTier - minTier + 1;
+    }
+
+    public static List<String> getTierLangKeys() {
+        return tierLangKeys;
+    }
+
+    /**
+     * Gets the tier of the glass represented by the block:meta passed. If passed non-glass or glass without a tier,
+     * returns null.
+     *
+     * @param block
+     * @param meta
+     * @return Integer glass tier or null
+     */
+    @Nullable
+    public static Integer getGlassBlockTier(Block block, int meta) {
+        return glassToTierAndIndex.getOrDefault(Pair.of(block, meta), defaultGlassTier)
+            .getLeft();
+    }
+
+    public static int getGlassChannelValue(Block block, int meta) {
+        return glassToTierAndIndex.getOrDefault(Pair.of(block, meta), defaultGlassTier)
+            .getRight();
+    }
+
+    public static List<Pair<Block, Integer>> getGlassList() {
+        if (glassList.isEmpty()) {
+            int ctr = 1; // For channel index, starts at 1
+            for (Pair<Block, Integer> glass : mainGlass) {
+                glassList.add(glass);
+                glassToTierAndIndex.put(glass, Pair.of(getGlassBlockTier(glass.getLeft(), glass.getRight()), ctr));
+                GTStructureChannels.BOROGLASS
+                    .registerAsIndicator(new ItemStack(glass.getLeft(), 1, glass.getRight()), ctr);
+                ctr++;
+            }
+            for (Map.Entry<Pair<Integer, Integer>, Pair<Block, Integer>> entry : tierToGlass.entrySet()) {
+                if (entry.getKey()
+                    .getRight() == 0) continue;
+                Pair<Block, Integer> glass = entry.getValue();
+                glassList.add(glass);
+                glassToTierAndIndex.put(
+                    glass,
+                    Pair.of(
+                        entry.getKey()
+                            .getLeft(),
+                        ctr));
+                GTStructureChannels.BOROGLASS
+                    .registerAsIndicator(new ItemStack(glass.getLeft(), 1, glass.getRight()), ctr);
+                ctr++;
+            }
+            // Re-add the highest tier borosilicate to the end of the list so the max slider value is maximum tier glass
+            glassList.add(mainGlass.getLast());
+        }
+        return glassList;
+    }
+
+    // Register all your glasses here.
+    public static class RegisterGlassTiers {
+
+        public static void run() {
+            registerGlassAsTiered();
+            registerGlassOreDicts();
+            registerGlassLangKeys();
+        }
+
+        private static void registerGlassAsTiered() {
+
+            // --- HV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 0, 3, 0); // Borosilicate
+            addCustomGlass(Blocks.glass, 0, 3, 1);
+            if (EnderIO.isModLoaded()) {
+                for (int i = 0; i < 6; i++) {
+                    addCustomGlass(EnderIO.ID, "blockFusedQuartz", i, 3, 2 + i);
+                }
+            }
+            if (Thaumcraft.isModLoaded()) {
+                // Warded glass
+                addCustomGlass(Thaumcraft.ID, "blockCosmeticOpaque", 2, 3, 8);
+            }
+
+            // --- EV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 1, 4, 0); // Titanium Borosilicate
+            addCustomGlass(GregTechAPI.sBlockGlass1, 0, 4, 1);
+            addCustomGlass(GregTechAPI.sBlockGlass1, 10, 4, 2);
+            if (AppliedEnergistics2.isModLoaded()) {
+                addCustomGlass(AppliedEnergistics2.ID, "tile.BlockQuartzGlass", 0, 4, 3);
+                addCustomGlass(AppliedEnergistics2.ID, "tile.BlockQuartzLamp", 0, 4, 4);
+            }
+            if (BloodArsenal.isModLoaded()) {
+                addCustomGlass(BloodArsenal.ID, "blood_stained_glass", 0, 4, 5);
+            }
+            if (Botania.isModLoaded()) {
+                addCustomGlass(Botania.ID, "manaGlass", 0, 4, 6);
+            }
+            for (int i = 0; i < 16; i++) {
+                addCustomGlass(GregTechAPI.sBlockTintedGlass, i, 4, i + 7);
+            }
+
+            // --- IV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 2, 5, 0); // Tungstensteel Borosilicate
+            addCustomGlass(ItemRegistry.bw_realglas2, 0, 5, 1); // Thorium-Yttrium
+            if (Botania.isModLoaded()) {
+                addCustomGlass(Botania.ID, "elfGlass", 0, 5, 2);
+                addCustomGlass(Botania.ID, "bifrostPerm", 0, 5, 3);
+            }
+
+            // --- LuV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 3, 6, 0); // RPP Borosilicate
+
+            // --- ZPM ---
+            addCustomGlass(ItemRegistry.bw_realglas, 4, 7, 0); // Iridium Borosilicate
+
+            // --- UV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 5, 8, 0); // Osmium Borosilicate
+            addCustomGlass(BlockQuantumGlass.INSTANCE, 0, 8, 1);
+
+            // --- UHV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 6, 9, 0); // Neutronium Borosilicate
+            addCustomGlass(ItemRegistry.bw_realglas2, 1, 9, 1); // Neutronium Borosilicate Transparent
+            addCustomGlass(GregTechAPI.sBlockGlass1, 1, 9, 2);
+            addCustomGlass(GregTechAPI.sBlockGlass1, 2, 9, 3);
+            addCustomGlass(GregTechAPI.sBlockGlass1, 7, 9, 4);
+            addCustomGlass(GregTechAPI.sBlockGlass1, 8, 9, 5);
+
+            // --- UEV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 7, 10, 0); // Infinity Borosilicate
+            addCustomGlass(ItemRegistry.bw_realglas2, 2, 10, 1); // Infinity Borosilicate Transparent
+            addCustomGlass(GregTechAPI.sBlockGlass1, 3, 10, 2);
+
+            // --- UIV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 8, 11, 0); // Transmetal Borosilicate
+            addCustomGlass(ItemRegistry.bw_realglas2, 3, 11, 1); // Transmetal Borosilicate Transparent
+            addCustomGlass(GregTechAPI.sBlockGlass1, 4, 11, 2);
+            addCustomGlass(Loaders.antimatterContainmentCasing, 0, 11, 3);
+
+            // --- UMV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 9, 12, 0); // Hexanite Borosilicate
+            addCustomGlass(ItemRegistry.bw_realglas2, 4, 12, 1); // Hexanite Borosilicate Transparent
+            addCustomGlass(BlockGodforgeGlass.INSTANCE, 0, 12, 2);
+            addCustomGlass(GregTechAPI.sBlockGlass1, 9, 12, 3);
+            addCustomGlass(GregTechAPI.sBlockGlass1, 5, 12, 4);
+
+            // --- UXV ---
+            addCustomGlass(ItemRegistry.bw_realglas, 10, 13, 0); // Universium Borosilicate
+            addCustomGlass(ItemRegistry.bw_realglas2, 5, 13, 1); // Universium Borosilicate Transparent
+        }
+
+        private static void registerGlassOreDicts() {
+
+            // Register glass ore dict entries.
+            for (Map.Entry<Pair<Block, Integer>, Pair<Integer, Integer>> entry : glassToTierAndIndex.entrySet()) {
+                String oreName = "blockGlass" + VN[entry.getValue()
+                    .getLeft()];
+                ItemStack itemStack = new ItemStack(
+                    entry.getKey()
+                        .getLeft(),
+                    1,
+                    entry.getKey()
+                        .getRight());
+                OreDictionary.registerOre(oreName, itemStack);
+            }
+        }
+
+        private static void registerGlassLangKeys() {
+            for (int i = 0; i < minTier; i++) {
+                tierLangKeys.add("");
+            }
+            for (int i = minTier; i <= maxTier; i++) {
+                tierLangKeys.add("GT5U.MBTT.Glass." + String.format("%02d", i));
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static class GlassTooltipHandler {
+
+        @SideOnly(Side.CLIENT)
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        public void getTooltip(ItemTooltipEvent event) {
+
+            if (event == null || event.itemStack == null || event.itemStack.getItem() == null) return;
+
+            final Block block = Block.getBlockFromItem(event.itemStack.getItem());
+            final int meta = event.itemStack.getItemDamage();
+
+            Integer tier = getGlassBlockTier(block, meta);
+            if (tier == null) return;
+
+            event.toolTip.add(
+                StatCollector.translateToLocal("tooltip.glass_tier.0.name") + " "
+                    + getColoredTierNameFromTier(tier.byteValue()));
+        }
+    }
+}

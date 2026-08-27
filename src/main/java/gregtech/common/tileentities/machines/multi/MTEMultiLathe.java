@@ -1,0 +1,311 @@
+package gregtech.common.tileentities.machines.multi;
+
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlocksTiered;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
+import static gregtech.api.enums.GTAuthors.AuthorVolence;
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_MULTI_LATHE;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_MULTI_LATHE_ACTIVE;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_MULTI_LATHE_ACTIVE_GLOW;
+import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_MULTI_LATHE_GLOW;
+import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.google.common.collect.ImmutableList;
+import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
+import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.GregTechAPI;
+import gregtech.api.enums.SoundResource;
+import gregtech.api.enums.Textures;
+import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.logic.ProcessingLogic;
+import gregtech.api.metatileentity.GregTechTileClientEvents;
+import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrors;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.tooltip.TooltipTier;
+import gregtech.common.blocks.BlockCasings2;
+import gregtech.common.misc.GTStructureChannels;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
+
+public class MTEMultiLathe extends MTEExtendedPowerMultiBlockBase<MTEMultiLathe>
+    implements ISurvivalConstructable, ICasingTextureProvider {
+
+    public MTEMultiLathe(final int aID, final String aName, final String aNameRegional) {
+        super(aID, aName, aNameRegional);
+    }
+
+    public MTEMultiLathe(String aName) {
+        super(aName);
+    }
+
+    private static final String STRUCTURE_PIECE_MAIN = "main";
+    private static final String STRUCTURE_PIECE_BODY = "body";
+    private static final String STRUCTURE_PIECE_BODY_ALT = "body_alt";
+
+    protected int pipeTier = -1;
+
+    // get tier from block meta
+    @Nullable
+    private static Integer getTierFromMeta(Block block, Integer metaID) {
+        if (block != GregTechAPI.sBlockCasings11) return null;
+        if (metaID < 0 || metaID > 7) return null;
+        return metaID + 1;
+    }
+
+    private void setPipeTier(int tier) {
+        pipeTier = tier;
+    }
+
+    private int getPipeTier() {
+        return pipeTier;
+    }
+
+    private static final IStructureDefinition<MTEMultiLathe> STRUCTURE_DEFINITION = StructureDefinition
+        .<MTEMultiLathe>builder()
+        .addShape(
+            STRUCTURE_PIECE_MAIN,
+            transpose(new String[][] { { "       " }, { "       " }, { "       " }, { "       " }, { "AAA~AAA" } }))
+        .addShape(
+            STRUCTURE_PIECE_BODY,
+            (transpose(
+                new String[][] { { "       ", "AAAAAAA", "       ", "       " },
+                    { "ABCCCCA", "ABCCCCA", "ABCCCCA", "       " }, { "ABCCCCA", "ABFFFFA", "ABCCCCA", "       " },
+                    { "ABCCCCA", "ABCCCCA", "ABCCCCA", "       " }, { "AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA" } })))
+        .addShape(
+            STRUCTURE_PIECE_BODY_ALT,
+            (transpose(
+                new String[][] { { "       ", "AAAAAAA", "       ", "       " },
+                    { "ACCCCBA", "ACCCCBA", "ACCCCBA", "       " }, { "ACCCCBA", "AFFFFBA", "ACCCCBA", "       " },
+                    { "ACCCCBA", "ACCCCBA", "ACCCCBA", "       " }, { "AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA" } })))
+        .addElement(
+            'A',
+            buildHatchAdder(MTEMultiLathe.class).atLeast(InputBus, OutputBus, Maintenance, Energy)
+                .casingIndex(((BlockCasings2) GregTechAPI.sBlockCasings2).getTextureIndex(0))
+                .hint(1)
+                .buildAndChain(onElementPass(MTEMultiLathe::onCasingAdded, ofBlock(GregTechAPI.sBlockCasings2, 0))))
+        .addElement('B', ofBlock(GregTechAPI.sBlockCasings3, 10)) // Steel Casings
+        .addElement('C', chainAllGlasses()) // Glass
+        .addElement(
+            'F',
+            GTStructureChannels.ITEM_PIPE_CASING.use(
+                ofBlocksTiered(
+                    MTEMultiLathe::getTierFromMeta,
+                    ImmutableList.of(
+                        Pair.of(GregTechAPI.sBlockCasings11, 0),
+                        Pair.of(GregTechAPI.sBlockCasings11, 1),
+                        Pair.of(GregTechAPI.sBlockCasings11, 2),
+                        Pair.of(GregTechAPI.sBlockCasings11, 3),
+                        Pair.of(GregTechAPI.sBlockCasings11, 4),
+                        Pair.of(GregTechAPI.sBlockCasings11, 5),
+                        Pair.of(GregTechAPI.sBlockCasings11, 6),
+                        Pair.of(GregTechAPI.sBlockCasings11, 7)),
+                    -1,
+                    MTEMultiLathe::setPipeTier,
+                    MTEMultiLathe::getPipeTier)))
+        .build();
+
+    @Override
+    public IStructureDefinition<MTEMultiLathe> getStructureDefinition() {
+        return STRUCTURE_DEFINITION;
+    }
+
+    @Override
+    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+        return new MTEMultiLathe(this.mName);
+    }
+
+    @Override
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
+        int colorIndex, boolean aActive, boolean redstoneLevel) {
+        return Textures.BlockIcons.createTextureWithCasing(
+            this,
+            side,
+            aFacing,
+            aActive,
+            OVERLAY_FRONT_MULTI_LATHE,
+            OVERLAY_FRONT_MULTI_LATHE_GLOW,
+            OVERLAY_FRONT_MULTI_LATHE_ACTIVE,
+            OVERLAY_FRONT_MULTI_LATHE_ACTIVE_GLOW);
+    }
+
+    @Override
+    public ITexture getCasingTexture() {
+        return Textures.BlockIcons
+            .getCasingTextureForId(GTUtility.getCasingTextureIndex(GregTechAPI.sBlockCasings2, 0));
+    }
+
+    @Override
+    protected MultiblockTooltipBuilder createTooltip() {
+        MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
+        tt.addMachineType("Lathe, IPL")
+            .addDynamicParallelInfo(8, TooltipTier.PIPE_CASING)
+            .addStaticSpeedInfo(4f)
+            .addStaticEuEffInfo(0.8f)
+            .beginStructureBlock(7, 5, 5, true)
+            .addController("Front bottom center")
+            .addCasing("42-55", "Solid Steel Machine Casing", false)
+            .addCasing("32", "Any Tiered Glass", false)
+            .addCasing("9", "Grate Machine Casing", false)
+            .addCasing("4", "Item Pipe Casing", true)
+            .addEnergyHatch("1+", "Any steel machine casing", 1)
+            .addMaintenanceHatch("1", "Any steel machine casing", 1)
+            .addInputBus("1+", "Any steel machine casing", 1)
+            .addOutputBus("1+", "Any steel machine casing", 1)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
+            .addSubChannel(GTStructureChannels.ITEM_PIPE_CASING)
+            .toolTipFinisher(AuthorVolence);
+        return tt;
+    }
+
+    @Override
+    public void construct(ItemStack stackSize, boolean hintsOnly) {
+        buildPiece(STRUCTURE_PIECE_MAIN, stackSize, hintsOnly, 3, 4, 0);
+        buildPiece(STRUCTURE_PIECE_BODY, stackSize, hintsOnly, 3, 4, -1);
+    }
+
+    @Override
+    public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
+        if (mMachine) return -1;
+        int build = survivalBuildPiece(STRUCTURE_PIECE_MAIN, stackSize, 3, 4, 0, elementBudget, env, false, true);
+        if (build >= 0) return build;
+        build = survivalBuildPiece(STRUCTURE_PIECE_BODY, stackSize, 3, 4, -1, elementBudget, env, false, true);
+        if (build >= 0) return build;
+        build = survivalBuildPiece(STRUCTURE_PIECE_BODY_ALT, stackSize, 3, 4, -1, elementBudget, env, false, true);
+        return build;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GT_MACHINES_MULTI_LATHE_LOOP;
+    }
+
+    private int mCasingAmount;
+
+    private void onCasingAdded() {
+        mCasingAmount++;
+    }
+
+    private void resetStructureState() {
+        pipeTier = -1;
+        mCasingAmount = 0;
+        clearHatches();
+    }
+
+    private boolean checkBodyPiece(List<StructureError> errors) {
+        if (checkPiece(STRUCTURE_PIECE_BODY, 3, 4, -1, new ArrayList<>())) return true;
+        resetStructureState();
+        checkPiece(STRUCTURE_PIECE_MAIN, 3, 4, 0, new ArrayList<>());
+        return checkPiece(STRUCTURE_PIECE_BODY_ALT, 3, 4, -1, errors);
+    }
+
+    @Override
+    public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
+        resetStructureState();
+        if (!checkPiece(STRUCTURE_PIECE_MAIN, 3, 4, 0, errors)) return;
+        getBaseMetaTileEntity().sendBlockEvent(GregTechTileClientEvents.CHANGE_CUSTOM_DATA, getUpdateData());
+        if (!checkBodyPiece(errors)) return;
+        if (pipeTier <= 0) {
+            errors.add(StructureErrors.of("GT5U.gui.text.structure_error.missing_pipe_casing"));
+        }
+        checkCasingMin(errors, mCasingAmount, 42);
+        checkHasEnergyHatch(errors);
+        checkHasMaintenanceHatch(errors);
+        checkHasInputBus(errors);
+        checkHasOutputBus(errors);
+    }
+
+    @Override
+    protected ProcessingLogic createProcessingLogic() {
+        return new ProcessingLogic().noRecipeCaching()
+            .setSpeedBonus(1F / 4F)
+            .setEuModifier(0.8F)
+            .setMaxParallelSupplier(this::getTrueParallel);
+    }
+
+    @Override
+    public int getMaxParallelRecipes() {
+        return (getPipeTier() * 8);
+    }
+
+    @Override
+    public void getExtraWailaNBT(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
+        int z) {
+        tag.setInteger("itemPipeTier", Math.max(0, getPipeTier()));
+        tag.setFloat("speedBonus", 400);
+    }
+
+    private static final DecimalFormat dfNone = new DecimalFormat("#");
+
+    @Override
+    public void getExtraWailaBody(ItemStack itemStack, List<String> list, NBTTagCompound tag,
+        IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        list.add(
+            StatCollector.translateToLocal("GT5U.multiblock.itemPipeTier") + ": "
+                + EnumChatFormatting.WHITE
+                + Math.max(0, tag.getInteger("itemPipeTier")));
+        list.add(
+            StatCollector.translateToLocal("GT5U.multiblock.speed") + ": "
+                + EnumChatFormatting.WHITE
+                + dfNone.format((Math.max(0, tag.getInteger("speedBonus"))))
+                + "%");
+    }
+
+    @Override
+    public RecipeMap<?> getRecipeMap() {
+        return RecipeMaps.latheRecipes;
+    }
+
+    @Override
+    public boolean supportsVoidProtection() {
+        return true;
+    }
+
+    @Override
+    public boolean supportsBatchMode() {
+        return true;
+    }
+
+    @Override
+    public boolean supportsInputSeparation() {
+        return true;
+    }
+}

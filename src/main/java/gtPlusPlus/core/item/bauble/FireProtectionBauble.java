@@ -1,0 +1,73 @@
+package gtPlusPlus.core.item.bauble;
+
+import static gregtech.api.enums.Mods.GTPlusPlus;
+
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
+
+import baubles.api.BaubleType;
+import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.mixin.interfaces.accessors.EntityAccessor;
+import gtPlusPlus.core.creative.AddToCreativeTab;
+
+public class FireProtectionBauble extends BaseBauble {
+
+    public FireProtectionBauble() {
+        super(BaubleType.RING);
+        String aUnlocalName = "GTPP.bauble.fireprotection.0.name";
+        this.setUnlocalizedName(aUnlocalName);
+        this.setTextureName(GTPlusPlus.ID + ":" + getTextureNameForBauble());
+        this.setMaxDamage(100);
+        this.setMaxStackSize(1);
+        this.setNoRepair();
+        this.setCreativeTab(AddToCreativeTab.tabMachines);
+        GameRegistry.registerItem(this, aUnlocalName);
+    }
+
+    @Override
+    public String getItemStackDisplayName(final ItemStack p_77653_1_) {
+        return (EnumChatFormatting.DARK_RED + super.getItemStackDisplayName(p_77653_1_) + EnumChatFormatting.GRAY);
+    }
+
+    @Override
+    public boolean showDurabilityBar(final ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public boolean canEquip(final ItemStack arg0, final EntityLivingBase arg1) {
+        return true;
+    }
+
+    @Override
+    public boolean canUnequip(final ItemStack arg0, final EntityLivingBase arg1) {
+        return true;
+    }
+
+    @Override
+    public void onEquipped(final ItemStack arg0, final EntityLivingBase aPlayer) {}
+
+    @Override
+    public void onUnequipped(final ItemStack arg0, final EntityLivingBase entity) {
+        if (!entity.worldObj.isRemote) {
+            if (entity instanceof EntityPlayer player) {
+                ((EntityAccessor) player).gt5u$setImmuneToFire(false);
+            }
+        }
+    }
+
+    @Override
+    public void onWornTick(final ItemStack aBaubleStack, final EntityLivingBase entity) {
+        if (!entity.worldObj.isRemote) {
+            if (entity instanceof EntityPlayer player) {
+                ((EntityAccessor) player).gt5u$setImmuneToFire(true);
+            }
+        }
+    }
+
+    public String getTextureNameForBauble() {
+        return "baubles/itemFireProtectGlovesBetter";
+    }
+}

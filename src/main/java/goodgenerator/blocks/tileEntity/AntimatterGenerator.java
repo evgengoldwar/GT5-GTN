@@ -1,0 +1,461 @@
+package goodgenerator.blocks.tileEntity;
+
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static gregtech.api.enums.Textures.BlockIcons.*;
+import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static gregtech.common.misc.WirelessNetworkManager.addEUToGlobalEnergyMap;
+import static gregtech.common.misc.WirelessNetworkManager.strongCheckOrAddUser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.google.common.collect.ImmutableMap;
+import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
+import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+
+import bartworks.common.loaders.ItemRegistry;
+import goodgenerator.blocks.structures.AntimatterStructures;
+import goodgenerator.loader.Loaders;
+import gregtech.api.GregTechAPI;
+import gregtech.api.enums.HatchElement;
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
+import gregtech.api.metatileentity.implementations.MTEHatch;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.structure.error.ErrorType;
+import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrors;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.HatchElementBuilder;
+import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.common.gui.modularui.multiblock.AntimatterGeneratorGui;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
+
+@IMetaTileEntity.SkipGenerateDescription
+public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase<AntimatterGenerator>
+    implements ISurvivalConstructable {
+
+    public static final String MAIN_NAME = "antimatterGenerator";
+    protected IStructureDefinition<AntimatterGenerator> multiDefinition = null;
+    protected int times = 1;
+    private UUID owner_uuid;
+    private boolean wirelessEnabled = false;
+    private long lastCycleTick = 0;
+
+    private long euLastCycle = 0;
+    private float annihilationEfficiency = 0f;
+    public static final long ANTIMATTER_FUEL_VALUE = 1_000_000_000_000L;
+    private final List<Float> avgEff = new ArrayList<>(10);
+
+    private static final ClassValue<IStructureDefinition<AntimatterGenerator>> STRUCTURE_DEFINITION = new ClassValue<>() {
+
+        @Override
+        protected IStructureDefinition<AntimatterGenerator> computeValue(@NotNull Class<?> type) {
+            return StructureDefinition.<AntimatterGenerator>builder()
+                .addShape(MAIN_NAME, AntimatterStructures.ANTIMATTER_GENERATOR)
+                .addElement('F', ofFrame(Materials.Naquadria)) // Naquadria Frame Box
+                .addElement('D', lazy(() -> ofBlock(Loaders.magneticFluxCasing, 0))) // Black Casing
+                .addElement('G', lazy(() -> ofBlock(Loaders.antimatterAnnihilationMatrix, 0))) // Annihilation Coil
+                .addElement('B', lazy(() -> ofBlock(Loaders.protomatterActivationCoil, 0))) // Containment Coil
+                .addElement('C', lazy(() -> ofBlock(Loaders.gravityStabilizationCasing, 0))) // White Casing
+                .addElement('A', ofChain(ofBlock(ItemRegistry.bw_realglas, 8), ofBlock(ItemRegistry.bw_realglas2, 3))) // Glass
+                .addElement('E', ofBlock(GregTechAPI.sBlockCasings9, 1)) // Filter Casing
+                .addElement(
+                    'H',
+                    lazy(
+                        x -> HatchElementBuilder.<AntimatterGenerator>builder()
+                            .anyOf(HatchElement.ExoticDynamo)
+                            .casingIndex(x.textureIndex(2))
+                            .hint(2)
+                            .buildAndChain(Loaders.gravityStabilizationCasing, 0)))
+                .addElement(
+                    'I',
+                    lazy(
+                        x -> buildHatchAdder(AntimatterGenerator.class).atLeast(HatchElement.InputHatch)
+                            .casingIndex(x.textureIndex(1))
+                            .hint(1)
+                            .buildAndChain(Loaders.magneticFluxCasing, 0)))
+                .build();
+        }
+    };
+
+    public AntimatterGenerator(String name) {
+        super(name);
+    }
+
+    public AntimatterGenerator(int id, String name, String nameRegional) {
+        super(id, name, nameRegional);
+    }
+
+    @Override
+    public boolean shouldCheckRecipeThisTick(long tick) {
+        if (tick - lastCycleTick >= 100) {
+            lastCycleTick = tick;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean supportsPowerPanel() {
+        return false;
+    }
+
+    @Override
+    public @NotNull CheckRecipeResult checkProcessing() {
+        List<FluidStack> inputFluids = getStoredFluids();
+        long containedAntimatter = 0;
+        FluidStack catalystFluid = null;
+        int i = 0;
+
+        while (i < inputFluids.size()) {
+            FluidStack inputFluid = inputFluids.get(i);
+            if (inputFluid.isFluidEqual(Materials.Antimatter.getFluid(1))) {
+                containedAntimatter += inputFluid.amount;
+            } else {
+                catalystFluid = inputFluid.copy();
+            }
+            // We annihilate everything, even if it was the wrong fluid
+            inputFluid.amount = 0;
+            i++;
+        }
+        // If i != 2, we iterated more than 2 times and have too many fluids.
+        if (i == 2 && containedAntimatter > 0 && catalystFluid != null) {
+            createEU(containedAntimatter, catalystFluid);
+        }
+        // Set stats if one fluid supplied.
+        if ((containedAntimatter == 0 && catalystFluid != null) || (containedAntimatter > 0 && catalystFluid == null)) {
+            this.annihilationEfficiency = 0;
+            this.euLastCycle = 0;
+            setAvgEff(0f);
+        }
+
+        recipesDone++;
+        return CheckRecipeResultRegistry.SUCCESSFUL;
+    }
+
+    // (Antimatter^(EXP) * 1e12 )/(Math.min((Antimatter/Matter),(Matter/Antimatter)))
+    public void createEU(long antimatter, FluidStack catalyst) {
+        Float modifier = null;
+
+        if (catalyst.isFluidEqual(Materials.Copper.getMolten(1L))) {
+            modifier = 1.0F;
+        } else if (catalyst.isFluidEqual(Materials.SuperconductorUIVBase.getMolten(1L))) {
+            modifier = 1.02F;
+        } else if (catalyst.isFluidEqual(Materials.SuperconductorUMVBase.getMolten(1L))) {
+            modifier = 1.03F;
+        }
+        long catalystCount = catalyst.amount;
+        long generatedEU = 0;
+
+        if (modifier != null) {
+            float efficiency = Math
+                .min(((float) antimatter / (float) catalystCount), ((float) catalystCount / (float) antimatter));
+            this.annihilationEfficiency = efficiency;
+            setAvgEff(efficiency);
+            generatedEU = (long) ((Math.pow(antimatter, modifier) * ANTIMATTER_FUEL_VALUE) * efficiency);
+        } else { // Set stats and return if supplied antimatter with incorrect fluid.
+            this.annihilationEfficiency = 0;
+            this.euLastCycle = 0;
+            setAvgEff(0f);
+            return;
+        }
+
+        if (wirelessEnabled && modifier >= 1.03F) {
+            // Clamp the EU to the maximum of the hatches so wireless cannot bypass the limitations
+            long euCapacity = 0;
+            for (MTEHatch tHatch : getExoticDynamoHatches()) {
+                euCapacity += tHatch.maxEUStore();
+            }
+
+            // Prevent -Generation when long overflow
+            if (generatedEU < 0) generatedEU = Long.MAX_VALUE;
+            if (euCapacity < 0) euCapacity = Long.MAX_VALUE;
+
+            generatedEU = Math.min(generatedEU, euCapacity);
+            this.euLastCycle = generatedEU;
+            addEUToGlobalEnergyMap(owner_uuid, generatedEU);
+        } else {
+            this.euLastCycle = generatedEU;
+            float invHatchCount = 1.0F / (float) mExoticDynamoHatches.size();
+            for (MTEHatch tHatch : getExoticDynamoHatches()) {
+                tHatch.setEUVar(tHatch.getEUVar() + (long) (generatedEU * invHatchCount));
+            }
+        }
+    }
+
+    @Override
+    public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
+        if (!checkPiece(MAIN_NAME, 17, 41, 0, errors)) return;
+        if (mExoticDynamoHatches.isEmpty()) {
+            errors.add(StructureErrors.hatchCount(ErrorType.TOO_FEW, HatchElement.ExoticDynamo, 0, 1));
+        }
+        checkHasInputHatch(errors);
+    }
+
+    @Override
+    public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
+        if (mMachine) return -1;
+        int realBudget = elementBudget >= 200 ? elementBudget : Math.min(200, elementBudget * 5);
+        return survivalBuildPiece(MAIN_NAME, stackSize, 17, 41, 0, realBudget, env, false, true);
+    }
+
+    @Override
+    public void construct(ItemStack itemStack, boolean hintsOnly) {
+        buildPiece(MAIN_NAME, itemStack, hintsOnly, 17, 41, 0);
+    }
+
+    @Override
+    public void saveNBTData(NBTTagCompound nbt) {
+        nbt.setBoolean("wirelessEnabled", wirelessEnabled);
+        super.saveNBTData(nbt);
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound nbt) {
+        wirelessEnabled = nbt.getBoolean("wirelessEnabled");
+        super.loadNBTData(nbt);
+    }
+
+    @Override
+    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+        return new AntimatterGenerator(MAIN_NAME);
+    }
+
+    @Override
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
+        ItemStack aTool) {
+        wirelessEnabled = !wirelessEnabled;
+        GTUtility.sendChatTrans(
+            aPlayer,
+            wirelessEnabled ? "gg.chat.antimatter_generator.wireless_mode.enable"
+                : "gg.chat.antimatter_generator.wireless_mode.disable");
+        if (wirelessEnabled) {
+            GTUtility.sendChatTrans(aPlayer, "gg.chat.antimatter_generator.wireless_mode.enable.hint");
+        }
+    }
+
+    @Override
+    public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        super.onPreTick(aBaseMetaTileEntity, aTick);
+
+        if (aBaseMetaTileEntity.isServerSide()) {
+
+            // On first tick find the player name and attempt to add them to the map.
+            if (aTick == 1) {
+
+                // UUID and username of the owner.
+                owner_uuid = aBaseMetaTileEntity.getOwnerUuid();
+
+                strongCheckOrAddUser(owner_uuid);
+            }
+        }
+    }
+
+    @Override
+    protected MultiblockTooltipBuilder createTooltip() {
+        final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
+        // spotless:off
+        tt.addMachineType(StatCollector.translateToLocal("gt.mbtt.machine_type.antimatter_generator"))
+            .addMarkdown(
+                new ResourceLocation("gregtech", "antimatter-generator"),
+                ImmutableMap.of(
+                    "max_output", GTUtility.scientificFormat(Long.MAX_VALUE),
+                    "fuel_value", GTUtility.scientificFormat(ANTIMATTER_FUEL_VALUE)))
+            .beginStructureBlock(35, 43, 35, true)
+            .addController(StatCollector.translateToLocal("gt.mbtt.structure.front_center_2nd_layer"))
+            .addCasing("4127-4128", new ItemStack(Loaders.magneticFluxCasing, 1).getDisplayName(), false)
+            .addCasing("2481-2544", new ItemStack(Loaders.gravityStabilizationCasing, 1).getDisplayName(), false)
+            .addCasing("1008", StatCollector.translateToLocalFormatted("GT5U.MBTT.HatchInfo", new ItemStack(ItemRegistry.bw_realglas, 1, 8).getDisplayName()), false)
+            .addCasing("600", new ItemStack(Loaders.antimatterAnnihilationMatrix, 1).getDisplayName(), false)
+            .addCasing("292", OrePrefixes.frameGt.getLocalizedNameForItem(Materials.Naquadria), false)
+            .addCasing("209", new ItemStack(GregTechAPI.sBlockCasings9, 1, 1).getDisplayName(), false)
+            .addCasing("32", new ItemStack(Loaders.protomatterActivationCoil, 1).getDisplayName(), false)
+            .addMiscHatch("1-64", StatCollector.translateToLocal("GT5U.tooltip.structure.laser_source_hatch"), StatCollector.translateToLocal("gt.mbtt.structure.any_bottom_leg_casing"), 2)
+            .addInputHatch("1-2", StatCollector.translateToLocal("gt.mbtt.structure.either_center_side_casing"), 1)
+            .toolTipFinisher();
+        // spotless:on
+        return tt;
+    }
+
+    public boolean canUseWireless() {
+        return true;
+    }
+
+    @Override
+    public void getExtraInfoData(List<String> info) {
+        info.add("gg.infodata.antimatter_generator.header");
+        info.add(
+            IGregTechDeviceInformation
+                .encode("gg.infodata.antimatter_generator.eu_produced", formatNumber(this.euLastCycle)));
+        info.add(
+            IGregTechDeviceInformation.encode(
+                "gg.infodata.antimatter_generator.efficiency",
+                formatNumber(Math.ceil(this.annihilationEfficiency * 100))));
+        info.add(
+            IGregTechDeviceInformation.encode(
+                "gg.infodata.antimatter_generator.efficiency.avg",
+                formatNumber(Math.ceil(this.avgEffCache * 100))));
+    }
+
+    public long getEnergyProduced() {
+        return this.euLastCycle;
+    }
+
+    public float getEfficiency() {
+        return this.annihilationEfficiency;
+    }
+
+    private int n = 0;
+
+    private void setAvgEff(float a) {
+        if (n == 10) n = 0;
+        if (this.avgEff.size() < 10) {
+            this.avgEff.add(a);
+        } else {
+            this.avgEff.set(n, a);
+            n++;
+        }
+
+        float b = 0;
+        for (float c : this.avgEff) {
+            b += c;
+        }
+        this.avgEffCache = b == 0 ? 0 : b / this.avgEff.size();
+    }
+
+    public float getAvgEfficiency() {
+        return this.avgEffCache;
+    }
+
+    protected float avgEffCache;
+
+    @Override
+    public IStructureDefinition<AntimatterGenerator> getStructureDefinition() {
+        return STRUCTURE_DEFINITION.get(getClass());
+    }
+
+    @Override
+    public void getExtraWailaBody(ItemStack itemStack, List<String> list, NBTTagCompound tag,
+        IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        list.add(
+            StatCollector
+                .translateToLocalFormatted("gui.AntimatterGenerator.0.s", formatNumber(tag.getLong("curProducedEU"))));
+        list.add(
+            StatCollector.translateToLocalFormatted(
+                "gui.AntimatterGenerator.1.s",
+                formatNumber(Math.ceil(tag.getFloat("curEff") * 100))));
+        list.add(
+            StatCollector.translateToLocalFormatted(
+                "gui.AntimatterGenerator.2.s",
+                formatNumber(Math.ceil(tag.getFloat("avgEff") * 100))));
+    }
+
+    @Override
+    public void getExtraWailaNBT(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
+        int z) {
+        tag.setLong("curProducedEU", euLastCycle);
+        tag.setFloat("curEff", annihilationEfficiency);
+        tag.setFloat("avgEff", avgEffCache);
+    }
+
+    @Override
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection facing,
+        int colorIndex, boolean aActive, boolean aRedstone) {
+        if (side == facing) return new ITexture[] { TextureFactory.builder()
+            .addIcon(MACHINE_CASING_ANTIMATTER)
+            .extFacing()
+            .build(),
+            TextureFactory.builder()
+                .addIcon(OVERLAY_FUSION1)
+                .extFacing()
+                .build(),
+            TextureFactory.builder()
+                .addIcon(OVERLAY_FUSION1_GLOW)
+                .extFacing()
+                .glow()
+                .build() };
+        if (aActive) return new ITexture[] { TextureFactory.builder()
+            .addIcon(MACHINE_CASING_ANTIMATTER)
+            .extFacing()
+            .build(),
+            TextureFactory.builder()
+                .addIcon(MACHINE_CASING_ANTIMATTER_GLOW)
+                .extFacing()
+                .glow()
+                .build() };
+        return new ITexture[] { TextureFactory.builder()
+            .addIcon(MACHINE_CASING_ANTIMATTER)
+            .extFacing()
+            .build() };
+    }
+
+    public int textureIndex(int type) {
+        if (type == 2) {
+            return (12 << 7) + 10;
+        }
+        return (12 << 7) + 9;
+    }
+
+    @Override
+    protected @NotNull AntimatterGeneratorGui getGui() {
+        return new AntimatterGeneratorGui(this);
+    }
+
+    @Override
+    public boolean canBeMuffled() {
+        return false;
+    }
+
+    public boolean getWirelessMode() {
+        return this.wirelessEnabled;
+    }
+
+    public void setWirelessEnabled(boolean b) {
+        wirelessEnabled = b;
+    }
+
+    @Override
+    public boolean getDefaultHasMaintenanceChecks() {
+        return false;
+    }
+
+    @Override
+    public boolean showRecipeTextInGUI() {
+        return false;
+    }
+
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
+
+}
