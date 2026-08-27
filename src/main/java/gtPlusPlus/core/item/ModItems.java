@@ -72,7 +72,6 @@ import gtPlusPlus.plugin.agrichem.item.algae.ItemAgrichemBase;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.gregtech.common.helpers.VolumetricFlaskHelper;
 import gtPlusPlus.xmod.gregtech.common.items.MetaGeneratedGregtechItems;
-import toxiceverglades.GTPPEverglades;
 
 public final class ModItems {
 
@@ -581,7 +580,6 @@ public final class ModItems {
         // Ores
         MaterialGenerator.generateOreMaterial(MaterialsFluorides.FLUORITE);
         MaterialGenerator.generateOreMaterial(MaterialsAlloy.KOBOLDITE);
-        GTPPEverglades.GenerateOreMaterials();
 
         // Formula overrides
         MaterialsAlloy.TUNGSTEN_TITANIUM_CARBIDE.chemicalFormula = StringUtils.subscript("(CW)7Ti3");

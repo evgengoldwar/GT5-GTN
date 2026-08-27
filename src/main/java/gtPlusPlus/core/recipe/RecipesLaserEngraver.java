@@ -17,7 +17,6 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gtPlusPlus.core.material.MaterialsElements;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import toxiceverglades.dimension.DimensionEverglades;
 
 public class RecipesLaserEngraver implements IOreRecipeRegistrator {
 
@@ -117,12 +116,6 @@ public class RecipesLaserEngraver implements IOreRecipeRegistrator {
                 .addTo(laserEngraverRecipes);
 
         } else if (aOreDictName.equals(OreDictNames.craftingLensOrange.toString())) {
-            GTValues.RA.stdBuilder()
-                .itemInputs(GregtechItemList.AlkalusDisk.get(1), GTUtility.copyAmount(0L, aStack))
-                .itemOutputs(new ItemStack(DimensionEverglades.portalItem))
-                .duration(3 * HOURS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(laserEngraverRecipes);
         }
     }
 }

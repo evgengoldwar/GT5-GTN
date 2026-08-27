@@ -23,7 +23,6 @@ import gregtech.api.util.GTOreDictUnificator;
 import gtPlusPlus.core.block.ModBlocks;
 import gtPlusPlus.core.material.MaterialsAlloy;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import toxiceverglades.dimension.DimensionEverglades;
 
 public class RecipesMachines {
 
@@ -160,22 +159,6 @@ public class RecipesMachines {
                 .eut(TierEU.RECIPE_EV)
                 .addTo(assemblerRecipes);
         }
-
-        // Containment Frame (Everglades Portal)
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GregtechItemList.Casing_Multi_Use.get(1),
-                ItemList.Field_Generator_MV.get(1),
-                ItemList.Field_Generator_HV.get(1),
-                ItemList.Emitter_HV.get(1),
-                ItemList.Sensor_HV.get(1),
-                MaterialsAlloy.PIKYONIUM.getPlate(8),
-                GTOreDictUnificator.get(OrePrefixes.wireGt08, Materials.Naquadah, 4))
-            .itemOutputs(new ItemStack(DimensionEverglades.blockPortalFrame, 2))
-            .fluidInputs(MaterialsAlloy.ZERON_100.getFluidStack(8 * INGOTS))
-            .duration(4 * MINUTES + 30 * SECONDS)
-            .eut(TierEU.RECIPE_LuV)
-            .addTo(assemblerRecipes);
 
         // Industrial Multi Tank Casing (unused but craftable)
         GTModHandler.addCraftingRecipe(
