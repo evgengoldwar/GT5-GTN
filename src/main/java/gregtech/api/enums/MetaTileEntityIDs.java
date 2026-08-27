@@ -1814,7 +1814,6 @@ public enum MetaTileEntityIDs {
     Boldarnator(15556),
     ThermalBoiler(15557),
     MolecularTransformer(15558),
-    PlanetarySiphon(15559),
     FlotationCell(15560),
     SteamGrinder(15561),
     SteamSquasher(15562),

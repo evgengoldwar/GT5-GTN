@@ -920,8 +920,7 @@ public class AssemblyLineRecipes implements Runnable {
                 ItemList.Field_Generator_UHV.get(16),
                 ItemList.NuclearStar.get(8),
                 ItemList.Emitter_UHV.get(4),
-                ItemList.ZPM3.get(1),
-                ItemList.SpaceElevatorMotorT3.get(64))
+                ItemList.ZPM3.get(1))
             .itemOutputs(ItemList.TierdDrone3.get(1))
             .fluidInputs(Materials.ExcitedDTCC.getFluid(8_000), MaterialMisc.MUTATED_LIVING_SOLDER.getFluidStack(8_000))
             .duration(60 * SECONDS)

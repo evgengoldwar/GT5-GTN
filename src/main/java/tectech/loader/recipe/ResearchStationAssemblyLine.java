@@ -156,8 +156,7 @@ public class ResearchStationAssemblyLine implements Runnable {
             2 * 16_384, // comp/s
             (int) TierEU.RECIPE_MAX, // eu/t
             64, // amperage
-            new Object[] { ItemList.SpaceElevatorController.get(16), CustomItemList.Machine_Multi_ForgeOfGods.get(4),
-                ItemList.Machine_Multi_PlasmaForge.get(4),
+            new Object[] { CustomItemList.Machine_Multi_ForgeOfGods.get(4), ItemList.Machine_Multi_PlasmaForge.get(4),
 
                 CustomItemList.EOH_Infinite_Energy_Casing.get(1),
                 CustomItemList.TimeAccelerationFieldGeneratorTier0.get(1),

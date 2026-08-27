@@ -1811,12 +1811,6 @@ public class MTERecipeLoader implements Runnable {
             ItemList.IndustrialFormingPress.get(1),
             new Object[] { " B ", "   ", "   ", 'B', GregtechItemList.Industrial_PlatePress });
 
-        // Planetary Gas Siphon Conversion Recipe
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.PlanetarySiphon.get(1),
-            GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GTModHandler.RecipeBits.BUFFERED,
-            new Object[] { ItemList.PlanetaryGasSiphonController });
-
         // Large Boilers Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.BronzeBoilerLarge.get(1),
