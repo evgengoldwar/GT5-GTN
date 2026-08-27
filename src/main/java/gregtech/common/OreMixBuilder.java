@@ -10,7 +10,6 @@ import java.util.Set;
 
 import net.minecraft.util.StatCollector;
 
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.StoneCategory;
 import gregtech.api.interfaces.IOreMaterial;
@@ -41,13 +40,6 @@ public class OreMixBuilder {
         return this;
     }
 
-    public OreMixBuilder enableInDim(DimensionDef... dims) {
-        for (DimensionDef dim : dims) {
-            this.dimsEnabled.add(dim.modDimensionDef.getDimensionName());
-        }
-        return this;
-    }
-
     public OreMixBuilder enableInDim(String... dims) {
         for (String dim : dims) {
             this.dimsEnabled.add(dim);
@@ -58,12 +50,6 @@ public class OreMixBuilder {
     public OreMixBuilder heightRange(int minY, int maxY) {
         this.minY = minY;
         this.maxY = maxY;
-        return this;
-    }
-
-    public OreMixBuilder heightRangeOverride(DimensionDef dim, int minY, int maxY) {
-        ShortShortPair pair = ShortShortPair.of((short) minY, (short) maxY);
-        dimVeinHeights.put(dim.modDimensionDef.getDimensionName(), pair);
         return this;
     }
 

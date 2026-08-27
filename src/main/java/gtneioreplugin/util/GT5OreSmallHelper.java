@@ -14,7 +14,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.SmallOres;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.world.GTWorldgen;
 import gregtech.common.SmallOreBuilder;
@@ -34,10 +33,6 @@ public class GT5OreSmallHelper {
 
     public static void init() {
         Map<String, SmallOreBuilder> smallOreDefMap = new HashMap<>();
-
-        for (SmallOres ore : SmallOres.values()) {
-            smallOreDefMap.put(ore.smallOreBuilder.smallOreName, ore.smallOreBuilder);
-        }
 
         Multimap<String, OreSmallWrapper> oreSpawning = MultimapBuilder.hashKeys()
             .arrayListValues()
@@ -127,9 +122,7 @@ public class GT5OreSmallHelper {
 
             this.enabledDims = new HashSet<>();
 
-            for (String dimName : ore.dimsEnabled) {
-                this.enabledDims.add(DimensionHelper.getDimAbbreviatedName(dimName));
-            }
+            for (String dimName : ore.dimsEnabled) {}
         }
 
         public boolean generatesInDimension(String abbr) {

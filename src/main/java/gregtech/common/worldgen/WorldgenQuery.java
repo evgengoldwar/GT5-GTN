@@ -9,10 +9,6 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.world.World;
-
-import galacticgreg.api.ModDimensionDef;
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.enums.StoneCategory;
 import gregtech.api.interfaces.IStoneCategory;
 import gregtech.api.util.GTDataUtils;
@@ -57,24 +53,6 @@ public class WorldgenQuery<TLayer extends IWorldgenLayer> {
 
     public WorldgenQuery<TLayer> inDimension(String dimName) {
         dimension = dimName;
-        return this;
-    }
-
-    public WorldgenQuery<TLayer> inDimension(World world) {
-        dimension = DimensionDef.getDimensionName(world);
-
-        return this;
-    }
-
-    public WorldgenQuery<TLayer> inDimension(ModDimensionDef def) {
-        dimension = def.getDimensionName();
-
-        return this;
-    }
-
-    public WorldgenQuery<TLayer> inDimension(DimensionDef def) {
-        dimension = def.modDimensionDef.getDimensionName();
-
         return this;
     }
 

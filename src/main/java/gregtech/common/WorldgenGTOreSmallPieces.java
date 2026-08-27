@@ -12,7 +12,6 @@ import java.util.Set;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.IStoneCategory;
@@ -115,10 +114,6 @@ public class WorldgenGTOreSmallPieces extends GTWorldgen implements IWorldgenLay
         IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
         if (!this.mBiome.equals("None") && !(this.mBiome.equals(biome))) {
             return false; // Not the correct biome for ore mix
-        }
-
-        if (!mAllowedDimensions.contains(DimensionDef.getDimensionName(world))) {
-            return false;
         }
 
         int count = 0;

@@ -24,7 +24,6 @@ import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.StoneType;
 import gregtech.api.enums.TextureSet;
@@ -33,7 +32,6 @@ import gregtech.api.interfaces.IOreMaterial;
 import gregtech.client.renderer.BillboardRenderHelper;
 import gregtech.client.renderer.BillboardRenderHelper.Plane;
 import gregtech.common.config.Client;
-import gtneioreplugin.util.DimensionHelper;
 
 /**
  * Renders the temporary ore markers triggered from the Detrav scanner GUI as in world GT ore
@@ -162,13 +160,7 @@ public class DetravOreMarkerRenderer {
 
     private static IIcon resolveBackground(World world) {
         StoneType stone = StoneType.Stone;
-        try {
-            String dimName = DimensionDef.getDimensionName(world);
-            if (dimName != null && DimensionHelper.INTERNAL_TO_FULL.containsKey(dimName)) {
-                List<StoneType> types = DimensionHelper.getStoneTypes(dimName);
-                if (!types.isEmpty() && types.getFirst() != null) stone = types.getFirst();
-            }
-        } catch (Exception ignored) {
+        try {} catch (Exception ignored) {
             // unmapped/edge dimensions just use vanilla stone
         }
         IIcon icon = stone.getIcon(1);

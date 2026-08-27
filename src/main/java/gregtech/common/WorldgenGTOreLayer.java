@@ -13,16 +13,10 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
-import net.minecraft.block.Block;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.Nullable;
 
-import galacticgreg.api.ModDimensionDef;
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.enums.StoneType;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.IStoneCategory;
@@ -276,12 +270,6 @@ public class WorldgenGTOreLayer extends GTWorldgen implements IWorldgenLayer {
             // Return a special empty orevein
             return NO_OVERLAP_AIR_BLOCK;
         }
-        String dimName = DimensionDef.getDimensionName(world);
-        if (!mAllowedDimensions.contains(dimName)) {
-            // The following code can be used for debugging, but it spams in logs
-            // if (debugOrevein) { GT_FML_LOGGER.debug( "Wrong dimension" ); }
-            return WRONG_DIMENSION;
-        }
 
         if (!this.mRestrictBiome.equals("None") && !this.mRestrictBiome.equals(biome)) {
             return WRONG_BIOME;
@@ -291,56 +279,16 @@ public class WorldgenGTOreLayer extends GTWorldgen implements IWorldgenLayer {
     }
 
     VeinPlacement resolveVeinPlacement(World world, XSTR rng, int chunkX, int chunkZ, int seedX, int seedZ) {
-        String dimName = DimensionDef.getDimensionName(world);
-        ShortShortPair heights = dimVeinHeights.getOrDefault(dimName, veinHeight);
-        short dimMinY = heights.leftShort();
-        short dimMaxY = heights.rightShort();
-
-        int veinMinY = dimMinY + rng.nextInt(dimMaxY - dimMinY - 5);
         // Determine West/East ends of orevein
         int veinWestX = seedX - rng.nextInt(mSize); // West side
         int veinEastX = seedX + 16 + rng.nextInt(mSize);
-
-        ModDimensionDef dimensionDef = DimensionDef.getDefForWorld(world);
-
-        if (!dimensionDef.respectsOreVeinHeights()) {
-            // Offset the chunkX/Z by the magic numbers used below to get the 'centre' (I have no idea where they come
-            // from).
-            int x = chunkX + 7;
-            int z = chunkZ + 9;
-
-            Chunk chunk = world.getChunkFromBlockCoords(x, z);
-
-            int minY = world.getActualHeight();
-            int maxY = 0;
-
-            // Most EBS's will be empty in the end, so instead of doing a naive 0-256 scan we can check each one
-            // separately.
-            // This is also faster than World.getBlock since there are fewer lookups needed to get a block.
-            for (ExtendedBlockStorage ebs : chunk.getBlockStorageArray()) {
-                if (ebs == null) continue;
-
-                for (int y = 0; y < 16; y++) {
-                    Block block = ebs.getBlockByExtId(7, y, 9);
-
-                    int realY = y + ebs.getYLocation();
-
-                    if (block.isBlockSolid(world, x, realY, z, ForgeDirection.UP.ordinal())) {
-                        minY = Math.min(minY, realY);
-                        maxY = Math.max(maxY, realY);
-                    }
-                }
-            }
-
-            veinMinY = minY + rng.nextInt(maxY - minY + 1);
-        }
 
         // Determine North/Sound ends of orevein
         int veinNorthZ = seedZ - rng.nextInt(mSize);
         int veinSouthZ = seedZ + 16 + rng.nextInt(mSize);
 
         long generationSeed = rng.getSeed();
-        return new VeinPlacement(veinMinY, veinWestX, veinEastX, veinNorthZ, veinSouthZ, generationSeed);
+        return new VeinPlacement(1, veinWestX, veinEastX, veinNorthZ, veinSouthZ, generationSeed);
     }
 
     private int generateWithPlacement(World world, Random rng, boolean dryRun, int chunkX, int chunkZ, int seedX,

@@ -27,7 +27,6 @@ import static gregtech.api.enums.Textures.BlockIcons.getCasingTextureForId;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -42,13 +41,9 @@ import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import com.google.common.collect.ImmutableList;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
-import com.gtnewhorizons.modularui.api.math.Alignment;
 import com.gtnewhorizons.modularui.common.widget.DynamicPositionedColumn;
 import com.gtnewhorizons.modularui.common.widget.SlotWidget;
-import com.gtnewhorizons.modularui.common.widget.TextWidget;
 
-import galacticgreg.api.ModDimensionDef;
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.IDataCopyable;
@@ -66,14 +61,12 @@ import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 import gregtech.common.gui.modularui.multiblock.MTEVoidMinerBaseGui;
 import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 import gregtech.common.tileentities.machines.multi.MTEDrillerBase;
-import gtneioreplugin.util.DimensionHelper;
 
 public abstract class MTEVoidMinerBase<T extends MTEVoidMinerBase<T>> extends MTEEnhancedMultiBlockBase<T>
     implements ISurvivalConstructable, IDataCopyable {
 
     public static final String COPIED_DATA_IDENTIFIER = "voidMiner";
 
-    private ModDimensionDef dimensionDef;
     private boolean canVoidMine = true;
     public VoidMinerUtility.DropMap dropMap = null;
     public VoidMinerUtility.DropMap extraDropMap = null;
@@ -185,12 +178,7 @@ public abstract class MTEVoidMinerBase<T extends MTEVoidMinerBase<T>> extends MT
     protected void drawTexts(DynamicPositionedColumn screenElements, SlotWidget inventorySlot) {
         super.drawTexts(screenElements, inventorySlot);
 
-        if (!canVoidMine) {
-            String dimensionName = dimensionDef == null ? "unknown"
-                : DimensionHelper.getDimLocalizedName(dimensionDef.getDimensionName());
-            String text = I18n.format("GT5U.gui.text.no_void_mining", dimensionName);
-            screenElements.addChild(new TextWidget(text).setTextAlignment(Alignment.TopLeft));
-        }
+        if (!canVoidMine) {}
     }
 
     protected List<IHatchElement<? super MTEDrillerBase>> getAllowedHatches() {
@@ -268,17 +256,6 @@ public abstract class MTEVoidMinerBase<T extends MTEVoidMinerBase<T>> extends MT
         this.extraDropMap = null;
         this.totalWeight = 0;
         this.canVoidMine = false;
-
-        dimensionDef = DimensionDef.getDefForWorld(getBaseMetaTileEntity().getWorld());
-
-        if (dimensionDef == null || !dimensionDef.canBeVoidMined()) return;
-
-        this.canVoidMine = true;
-
-        this.dropMap = VoidMinerUtility.dropMapsByDimName
-            .getOrDefault(dimensionDef.getDimensionName(), new VoidMinerUtility.DropMap());
-        this.extraDropMap = VoidMinerUtility.extraDropsByDimName
-            .getOrDefault(dimensionDef.getDimensionName(), new VoidMinerUtility.DropMap());
 
         this.dropMap.isDistributionCached(this.extraDropMap);
 
@@ -369,7 +346,6 @@ public abstract class MTEVoidMinerBase<T extends MTEVoidMinerBase<T>> extends MT
     public NBTTagCompound getCopiedData(EntityPlayer player) {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("type", COPIED_DATA_IDENTIFIER);
-        tag.setString("dimension", dimensionDef.getDimIdentifier());
         tag.setTag("selected", selected.serializeNBT());
         tag.setBoolean("blacklist", blacklist);
         return tag;
@@ -379,8 +355,6 @@ public abstract class MTEVoidMinerBase<T extends MTEVoidMinerBase<T>> extends MT
     public boolean pasteCopiedData(EntityPlayer player, NBTTagCompound nbt) {
         if (nbt == null || !(nbt.getString("type")
             .equals(COPIED_DATA_IDENTIFIER))) return false;
-        if (!nbt.getString("dimension")
-            .equals(dimensionDef.getDimIdentifier())) return false;
         this.selected.deserializeNBT(nbt.getCompoundTag("selected"));
         this.blacklist = nbt.getBoolean("blacklist");
         return true;

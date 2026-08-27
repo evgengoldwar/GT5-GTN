@@ -82,52 +82,10 @@ public class Oremix implements Comparable<Oremix> {
     }
 
     public static String getCsvHeader() {
-        int dimCount = DimensionHelper.getAllDim()
-            .size();
-        String[] headers = new String[sizeData + dimCount];
-
-        headers[0] = "Ore Mix Name";
-        headers[1] = "Primary Ore";
-        headers[2] = "Secondary Ore";
-        headers[3] = "InBetween Ore";
-        headers[4] = "Sporadic Ore";
-        headers[5] = "Ore Meta IDs";
-        headers[6] = "Height";
-        headers[7] = "Density";
-        headers[8] = "Size";
-        headers[9] = "Weight";
-
-        int i = 0;
-        for (DimensionHelper.Dimension record : DimensionHelper.getAllDim()) {
-            headers[sizeData + i] = DimensionHelper.getFullName(record.abbr());
-            i++;
-        }
-
-        return String.join(",", headers);
+        return "";
     }
 
     public String getCsvEntry() {
-        int dimCount = DimensionHelper.getAllDim()
-            .size();
-        String[] values = new String[sizeData + dimCount];
-
-        values[0] = oreMixName;
-        values[1] = primary;
-        values[2] = secondary;
-        values[3] = inbetween;
-        values[4] = sporadic;
-        values[5] = oreMixIDs;
-        values[6] = height;
-        values[7] = Integer.toString(density);
-        values[8] = Integer.toString(size);
-        values[9] = Integer.toString(weight);
-
-        int i = 0;
-        for (DimensionHelper.Dimension record : DimensionHelper.getAllDim()) {
-            values[sizeData + i] = Boolean.toString(dimensions.contains(record.abbr()));
-            i++;
-        }
-
-        return String.join(",", values);
+        return "";
     }
 }

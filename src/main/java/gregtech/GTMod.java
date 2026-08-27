@@ -52,7 +52,6 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import galacticgreg.SpaceDimRegisterer;
 import goodgenerator.util.NaquadahRecipePatches;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enchants.EnchantmentEnderDamage;
@@ -418,7 +417,6 @@ public class GTMod {
         LHECoolantRegistry.registerBaseCoolants();
 
         GT_FML_LOGGER.debug("Registering SpaceDimensions");
-        SpaceDimRegisterer.register();
 
         CondensateType.registerRecipes();
 

@@ -17,8 +17,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.math.LongMath;
 
 import bartworks.system.material.Werkstoff;
-import galacticgreg.api.ModDimensionDef;
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -32,11 +30,6 @@ import gregtech.common.ores.OreInfo;
 import gtPlusPlus.core.material.Material;
 import gtneioreplugin.plugin.block.BlockDimensionDisplay;
 import gtneioreplugin.plugin.block.ModBlocks;
-import gtneioreplugin.util.DimensionHelper;
-import gtneioreplugin.util.GT5OreLayerHelper;
-import gtneioreplugin.util.GT5OreLayerHelper.NormalOreDimensionWrapper;
-import gtneioreplugin.util.GT5OreSmallHelper;
-import gtneioreplugin.util.GT5OreSmallHelper.SmallOreDimensionWrapper;
 import tectech.util.FluidStackLong;
 import tectech.util.ItemStackLong;
 
@@ -59,47 +52,7 @@ public class EyeOfHarmonyRecipeStorage {
 
         private static final long serialVersionUID = -3501819612517400500L;
 
-        {
-            for (String dimAbbreviation : DimensionHelper.getAllDisplayedNames()) {
-                BlockDimensionDisplay blockDimensionDisplay = (BlockDimensionDisplay) ModBlocks.blocks
-                    .get(dimAbbreviation);
-
-                ModDimensionDef dimensionDef = DimensionDef.getDefByName(DimensionHelper.getFullName(dimAbbreviation));
-
-                if (dimensionDef != null && !dimensionDef.hasEoHRecipe()) continue;
-
-                if (dimAbbreviation.equals("DD")) {
-                    specialDeepDarkRecipe(this, blockDimensionDisplay);
-                } else {
-
-                    NormalOreDimensionWrapper normalOre = GT5OreLayerHelper.getVeinByDim(dimAbbreviation);
-                    SmallOreDimensionWrapper smallOre = GT5OreSmallHelper.getSmallOrebyDim(dimAbbreviation);
-
-                    if (normalOre == null && smallOre == null) {
-                        // No ores are generated in this dimension. Fail silently.
-                        continue;
-                    }
-
-                    long spacetimeTier = blockDimensionDisplay.getDimensionRocketTier();
-                    if (spacetimeTier == 0) {
-                        spacetimeTier += 1;
-                    }
-
-                    put(
-                        dimAbbreviation,
-                        new EyeOfHarmonyRecipe(
-                            normalOre,
-                            smallOre,
-                            blockDimensionDisplay,
-                            0.6 + blockDimensionDisplay.getDimensionRocketTier() / 10.0,
-                            BILLION * (blockDimensionDisplay.getDimensionRocketTier() + 1),
-                            BILLION * (blockDimensionDisplay.getDimensionRocketTier() + 1),
-                            timeCalculator(blockDimensionDisplay.getDimensionRocketTier()),
-                            spacetimeTier - 1,
-                            1.0 - CHANCE_DECREASE_PER_DIMENSION * blockDimensionDisplay.getDimensionRocketTier()));
-                }
-            }
-        }
+        {}
     };
 
     public EyeOfHarmonyRecipe recipeLookUp(final ItemStack aStack) {

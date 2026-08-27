@@ -2,7 +2,6 @@ package gtneioreplugin.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,15 +32,7 @@ public class GT5UndergroundFluidHelper {
                 dimension = getDimensionFromID(Integer.parseInt(rawDimension));
             } catch (NumberFormatException ignored) {
                 dimension = getDimensionForEdgeCase(rawDimension);
-                if (dimension == null) {
-                    for (DimensionHelper.Dimension record : DimensionHelper.getAllDim()) {
-                        if (record.trimmedName()
-                            .equalsIgnoreCase(rawDimension)) {
-                            dimension = record.abbr();
-                            break;
-                        }
-                    }
-                }
+                if (dimension == null) {}
             }
             if (dimension == null) {
                 GTNEIOrePlugin.LOG.warn("Unknown dimension found in GT5 config: {}", rawDimension);
@@ -74,9 +65,7 @@ public class GT5UndergroundFluidHelper {
             }
         }
 
-        for (List<UndergroundFluidWrapper> wrappers : fluidMap.values()) {
-            wrappers.sort(Comparator.comparingInt(w -> DimensionHelper.getIndexByAbbr(w.dimension)));
-        }
+        for (List<UndergroundFluidWrapper> wrappers : fluidMap.values()) {}
     }
 
     public static List<UndergroundFluidWrapper> getEntry(String fluidName) {
@@ -111,9 +100,6 @@ public class GT5UndergroundFluidHelper {
 
     public static class UndergroundFluidWrapper {
 
-        /**
-         * Using {@link DimensionHelper#getAllDisplayedNames()}
-         */
         public final String dimension;
         /**
          * Chance of this fluid field being generated. 10000 means 100% of the dimension

@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import bartworks.system.material.Werkstoff;
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.StoneType;
 import gregtech.common.config.Gregtech;
@@ -37,11 +36,6 @@ public class VoidMinerLoader {
             info.material = mat;
 
             if (!GTOreAdapter.INSTANCE.supports(info)) continue;
-
-            VoidMinerUtility.addMaterialToDimensionList(
-                DimensionDef.DimNames.DEEPDARK,
-                mat,
-                weights.getFloat(mat.getInternalName()));
         }
 
         info.release();
@@ -58,11 +52,6 @@ public class VoidMinerLoader {
             info.material = mat;
 
             if (!BWOreAdapter.INSTANCE.supports(info)) continue;
-
-            VoidMinerUtility.addMaterialToDimensionList(
-                DimensionDef.DimNames.DEEPDARK,
-                mat,
-                weights.getFloat(mat.getInternalName()));
         }
 
         info.release();
@@ -79,11 +68,6 @@ public class VoidMinerLoader {
             info.material = mat;
 
             if (!GTPPOreAdapter.INSTANCE.supports(info)) continue;
-
-            VoidMinerUtility.addMaterialToDimensionList(
-                DimensionDef.DimNames.DEEPDARK,
-                mat,
-                weights.getFloat(mat.getInternalName()));
         }
 
         info.release();

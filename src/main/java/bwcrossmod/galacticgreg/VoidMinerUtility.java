@@ -19,11 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 import bartworks.common.configs.Configuration;
 import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import galacticgreg.api.ModDimensionDef;
-import galacticgreg.api.enums.DimensionDef;
-import galacticgreg.api.enums.DimensionDef.DimNames;
 import gregtech.GTLoggers;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.StoneType;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.IStoneType;
@@ -33,7 +29,6 @@ import gregtech.common.WorldgenGTOreLayer;
 import gregtech.common.WorldgenGTOreSmallPieces;
 import gregtech.common.ores.OreInfo;
 import gregtech.common.ores.OreManager;
-import gtneioreplugin.util.DimensionHelper;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 
 public class VoidMinerUtility {
@@ -211,12 +206,6 @@ public class VoidMinerUtility {
     /** {full dim name: non-vein drop map} */
     public static final Map<String, DropMap> extraDropsByDimName = new HashMap<>();
 
-    // Adds tellurium to OW to ensure a way to get it, as it's used in Magneto Resonatic
-    // Dust and Circuit Compound MK3 Dust
-    static {
-        addMaterialToDimensionList(DimNames.OW, Materials.Tellurium, 8.0f);
-    }
-
     /**
      * Computes the ores of the dims
      */
@@ -225,25 +214,12 @@ public class VoidMinerUtility {
             if (!layer.mEnabled) continue;
 
             for (String dim : layer.getAllowedDimensions()) {
-                ModDimensionDef dimensionDef = DimensionDef.getDefByName(dim);
-
-                if (dimensionDef != null && !dimensionDef.canBeVoidMined()) continue;
-
                 DropMap map = dropMapsByDimName.computeIfAbsent(dim, ignored -> new DropMap());
 
-                List<StoneType> stones = DimensionHelper.getStoneTypes(dim);
-
-                if (!stones.isEmpty()) {
-                    map.addDrop(layer.mPrimary, stones, layer.mWeight);
-                    map.addDrop(layer.mSecondary, stones, layer.mWeight);
-                    map.addDrop(layer.mSporadic, stones, layer.mWeight / 8f);
-                    map.addDrop(layer.mBetween, stones, layer.mWeight / 8f);
-                } else {
-                    map.addDrop(layer.mPrimary, layer.mWeight);
-                    map.addDrop(layer.mSecondary, layer.mWeight);
-                    map.addDrop(layer.mSporadic, layer.mWeight / 8f);
-                    map.addDrop(layer.mBetween, layer.mWeight / 8f);
-                }
+                map.addDrop(layer.mPrimary, layer.mWeight);
+                map.addDrop(layer.mSecondary, layer.mWeight);
+                map.addDrop(layer.mSporadic, layer.mWeight / 8f);
+                map.addDrop(layer.mBetween, layer.mWeight / 8f);
             }
         }
 
@@ -251,19 +227,9 @@ public class VoidMinerUtility {
             if (!layer.mEnabled) continue;
 
             for (String dim : layer.getAllowedDimensions()) {
-                ModDimensionDef dimensionDef = DimensionDef.getDefByName(dim);
-
-                if (dimensionDef != null && !dimensionDef.canBeVoidMined()) continue;
-
                 DropMap map = dropMapsByDimName.computeIfAbsent(dim, ignored -> new DropMap());
 
-                List<StoneType> stones = DimensionHelper.getStoneTypes(dim);
-
-                if (!stones.isEmpty()) {
-                    map.addDrop(layer.getMaterial(), stones, layer.mAmount);
-                } else {
-                    map.addDrop(layer.getMaterial(), layer.mAmount);
-                }
+                map.addDrop(layer.getMaterial(), layer.mAmount);
             }
         }
     }

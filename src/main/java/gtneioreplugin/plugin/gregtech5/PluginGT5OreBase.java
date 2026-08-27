@@ -1,6 +1,5 @@
 package gtneioreplugin.plugin.gregtech5;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,8 +18,6 @@ import gregtech.common.ores.OreInfo;
 import gregtech.common.ores.OreManager;
 import gtneioreplugin.plugin.PluginBase;
 import gtneioreplugin.plugin.item.ItemDimensionDisplay;
-import gtneioreplugin.util.DimensionHelper;
-import gtneioreplugin.util.DimensionHelper.Dimension;
 
 public abstract class PluginGT5OreBase extends PluginBase {
 
@@ -50,13 +47,7 @@ public abstract class PluginGT5OreBase extends PluginBase {
     );
     // spotless:on
 
-    protected void sortDimNamesByTier(String[] dims) {
-        Arrays.sort(dims, (a, b) -> {
-            int indexA = DimensionHelper.getIndexByAbbr(a);
-            int indexB = DimensionHelper.getIndexByAbbr(b);
-            return Integer.compare(indexA, indexB);
-        });
-    }
+    protected void sortDimNamesByTier(String[] dims) {}
 
     protected String getGTOreLocalizedName(IOreMaterial ore, boolean small) {
         try (OreInfo<IOreMaterial> info = OreInfo.getNewInfo()) {
@@ -85,12 +76,7 @@ public abstract class PluginGT5OreBase extends PluginBase {
     protected Set<StoneType> getStoneTypesForDimensions(String[] dimAbbr) {
         Set<StoneType> stoneTypes = new HashSet<>();
 
-        for (String abbr : dimAbbr) {
-            Dimension dimension = DimensionHelper.getByIndex(DimensionHelper.getIndexByAbbr(abbr));
-            if (dimension != null) {
-                stoneTypes.addAll(dimension.stoneTypes());
-            }
-        }
+        for (String abbr : dimAbbr) {}
         return stoneTypes;
     }
 

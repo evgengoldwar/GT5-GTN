@@ -17,7 +17,6 @@ import gtneioreplugin.GTNEIOrePlugin;
 import gtneioreplugin.plugin.block.BlockDimensionDisplay;
 import gtneioreplugin.plugin.block.ModBlocks;
 import gtneioreplugin.plugin.renderer.ItemDimensionDisplayRenderer;
-import gtneioreplugin.util.DimensionHelper;
 
 public class ItemDimensionDisplay extends ItemBlock {
 
@@ -51,23 +50,17 @@ public class ItemDimensionDisplay extends ItemBlock {
 
     @Override
     public String getUnlocalizedName() {
-        return DimensionHelper.getDimUnlocalizedName("unknown");
+        return "";
     }
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        String dimName = DimensionHelper.getFullName(getDimension(stack));
-
-        return DimensionHelper.getDimUnlocalizedName(dimName);
+        return "";
     }
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String dimName = DimensionHelper.getFullName(getDimension(stack));
-
-        String i18nName = DimensionHelper.getDimLocalizedName(dimName);
-
-        return StatCollector.translateToLocalFormatted(DimensionHelper.getDimTier(dimName), i18nName);
+        return "";
     }
 
     @Override

@@ -3,12 +3,10 @@ package gregtech.common.tileentities.render;
 import java.util.Optional;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
-
-import gtneioreplugin.plugin.block.ModBlocks;
-import gtneioreplugin.util.DimensionHelper;
 
 public class RenderingTileEntityWormhole extends AbstractRenderingTileEntity {
 
@@ -44,7 +42,7 @@ public class RenderingTileEntityWormhole extends AbstractRenderingTileEntity {
             .map(WorldProvider::getDimensionName)
             .orElse(null);
         if (dimName == null) return 0;
-        return DimensionHelper.getIndex(dimName);
+        return 0;
     }
 
     public void setDimFromWorld(World target) {
@@ -63,11 +61,7 @@ public class RenderingTileEntityWormhole extends AbstractRenderingTileEntity {
     }
 
     public Block getBlock() {
-        DimensionHelper.Dimension record = DimensionHelper.getByIndex(dimIndex);
-        if (record == null) {
-            return null;
-        }
-        return ModBlocks.getBlock(record.abbr());
+        return Blocks.stone;
     }
 
 }

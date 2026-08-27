@@ -23,7 +23,6 @@ import gtPlusPlus.core.block.base.BlockBaseOre;
 import gtPlusPlus.core.material.Material;
 import gtPlusPlus.core.material.MaterialStack;
 import gtPlusPlus.core.util.minecraft.EntityUtils;
-import gtneioreplugin.util.DimensionHelper;
 
 public class ItemBlockOre extends ItemBlock {
 
@@ -109,9 +108,7 @@ public class ItemBlockOre extends ItemBlock {
 
                 list.add(StatCollector.translateToLocal("GTPP.tooltip.ore.found"));
                 if (dims != null && !dims.isEmpty()) {
-                    for (String m : dims) {
-                        list.add("- " + DimensionHelper.getDimLocalizedName(m));
-                    }
+                    for (String m : dims) {}
                 } else {
                     list.add(StatCollector.translateToLocal("GTPP.tooltip.ore.unknown"));
                 }

@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -22,7 +20,6 @@ import gregtech.api.interfaces.IStoneType;
 import gregtech.common.OreMixBuilder;
 import gregtech.common.ores.OreInfo;
 import gregtech.common.ores.OreManager;
-import it.unimi.dsi.fastutil.shorts.ShortShortPair;
 
 public class GT5OreLayerHelper {
 
@@ -107,16 +104,9 @@ public class GT5OreLayerHelper {
             this.randomWeight = (short) mix.weight;
 
             this.allowedDimWithOrigNames = mix.dimsEnabled;
-            this.abbrDimNames = mix.dimsEnabled.stream()
-                .map(DimensionHelper::getDimAbbreviatedName)
-                .collect(Collectors.toSet());
+            this.abbrDimNames = null;
 
             this.dimWorldGenHeightRange = new HashMap<>();
-            for (Entry<String, ShortShortPair> entry : mix.dimVeinHeights.entrySet()) {
-                String dimName = DimensionHelper.getDimAbbreviatedName(entry.getKey());
-                ShortShortPair heightPair = entry.getValue();
-                dimWorldGenHeightRange.put(dimName, heightPair.leftShort() + "-" + heightPair.rightShort());
-            }
         }
 
         public List<ItemStack> getVeinLayerOre(int veinLayer, Set<StoneType> stoneTypes) {

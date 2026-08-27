@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import galacticgreg.api.enums.DimensionDef;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.IStoneCategory;
 
@@ -26,13 +25,6 @@ public class SmallOreBuilder {
 
     public SmallOreBuilder disabledByDefault() {
         this.enabledByDefault = false;
-        return this;
-    }
-
-    public SmallOreBuilder enableInDim(DimensionDef... dims) {
-        for (DimensionDef dim : dims) {
-            this.dimsEnabled.add(dim.modDimensionDef.getDimensionName());
-        }
         return this;
     }
 

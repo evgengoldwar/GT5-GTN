@@ -32,8 +32,6 @@ import com.gtnewhorizon.gtnhlib.util.data.ImmutableBlockMeta;
 import com.gtnewhorizon.gtnhlib.util.data.LazyBlock;
 import com.gtnewhorizon.gtnhlib.util.data.LazyItem;
 
-import galacticgreg.api.enums.DimensionDef;
-import galacticgreg.api.enums.DimensionDef.DimNames;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Textures.BlockIcons;
@@ -129,7 +127,6 @@ public enum StoneType implements IStoneType {
         .setPrefix(OrePrefixes.oreHorus)
         .setStoneNoCobble(() -> Blocks.obsidian, 0)
         .addOtherStone(GalacticraftAmunRa, "tile.baseFalling", 1)
-        .addAllowedDimensions(DimNames.HORUS)
         .setDust(Materials.Obsidian)),
     AnubisAndMaahes(new StoneBuilder()
         .setPrefix(OrePrefixes.oreAnubisAndMaahes)
@@ -140,43 +137,37 @@ public enum StoneType implements IStoneType {
         .setPrefix(OrePrefixes.orePackedIce)
         .setStoneNoCobble(() -> Blocks.packed_ice, 0)
         .setDust(Materials.Ice)
-        .setCategory(StoneCategory.Ice)
-        .addAllowedDimensions(DimNames.ASTEROIDS, DimNames.KUIPERBELT, DimNames.MEHENBELT)),
+        .setCategory(StoneCategory.Ice)),
     SethIce(new StoneBuilder()
         .setPrefix(OrePrefixes.oreSethIce)
         .setStoneNoCobble(() -> Blocks.packed_ice, 0)
         .addOtherStone(Mods.Minecraft, () -> Blocks.ice, 0)
         .setDust(Materials.Ice)
-        .setCategory(StoneCategory.Stone)
-        .addAllowedDimensions(DimNames.SETH)),
+        .setCategory(StoneCategory.Stone)),
     SethClay(new StoneBuilder()
         .setPrefix(OrePrefixes.oreSethClay)
         .setStoneNoCobble(() -> Blocks.hardened_clay, WILDCARD)
         .addOtherStone(Mods.Minecraft, () -> Blocks.clay, 0)
         .setDust(Materials.Clay)
-        .setCategory(StoneCategory.Stone)
-        .addAllowedDimensions(DimNames.SETH)),
+        .setCategory(StoneCategory.Stone)),
 
     Deepslate(new StoneBuilder()
         .setPrefix(OrePrefixes.oreDeepslate)
         .setStoneNoCobble(Mods.EtFuturumRequiem, "deepslate", WILDCARD)
         .setDust(NewHorizonsCoreMod, "DeepslateDust")
-        .setCategory(StoneCategory.Stone)
-        .addAllowedDimensions(DimNames.OW)),
+        .setCategory(StoneCategory.Stone)),
 
     Tuff(new StoneBuilder()
         .setPrefix(OrePrefixes.oreTuff)
         .setStoneNoCobble(Mods.EtFuturumRequiem, "tuff", 0)
         .setDust(NewHorizonsCoreMod, "TuffDust")
-        .setCategory(StoneCategory.Stone)
-        .addAllowedDimensions(DimNames.OW)),
+        .setCategory(StoneCategory.Stone)),
 
     BlueIce(new StoneBuilder()
         .setPrefix(OrePrefixes.oreBlueIce)
         .setStoneNoCobble(Mods.EtFuturumRequiem, "blue_ice", 0)
         .setDust(Materials.Ice)
-        .setCategory(StoneCategory.Ice)
-        .addAllowedDimensions(DimNames.ASTEROIDS, DimNames.KUIPERBELT, DimNames.MEHENBELT)),
+        .setCategory(StoneCategory.Ice)),
 
     ;
     // spotless:on
@@ -368,8 +359,7 @@ public enum StoneType implements IStoneType {
 
     @Override
     public boolean canGenerateInWorld(World world) {
-        return builder.allowedDimensions == null
-            || builder.allowedDimensions.contains(DimensionDef.getDimensionName(world));
+        return builder.allowedDimensions == null;
     }
 
     /**
