@@ -55,7 +55,6 @@ import bartworks.common.tileentities.tiered.MTEDiode;
 import bartworks.common.tileentities.tiered.MTEEnergyDistributor;
 import bartworks.common.tileentities.tiered.MTEGiantOutputHatch;
 import bartworks.common.tileentities.tiered.MTEHumongousInputHatch;
-import bwcrossmod.galacticgreg.MTEVoidMiners;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import gregtech.api.GregTechAPI;
@@ -214,7 +213,6 @@ public class ItemRegistry {
     public static ItemStack acidGensLV;
     public static ItemStack[] megaMachines = new ItemStack[5];
     public static ItemStack dehp;
-    public static ItemStack[] voidminer = new ItemStack[3];
     public static ItemStack THTR;
     public static ItemStack eic;
     public static ItemStack cal;
@@ -408,13 +406,6 @@ public class ItemRegistry {
             LegacyMegaOilCracker.ID,
             "MegaOilCracker",
             "Mega Oil Cracker").getStackForm(1L);
-
-        ItemRegistry.voidminer[2] = new MTEVoidMiners.VMUV(VoidMinerIII.ID, "VoidMiner3", "Void Miner III")
-            .getStackForm(1L);
-        ItemRegistry.voidminer[1] = new MTEVoidMiners.VMZPM(VoidMinerII.ID, "VoidMiner2", "Void Miner II")
-            .getStackForm(1L);
-        ItemRegistry.voidminer[0] = new MTEVoidMiners.VMLUV(VoidMinerI.ID, "VoidMiner1", "Void Miner I")
-            .getStackForm(1L);
 
         ItemRegistry.vat = new MTEBioVat(BioVat.ID, "bw.biovat", StatCollector.translateToLocal("tile.biovat.name"))
             .getStackForm(1L);

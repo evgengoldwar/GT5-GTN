@@ -24,24 +24,6 @@ public class AssemblyLine implements Runnable {
     @Override
     public void run() {
         // Void Miner Mk1
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, ItemList.OreDrill4.get(1L))
-            .metadata(SCANNING, new Scanning(2 * MINUTES, TierEU.RECIPE_LuV))
-            .itemInputs(
-                ItemList.OreDrill4.get(1L),
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Netherite, 4L),
-                Materials.Europium.getPlates(3),
-                ItemList.Electric_Motor_LuV.get(9L),
-                ItemList.Sensor_LuV.get(9L),
-                ItemList.Field_Generator_LuV.get(9L),
-                GTOreDictUnificator.get(OrePrefixes.screw, Materials.Europium, 36L))
-            .fluidInputs(
-                MaterialsAlloy.INDALLOY_140.getFluidStack(10 * INGOTS),
-                WerkstoffLoader.Neon.getFluidOrGas(20_000))
-            .itemOutputs(ItemRegistry.voidminer[0].copy())
-            .eut(TierEU.RECIPE_LuV)
-            .duration(2 * MINUTES)
-            .addTo(AssemblyLine);
 
         // Circuit Assembly Line
         GTValues.RA.stdBuilder()

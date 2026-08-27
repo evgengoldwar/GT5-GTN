@@ -25,7 +25,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.tuple.Pair;
 
 import bartworks.MainMod;
-import bwcrossmod.BartWorksCrossmod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTOreDictUnificator;
@@ -60,8 +59,7 @@ public class OreDictHandler {
                     Pair<Integer, Short> p2 = Pair.of(Item.getIdFromItem(tmp.getItem()), (short) tmp.getItemDamage());
                     GameRegistry.UniqueIdentifier UI = GameRegistry.findUniqueIdentifierFor(tmp.getItem());
                     if (UI == null) UI = GameRegistry.findUniqueIdentifierFor(Block.getBlockFromItem(tmp.getItem()));
-                    if (!MainMod.MOD_ID.equals(UI.modId) && !BartWorksCrossmod.MOD_ID.equals(UI.modId)
-                        && !"BWCore".equals(UI.modId)) {
+                    if (!MainMod.MOD_ID.equals(UI.modId) && !"BWCore".equals(UI.modId)) {
                         OreDictHandler.cacheNonBW.add(p2);
                     }
                 }

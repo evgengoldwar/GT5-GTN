@@ -35,7 +35,6 @@ import com.google.common.base.Stopwatch;
 import com.gtnewhorizon.gtnhlib.config.ConfigException;
 import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
 
-import bwcrossmod.galacticgreg.VoidMinerLoader;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -599,8 +598,6 @@ public class GTMod {
         GTPostLoad.addCauldronRecipe();
         GTPostLoad.identifyAnySteam();
         GTPostLoad.processToolboxBans();
-
-        VoidMinerLoader.init();
 
         achievements = new GTAchievements();
 

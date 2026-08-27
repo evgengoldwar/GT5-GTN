@@ -45,8 +45,6 @@ import bartworks.system.oredict.OreDictHandler;
 import bartworks.util.BWColorUtil;
 import bartworks.util.BWUtil;
 import bartworks.util.MurmurHash3;
-import bwcrossmod.BartWorksCrossmod;
-import bwcrossmod.tgregworks.MaterialsInjector;
 import cpw.mods.fml.common.Loader;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.FluidState;
@@ -85,8 +83,7 @@ public class Werkstoff implements IColorModulationContainer, IOreMaterial {
         }
     };
 
-    private static final List<String> BWModNames = Arrays
-        .asList(MainMod.NAME, BartWorksCrossmod.NAME, MaterialsInjector.NAME);
+    private static final List<String> BWModNames = Arrays.asList(MainMod.NAME);
 
     private static final HashSet<Short> idHashSet = new HashSet<>();
 

@@ -107,7 +107,6 @@ import bartworks.system.material.werkstoff_loaders.registration.BridgeMaterialsL
 import bartworks.system.material.werkstoff_loaders.registration.CasingRegistrator;
 import bartworks.system.oredict.OreDictHandler;
 import bartworks.util.BWColorUtil;
-import bwcrossmod.cls.CLSCompat;
 import cpw.mods.fml.common.ProgressManager;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
@@ -1723,9 +1722,7 @@ public class WerkstoffLoader {
             if (MainMod.DEBUG) {
                 MainMod.BW_DEBUG_LOGGER.info("Loading Recipes{}", System.nanoTime() - timepre);
             }
-            if (BetterLoadingScreen.isModLoaded()) {
-                CLSCompat.initCls();
-            }
+            if (BetterLoadingScreen.isModLoaded()) {}
 
             IWerkstoffRunnable[] werkstoffRunnables = { new ToolLoader(), new DustLoader(), new GemLoader(),
                 new SimpleMetalLoader(), new CasingLoader(), new AspectLoader(), new RawOreLoader(),
@@ -1746,9 +1743,7 @@ public class WerkstoffLoader {
                     progressBar.step("");
                     continue;
                 }
-                if (BetterLoadingScreen.isModLoaded()) {
-                    CLSCompat.updateDisplay(werkstoff, pos);
-                }
+                if (BetterLoadingScreen.isModLoaded()) {}
                 if (MainMod.DEBUG) {
                     MainMod.BW_DEBUG_LOGGER
                         .info("Werkstoff: {} {}", werkstoff.getDefaultName(), System.nanoTime() - timepreone);
@@ -1775,9 +1770,7 @@ public class WerkstoffLoader {
             }
             CircuitPartsItem.init();
 
-            if (BetterLoadingScreen.isModLoaded()) {
-                CLSCompat.disableCls();
-            }
+            if (BetterLoadingScreen.isModLoaded()) {}
 
             progressBar.step("Load Additional Recipes");
             AdditionalRecipes.run();

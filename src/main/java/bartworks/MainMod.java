@@ -53,7 +53,6 @@ import bartworks.system.material.WerkstoffLoader;
 import bartworks.system.material.gtenhancement.PlatinumSludgeRecipes;
 import bartworks.system.oredict.OreDictHandler;
 import bartworks.util.ResultWrongSievert;
-import bwcrossmod.galacticgreg.VoidMinerUtility;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -220,7 +219,6 @@ public final class MainMod {
 
         runOnServerStarted();
         StaticRecipeChangeLoaders.unificationRecipeEnforcer();
-        VoidMinerUtility.generateDropMaps();
     }
 
     private static boolean recipesAdded;
