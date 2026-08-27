@@ -105,7 +105,6 @@ import gregtech.common.items.DropType;
 import gregtech.common.items.PropolisType;
 import gregtech.loaders.misc.bees.GTAlleleEffect;
 import gregtech.loaders.misc.bees.GTFlowers;
-import gtnhlanth.common.register.WerkstoffMaterialPool;
 
 /**
  * Bride Class for Lambdas
@@ -2569,21 +2568,6 @@ public enum GTBeeDefinition implements IBeeDefinition {
             IBeeMutationCustom tMutation = dis.registerMutation(RAREEARTH, IRON, 10);
             tMutation.requireResource(GregTechAPI.sBlockMetal5, 0);
         }),
-    EUROPIUM(GTBranchDefinition.RAREMETAL, "Europium", false, new Color(0xDAA0E2), new Color(0xAB7EB1), beeSpecies -> {
-        beeSpecies.addProduct(WerkstoffMaterialPool.EuropiumIIIOxide.get(OrePrefixes.dust, 1), 0.10F);
-        beeSpecies.addSpecialty(GTBees.combs.getStackForType(CombType.EUROPIUM), 0.075f);
-        beeSpecies.setHumidity(EnumHumidity.NORMAL);
-        beeSpecies.setTemperature(HOT);
-        beeSpecies.setNocturnal();
-        // Makes it only work in the Mega Apiary NOTE: COMB MUST BE SPECIALITY COMB
-        beeSpecies.setJubilanceProvider(JubilanceMegaApiary.instance);
-    }, template -> {
-        AlleleHelper.instance.set(template, SPEED, Speed.SLOWEST);
-        AlleleHelper.instance.set(template, LIFESPAN, Lifespan.LONGEST);
-    }, dis -> {
-        IBeeMutationCustom tMutation = dis.registerMutation(NEODYMIUM, HYDROGEN, 5, 4);
-        tMutation.requireResource(GregTechAPI.sBlockMetal3, 3);
-    }),
     // infused Shards line
     AIR(GTBranchDefinition.INFUSEDSHARD, "Air", false, new Color(0xFFFF7E), new Color(0x60602F), beeSpecies -> {
         beeSpecies.addProduct(GTBees.combs.getStackForType(CombType.INFUSEDAER), 0.30f);

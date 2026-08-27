@@ -10,7 +10,6 @@ import static gregtech.api.enums.MetaTileEntityIDs.SimpleDustWasher_UV;
 import static gregtech.api.enums.MetaTileEntityIDs.SimpleDustWasher_ZPM;
 import static gregtech.api.recipe.RecipeMaps.simpleWasherRecipes;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
-import static gtnhlanth.util.LanthanidesRecipeOutputs.convertDecomposition;
 
 import net.minecraft.item.ItemStack;
 
@@ -125,7 +124,6 @@ public class GregtechSimpleWasher {
             dustClean = GTOreDictUnificator.get(OrePrefixes.dust, v, 1L);
             dustDirty = GTOreDictUnificator.get(OrePrefixes.dustImpure, v, 1L);
             dustPure = GTOreDictUnificator.get(OrePrefixes.dustPure, v, 1L);
-            dustClean = convertDecomposition(v, dustClean)[0];
             addSimpleWashRecipe(dustDirty, dustClean);
             addSimpleWashRecipe(dustPure, dustClean);
         }
@@ -134,7 +132,6 @@ public class GregtechSimpleWasher {
             dustClean = v.hasItemType(OrePrefixes.dust) ? v.get(OrePrefixes.dust) : null;
             dustDirty = v.hasItemType(OrePrefixes.dustImpure) ? v.get(OrePrefixes.dustImpure) : null;
             dustPure = v.hasItemType(OrePrefixes.dustPure) ? v.get(OrePrefixes.dustPure) : null;
-            dustClean = convertDecomposition(dustClean)[0];
             addSimpleWashRecipe(dustDirty, dustClean);
             addSimpleWashRecipe(dustPure, dustClean);
         }
@@ -143,7 +140,6 @@ public class GregtechSimpleWasher {
             dustClean = v.getDust(1);
             dustDirty = v.getDustImpure(1);
             dustPure = v.getDustPurified(1);
-            dustClean = convertDecomposition(dustClean)[0];
             addSimpleWashRecipe(dustDirty, dustClean);
             addSimpleWashRecipe(dustPure, dustClean);
         }

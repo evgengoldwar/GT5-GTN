@@ -13,6 +13,7 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -39,7 +40,6 @@ import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.common.tileentities.machines.multi.nanochip.MTENanochipAssemblyModuleBase;
 import gregtech.common.tileentities.machines.multi.nanochip.util.ModuleStructureDefinition;
 import gregtech.common.tileentities.machines.multi.nanochip.util.ModuleTypes;
-import gtnhlanth.common.register.LanthItemList;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoTunnel;
@@ -68,7 +68,7 @@ public class MTEEtchingArrayModule extends MTENanochipAssemblyModuleBase<MTEEtch
         // Nanochip Reinforcement Casing
         .addElement('B', Casings.NanochipReinforcementCasing.asElement())
         // Shielded Accelerator Casing
-        .addElement('C', ofBlock(LanthItemList.SHIELDED_ACCELERATOR_CASING, 0))
+        .addElement('C', ofBlock(Blocks.stone, 0))
         // Enriched Holmium Frame box
         .addElement('E', ofFrame(Materials.EnrichedHolmium))
         // Non-Photonic Matter Exclusion Glass

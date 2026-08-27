@@ -13,7 +13,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.util.GTOreDictUnificator;
-import gtnhlanth.common.register.WerkstoffMaterialPool;
 
 public class LatheRecipes implements Runnable {
 
@@ -28,14 +27,6 @@ public class LatheRecipes implements Runnable {
             .eut(TierEU.RECIPE_ULV)
             .addTo(latheRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(WerkstoffMaterialPool.LanthanumHexaboride.get(OrePrefixes.gemFlawless, 1))
-            .itemOutputs(
-                WerkstoffMaterialPool.LanthanumHexaboride.get(OrePrefixes.stickLong, 1),
-                WerkstoffMaterialPool.LanthanumHexaboride.get(OrePrefixes.dust, 1))
-            .duration((100 * SECONDS))
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(latheRecipes);
 
         GTValues.RA.stdBuilder()
             .itemInputs(new OreDictItemStack("plankWood", 1))

@@ -48,7 +48,6 @@ import gtPlusPlus.core.material.MaterialMisc;
 import gtPlusPlus.core.material.MaterialsAlloy;
 import gtPlusPlus.core.material.MaterialsElements;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtnhlanth.common.register.LanthItemList;
 import tectech.recipe.TTRecipeAdder;
 import tectech.thing.CustomItemList;
 import tectech.thing.block.BlockGodforgeGlass;
@@ -65,7 +64,6 @@ public class ResearchStationAssemblyLine implements Runnable {
         itemPartsUXVAsslineRecipes();
         addWirelessEnergyRecipes();
         addGodforgeRecipes();
-        addBeamcraftingRecipes();
 
         if (NewHorizonsCoreMod.isModLoaded() && Railcraft.isModLoaded()) {
             // Here instead of CoreMod to coincide with the non-AAL BEC Recipes
@@ -2083,58 +2081,6 @@ public class ResearchStationAssemblyLine implements Runnable {
             craftingEuPerTick);
 
         // ---------------------------------------------------------------------
-
-    }
-
-    private void addBeamcraftingRecipes() {
-
-        ItemStack neutronAcceleratorUV = NeutronAccelerators[8].copy();
-        neutronAcceleratorUV.stackSize = 8;
-
-        // LHC Controller
-        TTRecipeAdder.addResearchableAssemblylineRecipe(
-            LanthItemList.SYNCHROTRON,
-            256_000,
-            256,
-            (int) TierEU.RECIPE_UV,
-            32,
-            new Object[] { CustomItemList.Machine_Multi_Research.get(8), neutronAcceleratorUV,
-                new ItemStack(compactFusionCoil, 64, 1), new ItemStack(compactFusionCoil, 32, 2),
-                new Object[] { OrePrefixes.circuit.get(Materials.UHV), 64L }, ItemList.Field_Generator_UV.get(64),
-                ItemList.Electromagnet_Samarium.get(1), ItemList.CMSCasing.get(8) },
-            new FluidStack[] { Materials.Neutronium.getMolten(64 * 9 * 8 * 144),
-                Materials.CosmicNeutronium.getMolten(64 * 9 * 8 * 144) },
-            ItemList.LargeHadronCollider.get(1),
-            300 * SECONDS,
-            (int) TierEU.RECIPE_UHV);
-
-        // Advanced Beam Output Hatch
-        TTRecipeAdder.addResearchableAssemblylineRecipe(
-            LanthItemList.LUV_BEAMLINE_OUTPUT_HATCH,
-            128_000,
-            256,
-            (int) TierEU.RECIPE_UV,
-            4,
-            new Object[] { LanthItemList.LUV_BEAMLINE_OUTPUT_HATCH, ItemList.Sensor_UV.get(4),
-                ItemList.Emitter_UV.get(4), ItemList.ActivatedCarbonFilterMesh.get(32), },
-            new FluidStack[] { Materials.UUMatter.getFluid(1000) },
-            ItemList.AdvancedBeamlineOutputHatch.get(1),
-            60 * SECONDS,
-            (int) TierEU.RECIPE_UV);
-
-        // Beamcrafter splitter
-        TTRecipeAdder.addResearchableAssemblylineRecipe(
-            CustomItemList.Machine_Multi_Switch.get(1),
-            64_000,
-            128,
-            (int) TierEU.RECIPE_UV,
-            4,
-            new Object[] { CustomItemList.Machine_Multi_Switch.get(1), ItemList.Electromagnet_Samarium.get(1),
-                new ItemStack(LanthItemList.SHIELDED_ACCELERATOR_CASING, 4), },
-            new FluidStack[] { Materials.SuperCoolant.getFluid(16000) },
-            ItemList.BeamSplitter.get(1),
-            60 * SECONDS,
-            (int) TierEU.RECIPE_UV);
 
     }
 

@@ -16,7 +16,6 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeConstants.CHEMPLANT_CASING_TIER;
 import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
-import static gtnhlanth.api.recipe.LanthanidesRecipeMaps.digesterRecipes;
 
 import net.minecraftforge.fluids.FluidStack;
 
@@ -32,7 +31,6 @@ import gtPlusPlus.core.material.MaterialMisc;
 import gtPlusPlus.core.material.MaterialsElements;
 import gtPlusPlus.core.material.MaterialsOres;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtnhlanth.common.register.BotWerkstoffMaterialPool;
 
 public class AcidRecipes {
 
@@ -86,24 +84,6 @@ public class AcidRecipes {
             .eut(TierEU.RECIPE_HV)
             .addTo(UniversalChemical);
         GTValues.RA.stdBuilder()
-            .itemInputs(WerkstoffLoader.Bismuthinit.get(OrePrefixes.crushed, 5))
-            .fluidInputs(Materials.PhosphorusChlorineMixture.getFluid(1000L))
-            .itemOutputs(Materials.PhosphorusTrichloride.getDust(4))
-            .fluidOutputs(Materials.StagnantWasteWater.getFluid(200L))
-            .eut(5040)
-            .duration(10 * SECONDS)
-            .metadata(COIL_HEAT, 1800)
-            .addTo(digesterRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(MaterialsOres.LAFOSSAITE.getCrushed(2))
-            .fluidInputs(Materials.PhosphorusChlorineMixture.getFluid(1000L))
-            .itemOutputs(Materials.PhosphorusTrichloride.getDust(4))
-            .fluidOutputs(Materials.StagnantWasteWater.getFluid(2000L))
-            .eut(5040)
-            .duration(10 * SECONDS)
-            .metadata(COIL_HEAT, 1800)
-            .addTo(digesterRecipes);
-        GTValues.RA.stdBuilder()
             .fluidInputs(
                 Materials.StagnantWasteWater.getFluid(6000L),
                 MaterialMisc.HYDROGEN_CYANIDE.getFluidStack(4000))
@@ -130,17 +110,6 @@ public class AcidRecipes {
             .duration(90 * SECONDS)
             .metadata(CHEMPLANT_CASING_TIER, 3)
             .addTo(chemicalPlantRecipes);
-        GTValues.RA.stdBuilder()
-            .fluidInputs(Materials.ToxicAir.getGas(25000L))
-            .fluidOutputs(
-                Materials.CarbonMonoxide.getGas(6700L),
-                Materials.Mercury.getFluid(5000L),
-                BotWerkstoffMaterialPool.Phosgene.getFluidOrGas(3000),
-                Materials.UltraContaminatedGas.getGas(2000L),
-                WerkstoffLoader.Krypton.getFluidOrGas(1500))
-            .eut(TierEU.RECIPE_EV)
-            .duration(20 * SECONDS)
-            .addTo(distillationTowerRecipes);
         GTValues.RA.stdBuilder()
             .fluidInputs(Materials.ToxicAir.getGas(3000L), Materials.Ozone.getGas(10000L))
             .fluidOutputs(Materials.ToxicSlurry.getFluid(400L))

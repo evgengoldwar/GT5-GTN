@@ -8,7 +8,6 @@ import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.oreWasherRecipes;
 import static gregtech.api.recipe.RecipeMaps.thermalCentrifugeRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gtnhlanth.util.LanthanidesRecipeOutputs.convertOre;
 
 import net.minecraft.item.ItemStack;
 
@@ -48,82 +47,7 @@ public class ProcessingDirty implements gregtech.api.interfaces.IOreRecipeRegist
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(hammerRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTUtility.copyAmount(1, aStack))
-            .itemOutputs(
-                convertOre(
-                    aMaterial,
-                    GTOreDictUnificator.get(
-                        OrePrefixes.dustImpure,
-                        aMaterial.mMacerateInto,
-                        GTOreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L),
-                        1L),
-                    GTOreDictUnificator.get(
-                        OrePrefixes.dust,
-                        GTUtility.selectItemInList(0, aMaterial.mMacerateInto, aMaterial.mOreByProducts),
-                        1L)))
-            .outputChances(10000, 1000)
-            .duration(20 * SECONDS)
-            .eut(2)
-            .addTo(maceratorRecipes);
-
-        RA.stdBuilder()
-            .itemInputs(GTUtility.copyAmount(1, aStack))
-            .itemOutputs(
-                convertOre(
-                    aMaterial,
-                    GTOreDictUnificator.get(
-                        aPrefix == OrePrefixes.crushed ? OrePrefixes.crushedPurified : OrePrefixes.dustPure,
-                        aMaterial,
-                        1L),
-                    GTOreDictUnificator.get(
-                        OrePrefixes.dust,
-                        GTUtility.selectItemInList(0, aMaterial.mMacerateInto, aMaterial.mOreByProducts),
-                        1L),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Stone, 1L)))
-            .outputChances(100_00, 11_11, 100_00)
-            .fluidInputs(Materials.Water.getFluid(1_000))
-            .duration(25 * SECONDS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(oreWasherRecipes);
-
-        RA.stdBuilder()
-            .itemInputs(GTUtility.copyAmount(1, aStack))
-            .itemOutputs(
-                convertOre(
-                    aMaterial,
-                    GTOreDictUnificator.get(
-                        aPrefix == OrePrefixes.crushed ? OrePrefixes.crushedPurified : OrePrefixes.dustPure,
-                        aMaterial,
-                        1L),
-                    GTOreDictUnificator.get(
-                        OrePrefixes.dust,
-                        GTUtility.selectItemInList(0, aMaterial.mMacerateInto, aMaterial.mOreByProducts),
-                        1L),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Stone, 1L)))
-            .outputChances(100_00, 11_11, 100_00)
-            .fluidInputs(GTModHandler.getDistilledWater(200))
-            .duration(15 * SECONDS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(oreWasherRecipes);
-
         OrePrefixes prefix = aPrefix == OrePrefixes.crushed ? OrePrefixes.crushedCentrifuged : OrePrefixes.dust;
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTUtility.copyAmount(1, aStack))
-            .itemOutputs(
-                convertOre(
-                    aMaterial,
-                    GTOreDictUnificator.get(prefix, aMaterial, 1L),
-                    GTOreDictUnificator.get(
-                        OrePrefixes.dust,
-                        GTUtility.selectItemInList(1, aMaterial.mMacerateInto, aMaterial.mOreByProducts),
-                        1L),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Stone, 1L)))
-            .outputChances(10000, 1111, 10000)
-            .duration(25 * SECONDS)
-            .eut(48)
-            .addTo(thermalCentrifugeRecipes);
 
         didPersulfate = false;
         didMercury = false;

@@ -5877,16 +5877,6 @@ public class ChemicalRecipes implements Runnable {
         // C13H14N2(HCl) + 2COCl2 = C15H10N2O2(5HCl)
 
         GTValues.RA.stdBuilder()
-            .circuit(1)
-            .fluidInputs(
-                Materials.DiaminodiphenylmethanMixture.getFluid(1_000),
-                new FluidStack(FluidRegistry.getFluid("phosgene"), 2_000))
-            .fluidOutputs(Materials.DiphenylmethaneDiisocyanateMixture.getFluid(1_000))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
             .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Palladium, 1))
             .circuit(9)
             .fluidInputs(Materials.Butyraldehyde.getFluid(9_000), Materials.Hydrogen.getGas(18_000))
@@ -5984,28 +5974,6 @@ public class ChemicalRecipes implements Runnable {
             .eut(TierEU.RECIPE_UV)
             .addTo(multiblockChemicalReactorRecipes);
 
-        // C4H10O2 =Cu= C4H6O2 + 4H
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Copper, 1))
-            .circuit(1)
-            .fluidInputs(new FluidStack(FluidRegistry.getFluid("1,4-butanediol"), 1_000))
-            .fluidOutputs(Materials.GammaButyrolactone.getFluid(1_000), Materials.Hydrogen.getGas(4_000))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Copper, 9))
-            .circuit(9)
-            .fluidInputs(new FluidStack(FluidRegistry.getFluid("1,4-butanediol"), 9_000))
-            .fluidOutputs(Materials.GammaButyrolactone.getFluid(9_000), Materials.Hydrogen.getGas(36_000))
-            .duration(35 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        // 2CH2O + C2H2 =SiO2,CuO,Bi2O3= C4H6O2
-
         GTValues.RA.stdBuilder()
             .itemInputs(
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.CupricOxide, 1),
@@ -6034,19 +6002,6 @@ public class ChemicalRecipes implements Runnable {
                 new FluidStack(FluidRegistry.getFluid("fluid.formaldehyde"), 18_000))
             .duration(2 * MINUTES + 30 * SECONDS)
             .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        // C4H6O2 + 4H =NiAl= C4H10O2
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.IIButinIIVdiol, 12),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.RaneyNickelActivated, 1))
-            .circuit(1)
-            .fluidInputs(Materials.Hydrogen.getGas(4_000))
-            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("1,4-butanediol"), 1_000))
-            .duration(15 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
             .addTo(multiblockChemicalReactorRecipes);
 
         GTValues.RA.stdBuilder()

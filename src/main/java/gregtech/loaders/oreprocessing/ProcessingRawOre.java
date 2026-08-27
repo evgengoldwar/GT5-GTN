@@ -8,7 +8,6 @@ import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
-import static gtnhlanth.util.LanthanidesRecipeOutputs.convertOre;
 
 import net.minecraft.item.ItemStack;
 
@@ -214,32 +213,6 @@ public class ProcessingRawOre implements gregtech.api.interfaces.IOreRecipeRegis
             int chanceOre2 = tPrimaryByProduct == null ? 0
                 : tPrimaryByProduct.stackSize * 5 * aMaterial.mByProductMultiplier;
             chanceOre2 = 100 * chanceOre2; // converting to the GT format, 100% is 10000
-            GTValues.RA.stdBuilder()
-                .itemInputs(aOreStack)
-                .itemOutputs(
-                    convertOre(
-                        aMaterial,
-                        GTUtility.mul(2, tCrushed),
-                        tMaterial.contains(SubTag.PULVERIZING_CINNABAR)
-                            ? GTOreDictUnificator.get(
-                                OrePrefixes.crystal,
-                                Materials.Cinnabar,
-                                GTOreDictUnificator.get(
-                                    OrePrefixes.gem,
-                                    tPrimaryByMaterial,
-                                    GTUtility.copyAmount(1, tPrimaryByProduct),
-                                    1L),
-                                1L)
-                            : GTOreDictUnificator.get(
-                                OrePrefixes.gem,
-                                tPrimaryByMaterial,
-                                GTUtility.copyAmount(1, tPrimaryByProduct),
-                                1L),
-                        GTOreDictUnificator.getDust(aPrefix.mSecondaryMaterial)))
-                .outputChances(10000, chanceOre2, 5000)
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(maceratorRecipes);
         }
         return true;
     }

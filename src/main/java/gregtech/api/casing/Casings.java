@@ -31,7 +31,6 @@ import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.GTUtility;
 import gregtech.common.tileentities.storage.MTEDigitalChestBase;
 import gtPlusPlus.core.block.ModBlocks;
-import gtnhlanth.common.register.LanthItemList;
 import tectech.thing.block.BlockGodforgeGlass;
 import tectech.thing.block.BlockQuantumGlass;
 import tectech.thing.casing.BlockGTCasingsTT;
@@ -1068,9 +1067,6 @@ public enum Casings implements ICasing {
         (() -> BlockGodforgeGlass.INSTANCE, 0, -1),
 
     // ------------------ Lanthanides -----------------
-
-    ShieldedAcceleratorCasing
-        (() -> LanthItemList.SHIELDED_ACCELERATOR_CASING, 0,gt(12,126)),
     // other lanth casings need to be registered manually
 
 

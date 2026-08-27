@@ -35,7 +35,6 @@ import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 import static gregtech.api.util.GTRecipeConstants.DISSOLUTION_TANK_RATIO;
-import static gtnhlanth.api.recipe.LanthanidesRecipeMaps.dissolutionTankRecipes;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -83,30 +82,6 @@ public class NetheriteRecipes {
                     .eut(TierEU.RECIPE_LuV)
                     .addTo(autoclaveRecipes);
             }
-
-            GTValues.RA.stdBuilder() // Leaching
-                .itemInputs(GTOreDictUnificator.get(OrePrefixes.shard, Materials.Prismarine, 24))
-                .fluidInputs(
-                    new FluidStack(GTPPFluids.IndustrialStrengthHydrofluoricAcid, 4000),
-                    new FluidStack(GTPPFluids.HydrogenPeroxide, 4000))
-                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.CertusQuartz, 4))
-                .fluidOutputs(Materials.PrismarineSolution.getFluid(8000))
-                .duration(20 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .metadata(DISSOLUTION_TANK_RATIO, 1)
-                .addTo(dissolutionTankRecipes);
-
-            GTValues.RA.stdBuilder() // Looped Leaching
-                .itemInputs(GTOreDictUnificator.get(OrePrefixes.shard, Materials.Prismarine, 6))
-                .fluidInputs(
-                    Materials.PrismarineContaminatedHydrogenPeroxide.getFluid(6000),
-                    new FluidStack(GTPPFluids.HydrogenPeroxide, 2000))
-                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.NetherQuartz, 1))
-                .fluidOutputs(Materials.PrismarineSolution.getFluid(8000))
-                .duration(20 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .metadata(DISSOLUTION_TANK_RATIO, 3)
-                .addTo(dissolutionTankRecipes);
 
             GTValues.RA.stdBuilder() // Extraction
                 .circuit(1)

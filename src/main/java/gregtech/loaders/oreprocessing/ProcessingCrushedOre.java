@@ -7,7 +7,6 @@ import static gregtech.api.recipe.RecipeMaps.sifterRecipes;
 import static gregtech.api.recipe.RecipeMaps.thermalCentrifugeRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
-import static gtnhlanth.util.LanthanidesRecipeOutputs.convertOre;
 
 import net.minecraft.item.ItemStack;
 
@@ -34,49 +33,7 @@ public class ProcessingCrushedOre implements gregtech.api.interfaces.IOreRecipeR
         }
 
         switch (aPrefix.getName()) {
-            case "crushedCentrifuged" -> {
-                GTValues.RA.stdBuilder()
-                    .itemInputs(GTUtility.copyAmount(1, aStack))
-                    .itemOutputs(
-                        convertOre(aMaterial, GTOreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L)))
-                    .duration(10 * TICKS)
-                    .eut(TierEU.RECIPE_LV / 2)
-                    .addTo(hammerRecipes);
-
-                GTValues.RA.stdBuilder()
-                    .itemInputs(GTUtility.copyAmount(1, aStack))
-                    .itemOutputs(
-                        convertOre(
-                            aMaterial,
-                            GTOreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L),
-                            GTOreDictUnificator.get(
-                                OrePrefixes.dust,
-                                GTUtility.selectItemInList(2, aMaterial.mMacerateInto, aMaterial.mOreByProducts),
-                                1L)))
-                    .outputChances(10000, 1000)
-                    .duration(20 * SECONDS)
-                    .eut(2)
-                    .addTo(maceratorRecipes);
-            }
             case "crushedPurified" -> {
-                GTValues.RA.stdBuilder()
-                    .itemInputs(GTUtility.copyAmount(1, aStack))
-                    .itemOutputs(
-                        convertOre(
-                            aMaterial,
-                            GTOreDictUnificator.get(
-                                OrePrefixes.crushedCentrifuged,
-                                aMaterial.mMacerateInto,
-                                GTOreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L),
-                                1L),
-                            GTOreDictUnificator.get(
-                                OrePrefixes.dust,
-                                GTUtility.selectItemInList(1, aMaterial.mMacerateInto, aMaterial.mOreByProducts),
-                                1L)))
-                    .outputChances(10000, 1111)
-                    .duration(25 * SECONDS)
-                    .eut(48)
-                    .addTo(thermalCentrifugeRecipes);
 
                 ItemStack tGem = GTOreDictUnificator.get(OrePrefixes.gem, aMaterial, 1L);
                 if (tGem == null) {

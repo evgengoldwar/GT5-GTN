@@ -37,7 +37,6 @@ import gtPlusPlus.core.material.MaterialMisc;
 import gtPlusPlus.core.material.MaterialsAlloy;
 import gtPlusPlus.core.material.MaterialsElements;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtnhlanth.common.register.WerkstoffMaterialPool;
 import tectech.recipe.TTRecipeAdder;
 import tectech.thing.block.BlockQuantumGlass;
 
@@ -259,20 +258,6 @@ public class RecipeLoaderChemicalSkips {
             .metadata(QFT_CATALYST, GregtechItemList.RareEarthGroupCatalyst.get(0))
             .metadata(QFT_FOCUS_TIER, 2)
             .addTo(quantumForceTransformerRecipes);
-        // Bastline from Cerium-rich mixture
-        GTValues.RA.stdBuilder()
-            .itemInputs(WerkstoffMaterialPool.CeriumRichMixture.get(OrePrefixes.dust, 16))
-            .itemOutputs(
-                Materials.Holmium.getDust(64),
-                Materials.Cerium.getDust(64),
-                Materials.Samarium.getDust(64),
-                Materials.Gadolinium.getDust(64),
-                Materials.Lanthanum.getDust(64))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_UHV)
-            .metadata(QFT_CATALYST, GregtechItemList.RareEarthGroupCatalyst.get(0))
-            .metadata(QFT_FOCUS_TIER, 2)
-            .addTo(quantumForceTransformerRecipes);
         if (EtFuturumRequiem.isModLoaded()) {
             // Netherite
             GTValues.RA.stdBuilder()
@@ -384,25 +369,6 @@ public class RecipeLoaderChemicalSkips {
             .metadata(QFT_CATALYST, GregtechItemList.BiologicalIntelligenceCatalyst.get(0))
             .metadata(QFT_FOCUS_TIER, 4)
             .addTo(quantumForceTransformerRecipes);
-
-        if (GalaxySpace.isModLoaded()) {
-            // Seaweed
-            ItemStack seaweed = GTUtility
-                .copyAmountUnsafe(64 * 32, getModItem(GalaxySpace.ID, "tcetiedandelions", 1, 4));
-            GTValues.RA.stdBuilder()
-                .itemInputs(GTOreDictUnificator.get("cropSeaweed", 64), Materials.Mytryl.getDust(16))
-                .itemOutputs(seaweed, getModItem(NewHorizonsCoreMod.ID, "TCetiESeaweedExtract", 16))
-                .fluidInputs(FluidRegistry.getFluidStack("unknowwater", 25_000))
-                .fluidOutputs(
-                    FluidRegistry.getFluidStack("seaweedbroth", 50_000),
-                    WerkstoffMaterialPool.Iodine.getFluidOrGas(64_000))
-                .duration(20 * SECONDS)
-                .eut(TierEU.RECIPE_UIV)
-                .metadata(QFT_CATALYST, GregtechItemList.AlgagenicGrowthPromoterCatalyst.get(0))
-                .metadata(QFT_FOCUS_TIER, 4)
-                .addTo(quantumForceTransformerRecipes);
-
-        }
     }
 
     private static void fusionReactorRecipes() {

@@ -34,9 +34,6 @@ import gregtech.common.items.IDMetaItem03;
 import gregtech.common.items.MetaGeneratedItem03;
 import gregtech.common.tileentities.machines.multi.foundry.FoundryModule;
 import gregtech.common.tileentities.machines.multi.nanochip.util.CircuitCalibration;
-import gtnhlanth.common.item.ItemPhotolithographicMask;
-import gtnhlanth.common.item.MaskList;
-import gtnhlanth.common.register.LanthItemList;
 
 // this class is intended to be import-static-ed on every recipe script
 // so take care to not put unrelated stuff here!
@@ -418,9 +415,6 @@ public class GTRecipeConstants {
         // spotless:on
         // Find the wafer used
         Wafer wafer = null;
-        ItemPhotolithographicMask t1Item = (ItemPhotolithographicMask) LanthItemList.maskMap.get(MaskList.BLANK1);
-        ItemPhotolithographicMask t2Item = (ItemPhotolithographicMask) LanthItemList.maskMap.get(MaskList.BLANK2);
-        ItemPhotolithographicMask t3Item = (ItemPhotolithographicMask) LanthItemList.maskMap.get(MaskList.BLANK3);
         for (ItemStack input : builder.getItemInputsBasic()) {
             if (input.getItem() instanceof MetaGeneratedItem03) {
                 int meta = input.getItemDamage() - 32000;
@@ -431,12 +425,6 @@ public class GTRecipeConstants {
             }
 
             // Now look for beamline masks
-            if (input.getItem() instanceof ItemPhotolithographicMask mask) {
-                String spectrum = mask.getDescSpectrum();
-                if (spectrum.equals(t1Item.getDescSpectrum())) wafer = Wafer.MaskT1;
-                else if (spectrum.equals(t2Item.getDescSpectrum())) wafer = Wafer.MaskT2;
-                else if (spectrum.equals(t3Item.getDescSpectrum())) wafer = Wafer.MaskT3;
-            }
 
             // Found a wafer, stop checking inputs
             if (wafer != null) break;
