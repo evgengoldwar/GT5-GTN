@@ -66,7 +66,6 @@ import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTOreDictUnificator;
 import ic2.api.item.IKineticRotor;
-import kubatech.tileentity.gregtech.multiblock.MTEHighTempGasCooledReactor;
 
 public class ItemRegistry {
 
@@ -278,7 +277,6 @@ public class ItemRegistry {
             "THTR",
             "Thorium High Temperature Reactor").getStackForm(1L);
         MTEThoriumHighTempReactor.THTRMaterials.registeraTHR_Materials();
-        MTEHighTempGasCooledReactor.HTGRMaterials.registeraTHR_Materials();
 
         // ID 12728 + 15 + 49 IS TAKEN !!! (12792)
 

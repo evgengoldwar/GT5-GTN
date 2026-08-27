@@ -21,7 +21,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
 import gregtech.api.items.CircuitComponentFakeItem;
 import gtPlusPlus.core.material.MaterialsElements;
-import kubatech.loaders.BlockLoader;
 
 public class MissingMappingsHandler {
 
@@ -32,7 +31,6 @@ public class MissingMappingsHandler {
         .remapBlock("dreamcraft:gt.blockcasingsNH", GregTechAPI.sBlockCasingsNH)
         .remapBlock("miscutils:oreCryolite", CRYOLITE.getOreBlock(1))
         .remapBlock("miscutils:oreFluorite", FLUORITE.getOreBlock(1))
-        .remapBlock("EMT:EMT_GTBLOCK_CASEING", BlockLoader.defcCasingBlock)
         .remapBlock("GalaxySpace:spaceelevatorparts", GregTechAPI.sBlockCasingsSE)
         .remapBlock("GalaxySpace:spaceelevatormotors", GregTechAPI.sBlockCasingsSEMotor)
         .remapBlock("GalaxySpace:spaceelevatorcable", GregTechAPI.sSpaceElevatorCable)

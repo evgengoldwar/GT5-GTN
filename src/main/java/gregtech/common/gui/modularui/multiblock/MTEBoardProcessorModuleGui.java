@@ -2,7 +2,6 @@ package gregtech.common.gui.modularui.multiblock;
 
 import static gregtech.api.enums.Mods.GregTech;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
-import static kubatech.api.Variables.numberFormat;
 import static net.minecraft.util.StatCollector.translateToLocal;
 
 import net.minecraft.util.EnumChatFormatting;
@@ -97,11 +96,6 @@ public class MTEBoardProcessorModuleGui extends MTENanochipAssemblyModuleBaseGui
                     t.addLine(
                         EnumChatFormatting.BLUE + translateToLocal("GT5U.tooltip.nac.module.boardprocessor.empty"));
                 }
-                t.addLine(
-                    EnumChatFormatting.GREEN + translateToLocal("GT5U.tooltip.nac.module.boardprocessor.impurity")
-                        + ": "
-                        + numberFormat.format(impurity.getDoubleValue() * 100)
-                        + "%");
             })
             .background(IDrawable.EMPTY)
             .pos(151, 0);

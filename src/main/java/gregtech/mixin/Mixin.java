@@ -20,9 +20,6 @@ public enum Mixin implements IMixins {
             "minecraft.SoundManagerMixin",
             "minecraft.SoundManagerInnerMixin")
         .setPhase(Phase.EARLY)),
-    WorldMixin(new MixinBuilder("Block update detection")
-        .addCommonMixins("minecraft.WorldMixin")
-        .setPhase(Phase.EARLY)),
     StringTranslateMixin(new MixinBuilder("Keep track of currently translating mods")
         .addCommonMixins(
             "minecraft.StringTranslateMixin",

@@ -323,7 +323,6 @@ import gregtech.common.tileentities.storage.MTEQuantumTank;
 import gregtech.common.tileentities.storage.MTESuperChest;
 import gregtech.common.tileentities.storage.MTESuperTank;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTETransformerHiAmp;
-import kubatech.tileentity.gregtech.multiblock.MTEIndustrialArcFurnace;
 
 // TODO Some GT MetaTileEntity registrations are done in load/GT_Loader_MetaTileEntities_Recipes.java due to joint
 // registration+recipe methods, they should be split and brought here to register all in preload.
@@ -1074,12 +1073,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 ExtremeCombustionEngine.ID,
                 "multimachine.extremedieselengine",
                 "Extreme Combustion Engine").getStackForm(1L));
-
-        ItemList.IndustrialArcFurnace.set(
-            new MTEIndustrialArcFurnace(
-                IndustrialArcFurnace.ID,
-                "industrialarcfurnace.controller.tier.single",
-                "Industrial Arc Furnace").getStackForm(1));
 
         ItemList.IndustrialCokeOven.set(
             new MTEIndustrialCokeOven(

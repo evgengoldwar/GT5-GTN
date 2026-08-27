@@ -28,12 +28,6 @@ import static gtPlusPlus.core.material.MaterialsAlloy.TRINIUM_REINFORCED_STEEL;
 import static gtPlusPlus.core.material.MaterialsElements.STANDALONE.ASTRAL_TITANIUM;
 import static gtPlusPlus.core.material.MaterialsElements.STANDALONE.CHRONOMATIC_GLASS;
 import static gtPlusPlus.core.material.MaterialsElements.STANDALONE.HYPOGEN;
-import static kubatech.api.enums.ItemList.DEFCAwakenedSchematic;
-import static kubatech.api.enums.ItemList.DEFCChaoticSchematic;
-import static kubatech.api.enums.ItemList.DEFCDraconicSchematic;
-import static kubatech.api.enums.ItemList.DEFCWyvernSchematic;
-import static kubatech.api.enums.ItemList.DraconicEvolutionFusionCrafter;
-import static kubatech.loaders.BlockLoader.defcCasingBlock;
 import static tectech.loader.recipe.BaseRecipeLoader.getNHCoreModItem;
 import static tectech.thing.CustomItemList.eM_dynamoTunnel5_UMV;
 
@@ -945,94 +939,6 @@ public class ResearchStationAssemblyLine implements Runnable {
                 GregtechItemList.Casing_Fusion_External2.get(1),
                 300,
                 (int) TierEU.RECIPE_UEV);
-        }
-
-        if (BloodMagic.isModLoaded() && DraconicEvolution.isModLoaded()) {
-            // Draconic Evolution Fusion Crafter Controller
-            TTRecipeAdder.addResearchableAssemblylineRecipe(
-                new ItemStack(defcCasingBlock, 1, 8),
-                16_777_216,
-                1024,
-                (int) TierEU.RECIPE_UHV,
-                8,
-                new Object[] { ItemList.AssemblingMachineUHV.get(1), new ItemStack(defcCasingBlock, 1, 8),
-                    GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.GaiaSpirit, 1L),
-                    ItemList.Casing_Coil_AwakenedDraconium.get(8L), ItemList.Electric_Motor_UHV.get(8L),
-                    ItemList.Robot_Arm_UHV.get(4L), new Object[] { OrePrefixes.circuit.get(Materials.UHV), 4 },
-                    ItemList.Gravistar.get(4, new Object() {}), getModItem(Thaumcraft.ID, "ItemEldritchObject", 1, 3),
-                    getModItem(BloodMagic.ID, "bloodMagicBaseItems", 8, 29),
-                    getModItem(BloodMagic.ID, "bloodMagicBaseItems", 8, 28),
-                    GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.Void, 1) },
-                new FluidStack[] { MaterialsAlloy.INDALLOY_140.getFluidStack(20 * INGOTS),
-                    Materials.Void.getMolten(20 * INGOTS), Materials.DraconiumAwakened.getMolten(10 * INGOTS), },
-                DraconicEvolutionFusionCrafter.get(1),
-                1500,
-                (int) TierEU.RECIPE_UEV);
-            // DE Schematics Cores Tier 1
-            TTRecipeAdder.addResearchableAssemblylineRecipe(
-                new ItemStack(defcCasingBlock, 1, 9),
-                5_000_000,
-                512,
-                1_000_000,
-                4,
-                new Object[] { getModItem(DraconicEvolution.ID, "draconicCore", 1, 0),
-                    GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Draconium, 1L),
-                    GTOreDictUnificator.get(OrePrefixes.plate, Materials.Ichorium, 1L),
-                    new Object[] { OrePrefixes.circuit.get(Materials.UHV), 1 }, },
-                new FluidStack[] { Materials.Sunnarium.getMolten(1 * STACKS + 36 * INGOTS),
-                    Materials.Void.getMolten(3 * STACKS + 8 * INGOTS), },
-                DEFCDraconicSchematic.get(1),
-                3 * MINUTES,
-                (int) TierEU.RECIPE_UHV);
-
-            // DE Schematics Cores Tier 2
-            TTRecipeAdder.addResearchableAssemblylineRecipe(
-                getModItem(DraconicEvolution.ID, "draconicCore", 1, 0),
-                10_000_000,
-                1024,
-                4_000_000,
-                8,
-                new Object[] { getModItem(DraconicEvolution.ID, "draconicCore", 4, 0),
-                    GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Draconium, 1L),
-                    GTOreDictUnificator.get(OrePrefixes.plate, Materials.Neutronium, 1L),
-                    new Object[] { OrePrefixes.circuit.get(Materials.UEV), 1 }, },
-                new FluidStack[] { Materials.Neutronium.getMolten(14400L), Materials.Void.getMolten(57600L), },
-                DEFCWyvernSchematic.get(1),
-                3 * MINUTES,
-                (int) TierEU.RECIPE_UEV);
-
-            // DE Schematics Cores Tier 3
-            TTRecipeAdder.addResearchableAssemblylineRecipe(
-                getModItem(DraconicEvolution.ID, "wyvernCore", 1, 0),
-                20_000_000,
-                2048,
-                16_000_000,
-                16,
-                new Object[] { getModItem(DraconicEvolution.ID, "wyvernCore", 4, 0),
-                    GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.DraconiumAwakened, 1L),
-                    GTOreDictUnificator.get(OrePrefixes.plate, Materials.Infinity, 1L),
-                    new Object[] { OrePrefixes.circuit.get(Materials.UIV), 1L } },
-                new FluidStack[] { Materials.Infinity.getMolten(14400L), Materials.Void.getMolten(115200L), },
-                DEFCAwakenedSchematic.get(1),
-                3 * MINUTES,
-                (int) TierEU.RECIPE_UIV);
-
-            // DE Schematics Cores Tier 4
-            TTRecipeAdder.addResearchableAssemblylineRecipe(
-                getModItem(DraconicEvolution.ID, "awakenedCore", 1, 0),
-                40_000_000,
-                4096,
-                64_000_000,
-                64,
-                new Object[] { getModItem(DraconicEvolution.ID, "awakenedCore", 8, 0),
-                    GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.DraconiumAwakened, 4L),
-                    GTOreDictUnificator.get(OrePrefixes.plate, Materials.SpaceTime, 1L),
-                    new Object[] { OrePrefixes.circuit.get(Materials.UMV), 1 }, },
-                new FluidStack[] { Materials.SpaceTime.getMolten(1 * STACKS + 36 * INGOTS),
-                    Materials.Void.getMolten(25 * STACKS), },
-                DEFCChaoticSchematic.get(1),
-                3 * MINUTES,
-                (int) TierEU.RECIPE_UMV);
         }
 
         // Debug maintenance hatch

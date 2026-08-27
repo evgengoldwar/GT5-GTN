@@ -1602,20 +1602,6 @@ public class MTERecipeLoader implements Runnable {
             new Object[] { "PhP", "SFS", "PwP", 'P', OrePrefixes.plate.get(Materials.StainlessSteel), 'S',
                 OrePrefixes.plate.get(Materials.Steel), 'F', OrePrefixes.frameGt.get(Materials.StainlessSteel) });
 
-        // High Current Industrial Arc Furnace
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                Materials.Naquadah.getPart(OrePrefixes.blockCasing, 1),
-                ItemList.Field_Generator_EV.get(2),
-                ItemList.Robot_Arm_IV.get(4),
-                GregtechItemList.Energy_Core_EV.get(2),
-                Materials.Tungsten.getPlates(8),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.IV, 8))
-            .itemOutputs(ItemList.IndustrialArcFurnace.get(1))
-            .duration(1 * MINUTES)
-            .eut(TierEU.RECIPE_IV)
-            .addTo(assemblerRecipes);
-
         // Algae Casing
         GTModHandler.addCraftingRecipe(
             ItemList.AlgaeCasing.get(1),
@@ -1955,12 +1941,6 @@ public class MTERecipeLoader implements Runnable {
             .duration(TICKS)
             .eut(TierEU.RECIPE_LuV)
             .addTo(assemblerRecipes);
-
-        // Industrial Arc Furnace Conversion Recipe
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.IndustrialArcFurnace.get(1),
-            GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GTModHandler.RecipeBits.BUFFERED,
-            new Object[] { GregtechItemList.Industrial_Arc_Furnace });
 
         // Infinite Fluid Drilling Rig Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(

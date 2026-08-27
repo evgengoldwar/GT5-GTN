@@ -19,7 +19,6 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTRecipeBuilder;
-import kubatech.tileentity.gregtech.multiblock.MTEHighTempGasCooledReactor;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
 public class Centrifuge implements Runnable {
@@ -67,26 +66,6 @@ public class Centrifuge implements Runnable {
             .addTo(centrifugeRecipes);
 
         int i = 0;
-        for (MTEHighTempGasCooledReactor.HTGRMaterials.Fuel_ fuel : MTEHighTempGasCooledReactor.HTGRMaterials.sHTGR_Fuel) {
-
-            GTRecipeBuilder recipeBuilder = GTValues.RA.stdBuilder()
-                .itemInputs(new ItemStack(MTEHighTempGasCooledReactor.HTGRMaterials.aHTGR_Materials, 1, i + 6))
-                .itemOutputs(
-                    fuel.recycledItems[0],
-                    fuel.recycledItems[1],
-                    fuel.recycledItems[2],
-                    fuel.recycledItems[3],
-                    fuel.recycledItems[4])
-                .outputChances(fuel.recycleChances);
-            if (fuel.recycledFluid != null) {
-                recipeBuilder.fluidOutputs(fuel.recycledFluid);
-            }
-            recipeBuilder.duration(1 * MINUTES)
-                .eut(TierEU.RECIPE_LV)
-                .addTo(centrifugeRecipes);
-
-            i += MTEHighTempGasCooledReactor.HTGRMaterials.MATERIALS_PER_FUEL;
-        }
 
         GTValues.RA.stdBuilder()
             .circuit(17)
