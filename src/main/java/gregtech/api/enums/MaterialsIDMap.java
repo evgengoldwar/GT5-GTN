@@ -784,7 +784,6 @@ public class MaterialsIDMap extends Int2ObjectOpenHashMap<Materials> {
         r(996, Materials.GasolineRaw);
         r(997, Materials.GasolineRegular);
         r(998, Materials.GasolinePremium);
-        r(999, Materials.McGuffium239);
         // spotless:on
     }
 

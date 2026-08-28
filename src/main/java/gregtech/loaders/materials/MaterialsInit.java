@@ -4716,7 +4716,6 @@ public class MaterialsInit {
         Materials.Honey = loadHoney();
         Materials.Leather = loadLeather();
         Materials.Lubricant = loadLubricant();
-        Materials.McGuffium239 = loadMcGuffium239();
         Materials.MeatCooked = loadMeatCooked();
         Materials.MeatRaw = loadMeatRaw();
         Materials.Milk = loadMilk();
@@ -4993,26 +4992,6 @@ public class MaterialsInit {
             .addCell()
             .addAspect(TCAspects.AQUA, 2)
             .addAspect(TCAspects.MACHINA, 1)
-            .constructMaterial();
-    }
-
-    private static Materials loadMcGuffium239() {
-        return new MaterialBuilder().setName("McGuffium239")
-            .setDefaultLocalName("Mc Guffium 239")
-            .setIconSet(TextureSet.SET_FLUID)
-            .setColor(Dyes.dyePink)
-            .setARGB(0x00c83296)
-            .addCell()
-            .addAspect(TCAspects.ALIENIS, 8)
-            .addAspect(TCAspects.PERMUTATIO, 8)
-            .addAspect(TCAspects.SPIRITUS, 8)
-            .addAspect(TCAspects.AURAM, 8)
-            .addAspect(TCAspects.VITIUM, 8)
-            .addAspect(TCAspects.RADIO, 8)
-            .addAspect(TCAspects.MAGNETO, 8)
-            .addAspect(TCAspects.ELECTRUM, 8)
-            .addAspect(TCAspects.NEBRISUM, 8)
-            .addAspect(TCAspects.STRONTIO, 8)
             .constructMaterial();
     }
 

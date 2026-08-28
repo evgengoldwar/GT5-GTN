@@ -28,8 +28,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.items.MetaGeneratedItem;
 import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtil;
 import gregtech.api.util.GTUtility;
 
@@ -61,54 +59,8 @@ public class MetaGeneratedItem98 extends MetaGeneratedItem {
         INDIUM_CONCENTRATE(25, "indiumconcentrate", CellType.REGULAR),
         LEAD_ZINC_SOLUTION(26, "leadzincsolution", CellType.REGULAR),
 
-        // New Horizons Core Mod
-        UNKNOWN_NUTRIENT_AGAR(7, "unknownnutrientagar", CellType.REGULAR),
-        SEAWEED_BROTH(8, "seaweedbroth", CellType.REGULAR),
-        GELATIN_MIXTURE(32, "gelatinmixture", CellType.REGULAR),
-        MEAT_EXTRACT(33, "meatextract", CellType.REGULAR),
-        SUPER_HEAVY_RADOX(28, "superheavyradox", CellType.REGULAR),
-        HEAVY_RADOX(29, "heavyradox", CellType.REGULAR),
-        CRACKED_RADOX(30, "crackedradox", CellType.REGULAR),
-        LIGHT_RADOX(31, "lightradox", CellType.REGULAR),
-        SUPER_LIGHT_RADOX(9, "superlightradox", CellType.REGULAR),
-        RADOX_GAS(34, "radoxgas", CellType.REGULAR),
-        SODIUM_POTASSIUM(18, "sodiumpotassium", CellType.REGULAR),
-        ENRICHED_BACTERIAL_SLUDGE(19, "enrichedbacterialsludge", CellType.REGULAR),
-        FERMENTED_BACTERIAL_SLUDGE(20, "fermentedbacterialsludge", CellType.REGULAR),
-        POLLUTION(21, "pollution", CellType.REGULAR),
-        XENOXENE(27, "xenoxene", CellType.REGULAR),
-        DILUTED_XENOXENE(35, "dilutedxenoxene", CellType.REGULAR),
-        RAW_RADOX(36, "rawradox", CellType.REGULAR),
-
-        // BartWorks
-        ENZYME_SOLUTION(10, "enzymessollution", CellType.REGULAR),
-        ESCHERICHIA_COLI_FLUID(11, "escherichiakolifluid", CellType.REGULAR),
-        PENICILLIN(12, "penicillin", CellType.REGULAR),
-        FLUORESCENT_DNA(13, "fluorecentddna", CellType.REGULAR),
-        POLYMERASE(17, "polymerase", CellType.REGULAR),
-        FULVIC_ACID(37, "fulvic acid", CellType.REGULAR),
-        HEATED_FULVIC_ACID(38, "heated fulvic acid", CellType.REGULAR),
-        KEROGEN(39, "kerogen", CellType.REGULAR),
-
-        // Good Generator
-        COMBUSTION_PROMOTER(14, "combustionpromotor", CellType.REGULAR),
-
         // Galacticraft
-        BACTERIAL_SLUDGE(1, "bacterialsludge", CellType.REGULAR),
-
-        // Railcraft
-        STEAM(0, "steam", CellType.REGULAR),
-
-        // Gendustry
-        BACTERIA(15, "binnie.bacteria", CellType.REGULAR),
-        MUTAGEN(2, "mutagen", CellType.REGULAR),
-        LIQUID_DNA(16, "liquiddna", CellType.REGULAR),
-
-        // Tinker's Construct
-        LIQUID_ENDER(3, "ender", CellType.REGULAR),
-
-        // Hardcore Ender Expansion
-        ENDER_GOO(4, "endergoo", CellType.REGULAR),;
+        BACTERIAL_SLUDGE(1, "bacterialsludge", CellType.REGULAR),;
 
         private final int mId;
         /** This is the Forge internal fluid name. */
@@ -241,7 +193,6 @@ public class MetaGeneratedItem98 extends MetaGeneratedItem {
 
     public static synchronized void init() {
         INSTANCE.createAllItems();
-        INSTANCE.registerOreDict();
     }
 
     private void createAllItems() {
@@ -300,17 +251,7 @@ public class MetaGeneratedItem98 extends MetaGeneratedItem {
         registeredFluidDataMap.put(id, new RegisteredFluidData(rgba, iconContainerMap.get(cellType)));
     }
 
-    private void registerOreDict() {
-        // The GregTech ore dictionary requires an entry in the Materials enum, and since the whole
-        // point of this class is to add cell items for non-GregTech fluids, the vast majority of
-        // cell items won't have an associated material. So only a rare few cell items will need to
-        // be registered.
-
-        // Register IC2 steam cell and Railcraft steam cell as synonyms.
-        // There is no steam material, so we'll use Water.cellMolten instead.
-        GTOreDictUnificator.add(OrePrefixes.cellMolten, Materials.Water, GTModHandler.getIC2Item("steamCell", 1L));
-        GTOreDictUnificator.add(OrePrefixes.cellMolten, Materials.Water, FluidCell.STEAM.getNoCopy());
-    }
+    private void registerOreDict() {}
 
     @Override
     public short[] getRGBa(ItemStack aStack) {

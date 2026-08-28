@@ -284,7 +284,6 @@ import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_StainlessSteel
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_Steel;
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_Titanium;
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_TungstenSteel;
-import static gregtech.common.items.IDMetaItem01.McGuffium_239;
 import static gregtech.common.items.IDMetaItem01.NC_SensorKit;
 import static gregtech.common.items.IDMetaItem01.NaquadriaSupersolid;
 import static gregtech.common.items.IDMetaItem01.Paper_Magic_Empty;
@@ -3527,21 +3526,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
                 OreDictNames.craftingDuctTape));
-        ItemList.McGuffium_239.set(
-            addItemWithLocalizationKeys(
-                McGuffium_239.ID,
-                "gt.item.mcguffium_239.name",
-                "gt.item.mcguffium_239.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ALIENIS, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.PERMUTATIO, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.SPIRITUS, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.AURAM, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.VITIUM, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.RADIO, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.MAGNETO, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.NEBRISUM, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.STRONTIO, 8L)));
 
         ItemList.Cover_RedstoneTransmitter.set(
             addItemWithLocalizationKeys(

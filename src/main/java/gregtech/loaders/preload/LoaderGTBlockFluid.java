@@ -1435,15 +1435,6 @@ public class LoaderGTBlockFluid implements Runnable {
             .registerBContainers(
                 GTOreDictUnificator.get(OrePrefixes.cell, Materials.Milk, 1L),
                 ItemList.Cell_Empty.get(1L));
-        GTFluidFactory.builder("mcguffium")
-            .withDefaultLocalName("Mc Guffium 239")
-            .withStateAndTemperature(LIQUID, 295)
-            .buildAndRegister()
-            .configureMaterials(Materials.McGuffium239)
-            .addLocalizedName(Materials.McGuffium239)
-            .registerBContainers(
-                GTOreDictUnificator.get(OrePrefixes.cell, Materials.McGuffium239, 1L),
-                ItemList.Cell_Empty.get(1L));
         GTFluidFactory.builder("refinedGlue")
             .withDefaultLocalName("Refined Glue")
             .withStateAndTemperature(LIQUID, 295)
@@ -1784,11 +1775,6 @@ public class LoaderGTBlockFluid implements Runnable {
             new FluidContainerRegistry.FluidContainerData(
                 Materials.HolyWater.getFluid(250),
                 ItemList.Bottle_Holy_Water.get(1L),
-                ItemList.Bottle_Empty.get(1L)));
-        FluidContainerRegistry.registerFluidContainer(
-            new FluidContainerRegistry.FluidContainerData(
-                Materials.McGuffium239.getFluid(250),
-                ItemList.McGuffium_239.get(1L),
                 ItemList.Bottle_Empty.get(1L)));
         FluidContainerRegistry.registerFluidContainer(
             new FluidContainerRegistry.FluidContainerData(

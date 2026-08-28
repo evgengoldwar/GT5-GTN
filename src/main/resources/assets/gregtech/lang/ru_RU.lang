@@ -4612,8 +4612,6 @@ gt.item.component.grinder.tungsten.name=Вольфрамовая шлифова�
 gt.item.upgrade.lock.name=Модуль замка
 gt.item.upgrade.lock.tooltip=Защищает ваши механизмы
 gt.item.component.filter.name=Предметный фильтр
-gt.item.mcguffium_239.name=Макгаффий
-gt.item.mcguffium_239.tooltip=На 42% лучше, чем Флеботниум
 gt.item.sengir_planks.name=Священные доски Сенгира
 
 ## Steam Valves

@@ -261,8 +261,6 @@ public class BookAndLootLoader implements Runnable {
             "mineshaftCorridor",
             new WeightedRandomChestContent(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Emerald, 1L), 1, 4, 2));
 
-        ChestGenHooks
-            .addItem("villageBlacksmith", new WeightedRandomChestContent(ItemList.McGuffium_239.get(1L), 1, 1, 1));
         ChestGenHooks.addItem(
             "villageBlacksmith",
             new WeightedRandomChestContent(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Chrome, 1L), 1, 4, 6));
@@ -303,8 +301,6 @@ public class BookAndLootLoader implements Runnable {
 
         ChestGenHooks
             .addItem("strongholdCrossing", new WeightedRandomChestContent(ItemList.Bottle_Holy_Water.get(1L), 4, 8, 6));
-        ChestGenHooks
-            .addItem("strongholdCrossing", new WeightedRandomChestContent(ItemList.McGuffium_239.get(1L), 1, 1, 10));
 
     }
 }

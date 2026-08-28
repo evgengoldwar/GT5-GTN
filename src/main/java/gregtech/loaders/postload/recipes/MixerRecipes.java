@@ -683,44 +683,6 @@ public class MixerRecipes implements Runnable {
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(mixerRecipes);
 
-        // McGuffium239 is non-renewable and only obtainable though world gen.
-        // It's a meme, don't think too deep about it.
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sodium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wood, 4))
-            .circuit(1)
-            .itemOutputs(ItemList.SFMixture.get(64))
-            .fluidInputs(Materials.McGuffium239.getFluid(12))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(mixerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Lithium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wood, 4))
-            .circuit(1)
-            .itemOutputs(ItemList.SFMixture.get(64))
-            .fluidInputs(Materials.McGuffium239.getFluid(8))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(mixerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Caesium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wood, 4))
-            .circuit(1)
-            .itemOutputs(ItemList.SFMixture.get(64))
-            .fluidInputs(Materials.McGuffium239.getFluid(4))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(mixerRecipes);
-
         // Molten Red Granite
         GTValues.RA.stdBuilder()
             .itemInputs(

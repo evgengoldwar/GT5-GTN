@@ -371,7 +371,6 @@ public class Materials implements IColorModulationContainer, IOreMaterial {
     public static Materials Honey;
     public static Materials Leather;
     public static Materials Lubricant;
-    public static Materials McGuffium239;
     public static Materials MeatCooked;
     public static Materials MeatRaw;
     public static Materials Milk;
