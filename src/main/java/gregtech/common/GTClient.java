@@ -242,10 +242,6 @@ public class GTClient extends GTProxy {
 
         MinecraftForgeClient.registerItemRenderer(ItemList.Display_Fluid.getItem(), new FluidDisplayStackRenderer());
 
-        MinecraftForgeClient.registerItemRenderer(
-            ItemList.Ice_Cream_Machine.getItem(),
-            (IItemRenderer) GregTechAPI.METATILEENTITIES[MetaTileEntityIDs.ICE_CREAM_MACHINE.ID]);
-
         final MechanicalArmorRenderer mechanicalArmorRenderer = new MechanicalArmorRenderer();
         MinecraftForgeClient.registerItemRenderer(ItemList.Mechanical_Helmet.getItem(), mechanicalArmorRenderer);
         MinecraftForgeClient.registerItemRenderer(ItemList.Mechanical_Chestplate.getItem(), mechanicalArmorRenderer);
