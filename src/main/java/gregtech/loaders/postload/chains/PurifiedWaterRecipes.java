@@ -19,7 +19,6 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.HeatingCoilLevel;
 import gregtech.api.enums.ItemList;
@@ -210,7 +209,6 @@ public class PurifiedWaterRecipes {
             .hidden()
             .addTo(purificationPlasmaHeatingRecipes);
 
-        MTEPurificationUnitUVTreatment.LENS_ITEMS.add(GGMaterial.orundum.get(OrePrefixes.lens, 1));
         MTEPurificationUnitUVTreatment.LENS_ITEMS.add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.Amber, 1));
         MTEPurificationUnitUVTreatment.LENS_ITEMS
             .add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.InfusedAir, 1));

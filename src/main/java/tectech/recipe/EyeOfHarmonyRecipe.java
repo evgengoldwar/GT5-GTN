@@ -1,7 +1,6 @@
 package tectech.recipe;
 
 import static com.google.common.math.IntMath.pow;
-import static gregtech.api.GregTechAPI.getUnificatedOreDictStack;
 import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTUtility.getPlasmaFuelValueInEUPerLiterFromMaterial;
@@ -14,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -22,7 +22,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import gnu.trove.map.TMap;
 import gnu.trove.map.hash.TCustomHashMap;
 import gnu.trove.strategy.HashingStrategy;
-import goodgenerator.util.NaquadahRecipeOutputs;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
@@ -445,9 +444,9 @@ public class EyeOfHarmonyRecipe {
         for (Pair<IOreMaterial, Long> pair : planetList) {
             final IOreMaterial mat = pair.getLeft();
             final ItemStack dust;
-            if (mat instanceof Materials material)
-                dust = NaquadahRecipeOutputs.convert(getUnificatedOreDictStack(material.getDust(1)));
-            else dust = null;
+            if (mat instanceof Materials material) {
+                dust = new ItemStack(Blocks.stone);
+            } else dust = null;
             if (dust != null) {
                 dustList.merge(dust, pair.getRight(), Long::sum);
             }

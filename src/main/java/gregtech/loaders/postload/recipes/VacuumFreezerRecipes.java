@@ -8,7 +8,6 @@ import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -347,7 +346,6 @@ public class VacuumFreezerRecipes implements Runnable {
 
         GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Harmonic_Compound.get(2))
-            .fluidInputs(GGMaterial.atomicSeparationCatalyst.getMolten(1 * INGOTS))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Mellion, 1L))
             .fluidOutputs(Materials.Creon.getMolten(1 * INGOTS))
             .duration(1 * SECONDS)

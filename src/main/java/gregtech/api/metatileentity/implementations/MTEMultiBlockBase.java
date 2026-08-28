@@ -152,7 +152,6 @@ import gregtech.common.tileentities.machines.RecipeCheckReason;
 import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
 import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
 import gregtech.common.tileentities.machines.multi.drone.production.ProductionRecord;
-import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbineBase;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
@@ -3918,21 +3917,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                 }));
             screenElements.widget(recipeOutputItemsWidget);
         }
-
-        screenElements.widget(
-            new TextWidget(GTUtility.trans("144", "Missing Turbine Rotor")).setTextAlignment(Alignment.CenterLeft)
-                .setDefaultColor(COLOR_TEXT_WHITE.get())
-                .setEnabled(widget -> {
-                    if (getBaseMetaTileEntity().isAllowedToWork()) return false;
-                    if (getErrorDisplayID() == 0 && (this instanceof MTELargeTurbineBase)) {
-                        final ItemStack tItem = inventorySlot.getMcSlot()
-                            .getStack();
-                        return tItem == null
-                            || !(tItem.getItem() == MetaGeneratedTool01.INSTANCE && tItem.getItemDamage() >= 170
-                                && tItem.getItemDamage() <= 177);
-                    }
-                    return false;
-                }));
     }
 
     // MUI1 structure error diagnostics compat - delete this block when MUI1 is removed

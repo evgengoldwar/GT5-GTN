@@ -35,7 +35,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import bartworks.common.loaders.ItemRegistry;
 import bartworks.system.material.WerkstoffLoader;
-import goodgenerator.util.ItemRefer;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
@@ -3146,18 +3145,6 @@ public class AssemblerRecipes implements Runnable {
             .itemOutputs(ItemList.NaniteShieldingGlass.get(4L))
             .fluidInputs(Materials.Universium.getMolten(16L))
             .duration(16 * SECONDS)
-            .eut(TierEU.RECIPE_UXV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.MagneticAnchorCasing.get(1L),
-                ItemRefer.Field_Restriction_Coil_T4.get(1),
-                ItemList.NaquadriaSupersolid.get(16L),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.PrismaticNaquadah, 2L))
-            .itemOutputs(ItemList.FieldEnergyAbsorberCasing.get(2L))
-            .fluidInputs(Materials.ExcitedDTSC.getFluid(16_000L))
-            .duration(5 * SECONDS)
             .eut(TierEU.RECIPE_UXV)
             .addTo(assemblerRecipes);
 

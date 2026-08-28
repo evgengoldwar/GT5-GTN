@@ -1,12 +1,6 @@
 package bartworks.common.loaders;
 
 import static bartworks.API.recipe.BartWorksRecipeMaps.electricImplosionCompressorRecipes;
-import static goodgenerator.loader.Loaders.highDensityPlutonium;
-import static goodgenerator.loader.Loaders.highDensityPlutoniumNugget;
-import static goodgenerator.loader.Loaders.highDensityThorium;
-import static goodgenerator.loader.Loaders.highDensityThoriumNugget;
-import static goodgenerator.loader.Loaders.highDensityUranium;
-import static goodgenerator.loader.Loaders.highDensityUraniumNugget;
 import static gregtech.api.enums.GTValues.M;
 import static gregtech.api.enums.Mods.Avaritia;
 import static gregtech.api.enums.Mods.EternalSingularity;
@@ -14,12 +8,9 @@ import static gregtech.api.enums.Mods.OpenComputers;
 import static gregtech.api.enums.Mods.SuperSolarPanels;
 import static gregtech.api.enums.Mods.UniversalSingularities;
 import static gregtech.api.util.GTModHandler.getModItem;
-import static gregtech.api.util.GTRecipeBuilder.HALF_INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
-
-import net.minecraft.item.ItemStack;
 
 import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
@@ -52,30 +43,6 @@ public class ElectricImplosionCompressorRecipes implements Runnable {
                     .addTo(electricImplosionCompressorRecipes);
             }
         }
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(highDensityPlutoniumNugget, 5))
-            .itemOutputs(new ItemStack(highDensityPlutonium, 1))
-            .fluidInputs(Materials.Neutronium.getMolten(1 * HALF_INGOTS))
-            .duration(1)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(electricImplosionCompressorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(highDensityUraniumNugget, 5))
-            .itemOutputs(new ItemStack(highDensityUranium, 1))
-            .fluidInputs(Materials.Neutronium.getMolten(1 * HALF_INGOTS))
-            .duration(1)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(electricImplosionCompressorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(highDensityThoriumNugget, 5))
-            .itemOutputs(new ItemStack(highDensityThorium, 1))
-            .fluidInputs(Materials.Neutronium.getMolten(1 * HALF_INGOTS))
-            .duration(1)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(electricImplosionCompressorRecipes);
 
         // Magneto material recipe for base fluid.
         GTValues.RA.stdBuilder()

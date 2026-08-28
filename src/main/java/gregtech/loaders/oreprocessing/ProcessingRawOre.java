@@ -1,10 +1,8 @@
 package gregtech.loaders.oreprocessing;
 
 import static bartworks.system.material.gtenhancement.PlatinumSludgeOutputs.convertSmelting;
-import static goodgenerator.util.NaquadahRecipeOutputs.convert;
 import static gregtech.api.recipe.RecipeMaps.blastFurnaceRecipes;
 import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
-import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 
@@ -200,14 +198,6 @@ public class ProcessingRawOre implements gregtech.api.interfaces.IOreRecipeRegis
             GTModHandler.addShapelessCraftingRecipe(
                 GTUtility.mul(1, tCrushed),
                 new Object[] { aOreStack, ToolDictNames.craftingToolHardHammer });
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(aOreStack)
-                .itemOutputs(
-                    convert(aMaterial, GTUtility.copy(GTUtility.copyAmount(tCrushed.stackSize, tGem), tCrushed)))
-                .duration(10)
-                .eut(TierEU.RECIPE_LV / 2)
-                .addTo(hammerRecipes);
 
             int chanceOre2 = tPrimaryByProduct == null ? 0
                 : tPrimaryByProduct.stackSize * 5 * aMaterial.mByProductMultiplier;

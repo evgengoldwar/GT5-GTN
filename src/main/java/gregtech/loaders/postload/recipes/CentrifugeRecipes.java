@@ -21,7 +21,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import bartworks.system.material.WerkstoffLoader;
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -479,26 +478,6 @@ public class CentrifugeRecipes implements Runnable {
         }
 
         GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Naquadah, 9))
-            .itemOutputs(
-                GGMaterial.enrichedNaquadahEarth.get(OrePrefixes.dust, 2),
-                GGMaterial.naquadriaEarth.get(OrePrefixes.dust, 2))
-            .outputChances(5000, 1000)
-            .duration(24 * MINUTES)
-            .eut(320)
-            .addTo(centrifugeRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.NaquadahEnriched, 4))
-            .itemOutputs(
-                GGMaterial.naquadriaEarth.get(OrePrefixes.dust, 2),
-                GGMaterial.naquadahEarth.get(OrePrefixes.dust, 2))
-            .outputChances(2000, 3000)
-            .duration(21 * MINUTES + 20 * SECONDS)
-            .eut(640)
-            .addTo(centrifugeRecipes);
-
-        GTValues.RA.stdBuilder()
             .fluidInputs(Materials.Hydrogen.getGas(160))
             .fluidOutputs(Materials.Deuterium.getGas(40))
             .duration(8 * SECONDS)
@@ -948,15 +927,5 @@ public class CentrifugeRecipes implements Runnable {
             .eut(122880)
             .addTo(centrifugeRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Churitsu, 27))
-            .itemOutputs(
-                Materials.TinAlloy.getDust(8),
-                WerkstoffLoader.Ruridit.get(OrePrefixes.dust, 7),
-                GGMaterial.adamantiumAlloy.get(OrePrefixes.dust, 4),
-                WerkstoffLoader.Californium.get(OrePrefixes.dust, 3))
-            .duration(60 * SECONDS)
-            .eut(122880)
-            .addTo(centrifugeRecipes);
     }
 }

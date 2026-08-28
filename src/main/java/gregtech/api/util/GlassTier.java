@@ -36,7 +36,6 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import goodgenerator.loader.Loaders;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.common.misc.GTStructureChannels;
@@ -229,7 +228,6 @@ public class GlassTier {
             addCustomGlass(ItemRegistry.bw_realglas, 8, 11, 0); // Transmetal Borosilicate
             addCustomGlass(ItemRegistry.bw_realglas2, 3, 11, 1); // Transmetal Borosilicate Transparent
             addCustomGlass(GregTechAPI.sBlockGlass1, 4, 11, 2);
-            addCustomGlass(Loaders.antimatterContainmentCasing, 0, 11, 3);
 
             // --- UMV ---
             addCustomGlass(ItemRegistry.bw_realglas, 9, 12, 0); // Hexanite Borosilicate

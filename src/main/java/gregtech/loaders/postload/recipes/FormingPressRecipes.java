@@ -12,7 +12,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import bartworks.common.loaders.ItemRegistry;
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -248,9 +247,7 @@ public class FormingPressRecipes implements Runnable {
 
         // Peace Enforcement Casing
         GTValues.RA.stdBuilder()
-            .itemInputs(
-                GGMaterial.tairitsu.get(OrePrefixes.frameGt, 1),
-                GTOreDictUnificator.get(OrePrefixes.itemCasing, Materials.Churitsu, 2))
+            .itemInputs(GTOreDictUnificator.get(OrePrefixes.itemCasing, Materials.Churitsu, 2))
             .itemOutputs(ItemList.PeaceEnforcementCasing.get(1))
             .fluidInputs(Materials.Shijima.getMolten(2 * INGOTS))
             .duration(10 * SECONDS)
@@ -263,7 +260,6 @@ public class FormingPressRecipes implements Runnable {
                 GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Shijima, 1),
                 GTOreDictUnificator.get(OrePrefixes.itemCasing, Materials.Churitsu, 2))
             .itemOutputs(ItemList.ConflictInducementCasing.get(1))
-            .fluidInputs(GGMaterial.tairitsu.getMolten(2 * INGOTS))
             .duration(10 * SECONDS)
             .eut(TierEU.RECIPE_UEV)
             .addTo(formingPressRecipes);

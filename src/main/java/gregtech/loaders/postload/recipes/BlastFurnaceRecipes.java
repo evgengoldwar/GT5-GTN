@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 
 import bartworks.common.loaders.ItemRegistry;
 import bartworks.system.material.WerkstoffLoader;
-import goodgenerator.items.GGMaterial;
 import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -641,19 +640,6 @@ public class BlastFurnaceRecipes implements Runnable {
             .duration(300 * SECONDS)
             .eut((int) TierEU.RECIPE_UIV)
             .metadata(COIL_HEAT, 17000)
-            .addTo(blastFurnaceRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Phononic_Seed_Crystal.get(2),
-                Materials.Eternity.getDust(8),
-                GGMaterial.shirabon.get(OrePrefixes.dust, 8))
-            .circuit(2)
-            .fluidInputs(Materials.PhononMedium.getFluid(10L))
-            .fluidOutputs(Materials.PhononCrystalSolution.getFluid(3_000))
-            .duration(200 * SECONDS)
-            .eut((int) TierEU.RECIPE_UXV)
-            .metadata(COIL_HEAT, 50000)
             .addTo(blastFurnaceRecipes);
 
         GTValues.RA.stdBuilder()

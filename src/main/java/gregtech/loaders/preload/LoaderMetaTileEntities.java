@@ -157,11 +157,6 @@ import gregtech.common.tileentities.machines.multi.purification.MTEPurificationU
 import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitPhAdjustment;
 import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitPlasmaHeater;
 import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitUVTreatment;
-import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbineGas;
-import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbineHPSteam;
-import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbinePlasma;
-import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbineSCSteam;
-import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbineSteam;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
 import gregtech.common.tileentities.machines.steam.MTESteamAlloySmelterBronze;
@@ -310,28 +305,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 ItemList.MagicalMaintenanceHatch.get(1),
                 GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorJude));
         }
-
-        ItemList.SteamTurbine.set(
-            new MTELargeTurbineSteam(SteamTurbine.ID, "multimachine.largeturbine", "Large Steam Turbine")
-                .getStackForm(1L));
-
-        ItemList.HPSteamTurbine.set(
-            new MTELargeTurbineHPSteam(HPSteamTurbine.ID, "multimachine.largehpturbine", "Large HP Steam Turbine")
-                .getStackForm(1L));
-
-        ItemList.SCSteamTurbine.set(
-            new MTELargeTurbineSCSteam(
-                SCSteamTurbine.ID,
-                "SupercriticalSteamTurbine",
-                "Large Supercritical Steam Turbine").getStackForm(1L));
-
-        ItemList.GasTurbine.set(
-            new MTELargeTurbineGas(GasTurbine.ID, "multimachine.largegasturbine", "Large Gas Turbine")
-                .getStackForm(1L));
-
-        ItemList.PlasmaTurbine.set(
-            new MTELargeTurbinePlasma(PlasmaTurbine.ID, "multimachine.largeplasmaturbine", "Large Plasma Turbine")
-                .getStackForm(1L));
     }
 
     private static void registerSteamMachines() {

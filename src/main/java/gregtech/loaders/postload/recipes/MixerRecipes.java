@@ -25,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -1707,19 +1706,5 @@ public class MixerRecipes implements Runnable {
                 .addTo(mixerRecipes);
         }
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                Materials.Tritanium.getDust(11),
-                GGMaterial.orundum.get(OrePrefixes.dust, 8),
-                Materials.Rubidium.getDust(11),
-                Materials.FierySteel.getDust(7),
-                Materials.Firestone.getDust(13),
-                GGMaterial.atomicSeparationCatalyst.get(OrePrefixes.dust, 13))
-            .circuit(6)
-            .itemOutputs(Materials.Mellion.getDust(63))
-            .fluidInputs(Materials.DTR.getFluid(5_000))
-            .duration(15 * SECONDS)
-            .eut((int) TierEU.RECIPE_UMV)
-            .addTo(mixerRecipes);
     }
 }

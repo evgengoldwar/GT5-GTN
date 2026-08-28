@@ -73,7 +73,6 @@ import bartworks.common.loaders.ItemRegistry;
 import bartworks.system.material.WerkstoffLoader;
 import bartworks.util.BioCulture;
 import bartworks.util.BioData;
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -261,8 +260,7 @@ public class AdditionalRecipes {
             ImmutablePair.of(WerkstoffLoader.HexafluorosilicicAcid.getBridgeMaterial(), 350),
             ImmutablePair.of(Materials.PhthalicAcid, 270),
             ImmutablePair.of(Materials.NaphthenicAcid, 250),
-            ImmutablePair.of(Materials.ChlorosulfonicAcid, 2304),
-            ImmutablePair.of(GGMaterial.fluoroantimonicAcid.getBridgeMaterial(), 5760));
+            ImmutablePair.of(Materials.ChlorosulfonicAcid, 2304));
         for (Pair<Materials, Integer> fuel : liquidFuels) {
             GTValues.RA.stdBuilder()
                 .itemInputs(

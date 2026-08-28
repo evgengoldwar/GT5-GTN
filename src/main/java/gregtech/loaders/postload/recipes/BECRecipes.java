@@ -1,11 +1,8 @@
 package gregtech.loaders.postload.recipes;
 
-import static goodgenerator.util.ItemRefer.Compassline_Casing_UMV;
-import static goodgenerator.util.ItemRefer.Compassline_Casing_UXV;
 import static gregtech.api.enums.Mods.AE2FluidCraft;
 import static gregtech.api.enums.Mods.AppliedEnergistics2;
 import static gregtech.api.enums.Mods.Avaritia;
-import static gregtech.api.enums.Mods.GraviSuite;
 import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.enums.Mods.SuperSolarPanels;
 import static gregtech.api.util.GTModHandler.getModItem;
@@ -15,7 +12,6 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.CondensateType;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -64,63 +60,11 @@ public class BECRecipes implements Runnable {
         }
 
         // Transdimensional Alignment Matrix (Convergence)
-        addBec(
-            ItemList.Transdimensional_Alignment_Matrix.get(1),
-            new ItemStack[] { CustomItemList.EOH_Infinite_Energy_Casing.get(1), ItemList.Sensor_UMV.get(16),
-                ItemList.Field_Generator_UMV.get(4), ItemList.ZPM5.get(1), ItemList.EnergisedTesseract.get(32),
-                GTOreDictUnificator.get(OrePrefixes.nanite, Materials.TranscendentMetal, 16),
-                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Flerovium, 64),
-                GGMaterial.metastableOganesson.get(OrePrefixes.plateDense, 32),
-                ItemList.MetaMaterial_SensorArray1.get(32), ItemList.MetaMaterial_FieldManipulator1.get(32) },
-            nanites(1, 2, 4, 4, 4, 3, 2, 4, 1, 1, 2, 3),
-            new FluidStack[] { CondensateType.SpaceTime.getEntangled(192 * INGOTS),
-                CondensateType.DimensionallyShiftedSuperfluid.getEntangled(10_000),
-                CondensateType.Space.getEntangled(32 * INGOTS) },
-            600 * SECONDS,
-            TierEU.RECIPE_UMV);
 
         // UMV Component Assembly Line Casing (UMV CoAL)
-        addBec(
-            Compassline_Casing_UMV.get(1),
-            new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.SpaceTime, 1),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.SpaceTime, 1),
-                ItemList.Robot_Arm_UMV.get(8), ItemList.Electric_Piston_UMV.get(10),
-                ItemList.Electric_Motor_UMV.get(16),
-                GTOreDictUnificator.get(OrePrefixes.gearGt, Materials.SpaceTime, 4),
-                GTOreDictUnificator.get(OrePrefixes.gearGtSmall, Materials.SpaceTime, 16),
-                GTOreDictUnificator.get(OrePrefixes.cableGt04, Materials.Quantium, 8),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UMV, 8),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UIV, 16),
-                ItemList.MetaMaterial_Shielding1.get(64), ItemList.MetaMaterial_EnergyConduit1.get(64) },
-            nanites(1, 1, 3, 3, 3, 2, 2, 1, 4, 4, 2, 2),
-            new FluidStack[] { CondensateType.TranscendentMetal.getEntangled(32 * INGOTS),
-                CondensateType.Space.getEntangled(24 * INGOTS), CondensateType.SpaceTime.getEntangled(12 * INGOTS),
-                CondensateType.DimensionallyShiftedSuperfluid.getEntangled(10_000) },
-            600 * SECONDS,
-            TierEU.RECIPE_UMV);
 
         // UXV Component Assembly Line Casing (UXV CoAL)
-        addBec(
-            Compassline_Casing_UXV.get(1),
-            new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.MHDCSM, 1),
-                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.MHDCSM, 3),
-                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.MagMatter, 3), ItemList.Robot_Arm_UXV.get(8),
-                ItemList.Electric_Piston_UXV.get(10), ItemList.Electric_Motor_UXV.get(16),
-                GTOreDictUnificator.get(OrePrefixes.gearGt, Materials.MHDCSM, 2),
-                GTOreDictUnificator.get(OrePrefixes.gearGt, Materials.MagMatter, 2),
-                GTOreDictUnificator.get(OrePrefixes.gearGtSmall, Materials.MHDCSM, 8),
-                GTOreDictUnificator.get(OrePrefixes.gearGtSmall, Materials.MagMatter, 8),
-                GTOreDictUnificator.get(OrePrefixes.wireGt04, Materials.SpaceTime, 8),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UXV, 8),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UMV, 16),
-                ItemList.MetaMaterial_Shielding3.get(64), ItemList.MetaMaterial_EnergyConduit3.get(64),
-                ItemList.MetaMaterial_Waveguide3.get(64) },
-            nanites(1, 3, 3, 7, 6, 6, 5, 5, 4, 4, 2, 5, 5, 6, 8, 9),
-            new FluidStack[] { CondensateType.BoundlessCosmicSolder.getEntangled(5_000),
-                CondensateType.MHDCSM.getEntangled(8 * INGOTS), CondensateType.Eternity.getEntangled(13 * INGOTS),
-                CondensateType.DimensionallyShiftedSuperfluid.getEntangled(11_000) },
-            600 * SECONDS,
-            TierEU.RECIPE_UMV);
+
     }
 
     private void addGodforgeRecipes() {
@@ -189,44 +133,8 @@ public class BECRecipes implements Runnable {
 
         final int casingTime = 40_000 * SECONDS;
         // Reinforced Temporal Structure Casing
-        addBec(
-            CustomItemList.EOH_Reinforced_Temporal_Casing.get(4),
-            new ItemStack[] { CustomItemList.Godforge_SingularityShieldingCasing.get(32),
-                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.ProtoHalkonite, 32),
-                GTOreDictUnificator.get(OrePrefixes.block, Materials.Hexanite, 8),
-                GTOreDictUnificator.get(OrePrefixes.nanite, Materials.Neutronium, 48),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.Bedrockium, 2),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.CosmicNeutronium, 2),
-                GGMaterial.shirabon.get(OrePrefixes.plateSuperdense, 2),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.Infinity, 2),
-                ItemList.Machine_UV_SolarPanel.get(1), ItemList.AcceleratorUV.get(4),
-                getModItem(GraviSuite.ID, "itemSimpleItem", 64, 3), ItemList.EnergisedTesseract.get(1) },
-            nanites(4, 1, 1, 2, 1, 1, 4, 1, 1, 1, 1, 2),
-            new FluidStack[] { CondensateType.Neutronium.getEntangled(512 * INGOTS),
-                CondensateType.CosmicNeutronium.getEntangled(512 * INGOTS),
-                CondensateType.Bedrockium.getEntangled(256 * INGOTS), CondensateType.Time.getEntangled(10 * INGOTS) },
-            casingTime,
-            TierEU.RECIPE_UMV);
 
         // Reinforced Spatial Structure Casing
-        addBec(
-            CustomItemList.EOH_Reinforced_Spatial_Casing.get(4),
-            new ItemStack[] { CustomItemList.Godforge_SingularityShieldingCasing.get(32),
-                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.ProtoHalkonite, 32),
-                GTOreDictUnificator.get(OrePrefixes.block, Materials.Hexanite, 8),
-                GTOreDictUnificator.get(OrePrefixes.nanite, Materials.Neutronium, 48),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.Bedrockium, 2),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.CosmicNeutronium, 2),
-                GGMaterial.shirabon.get(OrePrefixes.plateSuperdense, 2),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.Infinity, 2),
-                ItemList.Machine_UV_SolarPanel.get(1), ItemList.Quantum_Chest_IV.get(1),
-                getModItem(GraviSuite.ID, "itemSimpleItem", 64, 3), ItemList.EnergisedTesseract.get(1) },
-            nanites(4, 1, 1, 2, 1, 1, 4, 1, 1, 1, 1, 2),
-            new FluidStack[] { CondensateType.Neutronium.getEntangled(512 * INGOTS),
-                CondensateType.CosmicNeutronium.getEntangled(512 * INGOTS),
-                CondensateType.Bedrockium.getEntangled(256 * INGOTS), CondensateType.Space.getEntangled(10 * INGOTS) },
-            casingTime,
-            TierEU.RECIPE_UMV);
 
         // Infinite Spacetime Boundary Casing
     }

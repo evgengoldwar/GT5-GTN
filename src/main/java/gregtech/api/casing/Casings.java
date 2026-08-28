@@ -19,7 +19,6 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import bartworks.API.BorosilicateGlass;
 import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import goodgenerator.loader.Loaders;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Mods;
@@ -824,18 +823,7 @@ public enum Casings implements ICasing {
 
 
     // ------------------ Miscellaneous Elements -----------------
-    MagicCasing
-        (() -> Loaders.magicCasing, 0, -1),
-    NaquadahFuelRefineryCasing
-        (() -> Loaders.FRF_Casings, 0, 179),
-    RadiantProofSteelFrameBox
-        (() -> Loaders.radiationProtectionSteelFrame, 0, -1),
-    FieldRestrictionCasing
-        (() -> Loaders.MAR_Casing, 0, -1),
-    FieldRestrictionGlass
-        (() -> Loaders.fieldRestrictingGlass, 0, -1),
-    SCTurbineCasing
-        (() -> Loaders.supercriticalFluidTurbineCasing, 0, 1538),
+
 
     BorosilicateGlassAny(BorosilicateGlass::getGlassBlock, 0, -1) {
         @Override

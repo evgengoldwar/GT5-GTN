@@ -1,22 +1,16 @@
 package gregtech.loaders.postload.recipes;
 
-import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
-import static gregtech.api.enums.Mods.Railcraft;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import bartworks.system.material.Werkstoff;
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.CondensateType;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.Mods;
 import gregtech.api.enums.NaniteTier;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.enums.TierEU;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 
 /// BEC Meta Material recipes
@@ -35,13 +29,12 @@ public class BECMetaMaterialRecipes implements Runnable {
     private static final int baseDuration = 300 * SECONDS;
 
     private static final Materials[] other3Tier = { Materials.ProtoHalkonite, Materials.Hexanite, Materials.MHDCSM };
-    private static final Object[] black3Tier = { GGMaterial.tairitsu, Materials.TranscendentMetal,
-        Materials.BlackDwarfMatter };
+    private static final Object[] black3Tier = { Materials.TranscendentMetal, Materials.BlackDwarfMatter };
     private static final Materials[] gray3Tier = { Materials.Churitsu, Materials.SpaceTime, Materials.Eternity };
     private static final Materials[] white3Tier = { Materials.Shijima, Materials.WhiteDwarfMatter,
         Materials.MagMatter };
 
-    private static final Object[] black4Tier = { GGMaterial.tairitsu, GGMaterial.shirabon, Materials.SpaceTime };
+    private static final Object[] black4Tier = { Materials.SpaceTime };
     private static final Materials[] gray4Tier = { Materials.Churitsu, Materials.WhiteDwarfMatter,
         Materials.BlackDwarfMatter, Materials.MHDCSM };
     private static final Materials[] white4Tier = { Materials.Shijima, Materials.ProtoHalkonite, Materials.Hexanite,
@@ -57,114 +50,7 @@ public class BECMetaMaterialRecipes implements Runnable {
 
     @Override
     public void run() {
-        if (NewHorizonsCoreMod.isModLoaded()) registerShielding();
-        registerWaveguide();
-        registerEnergyConduit();
-        if (Mods.Railcraft.isModLoaded()) registerElectrograviticValve();
 
-    }
-
-    private void registerShielding() {
-        // 3-tier UIV/UMV/UXV 300s. Nanites: T4 T1 T1 T3 T1, +2 per tier
-        ItemList[] outputs = { ItemList.MetaMaterial_Shielding1, ItemList.MetaMaterial_Shielding2,
-            ItemList.MetaMaterial_Shielding3 };
-        int[] condensateAmounts = { 2, 4, 8 };
-        long[] euts = { TierEU.RECIPE_UIV, TierEU.RECIPE_UMV, TierEU.RECIPE_UXV };
-
-        for (int t = 0; t < 3; t++) {
-            ItemStack[] inputs = {
-                GTModHandler
-                    .getModItem(NewHorizonsCoreMod.ID, "IrradiantReinforcedBedrockiumPlate", baseAmounts[t + 1]),
-                GTOreDictUnificator.get(OrePrefixes.foil, other3Tier[t], 4), platePart(black3Tier[t], 1),
-                GTOreDictUnificator.get(OrePrefixes.screw, gray3Tier[t], 8),
-                GTOreDictUnificator.get(OrePrefixes.bolt, white3Tier[t], 8) };
-            NaniteTier[] nanites = { nanite(4 + 2 * t), nanite(1 + 2 * t), nanite(1 + 2 * t), nanite(3 + 2 * t),
-                nanite(1 + 2 * t) };
-
-            CondensateType[] becCondensates = { CondensateType.TranscendentMetal };
-            int[] becAmounts = { condensateAmounts[t], condensateAmounts[t] };
-            addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
-        }
-    }
-
-    private void registerWaveguide() {
-        // 3-tier UIV/UMV/UXV 300s. Nanites: T4 T1 T1 T3 T1, +2 per tier
-        ItemList[] outputs = { ItemList.MetaMaterial_Waveguide1, ItemList.MetaMaterial_Waveguide2,
-            ItemList.MetaMaterial_Waveguide3 };
-        ItemList[] coils = { ItemList.UIV_Coil, ItemList.UMV_Coil, ItemList.UXV_Coil };
-        int[] chromaticAmts = { 4, 6, 8 };
-        int[] transcendentMetalAmts = { 0, 2, 4 };
-        long[] euts = { TierEU.RECIPE_UIV, TierEU.RECIPE_UMV, TierEU.RECIPE_UXV };
-
-        for (int t = 0; t < 3; t++) {
-            ItemStack[] inputs = { coils[t].get(1L), longRodPart(other3Tier[t], 1), fineWirePart(black3Tier[t], 8),
-                GTOreDictUnificator.get(OrePrefixes.foil, gray3Tier[t], 4),
-                GTOreDictUnificator.get(OrePrefixes.screw, white3Tier[t], 8) };
-            NaniteTier[] nanites = { nanite(4 + 2 * t), nanite(1 + 2 * t), nanite(1 + 2 * t), nanite(3 + 2 * t),
-                nanite(1 + 2 * t) };
-            final CondensateType[] becCondensates;
-            final int[] becAmounts;
-            if (t == 0) {
-                becCondensates = new CondensateType[] {};
-                becAmounts = new int[] { chromaticAmts[t] };
-            } else {
-                becCondensates = new CondensateType[] { CondensateType.TranscendentMetal };
-                becAmounts = new int[] { chromaticAmts[t], transcendentMetalAmts[t] };
-            }
-            addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
-        }
-    }
-
-    private void registerEnergyConduit() {
-        // 3-tier UIV/UMV/UXV 300s. Nanites: T4 T1 T1 T3 T1, +2 per tier
-        ItemList[] outputs = { ItemList.MetaMaterial_EnergyConduit1, ItemList.MetaMaterial_EnergyConduit2,
-            ItemList.MetaMaterial_EnergyConduit3 };
-        ItemStack[] superconductors = { GTOreDictUnificator.get(OrePrefixes.wireGt04, Materials.SuperconductorUIV, 1),
-            GTOreDictUnificator.get(OrePrefixes.wireGt04, Materials.SuperconductorUMV, 1),
-            ItemList.Thermal_Superconductor.get(1) };
-        int[] chromaticAmts = { 4, 8, 16 };
-        int[] transcendentMetalAmts = { 0, 2, 4 };
-        long[] euts = { TierEU.RECIPE_UIV, TierEU.RECIPE_UMV, TierEU.RECIPE_UXV };
-
-        for (int t = 0; t < 3; t++) {
-            ItemStack[] inputs = { superconductors[t], rodPart(other3Tier[t], 2), foilPart(black3Tier[t], 4),
-                GTOreDictUnificator.get(OrePrefixes.itemCasing, gray3Tier[t], 2),
-                GTOreDictUnificator.get(OrePrefixes.screw, white3Tier[t], 8) };
-            NaniteTier[] nanites = { nanite(4 + 2 * t), nanite(1 + 2 * t), nanite(1 + 2 * t), nanite(3 + 2 * t),
-                nanite(1 + 2 * t) };
-            final CondensateType[] becCondensates;
-            final int[] becAmounts;
-            if (t == 0) {
-                becCondensates = new CondensateType[] {};
-                becAmounts = new int[] { chromaticAmts[t] };
-            } else {
-                becCondensates = new CondensateType[] { CondensateType.TranscendentMetal };
-                becAmounts = new int[] { chromaticAmts[t], transcendentMetalAmts[t] };
-            }
-            addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
-        }
-    }
-
-    private void registerElectrograviticValve() {
-        // 3-tier UIV/UMV/UXV 300s. Nanites: T4 T1 T1 T3 T1, +2 per tier
-        ItemList[] outputs = { ItemList.MetaMaterial_ElectrograviticValve1, ItemList.MetaMaterial_ElectrograviticValve2,
-            ItemList.MetaMaterial_ElectrograviticValve3 };
-        int[] chromaticAmts = { 4, 8, 16 };
-        int[] dimShiftedAmts = { 1, 2, 4 };
-        long[] euts = { TierEU.RECIPE_UIV, TierEU.RECIPE_UMV, TierEU.RECIPE_UXV };
-
-        for (int t = 0; t < 3; t++) {
-            ItemStack[] inputs = { GTModHandler.getModItem(Railcraft.ID, "machine.eta", baseAmounts[t + 1], 8),
-                GTOreDictUnificator.get(OrePrefixes.ring, other3Tier[t], 2), foilPart(black3Tier[t], 4),
-                GTOreDictUnificator.get(OrePrefixes.gearGtSmall, gray3Tier[t], 1),
-                GTOreDictUnificator.get(OrePrefixes.screw, white3Tier[t], 8) };
-            NaniteTier[] nanites = { nanite(4 + 2 * t), nanite(1 + 2 * t), nanite(1 + 2 * t), nanite(3 + 2 * t),
-                nanite(1 + 2 * t) };
-
-            CondensateType[] becCondensates = { CondensateType.DimensionallyShiftedSuperfluid };
-            int[] becAmounts = { chromaticAmts[t], dimShiftedAmts[t] };
-            addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
-        }
     }
 
     private void reg4Tier(ItemList[] outputs, ItemStack[] inputs, long[] euts, int t) {

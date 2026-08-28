@@ -10,7 +10,6 @@ import static gregtech.api.enums.Mods.Thaumcraft;
 import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.util.GTModHandler.RecipeBits.BUFFERED;
 import static gregtech.api.util.GTModHandler.RecipeBits.NOT_REMOVABLE;
-import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
@@ -20,7 +19,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import bartworks.system.material.WerkstoffLoader;
-import goodgenerator.util.ItemRefer;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
@@ -1573,17 +1571,7 @@ public class MTERecipeLoader implements Runnable {
             .addTo(assemblerRecipes);
 
         // Naquadah Reactor Casing
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemRefer.Radiation_Protection_Plate.get(2),
-                Materials.PrismaticNaquadah.getPlates(2),
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Naquadah, 1))
-            .circuit(1)
-            .itemOutputs(ItemList.NaquadahReactorCasing.get(1))
-            .fluidInputs(Materials.NaquadahEnriched.getMolten(4 * INGOTS))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_LuV)
-            .addTo(assemblerRecipes);
+
     }
 
     // This method is for all the structure rework shapeless crafing migration recipes
@@ -1603,10 +1591,6 @@ public class MTERecipeLoader implements Runnable {
         // Large Boilers Conversion Recipe
 
         // Large Turbines Conversion Recipes
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.SCSteamTurbine.get(1),
-            GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GTModHandler.RecipeBits.BUFFERED,
-            new Object[] { ItemRefer.SC_Fluid_Turbine.get(1) });
 
         // Mega Chemical Reactor Conversion Recipe
 
@@ -3190,19 +3174,6 @@ public class MTERecipeLoader implements Runnable {
             new Object[] { "UCU", "FMF", aTextWireCoil, 'M', ItemList.Hull_UV, 'F', ItemList.Field_Generator_IV, 'C',
                 OrePrefixes.circuit.get(Materials.ZPM), 'W', OrePrefixes.wireGt04.get(Materials.Naquadah), 'U',
                 OrePrefixes.stick.get(Materials.Americium) });
-
-        GTModHandler.addCraftingRecipe(
-            ItemList.SteamTurbine.get(1L),
-            GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { "CPC", aTextPlateMotor, "BPB", 'M', ItemList.Hull_HV, 'B',
-                OrePrefixes.pipeLarge.get(Materials.Steel), 'C', OrePrefixes.circuit.get(Materials.HV), 'P',
-                OrePrefixes.gearGt.get(Materials.Steel) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.GasTurbine.get(1L),
-            GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { "CPC", aTextPlateMotor, "BPB", 'M', ItemList.Hull_EV, 'B',
-                OrePrefixes.pipeLarge.get(Materials.StainlessSteel), 'C', OrePrefixes.circuit.get(Materials.EV), 'P',
-                OrePrefixes.gearGt.get(Materials.StainlessSteel) });
 
         GTModHandler.addCraftingRecipe(
             ItemList.Pump_LV.get(1L),

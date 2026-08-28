@@ -26,7 +26,6 @@ import net.minecraft.world.World;
 import bartworks.common.loaders.FluidLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import goodgenerator.loader.Loaders;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.IDamagableItem;
@@ -334,7 +333,7 @@ public class GregTechAPI {
         if (block == GregTechAPI.sBlackholeRender) return true;
         if (block == TTCasingsContainer.eyeOfHarmonyRenderBlock) return true;
         if (block == FluidLoader.bioFluidBlock) return true;
-        return block == Loaders.antimatterRenderBlock;
+        return false;
     }
 
     /**
