@@ -24,7 +24,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -3745,31 +3744,6 @@ public class ChemicalRecipes implements Runnable {
 
         // CaSi2 + 2HCl = 2Si + CaCl2 + 2H
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.CalciumDisilicide, 3))
-            .circuit(1)
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Silicon, 2),
-                new ItemStack(WerkstoffLoader.items.get(OrePrefixes.dust), 3, 63))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(2_000))
-            .fluidOutputs(Materials.Hydrogen.getGas(2_000))
-            .duration(45 * SECONDS)
-            .eut(TierEU.RECIPE_LV)
-            .addTo(UniversalChemical);
-
-        // SiCl4 + 2Zn = 2ZnCl2 + Si
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Zinc, 2))
-            .circuit(1)
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SiliconSG, 1),
-                new ItemStack(WerkstoffLoader.items.get(OrePrefixes.dust), 6, 10052))
-            .fluidInputs(Materials.SiliconTetrachloride.getFluid(1_000))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_LV)
-            .addTo(UniversalChemical);
-
         // C4H8O + 2H =Pd= C4H10O
 
         // 4CH2O + C2H4O =NaOH= C5H12O4 + CO
@@ -5782,34 +5756,6 @@ public class ChemicalRecipes implements Runnable {
             .eut(TierEU.RECIPE_UV)
             .addTo(multiblockChemicalReactorRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                WerkstoffLoader.CalciumChloride.get(OrePrefixes.dust, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.ParaPhenylenediamine, 9),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.TerephthaloylChloride, 9))
-            .circuit(1)
-            .fluidInputs(Materials.NMethylIIPyrrolidone.getFluid(1_000))
-            .fluidOutputs(
-                Materials.LiquidCrystalKevlar.getFluid(9_000),
-                Materials.DilutedHydrochloricAcid.getFluid(2_000))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                WerkstoffLoader.CalciumChloride.get(OrePrefixes.dust, 7),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.ParaPhenylenediamine, 63),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.TerephthaloylChloride, 63))
-            .circuit(9)
-            .fluidInputs(Materials.NMethylIIPyrrolidone.getFluid(7_000))
-            .fluidOutputs(
-                Materials.LiquidCrystalKevlar.getFluid(63_000),
-                Materials.DilutedHydrochloricAcid.getFluid(14_000))
-            .duration(2 * MINUTES + 55 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
-            .addTo(multiblockChemicalReactorRecipes);
-
         // Na2B4O7(H2O)10 + 2HCl = 2NaCl + 4H3BO3 + 5H2O
 
         // H3BO3 + 3CH4O =H2SO4= C3H9BO3 + 3H2O
@@ -5837,18 +5783,6 @@ public class ChemicalRecipes implements Runnable {
         // 2NaOH + N2H4 =Mn= 2N + 2H2O + 2NaH
 
         // Flawless Amalgatite
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTUtility.copyAmount(0, GTOreDictUnificator.get(OrePrefixes.nanite, Materials.MagMatter, 1)),
-                GTOreDictUnificator.get(OrePrefixes.gem, Materials.Amalgatite, 3),
-                WerkstoffLoader.Bismutite.get(OrePrefixes.gemFlawed, 64),
-                GTOreDictUnificator.get(OrePrefixes.gemFlawed, Materials.GarnetYellow, 64),
-                GTOreDictUnificator.get(OrePrefixes.gemFlawed, Materials.GreenSapphire, 64),
-                GTOreDictUnificator.get(OrePrefixes.gemFlawed, Materials.Olivine, 64))
-            .fluidInputs(Materials.PrismaticAcid.getFluid(1_000_000), Materials.DTR.getFluid(1_000_000))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.gemFlawless, Materials.Amalgatite, 1))
-            .duration(120 * SECONDS)
-            .eut(TierEU.RECIPE_MAX)
-            .addTo(multiblockChemicalReactorRecipes);
+
     }
 }

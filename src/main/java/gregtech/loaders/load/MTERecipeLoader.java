@@ -18,7 +18,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
@@ -837,40 +836,6 @@ public class MTERecipeLoader implements Runnable {
     }
 
     private static void registerFermenter() {
-        GTModHandler.addMachineCraftingRecipe(
-            ItemList.Machine_LV_Fermenter.get(1),
-            new Object[] { aTextWirePump, "GMG", aTextWireCoil, 'M', MTEBasicMachineWithRecipe.X.HULL, 'P',
-                MTEBasicMachineWithRecipe.X.PUMP, 'C', MTEBasicMachineWithRecipe.X.CIRCUIT, 'W',
-                MTEBasicMachineWithRecipe.X.WIRE, 'G', MTEBasicMachineWithRecipe.X.GLASS },
-            1);
-
-        GTModHandler.addMachineCraftingRecipe(
-            ItemList.Machine_MV_Fermenter.get(1),
-            new Object[] { aTextWirePump, "GMG", aTextWireCoil, 'M', MTEBasicMachineWithRecipe.X.HULL, 'P',
-                MTEBasicMachineWithRecipe.X.PUMP, 'C', MTEBasicMachineWithRecipe.X.CIRCUIT, 'W',
-                MTEBasicMachineWithRecipe.X.WIRE, 'G', MTEBasicMachineWithRecipe.X.GLASS },
-            2);
-
-        GTModHandler.addMachineCraftingRecipe(
-            ItemList.Machine_HV_Fermenter.get(1),
-            new Object[] { aTextWirePump, "GMG", aTextWireCoil, 'M', MTEBasicMachineWithRecipe.X.HULL, 'P',
-                MTEBasicMachineWithRecipe.X.PUMP, 'C', MTEBasicMachineWithRecipe.X.CIRCUIT, 'W',
-                MTEBasicMachineWithRecipe.X.WIRE, 'G', MTEBasicMachineWithRecipe.X.GLASS },
-            3);
-
-        GTModHandler.addMachineCraftingRecipe(
-            ItemList.Machine_EV_Fermenter.get(1),
-            new Object[] { aTextWirePump, "GMG", aTextWireCoil, 'M', MTEBasicMachineWithRecipe.X.HULL, 'P',
-                MTEBasicMachineWithRecipe.X.PUMP, 'C', MTEBasicMachineWithRecipe.X.CIRCUIT, 'W',
-                MTEBasicMachineWithRecipe.X.WIRE, 'G', MTEBasicMachineWithRecipe.X.GLASS },
-            4);
-
-        GTModHandler.addMachineCraftingRecipe(
-            ItemList.Machine_IV_Fermenter.get(1),
-            new Object[] { aTextWirePump, "GMG", aTextWireCoil, 'M', MTEBasicMachineWithRecipe.X.HULL, 'P',
-                MTEBasicMachineWithRecipe.X.PUMP, 'C', MTEBasicMachineWithRecipe.X.CIRCUIT, 'W',
-                MTEBasicMachineWithRecipe.X.WIRE, 'G', MTEBasicMachineWithRecipe.X.GLASS },
-            5);
 
     }
 
@@ -1865,11 +1830,6 @@ public class MTERecipeLoader implements Runnable {
             new Object[] { aTextPlate, aTextPlateWrench, aTextPlate, 'P',
                 OrePrefixes.plate.get(Materials.TungstenSteel) });
         GTModHandler.addCraftingRecipe(
-            ItemList.Casing_LuV.get(1L),
-            GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { aTextPlate, aTextPlateWrench, aTextPlate, 'P',
-                OrePrefixes.plate.get(WerkstoffLoader.RhodiumPlatedPalladium.getGTMaterial()) });
-        GTModHandler.addCraftingRecipe(
             ItemList.Casing_ZPM.get(1L),
             GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] { aTextPlate, aTextPlateWrench, aTextPlate, 'P', OrePrefixes.plate.get(Materials.Iridium) });
@@ -2156,13 +2116,6 @@ public class MTERecipeLoader implements Runnable {
             NOT_REMOVABLE | BUFFERED | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] { "PHP", aTextCableHull, 'M', ItemList.Casing_IV, 'C',
                 OrePrefixes.cableGt01.get(Materials.Tungsten), 'H', OrePrefixes.plate.get(Materials.TungstenSteel), 'P',
-                OrePrefixes.plate.get(Materials.Polytetrafluoroethylene) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Hull_LuV.get(1L),
-            NOT_REMOVABLE | BUFFERED | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { "PHP", aTextCableHull, 'M', ItemList.Casing_LuV, 'C',
-                OrePrefixes.cableGt01.get(Materials.VanadiumGallium), 'H',
-                OrePrefixes.plate.get(WerkstoffLoader.RhodiumPlatedPalladium.getGTMaterial()), 'P',
                 OrePrefixes.plate.get(Materials.Polytetrafluoroethylene) });
         GTModHandler.addCraftingRecipe(
             ItemList.Hull_ZPM.get(1L),

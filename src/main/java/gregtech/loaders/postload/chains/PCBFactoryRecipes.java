@@ -15,7 +15,6 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -581,26 +580,6 @@ public class PCBFactoryRecipes {
                 amountOfBoards -= 64;
             }
             aBoards.add(ItemList.Circuit_Board_Optical.get(amountOfBoards));
-            GTValues.RA.stdBuilder()
-                .itemInputs(
-                    PCBFactoryManager.getPlasticMaterialFromTier(tier)
-                        .getPlates(1),
-                    new ItemStack(
-                        WerkstoffLoader.items.get(OrePrefixes.foil),
-                        (int) (16 * (Math.sqrt(tier - 6))),
-                        10106),
-                    GTOreDictUnificator
-                        .get(OrePrefixes.foil, Materials.InfinityCatalyst, (long) (16 * (Math.sqrt(tier - 6)))))
-                .circuit(1)
-                .fluidInputs(
-                    Materials.SulfuricAcid.getFluid((long) (500 * (Math.sqrt(tier - 6)))),
-                    Materials.IronIIIChloride.getFluid((long) (12_500 * (Math.sqrt(tier - 6)))),
-                    Materials.MysteriousCrystal.getMolten((long) (20 * INGOTS * (Math.sqrt(tier - 6)))))
-                .itemOutputs(aBoards.toArray(new ItemStack[0]))
-                .duration((int) Math.ceil(600 / Math.sqrt(Math.pow(1.5, tier - 5.5))))
-                .eut((int) GTValues.VP[tier] * 3 / 4)
-                .metadata(TIER, 1)
-                .addTo(RecipeMaps.pcbFactoryRecipes);
         }
         for (int tier = 7; tier <= PCBFactoryManager.mTiersOfPlastics; tier++) {
             int amountOfBoards = (int) Math.ceil(8 * (Math.sqrt(Math.pow(2, tier - 6.5))));
@@ -610,27 +589,7 @@ public class PCBFactoryRecipes {
                 amountOfBoards -= 64;
             }
             aBoards.add(ItemList.Circuit_Board_Optical.get(amountOfBoards));
-            GTValues.RA.stdBuilder()
-                .itemInputs(
-                    PCBFactoryManager.getPlasticMaterialFromTier(tier)
-                        .getPlates(1),
-                    new ItemStack(
-                        WerkstoffLoader.items.get(OrePrefixes.foil),
-                        (int) (16 * (Math.sqrt(tier - 6))),
-                        10106),
-                    GTOreDictUnificator
-                        .get(OrePrefixes.foil, Materials.InfinityCatalyst, (long) (16 * (Math.sqrt(tier - 6)))))
-                .circuit(2)
-                .fluidInputs(
-                    Materials.SulfuricAcid.getFluid((long) (500 * (Math.sqrt(tier - 6)))),
-                    Materials.IronIIIChloride.getFluid((long) (12_500 * (Math.sqrt(tier - 6)))),
-                    Materials.MysteriousCrystal.getMolten((long) (20 * INGOTS * (Math.sqrt(tier - 6)))))
-                .itemOutputs(aBoards.toArray(new ItemStack[0]))
-                .duration((int) Math.ceil(500 / Math.sqrt(Math.pow(1.5, tier - 6.5))))
-                .eut((int) GTValues.VP[tier + 1] * 3 / 4)
-                .metadata(TIER, 2)
-                .metadata(PCB_NANITE_MATERIAL, Materials.Silver)
-                .addTo(RecipeMaps.pcbFactoryRecipes);
+
         }
         for (int tier = 7; tier <= PCBFactoryManager.mTiersOfPlastics; tier++) {
             int amountOfBoards = (int) Math.ceil(8 * (Math.sqrt(Math.pow(2, tier - 6))));
@@ -640,27 +599,7 @@ public class PCBFactoryRecipes {
                 amountOfBoards -= 64;
             }
             aBoards.add(ItemList.Circuit_Board_Optical.get(amountOfBoards));
-            GTValues.RA.stdBuilder()
-                .itemInputs(
-                    PCBFactoryManager.getPlasticMaterialFromTier(tier)
-                        .getPlates(1),
-                    new ItemStack(
-                        WerkstoffLoader.items.get(OrePrefixes.foil),
-                        (int) (16 * (Math.sqrt(tier - 6))),
-                        10106),
-                    GTOreDictUnificator
-                        .get(OrePrefixes.foil, Materials.InfinityCatalyst, (long) (16 * (Math.sqrt(tier - 6)))))
-                .circuit(3)
-                .fluidInputs(
-                    Materials.SulfuricAcid.getFluid((long) (500 * (Math.sqrt(tier - 6)))),
-                    Materials.IronIIIChloride.getFluid((long) (12_500 * (Math.sqrt(tier - 6)))),
-                    Materials.MysteriousCrystal.getMolten((long) (20 * INGOTS * (Math.sqrt(tier - 6)))))
-                .itemOutputs(aBoards.toArray(new ItemStack[0]))
-                .duration((int) Math.ceil(400 / Math.sqrt(Math.pow(1.5, tier - 6.5))))
-                .eut((int) GTValues.VP[tier + 1] * 3 / 4)
-                .metadata(TIER, 3)
-                .metadata(PCB_NANITE_MATERIAL, Materials.Gold)
-                .addTo(RecipeMaps.pcbFactoryRecipes);
+
         }
     }
 }

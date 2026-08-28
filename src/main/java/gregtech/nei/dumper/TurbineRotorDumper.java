@@ -17,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import bartworks.system.material.Werkstoff;
 import codechicken.nei.config.DataDumper;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
@@ -114,13 +113,6 @@ public class TurbineRotorDumper extends DataDumper {
             result.add(mat);
         }
         // BartWorks materials are not in sGeneratedMaterials, iterate separately
-        for (Werkstoff werkstoff : Werkstoff.werkstoffHashSet) {
-            if (!werkstoff.hasItemType(OrePrefixes.turbineBlade)) continue;
-            Materials mat = werkstoff.getBridgeMaterial();
-            if (mat == null) continue;
-            if (mat.mDurability <= 0 || mat.mToolSpeed <= 0) continue;
-            result.add(mat);
-        }
         result.sort(
             Comparator.comparingInt((Materials m) -> (int) m.mToolQuality)
                 .reversed()

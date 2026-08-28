@@ -177,7 +177,6 @@ import gregtech.common.networkanalyzer.events.NetworkAnalyzerPlayerTracker;
 import gregtech.common.pollution.Pollution;
 import gregtech.common.powergoggles.PowerGogglesWorldSavedData;
 import gregtech.common.powergoggles.handlers.PowerGogglesEventHandler;
-import gregtech.common.recipes.CALImprintRecipe;
 import gregtech.common.recipes.MacerationStackConversionRecipe;
 import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
 import gregtech.common.worldgen.HEEIslandScanner;
@@ -1192,7 +1191,6 @@ public class GTProxy implements IFuelHandler {
         // server, but it's just convenient to be able to write GUI code without side check. This will be reworked with
         // MUI2, but for the time being it stays here. -- miozune
         CoverRegistry.reloadCoverColorOverrides();
-        CALImprintRecipe.register();
         EntityRegistry.registerModEntity(EntityDrone.class, "GTDrone", 1, GTMod.GT, 64, 3, true);
         MacerationStackConversionRecipe.register();
     }

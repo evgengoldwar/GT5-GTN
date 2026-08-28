@@ -13,7 +13,6 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ListMultimap;
 
-import bartworks.system.material.CircuitGeneration.CircuitPartsItem;
 import codechicken.lib.config.ConfigTagParent;
 import codechicken.nei.NEIClientConfig;
 import codechicken.nei.SearchField;
@@ -31,7 +30,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Mods;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.recipe.RecipeCategory;
@@ -73,7 +71,6 @@ public class NEIGTConfig implements IConfigureNEI {
 
     private static ListMultimap<RecipeCategory, RecipeMapWorkable> RECIPE_CATALYST_INDEX;
 
-    private static final GTNEIImprintHandler CAL_IMPRINT_HANDLER = new GTNEIImprintHandler();
     private static final GTNEIMacerationStackConversion MACERATOR_UPGRADE_HANDLER = new GTNEIMacerationStackConversion();
 
     public static boolean sIsAdded = true;
@@ -109,9 +106,6 @@ public class NEIGTConfig implements IConfigureNEI {
             .map(GTNEIDefaultHandler::new)
             .sorted(RECIPE_MAP_HANDLER_COMPARATOR)
             .forEach(NEIGTConfig::addHandler);
-
-        GuiCraftingRecipe.craftinghandlers.add(CAL_IMPRINT_HANDLER);
-        GuiUsageRecipe.usagehandlers.add(CAL_IMPRINT_HANDLER);
 
         GuiCraftingRecipe.craftinghandlers.add(MACERATOR_UPGRADE_HANDLER);
         GuiUsageRecipe.usagehandlers.add(MACERATOR_UPGRADE_HANDLER);
@@ -225,14 +219,6 @@ public class NEIGTConfig implements IConfigureNEI {
 
                 event.registerHandlerInfo(builder.build());
             });
-
-        event.registerHandlerInfo(
-            new HandlerInfo.Builder(CAL_IMPRINT_HANDLER.getOverlayIdentifier(), "GregTech", Mods.ModIDs.GREG_TECH)
-                .setMultipleWidgetsAllowed(true)
-                .setDisplayStack(
-                    CircuitPartsItem.getCircuitParts()
-                        .getStack(0))
-                .build());
 
     }
 

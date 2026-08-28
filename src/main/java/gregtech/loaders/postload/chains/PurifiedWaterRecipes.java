@@ -1,6 +1,5 @@
 package gregtech.loaders.postload.chains;
 
-import static bartworks.system.material.WerkstoffLoader.FluorBuergerit;
 import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.recipe.RecipeMaps.blastFurnaceRecipes;
 import static gregtech.api.recipe.RecipeMaps.chemicalBathRecipes;
@@ -29,8 +28,6 @@ import gregtech.api.recipe.maps.PurificationUnitParticleExtractorFrontend;
 import gregtech.api.recipe.metadata.PurificationPlantBaseChanceKey;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationPlant;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitUVTreatment;
 
 public class PurifiedWaterRecipes {
 
@@ -38,7 +35,7 @@ public class PurifiedWaterRecipes {
     public static final int extraBaryonicOutput = 500;
 
     public static void run() {
-        final int duration = MTEPurificationPlant.CYCLE_TIME_TICKS;
+        final int duration = 200;
 
         // Grade 1 - Clarifier
         GTValues.RA.stdBuilder()
@@ -209,30 +206,7 @@ public class PurifiedWaterRecipes {
             .hidden()
             .addTo(purificationPlasmaHeatingRecipes);
 
-        MTEPurificationUnitUVTreatment.LENS_ITEMS.add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.Amber, 1));
-        MTEPurificationUnitUVTreatment.LENS_ITEMS
-            .add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.InfusedAir, 1));
-        MTEPurificationUnitUVTreatment.LENS_ITEMS.add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.Emerald, 1));
-        MTEPurificationUnitUVTreatment.LENS_ITEMS
-            .add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.ManaDiamond, 1));
-        MTEPurificationUnitUVTreatment.LENS_ITEMS
-            .add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.BlueTopaz, 1));
-        MTEPurificationUnitUVTreatment.LENS_ITEMS.add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.Amethyst, 1));
-        MTEPurificationUnitUVTreatment.LENS_ITEMS.add(FluorBuergerit.get(OrePrefixes.lens, 1));
-        MTEPurificationUnitUVTreatment.LENS_ITEMS
-            .add(GTOreDictUnificator.get(OrePrefixes.lens, Materials.Dilithium, 1));
-
         // Grade 6 - UV treatment
-        GTValues.RA.stdBuilder()
-            .itemInputs(MTEPurificationUnitUVTreatment.LENS_ITEMS.toArray(new ItemStack[9]))
-            .fluidInputs(Materials.Grade5PurifiedWater.getFluid(1_000))
-            .fluidOutputs(Materials.Grade6PurifiedWater.getFluid(900))
-            .ignoreCollision()
-            .duration(duration)
-            .eut(TierEU.RECIPE_UV)
-            .metadata(BASE_CHANCE, 0.0f)
-            .fake()
-            .addTo(purificationUVTreatmentRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(Materials.Grade5PurifiedWater.getFluid(1_000))

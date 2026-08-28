@@ -7,10 +7,8 @@ import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import bartworks.common.loaders.ItemRegistry;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
@@ -119,14 +117,6 @@ public class AlloySmelterRecipes implements Runnable {
             .addTo(alloySmelterRecipes);
 
         // Bartworks Glass Tube
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Glass, 2L),
-                ItemList.Shape_Mold_Rod_Long.get(0L))
-            .itemOutputs(new ItemStack(ItemRegistry.PUMPPARTS, 1, 0))
-            .duration(15 * SECONDS)
-            .eut(TierEU.RECIPE_ULV)
-            .addTo(alloySmelterRecipes);
 
         // From ProcessingDye - glass dyeing
         for (Dyes dye : Dyes.VALUES) {

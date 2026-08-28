@@ -28,7 +28,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import bartworks.system.material.Werkstoff;
 import codechicken.nei.api.API;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -71,7 +70,6 @@ import gregtech.common.blocks.BlockCasingsBEC;
 import gregtech.common.blocks.BlockCasingsNH;
 import gregtech.common.blocks.BlockConcretes;
 import gregtech.common.blocks.BlockCyclotronCoils;
-import gregtech.common.blocks.BlockDecorativeFrame;
 import gregtech.common.blocks.BlockFenceMetal;
 import gregtech.common.blocks.BlockFrameBox;
 import gregtech.common.blocks.BlockGlass1;
@@ -886,16 +884,6 @@ public class LoaderGTBlockFluid implements Runnable {
             "gt.sheetmetal",
             meta -> GTDataUtils.getIndexSafe(GregTechAPI.sGeneratedMaterials, meta),
             1000);
-
-        GregTechAPI.sBlockSheetmetalBW = new BlockSheetMetal(
-            "bw.sheetmetal",
-            meta -> Werkstoff.werkstoffHashMap.get((short) meta),
-            Short.MAX_VALUE);
-
-        GregTechAPI.sBlockFramesBW = new BlockDecorativeFrame(
-            "bw.frames",
-            meta -> Werkstoff.werkstoffHashMap.get((short) meta),
-            Short.MAX_VALUE);
 
         GT_FML_LOGGER.debug("GTMod: Register TileEntities.");
 

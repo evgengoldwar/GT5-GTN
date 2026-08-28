@@ -13,7 +13,6 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
@@ -25,13 +24,6 @@ public class AcidRecipes {
 
     public static void run() {
         // Francium Line
-        GTValues.RA.stdBuilder()
-            .itemInputs(Materials.Thorium.getDust(4), Materials.ChromiumTrioxide.getDust(2))
-            .fluidInputs(WerkstoffLoader.AmmoniumChloride.getFluidOrGas(2000))
-            .fluidOutputs(Materials.ThoriumElutionAdsorbent.getFluid(2000L))
-            .eut(TierEU.RECIPE_HV)
-            .duration(15 * SECONDS)
-            .addTo(mixerRecipes);
         GTValues.RA.stdBuilder()
             .fluidInputs(Materials.ThoriumElutionAdsorbent.getFluid(8000L))
             .itemOutputs(Materials.Chrome.getDust(4))

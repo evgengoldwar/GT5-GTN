@@ -31,7 +31,6 @@ import net.minecraftforge.fluids.FluidStack;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableSet;
 
-import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.ProgressManager;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.GTMod;
@@ -121,9 +120,7 @@ public class GTPostLoad {
                 .duration((tData.fluid.amount / 62) * TICKS)
                 .eut(1)
                 .addTo(cannerRecipes);
-            if (GTUtility.areFluidsEqual(WerkstoffLoader.Ruthenium.getMolten(1), tData.fluid)
-                || GTUtility.areFluidsEqual(WerkstoffLoader.Rhodium.getMolten(1), tData.fluid)
-                || GTUtility.areFluidsEqual(Materials.Osmium.getMolten(1), tData.fluid)
+            if (GTUtility.areFluidsEqual(Materials.Osmium.getMolten(1), tData.fluid)
                 || GTUtility.areFluidsEqual(Materials.Iridium.getMolten(1), tData.fluid)
                 || GTUtility.areFluidsEqual(Materials.Platinum.getMolten(1), tData.fluid)) {
                 continue;

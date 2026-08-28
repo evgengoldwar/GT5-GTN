@@ -13,7 +13,6 @@ import static gregtech.api.util.GTRecipeConstants.SCANNING;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -26,11 +25,7 @@ import gregtech.api.util.recipe.Scanning;
 @SuppressWarnings({ "PointlessArithmeticExpression" })
 public class AssemblyLineRecipes implements Runnable {
 
-    private final Materials LuVMat;
-
-    public AssemblyLineRecipes() {
-        LuVMat = WerkstoffLoader.Ruridit.getGTMaterial();
-    }
+    public AssemblyLineRecipes() {}
 
     @Override
     public void run() {
@@ -49,19 +44,6 @@ public class AssemblyLineRecipes implements Runnable {
         // Motors
         {
             // LuV motor
-            GTValues.RA.stdBuilder()
-                .metadata(RESEARCH_ITEM, ItemList.Electric_Motor_IV.get(1))
-                .metadata(SCANNING, new Scanning(1 * MINUTES, TierEU.RECIPE_EV))
-                .itemInputs(
-                    GTOreDictUnificator.get(OrePrefixes.stick, Materials.SamariumMagnetic, 1),
-                    GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.HSSS, 2),
-                    GTOreDictUnificator.get(OrePrefixes.wireFine, LuVMat, 64),
-                    GTOreDictUnificator.get(OrePrefixes.wireFine, LuVMat, 64),
-                    GTOreDictUnificator.get(OrePrefixes.cableGt01, Materials.YttriumBariumCuprate, 2))
-                .itemOutputs(ItemList.Electric_Motor_LuV.get(1))
-                .eut(TierEU.RECIPE_IV)
-                .duration(30 * SECONDS)
-                .addTo(AssemblyLine);
 
             // ZPM motor
             GTValues.RA.stdBuilder()
@@ -333,23 +315,6 @@ public class AssemblyLineRecipes implements Runnable {
         // Emitters
         {
             // LuV Emitter
-            GTValues.RA.stdBuilder()
-                .metadata(RESEARCH_ITEM, ItemList.Emitter_IV.get(1))
-                .metadata(SCANNING, new Scanning(1 * MINUTES, TierEU.RECIPE_EV))
-                .itemInputs(
-                    GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.HSSS, 1),
-                    ItemList.Electric_Motor_LuV.get(1),
-                    GTOreDictUnificator.get(OrePrefixes.stick, LuVMat, 8),
-                    ItemList.QuantumStar.get(1),
-                    new Object[] { OrePrefixes.circuit.get(Materials.LuV), 4 },
-                    GTOreDictUnificator.get(OrePrefixes.foil, Materials.Gallium, 64),
-                    GTOreDictUnificator.get(OrePrefixes.foil, Materials.Gallium, 64),
-                    GTOreDictUnificator.get(OrePrefixes.foil, Materials.Gallium, 64),
-                    GTOreDictUnificator.get(OrePrefixes.cableGt01, Materials.YttriumBariumCuprate, 7))
-                .itemOutputs(ItemList.Emitter_LuV.get(1))
-                .duration(30 * SECONDS)
-                .eut((int) TierEU.RECIPE_IV)
-                .addTo(AssemblyLine);
 
             // ZPM Emitter
             GTValues.RA.stdBuilder()
@@ -393,23 +358,6 @@ public class AssemblyLineRecipes implements Runnable {
         // Sensors
         {
             // LuV Sensor
-            GTValues.RA.stdBuilder()
-                .metadata(RESEARCH_ITEM, ItemList.Sensor_IV.get(1))
-                .metadata(SCANNING, new Scanning(1 * MINUTES, TierEU.RECIPE_EV))
-                .itemInputs(
-                    GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.HSSS, 1),
-                    ItemList.Electric_Motor_LuV.get(1),
-                    GTOreDictUnificator.get(OrePrefixes.plate, LuVMat, 8),
-                    ItemList.QuantumStar.get(1),
-                    new Object[] { OrePrefixes.circuit.get(Materials.LuV), 4 },
-                    GTOreDictUnificator.get(OrePrefixes.foil, Materials.Gallium, 64),
-                    GTOreDictUnificator.get(OrePrefixes.foil, Materials.Gallium, 64),
-                    GTOreDictUnificator.get(OrePrefixes.foil, Materials.Gallium, 64),
-                    GTOreDictUnificator.get(OrePrefixes.cableGt01, Materials.YttriumBariumCuprate, 7))
-                .itemOutputs(ItemList.Sensor_LuV.get(1))
-                .duration(30 * SECONDS)
-                .eut((int) TierEU.RECIPE_IV)
-                .addTo(AssemblyLine);
 
             // ZPM Sensor
             GTValues.RA.stdBuilder()
@@ -453,24 +401,6 @@ public class AssemblyLineRecipes implements Runnable {
         // Field Generators
         {
             // LuV Field Generator
-            GTValues.RA.stdBuilder()
-                .metadata(RESEARCH_ITEM, ItemList.Field_Generator_IV.get(1))
-                .metadata(SCANNING, new Scanning(1 * MINUTES, TierEU.RECIPE_EV))
-                .itemInputs(
-                    GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.HSSS, 1),
-                    GTOreDictUnificator.get(OrePrefixes.plate, Materials.HSSS, 6),
-                    ItemList.QuantumStar.get(2),
-                    ItemList.Emitter_LuV.get(4),
-                    new Object[] { OrePrefixes.circuit.get(Materials.ZPM), 4 },
-                    GTOreDictUnificator.get(OrePrefixes.wireFine, LuVMat, 64),
-                    GTOreDictUnificator.get(OrePrefixes.wireFine, LuVMat, 64),
-                    GTOreDictUnificator.get(OrePrefixes.wireFine, LuVMat, 64),
-                    GTOreDictUnificator.get(OrePrefixes.wireFine, LuVMat, 64),
-                    GTOreDictUnificator.get(OrePrefixes.cableGt01, Materials.YttriumBariumCuprate, 8))
-                .itemOutputs(ItemList.Field_Generator_LuV.get(1))
-                .duration(30 * SECONDS)
-                .eut((int) TierEU.RECIPE_IV)
-                .addTo(AssemblyLine);
 
             // ZPM Field Generator
             GTValues.RA.stdBuilder()

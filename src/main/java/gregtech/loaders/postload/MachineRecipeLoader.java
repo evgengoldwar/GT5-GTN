@@ -9,7 +9,6 @@ import gregtech.loaders.postload.recipes.ArcFurnaceRecipes;
 import gregtech.loaders.postload.recipes.AssemblerRecipes;
 import gregtech.loaders.postload.recipes.AssemblyLineRecipes;
 import gregtech.loaders.postload.recipes.AutoclaveRecipes;
-import gregtech.loaders.postload.recipes.BECMetaMaterialRecipes;
 import gregtech.loaders.postload.recipes.BECRecipes;
 import gregtech.loaders.postload.recipes.BenderRecipes;
 import gregtech.loaders.postload.recipes.BlastFurnaceRecipes;
@@ -115,7 +114,6 @@ public class MachineRecipeLoader implements Runnable {
         new VacuumFreezerRecipes().run();
         new WiremillRecipes().run();
         new TranscendentPlasmaMixerRecipes().run();
-        new BECMetaMaterialRecipes().run();
         new BECRecipes().run();
 
         BauxiteRefineChain.run();

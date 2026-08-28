@@ -11,7 +11,6 @@ import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import bartworks.common.loaders.ItemRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -188,14 +187,6 @@ public class FormingPressRecipes implements Runnable {
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(formingPressRecipes);
         // Bartworks Glass Tube
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Glass, 2L),
-                ItemList.Shape_Mold_Rod_Long.get(0L))
-            .itemOutputs(new ItemStack(ItemRegistry.PUMPPARTS, 1, 0))
-            .duration(15 * SECONDS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(formingPressRecipes);
 
         GTValues.RA.stdBuilder()
             .itemInputs(
@@ -234,16 +225,6 @@ public class FormingPressRecipes implements Runnable {
             .addTo(formingPressRecipes);
 
         // Hexanite Borosilicate Glass
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                new ItemStack(ItemRegistry.bw_glasses[0], 1, 0),
-                GTOreDictUnificator.get(OrePrefixes.stick, Materials.Netherite, 12),
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Netherite, 1))
-            .itemOutputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 9))
-            .fluidInputs(Materials.UnformedHexanite.getFluid(8 * INGOTS))
-            .duration(40 * SECONDS)
-            .eut(TierEU.RECIPE_UIV)
-            .addTo(formingPressRecipes);
 
         // Peace Enforcement Casing
         GTValues.RA.stdBuilder()

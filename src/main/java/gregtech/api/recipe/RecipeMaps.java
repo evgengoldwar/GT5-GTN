@@ -7,13 +7,11 @@ import static gregtech.api.enums.Mods.GTNHIntergalactic;
 import static gregtech.api.enums.Mods.NEICustomDiagrams;
 import static gregtech.api.enums.Mods.Railcraft;
 import static gregtech.api.enums.Mods.Thaumcraft;
-import static gregtech.api.enums.TickTime.TICK;
 import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeConstants.ADDITIVE_AMOUNT;
 import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 import static gregtech.api.util.GTRecipeConstants.FUEL_VALUE;
-import static gregtech.api.util.GTRecipeConstants.GLASS;
 import static gregtech.api.util.GTRecipeConstants.LFTR_OUTPUT_POWER;
 import static gregtech.api.util.GTRecipeConstants.NANO_FORGE_TIER;
 import static gregtech.api.util.GTRecipeConstants.PCB_NANITE_MATERIAL;
@@ -48,9 +46,6 @@ import com.cleanroommc.modularui.widgets.ProgressWidget;
 import com.gtnewhorizons.modularui.api.drawable.UITexture;
 import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
-import bartworks.API.enums.BioCultureEnum;
-import bartworks.API.recipe.BartWorksRecipeMaps;
-import bartworks.common.loaders.BioCultureLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -82,12 +77,9 @@ import gregtech.api.recipe.maps.MicrowaveBackend;
 import gregtech.api.recipe.maps.NACRecipeMapBackend;
 import gregtech.api.recipe.maps.OilCrackerBackend;
 import gregtech.api.recipe.maps.PrinterBackend;
-import gregtech.api.recipe.maps.PurificationUnitClarifierFrontend;
-import gregtech.api.recipe.maps.PurificationUnitFlocculatorFrontend;
 import gregtech.api.recipe.maps.PurificationUnitLaserFrontend;
 import gregtech.api.recipe.maps.PurificationUnitOzonationFrontend;
 import gregtech.api.recipe.maps.PurificationUnitParticleExtractorFrontend;
-import gregtech.api.recipe.maps.PurificationUnitPhAdjustmentFrontend;
 import gregtech.api.recipe.maps.PurificationUnitPlasmaHeaterFrontend;
 import gregtech.api.recipe.maps.QuantumComputerFrontend;
 import gregtech.api.recipe.maps.RecyclerBackend;
@@ -108,7 +100,6 @@ import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTRecipeMapUtil.GTRecipeTemplate;
 import gregtech.api.util.GTUtility;
-import gregtech.common.tileentities.machines.multi.purification.PurifiedWaterHelpers;
 import gregtech.nei.formatter.FuelSpecialValueFormatter;
 import gregtech.nei.formatter.FusionSpecialValueFormatter;
 import gregtech.nei.formatter.HeatingCoilSpecialValueFormatter;
@@ -510,9 +501,6 @@ public final class RecipeMaps {
         // then by water tier, then the default comparator.
         .neiRecipeComparator(
             (a, b) -> Comparator.<GTRecipe, Integer>comparing(recipe -> recipe.mEUt)
-                .thenComparing(
-                    Comparator.comparing(PurifiedWaterHelpers::getWaterTierFromRecipe)
-                        .thenComparing(GTRecipe::compareTo))
                 .compare(a, b))
         .build();
     public static final RecipeMap<RecipeMapBackend> mixerRecipes = RecipeMapBuilder.of("gt.recipe.mixer")
@@ -694,18 +682,6 @@ public final class RecipeMaps {
                 r.mDuration = aDuration;
             }
         })
-        .build();
-    public static final RecipeMap<RecipeMapBackend> fermentingRecipes = RecipeMapBuilder.of("gt.recipe.fermenter")
-        .maxIO(0, 0, 1, 1)
-        .minInputs(0, 1)
-        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
-        .progressBarMUI2(GTGuiTextures.PROGRESSBAR_ARROW_MULTIPLE)
-        .builderTransformer(
-            b -> b.copy()
-                .special(BioCultureEnum.getPetriDish(BioCultureLoader.generalPurposeFermentingBacteria))
-                .metadata(GLASS, 3)
-                .eut(b.getEUt())
-                .addTo(BartWorksRecipeMaps.bacterialVatRecipes))
         .build();
     public static final RecipeMap<RecipeMapBackend> fluidSolidifierRecipes = RecipeMapBuilder
         .of("gt.recipe.fluidsolidifier")
@@ -1582,7 +1558,6 @@ public final class RecipeMaps {
         .of("gt.recipe.purificationplantclarifier")
         .maxIO(1, 4, 1, 1)
         .minInputs(0, 1)
-        .frontend(PurificationUnitClarifierFrontend::new)
         .build();
     public static final RecipeMap<RecipeMapBackend> purificationOzonationRecipes = RecipeMapBuilder
         .of("gt.recipe.purificationplantozonation")
@@ -1609,7 +1584,6 @@ public final class RecipeMaps {
                 .<GTRecipe, Float>comparing(
                     recipe -> recipe.getMetadataOrDefault(PurificationPlantBaseChanceKey.INSTANCE, 0.0f))
                 .thenComparing(GTRecipe::compareTo))
-        .frontend(PurificationUnitFlocculatorFrontend::new)
         .build();
 
     public static final RecipeMap<RecipeMapBackend> purificationPhAdjustmentRecipes = RecipeMapBuilder
@@ -1618,7 +1592,6 @@ public final class RecipeMaps {
         .minInputs(0, 1)
         .progressBar(GTUITextures.PROGRESSBAR_MIXER)
         .progressBarMUI2(GTGuiTextures.PROGRESSBAR_MIXER)
-        .frontend(PurificationUnitPhAdjustmentFrontend::new)
         .build();
 
     public static final RecipeMap<RecipeMapBackend> purificationPlasmaHeatingRecipes = RecipeMapBuilder
@@ -2089,15 +2062,7 @@ public final class RecipeMaps {
         .build();
 
     private static void addElectricImplosionRecipe(GTRecipeBuilder sourceBuilder) {
-        GTRecipeBuilder builder = sourceBuilder.copy()
-            .duration(1 * TICK)
-            .eut(TierEU.RECIPE_UEV);
 
-        if (isGemUpgradeRecipe(sourceBuilder)) {
-            builder.circuit(1);
-        }
-
-        builder.addTo(BartWorksRecipeMaps.electricImplosionCompressorRecipes);
     }
 
     private static boolean isGemUpgradeRecipe(GTRecipeBuilder builder) {

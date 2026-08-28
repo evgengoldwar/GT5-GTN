@@ -7,12 +7,10 @@ import static gregtech.api.recipe.RecipeMaps.pyrolyseRecipes;
 import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeBuilder.TICKS;
 
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import bartworks.common.loaders.FluidLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -237,13 +235,5 @@ public class PyrolyseRecipes implements Runnable {
             .eut(96)
             .addTo(pyrolyseRecipes, industrialCokeOvenRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(Materials.Wood.getDust(10))
-            .circuit(10)
-            .fluidInputs(new FluidStack(FluidLoader.Kerogen, 1_000))
-            .fluidOutputs(Materials.Oil.getFluid(1_000))
-            .duration(5 * SECONDS + 5 * TICKS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(pyrolyseRecipes, industrialCokeOvenRecipes);
     }
 }

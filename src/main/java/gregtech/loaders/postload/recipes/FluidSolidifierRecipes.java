@@ -19,7 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import bartworks.common.loaders.ItemRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -295,13 +294,6 @@ public class FluidSolidifierRecipes implements Runnable {
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(fluidSolidifierRecipes);
         // Bartworks Glass Tube
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.Shape_Mold_Rod_Long.get(0L))
-            .itemOutputs(new ItemStack(ItemRegistry.PUMPPARTS, 1, 0))
-            .fluidInputs(Materials.Glass.getMolten(288L))
-            .duration(15 * SECONDS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(fluidSolidifierRecipes);
 
         // Red Granite Block
         GTValues.RA.stdBuilder()

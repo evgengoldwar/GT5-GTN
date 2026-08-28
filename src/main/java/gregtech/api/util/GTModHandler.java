@@ -57,7 +57,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.jetbrains.annotations.Nullable;
 
-import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
@@ -973,7 +972,6 @@ public class GTModHandler {
                     case 3    -> OrePrefixes.rotor.get(Materials.Steel);
                     case 4    -> OrePrefixes.rotor.get(Materials.StainlessSteel);
                     case 5    -> OrePrefixes.rotor.get(Materials.TungstenSteel);
-                    case 6    -> OrePrefixes.rotor.get(WerkstoffLoader.RhodiumPlatedPalladium.getGTMaterial());
                     case 7    -> OrePrefixes.rotor.get(Materials.Iridium);
                     default   -> OrePrefixes.rotor.get(Materials.Osmium);
                 };

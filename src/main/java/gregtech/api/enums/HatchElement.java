@@ -23,7 +23,6 @@ import gregtech.api.util.ExoticEnergyInputHelper;
 import gregtech.api.util.IGTHatchAdder;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputSlave;
-import gregtech.common.tileentities.machines.multi.purification.MTEHatchLensHousing;
 
 public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
 
@@ -66,7 +65,7 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
 
         @Override
         public List<Class<? extends IMetaTileEntity>> mteBlacklist() {
-            return ImmutableList.of(MTEHatchLensHousing.class);
+            return ImmutableList.of();
         }
     },
     OutputHatch("GT5U.MBTT.OutputHatch", MTEMultiBlockBase::addOutputHatchToMachineList, MTEHatchOutput.class) {

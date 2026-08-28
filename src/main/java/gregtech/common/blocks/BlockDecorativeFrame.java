@@ -15,7 +15,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.jetbrains.annotations.Nullable;
 
-import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
@@ -51,7 +50,6 @@ public class BlockDecorativeFrame extends BlockStorage implements IBlockWithText
         this.maxMeta = maxMeta;
 
         GregTechAPI.sAfterGTLoad.add(() -> {
-            WerkstoffLoader.load();
 
             for (int i = 0; i < maxMeta; i++) {
                 IOreMaterial material = materials.get(i);

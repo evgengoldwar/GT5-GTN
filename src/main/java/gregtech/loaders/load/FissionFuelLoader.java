@@ -1,20 +1,15 @@
 package gregtech.loaders.load;
 
-import static gregtech.api.enums.OrePrefixes.dust;
-import static gregtech.api.enums.OrePrefixes.dustSmall;
 import static gregtech.api.enums.OrePrefixes.stick;
 import static gregtech.api.enums.OrePrefixes.stickLong;
 import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.recipe.RecipeMaps.cannerRecipes;
-import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
 import static gregtech.api.recipe.RecipeMaps.thermalCentrifugeRecipes;
-import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -302,66 +297,11 @@ public class FissionFuelLoader implements Runnable {
                 ItemList.RodNaquadah.get(32L),
                 GTOreDictUnificator.get(stickLong, Materials.TungstenSteel, 64L),
                 GTOreDictUnificator.get(stickLong, Materials.TungstenSteel, 64L),
-                GTOreDictUnificator.get(stickLong, Materials.TungstenSteel, 64L),
-                WerkstoffLoader.Tiberium.get(dust, 64),
-                WerkstoffLoader.Tiberium.get(dust, 64))
+                GTOreDictUnificator.get(stickLong, Materials.TungstenSteel, 64L))
             .itemOutputs(ItemList.RodNaquadah32.get(1))
             .duration(5 * SECONDS)
             .eut(TierEU.RECIPE_LuV)
             .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodNaquadah.get(1))
-            .itemOutputs(
-                Materials.Naquadah.getDust(1),
-                Materials.Naquadah.getDust(1),
-                Materials.Naquadria.getDustSmall(2),
-                Materials.NaquadahEnriched.getDustTiny(2),
-                Materials.TungstenSteel.getDust(8),
-                Materials.Platinum.getDust(1))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .duration(25 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodNaquadah2.get(1))
-            .itemOutputs(
-                Materials.Naquadah.getDust(2),
-                Materials.Naquadah.getDust(2),
-                Materials.Naquadria.getDust(1),
-                Materials.NaquadahEnriched.getDustTiny(4),
-                Materials.TungstenSteel.getDust(18),
-                Materials.Platinum.getDust(2))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .duration(50 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodNaquadah4.get(1))
-            .itemOutputs(
-                Materials.Naquadah.getDust(4),
-                Materials.Naquadah.getDust(4),
-                Materials.Naquadria.getDust(2),
-                Materials.NaquadahEnriched.getDustTiny(8),
-                Materials.TungstenSteel.getDust(38),
-                Materials.Platinum.getDust(4))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .duration(100 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodNaquadah32.get(1))
-            .itemOutputs(
-                ItemList.DepletedRodNaquadah4.get(8),
-                WerkstoffLoader.Zirconium.get(dust, 64),
-                WerkstoffLoader.Zirconium.get(dust, 64),
-                Materials.TungstenSteel.getDust(64),
-                Materials.TungstenSteel.getDust(64),
-                Materials.TungstenSteel.getDust(16))
-            .outputChances(100_00, 50_00, 50_00, 100_00, 100_00, 100_00)
-            .duration(1 * MINUTES + 40 * SECONDS)
-            .eut(TierEU.RECIPE_IV)
-            .addTo(centrifugeRecipes);
 
         // Naquadria
         GTValues.RA.stdBuilder()
@@ -399,49 +339,9 @@ public class FissionFuelLoader implements Runnable {
             .eut(400)
             .addTo(assemblerRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodNaquadria.get(1))
-            .itemOutputs(
-                Materials.Naquadah.getDust(1),
-                Materials.Naquadah.getDust(1),
-                Materials.NaquadahEnriched.getDustSmall(2),
-                Materials.Naquadria.getDustTiny(2),
-                Materials.TungstenSteel.getDust(8),
-                Materials.Platinum.getDust(1))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .duration(25 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodNaquadria2.get(1))
-            .itemOutputs(
-                Materials.Naquadah.getDust(2),
-                Materials.Naquadah.getDust(2),
-                Materials.NaquadahEnriched.getDust(1),
-                Materials.Naquadria.getDustTiny(4),
-                Materials.TungstenSteel.getDust(18),
-                Materials.Platinum.getDust(2))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .duration(50 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodNaquadria4.get(1))
-            .itemOutputs(
-                Materials.Naquadah.getDust(4),
-                Materials.Naquadah.getDust(4),
-                Materials.NaquadahEnriched.getDust(2),
-                Materials.Naquadria.getDustTiny(8),
-                Materials.TungstenSteel.getDust(38),
-                Materials.Platinum.getDust(4))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .duration(100 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
-
         // Tiberium
         GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.Large_Fluid_Cell_TungstenSteel.get(1L), WerkstoffLoader.Tiberium.get(dust, 3))
+            .itemInputs(ItemList.Large_Fluid_Cell_TungstenSteel.get(1L))
             .itemOutputs(ItemList.RodTiberium.get(1))
             .duration(1 * SECONDS + 10 * TICKS)
             .eut(TierEU.RECIPE_LV / 2)
@@ -466,47 +366,5 @@ public class FissionFuelLoader implements Runnable {
             .eut(400)
             .addTo(assemblerRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodTiberium.get(1))
-            .itemOutputs(
-                WerkstoffLoader.Zirconium.get(dust),
-                WerkstoffLoader.Zirconium.get(dust),
-                WerkstoffLoader.Tiberium.get(dustSmall, 2),
-                WerkstoffLoader.Zirconium.get(dust, 2),
-                Materials.TungstenSteel.getDust(8),
-                Materials.Platinum.getDust(1))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .fluidOutputs(WerkstoffLoader.Xenon.getFluidOrGas(1))
-            .duration(12 * SECONDS + 10 * TICKS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodTiberium2.get(1))
-            .itemOutputs(
-                WerkstoffLoader.Zirconium.get(dust, 2),
-                WerkstoffLoader.Zirconium.get(dust, 2),
-                WerkstoffLoader.Tiberium.get(dust),
-                WerkstoffLoader.Zirconium.get(dust, 4),
-                Materials.TungstenSteel.getDust(18),
-                Materials.Platinum.getDust(2))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .fluidOutputs(WerkstoffLoader.Xenon.getFluidOrGas(2))
-            .duration(12 * SECONDS + 10 * TICKS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.DepletedRodTiberium4.get(1))
-            .itemOutputs(
-                WerkstoffLoader.Zirconium.get(dust, 4),
-                WerkstoffLoader.Zirconium.get(dust, 4),
-                WerkstoffLoader.Tiberium.get(dust, 2),
-                WerkstoffLoader.Zirconium.get(dust, 8),
-                Materials.TungstenSteel.getDust(38),
-                Materials.Platinum.getDust(4))
-            .outputChances(100_00, 50_00, 50_00, 25_00, 100_00, 100_00)
-            .fluidOutputs(WerkstoffLoader.Xenon.getFluidOrGas(4))
-            .duration(50 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(centrifugeRecipes);
     }
 }

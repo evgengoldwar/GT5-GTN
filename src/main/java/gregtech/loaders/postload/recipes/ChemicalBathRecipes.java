@@ -14,11 +14,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import bartworks.common.loaders.ItemRegistry;
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
@@ -334,14 +331,6 @@ public class ChemicalBathRecipes implements Runnable {
             .eut(TierEU.RECIPE_LV)
             .addTo(chemicalBathRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(WerkstoffLoader.CubicZirconia.get(OrePrefixes.gemExquisite, 1))
-            .itemOutputs(Materials.Firestone.getGems(1))
-            .fluidInputs(new FluidStack(FluidRegistry.getFluid("ic2hotcoolant"), 250))
-            .duration(2 * SECONDS)
-            .eut(TierEU.RECIPE_ZPM)
-            .addTo(chemicalBathRecipes);
-
         // Na + H2O = NaOH + H
         GTValues.RA.stdBuilder()
             .itemInputs(Materials.Sodium.getDust(1))
@@ -433,45 +422,6 @@ public class ChemicalBathRecipes implements Runnable {
             .addTo(chemicalBathRecipes);
 
         // Borosilicate Dirtying
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(ItemRegistry.bw_glasses[1], 1, 1))
-            .itemOutputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 6))
-            .fluidInputs(Materials.NitricAcid.getFluid(4_000))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
-            .addTo(chemicalBathRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(ItemRegistry.bw_glasses[1], 1, 2))
-            .itemOutputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 7))
-            .fluidInputs(Materials.NitricAcid.getFluid(4_000))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_UHV)
-            .addTo(chemicalBathRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(ItemRegistry.bw_glasses[1], 1, 3))
-            .itemOutputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 8))
-            .fluidInputs(Materials.NitricAcid.getFluid(4_000))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(chemicalBathRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(ItemRegistry.bw_glasses[1], 1, 4))
-            .itemOutputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 9))
-            .fluidInputs(Materials.NitricAcid.getFluid(4_000))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_UIV)
-            .addTo(chemicalBathRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(ItemRegistry.bw_glasses[1], 1, 5))
-            .itemOutputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 10))
-            .fluidInputs(Materials.NitricAcid.getFluid(4_000))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_UMV)
-            .addTo(chemicalBathRecipes);
 
         this.protoHalkoniteRecipes();
     }

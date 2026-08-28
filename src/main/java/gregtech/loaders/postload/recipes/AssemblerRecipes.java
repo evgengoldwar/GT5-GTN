@@ -33,8 +33,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-import bartworks.common.loaders.ItemRegistry;
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
@@ -143,17 +141,6 @@ public class AssemblerRecipes implements Runnable {
                 .itemOutputs(ItemList.Large_Fluid_Cell_Titanium.get(1L))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_HV / 2)
-                .addTo(assemblerRecipes);
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(
-                    GTOreDictUnificator
-                        .get(OrePrefixes.plateDouble, WerkstoffLoader.RhodiumPlatedPalladium.getGTMaterial(), 4),
-                    GTOreDictUnificator.get(OrePrefixes.ring, Materials.Palladium, 4L))
-                .circuit(1)
-                .itemOutputs(ItemList.Large_Fluid_Cell_Chrome.get(1L))
-                .duration(10 * SECONDS)
-                .eut(TierEU.RECIPE_EV / 2)
                 .addTo(assemblerRecipes);
 
             GTValues.RA.stdBuilder()
@@ -1889,114 +1876,6 @@ public class AssemblerRecipes implements Runnable {
                 ItemList.Electric_Pump_MV.get(1))
             .circuit(9)
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorMV, 3))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(2_000))
-            .duration(16 * SECONDS)
-            .eut(TierEU.RECIPE_MV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorHVBase, 6),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.Titanium, 4),
-                ItemList.Electric_Pump_HV.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorHV, 6))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(4_000))
-            .duration(16 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorEVBase, 9),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.TungstenSteel, 6),
-                ItemList.Electric_Pump_EV.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorEV, 9))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(6000))
-            .duration(16 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorIVBase, 12),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.NiobiumTitanium, 8),
-                ItemList.Electric_Pump_IV.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorIV, 12))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(8_000))
-            .duration(32 * SECONDS)
-            .eut(TierEU.RECIPE_IV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorLuVBase, 15),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.Enderium, 10),
-                ItemList.Electric_Pump_LuV.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorLuV, 15))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(12000))
-            .duration(32 * SECONDS)
-            .eut(TierEU.RECIPE_LuV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorZPMBase, 18),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.Naquadah, 12),
-                ItemList.Electric_Pump_ZPM.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorZPM, 18))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(16000))
-            .duration(1 * MINUTES + 4 * SECONDS)
-            .eut(TierEU.RECIPE_ZPM)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorUVBase, 21),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.Neutronium, 14),
-                ItemList.Electric_Pump_UV.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorUV, 21))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(20000))
-            .duration(1 * MINUTES + 4 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorUHVBase, 24),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.Bedrockium, 16),
-                ItemList.Electric_Pump_UHV.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorUHV, 24))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(24000))
-            .duration(2 * MINUTES + 8 * SECONDS)
-            .eut(TierEU.RECIPE_UHV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorUEVBase, 27),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.Infinity, 18),
-                ItemList.Electric_Pump_UEV.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorUEV, 27))
-            .fluidInputs(WerkstoffLoader.LiquidHelium.getFluidOrGas(28000))
-            .duration(2 * MINUTES + 40 * SECONDS)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorMVBase, 3),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.StainlessSteel, 2),
-                ItemList.Electric_Pump_MV.get(1))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.SuperconductorMV, 3))
             .fluidInputs(Materials.SpaceTime.getMolten(4))
             .duration(10 * SECONDS)
             .eut(TierEU.RECIPE_MV)
@@ -2180,16 +2059,6 @@ public class AssemblerRecipes implements Runnable {
             .itemOutputs(ItemList.IV_Coil.get(1))
             .duration(10 * SECONDS)
             .eut(TierEU.RECIPE_IV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.stick, Materials.SamariumMagnetic, 1),
-                GTOreDictUnificator.get(OrePrefixes.wireFine, WerkstoffLoader.Ruridit.getGTMaterial(), 16))
-            .circuit(1)
-            .itemOutputs(ItemList.LuV_Coil.get(1))
-            .duration(10 * SECONDS)
-            .eut(TierEU.RECIPE_LuV)
             .addTo(assemblerRecipes);
 
         GTValues.RA.stdBuilder()
@@ -2541,15 +2410,6 @@ public class AssemblerRecipes implements Runnable {
             .itemInputs(GTOreDictUnificator.get(OrePrefixes.plate, Materials.TungstenSteel, 8))
             .circuit(8)
             .itemOutputs(ItemList.Casing_IV.get(1))
-            .duration(2 * SECONDS + 10 * TICKS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.plate, WerkstoffLoader.RhodiumPlatedPalladium.getGTMaterial(), 8))
-            .circuit(8)
-            .itemOutputs(ItemList.Casing_LuV.get(1))
             .duration(2 * SECONDS + 10 * TICKS)
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
@@ -3088,36 +2948,6 @@ public class AssemblerRecipes implements Runnable {
                 GTOreDictUnificator.get(OrePrefixes.wireGt12, Materials.SuperconductorUHV, 2),
                 GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UV, 2))
             .itemOutputs(ItemList.Generator_Plasma_UV.get(1))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Hull_MAX.get(1),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Neutronium, 4),
-                GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.Bedrockium, 4))
-            .itemOutputs(ItemRegistry.energyDistributor[9])
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Hull_UIV.get(1),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.BlackPlutonium, 4),
-                GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.NetherStar, 4))
-            .itemOutputs(ItemRegistry.energyDistributor[11])
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Hull_UMV.get(1),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Infinity, 4),
-                GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.Quantium, 4))
-            .itemOutputs(ItemRegistry.energyDistributor[12])
             .duration(5 * SECONDS)
             .eut(TierEU.RECIPE_HV)
             .addTo(assemblerRecipes);
@@ -6532,15 +6362,6 @@ public class AssemblerRecipes implements Runnable {
     }
 
     public void withBartWorks() {
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.plate, WerkstoffLoader.RhodiumPlatedPalladium.getGTMaterial(), 6),
-                WerkstoffLoader.RhodiumPlatedPalladium.get(OrePrefixes.frameGt, 1))
-            .itemOutputs(ItemList.Casing_Advanced_Rhodium_Palladium.get(1))
-            .duration(2 * SECONDS + 10 * TICKS)
-            .eut(TierEU.RECIPE_LV / 2)
-            .addTo(assemblerRecipes);
 
     }
 

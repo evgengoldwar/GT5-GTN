@@ -1,13 +1,10 @@
 package gregtech.loaders.oreprocessing;
 
-import static bartworks.system.material.gtenhancement.PlatinumSludgeOutputs.convert;
-import static bartworks.system.material.gtenhancement.PlatinumSludgeOutputs.convertSmelting;
 import static gregtech.api.recipe.RecipeMaps.autoclaveRecipes;
 import static gregtech.api.recipe.RecipeMaps.blastFurnaceRecipes;
 import static gregtech.api.recipe.RecipeMaps.cannerRecipes;
 import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.compressorRecipes;
-import static gregtech.api.recipe.RecipeMaps.electroMagneticSeparatorRecipes;
 import static gregtech.api.recipe.RecipeMaps.electrolyzerRecipes;
 import static gregtech.api.recipe.RecipeMaps.implosionRecipes;
 import static gregtech.api.recipe.RecipeMaps.packagerRecipes;
@@ -115,9 +112,7 @@ public class ProcessingDust implements gregtech.api.interfaces.IOreRecipeRegistr
                                 .metadata(COIL_HEAT, (int) aMaterial.mBlastFurnaceTemp)
                                 .addTo(blastFurnaceRecipes);
                         }
-                    } else {
-                        GTModHandler.addSmeltingRecipe(aStack, convertSmelting(aMaterial, aPrefix, tDustStack));
-                    }
+                    } else {}
                 } else if (!aMaterial.contains(SubTag.NO_WORKING)) {
                     if ((!OrePrefixes.block.isIgnored(aMaterial))
                         && (null == GTOreDictUnificator.get(OrePrefixes.gem, aMaterial, 1L))
@@ -224,9 +219,7 @@ public class ProcessingDust implements gregtech.api.interfaces.IOreRecipeRegistr
                                 }
                                 if (!tList.isEmpty()) {
                                     ItemStack[] outputsArray = tList.toArray(new ItemStack[Math.min(tList.size(), 6)]);
-                                    if (aMaterial == Materials.Bastnasite) {} else {
-                                        outputsArray = convert(aMaterial, outputsArray);
-                                    }
+                                    if (aMaterial == Materials.Bastnasite) {} else {}
                                     recipeBuilder.itemOutputs(outputsArray);
                                 }
                                 if (tFluid != null) {
@@ -400,46 +393,13 @@ public class ProcessingDust implements gregtech.api.interfaces.IOreRecipeRegistr
                     aMaterial.mOreByProducts);
                 if (aPrefix == OrePrefixes.dustPure) {
                     if (aMaterial.contains(SubTag.ELECTROMAGNETIC_SEPERATION_GOLD)) {
-                        GTValues.RA.stdBuilder()
-                            .itemInputs(GTUtility.copyAmount(1, aStack))
-                            .itemOutputs(
-                                convert(
-                                    aMaterial,
-                                    GTOreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L),
-                                    GTOreDictUnificator.get(OrePrefixes.dustSmall, Materials.Gold, 1L),
-                                    GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Gold, 1L)))
-                            .outputChances(10000, 4000, 2000)
-                            .duration(20 * SECONDS)
-                            .eut(24)
-                            .addTo(electroMagneticSeparatorRecipes);
+
                     }
                     if (aMaterial.contains(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)) {
-                        GTValues.RA.stdBuilder()
-                            .itemInputs(GTUtility.copyAmount(1, aStack))
-                            .itemOutputs(
-                                convert(
-                                    aMaterial,
-                                    GTOreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L),
-                                    GTOreDictUnificator.get(OrePrefixes.dustSmall, Materials.Iron, 1L),
-                                    GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 1L)))
-                            .outputChances(10000, 4000, 2000)
-                            .duration(20 * SECONDS)
-                            .eut(24)
-                            .addTo(electroMagneticSeparatorRecipes);
+
                     }
                     if (aMaterial.contains(SubTag.ELECTROMAGNETIC_SEPERATION_NEODYMIUM)) {
-                        GTValues.RA.stdBuilder()
-                            .itemInputs(GTUtility.copyAmount(1, aStack))
-                            .itemOutputs(
-                                convert(
-                                    aMaterial,
-                                    GTOreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L),
-                                    GTOreDictUnificator.get(OrePrefixes.dustSmall, Materials.Neodymium, 1L),
-                                    GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Neodymium, 1L)))
-                            .outputChances(10000, 4000, 2000)
-                            .duration(20 * SECONDS)
-                            .eut(24)
-                            .addTo(electroMagneticSeparatorRecipes);
+
                     }
                 }
                 if (aMaterial.contains(SubTag.CRYSTALLISABLE)

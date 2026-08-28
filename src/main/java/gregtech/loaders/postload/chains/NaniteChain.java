@@ -15,7 +15,6 @@ import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
 import net.minecraft.item.ItemStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -58,17 +57,6 @@ public class NaniteChain {
          */
 
         // Carbon Nanites - Used to make more Nano Forge Controllers
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                aUVTierLens,
-                new ItemStack(WerkstoffLoader.BWBlockCasingsAdvanced, 8, 31776),
-                ItemList.Circuit_Chip_SoC.get(64))
-            .itemOutputs(Materials.Carbon.getNanite(64))
-            .fluidInputs(Materials.UUMatter.getFluid(200_000))
-            .metadata(NANO_FORGE_TIER, 1)
-            .duration(8 * MINUTES + 20 * SECONDS)
-            .eut(10_000_000)
-            .addTo(nanoForgeRecipes);
 
         // Silver Nanites - Used in Tier 2 PCB Factory to improve board production
         GTValues.RA.stdBuilder()
@@ -148,61 +136,10 @@ public class NaniteChain {
             .addTo(nanoForgeRecipes);
 
         // White Dwarf Matter Nanites. Used to make Magnetohydrodynamically constrained star matter.
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                aUMVTierLens,
-                new ItemStack(WerkstoffLoader.items.get(OrePrefixes.lens), 0, 36), // Magneto lens
-                // naming
-                Materials.WhiteDwarfMatter.getBlocks(8),
-                ItemList.Circuit_Chip_APIC.get(64),
-                ItemList.Circuit_Parts_Crystal_Chip_Wetware.get(64))
-            .itemOutputs(Materials.WhiteDwarfMatter.getNanite(4))
-            .fluidInputs(
-                Materials.UUMatter.getFluid(500_000),
-                Materials.RawStarMatter.getFluid(50_000),
-                Materials.Space.getMolten(5 * INGOTS))
-            .metadata(NANO_FORGE_TIER, 3)
-            .duration(12 * MINUTES + 30 * SECONDS)
-            .eut(2_000_000_000)
-            .addTo(nanoForgeRecipes);
 
         // Black Dwarf Matter Nanites. Used to make Magnetohydrodynamically constrained star matter.
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                aUMVTierLens,
-                new ItemStack(WerkstoffLoader.items.get(OrePrefixes.lens), 0, 36), // Magneto le
-                // naming
-                Materials.BlackDwarfMatter.getBlocks(8),
-                ItemList.Circuit_Chip_APIC.get(64),
-                ItemList.Circuit_Parts_Crystal_Chip_Wetware.get(64))
-            .itemOutputs(Materials.BlackDwarfMatter.getNanite(4))
-            .fluidInputs(
-                Materials.UUMatter.getFluid(500_000),
-                Materials.RawStarMatter.getFluid(50_000),
-                Materials.Time.getMolten(5 * INGOTS))
-            .metadata(NANO_FORGE_TIER, 3)
-            .duration(12 * MINUTES + 30 * SECONDS)
-            .eut(2_000_000_000)
-            .addTo(nanoForgeRecipes);
 
         // Universium nanites.
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                aUMVTierLens,
-                new ItemStack(WerkstoffLoader.items.get(OrePrefixes.lens), 0, 36), // Magneto lens
-                // Quantum Anomaly, couldn't find any better naming.
-                Materials.Universium.getBlocks(8),
-                ItemList.Circuit_Chip_APIC.get(64),
-                ItemList.Circuit_Parts_Chip_Bioware.get(64))
-            .itemOutputs(Materials.Universium.getNanite(2))
-            .fluidInputs(
-                Materials.SpaceTime.getMolten(1 * INGOTS),
-                Materials.Infinity.getMolten(4 * INGOTS),
-                Materials.PrimordialMatter.getFluid(64_000))
-            .metadata(NANO_FORGE_TIER, 3)
-            .duration(12 * MINUTES + 30 * SECONDS)
-            .eut(2_000_000_000)
-            .addTo(nanoForgeRecipes);
 
         // Eternity nanites
         GTValues.RA.stdBuilder()

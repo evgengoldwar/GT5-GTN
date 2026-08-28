@@ -22,7 +22,6 @@ import com.google.common.collect.Table;
 import com.gtnewhorizon.gtnhlib.util.data.BlockMeta;
 import com.gtnewhorizon.gtnhlib.util.data.ImmutableBlockMeta;
 
-import bartworks.system.material.BWMetaGeneratedOres;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.GTLoggers;
 import gregtech.api.enums.Materials;
@@ -101,7 +100,6 @@ public class UnificationOreAdapter implements IOreAdapter<Materials> {
     /// will not be indexed when their ore dictionary names are added.
     private static boolean isGTOre(Block block) {
         if (block instanceof GTBlockOre) return true;
-        if (block instanceof BWMetaGeneratedOres) return true;
         return false;
     }
 

@@ -20,7 +20,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -77,20 +76,6 @@ public class CentrifugeRecipes implements Runnable {
             .fluidOutputs(Materials.Nitrogen.getGas(3_900))
             .duration(1 * MINUTES + 20 * SECONDS)
             .eut(TierEU.RECIPE_ULV)
-            .addTo(centrifugeRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.PlatinumGroupSludge, 3))
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SiliconDioxide, 3),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Gold, 3),
-                WerkstoffLoader.PTMetallicPowder.get(OrePrefixes.dust, 6),
-                WerkstoffLoader.PDMetallicPowder.get(OrePrefixes.dust, 2),
-                WerkstoffLoader.IrLeachResidue.get(OrePrefixes.dust, 2),
-                WerkstoffLoader.IrOsLeachResidue.get(OrePrefixes.dust, 2))
-            .outputChances(10000, 10000, 10000, 9500, 9000, 8500)
-            .duration(2 * MINUTES + 15 * SECONDS)
-            .eut(TierEU.RECIPE_LV)
             .addTo(centrifugeRecipes);
 
         GTValues.RA.stdBuilder()
@@ -505,18 +490,6 @@ public class CentrifugeRecipes implements Runnable {
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Gold, 1))
             .duration(48 * SECONDS + 16 * TICKS)
             .eut(80)
-            .addTo(centrifugeRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Endstone, 36))
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Tungstate, 3),
-                WerkstoffLoader.PTMetallicPowder.get(OrePrefixes.dust, 2),
-                new ItemStack(Blocks.sand, 36))
-            .outputChances(3750, 2500, 9000)
-            .fluidOutputs(Materials.Helium.getGas(4_320))
-            .duration(9 * MINUTES + 36 * SECONDS)
-            .eut(20)
             .addTo(centrifugeRecipes);
 
         GTValues.RA.stdBuilder()

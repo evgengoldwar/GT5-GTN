@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 import com.cleanroommc.modularui.drawable.ColorType;
 import com.cleanroommc.modularui.drawable.UITexture;
 
-import bartworks.MainMod;
 import gregtech.api.enums.Mods;
 import gregtech.common.modularui2.util.SteamTexture;
 
@@ -149,8 +148,6 @@ public final class GTGuiTextures {
         .adaptable(1)
         .build();
 
-    public static final UITexture BW_BACKGROUND_CIRCUIT_PROGRAMMER = UITexture
-        .fullImage(MainMod.MOD_ID, "GUI/background/circuit_programmer");
     // endregion background
 
     // region overlay
@@ -977,23 +974,6 @@ public final class GTGuiTextures {
         .canApplyTheme()
         .build();
 
-    public static final UITexture OVERLAY_SLOT_MODULE = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/overlay_slot/module")
-        .fullImage()
-        .canApplyTheme()
-        .build();
-
-    public static final UITexture OVERLAY_SLOT_DISH = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/overlay_slot/dish")
-        .fullImage()
-        .canApplyTheme()
-        .build();
-    public static final UITexture OVERLAY_SLOT_DNA_FLASK = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/overlay_slot/dna_flask")
-        .fullImage()
-        .canApplyTheme()
-        .build();
-
     // endregion slot overlay
 
     // region progressbar
@@ -1028,10 +1008,6 @@ public final class GTGuiTextures {
         .fullImage()
         .canApplyTheme()
         .name(GTTextureIds.PROGRESSBAR_FUEL_BRONZE, GTTextureIds.PROGRESSBAR_FUEL_STEEL, null)
-        .build();
-    public static final UITexture PROGRESSBAR_SIEVERT = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/progressbar/sievert")
-        .fullImage()
         .build();
     public static final UITexture PROGRESSBAR_PURIFICATION_UNIT = UITexture.builder()
         .location(GregTech.ID, "gui/progressbar/water_purification_unit")
@@ -1616,12 +1592,7 @@ public final class GTGuiTextures {
         .fullImage()
         .name(GTTextureIds.PICTURE_INTERGALACTIC_LOGO)
         .build();
-    public static final UITexture PICTURE_BARTWORKS_LOGO_STANDARD = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/picture/bw_logo_47x20")
-        .fullImage()
-        .canApplyTheme()
-        .name(GTTextureIds.PICTURE_BW_LOGO_STANDARD)
-        .build();
+
     public static final UITexture PICTURE_EXOFOUNDRY_LOGO = UITexture.builder()
         .location(GregTech.ID, "gui/picture/exofoundry_logo")
         .fullImage()
@@ -1647,31 +1618,6 @@ public final class GTGuiTextures {
         .fullImage()
         .build();
 
-    public static final UITexture PICTURE_SIEVERT_CONTAINER = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/picture/sievert_container")
-        .fullImage()
-        .canApplyTheme()
-        .build();
-    public static final UITexture PICTURE_DECAY_TIME_CONTAINER = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/picture/decay_time_container")
-        .fullImage()
-        .canApplyTheme()
-        .build();
-    public static final UITexture PICTURE_DECAY_TIME_INSIDE = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/picture/decay_time_inside")
-        .fullImage()
-        .canApplyTheme()
-        .build();
-    public static final UITexture PICTURE_RADIATION_SHUTTER_FRAME = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/picture/radiation_shutter_frame")
-        .fullImage()
-        .canApplyTheme()
-        .build();
-    public static final UITexture PICTURE_RADIATION_SHUTTER_INSIDE = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/picture/radiation_shutter_inside")
-        .adaptable(1, 1, 1, 1)
-        .canApplyTheme()
-        .build();
     public static final UITexture EXOFOUNDRY_BASE = UITexture.builder()
         .location(GregTech.ID, "gui/picture/exofoundry_base")
         .fullImage()

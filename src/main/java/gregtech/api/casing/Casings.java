@@ -16,8 +16,6 @@ import com.gtnewhorizon.gtnhlib.util.data.BlockSupplier;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
-import bartworks.API.BorosilicateGlass;
-import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
@@ -647,22 +645,6 @@ public enum Casings implements ICasing {
 
     // ------------------ Bartworks Casings -----------------
 
-    BoltedOsmiridiumCasing
-        (() -> WerkstoffLoader.BWBlockCasings, 32083,32083),
-    ReboltedOsmiridiumCasing
-        (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 32083, 32083),
-    BoltedNaquadahCasing
-        (() -> WerkstoffLoader.BWBlockCasings, 32090,32090),
-    ReboltedNaquadahCasing
-        (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 32090,32090),
-    BoltedNaquadahAlloyCasing
-        (() -> WerkstoffLoader.BWBlockCasings, 32091,32091),
-    ReboltedNaquadahAlloyCasing
-        (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 32091, 32091),
-    BoltedIridiumCasing
-        (() -> WerkstoffLoader.BWBlockCasings, 31850,31850),
-    ReboltedIridiumCasing
-        (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 31850, 31850),
 
     // ------------------ GT++ Casings -----------------
     // ------------------ Tectech Casings -----------------
@@ -675,38 +657,6 @@ public enum Casings implements ICasing {
 
     // ------------------ Miscellaneous Elements -----------------
 
-
-    BorosilicateGlassAny(BorosilicateGlass::getGlassBlock, 0, -1) {
-        @Override
-        public String getLocalizedName() {
-            return StatCollector.translateToLocal("GT5U.MBTT.BoroGlassAny");
-        }
-
-        @Override
-        public <T> IStructureElement<T> asElement(CasingElementContext<T> context) {
-            return BorosilicateGlass.ofBoroGlassAnyTier();
-        }
-    },
-
-    BorosilicateGlassTiered(BorosilicateGlass::getGlassBlock, 0, -1) {
-        @Override
-        public String getLocalizedName() {
-            return StatCollector.translateToLocal("GT5U.MBTT.BoroGlassTiered");
-        }
-
-        @Override
-        public <T> IStructureElement<T> asElement(CasingElementContext<T> context) {
-            return BorosilicateGlass.ofBoroGlass(
-                (byte) -2,
-                (T multi, Byte tier) -> context.getInstance(multi).setCasingTier(context.getGroup(), tier),
-                (T multi) -> (byte) context.getInstance(multi).getCasingTier(context.getGroup(), -2));
-        }
-
-        @Override
-        public boolean isTiered() {
-            return true;
-        }
-    },
 
     WardedGlass
         (() -> GameRegistry.findBlock(Mods.Thaumcraft.ID, "blockCosmeticOpaque"), 2, -1),

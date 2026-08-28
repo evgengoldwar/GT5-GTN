@@ -25,7 +25,6 @@ import static gregtech.api.recipe.RecipeMaps.electroMagneticSeparatorRecipes;
 import static gregtech.api.recipe.RecipeMaps.electrolyzerRecipes;
 import static gregtech.api.recipe.RecipeMaps.extractorRecipes;
 import static gregtech.api.recipe.RecipeMaps.extruderRecipes;
-import static gregtech.api.recipe.RecipeMaps.fermentingRecipes;
 import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
 import static gregtech.api.recipe.RecipeMaps.fluidHeaterRecipes;
 import static gregtech.api.recipe.RecipeMaps.fluidSolidifierRecipes;
@@ -136,7 +135,6 @@ import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipeli
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineItem;
 import gregtech.common.tileentities.machines.multi.compressor.MTEBlackHoleCompressor;
 import gregtech.common.tileentities.machines.multi.compressor.MTEBlackHoleUtility;
-import gregtech.common.tileentities.machines.multi.compressor.MTEHIPCompressor;
 import gregtech.common.tileentities.machines.multi.compressor.MTEIndustrialCompressor;
 import gregtech.common.tileentities.machines.multi.compressor.MTENeutroniumCompressor;
 import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
@@ -144,19 +142,6 @@ import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
 import gregtech.common.tileentities.machines.multi.pcb.MTEPCBBioChamber;
 import gregtech.common.tileentities.machines.multi.pcb.MTEPCBCoolingTower;
 import gregtech.common.tileentities.machines.multi.pcb.MTEPCBFactory;
-import gregtech.common.tileentities.machines.multi.purification.MTEHatchDegasifierControl;
-import gregtech.common.tileentities.machines.multi.purification.MTEHatchLensHousing;
-import gregtech.common.tileentities.machines.multi.purification.MTEHatchLensIndicator;
-import gregtech.common.tileentities.machines.multi.purification.MTEHatchPHSensor;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationPlant;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitBaryonicPerfection;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitClarifier;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitDegasser;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitFlocculation;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitOzonation;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitPhAdjustment;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitPlasmaHeater;
-import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitUVTreatment;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
 import gregtech.common.tileentities.machines.steam.MTESteamAlloySmelterBronze;
@@ -184,84 +169,6 @@ import gregtech.common.tileentities.storage.MTESuperTank;
 public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT RECIPES AND USAGES
 
     private static void registerMultiblockControllers() {
-        ItemList.Machine_Multi_PurificationPlant.set(
-            new MTEPurificationPlant(
-                PURIFICATION_PLANT_CONTROLLER.ID,
-                "multimachine.purificationplant",
-                "Water Purification Plant").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationPlant.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Machine_Multi_PurificationUnitClarifier.set(
-            new MTEPurificationUnitClarifier(
-                PURIFICATION_UNIT_CLARIFIER.ID,
-                "multimachine.purificationunitclarifier",
-                "Clarifier Purification Unit").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationUnitClarifier.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Machine_Multi_PurificationUnitFlocculator.set(
-            new MTEPurificationUnitFlocculation(
-                PURIFICATION_UNIT_FLOCCULATOR.ID,
-                "multimachine.purificationunitflocculator",
-                "Flocculation Purification Unit").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationUnitFlocculator.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Machine_Multi_PurificationUnitPhAdjustment.set(
-            new MTEPurificationUnitPhAdjustment(
-                PURIFICATION_UNIT_PH_ADJUSTMENT.ID,
-                "multimachine.purificationunitphadjustment",
-                "pH Neutralization Purification Unit").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationUnitPhAdjustment.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Machine_Multi_PurificationUnitOzonation.set(
-            new MTEPurificationUnitOzonation(
-                PURIFICATION_UNIT_OZONATION.ID,
-                "multimachine.purificationunitozonation",
-                "Ozonation Purification Unit").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationUnitOzonation.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Machine_Multi_PurificationUnitPlasmaHeater.set(
-            new MTEPurificationUnitPlasmaHeater(
-                PURIFICATION_UNIT_PLASMA_HEATER.ID,
-                "multimachine.purificationunitplasmaheater",
-                "Extreme Temperature Fluctuation Purification Unit").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationUnitPlasmaHeater.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Machine_Multi_PurificationUnitUVTreatment.set(
-            new MTEPurificationUnitUVTreatment(
-                PURIFICATION_UNIT_UV_TREATMENT.ID,
-                "multimachine.purificationunituvtreatment",
-                "High Energy Laser Purification Unit").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationUnitUVTreatment.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Machine_Multi_PurificationUnitDegasifier.set(
-            new MTEPurificationUnitDegasser(
-                PURIFICATION_UNIT_DEGASIFIER.ID,
-                "multimachine.purificationunitdegasifier",
-                "Residual Decontaminant Degasser Purification Unit").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationUnitDegasifier.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Machine_Multi_PurificationUnitParticleExtractor.set(
-            new MTEPurificationUnitBaryonicPerfection(
-                PURIFICATION_UNIT_PARTICLE_EXTRACTOR.ID,
-                "multimachine.purificationunitextractor",
-                "Absolute Baryonic Perfection Purification Unit").getStackForm(1L));
-        addItemTooltip(
-            ItemList.Machine_Multi_PurificationUnitParticleExtractor.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorNotAPenguinAnimated));
-        ItemList.Hatch_DegasifierControl.set(
-            new MTEHatchDegasifierControl(
-                HATCH_DEGASIFIER_CONTROL.ID,
-                "hatch.degasifiercontrol",
-                "Degasser Control Hatch",
-                8).getStackForm(1L));
         ItemList.PCBFactory.set(
             new MTEPCBFactory(PCB_FACTORY_CONTROLLER.ID, "multimachine.pcbfactory", "PCB Factory").getStackForm(1));
         ItemList.PCBBioChamber.set(
@@ -278,11 +185,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 INDUSTRIAL_COMPRESSOR_CONTROLLER.ID,
                 "multimachine.basiccompressor",
                 "Large Electric Compressor").getStackForm(1));
-        ItemList.Machine_Multi_HIPCompressor.set(
-            new MTEHIPCompressor(
-                HIP_COMPRESSOR_CONTROLLER.ID,
-                "multimachine.hipcompressor",
-                "Hot Isostatic Pressurization Unit").getStackForm(1));
         ItemList.Machine_Multi_NeutroniumCompressor.set(
             new MTENeutroniumCompressor(
                 NEUTRONIUM_COMPRESSOR_CONTROLLER.ID,
@@ -2118,163 +2020,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
 
     }
 
-    private void registerFermenter() {
-        ItemList.Machine_LV_Fermenter.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_LV.ID)
-                .setName("basicmachine.fermenter.tier.01", "Basic Fermenter")
-                .setTier(1)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.Machine_MV_Fermenter.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_MV.ID)
-                .setName("basicmachine.fermenter.tier.02", "Advanced Fermenter")
-                .setTier(2)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.Machine_HV_Fermenter.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_HV.ID)
-                .setName("basicmachine.fermenter.tier.03", "Advanced Fermenter II")
-                .setTier(3)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.Machine_EV_Fermenter.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_EV.ID)
-                .setName("basicmachine.fermenter.tier.04", "Advanced Fermenter III")
-                .setTier(4)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.Machine_IV_Fermenter.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_IV.ID)
-                .setName("basicmachine.fermenter.tier.05", "Advanced Fermenter IV")
-                .setTier(5)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.FermenterLuV.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_LuV.ID)
-                .setName("basicmachine.fermenter.tier.06", "Elite Fermenter")
-                .setTier(6)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.FermenterZPM.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_ZPM.ID)
-                .setName("basicmachine.fermenter.tier.07", "Elite Fermenter II")
-                .setTier(7)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.FermenterUV.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_UV.ID)
-                .setName("basicmachine.fermenter.tier.08", "Ultimate Fermentation Hastener")
-                .setTier(8)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.FermenterUHV.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_UHV.ID)
-                .setName("basicmachine.fermenter.tier.09", "Epic Fermentation Hastener")
-                .setTier(9)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.FermenterUEV.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_UEV.ID)
-                .setName("basicmachine.fermenter.tier.10", "Epic Fermentation Hastener II")
-                .setTier(10)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.FermenterUIV.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_UIV.ID)
-                .setName("basicmachine.fermenter.tier.11", "Epic Fermentation Hastener III")
-                .setTier(11)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-
-        ItemList.FermenterUMV.set(
-            MTEBasicMachineWithRecipeBuilder.builder(FERMENTER_UMV.ID)
-                .setName("basicmachine.fermenter.tier.12", "Epic Fermentation Hastener IV")
-                .setTier(12)
-                .setDescription(MachineType.FERMENTER.tooltipDescription())
-                .setRecipes(fermentingRecipes)
-                .setSlotsCount(1, 1)
-                .setSound(SoundResource.GTCEU_LOOP_CHEMICAL)
-                .setOverlays("FERMENTER")
-                .setFluidSlots(true, true)
-                .build()
-                .getStackForm(1L));
-    }
+    private void registerFermenter() {}
 
     private void registerFluidCanner() {
         ItemList.Machine_LV_FluidCanner.set(
@@ -9416,13 +9162,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "hatch.blackholeutility",
                 "Black Hole Utility Hatch",
                 11).getStackForm(1));
-        ItemList.Hatch_pHSensor
-            .set(new MTEHatchPHSensor(HATCH_PH_SENSOR.ID, "hatch.phsensor", "pH Sensor Hatch", 7).getStackForm(1));
-        ItemList.Hatch_LensHousing
-            .set(new MTEHatchLensHousing(HATCH_LENS_HOUSING.ID, "hatch.lenshousing", "Lens Housing").getStackForm(1L));
-        ItemList.Hatch_LensIndicator.set(
-            new MTEHatchLensIndicator(HATCH_LENS_INDICATOR.ID, "hatch.lensindicator", "Lens Indicator Hatch", 8)
-                .getStackForm(1L));
         ItemList.Hatch_Nanite.set(
             new MTEHatchNanite(HATCH_NANITE.ID, "hatch.nanite", "Nanite Containment Bus", 9, 2048).getStackForm(1));
         ItemList.Hatch_Nanite_Singularity.set(

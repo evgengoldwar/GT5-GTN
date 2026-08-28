@@ -1,6 +1,5 @@
 package gregtech.loaders.postload.chains;
 
-import static bartworks.API.recipe.BartWorksRecipeMaps.electricImplosionCompressorRecipes;
 import static gregtech.api.enums.Mods.EtFuturumRequiem;
 import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.recipe.RecipeMaps.alloyBlastSmelterRecipes;
@@ -17,7 +16,6 @@ import static gregtech.api.recipe.RecipeMaps.crackingRecipes;
 import static gregtech.api.recipe.RecipeMaps.cutterRecipes;
 import static gregtech.api.recipe.RecipeMaps.formingPressRecipes;
 import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
-import static gregtech.api.recipe.RecipeMaps.laserEngraverRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
 import static gregtech.api.recipe.RecipeMaps.vacuumFreezerRecipes;
@@ -34,7 +32,6 @@ import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -81,17 +78,6 @@ public class NetheriteRecipes {
                 .duration(30 * SECONDS)
                 .eut(TierEU.RECIPE_IV)
                 .addTo(chemicalBathRecipes);
-
-            GTValues.RA.stdBuilder() // Crystallization
-                .itemInputs(
-                    ItemList.Prismarine_Precipitate.get(1),
-                    WerkstoffLoader.MagnetoResonaticDust.get(OrePrefixes.lens, 0))
-                .itemOutputs(ItemList.Prismatic_Crystal.get(1))
-                .fluidInputs(Materials.CrystallineAlloy.getMolten(72))
-                .fluidOutputs(Materials.Strontium.getMolten(288))
-                .duration(10 * SECONDS)
-                .eut(TierEU.RECIPE_LuV)
-                .addTo(laserEngraverRecipes);
 
             GTValues.RA.stdBuilder() // Gasification
                 .itemInputs(ItemList.Prismatic_Crystal.get(1))
@@ -184,14 +170,6 @@ public class NetheriteRecipes {
             .addTo(mixerRecipes);
 
         if (EtFuturumRequiem.isModLoaded()) {
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(getModItem(EtFuturumRequiem.ID, "netherite_scrap", 3, missing))
-                .fluidInputs(Materials.NefariousOil.getFluid(16_000))
-                .itemOutputs(getModItem(EtFuturumRequiem.ID, "ancient_debris", 1))
-                .duration(1 * TICKS)
-                .eut(TierEU.RECIPE_UEV)
-                .addTo(electricImplosionCompressorRecipes);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(getModItem(EtFuturumRequiem.ID, "ancient_debris", 1, missing))

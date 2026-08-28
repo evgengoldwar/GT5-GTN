@@ -1,6 +1,5 @@
 package gregtech.loaders.oreprocessing;
 
-import static bartworks.system.material.gtenhancement.PlatinumSludgeOutputs.convertSmelting;
 import static gregtech.api.recipe.RecipeMaps.blastFurnaceRecipes;
 import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
@@ -117,12 +116,7 @@ public class ProcessingRawOre implements gregtech.api.interfaces.IOreRecipeRegis
             if ((aMaterial.mBlastFurnaceRequired) || (aMaterial.mDirectSmelting.mBlastFurnaceRequired)) {
                 GTModHandler.removeFurnaceSmelting(aOreStack);
             } else {
-                tHasSmelting = GTModHandler.addSmeltingRecipe(
-                    aOreStack,
-                    convertSmelting(
-                        aMaterial,
-                        aPrefix,
-                        GTUtility.copyAmount(aMaterial.mSmeltingMultiplier, tSmeltInto)));
+
             }
 
             if (aMaterial.contains(SubTag.BLASTFURNACE_CALCITE_TRIPLE)) {
@@ -183,15 +177,7 @@ public class ProcessingRawOre implements gregtech.api.interfaces.IOreRecipeRegis
         }
 
         if (!tHasSmelting) {
-            GTModHandler.addSmeltingRecipe(
-                aOreStack,
-                convertSmelting(
-                    aMaterial,
-                    aPrefix,
-                    GTOreDictUnificator.get(
-                        OrePrefixes.gem,
-                        tMaterial.mDirectSmelting,
-                        Math.max(1, aMaterial.mSmeltingMultiplier / 2))));
+
         }
 
         if (tCrushed != null) {

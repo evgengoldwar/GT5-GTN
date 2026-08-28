@@ -8,7 +8,6 @@ import net.minecraft.util.StatCollector;
 
 import org.jetbrains.annotations.Nullable;
 
-import bartworks.system.material.Werkstoff;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
@@ -61,14 +60,5 @@ public interface IOreMaterial extends ISubTagContainer {
         } else {
             return GTOreDictUnificator.get(prefix.get(this.getInternalName()), amount);
         }
-    }
-
-    static IOreMaterial findMaterial(String name) {
-        Werkstoff bw = Werkstoff.werkstoffVarNameHashMap.get(name);
-
-        if (bw != null) return bw;
-
-        return Materials.getMaterialsMap()
-            .get(name);
     }
 }

@@ -12,7 +12,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.GTMod;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.ItemList;
@@ -1928,13 +1927,6 @@ public class CraftingRecipeLoader implements Runnable {
             Materials.Fireclay.getDust(2),
             GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GTModHandler.RecipeBits.BUFFERED,
             new Object[] { Materials.Brick.getDust(1), Materials.Clay.getDust(1) });
-
-        GTModHandler.addCraftingRecipe(
-            ItemList.Casing_Advanced_Rhodium_Palladium.get(1L),
-            bits | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { "PhP", "PFP", aTextPlateWrench, 'P',
-                new ItemStack(WerkstoffLoader.items.get(OrePrefixes.plate), 1, 88), 'F',
-                WerkstoffLoader.RhodiumPlatedPalladium.get(OrePrefixes.frameGt) });
 
         if (Forestry.isModLoaded()) {
 

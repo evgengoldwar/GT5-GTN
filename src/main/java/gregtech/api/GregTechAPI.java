@@ -23,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import bartworks.common.loaders.FluidLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.ItemList;
@@ -330,7 +329,6 @@ public class GregTechAPI {
     public static boolean isGTRenderer(Block block) {
         if (block == GregTechAPI.sWormholeRender) return true;
         if (block == GregTechAPI.sBlackholeRender) return true;
-        if (block == FluidLoader.bioFluidBlock) return true;
         return false;
     }
 

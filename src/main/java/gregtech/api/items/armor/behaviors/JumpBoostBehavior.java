@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import com.gtnewhorizon.gtnhlib.GTNHLib;
 import com.gtnewhorizon.gtnhlib.keybind.SyncedKeybind;
 
-import bartworks.util.MathUtils;
 import gregtech.api.items.armor.ArmorActionManager;
 import gregtech.api.items.armor.ArmorContext;
 import gregtech.api.items.armor.ArmorState;
@@ -41,8 +40,6 @@ public class JumpBoostBehavior implements IArmorBehavior {
             .getKeybind()) {
                 state.jumpBoostMulti -= JUMP_INCREMENT;
             }
-
-        state.jumpBoostMulti = MathUtils.clamp(state.jumpBoostMulti, 1, jumpMaxMulti);
 
         if (context.getPlayer() instanceof EntityPlayerMP playerMP) {
             ChatComponentTranslation chatComponent = new ChatComponentTranslation(

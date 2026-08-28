@@ -32,7 +32,6 @@ import com.cleanroommc.modularui.screen.ModularScreen;
 import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
-import bartworks.common.items.ItemCircuitProgrammer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.GTLoggers;
@@ -320,14 +319,7 @@ public class ItemIntegratedCircuit extends GTGenericItem
             if (potentialStack == null || potentialStack.getItem() == null || potentialStack.stackSize <= 0) continue;
 
             // Circuit Configurator
-            if (potentialStack.getItem() instanceof ItemCircuitProgrammer programmer) {
-                if (doDamage) {
-                    boolean success = programmer.useItem(potentialStack, player);
 
-                    if(!success) throw new IllegalStateException("Circuit Configurator has no charge");
-                }
-                return potentialStack;
-            }
 
             // Toolbox with Screwdriver inside
             if (potentialStack.getItem() instanceof ItemToolbox toolbox) {

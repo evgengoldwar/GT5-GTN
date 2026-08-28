@@ -14,7 +14,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -320,13 +319,6 @@ public class CompressorRecipes implements Runnable {
             .metadata(COMPRESSION_TIER, 2)
             .duration(1 * HOURS + 15 * MINUTES)
             .eut(TierEU.RECIPE_UXV)
-            .addTo(compressorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(WerkstoffLoader.MagnetoResonaticDust.get(OrePrefixes.gem, 9))
-            .itemOutputs(WerkstoffLoader.MagnetoResonaticDust.get(OrePrefixes.block, 1))
-            .duration(15 * SECONDS)
-            .eut(2)
             .addTo(compressorRecipes);
 
         // From ProcessingSaplings
