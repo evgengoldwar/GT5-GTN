@@ -160,9 +160,6 @@ import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.overlay.tooltiprenderers.TTRenderStack;
-import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
-import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoTunnel;
-import tectech.thing.metaTileEntity.hatch.MTEHatchEnergyMulti;
 
 public abstract class MTEMultiBlockBase extends MetaTileEntity
     implements IControllerWithOptionalFeatures, IAddGregtechLogo, IAddUIWidgets, IBindPlayerInventoryUI, IHatchWatcher {
@@ -2236,18 +2233,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addMultiAmpEnergyInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        if (aTileEntity == null) return false;
-        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
-        if (aMetaTileEntity == null) return false;
-        if (aMetaTileEntity instanceof MTEHatchEnergyMulti hatch && hatch.getHatchType() == 1) {
-            hatch.updateTexture(aBaseCasingIndex);
-            hatch.updateCraftingIcon(this.getMachineCraftingIcon());
-            return mExoticEnergyHatches.add(hatch);
-        }
-        return false;
-    }
-
     public boolean addExoticEnergyInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
@@ -2268,30 +2253,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
             hatch.updateTexture(aBaseCasingIndex);
             hatch.updateCraftingIcon(this.getMachineCraftingIcon());
             return mDynamoHatches.add(hatch);
-        }
-        return false;
-    }
-
-    public boolean addExoticDynamoToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        if (aTileEntity == null) return false;
-        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
-        if (aMetaTileEntity == null) return false;
-        if (aMetaTileEntity instanceof MTEHatchDynamoMulti mteHatchDynamoMulti) {
-            mteHatchDynamoMulti.updateTexture(aBaseCasingIndex);
-            mteHatchDynamoMulti.updateCraftingIcon(this.getMachineCraftingIcon());
-            return mExoticDynamoHatches.add(mteHatchDynamoMulti);
-        }
-        return false;
-    }
-
-    public boolean addLaserSourceToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        if (aTileEntity == null) return false;
-        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
-        if (aMetaTileEntity == null) return false;
-        if (aMetaTileEntity instanceof MTEHatchDynamoTunnel mteHatchDynamoTunnel) {
-            mteHatchDynamoTunnel.updateTexture(aBaseCasingIndex);
-            mteHatchDynamoTunnel.updateCraftingIcon(this.getMachineCraftingIcon());
-            return mExoticDynamoHatches.add(mteHatchDynamoTunnel);
         }
         return false;
     }

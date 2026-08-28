@@ -15,7 +15,6 @@ import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluidBuilder;
 import gregtech.api.util.Lazy;
 import gregtech.common.items.GTItemCell;
-import tectech.recipe.TecTechRecipeMaps;
 
 /// Each of these entries maps to a type of condensate used by the BEC multis. Condensate itself is just a fluid, but
 /// this class autogens the recipes, cells, and fluids for each type. This isn't a material because I didn't want to
@@ -176,14 +175,7 @@ public enum CondensateType {
     }
 
     public static void registerRecipes() {
-        for (CondensateType type : VALUES) {
-            GTValues.RA.stdBuilder()
-                .fluidInputs(type.source.get())
-                .fluidOutputs(new FluidStack(type.entangledFluid, type.unit))
-                .duration(type.duration)
-                .eut(type.eut)
-                .addTo(TecTechRecipeMaps.condensateGeneratorRecipes);
-        }
+
     }
 
     /*

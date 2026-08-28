@@ -54,10 +54,6 @@ import gregtech.common.gui.modularui.util.MTEItemStackHandler;
 import gregtech.mixin.interfaces.accessors.EntityPlayerMPAccessor;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
-import tectech.mechanics.pipe.IConnectsToDataPipe;
-import tectech.mechanics.pipe.IConnectsToEnergyTunnel;
-import tectech.thing.metaTileEntity.pipe.MTEPipeData;
-import tectech.thing.metaTileEntity.pipe.MTEPipeLaser;
 
 /**
  * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
@@ -204,10 +200,6 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
 
         for (final ForgeDirection s : ForgeDirection.VALID_DIRECTIONS) {
             final IGregTechTileEntity iGregTechTileEntity = meta.getIGregTechTileEntityAtSide(s);
-            if (iGregTechTileEntity != null) {
-                if (iGregTechTileEntity.getMetaTileEntity() instanceof MTEPipeLaser pipe) pipe.updateNetwork(true);
-                if (iGregTechTileEntity.getMetaTileEntity() instanceof MTEPipeData pipe) pipe.updateNetwork(true);
-            }
         }
         return true;
     }
@@ -605,32 +597,6 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     @Override
     public void onBlockDestroyed() {
         final IGregTechTileEntity meta = getBaseMetaTileEntity();
-        if (this instanceof IConnectsToEnergyTunnel) {
-            for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-                final IGregTechTileEntity iGregTechTileEntity = meta.getIGregTechTileEntityAtSide(side);
-
-                if (iGregTechTileEntity != null) {
-                    if (iGregTechTileEntity.getMetaTileEntity() instanceof MTEPipeLaser neighbor
-                        && neighbor.isConnectedAtSide(side.getOpposite())) {
-                        neighbor.mConnections &= ~side.getOpposite().flag;
-                        neighbor.connectionCount--;
-                    }
-                }
-            }
-        }
-        if (this instanceof IConnectsToDataPipe) {
-            for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-                final IGregTechTileEntity iGregTechTileEntity = meta.getIGregTechTileEntityAtSide(side);
-
-                if (iGregTechTileEntity != null) {
-                    if (iGregTechTileEntity.getMetaTileEntity() instanceof MTEPipeData neighbor
-                        && neighbor.isConnectedAtSide(side.getOpposite())) {
-                        neighbor.mConnections &= ~side.getOpposite().flag;
-                        neighbor.connectionCount--;
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -645,10 +611,6 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
             }
 
             final IGregTechTileEntity iGregTechTileEntity = meta.getIGregTechTileEntityAtSide(side);
-            if (iGregTechTileEntity != null) {
-                if (iGregTechTileEntity.getMetaTileEntity() instanceof MTEPipeLaser pipe) pipe.updateNetwork(true);
-                if (iGregTechTileEntity.getMetaTileEntity() instanceof MTEPipeData pipe) pipe.updateNetwork(true);
-            }
         }
     }
 

@@ -22,7 +22,6 @@ import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.recipe.Scanning;
-import tectech.thing.CustomItemList;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
 public class AssemblyLineRecipes implements Runnable {
@@ -725,22 +724,6 @@ public class AssemblyLineRecipes implements Runnable {
             .addTo(AssemblyLine);
 
         // Drone T3
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, ItemList.TierdDrone1.get(1))
-            .metadata(SCANNING, new Scanning(1 * MINUTES + 30 * SECONDS, TierEU.RECIPE_UHV))
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Infinity, 16),
-                new Object[] { OrePrefixes.circuit.get(Materials.UHV), 4 },
-                ItemList.Field_Generator_UV.get(16),
-                ItemList.Gravistar.get(8),
-                ItemList.Emitter_UV.get(4),
-                CustomItemList.hatch_CreativeMaintenance.get(16),
-                ItemList.Energy_Cluster.get(8),
-                ItemList.Cover_WirelessNeedsMaintainance.get(1))
-            .itemOutputs(ItemList.TierdDrone2.get(1))
-            .duration(60 * SECONDS)
-            .eut(TierEU.RECIPE_UHV)
-            .addTo(AssemblyLine);
 
         // Drone remote interface
         GTValues.RA.stdBuilder()

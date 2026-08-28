@@ -9,7 +9,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.cleanroommc.modularui.api.IThemeApi;
-import com.cleanroommc.modularui.drawable.DrawableStack;
 import com.cleanroommc.modularui.drawable.GuiTextures;
 import com.cleanroommc.modularui.drawable.Rectangle;
 import com.cleanroommc.modularui.theme.SelectableTheme;
@@ -185,23 +184,6 @@ public final class GTWidgetThemes {
                 0,
                 0,
                 new Rectangle().color(Color.rgb(100, 30, 80)),
-                Color.rgb(55, 255, 55),
-                0xFFFAFAFA,
-                false,
-                0))
-        .defaultHoverTheme(null)
-        .parser(noInheritanceParser(WidgetTheme.class))
-        .register();
-
-    public static WidgetThemeKey<WidgetTheme> TESLA_TOWER_CHART_SPECIAL = themeApi
-        .widgetThemeKeyBuilder("teslaTowerChartSpecial", WidgetTheme.class)
-        .defaultTheme(
-            new WidgetTheme(
-                0,
-                0,
-                new DrawableStack(
-                    new Rectangle().color(Color.rgb(100, 30, 80)),
-                    GTGuiTextures.BACKGROUND_TESLA_TOWER_CHART),
                 Color.rgb(55, 255, 55),
                 0xFFFAFAFA,
                 false,

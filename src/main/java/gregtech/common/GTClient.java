@@ -147,7 +147,6 @@ import gregtech.nei.NEIGTConfig;
 import mcp.mobius.waila.api.impl.ModuleRegistrar;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
-import tectech.mechanics.boseEinsteinCondensate.BECFactoryGrid;
 
 public class GTClient extends GTProxy {
 
@@ -635,9 +634,7 @@ public class GTClient extends GTProxy {
     }
 
     @SubscribeEvent
-    public void onClientDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
-        BECFactoryGrid.clearAll();
-    }
+    public void onClientDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {}
 
     @SubscribeEvent
     public void onChunkUnload(ChunkEvent.Unload event) {

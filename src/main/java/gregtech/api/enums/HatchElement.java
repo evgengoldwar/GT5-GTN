@@ -24,7 +24,6 @@ import gregtech.api.util.IGTHatchAdder;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputSlave;
 import gregtech.common.tileentities.machines.multi.purification.MTEHatchLensHousing;
-import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoTunnel;
 
 public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
 
@@ -114,33 +113,6 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
         public long count(MTEMultiBlockBase t) {
             return t.getExoticEnergyHatches()
                 .size();
-        }
-    },
-    MultiAmpEnergy("GT5U.MBTT.MultiampEnergyHatch", MTEMultiBlockBase::addMultiAmpEnergyInputToMachineList) {
-
-        @Override
-        public long count(MTEMultiBlockBase t) {
-            return t.getExoticEnergyHatches()
-                .size();
-        }
-    },
-    ExoticDynamo("GT5U.MBTT.ExoticEnergyDynamo", MTEMultiBlockBase::addExoticDynamoToMachineList) {
-
-        @Override
-        public long count(MTEMultiBlockBase t) {
-            return t.getExoticDynamoHatches()
-                .size();
-        }
-    },
-    LaserSource("GT5U.MBTT.LaserSourceHatch", MTEMultiBlockBase::addLaserSourceToMachineList,
-        MTEHatchDynamoTunnel.class) {
-
-        @Override
-        public long count(MTEMultiBlockBase t) {
-            return t.getExoticDynamoHatches()
-                .stream()
-                .filter(MTEHatchDynamoTunnel.class::isInstance)
-                .count();
         }
     };
 

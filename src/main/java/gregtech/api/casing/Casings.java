@@ -29,10 +29,6 @@ import gregtech.api.structure.ISuperChestAcceptor;
 import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.GTUtility;
 import gregtech.common.tileentities.storage.MTEDigitalChestBase;
-import tectech.thing.block.BlockGodforgeGlass;
-import tectech.thing.block.BlockQuantumGlass;
-import tectech.thing.casing.BlockGTCasingsTT;
-import tectech.thing.casing.TTCasingsContainer;
 
 public enum Casings implements ICasing {
 
@@ -671,152 +667,7 @@ public enum Casings implements ICasing {
     // ------------------ GT++ Casings -----------------
     // ------------------ Tectech Casings -----------------
 
-    // TT Block Casings
-    HighPowerCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 0, tt(0)),
-    ComputerCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 1, tt(1)),
-    ComputerHeatVent
-        (() -> TTCasingsContainer.sBlockCasingsTT, 2, tt(2)),
-    AdvancedComputerCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 3, tt(3)),
-    MolecularCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 4, tt(4)),
-    AdvancedMolecularCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 5, tt(5)),
-    ContainmentFieldGenerator
-        (() -> TTCasingsContainer.sBlockCasingsTT, 6, tt(6)),
-    MolecularCoil
-        (() -> TTCasingsContainer.sBlockCasingsTT, 7, tt(7)),
-    HollowCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 8, tt(8)),
-    SpacetimeAlteringCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 9, tt(9)),
-    TeleportationCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 10, tt(10)),
-    DimensionalBridgeGenerator
-        (() -> TTCasingsContainer.sBlockCasingsTT, 11, tt(11)),
-    UltimateMolecularCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 12, tt(12)),
-    UltimateAdvancedMolecularCasing
-        (() -> TTCasingsContainer.sBlockCasingsTT, 13, tt(13)),
-    UltimateContainmentFieldGenerator
-        (() -> TTCasingsContainer.sBlockCasingsTT, 14, tt(14)),
 
-    // TT Block Casings BA0
-    RedstoneAlloyPrimaryTeslaWindings
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 0, tt(16)),
-    MVSuperconductorPrimaryTeslaWindings
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 1, tt(17)),
-    HVSuperconductorPrimaryTeslaWindings
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 2, tt(18)),
-    EVSuperconductorPrimaryTeslaWindings
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 3, tt(19)),
-    IVSuperconductorPrimaryTeslaWindings
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 4, tt(20)),
-    LuVSuperconductorPrimaryTeslaWindings
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 5, tt(21)),
-    TeslaBaseCasing
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 7, tt(22)),
-    TeslaToroidCasing
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 8, tt(23)),
-    TeslaSecondaryWindings
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 9, tt(24)),
-    ZPMSuperconductorPrimaryTeslaWindings
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 6, tt(25)),
-    ReinforcedTemporalStructureCasing
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 10, tt(26)),
-    ReinforcedSpatialStructureCasing
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 11, tt(27)),
-    InfiniteSpacetimeEnergyBoundaryCasing
-        (()-> TTCasingsContainer.sBlockCasingsBA0, 12, tt(28)),
-
-
-    // SpacetimeCompressionFieldCasing
-    CrudeSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 0, gt(7,16)),
-    PrimitiveSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 1, gt(7,17)),
-    StableSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 2, gt(7,18)),
-    AdvancedSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 3, gt(7,19)),
-    SuperbSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 4, gt(7,20)),
-    ExoticSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 5, gt(7,21)),
-    PerfectSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 6, gt(7,22)),
-    TiplerSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 7, gt(7,23)),
-    GallifreyanSpacetimeCompressionFieldGenerator
-        (() -> TTCasingsContainer.SpacetimeCompressionFieldGenerators, 8, gt(7,24)),
-
-    // StabilisationFieldCasing
-    CrudeStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 0, gt(7,32)),
-    PrimitiveStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 1, gt(7,33)),
-    StableStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 2, gt(7,34)),
-    AdvancedStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 3, gt(7,35)),
-    SuperbStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 4, gt(7,36)),
-    ExoticStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 5, gt(7,37)),
-    PerfectStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 6, gt(7,38)),
-    TiplerStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 7, gt(7,39)),
-    GallifreyanStabilisationFieldGenerator
-        (() -> TTCasingsContainer.StabilisationFieldGenerators, 8, gt(7,40)),
-
-    // TimeAccelerationFieldCasing
-    CrudeTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 0, gt(7,48)),
-    PrimitiveTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 1, gt(7,49)),
-    StableTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 2, gt(7,50)),
-    AdvancedTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 3, gt(7,51)),
-    SuperbTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 4, gt(7,52)),
-    ExoticTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 5, gt(7,53)),
-    PerfectTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 6, gt(7,54)),
-    TiplerTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 7, gt(7,55)),
-    GallifreyanTimeDilationFieldGenerator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 8, gt(7,56)),
-
-    // Godforge Casings
-    SingularityReinforcedStellarShieldingCasing
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 0, gt(7,64)),
-    CelestialMatterGuidanceCasing
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 1, gt(7,65)),
-    BoundlessGravitationallySeveredStructureCasing
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 2, gt(7,66)),
-    TranscendentallyAmplifiedMagneticConfinementCasing
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 3, gt(7,67)),
-    StellarEnergySiphonCasing
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 4, gt(7,68)),
-    RemoteGravitonFlowModulator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 5, gt(7,69)),
-    MedialGravitonFlowModulator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 6, gt(7,70)),
-    CentralGravitonFlowModulator
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 7, gt(7,71)),
-    HarmonicPhononTransmissionConduit
-        (() -> TTCasingsContainer.TimeAccelerationFieldGenerator, 8, gt(7,72)),
-
-    QuantumGlass
-        (() -> BlockQuantumGlass.INSTANCE, 0, -1),
-
-    SpatiallyTranscendentGravitationalLens
-        (() -> BlockGodforgeGlass.INSTANCE, 0, -1),
 
     // ------------------ Lanthanides -----------------
     // other lanth casings need to be registered manually
@@ -947,9 +798,5 @@ public enum Casings implements ICasing {
     private static int gtpp(int page, int id) {
         int aRealID = id + (page * 16);
         return 64 + aRealID;
-    }
-
-    private static int tt(int id) {
-        return BlockGTCasingsTT.textureOffset + id;
     }
 }

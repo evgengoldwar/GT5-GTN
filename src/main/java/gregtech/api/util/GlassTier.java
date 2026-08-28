@@ -39,8 +39,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.common.misc.GTStructureChannels;
-import tectech.thing.block.BlockGodforgeGlass;
-import tectech.thing.block.BlockQuantumGlass;
 
 public class GlassTier {
 
@@ -209,7 +207,6 @@ public class GlassTier {
 
             // --- UV ---
             addCustomGlass(ItemRegistry.bw_realglas, 5, 8, 0); // Osmium Borosilicate
-            addCustomGlass(BlockQuantumGlass.INSTANCE, 0, 8, 1);
 
             // --- UHV ---
             addCustomGlass(ItemRegistry.bw_realglas, 6, 9, 0); // Neutronium Borosilicate
@@ -232,7 +229,6 @@ public class GlassTier {
             // --- UMV ---
             addCustomGlass(ItemRegistry.bw_realglas, 9, 12, 0); // Hexanite Borosilicate
             addCustomGlass(ItemRegistry.bw_realglas2, 4, 12, 1); // Hexanite Borosilicate Transparent
-            addCustomGlass(BlockGodforgeGlass.INSTANCE, 0, 12, 2);
             addCustomGlass(GregTechAPI.sBlockGlass1, 9, 12, 3);
             addCustomGlass(GregTechAPI.sBlockGlass1, 5, 12, 4);
 

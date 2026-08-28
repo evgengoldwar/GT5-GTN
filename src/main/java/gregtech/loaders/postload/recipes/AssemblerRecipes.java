@@ -48,7 +48,6 @@ import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import tectech.thing.CustomItemList;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
 public class AssemblerRecipes implements Runnable {
@@ -538,20 +537,6 @@ public class AssemblerRecipes implements Runnable {
                 .duration(60 * SECONDS)
                 .eut(TierEU.RECIPE_UHV)
                 .addTo(assemblerRecipes);
-
-            for (int i = 0; i < ItemList.WIRELESS_ENERGY_COVERS.length; i++) {
-                GTValues.RA.stdBuilder()
-                    .itemInputs(
-                        GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.TranscendentMetal, 4L),
-                        CustomItemList.Machine_Multi_Transformer.get(1),
-                        GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.Infinity, 2L),
-                        ItemList.WIRELESS_ENERGY_HATCHES[i + 1].get(1))
-                    .itemOutputs(ItemList.WIRELESS_ENERGY_COVERS[i].get(1L))
-                    .fluidInputs(Materials.ExcitedDTEC.getFluid(32_000L))
-                    .duration(10 * SECONDS)
-                    .eut(TierEU.RECIPE_UMV)
-                    .addTo(assemblerRecipes);
-            }
 
         }
 
@@ -4551,13 +4536,6 @@ public class AssemblerRecipes implements Runnable {
      */
     private void withBEC() {
 
-        // Conduit Casing
-        GTValues.RA.stdBuilder()
-            .itemInputs(CustomItemList.Pipe_BEC.get(1), ItemList.Casing_UV.get(1))
-            .itemOutputs(CustomItemList.Pipe_BEC_Block.get(1))
-            .duration(1 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
-            .addTo(assemblerRecipes);
     }
 
     /**

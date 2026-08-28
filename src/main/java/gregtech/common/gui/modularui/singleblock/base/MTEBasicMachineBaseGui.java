@@ -49,8 +49,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.util.MachineModularSlot;
 import gregtech.common.modularui2.widget.GTProgressWidget;
 import it.unimi.dsi.fastutil.chars.CharList;
-import tectech.thing.metaTileEntity.pipe.MTEPipeData;
-import tectech.thing.metaTileEntity.pipe.MTEPipeLaser;
 
 public class MTEBasicMachineBaseGui<T extends MTEBasicMachine> extends MTETieredMachineBlockBaseGui<T> {
 
@@ -243,13 +241,6 @@ public class MTEBasicMachineBaseGui<T extends MTEBasicMachine> extends MTETiered
             }
             meta.setFrontFacing(direction);
 
-            for (final ForgeDirection s : ForgeDirection.VALID_DIRECTIONS) {
-                final IGregTechTileEntity iGregTechTileEntity = meta.getIGregTechTileEntityAtSide(s);
-                if (iGregTechTileEntity != null) {
-                    if (iGregTechTileEntity.getMetaTileEntity() instanceof MTEPipeLaser pipe) pipe.updateNetwork(true);
-                    if (iGregTechTileEntity.getMetaTileEntity() instanceof MTEPipeData pipe) pipe.updateNetwork(true);
-                }
-            }
             panel.closeIfOpen();
         });
         return new ButtonWidget<>().syncHandler(sideSelectionHandler)

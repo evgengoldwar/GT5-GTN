@@ -9,8 +9,6 @@ import java.util.List;
 
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatch;
-import tectech.thing.metaTileEntity.hatch.MTEHatchEnergyMulti;
-import tectech.thing.metaTileEntity.hatch.MTEHatchEnergyTunnel;
 
 public class ExoticEnergyInputHelper {
 
@@ -18,11 +16,6 @@ public class ExoticEnergyInputHelper {
      * The Valid Types of TecTech Hatch List.
      */
     private static final List<Class<? extends MTEHatch>> sExoticEnergyHatchType = new ArrayList<>();
-
-    static {
-        register(MTEHatchEnergyMulti.class);
-        register(MTEHatchEnergyTunnel.class);
-    }
 
     public static void register(Class<? extends MTEHatch> clazz) {
         if (!MTEHatch.class.isAssignableFrom(clazz))

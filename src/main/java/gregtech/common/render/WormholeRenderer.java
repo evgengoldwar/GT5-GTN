@@ -1,7 +1,5 @@
 package gregtech.common.render;
 
-import static tectech.rendering.EOH.EOHRenderingUtils.addRenderedBlockInWorld;
-
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,7 +21,6 @@ import gregtech.common.render.shader.MeshBuilder;
 import gregtech.common.render.shader.ShaderHandle;
 import gregtech.common.render.shader.SharedShaders;
 import gregtech.common.tileentities.render.RenderingTileEntityWormhole;
-import tectech.rendering.EOH.EOHRenderingUtils;
 
 public class WormholeRenderer extends TileEntitySpecialRenderer {
 
@@ -80,7 +77,6 @@ public class WormholeRenderer extends TileEntitySpecialRenderer {
 
     private static IVertexArrayObject buildCube(Block block) {
         try (MeshBuilder mesh = MeshBuilder.of(SharedShaders.textured(), VERTICES_PER_BLOCK)) {
-            addRenderedBlockInWorld(mesh, block, 0, EOHRenderingUtils.IDENTITY);
             return mesh.build();
         }
     }

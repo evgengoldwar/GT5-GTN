@@ -184,7 +184,6 @@ import gregtech.common.worldgen.HEEIslandScanner;
 import gregtech.nei.GTNEIDefaultHandler;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import tectech.mechanics.boseEinsteinCondensate.BECFactoryGrid;
 
 public class GTProxy implements IFuelHandler {
 
@@ -1317,7 +1316,6 @@ public class GTProxy implements IFuelHandler {
         GTChunkManager.instance.onServerStopped();
         dimensionWisePollution.clear();
 
-        BECFactoryGrid.onServerClosed();
     }
 
     /**

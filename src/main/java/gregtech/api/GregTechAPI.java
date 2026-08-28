@@ -45,7 +45,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.world.GTWorldgen;
 import gregtech.common.GTDummyWorld;
 import gregtech.common.covers.CoverPosition;
-import tectech.thing.casing.TTCasingsContainer;
 
 /**
  * Please do not include this File in your Mod-download as it ruins compatibility, like with the IC2-API You may just
@@ -331,7 +330,6 @@ public class GregTechAPI {
     public static boolean isGTRenderer(Block block) {
         if (block == GregTechAPI.sWormholeRender) return true;
         if (block == GregTechAPI.sBlackholeRender) return true;
-        if (block == TTCasingsContainer.eyeOfHarmonyRenderBlock) return true;
         if (block == FluidLoader.bioFluidBlock) return true;
         return false;
     }
