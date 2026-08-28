@@ -32,7 +32,6 @@ public class MissingMappingsHandler {
 
 
 
-        .remapItem("GalaxySpace:item.DysonSwarmParts", ItemList.DysonSwarmModule.getItem())
 
         .remapItem("IC2:reactorLithiumCell", ItemList.RodLithium.getItem())
         .remapItem("gregtech:gt.glowstoneCell", ItemList.RodGlowstone.getItem())
