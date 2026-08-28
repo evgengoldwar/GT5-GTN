@@ -4,7 +4,6 @@ import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.NI;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
-import java.util.List;
 import java.util.Locale;
 
 import net.minecraft.block.Block;
@@ -13,8 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.fluids.Fluid;
-
-import com.google.common.collect.ImmutableList;
 
 import gregtech.GTMod;
 import gregtech.api.interfaces.IItemContainer;
@@ -567,37 +564,6 @@ public enum ItemList implements IItemContainer {
     Cover_Chest_Good,
     Cover_Chest_Advanced,
     Ingot_IridiumAlloy,
-    Plank_Oak,
-    Plank_Spruce,
-    Plank_Birch,
-    Plank_Jungle,
-    Plank_Acacia,
-    Plank_DarkOak,
-    Plank_Larch,
-    Plank_Teak,
-    Plank_Acacia_Green,
-    Plank_Lime,
-    Plank_Chestnut,
-    Plank_Wenge,
-    Plank_Baobab,
-    Plank_Sequoia,
-    Plank_Kapok,
-    Plank_Ebony,
-    Plank_Mahagony,
-    Plank_Balsa,
-    Plank_Willow,
-    Plank_Walnut,
-    Plank_Greenheart,
-    Plank_Cherry,
-    Plank_Mahoe,
-    Plank_Poplar,
-    Plank_Palm,
-    Plank_Papaya,
-    Plank_Pine,
-    Plank_Plum,
-    Plank_Maple,
-    Plank_Citrus,
-    Plank_Cherry_EFR,
     Dye_Indigo,
     Dye_SquidInk,
     Dye_Bonemeal,
@@ -3326,27 +3292,12 @@ public enum ItemList implements IItemContainer {
     public static Fluid sOilExtraHeavy, sEpichlorhydrin, sDrillingFluid, sBlueVitriol, sNickelSulfate, sGreenVitriol,
         sToluene, sNitrationMixture, sRocketFuel, sHydricSulfur, sIndiumConcentrate, sLeadZincSolution,
         sHydrochloricAcid;
-    public static final List<ItemList> FORESTRY_DECORATIVE_PLANKS = ImmutableList.copyOf(
-        new ItemList[] { ItemList.Plank_Larch, ItemList.Plank_Teak, ItemList.Plank_Acacia_Green, ItemList.Plank_Lime,
-            ItemList.Plank_Chestnut, ItemList.Plank_Wenge, ItemList.Plank_Baobab, ItemList.Plank_Sequoia,
-            ItemList.Plank_Kapok, ItemList.Plank_Ebony, ItemList.Plank_Mahagony, ItemList.Plank_Balsa,
-            ItemList.Plank_Willow, ItemList.Plank_Walnut, ItemList.Plank_Greenheart, ItemList.Plank_Cherry,
-            ItemList.Plank_Mahoe, ItemList.Plank_Poplar, ItemList.Plank_Palm, ItemList.Plank_Papaya,
-            ItemList.Plank_Pine, ItemList.Plank_Plum, ItemList.Plank_Maple, ItemList.Plank_Citrus });
     private ItemStack mStack;
     private boolean mHasNotBeenSet;
-    private boolean mDeprecated;
     private boolean mWarned;
 
     ItemList() {
         mHasNotBeenSet = true;
-    }
-
-    ItemList(boolean aDeprecated) {
-        if (aDeprecated) {
-            mDeprecated = true;
-            mHasNotBeenSet = true;
-        }
     }
 
     @Override
@@ -3396,7 +3347,7 @@ public enum ItemList implements IItemContainer {
 
     @Override
     public boolean isStackEqual(Object aStack, boolean aWildcard, boolean aIgnoreNBT) {
-        if (mDeprecated && !mWarned) {
+        if (!mWarned) {
             GT_FML_LOGGER.error(new Exception(this + " is now deprecated"));
             // warn only once
             mWarned = true;
@@ -3513,7 +3464,7 @@ public enum ItemList implements IItemContainer {
     private void sanityCheck() {
         if (mHasNotBeenSet)
             throw new IllegalAccessError("The Enum '" + name() + "' has not been set to an Item at this time!");
-        if (mDeprecated && !mWarned) {
+        if (!mWarned) {
             GT_FML_LOGGER.error(new Exception(this + " is now deprecated"));
             // warn only once
             mWarned = true;

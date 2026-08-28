@@ -1928,24 +1928,6 @@ public class CraftingRecipeLoader implements Runnable {
             GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GTModHandler.RecipeBits.BUFFERED,
             new Object[] { Materials.Brick.getDust(1), Materials.Clay.getDust(1) });
 
-        if (Forestry.isModLoaded()) {
-
-            for (int i = 0; i < ItemList.FORESTRY_DECORATIVE_PLANKS.size(); i++) {
-                ItemStack slabWood = getModItem(Forestry.ID, "slabs", 1, i);
-                ItemStack slabWoodFireproof = getModItem(Forestry.ID, "slabsFireproof", 1, i);
-                final ItemList plank = ItemList.FORESTRY_DECORATIVE_PLANKS.get(i);
-
-                GTModHandler.addCraftingRecipe(
-                    plank.get(2),
-                    GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE,
-                    new Object[] { "s ", " P", 'P', slabWood });
-
-                GTModHandler.addCraftingRecipe(
-                    plank.get(2),
-                    GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE,
-                    new Object[] { "s ", " P", 'P', slabWoodFireproof });
-            }
-        }
         GTModHandler.addCraftingRecipe(
             GTModHandler.getIC2Item("electronicCircuit", 1L),
             GTModHandler.RecipeBits.BUFFERED | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
@@ -1977,12 +1959,5 @@ public class CraftingRecipeLoader implements Runnable {
                     GTModHandler.getModItem(TwilightForest.ID, "tile.TFLog", 1, 0), });
         }
 
-        if (EtFuturumRequiem.isModLoaded()) {
-            GTModHandler.addCraftingRecipe(
-                ItemList.Plank_Cherry_EFR.get(2L),
-                GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE,
-                new Object[] { "s ", " P", 'P', GTModHandler.getModItem(EtFuturumRequiem.ID, "wood_slab", 1, 3), 's',
-                    "craftingToolSaw" });
-        }
     }
 }

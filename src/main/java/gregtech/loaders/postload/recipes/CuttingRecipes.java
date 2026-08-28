@@ -2,7 +2,6 @@ package gregtech.loaders.postload.recipes;
 
 import static gregtech.api.enums.Mods.BuildCraftTransport;
 import static gregtech.api.enums.Mods.EtFuturumRequiem;
-import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.Mods.TinkerConstruct;
 import static gregtech.api.recipe.RecipeMaps.cutterRecipes;
 import static gregtech.api.util.GTModHandler.getModItem;
@@ -215,52 +214,6 @@ public class CuttingRecipes implements Runnable {
                 2 * SECONDS + 10 * TICKS,
                 8,
                 false);
-        }
-
-        // vanilla planks recipes
-        {
-            ItemStack[] plankArray = new ItemStack[] { ItemList.Plank_Oak.get(2L), ItemList.Plank_Spruce.get(2L),
-                ItemList.Plank_Birch.get(2L), ItemList.Plank_Jungle.get(2L), ItemList.Plank_Acacia.get(2L),
-                ItemList.Plank_DarkOak.get(2L) };
-            for (int i = 0; i < 6; i++) {
-                recipeWithClassicFluids(
-                    new ItemStack[] { new ItemStack(Blocks.wooden_slab, 1, i) },
-                    new ItemStack[] { plankArray[i] },
-                    2 * SECONDS + 10 * TICKS,
-                    8,
-                    false);
-            }
-        }
-
-        if (EtFuturumRequiem.isModLoaded()) {
-            recipeWithClassicFluids(
-                new ItemStack[] { getModItem(EtFuturumRequiem.ID, "wood_slab", 1L, 3) },
-                new ItemStack[] { ItemList.Plank_Cherry_EFR.get(2) },
-                2 * SECONDS + 10 * TICKS,
-                8,
-                false);
-        }
-
-        if (Forestry.isModLoaded()) {
-            for (int i = 0; i < ItemList.FORESTRY_DECORATIVE_PLANKS.size(); i++) {
-                ItemStack slabWood = getModItem(Forestry.ID, "slabs", 1, i);
-                ItemStack slabWoodFireproof = getModItem(Forestry.ID, "slabsFireproof", 1, i);
-                final ItemList plank = ItemList.FORESTRY_DECORATIVE_PLANKS.get(i);
-
-                recipeWithClassicFluids(
-                    new ItemStack[] { slabWood },
-                    new ItemStack[] { plank.get(2) },
-                    2 * SECONDS,
-                    8,
-                    false);
-
-                recipeWithClassicFluids(
-                    new ItemStack[] { slabWoodFireproof },
-                    new ItemStack[] { plank.get(2) },
-                    2 * SECONDS,
-                    8,
-                    false);
-            }
         }
 
         if (BuildCraftTransport.isModLoaded()) {

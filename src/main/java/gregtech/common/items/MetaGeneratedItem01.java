@@ -1,7 +1,6 @@
 package gregtech.common.items;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
-import static gregtech.api.enums.Textures.BlockIcons.COVER_WOOD_PLATE;
 import static gregtech.api.enums.Textures.BlockIcons.MACHINE_CASINGS;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ACTIVITYDETECTOR;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ACTIVITYDETECTOR_GLOW;
@@ -4119,10 +4118,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 .addIcon(OVERLAY_SCREEN_GLOW)
                 .glow()
                 .build());
-
-        CoverRegistry.registerDecorativeCover(
-            new ItemStack(this, 1, 17000 + Materials.Wood.mMetaItemSubID),
-            TextureFactory.of(COVER_WOOD_PLATE));
 
         CoverRegistry.registerCover(
             ItemList.Electric_Pump_LV.get(1L),
