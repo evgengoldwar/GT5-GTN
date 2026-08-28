@@ -54,11 +54,6 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.recipe.Scanning;
-import gtPlusPlus.core.fluids.GTPPFluids;
-import gtPlusPlus.core.material.MaterialsAlloy;
-import gtPlusPlus.core.material.MaterialsElements;
-import gtPlusPlus.core.material.nuclear.MaterialsFluorides;
-import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 
 public class RecipeLoader {
 
@@ -86,32 +81,6 @@ public class RecipeLoader {
             .duration(20 * SECONDS)
             .eut(TierEU.RECIPE_EV)
             .addTo(assemblerRecipes);
-
-        // LNR Controller - Large Naquadah Reactor
-        GTValues.RA.stdBuilder()
-            .metadata(
-                RESEARCH_ITEM,
-                ItemList.Generator_Naquadah_Mark_III.get(1)
-                    .copy())
-            .metadata(SCANNING, new Scanning(2 * MINUTES + 30 * SECONDS, TierEU.RECIPE_LuV))
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Adamantium, 8),
-                ItemRefer.Radiation_Protection_Plate.get(16),
-                ItemList.Field_Generator_ZPM.get(2),
-                ItemList.Electric_Pump_ZPM.get(8),
-                new Object[] { OrePrefixes.circuit.get(Materials.UV), 4 },
-                GTOreDictUnificator.get(OrePrefixes.wireGt08, Materials.SuperconductorLuV, 8),
-                GTOreDictUnificator.get(OrePrefixes.pipeHuge, Materials.Naquadah, 4),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.PrismaticNaquadah, 8),
-                GTOreDictUnificator.get(OrePrefixes.screw, Materials.Osmium, 16))
-            .fluidInputs(
-                Materials.Trinium.getMolten(4 * INGOTS),
-                MaterialsAlloy.INDALLOY_140.getFluidStack(32 * INGOTS),
-                Materials.Lubricant.getFluid(8_000))
-            .itemOutputs(ItemList.LargeNaquadahReactor.get(1))
-            .eut(TierEU.RECIPE_UV)
-            .duration(60 * SECONDS)
-            .addTo(AssemblyLine);
 
         // LNR Casing
         GTValues.RA.stdBuilder()
@@ -343,7 +312,6 @@ public class RecipeLoader {
             .itemInputs(GGMaterial.thoriumHydroxide.get(OrePrefixes.dust, 9))
             .circuit(1)
             .fluidInputs(Materials.HydrofluoricAcid.getFluid(4_000))
-            .fluidOutputs(MaterialsFluorides.THORIUM_TETRAFLUORIDE.getFluidStack(1_000))
             .duration(20 * SECONDS)
             .eut(TierEU.RECIPE_LV)
             .addTo(UniversalChemical);
@@ -655,34 +623,6 @@ public class RecipeLoader {
             .metadata(COIL_HEAT, 3400)
             .addTo(blastFurnaceRecipes);
 
-        // Naquadah Fuel Refinery
-        GTValues.RA.stdBuilder()
-            .metadata(
-                RESEARCH_ITEM,
-                ItemList.Generator_Naquadah_Mark_V.get(1)
-                    .copy())
-            .metadata(SCANNING, new Scanning(2 * MINUTES + 30 * SECONDS, TierEU.RECIPE_UV))
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Osmiridium, 8),
-                ItemRefer.Advanced_Radiation_Protection_Plate.get(64),
-                ItemList.Field_Generator_UV.get(8),
-                ItemList.Electric_Pump_UHV.get(2),
-                new Object[] { OrePrefixes.circuit.get(Materials.UEV), 4 },
-                GTOreDictUnificator.get(OrePrefixes.pipeHuge, Materials.MysteriousCrystal, 8),
-                ItemList.Circuit_Wafer_NPIC.get(16),
-                ItemList.UHV_Coil.get(64),
-                new Object[] { "craftingLensYellow", 16 },
-                GTOreDictUnificator.get(OrePrefixes.screw, Materials.Thulium, 64))
-            .fluidInputs(
-                Materials.Quantium.getMolten(1 * STACKS),
-                Materials.DraconiumAwakened.getMolten(32 * INGOTS),
-                GGMaterial.extremelyUnstableNaquadah.getMolten(10 * INGOTS),
-                MaterialsAlloy.INDALLOY_140.getFluidStack(1 * STACKS + 36 * INGOTS))
-            .itemOutputs(ItemList.NaquadahFuelRefinery.get(1))
-            .eut(TierEU.RECIPE_UHV)
-            .duration(60 * SECONDS)
-            .addTo(AssemblyLine);
-
         // Advanced Radiation Proof Plate
         GTValues.RA.stdBuilder()
             .metadata(RESEARCH_ITEM, ItemRefer.Radiation_Protection_Plate.get(1))
@@ -695,7 +635,6 @@ public class RecipeLoader {
                 GTOreDictUnificator.get(OrePrefixes.plate, Materials.Osmiridium, 4),
                 GTOreDictUnificator.get(OrePrefixes.plate, Materials.VibrantAlloy, 4),
                 ItemList.Radiation_Proof_Prismatic_Naquadah_Composite_Sheet.get(4))
-            .fluidInputs(MaterialsAlloy.INDALLOY_140.getFluidStack(8 * INGOTS))
             .itemOutputs(ItemRefer.Advanced_Radiation_Protection_Plate.get(1))
             .eut(TierEU.RECIPE_ZPM / 2)
             .duration(50 * SECONDS)
@@ -713,9 +652,6 @@ public class RecipeLoader {
                 GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.NaquadahAlloy, 64),
                 GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.Manyullyn, 64),
                 GGMaterial.orundum.get(OrePrefixes.plate, 4))
-            .fluidInputs(
-                Materials.TungstenSteel.getMolten(8 * INGOTS),
-                MaterialsAlloy.INDALLOY_140.getFluidStack(16 * INGOTS))
             .itemOutputs(ItemRefer.Naquadah_Fuel_Refinery_Casing.get(1))
             .eut(TierEU.RECIPE_ZPM / 2)
             .duration(25 * SECONDS)
@@ -949,16 +885,6 @@ public class RecipeLoader {
             .duration(10 * SECONDS)
             .eut(TierEU.RECIPE_MV)
             .addTo(multiblockChemicalReactorRecipes);
-
-        GTModHandler.addCraftingRecipe(
-            ItemList.UniversalChemicalFuelEngine.get(1),
-            GTModHandler.RecipeBits.REVERSIBLE | GTModHandler.RecipeBits.BUFFERED
-                | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { "TZT", "ALB", "WGW", 'T',
-                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Titanium, 1), 'Z', "circuitUltimate", 'A',
-                ItemList.LargeCombustionEngine.get(1), 'B', ItemList.ExtremeCombustionEngine.get(1), 'L',
-                ItemList.Hull_LuV, 'W', GTOreDictUnificator.get(OrePrefixes.cableGt01, Materials.Naquadah, 1), 'G',
-                GTOreDictUnificator.get(OrePrefixes.gearGt, Materials.Osmium, 1), });
 
         // neutron activator
         GTValues.RA.stdBuilder()
@@ -1277,53 +1203,8 @@ public class RecipeLoader {
             .addTo(AssemblyLine);
 
         // Neutron Accelerator UIV
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, Loaders.NeutronAccelerators[10].copy())
-            .metadata(SCANNING, new Scanning(1 * MINUTES, TierEU.RECIPE_UEV))
-            .itemInputs(
-                ItemRefer.Inverter.get(32),
-                ItemList.Hull_UIV.get(1L),
-                GTOreDictUnificator.get(OrePrefixes.wireGt04, Materials.SuperconductorUIV, 4),
-                MaterialsElements.STANDALONE.CHRONOMATIC_GLASS.getPlate(8),
-                GTOreDictUnificator.get(OrePrefixes.plateDouble, Materials.RadoxPolymer, 16),
-                ItemList.UEV_Coil.get(8),
-                ItemList.Tesseract.get(8),
-                ItemList.Electromagnet_Tengam.get(1),
-                ItemList.Electric_Motor_UIV.get(2),
-                GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Infinity, 16))
-            .fluidInputs(
-                GGMaterial.metastableOganesson.getMolten(12 * INGOTS),
-                Materials.DimensionallyShiftedSuperfluid.getFluid(4_000),
-                Materials.Grade7PurifiedWater.getFluid(16_000))
-            .itemOutputs(Loaders.NeutronAccelerators[11].copy())
-            .eut(TierEU.RECIPE_UIV)
-            .duration(15 * SECONDS)
-            .addTo(AssemblyLine);
 
         // Neutron Accelerator UMV
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, Loaders.NeutronAccelerators[11].copy())
-            .metadata(SCANNING, new Scanning(1 * MINUTES, TierEU.RECIPE_UIV))
-            .itemInputs(
-                ItemRefer.Inverter.get(64),
-                ItemList.Hull_UMV.get(1L),
-                GTOreDictUnificator.get(OrePrefixes.wireGt04, Materials.SuperconductorUMV, 4),
-                MaterialsElements.STANDALONE.CHRONOMATIC_GLASS.getPlate(32),
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.RadoxPolymer, 1),
-                ItemList.UIV_Coil.get(8),
-                ItemList.EnergisedTesseract.get(12),
-                ItemList.Electromagnet_Tengam.get(1),
-                ItemList.Electric_Motor_UMV.get(2),
-                GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Creon, 16),
-                GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Mellion, 16))
-            .fluidInputs(
-                GGMaterial.shirabon.getMolten(3 * INGOTS),
-                Materials.DimensionallyShiftedSuperfluid.getFluid(8_000),
-                Materials.Grade8PurifiedWater.getFluid(16_000))
-            .itemOutputs(Loaders.NeutronAccelerators[12].copy())
-            .eut(TierEU.RECIPE_UMV)
-            .duration(15 * SECONDS)
-            .addTo(AssemblyLine);
 
         GTValues.RA.stdBuilder()
             .itemInputs(
@@ -1367,10 +1248,7 @@ public class RecipeLoader {
                 GTOreDictUnificator.get(OrePrefixes.itemCasing, Materials.Ledox, 2L),
                 GTOreDictUnificator.get(OrePrefixes.gearGt, Materials.CallistoIce, 2L))
             .itemOutputs(ItemList.CasingFridge.get(4))
-            .fluidInputs(
-                Materials.SuperCoolant.getFluid(4000),
-                new FluidStack(TFFluids.fluidCryotheum, 1_000),
-                Materials.TungstenSteel.getMolten(2 * INGOTS))
+            .fluidInputs(Materials.SuperCoolant.getFluid(4000), Materials.TungstenSteel.getMolten(2 * INGOTS))
             .duration(5 * SECONDS)
             .eut(TierEU.RECIPE_ZPM)
             .metadata(PRECISE_ASSEMBLER_CASING_TIER, 1)
@@ -1384,10 +1262,7 @@ public class RecipeLoader {
                 GTOreDictUnificator.get(OrePrefixes.itemCasing, Materials.Netherite, 1L),
                 GTModHandler.getIC2Item("reactorVentDiamond", 1L, 1))
             .itemOutputs(ItemList.CasingHearth.get(4))
-            .fluidInputs(
-                new FluidStack(GTPPFluids.Pyrotheum, 1_000),
-                Materials.TungstenCarbide.getMolten(2 * INGOTS),
-                Materials.PrismaticNaquadah.getMolten(72))
+            .fluidInputs(Materials.TungstenCarbide.getMolten(2 * INGOTS), Materials.PrismaticNaquadah.getMolten(72))
             .duration(5 * SECONDS)
             .eut(TierEU.RECIPE_ZPM)
             .metadata(PRECISE_ASSEMBLER_CASING_TIER, 1)
@@ -1562,7 +1437,6 @@ public class RecipeLoader {
 
         GTValues.RA.stdBuilder()
             .circuit(1)
-            .fluidInputs(MaterialsFluorides.THORIUM_TETRAFLUORIDE.getFluidStack(4_000))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Thorium, 1))
             .fluidOutputs(GGMaterial.thorium232Tetrafluoride.getFluidOrGas(3_000))
             .duration(20 * SECONDS)

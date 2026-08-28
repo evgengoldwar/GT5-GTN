@@ -65,7 +65,6 @@ import gregtech.api.recipe.maps.AlgaePondFrontend;
 import gregtech.api.recipe.maps.AssemblerBackend;
 import gregtech.api.recipe.maps.AssemblyLineFrontend;
 import gregtech.api.recipe.maps.CauldronFrontend;
-import gregtech.api.recipe.maps.ChemicalPlantFrontend;
 import gregtech.api.recipe.maps.ChiselBackend;
 import gregtech.api.recipe.maps.DistillationTowerFrontend;
 import gregtech.api.recipe.maps.EFRBlastingBackend;
@@ -74,16 +73,12 @@ import gregtech.api.recipe.maps.FakeCuttingFrontend;
 import gregtech.api.recipe.maps.FluidCannerBackend;
 import gregtech.api.recipe.maps.FluidOnlyFrontend;
 import gregtech.api.recipe.maps.FormingPressBackend;
-import gregtech.api.recipe.maps.FoundryModuleFrontend;
 import gregtech.api.recipe.maps.FuelBackend;
 import gregtech.api.recipe.maps.FurnaceBackend;
 import gregtech.api.recipe.maps.IceCreamMachineFrontend;
 import gregtech.api.recipe.maps.IsotopeDecayFrontend;
-import gregtech.api.recipe.maps.LargeBoilerFuelBackend;
-import gregtech.api.recipe.maps.LargeBoilerFuelFrontend;
 import gregtech.api.recipe.maps.LargeNEIFrontend;
 import gregtech.api.recipe.maps.MicrowaveBackend;
-import gregtech.api.recipe.maps.MillingFrontend;
 import gregtech.api.recipe.maps.NACRecipeMapBackend;
 import gregtech.api.recipe.maps.OilCrackerBackend;
 import gregtech.api.recipe.maps.PrinterBackend;
@@ -95,12 +90,10 @@ import gregtech.api.recipe.maps.PurificationUnitParticleExtractorFrontend;
 import gregtech.api.recipe.maps.PurificationUnitPhAdjustmentFrontend;
 import gregtech.api.recipe.maps.PurificationUnitPlasmaHeaterFrontend;
 import gregtech.api.recipe.maps.QuantumComputerFrontend;
-import gregtech.api.recipe.maps.QuantumForceTransformerFrontend;
 import gregtech.api.recipe.maps.RecyclerBackend;
 import gregtech.api.recipe.maps.ReplicatorBackend;
 import gregtech.api.recipe.maps.SpaceProjectFrontend;
 import gregtech.api.recipe.maps.SpargeTowerFrontend;
-import gregtech.api.recipe.maps.TGSFrontend;
 import gregtech.api.recipe.maps.ThermalBoilerFrontend;
 import gregtech.api.recipe.maps.TranscendentPlasmaMixerFrontend;
 import gregtech.api.recipe.maps.UnpackagerBackend;
@@ -120,7 +113,6 @@ import gregtech.nei.formatter.FuelSpecialValueFormatter;
 import gregtech.nei.formatter.FusionSpecialValueFormatter;
 import gregtech.nei.formatter.HeatingCoilSpecialValueFormatter;
 import gregtech.nei.formatter.SimpleSpecialValueFormatter;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import mods.railcraft.common.blocks.aesthetics.cube.EnumCube;
 import mods.railcraft.common.items.RailcraftToolItems;
 
@@ -971,18 +963,6 @@ public final class RecipeMaps {
                 aDustAmount = (int) (aCactusSugarCokeAmount / 9);
                 cactusSugarCokeChances[2] = 10000;
             }
-            ItemStack cactusCoke = GregtechItemList.CactusCoke.get(aCactusSugarCokeAmount);
-            ItemStack sugarCoke = GregtechItemList.SugarCoke.get(aCactusSugarCokeAmount);
-            coll.derive()
-                .setInputs(aInput1, aInput2, cactusCoke)
-                .setOutputs(aOutput1, aOutput2, Materials.Ash.getDust(aDustAmount))
-                .setDuration(aDuration * 2 / 3)
-                .setOutputChances(cactusSugarCokeChances);
-            coll.derive()
-                .setInputs(aInput1, aInput2, sugarCoke)
-                .setOutputs(aOutput1, aOutput2, Materials.Ash.getDust(aDustAmount))
-                .setDuration(aDuration * 2 / 3)
-                .setOutputChances(cactusSugarCokeChances);
             if ((aInput1 == null || aInput1.stackSize <= 6) && (aInput2 == null || aInput2.stackSize <= 6)
                 && (aOutput1 == null || aOutput1.stackSize <= 6)
                 && (aOutput2 == null || aOutput2.stackSize <= 6)) {
@@ -1003,16 +983,6 @@ public final class RecipeMaps {
                         .setOutputs(aOutput1, aOutput2, Materials.Ash.getDust(aCoalAmount / 2))
                         .setDuration(aDuration * 20 / 3);
                 }
-                ItemStack cactusCokeBlock = GregtechItemList.BlockCactusCoke.get(aCoalAmount * 2L);
-                ItemStack sugarCokeBlock = GregtechItemList.BlockSugarCoke.get(aCoalAmount * 2L);
-                coll.derive()
-                    .setInputs(aInput1, aInput2, cactusCokeBlock)
-                    .setOutputs(aOutput1, aOutput2, Materials.Ash.getDust(aCoalAmount * 2))
-                    .setDuration(aDuration * 20 / 3);
-                coll.derive()
-                    .setInputs(aInput1, aInput2, sugarCokeBlock)
-                    .setOutputs(aOutput1, aOutput2, Materials.Ash.getDust(aCoalAmount * 2))
-                    .setDuration(aDuration * 20 / 3);
                 if (Thaumcraft.isModLoaded()) {
                     ItemStack alumentum = GTModHandler.getModItem(Thaumcraft.ID, "ItemResource", aCoalAmount * 2L, 0);
                     coll.derive()
@@ -1506,13 +1476,6 @@ public final class RecipeMaps {
         .of("gt.recipe.dieselgeneratorfuel", FuelBackend::new)
         .maxIO(1, 1, 0, 0)
         .builderTransformer(b -> {
-            if (!RecipeMaps.largeBoilerFakeFuels.containsInput(b.getItemInputBasic(0))) {
-                b.copy()
-                    .build()
-                    .ifPresent(
-                        r -> RecipeMaps.largeBoilerFakeFuels.getBackend()
-                            .addDieselGasRecipe(r));
-            }
             if (b.getMetadataOrDefault(FUEL_VALUE, 0) >= 1500) {
                 b.copy()
                     .addTo(RecipeMaps.extremeDieselFuels);
@@ -1528,15 +1491,7 @@ public final class RecipeMaps {
     public static final RecipeMap<FuelBackend> gasTurbineFuels = RecipeMapBuilder
         .of("gt.recipe.gasturbinefuel", FuelBackend::new)
         .maxIO(1, 1, 0, 0)
-        .builderTransformer(b -> {
-            if (!RecipeMaps.largeBoilerFakeFuels.containsInput(b.getItemInputBasic(0))) {
-                b.copy()
-                    .build()
-                    .ifPresent(
-                        r -> RecipeMaps.largeBoilerFakeFuels.getBackend()
-                            .addDieselGasRecipe(r));
-            }
-        })
+        .builderTransformer(b -> {})
         .neiSpecialInfoFormatter(FuelSpecialValueFormatter.INSTANCE)
         .build();
     public static final RecipeMap<FuelBackend> hotFuels = RecipeMapBuilder
@@ -1547,15 +1502,7 @@ public final class RecipeMaps {
     public static final RecipeMap<FuelBackend> denseLiquidFuels = RecipeMapBuilder
         .of("gt.recipe.semifluidboilerfuels", FuelBackend::new)
         .maxIO(1, 1, 0, 0)
-        .builderTransformer(b -> {
-            if (!RecipeMaps.largeBoilerFakeFuels.containsInput(b.getItemInputBasic(0))) {
-                b.copy()
-                    .build()
-                    .ifPresent(
-                        r -> RecipeMaps.largeBoilerFakeFuels.getBackend()
-                            .addDenseLiquidRecipe(r));
-            }
-        })
+        .builderTransformer(b -> {})
         .disableRegisterNEI()
         .build();
     public static final RecipeMap<FuelBackend> plasmaFuels = RecipeMapBuilder
@@ -1592,12 +1539,6 @@ public final class RecipeMaps {
         .of("gt.recipe.extrahugenaquadahreactor", FuelBackend::new)
         .maxIO(1, 1, 0, 0)
         .neiSpecialInfoFormatter(FuelSpecialValueFormatter.INSTANCE)
-        .build();
-    public static final RecipeMap<LargeBoilerFuelBackend> largeBoilerFakeFuels = RecipeMapBuilder
-        .of("gt.recipe.largeboilerfakefuels", LargeBoilerFuelBackend::new)
-        .maxIO(1, 0, 1, 0)
-        .minInputs(0, 0)
-        .frontend(LargeBoilerFuelFrontend::new)
         .build();
     public static final RecipeMap<RecipeMapBackend> nanoForgeRecipes = RecipeMapBuilder.of("gt.recipe.nanoforge")
         .maxIO(6, 2, 3, 0)
@@ -1768,7 +1709,6 @@ public final class RecipeMaps {
         .addSpecialTexture(87, 38, 30, 13, GTUITextures.PICTURE_ARROW_GRAY)
         .dontUseProgressBar()
         .neiTransferRect(87, 38, 30, 13)
-        .frontend(FoundryModuleFrontend::new)
         .neiHandlerInfo(builder -> builder.setHeight(100))
         .build();
 
@@ -1842,9 +1782,6 @@ public final class RecipeMaps {
                             .metadata(
                                 NanochipAssemblyMatrixTierKey.INSTANCE,
                                 r.getMetadata(NanochipAssemblyMatrixTierKey.INSTANCE))
-                            .metadata(
-                                GTRecipeConstants.CIRCUIT_CALIBRATION_TYPE,
-                                r.getMetadata(GTRecipeConstants.CIRCUIT_CALIBRATION_TYPE))
                             .hidden()
                             .build()
                             .orElse(null)));
@@ -1940,7 +1877,6 @@ public final class RecipeMaps {
             inputs.add(catalyst);
             return inputs.toArray(new ItemStack[0]);
         })
-        .frontend(QuantumForceTransformerFrontend::new)
         .build();
     public static final RecipeMap<RecipeMapBackend> chemicalDehydratorRecipes = RecipeMapBuilder
         .of("gt.recipe.chemicaldehydrator")
@@ -1982,7 +1918,6 @@ public final class RecipeMaps {
     public static final RecipeMap<RecipeMapBackend> millingRecipes = RecipeMapBuilder.of("gt.recipe.oremill")
         .maxIO(3, 1, 0, 0)
         .minInputs(1, 0)
-        .frontend(MillingFrontend::new)
         .build();
     public static final RecipeMap<RecipeMapBackend> fissionFuelProcessingRecipes = RecipeMapBuilder
         .of("gt.recipe.fissionfuel")
@@ -2056,7 +1991,6 @@ public final class RecipeMaps {
             return Collections
                 .singletonList(StatCollector.translateToLocalFormatted("GT5U.nei.tier", tier + " - " + materialName));
         })
-        .frontend(ChemicalPlantFrontend::new)
         .build();
     public static final RecipeMap<FuelBackend> rtgFuels = RecipeMapBuilder
         .of("gt.recipe.RTGgenerators", FuelBackend::new)
@@ -2146,7 +2080,6 @@ public final class RecipeMaps {
         .maxIO(4, 4, 0, 0)
         .minInputs(1, 0)
         .useSpecialSlot()
-        .frontend(TGSFrontend::new)
         .build();
     public static final RecipeMap<RecipeMapBackend> multiblockRockBreakerRecipes = RecipeMapBuilder
         .of("gt.recipe.multiblockrockbreaker")

@@ -10,7 +10,6 @@ import static gregtech.api.recipe.RecipeMaps.fluidSolidifierRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
 import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
-import static gregtech.api.recipe.RecipeMaps.quantumForceTransformerRecipes;
 import static gregtech.api.recipe.RecipeMaps.vacuumFreezerRecipes;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
@@ -21,8 +20,6 @@ import static gregtech.api.util.GTRecipeConstants.ADDITIVE_AMOUNT;
 import static gregtech.api.util.GTRecipeConstants.BlastFurnaceWithGas;
 import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 import static gregtech.api.util.GTRecipeConstants.NKE_RANGE;
-import static gregtech.api.util.GTRecipeConstants.QFT_CATALYST;
-import static gregtech.api.util.GTRecipeConstants.QFT_FOCUS_TIER;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 import static gregtech.common.items.MetaGeneratedItem01.registerCauldronCleaningFor;
 
@@ -39,7 +36,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public class NaquadahRecipeLoader {
 
@@ -49,56 +45,8 @@ public class NaquadahRecipeLoader {
         registerCauldronCleaningFor(Materials.Naquadria, GGMaterial.naquadriaEarth.getBridgeMaterial());
 
         // Naquadah (UEV)
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GGMaterial.naquadahEarth.get(OrePrefixes.dust, 32),
-                Materials.Sodium.getDust(64),
-                Materials.Carbon.getDust(1))
-            .itemOutputs(
-                GGMaterial.inertNaquadah.get(OrePrefixes.dust, 1),
-                Materials.Titanium.getDust(64),
-                Materials.Adamantium.getDust(64),
-                Materials.Gallium.getDust(64))
-            .fluidInputs(
-                Materials.Hydrogen.getGas(64_000),
-                Materials.Fluorine.getGas(64_000),
-                Materials.Oxygen.getGas(100))
-            .duration(10 * SECONDS)
-            .eut(GTValues.VP[10])
-            .metadata(QFT_CATALYST, GregtechItemList.SimpleNaquadahCatalyst.get(0))
-            .metadata(QFT_FOCUS_TIER, 2)
-            .addTo(quantumForceTransformerRecipes);
         // Enriched Naquadah (UIV)
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GGMaterial.enrichedNaquadahEarth.get(OrePrefixes.dust, 32),
-                Materials.Zinc.getDust(64),
-                Materials.Carbon.getDust(1))
-            .itemOutputs(GGMaterial.inertEnrichedNaquadah.get(OrePrefixes.dust, 1), Materials.Trinium.getDust(64))
-            .fluidInputs(Materials.SulfuricAcid.getFluid(16_000), Materials.Oxygen.getGas(100))
-            .fluidOutputs(GGMaterial.wasteLiquid.getFluidOrGas(32_000))
-            .duration(10 * SECONDS)
-            .eut(GTValues.VP[11])
-            .metadata(QFT_CATALYST, GregtechItemList.SimpleNaquadahCatalyst.get(0))
-            .metadata(QFT_FOCUS_TIER, 2)
-            .addTo(quantumForceTransformerRecipes);
         // Naquadria (UMV)
-        GTValues.RA.stdBuilder()
-            .itemInputs(GGMaterial.naquadriaEarth.get(OrePrefixes.dust, 32), Materials.Magnesium.getDust(64))
-            .itemOutputs(
-                GGMaterial.inertNaquadria.get(OrePrefixes.dust, 1),
-                Materials.Barium.getDust(64),
-                Materials.Indium.getDust(64),
-                ItemList.NaquadriaSupersolid.get(1))
-            .fluidInputs(
-                Materials.PhosphoricAcid.getFluid(16_000),
-                Materials.SulfuricAcid.getFluid(16_000),
-                Materials.Oxygen.getGas(100))
-            .duration(5 * SECONDS)
-            .eut(GTValues.VP[12])
-            .metadata(QFT_CATALYST, GregtechItemList.AdvancedNaquadahCatalyst.get(0))
-            .metadata(QFT_FOCUS_TIER, 3)
-            .addTo(quantumForceTransformerRecipes);
 
         // Activate Them
 

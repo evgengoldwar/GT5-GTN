@@ -1,8 +1,6 @@
 package gregtech.api.enums;
 
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.render.TextureFactory;
-import gtPlusPlus.core.block.ModBlocks;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
@@ -47,9 +45,7 @@ public class TAE {
 
     public static void finalizeTAE() {
         final int[] aTemp = mFreeSlots.toArray(new int[0]);
-        for (int aFreeSlot : aTemp) {
-            registerTexture(aFreeSlot, TextureFactory.of(ModBlocks.blockCasingsTieredGTPP, 15));
-        }
+        for (int aFreeSlot : aTemp) {}
         for (Int2ObjectMap.Entry<ITexture> entry : mTAE.int2ObjectEntrySet()) {
             Textures.BlockIcons.setCasingTextureForId(entry.getIntKey(), entry.getValue());
         }

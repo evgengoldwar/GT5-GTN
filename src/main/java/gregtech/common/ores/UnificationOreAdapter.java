@@ -31,7 +31,6 @@ import gregtech.api.enums.StoneType;
 import gregtech.api.interfaces.IStoneType;
 import gregtech.common.GTMockWorld;
 import gregtech.common.blocks.GTBlockOre;
-import gtPlusPlus.core.block.base.BlockBaseOre;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
@@ -103,7 +102,7 @@ public class UnificationOreAdapter implements IOreAdapter<Materials> {
     private static boolean isGTOre(Block block) {
         if (block instanceof GTBlockOre) return true;
         if (block instanceof BWMetaGeneratedOres) return true;
-        return block instanceof BlockBaseOre;
+        return false;
     }
 
     private static void init() {

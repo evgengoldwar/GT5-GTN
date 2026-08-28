@@ -19,7 +19,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import bartworks.system.material.Werkstoff;
 import gnu.trove.map.TMap;
 import gnu.trove.map.hash.TCustomHashMap;
 import gnu.trove.strategy.HashingStrategy;
@@ -30,9 +29,6 @@ import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gtPlusPlus.core.material.Material;
-import gtPlusPlus.core.material.MaterialStack;
-import gtPlusPlus.core.util.minecraft.MaterialUtils;
 import gtneioreplugin.plugin.block.BlockDimensionDisplay;
 import gtneioreplugin.util.GT5OreLayerHelper;
 import gtneioreplugin.util.GT5OreSmallHelper;
@@ -343,18 +339,6 @@ public class EyeOfHarmonyRecipe {
             // Otherwise, add value to hashmap entry.
             this.put(material, value);
         }
-
-        void addGTpp(Material mat, double value) {
-            IOreMaterial material = mat.getGTMaterial() != null ? mat.getGTMaterial() : mat;
-            // If key already exists.
-            if (this.containsKey(material)) {
-                this.put(material, value + this.get(material));
-                return;
-            }
-
-            // Otherwise, add value to hashmap entry.
-            this.put(material, value);
-        }
     }
 
     public static void processHelper(HashMapHelper outputMap, Materials material, double mainMultiplier,
@@ -418,87 +402,6 @@ public class EyeOfHarmonyRecipe {
     private static final double GTPP_PRIMARY_MULTIPLIER = (2.0 / 9.0 + 0.1);
     private static final double GTPP_SECONDARY_MULTIPLIER = (1.0 / 9.0);
 
-    public static void processHelperGTpp(HashMapHelper outputMap, Material material, double mainMultiplier,
-        double probability) {
-        if (material == null) return;
-        outputMap.addGTpp(material, 2 * mainMultiplier * probability);
-
-        // Copied from src/main/java/gtPlusPlus/core/material/Material.java
-        Material bonusA = null; // Ni
-        Material bonusB = null; // Tin
-
-        // Setup Bonuses
-        ArrayList<Material> aMatComp = new ArrayList<>(MaterialUtils.getCompoundMaterialsRecursively(material));
-
-        if (aMatComp.size() < 3) {
-            while (aMatComp.size() < 3) {
-                aMatComp.add(material);
-            }
-        }
-
-        final ArrayList<Material> amJ = new ArrayList<>(2);
-        for (Material g : aMatComp) {
-            if (g.hasSolidForm()) {
-                amJ.add(g);
-                if (amJ.size() >= 2) break;
-            }
-        }
-
-        boolean allFailed = false;
-        final ArrayList<MaterialStack> composites = material.getComposites();
-        if (amJ.size() < 2) {
-            allFailed = true;
-            if (!composites.isEmpty() && composites.get(0) != null) {
-                bonusA = composites.get(0)
-                    .getStackMaterial();
-            } else {
-                bonusA = material;
-            }
-
-            // If Secondary Output has no solid output, try the third (If it exists), then the fourth/fifth
-            for (byte i = 1; i < Math.min(composites.size(), 5); i++) {
-                if (composites.get(i) == null) break;
-                bonusB = composites.get(i)
-                    .getStackMaterial();
-                if (bonusB != null && bonusB.hasSolidForm()) {
-                    allFailed = false;
-                    break;
-                }
-            }
-            // If Fifth Output has no solid output, default {see if(allFailed...)}
-        } else {
-            bonusA = amJ.get(0);
-            bonusB = amJ.get(1);
-        }
-
-        // Default out if it's made of fluids or some stuff.
-        if (bonusA == null && material.tier >= 2) {
-            bonusA = material;
-        }
-        // Default out if it's made of fluids or some stuff.
-        if ((allFailed || bonusB == null) && material.tier >= 2) {
-            bonusB = material;
-        }
-
-        // Need two valid outputs
-        if (bonusA != null && bonusA.hasSolidForm()) {
-            outputMap.addGTpp(bonusA, 2 * GTPP_PRIMARY_MULTIPLIER * mainMultiplier * probability);
-        } else outputMap.add(Materials.Stone, 2 * GTPP_PRIMARY_MULTIPLIER * mainMultiplier * probability);
-        if (bonusB != null && bonusB.hasSolidForm()) {
-            outputMap.addGTpp(bonusB, 2 * GTPP_SECONDARY_MULTIPLIER * mainMultiplier * probability);
-        } else outputMap.add(Materials.Stone, 2 * GTPP_SECONDARY_MULTIPLIER * mainMultiplier * probability);
-    }
-
-    public static void processHelperIfPossible(HashMapHelper outputMap, IOreMaterial material, double mainMultiplier,
-        double probability) {
-        if (material instanceof Materials gtMat) processHelper(outputMap, gtMat, mainMultiplier, probability);
-        else if (material instanceof Werkstoff bwMat)
-            processHelper(outputMap, bwMat.getBridgeMaterial(), mainMultiplier, probability);
-        else if (material instanceof Material gtppMat) {
-            processHelperGTpp(outputMap, gtppMat, mainMultiplier, probability);
-        }
-    }
-
     private static ArrayList<Pair<IOreMaterial, Long>> processDimension(
         GT5OreLayerHelper.NormalOreDimensionWrapper normalOreDimWrapper,
         GT5OreSmallHelper.SmallOreDimensionWrapper smallOreDimWrapper, long timeInSeconds) {
@@ -507,21 +410,12 @@ public class EyeOfHarmonyRecipe {
         double mainMultiplier = timeInSeconds * 384.0;
 
         if (normalOreDimWrapper != null) {
-            normalOreDimWrapper.oreVeinToProbabilityInDimension.forEach((veinInfo, probability) -> {
-                processHelperIfPossible(outputMap, veinInfo.mPrimaryVeinMaterial, mainMultiplier, probability);
-                processHelperIfPossible(outputMap, veinInfo.mSecondaryMaterial, mainMultiplier, probability);
-                // 8.0 to replicate void miner getDropsVanillaVeins method yields.
-                processHelperIfPossible(outputMap, veinInfo.mBetweenMaterial, mainMultiplier / 8.0, probability);
-                processHelperIfPossible(outputMap, veinInfo.mSporadicMaterial, mainMultiplier / 8.0, probability);
-            });
+            normalOreDimWrapper.oreVeinToProbabilityInDimension.forEach((veinInfo, probability) -> {});
         }
 
         // Iterate over small ores in dimension and add them, kinda hacky but works and is close enough.
         if (smallOreDimWrapper != null) {
-            smallOreDimWrapper.oreVeinProbabilities.forEach(
-                (veinInfo, probability) -> {
-                    processHelperIfPossible(outputMap, veinInfo.material, mainMultiplier, probability);
-                });
+            smallOreDimWrapper.oreVeinProbabilities.forEach((veinInfo, probability) -> {});
         }
 
         ArrayList<Pair<IOreMaterial, Long>> outputList = new ArrayList<>();
@@ -553,7 +447,6 @@ public class EyeOfHarmonyRecipe {
             final ItemStack dust;
             if (mat instanceof Materials material)
                 dust = NaquadahRecipeOutputs.convert(getUnificatedOreDictStack(material.getDust(1)));
-            else if (mat instanceof Material) dust = ((Material) mat).getDust(1);
             else dust = null;
             if (dust != null) {
                 dustList.merge(dust, pair.getRight(), Long::sum);

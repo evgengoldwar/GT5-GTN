@@ -2,73 +2,28 @@ package gregtech.loaders.postload.recipes;
 
 import static gregtech.api.recipe.RecipeMaps.industrialCokeOvenRecipes;
 import static gregtech.api.recipe.RecipeMaps.pyrolyseRecipes;
-import static gregtech.api.util.GTRecipeBuilder.INGOTS;
-import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
-import gregtech.api.objects.OreDictItemStack;
-import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.fluids.GTPPFluids;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public class CokeAndPyrolyseOven {
 
     public static void postInit() {
         // Wood to Charcoal
         // Try use all woods found
-        GTValues.RA.stdBuilder()
-            .itemInputs(new OreDictItemStack("logWood", 20))
-            .circuit(20)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Charcoal, 24))
-            .fluidInputs(Materials.Steam.getGas(1_000))
-            .fluidOutputs(new FluidStack(GTPPFluids.CoalGas, 1440))
-            .duration(72 * SECONDS)
-            .eut(TierEU.RECIPE_LV)
-            .addTo(pyrolyseRecipes, industrialCokeOvenRecipes);
 
         // Coal to Coke
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Coal, 16))
-            .circuit(22)
-            .itemOutputs(GTOreDictUnificator.get("fuelCoke", 10))
-            .fluidInputs(Materials.Steam.getGas(1_000))
-            .fluidOutputs(new FluidStack(GTPPFluids.CoalGas, 20 * INGOTS))
-            .duration(36 * SECONDS)
-            .eut(TierEU.RECIPE_MV)
-            .addTo(pyrolyseRecipes, industrialCokeOvenRecipes);
 
         // Cactus and Sugar charcoal/coke, copied over from the ICO and adjusted for pyrolyse (*20 input and output,
         // duration*1.25 per item.)
-        addCokingRecipes(
-            new ItemStack(Blocks.cactus, 20),
-            GregtechItemList.CactusCharcoal.get(20),
-            GregtechItemList.CactusCoke.get(20));
-        addCokingRecipes(
-            new ItemStack(Items.reeds, 20),
-            GregtechItemList.SugarCharcoal.get(20),
-            GregtechItemList.SugarCoke.get(20));
 
         // Coke & Coal
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.gem, Materials.Coal, 12),
-                GTOreDictUnificator.get("fuelCoke", 6))
-            .itemOutputs(GTOreDictUnificator.get("fuelCoke", 14))
-            .fluidInputs(Materials.Steam.getGas(2_000))
-            .fluidOutputs(new FluidStack(GTPPFluids.CoalGas, 5040))
-            .eut(TierEU.RECIPE_HV / 2)
-            .duration(1 * MINUTES)
-            .addTo(industrialCokeOvenRecipes);
+
     }
 
     private static void addCokingRecipes(ItemStack plant, ItemStack charcoal, ItemStack coke) {

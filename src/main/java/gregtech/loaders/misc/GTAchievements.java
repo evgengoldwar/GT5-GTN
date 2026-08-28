@@ -175,7 +175,6 @@ public class GTAchievements {
         registerAchievement("gtmonosilicon", -5, -10, ItemList.Circuit_Silicon_Ingot.get(1), "stepforward", false);
         registerAchievement("gtlogicwafer", -7, -10, ItemList.Circuit_Wafer_ILC.get(1), "gtmonosilicon", false);
         registerAchievement("gtlogiccircuit", -9, -10, ItemList.Circuit_Basic.get(1), "gtlogicwafer", false);
-        registerAchievement("gtcleanroom", -11, -10, ItemList.Machine_Multi_Cleanroom.get(1), "gtlogiccircuit", false);
         registerAchievement("energyflow", -13, -10, ItemList.Circuit_Nanoprocessor.get(1), "gtcleanroom", false);
         registerAchievement(
             "gtquantumprocessor",
@@ -210,13 +209,6 @@ public class GTAchievements {
             "bronze",
             false);
         registerAchievement("highpressure", 4, 2, ItemList.Machine_Steel_Boiler.get(1), "steel", false);
-        registerAchievement(
-            "extremepressure",
-            4,
-            4,
-            ItemList.Machine_Multi_LargeBoiler_Steel.get(1),
-            "highpressure",
-            false);
         registerAchievement("cheapermac", 6, 1, ItemList.Machine_LV_Hammer.get(1), "steel", false);
         registerAchievement(
             "complexalloys",
@@ -248,7 +240,6 @@ public class GTAchievements {
         registerAchievement("batterys", 6, -4, ItemList.Battery_Buffer_2by2_MV.get(1), "steampower", false);
         registerAchievement("badweather", 6, -8, ItemList.Casing_FireHazard.get(1), "steampower", false);
         registerAchievement("electricproblems", 7, -7, ItemList.Casing_ExplosionHazard.get(1), "steampower", false);
-        registerAchievement("ebf", 8, -6, ItemList.Machine_Multi_BlastFurnace.get(1), "steampower", false);
         registerAchievement("energyhatch", 12, -6, ItemList.Hatch_Energy_LV.get(1), "ebf", false);
 
         registerAchievement(
@@ -258,8 +249,6 @@ public class GTAchievements {
             GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Aluminium, 1L),
             "steel",
             false);
-        registerAchievement("highpowersmelt", 8, 2, ItemList.Machine_Multi_Furnace.get(1), "gtaluminium", false);
-        registerAchievement("oilplant", 8, 4, ItemList.Distillation_Tower.get(1), "highpowersmelt", false);
         registerAchievement("upgradeebf", 8, -2, ItemList.Hatch_Energy_MV.get(1), "gtaluminium", false);
         registerAchievement("maintainance", 10, -2, ItemList.Hatch_Maintenance.get(1), "upgradeebf", false);
 
@@ -323,9 +312,7 @@ public class GTAchievements {
             "upgrade4",
             false);
         registerAchievement("conducting", 14, 6, ItemList.Casing_Coil_Superconductor.get(1), "upgrade3", false);
-        registerAchievement("fusion", 15, 7, ItemList.FusionComputer_LuV.get(1), "tungstensteel", false);
         registerAchievement("higherefficency", 15, 9, ItemList.Generator_Plasma_EV.get(1), "fusion", false);
-        registerAchievement("advancing", 13, 7, ItemList.FusionComputer_ZPMV.get(1), "fusion", false);
 
         registerAchievement("stargateliquid", 11, 9, ItemList.Generator_Plasma_IV.get(1), "advancing", false);
         registerAchievement("tothelimit", 13, 9, ItemList.Generator_Plasma_IV.get(1), "advancing", false);
@@ -346,7 +333,6 @@ public class GTAchievements {
             GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Naquadria, 1L),
             "over9000",
             false);
-        registerAchievement("denseaspossible", 6, 10, ItemList.FusionComputer_UV.get(1), "finalpreparations", false);
 
         registerAchievement("zpmage", 8, 10, ItemList.Energy_Module.get(1), "denseaspossible", false);
         registerAchievement("uvage", 10, 10, ItemList.Energy_Cluster.get(1), "zpmage", false);

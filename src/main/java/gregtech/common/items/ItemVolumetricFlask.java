@@ -31,7 +31,6 @@ import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 
 import com.cleanroommc.modularui.api.IGuiHolder;
-import com.cleanroommc.modularui.factory.GuiFactories;
 import com.cleanroommc.modularui.factory.PlayerInventoryGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.screen.ModularScreen;
@@ -43,9 +42,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Materials;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.util.GTUtility;
-import gregtech.common.gui.modularui.item.VolumetricFlaskGui;
-import gregtech.crossmod.backhand.Backhand;
-import gtPlusPlus.xmod.gregtech.common.helpers.VolumetricFlaskHelper;
 import ic2.core.util.LiquidUtil;
 
 public class ItemVolumetricFlask extends GTGenericItem
@@ -67,16 +63,6 @@ public class ItemVolumetricFlask extends GTGenericItem
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (!world.isRemote && VolumetricFlaskHelper.isFlaskEmpty(stack)
-            && getMovingObjectPositionFromPlayer(world, player, true) == null) {
-            if (stack == Backhand.getOffhandItem(player)) {
-                GuiFactories.playerInventory()
-                    .openFromPlayerInventory(player, Backhand.getOffhandSlot(player));
-            } else {
-                GuiFactories.playerInventory()
-                    .openFromMainHand(player);
-            }
-        }
         return super.onItemRightClick(stack, world, player);
     }
 
@@ -131,7 +117,7 @@ public class ItemVolumetricFlask extends GTGenericItem
 
     @Override
     public int getCapacity(ItemStack stack) {
-        return VolumetricFlaskHelper.getFlaskCapacity(stack);
+        return 0;
     }
 
     @Override
@@ -141,17 +127,15 @@ public class ItemVolumetricFlask extends GTGenericItem
         iconWindow = aIconRegister.registerIcon(GregTech.getResourcePath("gt." + unlocalFlaskName + ".window"));
     }
 
-    public void setCapacity(ItemStack stack, int capacity) {
-        VolumetricFlaskHelper.setFlaskCapacity(stack, capacity);
-    }
+    public void setCapacity(ItemStack stack, int capacity) {}
 
     @Override
     public FluidStack getFluid(ItemStack stack) {
-        return VolumetricFlaskHelper.getFlaskFluid(stack);
+        return null;
     }
 
     public void setFluid(ItemStack stack, FluidStack fluidStack) {
-        VolumetricFlaskHelper.setFluid(stack, fluidStack);
+
     }
 
     @Override
@@ -286,7 +270,7 @@ public class ItemVolumetricFlask extends GTGenericItem
 
     @Override
     public ModularPanel buildUI(PlayerInventoryGuiData data, PanelSyncManager syncManager, UISettings settings) {
-        return new VolumetricFlaskGui(data).build();
+        return null;
     }
 
     @Override

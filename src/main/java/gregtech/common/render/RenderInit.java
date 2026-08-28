@@ -15,7 +15,6 @@ import gregtech.GTLoggers;
 import gregtech.api.enums.Textures;
 import gregtech.common.render.shader.ShaderProfile;
 import gregtech.common.render.shader.SharedShaders;
-import gregtech.common.tileentities.machines.multi.foundry.MTEExoFoundry;
 
 public final class RenderInit implements IResourceManagerReloadListener {
 
@@ -47,7 +46,6 @@ public final class RenderInit implements IResourceManagerReloadListener {
         onResourceReload(DroneRender::reload);
         onResourceReload(WormholeRenderer::reload);
         onResourceReload(BlackholeRenderer::reload);
-        onResourceReload(MTEExoFoundry::reloadRender);
 
         ((IReloadableResourceManager) Minecraft.getMinecraft()
             .getResourceManager()).registerReloadListener(INSTANCE);

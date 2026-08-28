@@ -83,7 +83,6 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.items.behaviors.BehaviourDataOrb;
-import gtPlusPlus.core.fluids.GTPPFluids;
 
 public class AdditionalRecipes {
 
@@ -273,11 +272,8 @@ public class AdditionalRecipes {
                 .metadata(FUEL_VALUE, fuel.getRight())
                 .addTo(BartWorksRecipeMaps.acidGenFuels);
         }
-        List<Pair<Fluid, Integer>> liquidOtherFuels = Arrays.asList(
-            ImmutablePair.of(GTPPFluids.IndustrialStrengthHydrofluoricAcid, 320),
-            ImmutablePair.of(GTPPFluids.IndustrialStrengthHydrogenChloride, 224),
-            ImmutablePair.of(GTPPFluids.PropionicAcid, 150),
-            ImmutablePair.of(Materials.Redstone.mStandardMoltenFluid, 40));
+        List<Pair<Fluid, Integer>> liquidOtherFuels = Arrays
+            .asList(ImmutablePair.of(Materials.Redstone.mStandardMoltenFluid, 40));
         for (Pair<Fluid, Integer> otherFuel : liquidOtherFuels) {
             GTValues.RA.stdBuilder()
                 .itemInputs(

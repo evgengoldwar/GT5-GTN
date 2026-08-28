@@ -7,8 +7,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import gregtech.common.tileentities.machines.multi.MTEHeatExchanger;
-
 public class LHECoolantRegistry {
 
     private static final Map<String, LHECoolantInfo> lheCoolants = new HashMap<>();

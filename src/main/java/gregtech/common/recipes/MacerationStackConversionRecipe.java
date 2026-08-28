@@ -1,5 +1,6 @@
 package gregtech.common.recipes;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -7,15 +8,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
-
-import gregtech.api.enums.ItemList;
 import gregtech.api.util.GTUtility;
-import gregtech.common.blocks.ItemMachines;
-import gregtech.common.tileentities.machines.multi.MTEIndustrialMacerator;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialMaceratorLegacy;
 
 // TODO: Remove in 2.10 when old macerator controller is removed
 public class MacerationStackConversionRecipe implements IRecipe {
@@ -73,8 +67,6 @@ public class MacerationStackConversionRecipe implements IRecipe {
         for (int i = 0; i < size; i++) {
             ItemStack stack = inv.getStackInSlot(i);
 
-            if (!isOldMacerationStack(stack)) continue;
-
             return GTUtility.copyAmount(1, stack);
         }
 
@@ -82,18 +74,6 @@ public class MacerationStackConversionRecipe implements IRecipe {
     }
 
     public static ItemStack copyUpgradeChip(@NotNull ItemStack original) {
-        ItemStack stack = ItemList.MacerationStack.get(1);
-        if (!original.hasTagCompound() || !original.getTagCompound()
-            .hasKey(MTEIndustrialMacerator.TIER)) return stack;
-        ItemStackNBT.setByte(
-            stack,
-            MTEIndustrialMacerator.TIER,
-            original.getTagCompound()
-                .getByte(MTEIndustrialMacerator.TIER));
-        return stack;
-    }
-
-    public static boolean isOldMacerationStack(@Nullable ItemStack stack) {
-        return ItemMachines.getMetaTileEntity(stack) instanceof MTEIndustrialMaceratorLegacy;
+        return new ItemStack(Blocks.stone);
     }
 }

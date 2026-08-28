@@ -12,7 +12,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import bartworks.common.loaders.ItemRegistry;
-import bartworks.system.material.WerkstoffLoader;
 import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -21,8 +20,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.MaterialMisc;
-import gtPlusPlus.core.material.MaterialsAlloy;
 
 public class FormingPressRecipes implements Runnable {
 
@@ -235,55 +232,6 @@ public class FormingPressRecipes implements Runnable {
             .itemOutputs(ItemList.Food_Raw_Baguette.get(1L))
             .duration(19 * SECONDS + 4 * TICKS)
             .eut(4)
-            .addTo(formingPressRecipes);
-
-        // Cutting Sawblades
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                MaterialsAlloy.TUNGSTEN_TITANIUM_CARBIDE.getGear(16),
-                GGMaterial.marM200.get(OrePrefixes.plate, 8),
-                WerkstoffLoader.AdemicSteel.get(OrePrefixes.ring, 2),
-                GTOreDictUnificator.get(OrePrefixes.screw, Materials.TungstenSteel, 16L))
-            .fluidInputs(Materials.SolderingAlloy.getMolten(10 * INGOTS))
-            .itemOutputs(ItemList.T1Sawblade.get(1))
-            .duration(120 * SECONDS)
-            .eut(TierEU.RECIPE_IV)
-            .addTo(formingPressRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.gear, Materials.MysteriousCrystal, 16),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.NaquadahAlloy, 8),
-                WerkstoffLoader.HDCS.get(OrePrefixes.ring, 2),
-                GTOreDictUnificator.get(OrePrefixes.screw, Materials.PrismaticNaquadah, 16L))
-            .fluidInputs(MaterialsAlloy.INDALLOY_140.getFluidStack(10 * INGOTS))
-            .itemOutputs(ItemList.T2Sawblade.get(1))
-            .duration(120 * SECONDS)
-            .eut(TierEU.RECIPE_ZPM)
-            .addTo(formingPressRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.gear, Materials.Neutronium, 16),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Infinity, 8),
-                GGMaterial.tairitsu.get(OrePrefixes.ring, 2),
-                GTOreDictUnificator.get(OrePrefixes.screw, Materials.ElectrumFlux, 16L))
-            .fluidInputs(MaterialMisc.MUTATED_LIVING_SOLDER.getFluidStack(10 * INGOTS))
-            .itemOutputs(ItemList.T3Sawblade.get(1))
-            .duration(120 * SECONDS)
-            .eut(TierEU.RECIPE_UHV)
-            .addTo(formingPressRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.gear, Materials.TranscendentMetal, 16),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.ProtoHalkonite, 8),
-                GTOreDictUnificator.get(OrePrefixes.ring, Materials.Churitsu, 2),
-                GGMaterial.metastableOganesson.get(OrePrefixes.screw, 16))
-            .fluidInputs(Materials.DimensionallyShiftedSuperfluid.getFluid(10 * INGOTS))
-            .itemOutputs(ItemList.T4Sawblade.get(1))
-            .duration(120 * SECONDS)
-            .eut(TierEU.RECIPE_UIV)
             .addTo(formingPressRecipes);
 
         // Hexanite Borosilicate Glass

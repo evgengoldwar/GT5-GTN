@@ -29,7 +29,6 @@ import gregtech.api.enums.TierEU;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.MaterialsElements;
 
 public class FissionFuelLoader implements Runnable {
 
@@ -131,49 +130,6 @@ public class FissionFuelLoader implements Runnable {
                 .eut(48)
                 .addTo(thermalCentrifugeRecipes);
 
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodThorium.get(8))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Thorium.getDust(2),
-                    MaterialsElements.getInstance().THORIUM232.getDust(1),
-                    Materials.Lutetium.getDustSmall(1),
-                    MaterialsElements.getInstance().POLONIUM.getSmallDust(1),
-                    MaterialsElements.getInstance().THALLIUM.getTinyDust(1))
-                .outputChances(100_00, 100_00, 50_00, 50_00, 50_00, 25_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(30))
-                .duration(2 * MINUTES + 5 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodThorium2.get(4))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Thorium.getDust(2),
-                    MaterialsElements.getInstance().THORIUM232.getDust(1),
-                    Materials.Lutetium.getDustSmall(1),
-                    MaterialsElements.getInstance().POLONIUM.getSmallDust(1),
-                    MaterialsElements.getInstance().THALLIUM.getTinyDust(1))
-                .outputChances(100_00, 100_00, 50_00, 50_00, 50_00, 25_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(30))
-                .duration(2 * MINUTES + 5 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodThorium4.get(2))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Thorium.getDust(2),
-                    MaterialsElements.getInstance().THORIUM232.getDust(1),
-                    Materials.Lutetium.getDustSmall(1),
-                    MaterialsElements.getInstance().POLONIUM.getSmallDust(1),
-                    MaterialsElements.getInstance().THALLIUM.getTinyDust(1))
-                .outputChances(100_00, 100_00, 50_00, 50_00, 50_00, 25_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(30))
-                .duration(2 * MINUTES + 5 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
-
             // Uranium
             GTValues.RA.stdBuilder()
                 .itemInputs(ItemList.IC2_Uranium_238.get(6), ItemList.IC2_Uranium_235_Small.get(3))
@@ -242,49 +198,6 @@ public class FissionFuelLoader implements Runnable {
                 .eut(TierEU.RECIPE_LV)
                 .addTo(thermalCentrifugeRecipes);
 
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodUranium.get(8))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Uranium.getDust(2),
-                    MaterialsElements.getInstance().URANIUM232.getSmallDust(1),
-                    MaterialsElements.getInstance().URANIUM233.getSmallDust(1),
-                    Materials.Uranium235.getDustSmall(1),
-                    Materials.Plutonium.getDustTiny(1))
-                .outputChances(100_00, 100_00, 10_00, 10_00, 10_00, 5_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(60))
-                .duration(4 * MINUTES + 10 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodUranium2.get(4))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Uranium.getDust(2),
-                    MaterialsElements.getInstance().URANIUM232.getSmallDust(1),
-                    MaterialsElements.getInstance().URANIUM233.getSmallDust(1),
-                    Materials.Uranium235.getDustSmall(1),
-                    Materials.Plutonium.getDustTiny(1))
-                .outputChances(100_00, 100_00, 10_00, 10_00, 10_00, 5_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(60))
-                .duration(4 * MINUTES + 10 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodUranium4.get(2))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Uranium.getDust(2),
-                    MaterialsElements.getInstance().URANIUM232.getSmallDust(1),
-                    MaterialsElements.getInstance().URANIUM233.getSmallDust(1),
-                    Materials.Uranium235.getDustSmall(1),
-                    Materials.Plutonium.getDustTiny(1))
-                .outputChances(100_00, 100_00, 10_00, 10_00, 10_00, 5_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(60))
-                .duration(4 * MINUTES + 10 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
-
             // MOX
             GTValues.RA.stdBuilder()
                 .itemInputs(ItemList.IC2_Uranium_238.get(6), ItemList.IC2_Plutonium.get(3))
@@ -351,48 +264,6 @@ public class FissionFuelLoader implements Runnable {
                 .eut(TierEU.RECIPE_LV)
                 .addTo(thermalCentrifugeRecipes);
 
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodMOX.get(8))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Plutonium.getDust(2),
-                    Materials.Plutonium241.getDustTiny(1),
-                    Materials.Plutonium.getDustTiny(1),
-                    MaterialsElements.getInstance().PLUTONIUM238.getTinyDust(1),
-                    Materials.Plutonium.getDustTiny(1))
-                .outputChances(100_00, 100_00, 5_00, 5_00, 5_00, 5_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(90))
-                .duration(6 * MINUTES + 15 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodMOX2.get(4))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Plutonium.getDust(2),
-                    Materials.Plutonium241.getDustTiny(1),
-                    Materials.Plutonium.getDustTiny(1),
-                    MaterialsElements.getInstance().PLUTONIUM238.getTinyDust(1),
-                    Materials.Plutonium.getDustTiny(1))
-                .outputChances(100_00, 100_00, 5_00, 5_00, 5_00, 5_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(90))
-                .duration(6 * MINUTES + 15 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.DepletedRodMOX4.get(2))
-                .itemOutputs(
-                    ItemList.IC2_Fuel_Rod_Empty.get(8),
-                    Materials.Plutonium.getDust(2),
-                    Materials.Plutonium241.getDustTiny(1),
-                    Materials.Plutonium.getDustTiny(1),
-                    MaterialsElements.getInstance().PLUTONIUM238.getTinyDust(1),
-                    Materials.Plutonium.getDustTiny(1))
-                .outputChances(100_00, 100_00, 5_00, 5_00, 5_00, 5_00)
-                .fluidOutputs(WerkstoffLoader.Krypton.getFluidOrGas(90))
-                .duration(6 * MINUTES + 15 * SECONDS)
-                .eut(TierEU.RECIPE_IV)
-                .addTo(centrifugeRecipes);
         }
 
         // High Density Uranium

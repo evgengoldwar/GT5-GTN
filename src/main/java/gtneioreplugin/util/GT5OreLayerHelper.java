@@ -37,16 +37,9 @@ public class GT5OreLayerHelper {
             OreLayerWrapper wrapper = new OreLayerWrapper(mix.oreMixBuilder);
             byName.put(mix.oreMixBuilder.oreMixName, wrapper);
 
-            for (String dim : wrapper.abbrDimNames) {
-                NormalOreDimensionWrapper dimensionOres = byDim.getOrDefault(dim, new NormalOreDimensionWrapper());
-                dimensionOres.oreVeins.add(wrapper);
-                byDim.put(dim, dimensionOres);
-            }
         }
 
         // Calculate probabilities for each dim.
-        byDim.values()
-            .forEach(NormalOreDimensionWrapper::calculateWeights);
 
         ORE_VEINS_BY_NAME = ImmutableMap.copyOf(byName);
         ORE_VEINS_BY_DIM = ImmutableMap.copyOf(byDim);

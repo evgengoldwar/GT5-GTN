@@ -11,7 +11,6 @@ import static gregtech.api.util.GTRecipeConstants.FUSION_THRESHOLD;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.TierEU;
-import gtPlusPlus.core.material.MaterialsElements;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
 public class FusionReactorRecipes implements Runnable {
@@ -291,9 +290,7 @@ public class FusionReactorRecipes implements Runnable {
             .addTo(fusionRecipes); // FT3
 
         GTValues.RA.stdBuilder()
-            .fluidInputs(
-                Materials.Cobalt.getMolten(1 * INGOTS),
-                MaterialsElements.getInstance().NEON.getFluidStack(1 * INGOTS))
+            .fluidInputs(Materials.Cobalt.getMolten(1 * INGOTS))
             .fluidOutputs(Materials.Rubidium.getMolten(1 * INGOTS))
             .duration(1 * SECONDS + 4 * TICKS)
             .eut(98304)

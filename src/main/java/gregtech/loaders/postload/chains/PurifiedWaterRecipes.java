@@ -7,22 +7,14 @@ import static gregtech.api.recipe.RecipeMaps.chemicalBathRecipes;
 import static gregtech.api.recipe.RecipeMaps.distillationTowerRecipes;
 import static gregtech.api.recipe.RecipeMaps.laserEngraverRecipes;
 import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
-import static gregtech.api.recipe.RecipeMaps.plasmaForgeRecipes;
 import static gregtech.api.recipe.RecipeMaps.purificationClarifierRecipes;
 import static gregtech.api.recipe.RecipeMaps.purificationDegasifierRecipes;
 import static gregtech.api.recipe.RecipeMaps.purificationFlocculationRecipes;
 import static gregtech.api.recipe.RecipeMaps.purificationOzonationRecipes;
-import static gregtech.api.recipe.RecipeMaps.purificationParticleExtractionRecipes;
 import static gregtech.api.recipe.RecipeMaps.purificationPhAdjustmentRecipes;
 import static gregtech.api.recipe.RecipeMaps.purificationPlasmaHeatingRecipes;
 import static gregtech.api.recipe.RecipeMaps.purificationUVTreatmentRecipes;
-import static gregtech.api.util.GTRecipeBuilder.INGOTS;
-import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeConstants.AssemblyLine;
-import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
-import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
-import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -38,10 +30,8 @@ import gregtech.api.recipe.maps.PurificationUnitParticleExtractorFrontend;
 import gregtech.api.recipe.metadata.PurificationPlantBaseChanceKey;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gregtech.api.util.recipe.Scanning;
 import gregtech.common.tileentities.machines.multi.purification.MTEPurificationPlant;
 import gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitUVTreatment;
-import gtPlusPlus.core.material.Particle;
 
 public class PurifiedWaterRecipes {
 
@@ -299,78 +289,8 @@ public class PurifiedWaterRecipes {
         }
 
         // Initial aligned quark catalysts, these are not meant to be done often, and simply exist to get you started
-        final ItemStack[] quarks = new ItemStack[] { // make sure these are in the same order as the list above
-            Particle.getBaseParticle(Particle.UP), Particle.getBaseParticle(Particle.DOWN),
-            Particle.getBaseParticle(Particle.BOTTOM), Particle.getBaseParticle(Particle.TOP),
-            Particle.getBaseParticle(Particle.STRANGE), Particle.getBaseParticle(Particle.CHARM) };
 
-        for (int i = 0; i < catalystInputs.length; ++i) {
-            GTValues.RA.stdBuilder()
-                .itemInputs(ItemList.Quark_Catalyst_Housing.get(1), quarks[i])
-                .fluidInputs(Materials.ExcitedDTRC.getFluid(10_000))
-                .itemOutputs(catalystInputs[i])
-                .fluidOutputs(Materials.DTR.getFluid(5_000))
-                .metadata(COIL_HEAT, 10800)
-                .eut(TierEU.RECIPE_UMV)
-                .duration(5 * MINUTES)
-                .addTo(plasmaForgeRecipes);
-        }
+        // Recipe for quark catalyst housin
 
-        // Recipe for quark catalyst housing
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, ItemList.Electromagnet_Tengam.get(1))
-            .metadata(SCANNING, new Scanning(2 * MINUTES, TierEU.RECIPE_UHV))
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Neutronium, 16),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Infinity, 16),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Tritanium, 16),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.CosmicNeutronium, 16),
-                GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.Neutronium, 64),
-                GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.Infinity, 64),
-                GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.Tritanium, 64),
-                GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.CosmicNeutronium, 64),
-                new Object[] { OrePrefixes.circuit.get(Materials.UHV), 16 },
-                new Object[] { OrePrefixes.circuit.get(Materials.UEV), 8 },
-                ItemList.Field_Generator_UEV.get(1))
-            .fluidInputs(
-                Materials.Neutronium.getMolten(16 * INGOTS),
-                Materials.Infinity.getMolten(16 * INGOTS),
-                Materials.Tritanium.getMolten(16 * INGOTS),
-                Materials.CosmicNeutronium.getMolten(16 * INGOTS))
-            .itemOutputs(ItemList.Quark_Catalyst_Housing.get(1))
-            .eut(TierEU.RECIPE_UIV)
-            .duration(60 * SECONDS)
-            .addTo(AssemblyLine);
-
-        GTValues.RA.stdBuilder()
-            // Fake item inputs
-            .itemInputs(catalystInputs)
-            .fluidInputs(Materials.Grade7PurifiedWater.getFluid(1_000))
-            .fluidOutputs(
-                Materials.Grade8PurifiedWater.getFluid(900),
-                Materials.StableBaryonicMatter.getFluid(extraBaryonicOutput))
-            .itemOutputs(ItemList.Quark_Creation_Catalyst_Unaligned.get(2L), Particle.getBaseParticle(Particle.UNKNOWN))
-            .outputChances(10000, 100)
-            .ignoreCollision()
-            .duration(duration)
-            .eut(TierEU.RECIPE_UEV)
-            .metadata(BASE_CHANCE, 0.0f)
-            .fake()
-            .addTo(purificationParticleExtractionRecipes);
-
-        // real recipe
-        GTValues.RA.stdBuilder()
-            .fluidInputs(Materials.Grade7PurifiedWater.getFluid(1_000))
-            .fluidOutputs(
-                Materials.Grade8PurifiedWater.getFluid(900),
-                Materials.StableBaryonicMatter.getFluid(extraBaryonicOutput))
-            .itemOutputs(ItemList.Quark_Creation_Catalyst_Unaligned.get(2L), Particle.getBaseParticle(Particle.UNKNOWN))
-            .outputChances(10000, 100)
-            .ignoreCollision()
-            .duration(duration)
-            .eut(TierEU.RECIPE_UEV)
-            .metadata(BASE_CHANCE, 0.0f)
-            .hidden()
-            .addTo(purificationParticleExtractionRecipes);
     }
 }

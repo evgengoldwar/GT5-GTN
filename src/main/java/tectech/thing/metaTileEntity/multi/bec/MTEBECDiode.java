@@ -32,7 +32,6 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import gregtech.api.enums.CondensateType;
 import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.Textures;
 import gregtech.api.enums.TierEU;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.ITexture;
@@ -41,7 +40,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.StructureWrapperTooltipBuilder;
 import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.IGTHatchAdder;
@@ -104,15 +102,6 @@ public class MTEBECDiode extends MTEBECMultiblockBase<MTEBECDiode> implements IP
     @Override
     protected ITexture getCasingTexture() {
         return ElectromagneticallyIsolatedCasing.getCasingTexture();
-    }
-
-    @Override
-    protected ITexture getActiveTexture() {
-        return TextureFactory.builder()
-            .addIcon(Textures.BlockIcons.BEC_MAXWELL_GATE_ACTIVE)
-            .extFacing()
-            .glow()
-            .build();
     }
 
     @Override

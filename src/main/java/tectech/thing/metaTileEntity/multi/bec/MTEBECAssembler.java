@@ -32,7 +32,6 @@ import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.NaniteTier;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -41,7 +40,6 @@ import gregtech.api.metatileentity.implementations.MTEHatchNanite;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.StructureWrapperTooltipBuilder;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.IGTHatchAdder;
@@ -186,17 +184,8 @@ public class MTEBECAssembler extends MTEBECMultiblockBase<MTEBECAssembler> {
     }
 
     @Override
-    protected ITexture getActiveTexture() {
-        return TextureFactory.builder()
-            .addIcon(Textures.BlockIcons.BEC_ASSEMBLER_ACTIVE)
-            .extFacing()
-            .glow()
-            .build();
-    }
-
-    @Override
     public RecipeMap<?> getRecipeMap() {
-        return TecTechRecipeMaps.condensateAssemblingRecipes;
+        return TecTechRecipeMaps.condensateGeneratorRecipes;
     }
 
     @Override

@@ -35,7 +35,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.OCMethod;
@@ -43,7 +42,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.StructureWrapperTooltipBuilder;
 import gregtech.api.util.IGTHatchAdder;
 import gregtech.api.util.IntFraction;
@@ -118,15 +116,6 @@ public class MTEBECStorage extends MTEBECMultiblockBase<MTEBECStorage> implement
         super.clearHatches();
 
         condensateDetectors.clear();
-    }
-
-    @Override
-    protected ITexture getActiveTexture() {
-        return TextureFactory.builder()
-            .addIcon(Textures.BlockIcons.BEC_STORAGE_ACTIVE)
-            .extFacing()
-            .glow()
-            .build();
     }
 
     @Override

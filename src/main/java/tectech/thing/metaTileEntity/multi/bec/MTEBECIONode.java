@@ -46,7 +46,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.NaniteTier;
-import gregtech.api.enums.Textures.BlockIcons;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.OCMethod;
@@ -57,7 +56,6 @@ import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.StructureWrapperTooltipBuilder;
 import gregtech.api.util.GTDataUtils;
 import gregtech.api.util.GTRecipe;
@@ -245,17 +243,8 @@ public class MTEBECIONode extends MTEBECMultiblockBase<MTEBECIONode> implements 
     }
 
     @Override
-    protected ITexture getActiveTexture() {
-        return TextureFactory.builder()
-            .addIcon(BlockIcons.BEC_IONODE_ACTIVE)
-            .extFacing()
-            .glow()
-            .build();
-    }
-
-    @Override
     public RecipeMap<?> getRecipeMap() {
-        return TecTechRecipeMaps.condensateAssemblingRecipes;
+        return TecTechRecipeMaps.condensateGeneratorRecipes;
     }
 
     @Override

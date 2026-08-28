@@ -10,7 +10,6 @@ import cpw.mods.fml.common.ProgressManager;
 import tectech.TecTech;
 import tectech.loader.gui.CreativeTabTecTech;
 import tectech.loader.recipe.BaseRecipeLoader;
-import tectech.loader.recipe.ResearchStationAssemblyLine;
 import tectech.loader.thing.CoverLoader;
 import tectech.loader.thing.MachineLoader;
 import tectech.loader.thing.ThingsLoader;
@@ -68,7 +67,5 @@ public final class MainLoader {
         TecTech.LOGGER.info("Recipe Init Done");
     }
 
-    public static void onLoadCompleted() {
-        new ResearchStationAssemblyLine().runLateRecipes();
-    }
+    public static void onLoadCompleted() {}
 }

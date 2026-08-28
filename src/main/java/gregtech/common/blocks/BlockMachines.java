@@ -63,7 +63,6 @@ import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.IIconTexture;
 import gregtech.common.tileentities.storage.MTEDigitalTankBase;
 import gregtech.common.tileentities.storage.MTEQuantumChest;
-import gtPlusPlus.xmod.gregtech.common.tileentities.redstone.MTERedstoneLamp;
 
 @Optional.Interface(iface = "com.cricketcraft.chisel.api.IFacade", modid = Mods.ModIDs.CHISEL_API)
 public class BlockMachines extends GTGenericBlock implements IDebugableBlock, ITileEntityProvider, IFacade {
@@ -192,9 +191,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
             default -> ForgeDirection.UNKNOWN;
         };
         final TileEntity machineEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (machineEntity instanceof BaseMetaTileEntity bmte) {
-            return bmte.hasCoverAtSide(forgeSide) || bmte.getMetaTileEntity() instanceof MTERedstoneLamp;
-        }
+        if (machineEntity instanceof BaseMetaTileEntity bmte) {}
         if (machineEntity instanceof BaseMetaPipeEntity bmpe) {
             return bmpe.hasCoverAtSide(forgeSide);
         }

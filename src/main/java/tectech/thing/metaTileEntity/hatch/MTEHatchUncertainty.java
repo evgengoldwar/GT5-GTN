@@ -27,7 +27,6 @@ import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.modularui2.GTGuiTheme;
 import gregtech.api.modularui2.GTGuiThemes;
 import gregtech.api.render.TextureFactory;
-import gregtech.common.gui.modularui.hatch.MTEHatchUncertaintyGui;
 import gregtech.common.tileentities.machines.ISmartInputHatch;
 import gregtech.mixin.interfaces.accessors.EntityPlayerMPAccessor;
 import tectech.TecTech;
@@ -358,7 +357,7 @@ public class MTEHatchUncertainty extends MTEHatch implements ISmartInputHatch {
 
     @Override
     public ModularPanel buildUI(PosGuiData guiData, PanelSyncManager syncManager, UISettings uiSettings) {
-        return new MTEHatchUncertaintyGui(this).build(guiData, syncManager, uiSettings);
+        return null;
     }
 
     @Override

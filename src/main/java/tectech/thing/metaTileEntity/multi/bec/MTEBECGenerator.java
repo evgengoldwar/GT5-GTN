@@ -30,14 +30,12 @@ import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.StructureWrapperTooltipBuilder;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MultiblockTooltipBuilder;
@@ -117,15 +115,6 @@ public class MTEBECGenerator extends MTEBECMultiblockBase<MTEBECGenerator> {
     @Override
     protected ITexture getCasingTexture() {
         return ElectromagneticallyIsolatedCasing.getCasingTexture();
-    }
-
-    @Override
-    protected ITexture getActiveTexture() {
-        return TextureFactory.builder()
-            .addIcon(Textures.BlockIcons.BEC_GENERATOR_ACTIVE)
-            .extFacing()
-            .glow()
-            .build();
     }
 
     // #endregion

@@ -1,7 +1,5 @@
 package gregtech.api.util;
 
-import gtPlusPlus.core.util.math.MathUtils;
-
 public class IntFraction {
 
     public long numerator = 1, denominator = 1;
@@ -38,12 +36,6 @@ public class IntFraction {
     }
 
     public IntFraction reduce() {
-        long gcd = MathUtils.gcd(this.numerator, this.denominator);
-
-        if (gcd > 1) {
-            this.numerator /= gcd;
-            this.denominator /= gcd;
-        }
 
         return this;
     }

@@ -81,7 +81,6 @@ import gregtech.common.misc.GTStructureChannels;
 import gregtech.common.tileentities.machines.MTEHatchInputBusME;
 import gregtech.common.tileentities.machines.MTEHatchInputME;
 import gregtech.common.tileentities.machines.RecipeCheckReason;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 import gtneioreplugin.plugin.block.BlockDimensionDisplay;
 import gtneioreplugin.plugin.block.ModBlocks;
 import tectech.TecTech;
@@ -953,7 +952,6 @@ public class MTEEyeOfHarmony extends TTMultiblockBase implements ISurvivalConstr
             if (GTUtility.getBlockFromStack(heldItem) instanceof BlockDimensionDisplay) {
                 mInventory[getControllerSlotIndex()] = heldItem.copy();
                 mInventory[getControllerSlotIndex()].stackSize = 1;
-                aPlayer.setCurrentItemOrArmor(0, ItemUtils.depleteStack(heldItem, 1));
                 return true;
             }
         }

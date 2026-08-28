@@ -13,7 +13,6 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.Material;
 
 /**
  * A temporary material interface to unify the three material systems.
@@ -68,10 +67,6 @@ public interface IOreMaterial extends ISubTagContainer {
         Werkstoff bw = Werkstoff.werkstoffVarNameHashMap.get(name);
 
         if (bw != null) return bw;
-
-        IOreMaterial gtpp = Material.mMaterialsByName.get(name);
-
-        if (gtpp != null) return gtpp;
 
         return Materials.getMaterialsMap()
             .get(name);

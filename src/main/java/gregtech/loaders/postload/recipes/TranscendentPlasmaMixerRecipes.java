@@ -2,14 +2,11 @@ package gregtech.loaders.postload.recipes;
 
 import static gregtech.api.recipe.RecipeMaps.transcendentPlasmaMixerRecipes;
 
-import net.minecraftforge.fluids.FluidStack;
-
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTRecipeConstants;
-import gtPlusPlus.core.material.MaterialsElements;
 
 public class TranscendentPlasmaMixerRecipes implements Runnable {
 
@@ -141,9 +138,7 @@ public class TranscendentPlasmaMixerRecipes implements Runnable {
         GTValues.RA.stdBuilder()
             .circuit(24)
             .fluidInputs(
-                new FluidStack(MaterialsElements.getInstance().FERMIUM.getPlasma(), 1_000),
                 Materials.Thorium.getPlasma(1_000),
-                new FluidStack(MaterialsElements.STANDALONE.CELESTIAL_TUNGSTEN.getPlasma(), 1_000),
                 Materials.Calcium.getPlasma(1_000),
                 Materials.DTR.getFluid(1_000))
             .fluidOutputs(Materials.Creon.getPlasma(5_000))
@@ -170,13 +165,9 @@ public class TranscendentPlasmaMixerRecipes implements Runnable {
                 Materials.Infinity.getPlasma(1_000),
                 Materials.Neutronium.getPlasma(1_000),
                 Materials.Flerovium.getPlasma(1_000),
-                new FluidStack(MaterialsElements.STANDALONE.CHRONOMATIC_GLASS.getPlasma(), 1_000),
-                new FluidStack(MaterialsElements.STANDALONE.HYPOGEN.getPlasma(), 1_000),
                 Materials.Ichorium.getPlasma(1_000),
                 Materials.SixPhasedCopper.getPlasma(1_000),
                 Materials.DraconiumAwakened.getPlasma(1_000),
-                new FluidStack(MaterialsElements.STANDALONE.DRAGON_METAL.getPlasma(), 1_000),
-                new FluidStack(MaterialsElements.STANDALONE.RHUGNOR.getPlasma(), 1_000),
                 Materials.Draconium.getPlasma(1_000),
                 Materials.Creon.getPlasma(1_000),
                 Materials.Tritanium.getPlasma(1_000),

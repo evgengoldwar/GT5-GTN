@@ -1,18 +1,13 @@
 package gregtech.nei;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.StatCollector;
 
 import codechicken.nei.recipe.ShapelessRecipeHandler;
-import gregtech.api.enums.ItemList;
-import gregtech.common.blocks.ItemMachines;
-import gregtech.common.tileentities.machines.multi.MTEIndustrialMacerator;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialMaceratorLegacy;
 
 // TODO: Remove in 2.10
 public class GTNEIMacerationStackConversion extends ShapelessRecipeHandler {
@@ -54,12 +49,7 @@ public class GTNEIMacerationStackConversion extends ShapelessRecipeHandler {
     }
 
     private void loadRecipeForTier(ItemStack result) {
-        if (!result.hasTagCompound() || result.getTagCompound()
-            .getByte(MTEIndustrialMacerator.TIER) != 2) {
-            loadRecipeT1();
-        } else {
-            loadRecipeT2();
-        }
+        loadRecipeT2();
     }
 
     private void loadAllRecipes() {
@@ -68,31 +58,23 @@ public class GTNEIMacerationStackConversion extends ShapelessRecipeHandler {
     }
 
     private void loadRecipeT1() {
-        arecipes.add(
-            new CachedShapelessRecipe(
-                new Object[] { GregtechItemList.Industrial_MacerationStack.get(1) },
-                ItemList.MacerationStack.get(1)));
+
     }
 
     private void loadRecipeT2() {
-        ItemStack oldController = GregtechItemList.Industrial_MacerationStack.get(1);
-        ItemStack newController = ItemList.MacerationStack.get(1);
+        ItemStack newController = new ItemStack(Blocks.stone);
         NBTTagCompound display = new NBTTagCompound();
         NBTTagList lore = new NBTTagList();
         lore.appendTag(new NBTTagString(StatCollector.translateToLocal("gt.macerator.upgraded")));
         display.setTag("Lore", lore);
-        oldController.setTagInfo("display", display);
-        oldController.setTagInfo(MTEIndustrialMacerator.TIER, new NBTTagByte((byte) 2));
         newController.setTagInfo("display", display);
-        newController.setTagInfo(MTEIndustrialMacerator.TIER, new NBTTagByte((byte) 2));
-        arecipes.add(new CachedShapelessRecipe(new Object[] { oldController }, newController));
     }
 
     private static boolean isOldMacerationStack(ItemStack stack) {
-        return ItemMachines.getMetaTileEntity(stack) instanceof MTEIndustrialMaceratorLegacy;
+        return true;
     }
 
     private static boolean isNewMacerationStack(ItemStack stack) {
-        return ItemMachines.getMetaTileEntity(stack) instanceof MTEIndustrialMacerator;
+        return true;
     }
 }

@@ -18,7 +18,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.MaterialsElements;
 
 public class ArcFurnaceRecipes implements Runnable {
 
@@ -486,28 +485,6 @@ public class ArcFurnaceRecipes implements Runnable {
                 ItemList.Naquarite_Universal_Insulator_Foil.get(24))
             .duration(20 * SECONDS)
             .eut(TierEU.RECIPE_UHV)
-            .metadata(RECYCLE, true)
-            .addTo(UniversalArcFurnace);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.Casing_Coil_Hypogen.get(1))
-            .itemOutputs(
-                MaterialsElements.STANDALONE.HYPOGEN.getIngot(9),
-                GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Infinity, 4L),
-                ItemList.Naquarite_Universal_Insulator_Foil.get(32))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_UEV)
-            .metadata(RECYCLE, true)
-            .addTo(UniversalArcFurnace);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.Casing_Coil_Eternal.get(1))
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.ingot, Materials.SpaceTime, 9L),
-                MaterialsElements.STANDALONE.HYPOGEN.getIngot(4),
-                ItemList.Naquarite_Universal_Insulator_Foil.get(64))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_UIV)
             .metadata(RECYCLE, true)
             .addTo(UniversalArcFurnace);
 

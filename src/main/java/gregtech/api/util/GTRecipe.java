@@ -275,8 +275,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
                 // Diesel Generator
                 case 0 -> {
                     RecipeMaps.dieselFuels.addRecipe(this);
-                    RecipeMaps.largeBoilerFakeFuels.getBackend()
-                        .addDieselGasRecipe(this);
                 }
                 // Gas Turbine
                 case 1 -> RecipeMaps.gasTurbineFuels.addRecipe(this);
@@ -293,8 +291,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
                 // Fluid Generator. Usually 3. Every wrong Type ends up in the Semifluid Generator
                 default -> {
                     RecipeMaps.denseLiquidFuels.addRecipe(this);
-                    RecipeMaps.largeBoilerFakeFuels.getBackend()
-                        .addDenseLiquidRecipe(this);
                 }
             }
         }

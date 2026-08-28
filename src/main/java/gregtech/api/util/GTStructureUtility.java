@@ -79,7 +79,6 @@ import gregtech.common.blocks.BlockCyclotronCoils;
 import gregtech.common.blocks.BlockFrameBox;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.misc.GTStructureChannels;
-import gtPlusPlus.core.material.Material;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 
 public class GTStructureUtility {
@@ -329,10 +328,6 @@ public class GTStructureUtility {
             Block block = Block.getBlockFromItem(stack.getItem());
             return ofBlock(block, stack.getItemDamage());
         });
-    }
-
-    public static <T> IStructureElement<T> ofFrame(Material material) {
-        return ofFrame(() -> material.getFrameBox(1));
     }
 
     public static <T> HatchElementBuilder<T> buildHatchAdder() {

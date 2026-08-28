@@ -41,7 +41,6 @@ import bartworks.common.tileentities.classic.TileEntityRotorBlock;
 import bartworks.common.tileentities.debug.MTECreativeScanner;
 import bartworks.common.tileentities.multis.MTEBioVat;
 import bartworks.common.tileentities.multis.MTECircuitAssemblyLine;
-import bartworks.common.tileentities.multis.MTEDeepEarthHeatingPump;
 import bartworks.common.tileentities.multis.MTEElectricImplosionCompressorLegacy;
 import bartworks.common.tileentities.multis.MTEThoriumHighTempReactor;
 import bartworks.common.tileentities.multis.mega.MTEMegaBlastFurnaceLegacy;
@@ -368,8 +367,6 @@ public class ItemRegistry {
             1,
             97).getStackForm(1L);
 
-        ItemRegistry.dehp = new MTEDeepEarthHeatingPump(DeepEarthHeatingPump.ID, "DEHP", "Deep Earth Heating Pump")
-            .getStackForm(1L);
         ItemRegistry.megaMachines[0] = new MTEMegaBlastFurnaceLegacy(
             LegacyMegaBlastFurnace.ID,
             "MegaBlastFurnace",

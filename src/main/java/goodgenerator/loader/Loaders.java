@@ -31,8 +31,6 @@ import goodgenerator.blocks.tileEntity.MTELargeEssentiaSmeltery;
 import goodgenerator.blocks.tileEntity.MTELargeFusionComputer1;
 import goodgenerator.blocks.tileEntity.MTELargeFusionComputer2;
 import goodgenerator.blocks.tileEntity.MTELargeFusionComputer3;
-import goodgenerator.blocks.tileEntity.MTELargeFusionComputer4;
-import goodgenerator.blocks.tileEntity.MTELargeFusionComputer5;
 import goodgenerator.blocks.tileEntity.MTEMultiNqGeneratorLegacy;
 import goodgenerator.blocks.tileEntity.MTENeutronActivator;
 import goodgenerator.blocks.tileEntity.MTEPreciseAssembler;
@@ -343,14 +341,6 @@ public class Loaders {
             MetaTileEntityIDs.LargeFusionComputer3.ID,
             "LargeFusionComputer3",
             "Compact Fusion Computer MK-III").getStackForm(1L);
-        Loaders.LFC[3] = new MTELargeFusionComputer4(
-            MetaTileEntityIDs.LargeFusionComputer4.ID,
-            "LargeFusionComputer4",
-            "Compact Fusion Computer MK-IV Prototype").getStackForm(1L);
-        Loaders.LFC[4] = new MTELargeFusionComputer5(
-            MetaTileEntityIDs.LargeFusionComputer5.ID,
-            "LargeFusionComputer5",
-            "Compact Fusion Computer MK-V").getStackForm(1L);
         Loaders.Generator_Diesel[0] = new MTEDieselGenerator(
             MetaTileEntityIDs.DieselGeneratorEV.ID,
             "basicgenerator.diesel.tier.04",

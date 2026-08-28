@@ -42,7 +42,6 @@ import gregtech.common.items.MetaGeneratedItem01;
 import gregtech.common.items.MetaGeneratedItem02;
 import gregtech.common.items.MetaGeneratedItem03;
 import gregtech.common.ores.GTOreAdapter;
-import gregtech.common.tileentities.machines.multi.nanochip.util.CCNEIRepresentation;
 import gregtech.nei.dumper.BatchModeSupportDumper;
 import gregtech.nei.dumper.InputSeparationSupportDumper;
 import gregtech.nei.dumper.MaterialDumper;
@@ -53,7 +52,6 @@ import gregtech.nei.dumper.TurbineFuelDumper;
 import gregtech.nei.dumper.TurbineRotorDumper;
 import gregtech.nei.dumper.VoidProtectionSupportDumper;
 import gregtech.nei.searchprovider.ChemicalFormulaFilter;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public class NEIGTConfig implements IConfigureNEI {
 
@@ -99,7 +97,6 @@ public class NEIGTConfig implements IConfigureNEI {
         registerDumpers();
         registerFilters();
         hideItems();
-        CCNEIRepresentation.init();
         sIsAdded = true;
     }
 
@@ -152,9 +149,6 @@ public class NEIGTConfig implements IConfigureNEI {
             API.addRecipeCatalyst(item.get(1), RecipeMaps.cutterFakeRecipes.unlocalizedName);
         }
 
-        API.addRecipeCatalyst(
-            GregtechItemList.Industrial_CuttingFactoryController.get(1),
-            RecipeMaps.cutterFakeRecipes.unlocalizedName);
         API.addRecipeCatalyst(ItemList.IndustrialCuttingMachine.get(1), RecipeMaps.cutterFakeRecipes.unlocalizedName);
     }
 
@@ -240,11 +234,6 @@ public class NEIGTConfig implements IConfigureNEI {
                         .getStack(0))
                 .build());
 
-        event.registerHandlerInfo(
-            new HandlerInfo.Builder(MACERATOR_UPGRADE_HANDLER.getOverlayIdentifier(), "GregTech", Mods.ModIDs.GREG_TECH)
-                .setMultipleWidgetsAllowed(true)
-                .setDisplayStack(ItemList.MacerationStack.get(1))
-                .build());
     }
 
     private HandlerInfo.Builder createHandlerInfoBuilderTemplate(RecipeCategory recipeCategory) {

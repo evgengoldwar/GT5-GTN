@@ -34,7 +34,6 @@ import gregtech.api.structure.StructureWrapperInstanceInfo;
 import gregtech.api.structure.error.StructureError;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.IGTHatchAdder;
-import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 import it.unimi.dsi.fastutil.objects.ObjectIntPair;
 import tectech.mechanics.boseEinsteinCondensate.BECFactoryElement;
 import tectech.mechanics.boseEinsteinCondensate.BECFactoryGrid;
@@ -86,10 +85,6 @@ public abstract class MTEBECMultiblockBase<TSelf extends MTEBECMultiblockBase<TS
 
         if (side == facing) {
             textures.add(getBackgroundTexture());
-
-            if (active) {
-                textures.add(getActiveTexture());
-            }
         }
 
         return textures.toArray(new ITexture[0]);
@@ -103,14 +98,6 @@ public abstract class MTEBECMultiblockBase<TSelf extends MTEBECMultiblockBase<TS
         return TextureFactory.builder()
             .addIcon(Textures.BlockIcons.BEC_CONTROLLER_BACKGROUND)
             .extFacing()
-            .build();
-    }
-
-    protected ITexture getActiveTexture() {
-        return TextureFactory.builder()
-            .addIcon(TexturesGtBlock.oMCAAdvancedEBFActive)
-            .extFacing()
-            .glow()
             .build();
     }
 

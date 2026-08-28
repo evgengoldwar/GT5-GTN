@@ -56,11 +56,7 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.recipe.Scanning;
-import gtPlusPlus.core.material.MaterialsAlloy;
-import gtPlusPlus.core.material.MaterialsElements;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import ic2.core.Ic2Items;
-import tectech.recipe.TTRecipeAdder;
 
 public class RecipeLoader2 {
 
@@ -262,7 +258,6 @@ public class RecipeLoader2 {
                 GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Osmium, 8),
                 GTModHandler.getModItem(GalacticraftMars.ID, "item.null", 1L, 6),
                 GTOreDictUnificator.get(OrePrefixes.foil, Materials.Polycaprolactam, 32))
-            .fluidInputs(MaterialsAlloy.INDALLOY_140.getFluidStack(16 * INGOTS), Materials.Lubricant.getFluid(4_000))
             .itemOutputs(ItemRefer.Fluid_Storage_Core_T3.get(1))
             .eut(TierEU.RECIPE_LuV)
             .duration(20 * SECONDS)
@@ -280,7 +275,6 @@ public class RecipeLoader2 {
                 GTModHandler.getModItem(GalacticraftMars.ID, "item.null", 4L, 6),
                 GTOreDictUnificator.get(OrePrefixes.foil, Materials.StyreneButadieneRubber, 64),
                 GTOreDictUnificator.get(OrePrefixes.pipeLarge, Materials.TungstenSteel, 64))
-            .fluidInputs(MaterialsAlloy.INDALLOY_140.getFluidStack(2 * STACKS), Materials.Lubricant.getFluid(16_000))
             .itemOutputs(ItemRefer.Fluid_Storage_Core_T4.get(1))
             .eut(TierEU.RECIPE_ZPM)
             .duration(20 * SECONDS)
@@ -342,7 +336,6 @@ public class RecipeLoader2 {
                 GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.DraconiumAwakened, 16))
             .fluidInputs(
                 Materials.Draconium.getMolten(2 * STACKS + 32 * INGOTS),
-                MaterialsAlloy.INDALLOY_140.getFluidStack(16 * INGOTS),
                 Materials.InfinityCatalyst.getMolten(1_140))
             .itemOutputs(ItemRefer.Fluid_Storage_Core_T7.get(1))
             .eut(TierEU.RECIPE_UEV)
@@ -363,7 +356,6 @@ public class RecipeLoader2 {
                 GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.DraconiumAwakened, 16))
             .fluidInputs(
                 Materials.Draconium.getMolten(4 * STACKS),
-                MaterialsAlloy.INDALLOY_140.getFluidStack(3 * STACKS + 18 * INGOTS),
                 Materials.InfinityCatalyst.getMolten(39 * INGOTS + 3 * EIGHTH_INGOTS))
             .itemOutputs(ItemRefer.Fluid_Storage_Core_T8.get(1))
             .eut(TierEU.RECIPE_UIV)
@@ -384,7 +376,6 @@ public class RecipeLoader2 {
                 GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.DraconiumAwakened, 8))
             .fluidInputs(
                 Materials.Draconium.getMolten(4 * STACKS),
-                MaterialsAlloy.INDALLOY_140.getFluidStack(3 * STACKS + 18 * INGOTS),
                 Materials.TranscendentMetal.getMolten(10 * INGOTS),
                 Materials.InfinityCatalyst.getMolten(39 * INGOTS + 3 * EIGHTH_INGOTS))
             .itemOutputs(ItemRefer.Fluid_Storage_Core_T9.get(1))
@@ -406,7 +397,6 @@ public class RecipeLoader2 {
                 GTOreDictUnificator.get(OrePrefixes.plateDouble, Materials.SpaceTime, 4))
             .fluidInputs(
                 Materials.Draconium.getMolten(4 * STACKS),
-                MaterialsAlloy.INDALLOY_140.getFluidStack(5 * STACKS),
                 Materials.TranscendentMetal.getMolten(30 * INGOTS),
                 Materials.InfinityCatalyst.getMolten(1 * STACKS + 54 * INGOTS + 1 * EIGHTH_INGOTS))
             .itemOutputs(ItemRefer.Fluid_Storage_Core_T10.get(1))
@@ -1176,8 +1166,6 @@ public class RecipeLoader2 {
                     GTOreDictUnificator.get(OrePrefixes.cableGt02, Materials.Osmiridium, 2),
                     GGMaterial.marM200.get(OrePrefixes.plateDouble, 2),
                     GTOreDictUnificator.get(OrePrefixes.circuit, Materials.EV, 1),
-
-                    MaterialsElements.getInstance().RUTHENIUM.getBolt(32),
                     GTOreDictUnificator.get(OrePrefixes.gearGtSmall, Materials.Platinum, 8))
                 .fluidInputs(GGMaterial.zircaloy4.getMolten(4 * INGOTS))
                 .itemOutputs(ItemRefer.Imprecise_Electronic_Unit.get(2))
@@ -1284,148 +1272,9 @@ public class RecipeLoader2 {
             .metadata(PRECISE_ASSEMBLER_CASING_TIER, 3)
             .addTo(preciseAssemblerRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.FusionComputer_LuV.get(48),
-                ItemRefer.HiC_T1.get(8),
-                GGMaterial.marCeM200.get(OrePrefixes.plate, 32),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.LuV, 8),
-                ItemList.Circuit_Wafer_HPIC.get(16),
-                ItemList.Field_Generator_LuV.get(4),
-                GGMaterial.marM200.get(OrePrefixes.stickLong, 8))
-            .fluidInputs(GGMaterial.adamantiumAlloy.getMolten(1 * STACKS))
-            .itemOutputs(ItemRefer.Compact_Fusion_MK1.get(1))
-            .duration(1 * MINUTES)
-            .eut(TierEU.RECIPE_LuV)
-            .addTo(assemblerRecipes);
-
         // Compact Fusion Computer MK-II
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, ItemRefer.Compact_Fusion_MK1.get(1))
-            .metadata(SCANNING, new Scanning(2 * MINUTES + 30 * SECONDS, TierEU.RECIPE_LuV))
-            .itemInputs(
-                ItemList.FusionComputer_ZPMV.get(48),
-                new Object[] { OrePrefixes.circuit.get(Materials.ZPM), 4 },
-                ItemList.Circuit_Wafer_UHPIC.get(32),
-                ItemList.ZPM_Coil.get(16),
-                ItemList.Neutron_Reflector.get(4),
-                ItemRefer.HiC_T2.get(8),
-                ItemList.Field_Generator_ZPM.get(8),
-                GGMaterial.artheriumSn.get(OrePrefixes.gearGtSmall, 32))
-            .fluidInputs(
-                GGMaterial.marCeM200.getMolten(16 * INGOTS),
-                WerkstoffLoader.HDCS.getMolten(8 * INGOTS),
-                GGMaterial.artheriumSn.getMolten(2 * INGOTS))
-            .itemOutputs(ItemRefer.Compact_Fusion_MK2.get(1))
-            .eut(TierEU.RECIPE_ZPM / 2)
-            .duration(5 * MINUTES)
-            .addTo(AssemblyLine);
-
-        // Compact Fusion Computer MK-III
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, ItemRefer.Compact_Fusion_MK2.get(1))
-            .metadata(SCANNING, new Scanning(2 * MINUTES + 30 * SECONDS, TierEU.RECIPE_ZPM))
-            .itemInputs(
-                ItemList.FusionComputer_UV.get(48),
-                new Object[] { OrePrefixes.circuit.get(Materials.UV), 4 },
-                ItemList.Circuit_Wafer_NPIC.get(64),
-                ItemList.UV_Coil.get(16),
-                ItemRefer.Advanced_Radiation_Protection_Plate.get(8),
-                ItemRefer.HiC_T3.get(8),
-                ItemList.Field_Generator_UV.get(8),
-                WerkstoffLoader.HDCS.get(OrePrefixes.gearGtSmall, 64))
-            .fluidInputs(
-                GGMaterial.titaniumBetaC.getMolten(16 * INGOTS),
-                GGMaterial.dalisenite.getMolten(8 * INGOTS),
-                Materials.Americium.getMolten(2 * INGOTS))
-            .itemOutputs(ItemRefer.Compact_Fusion_MK3.get(1))
-            .eut(TierEU.RECIPE_ZPM)
-            .duration(5 * MINUTES)
-            .addTo(AssemblyLine);
-
-        // Compact MK4 Fusion Coil
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GregtechItemList.Casing_Fusion_Internal.get(3),
-                ItemRefer.HiC_T5.get(1),
-                GregtechItemList.Energy_Core_HV.get(1))
-            .itemOutputs(ItemRefer.Compact_Fusion_Coil_T3.get(1))
-            .fluidInputs(
-                FluidRegistry.getFluidStack("molten.energycrystal", 8 * INGOTS),
-                FluidRegistry.getFluidStack("molten.laurenium", 1 * INGOTS))
-            .duration(1 * MINUTES + 40 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
-            .metadata(PRECISE_ASSEMBLER_CASING_TIER, 3)
-            .addTo(preciseAssemblerRecipes);
-
-        // Compact MK4 Fusion Disassembly Recipe
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemRefer.Compact_Fusion_Coil_T3.get(1))
-            .itemOutputs(GregtechItemList.Casing_Fusion_Internal.get(3))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(assemblerRecipes);
 
         // Compact MK4 Computer
-        TTRecipeAdder.addResearchableAssemblylineRecipe(
-            ItemRefer.Compact_Fusion_MK3.get(1),
-            2_560_000,
-            4_096,
-            (int) TierEU.RECIPE_UHV,
-            256,
-            new Object[] { GregtechItemList.FusionComputer_UV2.get(48),
-                new Object[] { OrePrefixes.circuit.get(Materials.UHV), 4 }, ItemList.Circuit_Wafer_PPIC.get(64),
-                ItemList.UHV_Coil.get(16), MaterialsAlloy.TITANSTEEL.getPlateDense(8), ItemRefer.HiC_T4.get(8),
-                ItemList.Field_Generator_UHV.get(8),
-                GGMaterial.enrichedNaquadahAlloy.get(OrePrefixes.gearGtSmall, 64) },
-            new FluidStack[] { Materials.RadoxPolymer.getMolten(9 * INGOTS),
-                GGMaterial.dalisenite.getMolten(8 * INGOTS), MaterialsAlloy.BOTMIUM.getFluidStack(288) },
-            ItemRefer.Compact_Fusion_MK4.get(1),
-            6000,
-            (int) TierEU.RECIPE_UV);
-
-        // Compact MK5 Fusion Coil
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GregtechItemList.Casing_Fusion_Internal2.get(3),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UEV, 1),
-                ItemRefer.HiC_T5.get(4),
-                GregtechItemList.Energy_Core_IV.get(1))
-            .itemOutputs(ItemRefer.Compact_Fusion_Coil_T4.get(1))
-            .fluidInputs(
-                MaterialsAlloy.BLACK_TITANIUM.getFluidStack(8 * INGOTS),
-                GGMaterial.metastableOganesson.getMolten(4 * INGOTS))
-            .duration(1 * MINUTES + 40 * SECONDS)
-            .eut(TierEU.RECIPE_UHV)
-            .metadata(PRECISE_ASSEMBLER_CASING_TIER, 3)
-            .addTo(preciseAssemblerRecipes);
-
-        // Compact MK5 Computer
-        TTRecipeAdder.addResearchableAssemblylineRecipe(
-            ItemRefer.Compact_Fusion_MK4.get(1),
-            10_240_000,
-            16_384,
-            (int) TierEU.RECIPE_UEV,
-            256,
-            new Object[] { GregtechItemList.FusionComputer_UV3.get(48),
-                new Object[] { OrePrefixes.circuit.get(Materials.UEV), 4 }, ItemList.Circuit_Wafer_QPIC.get(64),
-                ItemList.UEV_Coil.get(16), MaterialsElements.STANDALONE.HYPOGEN.getPlateDense(8),
-                ItemRefer.HiC_T5.get(8), ItemList.Field_Generator_UEV.get(8),
-                GGMaterial.metastableOganesson.get(OrePrefixes.gearGtSmall, 64) },
-            new FluidStack[] { GGMaterial.tairitsu.getMolten(16 * INGOTS),
-                MaterialsAlloy.OCTIRON.getFluidStack(8 * INGOTS),
-                MaterialsElements.STANDALONE.RHUGNOR.getFluidStack(288) },
-            ItemRefer.Compact_Fusion_MK5.get(1),
-            6000,
-            (int) TierEU.RECIPE_UHV);
-
-        // Compact MK5 Fusion Disassembly Recipe
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemRefer.Compact_Fusion_Coil_T4.get(1))
-            .itemOutputs(GregtechItemList.Casing_Fusion_Internal2.get(3))
-            .duration(1 * MINUTES)
-            .eut(TierEU.RECIPE_UIV)
-            .addTo(assemblerRecipes);
 
         GTValues.RA.stdBuilder()
             .itemInputs(Materials.Antimony.getDust(8))

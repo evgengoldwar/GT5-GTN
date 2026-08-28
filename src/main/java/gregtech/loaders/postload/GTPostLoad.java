@@ -6,7 +6,6 @@ import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.Mods.GalacticraftCore;
 import static gregtech.api.enums.Mods.GalacticraftMars;
 import static gregtech.api.enums.Mods.GalaxySpace;
-import static gregtech.api.enums.Mods.Thaumcraft;
 import static gregtech.api.recipe.RecipeMaps.cannerRecipes;
 import static gregtech.api.recipe.RecipeMaps.massFabFakeRecipes;
 import static gregtech.api.recipe.RecipeMaps.scannerFakeRecipes;
@@ -416,37 +415,7 @@ public class GTPostLoad {
         if (m.getBlocks(1) != null) GTRecipeRegistrator.registerUsagesForMaterials(null, noSmash, m.getBlocks(1));
     }
 
-    public static void addSolidFakeLargeBoilerFuels() {
-        RecipeMaps.largeBoilerFakeFuels.getBackend()
-            .addSolidRecipes(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Charcoal, 1),
-                GTOreDictUnificator.get(OrePrefixes.gem, Materials.Charcoal, 1),
-                GTOreDictUnificator.get(OrePrefixes.block, Materials.Charcoal, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coal, 1),
-                GTOreDictUnificator.get(OrePrefixes.gem, Materials.Coal, 1),
-                GTOreDictUnificator.get(OrePrefixes.block, Materials.Coal, 1),
-                GTOreDictUnificator.get(OrePrefixes.crushed, Materials.Coal, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Lignite, 1),
-                GTOreDictUnificator.get(OrePrefixes.gem, Materials.Lignite, 1),
-                GTOreDictUnificator.get(OrePrefixes.block, Materials.Lignite, 1),
-                GTOreDictUnificator.get(OrePrefixes.crushed, Materials.Lignite, 1),
-                GTOreDictUnificator.get(OrePrefixes.log, Materials.Wood, 1),
-                GTOreDictUnificator.get(OrePrefixes.plank, Materials.Wood, 1),
-                GTOreDictUnificator.get(OrePrefixes.stick, Materials.Wood, 1),
-                GTOreDictUnificator.get(OrePrefixes.slab, Materials.Wood, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wood, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sodium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Lithium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Caesium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1),
-                GTOreDictUnificator.get(ItemList.Block_SSFUEL.get(1)),
-                GTOreDictUnificator.get(ItemList.Block_MSSFUEL.get(1)),
-                GTOreDictUnificator.get(OrePrefixes.rod, Materials.Blaze, 1));
-        if (Thaumcraft.isModLoaded()) {
-            RecipeMaps.largeBoilerFakeFuels.getBackend()
-                .addSolidRecipe(GTModHandler.getModItem(Thaumcraft.ID, "ItemResource", 1));
-        }
-    }
+    public static void addSolidFakeLargeBoilerFuels() {}
 
     public static void addCauldronRecipe() {
         OrePrefixes[] washablePrefixes = { OrePrefixes.dustImpure, OrePrefixes.dustPure, OrePrefixes.crushed,

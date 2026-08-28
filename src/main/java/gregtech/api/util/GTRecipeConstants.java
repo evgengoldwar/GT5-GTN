@@ -32,8 +32,6 @@ import gregtech.api.util.recipe.Scanning;
 import gregtech.api.util.recipe.Sievert;
 import gregtech.common.items.IDMetaItem03;
 import gregtech.common.items.MetaGeneratedItem03;
-import gregtech.common.tileentities.machines.multi.foundry.FoundryModule;
-import gregtech.common.tileentities.machines.multi.nanochip.util.CircuitCalibration;
 
 // this class is intended to be import-static-ed on every recipe script
 // so take care to not put unrelated stuff here!
@@ -152,9 +150,6 @@ public class GTRecipeConstants {
      */
     public static final RecipeMetadataKey<String> FOG_UPGRADE_NAME_SHORT = SimpleRecipeMetadataKey
         .create(String.class, "fog_plasma_upgrade_name_short");
-
-    public static final RecipeMetadataKey<FoundryModule> FOUNDRY_MODULE = SimpleRecipeMetadataKey
-        .create(FoundryModule.class, "foundry_module");
 
     /**
      * DEFC Casing tier.
@@ -282,9 +277,6 @@ public class GTRecipeConstants {
         .create(Integer.class, "eu_multiplier");
 
     public static final RecipeMetadataKey<Double> HALF_LIFE = SimpleRecipeMetadataKey.create(Double.class, "half-life");
-
-    public static final RecipeMetadataKey<CircuitCalibration> CIRCUIT_CALIBRATION_TYPE = SimpleRecipeMetadataKey
-        .create(CircuitCalibration.class, "circuit-calibration");
 
     /**
      * Just some trivia to show in the decay recipes, since they don't have a lot of relevant info. Maybe this will come

@@ -25,7 +25,6 @@ import static gregtech.api.util.GTRecipeBuilder.QUARTER_INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
-import static gtPlusPlus.core.material.MaterialsAlloy.INCONEL_690;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -50,8 +49,6 @@ import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gtPlusPlus.core.material.MaterialsAlloy;
-import gtPlusPlus.core.material.MaterialsElements;
 import tectech.thing.CustomItemList;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
@@ -560,21 +557,7 @@ public class AssemblerRecipes implements Runnable {
         }
 
         // If Cleanroom is enabled, add an assembler recipe
-        if (GTMod.proxy.mEnableCleanroom) {
-            GTValues.RA.stdBuilder()
-                .itemInputs(
-                    ItemList.Hull_HV.get(1L),
-                    ItemList.Component_Filter.get(3L),
-                    GTOreDictUnificator.get(OrePrefixes.rotor, Materials.StainlessSteel, 1L),
-                    ItemList.Electric_Motor_HV.get(2L),
-                    GTOreDictUnificator.get(OrePrefixes.circuit, Materials.HV, 1L))
-                .circuit(1)
-                .itemOutputs(ItemList.Machine_Multi_Cleanroom.get(1L))
-                .fluidInputs(Materials.StainlessSteel.getMolten(1 * INGOTS))
-                .duration(60 * SECONDS)
-                .eut(TierEU.RECIPE_MV)
-                .addTo(assemblerRecipes);
-        }
+        if (GTMod.proxy.mEnableCleanroom) {}
 
         GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Cover_Shutter.get(1L), GTOreDictUnificator.get(OrePrefixes.circuit, Materials.LV, 1))
@@ -628,22 +611,6 @@ public class AssemblerRecipes implements Runnable {
             .addTo(assemblerRecipes);
 
         // Drone Centre
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Casing_Assembler.get(1),
-                ItemList.Cover_SolarPanel_HV.get(4),
-                ItemList.Conveyor_Module_IV.get(2),
-                ItemList.Robot_Arm_IV.get(2),
-                ItemList.Sensor_IV.get(2),
-                ItemList.Energy_LapotronicOrb.get(4),
-                ItemList.Cover_WirelessNeedsMaintainance.get(1),
-                GalacticraftCore.isModLoaded() ? GTModHandler.getModItem(GalacticraftCore.ID, "item.basicItem", 1, 19)
-                    : ItemList.Sensor_EV.get(4))
-            .itemOutputs(ItemList.DroneCentre.get(1L))
-            .fluidInputs(Materials.GlueAdvanced.getFluid(8_000))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_IV)
-            .addTo(assemblerRecipes);
 
         // Drone down link hatch
         GTValues.RA.stdBuilder()
@@ -2273,36 +2240,6 @@ public class AssemblerRecipes implements Runnable {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.stick, Materials.TengamAttuned, 1),
-                MaterialsElements.STANDALONE.CELESTIAL_TUNGSTEN.getFineWire(16))
-            .circuit(1)
-            .itemOutputs(ItemList.UEV_Coil.get(1))
-            .duration(10 * SECONDS)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.stick, Materials.TengamAttuned, 1),
-                MaterialsElements.STANDALONE.RHUGNOR.getFineWire(16))
-            .circuit(1)
-            .itemOutputs(ItemList.UIV_Coil.get(1))
-            .duration(10 * SECONDS)
-            .eut(TierEU.RECIPE_UIV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.stick, Materials.TengamAttuned, 1),
-                MaterialsElements.STANDALONE.DRAGON_METAL.getFineWire(16))
-            .circuit(1)
-            .itemOutputs(ItemList.UMV_Coil.get(1))
-            .duration(10 * SECONDS)
-            .eut(TierEU.RECIPE_UMV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
                 GTOreDictUnificator.get(OrePrefixes.stick, Materials.MagMatter, 1),
                 GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.Universium, 16))
             .circuit(1)
@@ -3063,17 +3000,6 @@ public class AssemblerRecipes implements Runnable {
             .addTo(assemblerRecipes);
 
         GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.PrismaticNaquadah, 1),
-                Materials.NaquadahAlloy.getPlates(12),
-                GTOreDictUnificator.get(OrePrefixes.screw, Materials.PrismaticNaquadah, 4))
-            .itemOutputs(ItemList.RadiantNaquadahAlloyCasing.get(4))
-            .fluidInputs(MaterialsAlloy.INDALLOY_140.getFluidStack(9 * INGOTS))
-            .duration(10 * TICKS)
-            .eut(TierEU.RECIPE_UV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
             .itemInputs(ItemList.KevlarFiber.get(8))
             .circuit(8)
             .itemOutputs(ItemList.WovenKevlar.get(1))
@@ -3214,18 +3140,6 @@ public class AssemblerRecipes implements Runnable {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getModItem(AppliedEnergistics2.ID, "tile.BlockInterface", 8, 0),
-                getModItem(AppliedEnergistics2.ID, "tile.BlockMolecularAssembler", 8, 0),
-                ItemList.Emitter_IV.get(4L),
-                ItemList.Casing_RobustTungstenSteel.get(1L))
-            .itemOutputs(ItemList.LargeMolecularAssembler.get(1))
-            .fluidInputs(Materials.Polyethylene.getMolten(9 * INGOTS))
-            .duration(60 * SECONDS)
-            .eut(TierEU.RECIPE_IV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
                 ItemList.GlassQuarkContainment.get(16L),
                 GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Flerovium, 64L),
                 ItemList.Field_Generator_UMV.get(1L))
@@ -3334,27 +3248,6 @@ public class AssemblerRecipes implements Runnable {
             .fluidInputs(Materials.Quantium.getMolten(144L))
             .itemOutputs(ItemList.Casing_Ultimately_Static.get(1L))
             .circuit(1)
-            .eut(TierEU.RECIPE_LV / 2)
-            .duration(50 * TICKS)
-            .addTo(assemblerRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.FluidRegulator_EV.get(2L),
-                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Titanium, 4),
-                ItemRegistry.acidGens[2],
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.IV, 2L))
-            .itemOutputs(ItemList.Machine_Multi_Large_Neutralization_Engine.get(1L))
-            .eut(TierEU.RECIPE_LV / 2)
-            .duration(50 * TICKS)
-            .addTo(assemblerRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.IV, 4L),
-                ItemList.Casing_IV.get(1L),
-                ItemList.Sensor_EV.get(2L),
-                ItemList.Casing_Strengthened_Inanimate.get(1L))
-            .fluidInputs(Materials.SolderingAlloy.getMolten(8 * INGOTS))
-            .itemOutputs(ItemList.Hatch_ToxicResidueSensor.get(1L))
             .eut(TierEU.RECIPE_LV / 2)
             .duration(50 * TICKS)
             .addTo(assemblerRecipes);
@@ -4670,14 +4563,6 @@ public class AssemblerRecipes implements Runnable {
      * BEC block assembler recipes.
      */
     private void withBEC() {
-        // Conduit
-        GTValues.RA.stdBuilder()
-            .itemInputs(CustomItemList.LASERpipe.get(1), ItemList.Naquarite_Universal_Insulator_Foil.get(4))
-            .itemOutputs(CustomItemList.Pipe_BEC.get(1))
-            .fluidInputs(MaterialsElements.STANDALONE.CHRONOMATIC_GLASS.getFluidStack(INGOTS))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(assemblerRecipes);
 
         // Conduit Casing
         GTValues.RA.stdBuilder()
@@ -6736,22 +6621,6 @@ public class AssemblerRecipes implements Runnable {
 
     public void withGTNHLanthAndGTPP() {
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Electric_Pump_EV.get(4),
-                ItemList.Field_Generator_EV.get(4),
-                INCONEL_690.getPlate(4),
-                GTOreDictUnificator.get(OrePrefixes.screw, Materials.Titanium, 16),
-                GTOreDictUnificator.get(OrePrefixes.ring, Materials.BorosilicateGlass, 16),
-                GTOreDictUnificator.get(OrePrefixes.cableGt01, Materials.Aluminium, 2),
-                GTOreDictUnificator.get(OrePrefixes.pipeTiny, Materials.Polytetrafluoroethylene, 4),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.EV, 4),
-                ItemList.Shape_Extruder_Rod.get(16))
-            .itemOutputs(ItemList.Spinneret.get(1))
-            .fluidInputs(Materials.SolderingAlloy.getMolten(1 * INGOTS))
-            .duration(2 * MINUTES)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(assemblerRecipes);
     }
 
     public void withIC2NuclearControl() {

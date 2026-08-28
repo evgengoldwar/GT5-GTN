@@ -3,7 +3,6 @@ package gregtech.loaders.postload.recipes;
 import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.enums.Mods.Railcraft;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeConstants.NANITE_TIERS;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -11,7 +10,6 @@ import net.minecraftforge.fluids.FluidStack;
 import bartworks.system.material.Werkstoff;
 import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.CondensateType;
-import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
@@ -20,8 +18,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.MaterialsElements;
-import tectech.recipe.TecTechRecipeMaps;
 
 /// BEC Meta Material recipes
 /// </p>
@@ -45,8 +41,7 @@ public class BECMetaMaterialRecipes implements Runnable {
     private static final Materials[] white3Tier = { Materials.Shijima, Materials.WhiteDwarfMatter,
         Materials.MagMatter };
 
-    private static final Object[] black4Tier = { GGMaterial.tairitsu, MaterialsElements.STANDALONE.HYPOGEN,
-        GGMaterial.shirabon, Materials.SpaceTime };
+    private static final Object[] black4Tier = { GGMaterial.tairitsu, GGMaterial.shirabon, Materials.SpaceTime };
     private static final Materials[] gray4Tier = { Materials.Churitsu, Materials.WhiteDwarfMatter,
         Materials.BlackDwarfMatter, Materials.MHDCSM };
     private static final Materials[] white4Tier = { Materials.Shijima, Materials.ProtoHalkonite, Materials.Hexanite,
@@ -66,10 +61,7 @@ public class BECMetaMaterialRecipes implements Runnable {
         registerWaveguide();
         registerEnergyConduit();
         if (Mods.Railcraft.isModLoaded()) registerElectrograviticValve();
-        registerWaveFocus();
-        registerResonanceChamber();
-        registerSensorArray();
-        registerFieldManipulator();
+
     }
 
     private void registerShielding() {
@@ -89,7 +81,7 @@ public class BECMetaMaterialRecipes implements Runnable {
             NaniteTier[] nanites = { nanite(4 + 2 * t), nanite(1 + 2 * t), nanite(1 + 2 * t), nanite(3 + 2 * t),
                 nanite(1 + 2 * t) };
 
-            CondensateType[] becCondensates = { CondensateType.ChromaticGlass, CondensateType.TranscendentMetal };
+            CondensateType[] becCondensates = { CondensateType.TranscendentMetal };
             int[] becAmounts = { condensateAmounts[t], condensateAmounts[t] };
             addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
         }
@@ -113,11 +105,10 @@ public class BECMetaMaterialRecipes implements Runnable {
             final CondensateType[] becCondensates;
             final int[] becAmounts;
             if (t == 0) {
-                becCondensates = new CondensateType[] { CondensateType.ChromaticGlass };
+                becCondensates = new CondensateType[] {};
                 becAmounts = new int[] { chromaticAmts[t] };
             } else {
-                becCondensates = new CondensateType[] { CondensateType.ChromaticGlass,
-                    CondensateType.TranscendentMetal };
+                becCondensates = new CondensateType[] { CondensateType.TranscendentMetal };
                 becAmounts = new int[] { chromaticAmts[t], transcendentMetalAmts[t] };
             }
             addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
@@ -144,11 +135,10 @@ public class BECMetaMaterialRecipes implements Runnable {
             final CondensateType[] becCondensates;
             final int[] becAmounts;
             if (t == 0) {
-                becCondensates = new CondensateType[] { CondensateType.ChromaticGlass };
+                becCondensates = new CondensateType[] {};
                 becAmounts = new int[] { chromaticAmts[t] };
             } else {
-                becCondensates = new CondensateType[] { CondensateType.ChromaticGlass,
-                    CondensateType.TranscendentMetal };
+                becCondensates = new CondensateType[] { CondensateType.TranscendentMetal };
                 becAmounts = new int[] { chromaticAmts[t], transcendentMetalAmts[t] };
             }
             addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
@@ -171,8 +161,7 @@ public class BECMetaMaterialRecipes implements Runnable {
             NaniteTier[] nanites = { nanite(4 + 2 * t), nanite(1 + 2 * t), nanite(1 + 2 * t), nanite(3 + 2 * t),
                 nanite(1 + 2 * t) };
 
-            CondensateType[] becCondensates = { CondensateType.ChromaticGlass,
-                CondensateType.DimensionallyShiftedSuperfluid };
+            CondensateType[] becCondensates = { CondensateType.DimensionallyShiftedSuperfluid };
             int[] becAmounts = { chromaticAmts[t], dimShiftedAmts[t] };
             addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
         }
@@ -183,79 +172,17 @@ public class BECMetaMaterialRecipes implements Runnable {
         final CondensateType[] becCondensates;
         final int[] becAmounts;
         if (t == 0) {
-            becCondensates = new CondensateType[] { CondensateType.ChromaticGlass, CondensateType.Infinity,
-                CondensateType.TranscendentMetal };
-            final CondensateType[] becCondensates2 = new CondensateType[] { CondensateType.ChromaticGlass,
-                CondensateType.Infinity, CondensateType.BoundlessCosmicSolder };
+            becCondensates = new CondensateType[] { CondensateType.Infinity, CondensateType.TranscendentMetal };
+            final CondensateType[] becCondensates2 = new CondensateType[] { CondensateType.Infinity,
+                CondensateType.BoundlessCosmicSolder };
             becAmounts = new int[] { chromatic4TierAmts[t], infinity4TierAmts[t], 2 };
             final int[] becAmounts2 = new int[] { chromatic4TierAmts[t], infinity4TierAmts[t], 1 };
             addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
             addBec(outputs[t].get(1), inputs, nanites, becCondensates2, becAmounts2, baseDuration, euts[t]);
         } else {
-            becCondensates = new CondensateType[] { CondensateType.ChromaticGlass, CondensateType.Infinity,
-                CondensateType.BoundlessCosmicSolder };
+            becCondensates = new CondensateType[] { CondensateType.Infinity, CondensateType.BoundlessCosmicSolder };
             becAmounts = new int[] { chromatic4TierAmts[t], infinity4TierAmts[t], solder4TierAmts[t] };
             addBec(outputs[t].get(1), inputs, nanites, becCondensates, becAmounts, baseDuration, euts[t]);
-        }
-    }
-
-    private void registerWaveFocus() {
-        // 4-tier UEV/UIV/UMV/UXV 300s. Nanites: T4 T1 T2 T1, +1 per tier
-        ItemList[] outputs = { ItemList.MetaMaterial_WaveFocus1, ItemList.MetaMaterial_WaveFocus2,
-            ItemList.MetaMaterial_WaveFocus3, ItemList.MetaMaterial_WaveFocus4 };
-        long[] euts = { TierEU.RECIPE_UEV, TierEU.RECIPE_UIV, TierEU.RECIPE_UMV, TierEU.RECIPE_UXV };
-
-        for (int t = 0; t < 4; t++) {
-            ItemStack[] inputs = { ItemList.Gravitational_Lens.get(1), ringPart(black4Tier[t], 2),
-                GTOreDictUnificator.get(OrePrefixes.ring, gray4Tier[t], 1),
-                GTOreDictUnificator.get(OrePrefixes.screw, white4Tier[t], 2) };
-            reg4Tier(outputs, inputs, euts, t);
-        }
-    }
-
-    private void registerResonanceChamber() {
-        // 4-tier UEV/UIV/UMV/UXV 300s. Nanites: T3 T2 T4 T2, +1 per tier
-        ItemList[] outputs = { ItemList.MetaMaterial_ResonanceChamber1, ItemList.MetaMaterial_ResonanceChamber2,
-            ItemList.MetaMaterial_ResonanceChamber3, ItemList.MetaMaterial_ResonanceChamber4 };
-        ItemList[] emitters = { ItemList.Emitter_UHV, ItemList.Emitter_UEV, ItemList.Emitter_UIV,
-            ItemList.Emitter_UMV };
-        long[] euts = { TierEU.RECIPE_UEV, TierEU.RECIPE_UIV, TierEU.RECIPE_UMV, TierEU.RECIPE_UXV };
-
-        for (int t = 0; t < 4; t++) {
-            ItemStack[] inputs = { emitters[t].get(2), rodPart(black4Tier[t], 2), foilPart(gray4Tier[t], 1),
-                GTOreDictUnificator.get(OrePrefixes.plate, white4Tier[t], 1) };
-            reg4Tier(outputs, inputs, euts, t);
-        }
-    }
-
-    private void registerSensorArray() {
-        // 4-tier UEV/UIV/UMV/UXV 300s. Nanites: T4 T1 T2 T1, +1 per tier
-        ItemList[] outputs = { ItemList.MetaMaterial_SensorArray1, ItemList.MetaMaterial_SensorArray2,
-            ItemList.MetaMaterial_SensorArray3, ItemList.MetaMaterial_SensorArray4 };
-        ItemList[] sensors = { ItemList.Sensor_UHV, ItemList.Sensor_UEV, ItemList.Sensor_UIV, ItemList.Sensor_UMV };
-        long[] euts = { TierEU.RECIPE_UEV, TierEU.RECIPE_UIV, TierEU.RECIPE_UMV, TierEU.RECIPE_UXV };
-
-        for (int t = 0; t < 4; t++) {
-            ItemStack[] inputs = { sensors[t].get(2), platePart(black4Tier[t], 2),
-                GTOreDictUnificator.get(OrePrefixes.itemCasing, gray4Tier[t], 1),
-                GTOreDictUnificator.get(OrePrefixes.bolt, white4Tier[t], 16) };
-            reg4Tier(outputs, inputs, euts, t);
-        }
-    }
-
-    private void registerFieldManipulator() {
-        // 4-tier UEV/UIV/UMV/UXV 300s. Nanites: T4 T3 T2 T2, +1 per tier
-        ItemList[] outputs = { ItemList.MetaMaterial_FieldManipulator1, ItemList.MetaMaterial_FieldManipulator2,
-            ItemList.MetaMaterial_FieldManipulator3, ItemList.MetaMaterial_FieldManipulator4 };
-        ItemList[] fieldGens = { ItemList.Field_Generator_UHV, ItemList.Field_Generator_UEV,
-            ItemList.Field_Generator_UIV, ItemList.Field_Generator_UMV };
-        long[] euts = { TierEU.RECIPE_UEV, TierEU.RECIPE_UIV, TierEU.RECIPE_UMV, TierEU.RECIPE_UXV };
-
-        for (int t = 0; t < 4; t++) {
-            ItemStack[] inputs = { fieldGens[t].get(1), longRodPart(black4Tier[t], 2),
-                GTOreDictUnificator.get(OrePrefixes.ring, gray4Tier[t], 1),
-                GTOreDictUnificator.get(OrePrefixes.plateDouble, white4Tier[t], 2) };
-            reg4Tier(outputs, inputs, euts, t);
         }
     }
 
@@ -277,14 +204,6 @@ public class BECMetaMaterialRecipes implements Runnable {
             entangled[i] = condensateType.getEntangled(condensateIngots[i] * condensateType.getUnit());
         }
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(inputs)
-            .fluidInputs(entangled)
-            .itemOutputs(output)
-            .metadata(NANITE_TIERS, nanites)
-            .duration(duration)
-            .eut(eut)
-            .addTo(TecTechRecipeMaps.condensateAssemblingRecipes);
     }
 
     // Material-type adapters: Werkstoff / Materials / gtPlusPlus Material
@@ -292,42 +211,36 @@ public class BECMetaMaterialRecipes implements Runnable {
     private static ItemStack platePart(Object material, int amount) {
         if (material instanceof Werkstoff w) return w.get(OrePrefixes.plate, amount);
         if (material instanceof Materials m) return GTOreDictUnificator.get(OrePrefixes.plate, m, amount);
-        if (material instanceof gtPlusPlus.core.material.Material m) return m.getPlate(amount);
         throw new IllegalArgumentException("Unsupported material kind: " + material);
     }
 
     private static ItemStack foilPart(Object material, int amount) {
         if (material instanceof Werkstoff w) return w.get(OrePrefixes.foil, amount);
         if (material instanceof Materials m) return GTOreDictUnificator.get(OrePrefixes.foil, m, amount);
-        if (material instanceof gtPlusPlus.core.material.Material m) return m.getFoil(amount);
         throw new IllegalArgumentException("Unsupported material kind: " + material);
     }
 
     private static ItemStack fineWirePart(Object material, int amount) {
         if (material instanceof Werkstoff w) return w.get(OrePrefixes.wireFine, amount);
         if (material instanceof Materials m) return GTOreDictUnificator.get(OrePrefixes.wireFine, m, amount);
-        if (material instanceof gtPlusPlus.core.material.Material m) return m.getFineWire(amount);
         throw new IllegalArgumentException("Unsupported material kind: " + material);
     }
 
     private static ItemStack ringPart(Object material, int amount) {
         if (material instanceof Werkstoff w) return w.get(OrePrefixes.ring, amount);
         if (material instanceof Materials m) return GTOreDictUnificator.get(OrePrefixes.ring, m, amount);
-        if (material instanceof gtPlusPlus.core.material.Material m) return m.getRing(amount);
         throw new IllegalArgumentException("Unsupported material kind: " + material);
     }
 
     private static ItemStack rodPart(Object material, int amount) {
         if (material instanceof Werkstoff w) return w.get(OrePrefixes.stick, amount);
         if (material instanceof Materials m) return GTOreDictUnificator.get(OrePrefixes.stick, m, amount);
-        if (material instanceof gtPlusPlus.core.material.Material m) return m.getRod(amount);
         throw new IllegalArgumentException("Unsupported material kind: " + material);
     }
 
     private static ItemStack longRodPart(Object material, int amount) {
         if (material instanceof Werkstoff w) return w.get(OrePrefixes.stickLong, amount);
         if (material instanceof Materials m) return GTOreDictUnificator.get(OrePrefixes.stickLong, m, amount);
-        if (material instanceof gtPlusPlus.core.material.Material m) return m.getLongRod(amount);
         throw new IllegalArgumentException("Unsupported material kind: " + material);
     }
 }

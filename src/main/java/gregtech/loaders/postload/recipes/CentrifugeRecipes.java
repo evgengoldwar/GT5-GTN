@@ -31,9 +31,6 @@ import gregtech.api.enums.TierEU;
 import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.recipe.metadata.CentrifugeRecipeKey;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.MaterialsAlloy;
-import gtPlusPlus.core.material.MaterialsElements;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
 public class CentrifugeRecipes implements Runnable {
@@ -922,7 +919,6 @@ public class CentrifugeRecipes implements Runnable {
             .addTo(centrifugeRecipes);
 
         GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.Tesseract.get(1L), GregtechItemList.Laser_Lens_Special.get(1))
             .fluidInputs(Materials.SpaceTime.getMolten(20 * INGOTS))
             .fluidOutputs(Materials.Space.getMolten(10 * INGOTS), Materials.Time.getMolten(10 * INGOTS))
             .metadata(CentrifugeRecipeKey.INSTANCE, true)
@@ -945,7 +941,6 @@ public class CentrifugeRecipes implements Runnable {
             .itemOutputs(
                 Materials.NetherStar.getDust(8),
                 Materials.Terbium.getDust(7),
-                MaterialsElements.getInstance().TECHNETIUM.getDust(4),
                 Materials.Unstable.getDust(4),
                 Materials.Flerovium.getDust(3),
                 Materials.InfinityCatalyst.getDust(1))
@@ -958,10 +953,8 @@ public class CentrifugeRecipes implements Runnable {
             .itemOutputs(
                 Materials.TinAlloy.getDust(8),
                 WerkstoffLoader.Ruridit.get(OrePrefixes.dust, 7),
-                MaterialsAlloy.TRINIUM_NAQUADAH.getDust(4),
                 GGMaterial.adamantiumAlloy.get(OrePrefixes.dust, 4),
-                WerkstoffLoader.Californium.get(OrePrefixes.dust, 3),
-                MaterialsAlloy.QUANTUM.getDust(1))
+                WerkstoffLoader.Californium.get(OrePrefixes.dust, 3))
             .duration(60 * SECONDS)
             .eut(122880)
             .addTo(centrifugeRecipes);

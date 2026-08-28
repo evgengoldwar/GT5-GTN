@@ -50,7 +50,6 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
-import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
 import tectech.thing.metaTileEntity.multi.base.TTMultiblockBase;
 
@@ -76,7 +75,6 @@ public class MTEMultiNqGeneratorLegacy extends TTMultiblockBase implements ISurv
             Pair.of(Materials.Caesium.getMolten(180L), ExcitedLiquidCoe[4]));
         coolant = Arrays.asList(
             Pair.of(Materials.Time.getMolten(20L), CoolantEfficiency[0]),
-            Pair.of(new FluidStack(TFFluids.fluidCryotheum, 1_000), CoolantEfficiency[1]),
             Pair.of(Materials.SuperCoolant.getFluid(1_000), CoolantEfficiency[2]),
             Pair.of(GTModHandler.getIC2Coolant(1_000), CoolantEfficiency[3]));
     }

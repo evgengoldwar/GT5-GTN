@@ -1,9 +1,7 @@
 package gregtech.loaders.postload.chains;
 
-import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.recipe.RecipeMaps.blastFurnaceRecipes;
 import static gregtech.api.recipe.RecipeMaps.centrifugeNonCellRecipes;
-import static gregtech.api.recipe.RecipeMaps.chemicalPlantRecipes;
 import static gregtech.api.recipe.RecipeMaps.electrolyzerNonCellRecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerNonCellRecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
@@ -12,11 +10,8 @@ import static gregtech.api.recipe.RecipeMaps.sifterRecipes;
 import static gregtech.api.recipe.RecipeMaps.vacuumFreezerRecipes;
 import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeConstants.CHEMPLANT_CASING_TIER;
 import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
-
-import net.minecraftforge.fluids.FluidStack;
 
 import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.enums.GTValues;
@@ -25,10 +20,6 @@ import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.fluids.GTPPFluids;
-import gtPlusPlus.core.material.MaterialMisc;
-import gtPlusPlus.core.material.MaterialsElements;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public class AcidRecipes {
 
@@ -76,38 +67,16 @@ public class AcidRecipes {
         // Chlorosulfonic Acid Line
         GTValues.RA.stdBuilder()
             .itemInputs(Materials.PhosphorousPentoxide.getDust(7))
-            .fluidInputs(new FluidStack(GTPPFluids.IndustrialStrengthHydrogenChloride, 4000))
             .fluidOutputs(Materials.PhosphorusChlorineMixture.getFluid(2000L), Materials.Water.getFluid(5000L))
             .duration(24 * SECONDS)
             .eut(TierEU.RECIPE_HV)
             .addTo(UniversalChemical);
         GTValues.RA.stdBuilder()
-            .fluidInputs(
-                Materials.StagnantWasteWater.getFluid(6000L),
-                MaterialMisc.HYDROGEN_CYANIDE.getFluidStack(4000))
             .fluidOutputs(Materials.ActivatedWasteWater.getFluid(2000L), Materials.Chlorine.getGas(8000L))
             .circuit(1)// Necessary to exceed properties.minItemInputs threshold
             .eut(1440)
             .duration(10 * SECONDS)
             .addTo(mixerNonCellRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GregtechItemList.EmptyCatalystCarrier.get(10),
-                Materials.Osmium.getDust(10),
-                Materials.Naquadah.getDust(3))
-            .fluidInputs(Materials.ActivatedWasteWater.getFluid(24000L))
-            .itemOutputs(GregtechItemList.ChlorinationCatalyst.get(10))
-            .eut(TierEU.RECIPE_IV)
-            .duration(150 * SECONDS)
-            .addTo(assemblerRecipes);
-        GTValues.RA.stdBuilder()
-            .itemInputs(GregtechItemList.ChlorinationCatalyst.get(0), Materials.PhosphorusTrichloride.getDust(4))
-            .fluidInputs(Materials.Chlorine.getGas(2000L))
-            .fluidOutputs(Materials.PhosphorusPentachloride.getFluid(1000L))
-            .eut(600)
-            .duration(90 * SECONDS)
-            .metadata(CHEMPLANT_CASING_TIER, 3)
-            .addTo(chemicalPlantRecipes);
         GTValues.RA.stdBuilder()
             .fluidInputs(Materials.ToxicAir.getGas(3000L), Materials.Ozone.getGas(10000L))
             .fluidOutputs(Materials.ToxicSlurry.getFluid(400L))
@@ -118,13 +87,6 @@ public class AcidRecipes {
             .itemInputs(GTOreDictUnificator.get(OrePrefixes.crushed, Materials.Quantium, 6))
             .fluidInputs(Materials.ToxicSlurry.getFluid(3000L))
             .fluidOutputs(Materials.DestabilizationSlurry.getFluid(2500L))
-            .eut(TierEU.RECIPE_IV)
-            .duration(20 * SECONDS)
-            .addTo(UniversalChemical);
-        GTValues.RA.stdBuilder()
-            .itemInputs(MaterialsElements.STANDALONE.RUNITE.getCrushed(4))
-            .fluidInputs(Materials.ToxicSlurry.getFluid(3000L))
-            .fluidOutputs(Materials.DestabilizationSlurry.getFluid(3000L))
             .eut(TierEU.RECIPE_IV)
             .duration(20 * SECONDS)
             .addTo(UniversalChemical);
@@ -170,21 +132,6 @@ public class AcidRecipes {
                 .metadata(COIL_HEAT, 3050)
                 .addTo(blastFurnaceRecipes);
         }
-        GTValues.RA.stdBuilder()
-            .fluidInputs(Materials.PoisonousSlurry.getFluid(7500L), new FluidStack(GTPPFluids.FermentationBase, 2500))
-            .fluidOutputs(Materials.ToxicSlurry.getFluid(1000L))
-            .eut(TierEU.RECIPE_IV)
-            .duration(4 * SECONDS)
-            .metadata(CHEMPLANT_CASING_TIER, 2)
-            .addTo(chemicalPlantRecipes);
-        GTValues.RA.stdBuilder()
-            .fluidInputs(
-                Materials.Benzene.getFluid(7000L),
-                new FluidStack(GTPPFluids.Formaldehyde, 4000),
-                Materials.Diphenylisophthalate.getFluid(1000))
-            .fluidOutputs(Materials.UltraContaminatedGas.getGas(12000L))
-            .eut(TierEU.RECIPE_EV)
-            .duration(8 * SECONDS)
-            .addTo(mixerNonCellRecipes);
+
     }
 }

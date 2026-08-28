@@ -8,7 +8,6 @@ import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import net.minecraft.item.ItemStack;
 
 import bartworks.common.loaders.ItemRegistry;
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -42,19 +41,6 @@ public class Assembler implements Runnable {
             .eut(TierEU.RECIPE_HV)
             .addTo(assemblerRecipes);
 
-        GTValues.RA.stdBuilder() // DEHP
-            .itemInputs(
-                ItemList.OilDrill4.get(1),
-                GTOreDictUnificator.get(OrePrefixes.pipeLarge, Materials.ZPM, 8),
-                GGMaterial.incoloy903.get(OrePrefixes.gearGt, 32),
-                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Polytetrafluoroethylene, 16),
-                ItemList.Field_Generator_IV.get(1))
-            .itemOutputs(ItemRegistry.dehp)
-            .fluidInputs(Materials.HSSE.getMolten(32 * INGOTS))
-            .duration(60 * SECONDS)
-            .eut(TierEU.RECIPE_IV)
-            .addTo(assemblerRecipes);
-
         GTValues.RA.stdBuilder()
             .itemInputs(GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.AnnealedCopper, 64L))
             .circuit(17)
@@ -74,17 +60,6 @@ public class Assembler implements Runnable {
             .fluidInputs(Materials.SolderingAlloy.getMolten(2 * INGOTS))
             .duration(30 * SECONDS)
             .eut(TierEU.RECIPE_MV)
-            .addTo(assemblerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.MACHINE_HULLS[3].get(1),
-                ItemList.Electric_Pump_HV.get(2),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.EV, 4),
-                GTOreDictUnificator.get(OrePrefixes.pipeLarge, Materials.StainlessSteel, 2))
-            .itemOutputs(ItemList.Distillation_Tower.get(1))
-            .duration(10 * SECONDS)
-            .eut(TierEU.RECIPE_LV)
             .addTo(assemblerRecipes);
 
         GTValues.RA.stdBuilder()

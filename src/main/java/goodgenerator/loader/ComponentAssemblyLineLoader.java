@@ -24,17 +24,6 @@ import static gregtech.api.util.GTRecipeBuilder.NUGGETS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeConstants.COAL_CASING_TIER;
-import static gtPlusPlus.core.material.MaterialMisc.MUTATED_LIVING_SOLDER;
-import static gtPlusPlus.core.material.MaterialsAlloy.CINOBITE;
-import static gtPlusPlus.core.material.MaterialsAlloy.INDALLOY_140;
-import static gtPlusPlus.core.material.MaterialsAlloy.LAFIUM;
-import static gtPlusPlus.core.material.MaterialsAlloy.PIKYONIUM;
-import static gtPlusPlus.core.material.MaterialsAlloy.QUANTUM;
-import static gtPlusPlus.core.material.MaterialsAlloy.TITANSTEEL;
-import static gtPlusPlus.core.material.MaterialsAlloy.TRINIUM_REINFORCED_STEEL;
-import static gtPlusPlus.core.material.MaterialsElements.STANDALONE.ASTRAL_TITANIUM;
-import static gtPlusPlus.core.material.MaterialsElements.STANDALONE.CELESTIAL_TUNGSTEN;
-import static gtPlusPlus.core.material.MaterialsElements.STANDALONE.HYPOGEN;
 
 import net.minecraft.item.ItemStack;
 
@@ -727,7 +716,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, YttriumBariumCuprate, 6))
             .circuit(MOTOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(48 * INGOTS),
                 Lubricant.getFluid(12_000),
                 Ruridit.getMolten(12 * STACKS),
                 HSSS.getMolten(1 * STACKS + 32 * INGOTS))
@@ -745,7 +733,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, YttriumBariumCuprate, 12))
             .circuit(PISTON_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(48 * INGOTS),
                 Lubricant.getFluid(12_000),
                 HSSS.getMolten(9 * STACKS + 26 * INGOTS + 6 * NUGGETS))
             .duration(24 * MINUTES)
@@ -763,7 +750,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, YttriumBariumCuprate, 6))
                 .circuit(PUMP_CIRCUIT)
                 .fluidInputs(
-                    INDALLOY_140.getFluidStack(48 * INGOTS),
                     Lubricant.getFluid(12_000),
                     HSSS.getMolten(7 * STACKS + 2 * INGOTS + 6 * NUGGETS),
                     NiobiumTitanium.getMolten(1 * STACKS + 32 * INGOTS),
@@ -783,7 +769,6 @@ public class ComponentAssemblyLineLoader {
                     get(plateDense, rubber, 53))
                 .circuit(CONVEYOR_CIRCUIT)
                 .fluidInputs(
-                    INDALLOY_140.getFluidStack(48 * INGOTS),
                     Lubricant.getFluid(12_000),
                     HSSS.getMolten(3 * STACKS + 26 * INGOTS + 6 * NUGGETS))
                 .duration(24 * MINUTES)
@@ -804,7 +789,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, YttriumBariumCuprate, 18))
             .circuit(ROBOT_ARM_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(3 * STACKS),
                 Lubricant.getFluid(12_000),
                 HSSS.getMolten(8 * STACKS + 16 * INGOTS))
             .duration(24 * MINUTES)
@@ -824,7 +808,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, YttriumBariumCuprate, 21))
             .circuit(SENSOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(3 * STACKS),
                 Gallium.getMolten(36 * STACKS))
             .duration(24 * MINUTES)
             .eut(RECIPE_IV)
@@ -842,7 +825,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, YttriumBariumCuprate, 21))
             .circuit(EMITTER_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(3 * STACKS),
                 Gallium.getMolten(36 * STACKS),
                 Ruridit.getMolten(3 * STACKS))
             .duration(24 * MINUTES)
@@ -862,7 +844,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, YttriumBariumCuprate, 24))
             .circuit(FIELD_GENERATOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(3 * STACKS),
                 Ruridit.getMolten(24 * STACKS))
             .duration(24 * MINUTES)
             .eut(RECIPE_IV)
@@ -879,7 +860,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, VanadiumGallium, 24))
             .circuit(MOTOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(1 * STACKS + 32 * INGOTS),
                 Lubricant.getFluid(36_000),
                 Europium.getMolten(18 * STACKS),
                 NaquadahAlloy.getMolten(5 * STACKS + 5 * INGOTS + 3 * NUGGETS))
@@ -897,7 +877,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, VanadiumGallium, 48))
             .circuit(PISTON_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(1 * STACKS + 32 * INGOTS),
                 Lubricant.getFluid(36_000),
                 NaquadahAlloy.getMolten(9 * STACKS + 26 * INGOTS + 6 * NUGGETS))
             .duration(24 * MINUTES)
@@ -916,7 +895,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, IV, 24))
             .circuit(ROBOT_ARM_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(6 * STACKS),
                 Lubricant.getFluid(36_000),
                 VanadiumGallium.getMolten(9 * STACKS),
                 NaquadahAlloy.getMolten(8 * STACKS + 16 * INGOTS))
@@ -935,7 +913,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, VanadiumGallium, 24))
                 .circuit(PUMP_CIRCUIT)
                 .fluidInputs(
-                    INDALLOY_140.getFluidStack(1 * STACKS + 32 * INGOTS),
                     Lubricant.getFluid(36_000),
                     NaquadahAlloy.getMolten(7 * STACKS + 2 * INGOTS + 6 * NUGGETS),
                     Enderium.getMolten(4 * STACKS + 32 * INGOTS),
@@ -954,7 +931,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, VanadiumGallium, 24))
                 .circuit(CONVEYOR_CIRCUIT)
                 .fluidInputs(
-                    INDALLOY_140.getFluidStack(1 * STACKS + 32 * INGOTS),
                     Lubricant.getFluid(36_000),
                     rubber.getMolten(14 * STACKS + 58 * INGOTS),
                     NaquadahAlloy.getMolten(3 * STACKS + 26 * INGOTS + 6 * NUGGETS))
@@ -975,7 +951,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, Materials.ZPM, 12))
             .circuit(SENSOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(6 * STACKS),
                 Trinium.getMolten(36 * STACKS),
                 VanadiumGallium.getMolten(10 * STACKS + 32 * INGOTS))
             .duration(24 * MINUTES)
@@ -993,7 +968,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, Materials.ZPM, 12))
             .circuit(EMITTER_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(6 * STACKS),
                 Trinium.getMolten(36 * STACKS),
                 VanadiumGallium.getMolten(10 * STACKS + 32 * INGOTS),
                 Osmiridium.getMolten(3 * STACKS))
@@ -1013,7 +987,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UV, 12))
             .circuit(FIELD_GENERATOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(6 * STACKS),
                 Europium.getMolten(24 * STACKS),
                 VanadiumGallium.getMolten(12 * STACKS))
             .duration(24 * MINUTES)
@@ -1030,7 +1003,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, NaquadahAlloy, 24))
             .circuit(MOTOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(6 * STACKS + 48 * INGOTS),
                 Lubricant.getFluid(96_000),
                 Americium.getMolten(36 * STACKS),
                 Naquadria.getMolten(6 * STACKS + 48 * INGOTS),
@@ -1050,7 +1022,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, NaquadahAlloy, 48))
             .circuit(PISTON_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(6 * STACKS + 48 * INGOTS),
                 Lubricant.getFluid(96_000),
                 Neutronium.getMolten(9 * STACKS + 26 * INGOTS + 6 * NUGGETS),
                 Naquadria.getMolten(6 * STACKS + 48 * INGOTS))
@@ -1070,7 +1041,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, LuV, 24))
             .circuit(ROBOT_ARM_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(12 * STACKS),
                 Lubricant.getFluid(96_000),
                 NaquadahAlloy.getMolten(9 * STACKS),
                 Neutronium.getMolten(8 * STACKS + 16 * INGOTS),
@@ -1090,7 +1060,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, NaquadahAlloy, 24))
                 .circuit(PUMP_CIRCUIT)
                 .fluidInputs(
-                    INDALLOY_140.getFluidStack(6 * STACKS + 48 * INGOTS),
                     Lubricant.getFluid(96_000),
                     Naquadah.getMolten(9 * STACKS),
                     Neutronium.getMolten(7 * STACKS + 2 * INGOTS + 6 * NUGGETS),
@@ -1110,7 +1079,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, NaquadahAlloy, 24))
                 .circuit(CONVEYOR_CIRCUIT)
                 .fluidInputs(
-                    INDALLOY_140.getFluidStack(6 * STACKS + 48 * INGOTS),
                     Lubricant.getFluid(96_000),
                     rubber.getMolten(29 * STACKS + 61 * INGOTS),
                     Naquadria.getMolten(6 * STACKS + 48 * INGOTS),
@@ -1132,7 +1100,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UV, 12))
             .circuit(SENSOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(12 * STACKS),
                 Naquadria.getMolten(42 * STACKS + 48 * INGOTS),
                 NaquadahAlloy.getMolten(10 * STACKS + 32 * INGOTS))
             .duration(24 * MINUTES)
@@ -1150,7 +1117,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UV, 12))
             .circuit(EMITTER_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(12 * STACKS),
                 Naquadria.getMolten(42 * STACKS + 48 * INGOTS),
                 NaquadahAlloy.getMolten(10 * STACKS + 32 * INGOTS),
                 Neutronium.getMolten(3 * STACKS))
@@ -1170,7 +1136,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UHV, 12))
             .circuit(FIELD_GENERATOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(12 * STACKS),
                 Americium.getMolten(36 * STACKS),
                 NaquadahAlloy.getMolten(12 * STACKS),
                 Naquadria.getMolten(6 * STACKS + 48 * INGOTS))
@@ -1188,7 +1153,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, Bedrockium, 24))
             .circuit(MOTOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(13 * STACKS + 32 * INGOTS),
                 Lubricant.getFluid(192_000),
                 Neutronium.getMolten(48 * STACKS),
                 Naquadria.getMolten(13 * STACKS + 32 * INGOTS),
@@ -1208,7 +1172,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, Bedrockium, 48))
             .circuit(PISTON_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(13 * STACKS + 32 * INGOTS),
                 Lubricant.getFluid(192_000),
                 CosmicNeutronium.getMolten(18 * STACKS + 53 * INGOTS + 3 * NUGGETS),
                 Naquadria.getMolten(13 * STACKS + 32 * INGOTS))
@@ -1228,7 +1191,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, Materials.ZPM, 24))
             .circuit(ROBOT_ARM_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(13 * STACKS + 32 * INGOTS),
                 Lubricant.getFluid(192_000),
                 CosmicNeutronium.getMolten(16 * STACKS + 32 * INGOTS),
                 Naquadria.getMolten(13 * STACKS + 32 * INGOTS),
@@ -1248,7 +1210,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, Bedrockium, 24))
                 .circuit(PUMP_CIRCUIT)
                 .fluidInputs(
-                    INDALLOY_140.getFluidStack(13 * STACKS + 32 * INGOTS),
                     Lubricant.getFluid(192_000),
                     CosmicNeutronium.getMolten(14 * STACKS + 5 * INGOTS + 3 * NUGGETS),
                     Naquadria.getMolten(13 * STACKS + 32 * INGOTS),
@@ -1268,7 +1229,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, Bedrockium, 24))
                 .circuit(CONVEYOR_CIRCUIT)
                 .fluidInputs(
-                    INDALLOY_140.getFluidStack(13 * STACKS + 32 * INGOTS),
                     Lubricant.getFluid(192_000),
                     rubber.getMolten(29 * STACKS + 61 * INGOTS),
                     Naquadria.getMolten(13 * STACKS + 32 * INGOTS),
@@ -1290,7 +1250,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UHV, 12))
             .circuit(SENSOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(13 * STACKS + 32 * INGOTS),
                 ElectrumFlux.getMolten(48 * STACKS),
                 Naquadria.getMolten(13 * STACKS + 32 * INGOTS),
                 Bedrockium.getMolten(10 * STACKS + 32 * INGOTS))
@@ -1309,7 +1268,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UHV, 12))
             .circuit(EMITTER_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(13 * STACKS + 32 * INGOTS),
                 ElectrumFlux.getMolten(48 * STACKS),
                 Naquadria.getMolten(13 * STACKS + 32 * INGOTS),
                 Bedrockium.getMolten(10 * STACKS + 32 * INGOTS),
@@ -1330,7 +1288,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UEV, 12))
             .circuit(FIELD_GENERATOR_CIRCUIT)
             .fluidInputs(
-                INDALLOY_140.getFluidStack(13 * STACKS + 32 * INGOTS),
                 Neutronium.getMolten(48 * STACKS),
                 Naquadria.getMolten(13 * STACKS + 32 * INGOTS),
                 Bedrockium.getMolten(12 * STACKS))
@@ -1348,7 +1305,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, Draconium, 24))
             .circuit(MOTOR_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 Lubricant.getFluid(192_000),
                 CosmicNeutronium.getMolten(48 * STACKS),
                 Infinity.getMolten(16 * STACKS + 10 * INGOTS + 6 * NUGGETS),
@@ -1368,7 +1324,6 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, Draconium, 48))
             .circuit(PISTON_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 Lubricant.getFluid(192_000),
                 Infinity.getMolten(18 * STACKS + 53 * INGOTS + 3 * NUGGETS),
                 Quantium.getMolten(13 * STACKS + 32 * INGOTS))
@@ -1388,7 +1343,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UV, 24))
             .circuit(ROBOT_ARM_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 Lubricant.getFluid(192_000),
                 Infinity.getMolten(16 * STACKS + 32 * INGOTS),
                 Quantium.getMolten(13 * STACKS + 32 * INGOTS),
@@ -1409,7 +1363,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, Draconium, 24))
                 .circuit(PUMP_CIRCUIT)
                 .fluidInputs(
-                    MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                     Lubricant.getFluid(192_000),
                     Infinity.getMolten(14 * STACKS + 5 * INGOTS + 3 * NUGGETS),
                     Quantium.getMolten(13 * STACKS + 32 * INGOTS),
@@ -1428,7 +1381,6 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, Draconium, 24))
                 .circuit(CONVEYOR_CIRCUIT)
                 .fluidInputs(
-                    MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                     Lubricant.getFluid(192_000),
                     rubber.getMolten(59 * STACKS + 58 * INGOTS),
                     Quantium.getMolten(13 * STACKS + 32 * INGOTS),
@@ -1450,7 +1402,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UEV, 12))
             .circuit(SENSOR_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 InfinityCatalyst.getMolten(48 * STACKS),
                 Quantium.getMolten(13 * STACKS + 32 * INGOTS),
                 Draconium.getMolten(10 * STACKS + 32 * INGOTS))
@@ -1469,7 +1420,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UEV, 12))
             .circuit(EMITTER_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 InfinityCatalyst.getMolten(48 * STACKS),
                 Quantium.getMolten(13 * STACKS + 32 * INGOTS),
                 Draconium.getMolten(10 * STACKS + 32 * INGOTS),
@@ -1490,7 +1440,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UIV, 12))
             .circuit(FIELD_GENERATOR_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 Tritanium.getMolten(48 * STACKS),
                 Quantium.getMolten(13 * STACKS + 32 * INGOTS),
                 Draconium.getMolten(12 * STACKS))
@@ -1515,13 +1464,11 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, NetherStar, 24))
             .circuit(MOTOR_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 DimensionallyShiftedSuperfluid.getFluid(32 * STACKS + 53 * INGOTS + 3 * NUGGETS),
                 MoltenProtoHalkoniteBase.getFluid(48 * STACKS),
                 Infinity.getMolten(48 * STACKS),
                 TranscendentMetal.getMolten(16 * STACKS + 10 * INGOTS + 6 * NUGGETS),
-                TengamPurified.getMolten(12 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
+                TengamPurified.getMolten(12 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UEV)
             .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1533,14 +1480,12 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, NetherStar, 24))
             .circuit(MOTOR_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 DimensionallyShiftedSuperfluid.getFluid(32 * STACKS + 53 * INGOTS + 3 * NUGGETS),
                 MoltenProtoHalkoniteBase.getFluid(24 * STACKS),
                 Creon.getMolten(24 * STACKS),
                 Mellion.getMolten(24 * STACKS),
                 TranscendentMetal.getMolten(16 * STACKS + 10 * INGOTS + 6 * NUGGETS),
-                TengamPurified.getMolten(12 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
+                TengamPurified.getMolten(12 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UEV)
             .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1555,10 +1500,8 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, NetherStar, 48))
             .circuit(PISTON_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 DimensionallyShiftedSuperfluid.getFluid(192_000),
-                TranscendentMetal.getMolten(18 * STACKS + 53 * INGOTS + 3 * NUGGETS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
+                TranscendentMetal.getMolten(18 * STACKS + 53 * INGOTS + 3 * NUGGETS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UEV)
             .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1576,10 +1519,8 @@ public class ComponentAssemblyLineLoader {
                 get(cableGt16, NetherStar, 72))
             .circuit(ROBOT_ARM_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                 DimensionallyShiftedSuperfluid.getFluid(192_000),
-                TranscendentMetal.getMolten(16 * STACKS + 32 * INGOTS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
+                TranscendentMetal.getMolten(16 * STACKS + 32 * INGOTS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UEV)
             .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1595,12 +1536,10 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, NetherStar, 24))
                 .circuit(PUMP_CIRCUIT)
                 .fluidInputs(
-                    MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                     DimensionallyShiftedSuperfluid.getFluid(192_000),
                     TranscendentMetal.getMolten(14 * STACKS + 5 * INGOTS + 3 * NUGGETS),
                     rubber.getMolten(12 * STACKS),
-                    DraconiumAwakened.getMolten(9 * STACKS),
-                    CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
+                    DraconiumAwakened.getMolten(9 * STACKS))
                 .duration(40 * MINUTES)
                 .eut(RECIPE_UEV)
                 .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1615,11 +1554,9 @@ public class ComponentAssemblyLineLoader {
                     get(cableGt16, NetherStar, 24))
                 .circuit(CONVEYOR_CIRCUIT)
                 .fluidInputs(
-                    MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
                     DimensionallyShiftedSuperfluid.getFluid(192_000),
                     rubber.getMolten(59 * STACKS + 58 * INGOTS),
-                    TranscendentMetal.getMolten(6 * STACKS + 53 * INGOTS + 3 * NUGGETS),
-                    CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
+                    TranscendentMetal.getMolten(6 * STACKS + 53 * INGOTS + 3 * NUGGETS))
                 .duration(40 * MINUTES)
                 .eut(RECIPE_UEV)
                 .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1637,13 +1574,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UIV, 12),
                 get(cableGt16, NetherStar, 84))
             .circuit(SENSOR_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                TRINIUM_REINFORCED_STEEL.getFluidStack(12 * STACKS),
-                LAFIUM.getFluidStack(12 * STACKS),
-                CINOBITE.getFluidStack(12 * STACKS),
-                PIKYONIUM.getFluidStack(12 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UEV)
             .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1659,14 +1589,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UIV, 12),
                 get(cableGt16, NetherStar, 84))
             .circuit(EMITTER_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                TRINIUM_REINFORCED_STEEL.getFluidStack(12 * STACKS),
-                LAFIUM.getFluidStack(12 * STACKS),
-                CINOBITE.getFluidStack(12 * STACKS),
-                PIKYONIUM.getFluidStack(12 * STACKS),
-                TranscendentMetal.getMolten(6 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UEV)
             .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1683,12 +1605,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UMV, 12),
                 get(cableGt16, NetherStar, 96))
             .circuit(FIELD_GENERATOR_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                DimensionallyShiftedSuperfluid.getFluid(12 * STACKS),
-                MoltenProtoHalkoniteBase.getFluid(48 * STACKS),
-                Infinity.getMolten(48 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UEV)
             .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1704,13 +1620,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UMV, 12),
                 get(cableGt16, NetherStar, 96))
             .circuit(FIELD_GENERATOR_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                DimensionallyShiftedSuperfluid.getFluid(12 * STACKS),
-                MoltenProtoHalkoniteBase.getFluid(24 * STACKS),
-                Creon.getMolten(24 * STACKS),
-                Mellion.getMolten(24 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UEV)
             .metadata(COAL_CASING_TIER, COAL_UIV)
@@ -1724,13 +1633,6 @@ public class ComponentAssemblyLineLoader {
             .itemInputsUnsafe(
                 get(cableGt16, Quantium, 24))
             .circuit(MOTOR_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                DimensionallyShiftedSuperfluid.getFluid(192_000),
-                HYPOGEN.getFluidStack(51 * STACKS),
-                TengamPurified.getMolten(24 * STACKS),
-                SpaceTime.getMolten(16 * STACKS + 10 * INGOTS + 6 * NUGGETS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UIV)
             .metadata(COAL_CASING_TIER, COAL_UMV)
@@ -1744,12 +1646,6 @@ public class ComponentAssemblyLineLoader {
                 get(plateDense, SpaceTime, 32),
                 get(cableGt16, Quantium, 48))
             .circuit(PISTON_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                DimensionallyShiftedSuperfluid.getFluid(192_000),
-                SpaceTime.getMolten(18 * STACKS + 53 * INGOTS + 3 * NUGGETS),
-                HYPOGEN.getFluidStack(3 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UIV)
             .metadata(COAL_CASING_TIER, COAL_UMV)
@@ -1765,13 +1661,6 @@ public class ComponentAssemblyLineLoader {
                 get(wrapCircuit, UIV, 12),
                 get(wrapCircuit, UEV, 24))
             .circuit(ROBOT_ARM_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                DimensionallyShiftedSuperfluid.getFluid(192_000),
-                SpaceTime.getMolten(16 * STACKS + 32 * INGOTS),
-                Quantium.getMolten(9 * STACKS),
-                HYPOGEN.getFluidStack(3 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UIV)
             .metadata(COAL_CASING_TIER, COAL_UMV)
@@ -1786,14 +1675,6 @@ public class ComponentAssemblyLineLoader {
                     get(plateDense, SpaceTime, 21),
                     get(cableGt16, Quantium, 24))
                 .circuit(PUMP_CIRCUIT)
-                .fluidInputs(
-                    MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                    DimensionallyShiftedSuperfluid.getFluid(192_000),
-                    SpaceTime.getMolten(14 * STACKS + 5 * INGOTS + 3 * NUGGETS),
-                    rubber.getMolten(12 * STACKS),
-                    Infinity.getMolten(9 * STACKS),
-                    HYPOGEN.getFluidStack(3 * STACKS),
-                    CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
                 .duration(40 * MINUTES)
                 .eut(RECIPE_UIV)
                 .metadata(COAL_CASING_TIER, COAL_UMV)
@@ -1807,13 +1688,6 @@ public class ComponentAssemblyLineLoader {
                     get(plateDense, SpaceTime, 10),
                     get(cableGt16, Quantium, 24))
                 .circuit(CONVEYOR_CIRCUIT)
-                .fluidInputs(
-                    MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                    DimensionallyShiftedSuperfluid.getFluid(192_000),
-                    rubber.getMolten(59 * STACKS + 58 * INGOTS),
-                    SpaceTime.getMolten(6 * STACKS + 53 * INGOTS + 3 * NUGGETS),
-                    HYPOGEN.getFluidStack(3 * STACKS),
-                    CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
                 .duration(40 * MINUTES)
                 .eut(RECIPE_UIV)
                 .metadata(COAL_CASING_TIER, COAL_UMV)
@@ -1830,14 +1704,6 @@ public class ComponentAssemblyLineLoader {
                 get(NuclearStar, 192),
                 get(wrapCircuit, UMV, 12))
             .circuit(SENSOR_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                CELESTIAL_TUNGSTEN.getFluidStack(15 * STACKS),
-                QUANTUM.getFluidStack(12 * STACKS),
-                ASTRAL_TITANIUM.getFluidStack(12 * STACKS),
-                TITANSTEEL.getFluidStack(12 * STACKS),
-                Quantium.getMolten(10 * STACKS + 32 * INGOTS),
-                HYPOGEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UIV)
             .metadata(COAL_CASING_TIER, COAL_UMV)
@@ -1852,15 +1718,6 @@ public class ComponentAssemblyLineLoader {
                 get(NuclearStar, 192),
                 get(wrapCircuit, UMV, 12))
             .circuit(EMITTER_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                CELESTIAL_TUNGSTEN.getFluidStack(15 * STACKS),
-                QUANTUM.getFluidStack(12 * STACKS),
-                ASTRAL_TITANIUM.getFluidStack(12 * STACKS),
-                TITANSTEEL.getFluidStack(12 * STACKS),
-                Quantium.getMolten(10 * STACKS + 32 * INGOTS),
-                SpaceTime.getMolten(6 * STACKS),
-                HYPOGEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UIV)
             .metadata(COAL_CASING_TIER, COAL_UMV)
@@ -1876,11 +1733,6 @@ public class ComponentAssemblyLineLoader {
                 get(Emitter_UMV, 192),
                 get(wrapCircuit, UXV, 12))
             .circuit(FIELD_GENERATOR_CIRCUIT)
-            .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(13 * STACKS + 32 * INGOTS),
-                HYPOGEN.getFluidStack(51 * STACKS),
-                Quantium.getMolten(12 * STACKS),
-                CELESTIAL_TUNGSTEN.getFluidStack(3 * STACKS))
             .duration(40 * MINUTES)
             .eut(RECIPE_UIV)
             .metadata(COAL_CASING_TIER, COAL_UMV)
@@ -2019,7 +1871,6 @@ public class ComponentAssemblyLineLoader {
                 get(nanite, Gold, 24))
             .circuit(SENSOR_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(75 * STACKS),
                 SpaceTime.getMolten(36 * STACKS),
                 MHDCSM.getMolten(21 * STACKS),
                 Eternity.getMolten(18 * STACKS),
@@ -2042,7 +1893,6 @@ public class ComponentAssemblyLineLoader {
                 get(nanite, Gold, 24))
             .circuit(EMITTER_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(75 * STACKS),
                 SpaceTime.getMolten(36 * STACKS),
                 MHDCSM.getMolten(21 * STACKS),
                 Eternity.getMolten(18 * STACKS),
@@ -2065,7 +1915,6 @@ public class ComponentAssemblyLineLoader {
                 get(nanite, Gold, 36))
             .circuit(FIELD_GENERATOR_CIRCUIT)
             .fluidInputs(
-                MUTATED_LIVING_SOLDER.getFluidStack(75 * STACKS),
                 SpaceTime.getMolten(27 * STACKS),
                 MHDCSM.getMolten(19 * STACKS + 32 * INGOTS),
                 Eternity.getMolten(16 * STACKS + 32 * INGOTS),

@@ -1,8 +1,6 @@
 package gregtech.api.items;
 
 import static gregtech.api.enums.Mods.GregTech;
-import static net.minecraft.util.StatCollector.translateToLocal;
-import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +13,6 @@ import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.common.tileentities.machines.multi.nanochip.util.CircuitComponent;
 
 public class CircuitComponentFakeItem extends GTGenericItem {
 
@@ -33,26 +30,16 @@ public class CircuitComponentFakeItem extends GTGenericItem {
 
     @Override
     public String getUnlocalizedName(ItemStack aStack) {
-        CircuitComponent component = CircuitComponent.getFromFakeStackUnsafe(aStack);
-        return component.nameKey;
+        return "";
     }
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        CircuitComponent component = CircuitComponent.getFromFakeStackUnsafe(stack);
-        if (!component.isProcessed) return translateToLocalFormatted(
-            "gt.circuitcomponent.base",
-            component.realComponent.get()
-                .getDisplayName());
-        return component.getLocalizedName();
+        return "";
     }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> textList, boolean advanced) {
-        CircuitComponent component = CircuitComponent.getFromFakeStackUnsafe(stack);
-        textList.add(translateToLocal("gt.circuitcomponent.tooltip.base"));
-        if (!component.isProcessed) textList.add(translateToLocal("gt.circuitcomponent.tooltip.cc.base"));
-        else textList.add(translateToLocal("gt.circuitcomponent.tooltip.pc.base"));
         super.addInformation(stack, player, textList, advanced);
     }
 
@@ -73,10 +60,6 @@ public class CircuitComponentFakeItem extends GTGenericItem {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        for (CircuitComponent component : CircuitComponent.VALUES) {
-            if (component.iconString != null) iconMap
-                .put(component.metaId, iconRegister.registerIcon(GregTech.ID + TextureLocation + component.iconString));
-        }
         iconMap.put(-1, iconRegister.registerIcon(GregTech.ID + TextureLocation + "circuitcomponent_default"));
     }
 }

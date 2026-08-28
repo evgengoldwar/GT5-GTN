@@ -72,7 +72,6 @@ import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.util.CasingTier;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GlassTier;
-import tectech.loader.recipe.Godforge;
 
 @Mod(
     modid = MainMod.MOD_ID,
@@ -233,7 +232,6 @@ public final class MainMod {
                     .reInit());
 
         // because the above code runs so late that I couldn't find anywhere else to call this
-        if (!recipesAdded) Godforge.initMoltenModuleRecipes();
 
         recipesAdded = true;
     }

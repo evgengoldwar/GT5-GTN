@@ -25,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import bartworks.system.material.WerkstoffLoader;
 import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
@@ -37,8 +36,6 @@ import gregtech.api.enums.TierEU;
 import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.MaterialsAlloy;
-import gtPlusPlus.core.material.MaterialsElements;
 import mods.railcraft.common.blocks.aesthetics.cube.EnumCube;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
@@ -462,21 +459,6 @@ public class MixerRecipes implements Runnable {
                 GTOreDictUnificator.getDust(Materials.BorosilicateGlass, 8L * OrePrefixes.dust.getMaterialAmount()))
             .duration(10 * SECONDS)
             .eut(TierEU.RECIPE_ULV)
-            .addTo(mixerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 3),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Iron, 23),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Nickel, 5),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Chrome, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Silicon, 12),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Carbon, 3),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Aluminium, 1))
-            .circuit(20)
-            .itemOutputs(MaterialsAlloy.EGLIN_STEEL.getDust(48))
-            .duration(15 * SECONDS)
-            .eut(TierEU.RECIPE_MV / 2)
             .addTo(mixerRecipes);
 
         GTValues.RA.stdBuilder()
@@ -1646,34 +1628,6 @@ public class MixerRecipes implements Runnable {
             .itemOutputs(Materials.EnrichedHolmium.getDust(5))
             .duration(15 * SECONDS)
             .eut(TierEU.RECIPE_ZPM)
-            .addTo(mixerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                Materials.NetherStar.getDust(8),
-                Materials.Terbium.getDust(7),
-                MaterialsElements.getInstance().TECHNETIUM.getDust(4),
-                Materials.Unstable.getDust(4),
-                Materials.Flerovium.getDust(3),
-                Materials.InfinityCatalyst.getDust(1))
-            .circuit(6)
-            .itemOutputs(Materials.Shijima.getDust(27))
-            .duration(15 * SECONDS)
-            .eut((int) TierEU.RECIPE_ZPM)
-            .addTo(mixerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                Materials.TinAlloy.getDust(8),
-                WerkstoffLoader.Ruridit.get(OrePrefixes.dust, 7),
-                MaterialsAlloy.TRINIUM_NAQUADAH.getDust(4),
-                GGMaterial.adamantiumAlloy.get(OrePrefixes.dust, 4),
-                WerkstoffLoader.Californium.get(OrePrefixes.dust, 3),
-                MaterialsAlloy.QUANTUM.getDust(1))
-            .circuit(6)
-            .itemOutputs(Materials.Churitsu.getDust(27))
-            .duration(15 * SECONDS)
-            .eut((int) TierEU.RECIPE_ZPM)
             .addTo(mixerRecipes);
 
         // Catalysts for Plasma Forge.

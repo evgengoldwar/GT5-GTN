@@ -9,8 +9,6 @@ import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.enums.Mods.TwilightForest;
 import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
-import static gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList.Laser_Lens_Special;
-import static gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList.Laser_Lens_WoodsGlass;
 
 import net.minecraft.item.ItemStack;
 
@@ -27,7 +25,6 @@ import gregtech.api.objects.AE2DigitalChestHandler;
 import gregtech.api.objects.AE2NonconsumableHatchHandler;
 import gregtech.common.covers.CoverFacadeAE;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
-import gregtech.common.tileentities.machines.multi.MTELargeMolecularAssembler;
 
 public final class AE2Compat {
 
@@ -36,7 +33,6 @@ public final class AE2Compat {
             .registries()
             .interfaceTerminal();
         reg.register(MTEHatchCraftingInputME.class);
-        reg.register(MTELargeMolecularAssembler.class);
     }
 
     public static void onPostInit() {
@@ -107,10 +103,6 @@ public final class AE2Compat {
         registry.register(ItemList.Circuit_Integrated.getItem());
         // GT lenses are registered by ProcessingLens
         registry.register(WerkstoffLoader.items.get(OrePrefixes.lens));
-
-        // Exclude woodglass and quantum anomaly
-        registry.register(Laser_Lens_WoodsGlass.get(1));
-        registry.register(Laser_Lens_Special.get(1));
 
         if (NewHorizonsCoreMod.isModLoaded()) {
             registry.register(getModItem(NewHorizonsCoreMod.ID, "ReinforcedGlassLense"));

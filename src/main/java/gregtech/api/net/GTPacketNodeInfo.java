@@ -7,7 +7,6 @@ import net.minecraft.world.IBlockAccess;
 import com.google.common.io.ByteArrayDataInput;
 
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.common.tileentities.machines.multi.MTEResearchCompleter;
 import io.netty.buffer.ByteBuf;
 
 public class GTPacketNodeInfo extends GTPacket {
@@ -58,10 +57,7 @@ public class GTPacketNodeInfo extends GTPacket {
         if (world instanceof WorldClient worldClient) {
             if (worldClient.blockExists(mBlockX, mBlockY, mBlockZ)) {
                 TileEntity tileEntity = world.getTileEntity(mBlockX, mBlockY, mBlockZ);
-                if (tileEntity instanceof IGregTechTileEntity igtte
-                    && igtte.getMetaTileEntity() instanceof MTEResearchCompleter completer) {
-                    completer.setNodeValues(nodeDistance, nodeColor);
-                }
+                if (tileEntity instanceof IGregTechTileEntity igtte) {}
             }
         }
     }

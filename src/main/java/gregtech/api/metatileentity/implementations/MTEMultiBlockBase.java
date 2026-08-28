@@ -149,18 +149,12 @@ import gregtech.common.tileentities.machines.MTEHatchCraftingInputSlave;
 import gregtech.common.tileentities.machines.MTEHatchInputBusME;
 import gregtech.common.tileentities.machines.MTEHatchInputME;
 import gregtech.common.tileentities.machines.RecipeCheckReason;
-import gregtech.common.tileentities.machines.multi.MTELargeTurbineLegacy;
 import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
 import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
 import gregtech.common.tileentities.machines.multi.drone.production.ProductionRecord;
 import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbineBase;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTESteamMultiBlockBase;
-import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
@@ -1273,11 +1267,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         for (var bus : mInputBusses) hatchColors |= (short) (1 << bus.getColor());
         for (var hatch : mInputHatches) hatchColors |= (short) (1 << hatch.getColor());
 
-        if (this instanceof MTESteamMultiBlockBase<?>steamMultiBase) {
-            for (var bus : steamMultiBase.mSteamInputs) hatchColors |= (short) (1 << bus.getColor());
-            for (var hatch : steamMultiBase.mSteamInputFluids) hatchColors |= (short) (1 << hatch.getColor());
-        }
-
         return hatchColors;
     }
 
@@ -2308,34 +2297,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addCryotheumHatchToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        if (aTileEntity == null) return false;
-        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
-        if (aMetaTileEntity == null) return false;
-        if (aMetaTileEntity instanceof MTEHatchCustomFluidBase mteHatchCryotheum
-            && mteHatchCryotheum.mLockedFluid == TFFluids.fluidCryotheum) {
-            mteHatchCryotheum.updateTexture(aBaseCasingIndex);
-            mteHatchCryotheum.updateCraftingIcon(this.getMachineCraftingIcon());
-            addIfSmartInput(mteHatchCryotheum);
-            return mCryotheumHatches.add(mteHatchCryotheum);
-        }
-        return false;
-    }
-
-    public boolean addPyrotheumHatchToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        if (aTileEntity == null) return false;
-        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
-        if (aMetaTileEntity == null) return false;
-        if (aMetaTileEntity instanceof MTEHatchCustomFluidBase mteHatchPyrotheum
-            && mteHatchPyrotheum.mLockedFluid == TFFluids.fluidPyrotheum) {
-            mteHatchPyrotheum.updateTexture(aBaseCasingIndex);
-            mteHatchPyrotheum.updateCraftingIcon(this.getMachineCraftingIcon());
-            addIfSmartInput(mteHatchPyrotheum);
-            return mPyrotheumHatches.add(mteHatchPyrotheum);
-        }
-        return false;
-    }
-
     public boolean addMufflerToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
@@ -2362,7 +2323,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         if (aTileEntity == null) return false;
         IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
-        if (aMetaTileEntity instanceof MTEHatchSteamBusInput) return false;
         addIfSmartInput(aMetaTileEntity);
         if (aMetaTileEntity instanceof IDualInputHatch hatch) {
             if (!supportsCraftingMEBuffer()) return false;
@@ -2384,9 +2344,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
         switch (aMetaTileEntity) {
             case null -> {
-                return false;
-            }
-            case MTEHatchSteamBusOutput mteHatchSteamBusOutput -> {
                 return false;
             }
             case MTEHatchOutputBus hatch -> {
@@ -3967,8 +3924,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                 .setDefaultColor(COLOR_TEXT_WHITE.get())
                 .setEnabled(widget -> {
                     if (getBaseMetaTileEntity().isAllowedToWork()) return false;
-                    if (getErrorDisplayID() == 0
-                        && (this instanceof MTELargeTurbineLegacy || this instanceof MTELargeTurbineBase)) {
+                    if (getErrorDisplayID() == 0 && (this instanceof MTELargeTurbineBase)) {
                         final ItemStack tItem = inventorySlot.getMcSlot()
                             .getStack();
                         return tItem == null

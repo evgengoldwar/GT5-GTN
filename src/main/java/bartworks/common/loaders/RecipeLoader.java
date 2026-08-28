@@ -14,7 +14,6 @@
 package bartworks.common.loaders;
 
 import bartworks.common.loaders.recipes.Assembler;
-import bartworks.common.loaders.recipes.AssemblyLine;
 import bartworks.common.loaders.recipes.Autoclave;
 import bartworks.common.loaders.recipes.Centrifuge;
 import bartworks.common.loaders.recipes.ChemicalReactor;
@@ -35,7 +34,6 @@ public class RecipeLoader {
 
     public static void run() {
         new Assembler().run();
-        new AssemblyLine().run();
         new Autoclave().run();
         new Centrifuge().run();
         new ChemicalReactor().run();

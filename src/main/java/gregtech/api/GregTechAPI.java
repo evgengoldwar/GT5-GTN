@@ -333,7 +333,6 @@ public class GregTechAPI {
         if (block == GregTechAPI.sWormholeRender) return true;
         if (block == GregTechAPI.sBlackholeRender) return true;
         if (block == TTCasingsContainer.eyeOfHarmonyRenderBlock) return true;
-        if (block == TTCasingsContainer.forgeOfGodsRenderBlock) return true;
         if (block == FluidLoader.bioFluidBlock) return true;
         return block == Loaders.antimatterRenderBlock;
     }

@@ -8,9 +8,6 @@ import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-
 import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -328,17 +325,6 @@ public class VacuumFreezerRecipes implements Runnable {
                 .eut(12)
                 .addTo(vacuumFreezerRecipes);
         }
-
-        // hot transcendent metal ingot cooling
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.ingotHot, Materials.TranscendentMetal, 1L))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.ingot, Materials.TranscendentMetal, 1L))
-            .fluidInputs(
-                new FluidStack(FluidRegistry.getFluid("molten.titansteel"), 1 * INGOTS),
-                Materials.SuperCoolant.getFluid(1_000))
-            .duration(1 * SECONDS)
-            .eut(TierEU.RECIPE_UIV)
-            .addTo(vacuumFreezerRecipes);
 
         // Proto-Halkonite
         this.addProtoHalkonitePartRecipe(OrePrefixes.frameGt, 1);

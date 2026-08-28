@@ -25,7 +25,6 @@ import gregtech.api.enums.TierEU;
 import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.recipe.RecipeCategories;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.MaterialsElements;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
 public class Pulverizer implements Runnable {
@@ -298,7 +297,6 @@ public class Pulverizer implements Runnable {
         GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Casing_Coil_Hypogen.get(1))
             .itemOutputs(
-                MaterialsElements.STANDALONE.HYPOGEN.getDust(9),
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Infinity, 4L),
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.PrismaticNaquadah, 64),
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Netherite, 4))
@@ -311,7 +309,6 @@ public class Pulverizer implements Runnable {
             .itemInputs(ItemList.Casing_Coil_Eternal.get(1))
             .itemOutputs(
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.SpaceTime, 9L),
-                MaterialsElements.STANDALONE.HYPOGEN.getDust(4),
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.PrismaticNaquadah, 64),
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Netherite, 8))
             .duration(20 * SECONDS)
@@ -726,14 +723,6 @@ public class Pulverizer implements Runnable {
         GTValues.RA.stdBuilder()
             .itemInputs(new ItemStack(Blocks.brick_stairs, 1, 0))
             .itemOutputs(Materials.Brick.getDustSmall(6))
-            .duration(20 * SECONDS)
-            .eut(2)
-            .recipeCategory(RecipeCategories.maceratorRecycling)
-            .addTo(maceratorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.Machine_Bricked_BlastFurnace.get(1))
-            .itemOutputs(Materials.Brick.getDust(8), Materials.Iron.getDust(1))
             .duration(20 * SECONDS)
             .eut(2)
             .recipeCategory(RecipeCategories.maceratorRecycling)

@@ -13,7 +13,6 @@ import net.minecraftforge.common.FishingHooks;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.TierEU;
 import gregtech.api.recipe.RecipeMaps;
-import gregtech.common.tileentities.machines.multi.MTEIndustrialFishingPond;
 import gregtech.mixin.interfaces.accessors.WeightedRandomFishableAccessor;
 
 public class FishPondRecipes {
@@ -30,9 +29,6 @@ public class FishPondRecipes {
             ArrayList<WeightedRandomFishable> treasureList = (ArrayList<WeightedRandomFishable>) GTUtility
                 .getField(FishingHooks.class, "treasure")
                 .get(null);
-            generateRecipes(MTEIndustrialFishingPond.FISH_MODE, fishList, 0.85);
-            generateRecipes(MTEIndustrialFishingPond.JUNK_MODE, junkList, 1.35);
-            generateRecipes(MTEIndustrialFishingPond.TREASURE_MODE, treasureList, 20D);
         } catch (Exception e) {
             GT_FML_LOGGER.error(e);
         }

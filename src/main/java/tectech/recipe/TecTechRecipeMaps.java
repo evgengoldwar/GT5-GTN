@@ -3,22 +3,17 @@ package tectech.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
-import gregtech.api.enums.GTValues;
-import gregtech.api.enums.NaniteTier;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMapBackend;
 import gregtech.api.recipe.RecipeMapBuilder;
 import gregtech.api.recipe.maps.BECCreationFrontend;
 import gregtech.api.util.GTRecipe;
-import gregtech.api.util.GTRecipeConstants;
 import gregtech.nei.formatter.HeatingCoilSpecialValueFormatter;
 import tectech.thing.CustomItemList;
 import tectech.thing.gui.TecTechUITextures;
@@ -115,7 +110,6 @@ public class TecTechRecipeMaps {
         .progressBar(TecTechUITextures.PROGRESSBAR_GODFORGE_PLASMA, ProgressBar.Direction.RIGHT)
         .progressBarPos(78, 33)
         .neiTransferRect(78, 33, 20, 20)
-        .frontend(GodforgeExoticFrontend::new)
         .build();
     public static final RecipeMap<RecipeMapBackend> godforgeMoltenRecipes = RecipeMapBuilder.of("gt.recipe.fog_molten")
         .maxIO(6, 6, 1, 2)
@@ -146,42 +140,6 @@ public class TecTechRecipeMaps {
         .neiRecipeBackgroundSize(170, 90)
         .frontend(BECCreationFrontend::new)
         .neiHandlerInfo(builder -> builder.setDisplayStack(CustomItemList.Machine_Multi_BECGenerator.get(1)))
-        .build();
-
-    public static final RecipeMap<RecipeMapBackend> condensateAssemblingRecipes = RecipeMapBuilder
-        .<RecipeMapBackend>of("gt.recipe.assemble-condensate", props -> new RecipeMapBackend(props) {
-
-            @Override
-            public @Nonnull GTRecipe compileRecipe(@Nonnull GTRecipe recipe) {
-                NaniteTier[] tiers = recipe.getMetadata(GTRecipeConstants.NANITE_TIERS);
-
-                if (tiers != null && tiers.length != recipe.mInputs.length) {
-                    throw new IllegalArgumentException(
-                        "Nanite tiers length " + tiers.length
-                            + " must match item input length "
-                            + recipe.mInputs.length
-                            + " in recipe starting with "
-                            + recipe.mInputs[0].getDisplayName());
-                }
-
-                recipe.getMetadataStorage()
-                    .store(GTRecipeConstants.CONDENSATE_INPUT, recipe.mFluidInputs);
-                recipe.mFluidInputs = GTValues.emptyFluidStackArray;
-
-                return super.compileRecipe(recipe);
-            }
-        })
-        .maxIO(16, 1, 4, 0)
-        .logo(TecTechUITextures.PICTURE_TECTECH_LOGO)
-        .logoSize(18, 18)
-        .logoPos(151, 63)
-        .neiRecipeBackgroundSize(170, 90)
-        .neiTransferRect(88, 8, 18, 72)
-        .neiTransferRect(124, 8, 18, 72)
-        .neiTransferRect(142, 26, 18, 18)
-        .frontend(BECAssemblyFrontend::new)
-        .neiHandlerInfo(builder -> builder.setDisplayStack(CustomItemList.Machine_Multi_BECAssembler.get(1)))
-        .neiFluidInputsGetter(recipe -> recipe.getMetadata(GTRecipeConstants.CONDENSATE_INPUT))
         .build();
 
 }

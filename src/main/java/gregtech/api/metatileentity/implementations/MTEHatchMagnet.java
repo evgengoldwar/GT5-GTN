@@ -17,7 +17,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.common.gui.modularui.hatch.MTEHatchMagnetGui;
-import gregtech.common.tileentities.machines.multi.MTEIndustrialElectromagneticSeparator;
 
 public class MTEHatchMagnet extends MTEHatch {
 
@@ -88,7 +87,6 @@ public class MTEHatchMagnet extends MTEHatch {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
-        return MTEIndustrialElectromagneticSeparator.isValidElectromagnet(itemStack)
-            && super.isItemValidForSlot(index, itemStack);
+        return super.isItemValidForSlot(index, itemStack);
     }
 }

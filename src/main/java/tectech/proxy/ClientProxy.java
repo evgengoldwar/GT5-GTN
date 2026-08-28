@@ -2,7 +2,6 @@ package tectech.proxy;
 
 import static tectech.TecTech.RANDOM;
 import static tectech.thing.casing.TTCasingsContainer.eyeOfHarmonyRenderBlock;
-import static tectech.thing.casing.TTCasingsContainer.forgeOfGodsRenderBlock;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiNewChat;
@@ -28,10 +27,7 @@ import tectech.rendering.EOH.ItemRenderEOH;
 import tectech.thing.block.BlockGodforgeGlass;
 import tectech.thing.block.BlockQuantumGlass;
 import tectech.thing.block.RenderDoubleSidedGlass;
-import tectech.thing.block.RenderForgeOfGods;
 import tectech.thing.block.TileEntityEyeOfHarmony;
-import tectech.thing.block.TileEntityForgeOfGods;
-import tectech.thing.item.ItemRenderForgeOfGods;
 
 public class ClientProxy extends CommonProxy {
 
@@ -46,11 +42,6 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerBlockHandler(
             new RenderDoubleSidedGlass(() -> BlockGodforgeGlass.Icon, BlockGodforgeGlass.renderID));
 
-        MinecraftForgeClient
-            .registerItemRenderer(Item.getItemFromBlock(forgeOfGodsRenderBlock), new ItemRenderForgeOfGods());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityForgeOfGods.class, new RenderForgeOfGods());
-
-        RenderInit.onAtlasStitched(RenderForgeOfGods::reload);
         RenderInit.onResourceReload(EOHRenderingUtils::reloadShaders);
     }
 

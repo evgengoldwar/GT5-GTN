@@ -9,7 +9,6 @@ import tectech.thing.block.BlockGodforgeGlass;
 import tectech.thing.block.BlockQuantumGlass;
 import tectech.thing.block.BlockReactorSim;
 import tectech.thing.block.TileEntityEyeOfHarmony;
-import tectech.thing.block.TileEntityForgeOfGods;
 import tectech.thing.casing.BlockGTCasingsBA0;
 import tectech.thing.casing.BlockGTCasingsTT;
 import tectech.thing.casing.BlockGodforgeCasings;
@@ -37,7 +36,6 @@ public class ThingsLoader implements Runnable {
     public void run() {
 
         GameRegistry.registerTileEntity(TileEntityEyeOfHarmony.class, Reference.MODID + ":EyeOfHarmonyRenderBlock");
-        GameRegistry.registerTileEntity(TileEntityForgeOfGods.class, Reference.MODID + ":ForgeOfGodsRenderBlock");
 
         if (Textures.BlockIcons.casingTexturePages[TecTech.tectechTexturePage1] == null) {
             Textures.BlockIcons.casingTexturePages[TecTech.tectechTexturePage1] = new ITexture[128];

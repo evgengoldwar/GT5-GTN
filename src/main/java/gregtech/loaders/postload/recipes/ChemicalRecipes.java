@@ -13,9 +13,6 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
-import static gtPlusPlus.core.fluids.GTPPFluids.Formaldehyde;
-import static gtPlusPlus.core.material.MaterialMisc.SODIUM_NITRATE;
-import static gtPlusPlus.core.util.minecraft.FluidUtils.getFilledCellFromFluidName;
 import static net.minecraftforge.fluids.FluidRegistry.getFluidStack;
 
 import java.util.Locale;
@@ -40,8 +37,6 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.items.CombType;
 import gregtech.loaders.misc.GTBees;
-import gtPlusPlus.core.material.MaterialsElements;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 @SuppressWarnings({ "PointlessArithmeticExpression" })
 public class ChemicalRecipes implements Runnable {
@@ -3777,69 +3772,13 @@ public class ChemicalRecipes implements Runnable {
 
         // C4H8O + 2H =Pd= C4H10O
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.cell, Materials.Butyraldehyde, 1),
-                GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.Palladium, 1))
-            .itemOutputs(ItemList.Cell_Empty.get(1))
-            .fluidInputs(Materials.Hydrogen.getGas(2_000))
-            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("butanol"), 1000))
-            .duration(10 * SECONDS)
-            .eut(TierEU.RECIPE_LV)
-            .addTo(UniversalChemical);
-
         // 4CH2O + C2H4O =NaOH= C5H12O4 + CO
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                getFilledCellFromFluidName(Formaldehyde, 4),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SodiumHydroxide, 1))
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Pentaerythritol, 21),
-                Materials.Empty.getCells(4))
-            .fluidInputs(Materials.Acetaldehyde.getGas(1_000))
-            .fluidOutputs(Materials.CarbonMonoxide.getGas(1_000))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(UniversalChemical);
-
         // 4CH2O + C2H4O =NaOH= C5H12O4 + CO
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.cell, Materials.Acetaldehyde, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SodiumHydroxide, 1))
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Pentaerythritol, 21),
-                Materials.Empty.getCells(1))
-            .fluidInputs(new FluidStack(FluidRegistry.getFluid("fluid.formaldehyde"), 4_000))
-            .fluidOutputs(Materials.CarbonMonoxide.getGas(1_000))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(chemicalReactorRecipes);
 
         // CaC2 + 2H2O = Ca(OH)2 + C2H2
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.CalciumCarbide, 3))
-            .circuit(1)
-            .itemOutputs(GregtechItemList.CalciumHydroxideDust.get(5))
-            .fluidInputs(Materials.Water.getFluid(2_000))
-            .fluidOutputs(Materials.Acetylene.getGas(1_000))
-            .duration(15 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(UniversalChemical);
-
         // Co(NO3)2 + 2NaOH = Co(OH)2 + 2NaNO3
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                Materials.CobaltIINitrate.getDust(9),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SodiumHydroxide, 6))
-            .itemOutputs(Materials.CobaltIIHydroxide.getDust(5), SODIUM_NITRATE.getDust(10))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_MV)
-            .addTo(UniversalChemical);
 
         if (Forestry.isModLoaded()) {
 
@@ -3867,14 +3806,6 @@ public class ChemicalRecipes implements Runnable {
                 .fluidInputs(Materials.Silver.getPlasma(310))
                 .duration(7 * SECONDS + 10 * TICKS)
                 .eut(TierEU.RECIPE_UHV)
-                .addTo(UniversalChemical);
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(GTBees.combs.getStackForType(CombType.AMERICIUM, 4))
-                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.Americium, 8))
-                .fluidInputs(new FluidStack(MaterialsElements.getInstance().BROMINE.getPlasma(), 29))
-                .duration(3 * SECONDS + 15 * TICKS)
-                .eut(TierEU.RECIPE_UEV)
                 .addTo(UniversalChemical);
 
             GTValues.RA.stdBuilder()
@@ -3909,14 +3840,6 @@ public class ChemicalRecipes implements Runnable {
                 .fluidInputs(Materials.Silver.getPlasma(54))
                 .duration(3 * SECONDS + 15 * TICKS)
                 .eut(TierEU.RECIPE_UV)
-                .addTo(UniversalChemical);
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(GTBees.combs.getStackForType(CombType.EUROPIUM, 4))
-                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.Europium, 8))
-                .fluidInputs(new FluidStack(MaterialsElements.getInstance().BROMINE.getPlasma(), 6))
-                .duration(1 * SECONDS + 17 * TICKS)
-                .eut(TierEU.RECIPE_UHV)
                 .addTo(UniversalChemical);
 
             GTValues.RA.stdBuilder()
@@ -5834,130 +5757,15 @@ public class ChemicalRecipes implements Runnable {
 
         // CH2O + 2C6H7N + HCl = C13H14N2(HCl) + H2O
 
-        GTValues.RA.stdBuilder()
-            .circuit(1)
-            .fluidInputs(
-                new FluidStack(FluidRegistry.getFluid("fluid.formaldehyde"), 1_000),
-                new FluidStack(FluidRegistry.getFluid("aniline"), 2_000),
-                Materials.HydrochloricAcid.getFluid(1_000))
-            .fluidOutputs(Materials.DiaminodiphenylmethanMixture.getFluid(1_000))
-            .duration(60 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
         // C6H5NO2 + 6H =Pd= C6H7N + 2H2O
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Palladium, 1))
-            .circuit(1)
-            .fluidInputs(
-                new FluidStack(FluidRegistry.getFluid("nitrobenzene"), 9000),
-                Materials.Hydrogen.getGas(54_000))
-            .fluidOutputs(Materials.Water.getFluid(18_000), new FluidStack(FluidRegistry.getFluid("aniline"), 9_000))
-            .duration(45 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
 
         // C6H6 + HNO3 =H2SO4= C6H5NO2 + H2O
 
-        GTValues.RA.stdBuilder()
-            .circuit(1)
-            .fluidInputs(
-                Materials.Benzene.getFluid(5_000),
-                Materials.SulfuricAcid.getFluid(3_000),
-                Materials.NitricAcid.getFluid(5_000),
-                GTModHandler.getDistilledWater(10_000))
-            .fluidOutputs(
-                new FluidStack(FluidRegistry.getFluid("nitrobenzene"), 5_000),
-                Materials.DilutedSulfuricAcid.getFluid(3_000))
-            .duration(6 * SECONDS)
-            .eut(TierEU.RECIPE_IV)
-            .addTo(multiblockChemicalReactorRecipes);
-
         // C13H14N2(HCl) + 2COCl2 = C15H10N2O2(5HCl)
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Palladium, 1))
-            .circuit(9)
-            .fluidInputs(Materials.Butyraldehyde.getFluid(9_000), Materials.Hydrogen.getGas(18_000))
-            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("butanol"), 9_000))
-            .duration(4 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Tin, 1))
-            .circuit(1)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.KevlarCatalyst, 1))
-            .fluidInputs(
-                new FluidStack(FluidRegistry.getFluid("butanol"), 2_000),
-                new FluidStack(FluidRegistry.getFluid("propionicacid"), 1_000),
-                Materials.IronIIIChloride.getFluid(100))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Tin, 9))
-            .circuit(9)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.KevlarCatalyst, 9))
-            .fluidInputs(
-                new FluidStack(FluidRegistry.getFluid("butanol"), 18_000),
-                new FluidStack(FluidRegistry.getFluid("propionicacid"), 9_000),
-                Materials.IronIIIChloride.getFluid(900))
-            .duration(3 * MINUTES + 45 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
 
         // C2H4 + CO + H2O =C4NiO= C3H6O2
 
-        GTValues.RA.stdBuilder()
-            .circuit(1)
-            .fluidInputs(
-                Materials.Ethylene.getGas(1_000),
-                Materials.CarbonMonoxide.getGas(1_000),
-                Materials.NickelTetracarbonyl.getFluid(100),
-                Materials.Water.getFluid(1_000))
-            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("propionicacid"), 1_000))
-            .duration(10 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .circuit(9)
-            .fluidInputs(
-                Materials.Ethylene.getGas(9_000),
-                Materials.CarbonMonoxide.getGas(9_000),
-                Materials.NickelTetracarbonyl.getFluid(900),
-                Materials.Water.getFluid(9_000))
-            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("propionicacid"), 9_000))
-            .duration(1 * MINUTES + 15 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
         // C6H7N + HNO3 =H2SO4,C4H6O3= C6H6N2O2 + H2O
-
-        GTValues.RA.stdBuilder()
-            .circuit(2)
-            .fluidInputs(
-                new FluidStack(FluidRegistry.getFluid("aniline"), 1_000),
-                new FluidStack(FluidRegistry.getFluid("molten.aceticanhydride"), 100),
-                Materials.NitrationMixture.getFluid(2_000))
-            .fluidOutputs(Materials.IVNitroaniline.getFluid(1_000), Materials.DilutedSulfuricAcid.getFluid(1_000))
-            .duration(15 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .circuit(9)
-            .fluidInputs(
-                new FluidStack(FluidRegistry.getFluid("aniline"), 9_000),
-                new FluidStack(FluidRegistry.getFluid("molten.aceticanhydride"), 900),
-                Materials.NitrationMixture.getFluid(18_000))
-            .fluidOutputs(Materials.IVNitroaniline.getFluid(9_000), Materials.DilutedSulfuricAcid.getFluid(9_000))
-            .duration(1 * MINUTES + 40 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
 
         // C6H6N2O2 + 6H =Pd,NO2= C6H8N2 + 2H2O
 
@@ -5972,36 +5780,6 @@ public class ChemicalRecipes implements Runnable {
             .fluidOutputs(Materials.Water.getFluid(2_000))
             .duration(20 * SECONDS)
             .eut(TierEU.RECIPE_UV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.CupricOxide, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.BismuthIIIOxide, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SiliconDioxide, 1))
-            .circuit(1)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.IIButinIIVdiol, 12))
-            .fluidInputs(
-                Materials.Acetylene.getGas(1_000),
-                new FluidStack(FluidRegistry.getFluid("fluid.formaldehyde"), 2_000))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.CupricOxide, 9),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.BismuthIIIOxide, 9),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SiliconDioxide, 9))
-            .circuit(9)
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.IIButinIIVdiol, 64),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.IIButinIIVdiol, 44))
-            .fluidInputs(
-                Materials.Acetylene.getGas(9_000),
-                new FluidStack(FluidRegistry.getFluid("fluid.formaldehyde"), 18_000))
-            .duration(2 * MINUTES + 30 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
             .addTo(multiblockChemicalReactorRecipes);
 
         GTValues.RA.stdBuilder()
@@ -6034,39 +5812,7 @@ public class ChemicalRecipes implements Runnable {
 
         // Na2B4O7(H2O)10 + 2HCl = 2NaCl + 4H3BO3 + 5H2O
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Borax, 23))
-            .circuit(1)
-            .itemOutputs(Materials.Salt.getDust(4))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(2_000))
-            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("boricacid"), 4_000), Materials.Water.getFluid(5_000))
-            .duration(40 * SECONDS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(multiblockChemicalReactorRecipes);
-
         // H3BO3 + 3CH4O =H2SO4= C3H9BO3 + 3H2O
-
-        GTValues.RA.stdBuilder()
-            .circuit(1)
-            .fluidInputs(
-                Materials.Methanol.getFluid(3_000),
-                new FluidStack(FluidRegistry.getFluid("boricacid"), 1_000),
-                Materials.SulfuricAcid.getFluid(6_000))
-            .fluidOutputs(Materials.DilutedSulfuricAcid.getFluid(6_000), Materials.TrimethylBorate.getFluid(1_000))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .circuit(9)
-            .fluidInputs(
-                Materials.Methanol.getFluid(27_000),
-                new FluidStack(FluidRegistry.getFluid("boricacid"), 9_000),
-                Materials.SulfuricAcid.getFluid(54_000))
-            .fluidOutputs(Materials.DilutedSulfuricAcid.getFluid(54_000), Materials.TrimethylBorate.getFluid(9_000))
-            .duration(3 * MINUTES + 45 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
 
         // RhCl3 + 3C18H15P + 3NaBH4 + CO = RhC55H46P3O + 3NaCl + 3B + 11H
 
@@ -6089,26 +5835,6 @@ public class ChemicalRecipes implements Runnable {
             .addTo(multiblockChemicalReactorRecipes);
 
         // 2NaOH + N2H4 =Mn= 2N + 2H2O + 2NaH
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(Materials.SodiumHydroxide.getDust(6), Materials.Manganese.getDustTiny(1))
-            .circuit(9)
-            .itemOutputs(Materials.SodiumHydride.getDust(4))
-            .fluidInputs(new FluidStack(FluidRegistry.getFluid("fluid.hydrazine"), 1_000))
-            .fluidOutputs(Materials.Nitrogen.getGas(2_000), Materials.Water.getFluid(2_000))
-            .duration(10 * TICKS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(Materials.SodiumHydroxide.getDust(54), Materials.Manganese.getDust(1))
-            .circuit(18)
-            .itemOutputs(Materials.SodiumHydride.getDust(36))
-            .fluidInputs(new FluidStack(FluidRegistry.getFluid("fluid.hydrazine"), 9_000))
-            .fluidOutputs(Materials.Nitrogen.getGas(18_000), Materials.Water.getFluid(18_000))
-            .duration(3 * SECONDS + 10 * TICKS)
-            .eut(TierEU.RECIPE_EV)
-            .addTo(multiblockChemicalReactorRecipes);
 
         // Flawless Amalgatite
         GTValues.RA.stdBuilder()

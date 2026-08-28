@@ -1,6 +1,5 @@
 package tectech.loader.thing;
 
-import static com.gtnewhorizon.gtnhlib.util.AnimatedTooltipHandler.addItemTooltip;
 import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.enums.MetaTileEntityIDs.ActiveTransformer;
 import static gregtech.api.enums.MetaTileEntityIDs.AdvancedTeslaTransceiver1by1;
@@ -48,15 +47,10 @@ import static gregtech.api.enums.MetaTileEntityIDs.EpycTeslaTransceiver4by4;
 import static gregtech.api.enums.MetaTileEntityIDs.ExtendedMegaUltimateBuckConverter;
 import static gregtech.api.enums.MetaTileEntityIDs.ExtremelyUltimateBuckConverter;
 import static gregtech.api.enums.MetaTileEntityIDs.EyeofHarmony;
-import static gregtech.api.enums.MetaTileEntityIDs.ForgeoftheGods;
 import static gregtech.api.enums.MetaTileEntityIDs.HV4ADynamoHatch;
 import static gregtech.api.enums.MetaTileEntityIDs.HatchCondensateDetector;
 import static gregtech.api.enums.MetaTileEntityIDs.HatchIOController;
 import static gregtech.api.enums.MetaTileEntityIDs.HatchNaniteDetector;
-import static gregtech.api.enums.MetaTileEntityIDs.HelioflarePowerForge;
-import static gregtech.api.enums.MetaTileEntityIDs.HeliofluxMeltingCore;
-import static gregtech.api.enums.MetaTileEntityIDs.HeliofusionExoticizer;
-import static gregtech.api.enums.MetaTileEntityIDs.HeliothermalPlasmaFabricator;
 import static gregtech.api.enums.MetaTileEntityIDs.HighlyUltimateBuckConverter;
 import static gregtech.api.enums.MetaTileEntityIDs.IV16ADynamoHatch;
 import static gregtech.api.enums.MetaTileEntityIDs.IV16AEnergyHatch;
@@ -307,14 +301,9 @@ import static tectech.thing.CustomItemList.Machine_Multi_BECStorage;
 import static tectech.thing.CustomItemList.Machine_Multi_Computer;
 import static tectech.thing.CustomItemList.Machine_Multi_DataBank;
 import static tectech.thing.CustomItemList.Machine_Multi_EyeOfHarmony;
-import static tectech.thing.CustomItemList.Machine_Multi_ForgeOfGods;
 import static tectech.thing.CustomItemList.Machine_Multi_Infuser;
 import static tectech.thing.CustomItemList.Machine_Multi_Microwave;
-import static tectech.thing.CustomItemList.Machine_Multi_MoltenModule;
-import static tectech.thing.CustomItemList.Machine_Multi_PlasmaModule;
-import static tectech.thing.CustomItemList.Machine_Multi_QuarkGluonPlasmaModule;
 import static tectech.thing.CustomItemList.Machine_Multi_Research;
-import static tectech.thing.CustomItemList.Machine_Multi_SmeltingModule;
 import static tectech.thing.CustomItemList.Machine_Multi_Switch;
 import static tectech.thing.CustomItemList.Machine_Multi_Switch_Adv;
 import static tectech.thing.CustomItemList.Machine_Multi_TeslaCoil;
@@ -569,7 +558,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 
-import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.MetaTileEntityIDs;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.factory.test.TestFactoryHatch;
@@ -616,11 +604,6 @@ import tectech.thing.metaTileEntity.multi.bec.MTEBECDiode;
 import tectech.thing.metaTileEntity.multi.bec.MTEBECGenerator;
 import tectech.thing.metaTileEntity.multi.bec.MTEBECIONode;
 import tectech.thing.metaTileEntity.multi.bec.MTEBECStorage;
-import tectech.thing.metaTileEntity.multi.godforge.MTEExoticModule;
-import tectech.thing.metaTileEntity.multi.godforge.MTEForgeOfGods;
-import tectech.thing.metaTileEntity.multi.godforge.MTEMoltenModule;
-import tectech.thing.metaTileEntity.multi.godforge.MTEPlasmaModule;
-import tectech.thing.metaTileEntity.multi.godforge.MTESmeltingModule;
 import tectech.thing.metaTileEntity.pipe.MTEPipeBEC;
 import tectech.thing.metaTileEntity.pipe.MTEPipeBECBlock;
 import tectech.thing.metaTileEntity.pipe.MTEPipeBlockData;
@@ -2000,39 +1983,6 @@ public class MachineLoader implements Runnable {
             .set(new MTEEnergyInfuser(EnergyInfuser.ID, "multimachine.em.infuser", "Energy Infuser").getStackForm(1));
         Machine_Multi_EyeOfHarmony.set(
             new MTEEyeOfHarmony(EyeofHarmony.ID, "multimachine.em.eye_of_harmony", "Eye of Harmony").getStackForm(1L));
-
-        Machine_Multi_ForgeOfGods.set(
-            new MTEForgeOfGods(ForgeoftheGods.ID, "multimachine.em.forge_of_gods", "Forge of the Gods")
-                .getStackForm(1L));
-        addItemTooltip(
-            Machine_Multi_ForgeOfGods.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorCloud));
-        Machine_Multi_SmeltingModule.set(
-            new MTESmeltingModule(HelioflarePowerForge.ID, "multimachine.em.smelting_module", "Helioflare Power Forge")
-                .getStackForm(1L));
-        addItemTooltip(
-            Machine_Multi_SmeltingModule.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorCloud));
-        Machine_Multi_MoltenModule.set(
-            new MTEMoltenModule(HeliofluxMeltingCore.ID, "multimachine.em.molten_module", "Helioflux Melting Core")
-                .getStackForm(1L));
-        addItemTooltip(
-            Machine_Multi_MoltenModule.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorCloud));
-        Machine_Multi_PlasmaModule.set(
-            new MTEPlasmaModule(
-                HeliothermalPlasmaFabricator.ID,
-                "multimachine.em.plasma_module",
-                "Heliothermal Plasma Fabricator").getStackForm(1L));
-        addItemTooltip(
-            Machine_Multi_PlasmaModule.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorCloud));
-        Machine_Multi_QuarkGluonPlasmaModule.set(
-            new MTEExoticModule(HeliofusionExoticizer.ID, "multimachine.em.exotic_module", "Heliofusion Exoticizer")
-                .getStackForm(1L));
-        addItemTooltip(
-            Machine_Multi_QuarkGluonPlasmaModule.get(1),
-            GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorCloud));
 
         registerBECMachines();
 

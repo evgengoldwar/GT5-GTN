@@ -2,7 +2,6 @@ package gregtech.nei.searchprovider;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.FutureTask;
 import java.util.regex.Pattern;
 
 import net.minecraft.item.ItemStack;
@@ -14,28 +13,12 @@ import codechicken.nei.ItemStackMap;
 import codechicken.nei.api.ItemFilter;
 import gregtech.api.objects.ItemData;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.core.material.Material;
 
 public class ChemicalFormulaFilter implements ItemFilter {
 
     private final Pattern pattern;
     private static final Map<Character, Character> SCRIPT_DIGIT_MAP = new HashMap<>(20);
     private static final ItemStackMap<String> formulaCache = new ItemStackMap<>();
-    private static final FutureTask<Void> loadGTPlusPlusMaterial = new FutureTask<>(() -> {
-        Material.mComponentMap.forEach((name, components) -> {
-            Material material = Material.mMaterialsByName.get(name);
-            if (material != null) {
-                String chemicalFormula = material.chemicalFormula;
-                String sanitizedFormula = isValidFormula(chemicalFormula) ? sanitizeFormula(chemicalFormula) : "";
-                components.forEach((orePrefix, stack) -> {
-                    synchronized (formulaCache) {
-                        formulaCache.put(stack, sanitizedFormula);
-                    }
-                });
-            }
-        });
-        return null;
-    });
 
     static {
         // subscript
@@ -78,14 +61,7 @@ public class ChemicalFormulaFilter implements ItemFilter {
         return !(formula == null || formula.isEmpty() || "?".equals(formula) || "??".equals(formula));
     }
 
-    private static void ensureLoadGTPlusPlusMaterials() {
-        loadGTPlusPlusMaterial.run();
-        try {
-            loadGTPlusPlusMaterial.get();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static void ensureLoadGTPlusPlusMaterials() {}
 
     @Override
     public boolean matches(ItemStack itemStack) {

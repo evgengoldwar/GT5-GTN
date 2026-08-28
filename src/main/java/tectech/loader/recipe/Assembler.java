@@ -7,7 +7,6 @@ import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
-import static gtPlusPlus.core.material.MaterialsElements.STANDALONE.HYPOGEN;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -334,16 +333,6 @@ public class Assembler implements Runnable {
                     .eut(TierEU.RECIPE_UEV)
                     .addTo(assemblerRecipes);
                 // Dynamo UMV 4A
-                GTValues.RA.stdBuilder()
-                    .itemInputs(
-                        ItemList.Hatch_Dynamo_UMV.get(1),
-                        GTOreDictUnificator.get(OrePrefixes.wireGt04, Materials.Quantium, 2),
-                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.SpaceTime, 2))
-                    .itemOutputs(CustomItemList.eM_dynamoMulti4_UMV.get(1))
-                    .fluidInputs(HYPOGEN.getFluidStack(1 * INGOTS))
-                    .duration(5 * SECONDS)
-                    .eut(TierEU.RECIPE_UIV)
-                    .addTo(assemblerRecipes);
                 // Dynamo UXV 4A
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -461,17 +450,6 @@ public class Assembler implements Runnable {
                     .eut(TierEU.RECIPE_UEV)
                     .addTo(assemblerRecipes);
                 // Dynamo UMV 16A
-                GTValues.RA.stdBuilder()
-                    .itemInputs(
-                        ItemList.Transformer_UXV_UMV.get(1),
-                        CustomItemList.eM_dynamoMulti4_UMV.get(1),
-                        GTOreDictUnificator.get(OrePrefixes.wireGt08, Materials.Quantium, 2),
-                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.SpaceTime, 4))
-                    .itemOutputs(CustomItemList.eM_dynamoMulti16_UMV.get(1))
-                    .fluidInputs(HYPOGEN.getFluidStack(4 * INGOTS))
-                    .duration(10 * SECONDS)
-                    .eut(TierEU.RECIPE_UIV)
-                    .addTo(assemblerRecipes);
                 // Dynamo UXV 16A
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -590,17 +568,6 @@ public class Assembler implements Runnable {
                     .eut(TierEU.RECIPE_UEV)
                     .addTo(assemblerRecipes);
                 // Dynamo UMV 64A
-                GTValues.RA.stdBuilder()
-                    .itemInputs(
-                        ItemList.WetTransformer_UXV_UMV.get(1),
-                        CustomItemList.eM_dynamoMulti16_UMV.get(1),
-                        GTOreDictUnificator.get(OrePrefixes.wireGt12, Materials.Quantium, 2),
-                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.SpaceTime, 6))
-                    .itemOutputs(CustomItemList.eM_dynamoMulti64_UMV.get(1))
-                    .fluidInputs(HYPOGEN.getFluidStack(16 * INGOTS))
-                    .duration(20 * SECONDS)
-                    .eut(TierEU.RECIPE_UIV)
-                    .addTo(assemblerRecipes);
                 // Dynamo UXV 64A
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -664,17 +631,6 @@ public class Assembler implements Runnable {
                     .eut(TierEU.RECIPE_UEV)
                     .addTo(assemblerRecipes);
                 // Dynamo UMV 256A
-                GTValues.RA.stdBuilder()
-                    .itemInputs(
-                        ItemList.WetTransformer_UXV_UMV.get(4),
-                        CustomItemList.eM_dynamoMulti64_UMV.get(1),
-                        GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.Quantium, 2),
-                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.SpaceTime, 8))
-                    .itemOutputs(CustomItemList.eM_dynamoMulti256_UMV.get(1))
-                    .fluidInputs(HYPOGEN.getFluidStack(64 * INGOTS))
-                    .duration(40 * SECONDS)
-                    .eut(TierEU.RECIPE_UIV)
-                    .addTo(assemblerRecipes);
                 // Dynamo UXV 256A
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -788,16 +744,6 @@ public class Assembler implements Runnable {
                     .eut(TierEU.RECIPE_UEV)
                     .addTo(assemblerRecipes);
                 // Energy Hatch UMV 4A
-                GTValues.RA.stdBuilder()
-                    .itemInputs(
-                        ItemList.Hatch_Energy_UMV.get(1),
-                        GTOreDictUnificator.get(OrePrefixes.wireGt04, Materials.Quantium, 2),
-                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.SpaceTime, 2))
-                    .itemOutputs(CustomItemList.eM_energyMulti4_UMV.get(1))
-                    .fluidInputs(HYPOGEN.getFluidStack(1 * INGOTS))
-                    .duration(5 * SECONDS)
-                    .eut(TierEU.RECIPE_UIV)
-                    .addTo(assemblerRecipes);
                 // Energy Hatch UXV 4A
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -913,18 +859,6 @@ public class Assembler implements Runnable {
                     .fluidInputs(Materials.Infinity.getMolten(4 * INGOTS))
                     .duration(10 * SECONDS)
                     .eut(TierEU.RECIPE_UEV)
-                    .addTo(assemblerRecipes);
-                // Energy Hatch UMV 16A
-                GTValues.RA.stdBuilder()
-                    .itemInputs(
-                        ItemList.Transformer_UXV_UMV.get(1),
-                        CustomItemList.eM_energyMulti4_UMV.get(1),
-                        GTOreDictUnificator.get(OrePrefixes.wireGt08, Materials.Quantium, 2),
-                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.SpaceTime, 4))
-                    .itemOutputs(CustomItemList.eM_energyMulti16_UMV.get(1))
-                    .fluidInputs(HYPOGEN.getFluidStack(4 * INGOTS))
-                    .duration(10 * SECONDS)
-                    .eut(TierEU.RECIPE_UIV)
                     .addTo(assemblerRecipes);
                 // Energy Hatch UXV 16A
                 GTValues.RA.stdBuilder()
@@ -1044,17 +978,6 @@ public class Assembler implements Runnable {
                     .eut(TierEU.RECIPE_UEV)
                     .addTo(assemblerRecipes);
                 // Energy Hatch UMV 64A
-                GTValues.RA.stdBuilder()
-                    .itemInputs(
-                        ItemList.WetTransformer_UXV_UMV.get(1),
-                        CustomItemList.eM_energyMulti16_UMV.get(1),
-                        GTOreDictUnificator.get(OrePrefixes.wireGt12, Materials.Quantium, 2),
-                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.SpaceTime, 6))
-                    .itemOutputs(CustomItemList.eM_energyMulti64_UMV.get(1))
-                    .fluidInputs(HYPOGEN.getFluidStack(16 * INGOTS))
-                    .duration(20 * SECONDS)
-                    .eut(TierEU.RECIPE_UIV)
-                    .addTo(assemblerRecipes);
                 // Energy Hatch UXV 64A
                 GTValues.RA.stdBuilder()
                     .itemInputs(

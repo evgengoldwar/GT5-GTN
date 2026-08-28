@@ -71,9 +71,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.gui.modularui.UIHelper;
-import gregtech.common.tileentities.machines.multi.nanochip.util.CCNEIRepresentation;
-import gtPlusPlus.core.item.base.BaseItemComponent;
-import gtPlusPlus.core.material.Material;
 
 public class GTNEIDefaultHandler extends TemplateRecipeHandler {
 
@@ -85,9 +82,6 @@ public class GTNEIDefaultHandler extends TemplateRecipeHandler {
 
     private static final int RECIPE_NAME_WIDTH = 140;
 
-    /**
-     * Basically {@link #cycleTicksStatic} but always updated even while holding shift
-     */
     private static int drawTicks;
     private static final int PROGRESSBAR_CYCLE_TICKS = 200;
 
@@ -252,27 +246,6 @@ public class GTNEIDefaultHandler extends TemplateRecipeHandler {
                 tResults.add(GTOreDictUnificator.get(tPrefix, tPrefixMaterial.mMaterial.mMaterial, 1L));
             }
         }
-
-        // Handle familiar prefixes for GT++ items
-        if (aResult != null && aResult.getItem() instanceof BaseItemComponent bic) {
-            OrePrefixes prefix = bic.componentType.getGtOrePrefix();
-            Material material = bic.componentMaterial;
-            if (prefix != null && material != null && !prefix.mFamiliarPrefixes.isEmpty()) {
-                for (OrePrefixes tPrefix : prefix.mFamiliarPrefixes) {
-                    ItemStack stack = material.getComponentByPrefix(tPrefix, 1);
-                    if (stack != null) {
-                        tResults.add(stack);
-                    }
-                }
-            }
-        }
-
-        if (aResult != null) {
-            List<ItemStack> ccRepresentations = CCNEIRepresentation.NEI_RECIPE_ASSOCIATIONS.get(aResult);
-            if (ccRepresentations != null) {
-                tResults.addAll(ccRepresentations);
-            }
-        }
         if (aResult.getUnlocalizedName()
             .startsWith("gt.blockores")) {
             for (int i = 0; i < 8; i++) {
@@ -338,12 +311,6 @@ public class GTNEIDefaultHandler extends TemplateRecipeHandler {
         if ((tPrefixMaterial != null) && (!tPrefixMaterial.mPrefix.mFamiliarPrefixes.isEmpty())) {
             for (OrePrefixes tPrefix : tPrefixMaterial.mPrefix.mFamiliarPrefixes) {
                 tInputs.add(GTOreDictUnificator.get(tPrefix, tPrefixMaterial.mMaterial.mMaterial, 1L));
-            }
-        }
-        if (aInput != null) {
-            List<ItemStack> ccRepresentations = CCNEIRepresentation.NEI_USAGE_ASSOCIATIONS.get(aInput);
-            if (ccRepresentations != null) {
-                tInputs.addAll(ccRepresentations);
             }
         }
         addFluidStacks(aInput, tInputs);
