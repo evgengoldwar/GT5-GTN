@@ -43,7 +43,6 @@ import gregtech.api.recipe.maps.AssemblerBackend;
 import gregtech.api.recipe.maps.AssemblyLineFrontend;
 import gregtech.api.recipe.maps.CauldronFrontend;
 import gregtech.api.recipe.maps.DistillationTowerFrontend;
-import gregtech.api.recipe.maps.FakeCuttingFrontend;
 import gregtech.api.recipe.maps.FluidCannerBackend;
 import gregtech.api.recipe.maps.FluidOnlyFrontend;
 import gregtech.api.recipe.maps.FormingPressBackend;
@@ -1184,7 +1183,6 @@ public final class RecipeMaps {
         })
         .progressBar(GTUITextures.PROGRESSBAR_CUT)
         .progressBarMUI2(GTGuiTextures.PROGRESSBAR_CUT)
-        .frontend(FakeCuttingFrontend::new)
         .neiHandlerInfo(builder -> builder.setDisplayStack(ItemList.Machine_LV_Cutter.get(1)))
         .build();
 

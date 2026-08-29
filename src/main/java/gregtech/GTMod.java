@@ -110,18 +110,10 @@ import gregtech.loaders.load.GTItemIterator;
 import gregtech.loaders.load.MTERecipeLoader;
 import gregtech.loaders.misc.CoverLoader;
 import gregtech.loaders.misc.GTBees;
-import gregtech.loaders.postload.BlockResistanceLoader;
-import gregtech.loaders.postload.BookAndLootLoader;
-import gregtech.loaders.postload.CraftingRecipeLoader;
 import gregtech.loaders.postload.GTPostLoad;
 import gregtech.loaders.postload.ItemMaxStacksizeLoader;
-import gregtech.loaders.postload.MachineRecipeLoader;
 import gregtech.loaders.postload.MachineTooltipsLoader;
-import gregtech.loaders.postload.MissingMappingsHandler;
 import gregtech.loaders.postload.PosteaTransformers;
-import gregtech.loaders.postload.RecyclerBlacklistLoader;
-import gregtech.loaders.postload.ScannerHandlerLoader;
-import gregtech.loaders.postload.ScrapboxDropLoader;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
 import gregtech.loaders.preload.LoaderGTItemData;
@@ -434,12 +426,7 @@ public class GTMod {
 
         proxy.registerUnificationEntries();
 
-        new BookAndLootLoader().run();
         new ItemMaxStacksizeLoader().run();
-        new BlockResistanceLoader().run();
-        new RecyclerBlacklistLoader().run();
-        new MachineRecipeLoader().run();
-        new ScrapboxDropLoader().run();
         new CoverLoader().run();
         StoneType.init();
 
@@ -506,7 +493,6 @@ public class GTMod {
                     iRecipe.getRecipeOutput()
                         .getDisplayName()));
         }
-        new CraftingRecipeLoader().run();
         GTModHandler.removeRecipeByOutput(ItemList.IC2_ForgeHammer.getWildcard(1L));
         GTModHandler.removeRecipeByOutput(GTModHandler.getIC2Item("machine", 1L));
         GTModHandler.addCraftingRecipe(
@@ -564,7 +550,6 @@ public class GTMod {
             tRunnable.run();
         }
         GTPostLoad.addFakeRecipes();
-        ScannerHandlerLoader.registerScannerHandlers();
 
         if (GregTechAPI.mOutputRF || GregTechAPI.mInputRF) {
             GTUtility.checkAvailabilities();
@@ -814,7 +799,6 @@ public class GTMod {
 
     @Mod.EventHandler
     public void onMissingMappings(FMLMissingMappingsEvent event) {
-        MissingMappingsHandler.handleMappings(event.getAll());
     }
 
     public static void logStackTrace(Throwable t) {

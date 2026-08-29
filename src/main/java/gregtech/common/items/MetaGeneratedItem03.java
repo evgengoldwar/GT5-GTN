@@ -1799,21 +1799,6 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.AQUA, 10L),
                 new TCAspects.TC_AspectStack(TCAspects.HERBA, 10L)));
 
-        ItemList.Armor_Chip_T1.set(
-            addItemWithLocalizationKeys(
-                Armor_Chip_T1.ID,
-                "gt.item.armor_chip_t1.name",
-                "gt.item.armor_chip_t1.tooltip"));
-        ItemList.Armor_Chip_T2.set(
-            addItemWithLocalizationKeys(
-                Armor_Chip_T2.ID,
-                "gt.item.armor_chip_t2.name",
-                "gt.item.armor_chip_t2.tooltip"));
-        ItemList.Armor_Chip_T3.set(
-            addItemWithLocalizationKeys(
-                Armor_Chip_T3.ID,
-                "gt.item.armor_chip_t3.name",
-                "gt.item.armor_chip_t3.tooltip"));
         ItemList.StableBaryonContainmentUnit.set(
             addItemWithLocalizationKeys(
                 StableBaryonContainmentUnit.ID,

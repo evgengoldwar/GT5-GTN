@@ -28,7 +28,6 @@ import gregtech.api.enums.TierEU;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gregtech.loaders.postload.PCBFactoryMaterialLoader;
 
 public class MTERecipeLoader implements Runnable {
 
@@ -3824,7 +3823,6 @@ public class MTERecipeLoader implements Runnable {
         registerShapedCraftingRecipes();
         GT_FML_LOGGER.debug("GTMod: Recipes for MetaTileEntities.");
         registerMachineTypes();
-        PCBFactoryMaterialLoader.load();
         run4();
         registerReworkMigrationRecipes();
         registerReworkMTERecipes();

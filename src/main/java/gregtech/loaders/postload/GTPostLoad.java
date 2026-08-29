@@ -239,56 +239,6 @@ public class GTPostLoad {
                 }
             }
         }
-        Materials.getMaterialsMap()
-            .values()
-            .forEach(tMaterial -> {
-                // check if material is scannable
-                GTScannerResult scannerResult = ScannerHandlerLoader.getElementScanResult(tMaterial);
-                if (scannerResult == null || scannerResult.isNotMet()) return;
-
-                // add recipe if a dust exists.
-                GTRecipeBuilder builder = null;
-                ItemStack dustItem = GTOreDictUnificator.get(OrePrefixes.dust, tMaterial, 1L);
-                if (dustItem != null) {
-                    builder = GTValues.RA.stdBuilder()
-                        .itemInputs(dustItem);
-                    // add corresponding fluid replicator recipe.
-                    GTValues.RA.stdBuilder()
-                        .itemOutputs(dustItem)
-                        .special(scannerResult.output)
-                        .metadata(GTRecipeConstants.MATERIAL, tMaterial)
-                        .addTo(RecipeMaps.replicatorRecipes);
-                }
-                // else try to add a recipe for the cell.
-                if (builder == null) {
-                    ItemStack cellItem = GTOreDictUnificator.get(OrePrefixes.cell, tMaterial, 1L);
-                    if (cellItem == null) return;
-                    // create builder
-                    builder = GTValues.RA.stdBuilder()
-                        .itemInputs(cellItem);
-                    // add corresponding replicator recipe
-                    FluidStack fluidStack = GTUtility.getFluidForFilledItem(cellItem, false);
-                    GTRecipeBuilder replicatorRecipeBuilder = GTValues.RA.stdBuilder();
-                    if (fluidStack != null) {
-                        replicatorRecipeBuilder.fluidOutputs(fluidStack);
-                    } else {
-                        // if there is no fluid for some reason, add a cell recipe, with cell input.
-                        replicatorRecipeBuilder.itemInputs(Materials.Empty.getCells(1))
-                            .itemOutputs(cellItem);
-                    }
-                    replicatorRecipeBuilder.special(scannerResult.output)
-                        .metadata(GTRecipeConstants.MATERIAL, tMaterial)
-                        .addTo(RecipeMaps.replicatorRecipes);
-                }
-
-                builder.itemOutputs(scannerResult.output)
-                    .special(ItemList.Tool_DataOrb.get(1L))
-                    .duration(scannerResult.duration)
-                    .eut(scannerResult.eut)
-                    .fake()
-                    .ignoreCollision()
-                    .addTo(scannerFakeRecipes);
-            });
 
         if (!MTEMassfabricator.sRequiresUUA) {
 
