@@ -50,16 +50,6 @@ public class MicrowaveBackend extends NonGTBackend {
 
         ItemStack output = GTModHandler.getSmeltingOutput(items[0], false, null);
 
-        if (GTUtility.areStacksEqual(items[0], new ItemStack(Items.book, 1, WILDCARD))) {
-            return GTValues.RA.stdBuilder()
-                .itemInputs(GTUtility.copyAmount(1, items[0]))
-                .itemOutputs(GTUtility.getWrittenBook("Manual_Microwave", ItemList.Book_Written_03.get(1)))
-                .duration(32)
-                .eut(4)
-                .build()
-                .orElse(null);
-        }
-
         // Check Container Item of Input since it is around the Input, then the Input itself, then Container Item of
         // Output and last check the Output itself
         for (ItemStack item : new ItemStack[] { GTUtility.getContainerItem(items[0], true), items[0],

@@ -54,13 +54,5 @@ public class PrinterRecipes implements Runnable {
             .duration(20 * SECONDS)
             .eut(2)
             .addTo(printerRecipes);
-
-        GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(Items.book, 1, 32767))
-            .itemOutputs(GTUtility.getWrittenBook("Manual_Printer", ItemList.Book_Written_01.get(1L)))
-            .fluidInputs(getFluidStack("squidink", 1 * INGOTS))
-            .duration(20 * SECONDS)
-            .eut(2)
-            .addTo(printerRecipes);
     }
 }
