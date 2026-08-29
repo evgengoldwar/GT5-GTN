@@ -61,7 +61,8 @@ public class AdvancedRedstoneReceiverBaseUIFactory
 
     @SuppressWarnings("PointlessArithmeticExpression")
     @Override
-    protected void addUIForDataController(CoverDataControllerWidget<Cover.CoverAdvancedRedstoneReceiverBase> controller) {
+    protected void addUIForDataController(
+        CoverDataControllerWidget<Cover.CoverAdvancedRedstoneReceiverBase> controller) {
         super.addUIForDataController(controller);
         controller
             .addFollower(

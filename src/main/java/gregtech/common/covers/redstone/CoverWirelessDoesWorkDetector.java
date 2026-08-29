@@ -1,6 +1,5 @@
 package gregtech.common.covers.redstone;
 
-import gregtech.common.covers.Base.CoverAdvancedRedstoneTransmitterBase;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -15,6 +14,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.modularui.KeyProvider;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
+import gregtech.common.covers.Base.CoverAdvancedRedstoneTransmitterBase;
 import gregtech.common.covers.Base.CoverPosition;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.modularui.cover.redstone.CoverWirelessDoesWorkDetectorGui;

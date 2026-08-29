@@ -1,6 +1,5 @@
 package gregtech.common.covers.redstone;
 
-import gregtech.common.covers.Base.CoverRedstoneWirelessBase;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
@@ -8,6 +7,7 @@ import net.minecraft.nbt.NBTTagInt;
 import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
+import gregtech.common.covers.Base.CoverRedstoneWirelessBase;
 
 public class CoverRedstoneTransmitterExternal extends CoverRedstoneWirelessBase {
 

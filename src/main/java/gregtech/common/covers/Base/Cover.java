@@ -5,9 +5,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import gregtech.api.interfaces.modularui.KeyProvider;
-import gregtech.common.gui.modularui.cover.base.CoverAdvancedRedstoneReceiverBaseGui;
-import gregtech.common.gui.mui1.cover.AdvancedRedstoneReceiverBaseUIFactory;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -40,6 +37,7 @@ import gregtech.api.covers.CoverRegistry;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.modularui.KeyProvider;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTheme;
@@ -47,7 +45,9 @@ import gregtech.api.modularui2.GTGuiThemes;
 import gregtech.api.modularui2.GTGuis;
 import gregtech.api.modularui2.GTModularScreen;
 import gregtech.api.util.GTUtility;
+import gregtech.common.gui.modularui.cover.base.CoverAdvancedRedstoneReceiverBaseGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
+import gregtech.common.gui.mui1.cover.AdvancedRedstoneReceiverBaseUIFactory;
 import gregtech.common.gui.mui1.cover.CoverUIFactory;
 import gregtech.common.text.ClientTickRateFormatter;
 import io.netty.buffer.ByteBuf;

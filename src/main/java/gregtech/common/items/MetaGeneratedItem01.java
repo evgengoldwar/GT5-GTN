@@ -125,7 +125,6 @@ import static gregtech.common.items.IDMetaItem01.Cover_Chest_Good;
 import static gregtech.common.items.IDMetaItem01.Cover_Controller;
 import static gregtech.common.items.IDMetaItem01.Cover_EnergyDetector;
 import static gregtech.common.items.IDMetaItem01.Cover_FluidDetector;
-import static gregtech.common.items.IDMetaItem01.Cover_FluidLimiter;
 import static gregtech.common.items.IDMetaItem01.Cover_ItemDetector;
 import static gregtech.common.items.IDMetaItem01.Cover_NeedsMaintenance;
 import static gregtech.common.items.IDMetaItem01.Cover_RedstoneReceiver;
@@ -479,16 +478,12 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
 import gregtech.common.config.Other;
-import gregtech.common.covers.redstone.CoverAdvancedWirelessController;
 import gregtech.common.covers.CoverArm;
 import gregtech.common.covers.CoverChest;
-import gregtech.common.covers.redstone.CoverControlsWork;
 import gregtech.common.covers.CoverConveyor;
-import gregtech.common.covers.redstone.CoverDoesWork;
 import gregtech.common.covers.CoverEUMeter;
 import gregtech.common.covers.CoverEnergyWireless;
 import gregtech.common.covers.CoverEnergyWirelessDebug;
-import gregtech.common.covers.CoverFluidLimiter;
 import gregtech.common.covers.CoverFluidRegulator;
 import gregtech.common.covers.CoverFluidfilter;
 import gregtech.common.covers.CoverItemFilter;
@@ -496,13 +491,16 @@ import gregtech.common.covers.CoverItemMeter;
 import gregtech.common.covers.CoverLiquidMeter;
 import gregtech.common.covers.CoverNeedMaintainance;
 import gregtech.common.covers.CoverPump;
-import gregtech.common.covers.redstone.CoverRedstoneReceiverExternal;
-import gregtech.common.covers.redstone.CoverRedstoneTransmitterExternal;
-import gregtech.common.covers.redstone.CoverRedstoneTransmitterInternal;
 import gregtech.common.covers.CoverShutter;
 import gregtech.common.covers.CoverSteamRegulator;
 import gregtech.common.covers.CoverSteamValve;
 import gregtech.common.covers.CoverWirelessController;
+import gregtech.common.covers.redstone.CoverAdvancedWirelessController;
+import gregtech.common.covers.redstone.CoverControlsWork;
+import gregtech.common.covers.redstone.CoverDoesWork;
+import gregtech.common.covers.redstone.CoverRedstoneReceiverExternal;
+import gregtech.common.covers.redstone.CoverRedstoneTransmitterExternal;
+import gregtech.common.covers.redstone.CoverRedstoneTransmitterInternal;
 import gregtech.common.items.behaviors.BehaviourCoverTool;
 import gregtech.common.items.behaviors.BehaviourDataOrb;
 import gregtech.common.items.behaviors.BehaviourDataStick;
@@ -2368,12 +2366,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.item_filter.import.name",
                 "gt.item.item_filter.import.tooltip"));
 
-        ItemList.Cover_FluidLimiter.set(
-            addItemWithLocalizationKeys(
-                Cover_FluidLimiter.ID,
-                "gt.item.cover.fluid_limiter.name",
-                "gt.item.cover.fluid_limiter.tooltip"));
-
         ItemList.Conveyor_Module_LV.set(
             addItemWithLocalizationKeys(
                 Conveyor_Module_LV.ID,
@@ -4054,11 +4046,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             ItemList.ItemFilter_Import.get(1L),
             TextureFactory.of(MACHINE_CASINGS[5][0], TextureFactory.of(OVERLAY_CONVEYOR)),
             context -> new CoverItemFilter(context, false, TextureFactory.of(OVERLAY_CONVEYOR)));
-
-        CoverRegistry.registerCover(
-            ItemList.Cover_FluidLimiter.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_SHUTTER)),
-            context -> new CoverFluidLimiter(context, TextureFactory.of(OVERLAY_SHUTTER)));
 
         CoverRegistry.registerCover(
             ItemList.Conveyor_Module_LV.get(1L),
