@@ -143,7 +143,6 @@ public class NEIGTConfig implements IConfigureNEI {
     }
 
     private void registerItemEntries() {
-        API.addItemListEntry(ItemList.VOLUMETRIC_FLASK.get(1));
     }
 
     private void registerDumpers() {

@@ -42,11 +42,6 @@ public final class RenderInit implements IResourceManagerReloadListener {
     public static void register() {
         ShaderProfile.init();
 
-        onResourceReload(NanoForgeRenderer::reload);
-        onResourceReload(DroneRender::reload);
-        onResourceReload(WormholeRenderer::reload);
-        onResourceReload(BlackholeRenderer::reload);
-
         ((IReloadableResourceManager) Minecraft.getMinecraft()
             .getResourceManager()).registerReloadListener(INSTANCE);
     }

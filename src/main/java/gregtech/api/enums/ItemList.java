@@ -1927,8 +1927,6 @@ public enum ItemList implements IItemContainer {
     Circuit_Parts_InductorASMD,
     Circuit_Parts_InductorXSMD,
 
-    VOLUMETRIC_FLASK,
-
     Hatch_Input_Bus_ME,
     Hatch_Input_Bus_ME_Advanced,
     Hatch_Input_ME,

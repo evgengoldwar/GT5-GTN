@@ -73,12 +73,10 @@ import gregtech.common.blocks.BlockFenceMetal;
 import gregtech.common.blocks.BlockFrameBox;
 import gregtech.common.blocks.BlockGlass1;
 import gregtech.common.blocks.BlockGranites;
-import gregtech.common.blocks.BlockLaser;
 import gregtech.common.blocks.BlockMachines;
 import gregtech.common.blocks.BlockMetal;
 import gregtech.common.blocks.BlockPad;
 import gregtech.common.blocks.BlockReinforced;
-import gregtech.common.blocks.BlockRenderer;
 import gregtech.common.blocks.BlockSheetMetal;
 import gregtech.common.blocks.BlockStones;
 import gregtech.common.blocks.BlockTintedIndustrialGlass;
@@ -90,7 +88,6 @@ import gregtech.common.items.ItemIntegratedCircuit;
 import gregtech.common.items.ItemMagLevHarness;
 import gregtech.common.items.ItemNeutronReflector;
 import gregtech.common.items.ItemSensorCard;
-import gregtech.common.items.ItemVolumetricFlask;
 import gregtech.common.items.ItemWirelessHeadphones;
 import gregtech.common.items.MetaGeneratedItem01;
 import gregtech.common.items.MetaGeneratedItem02;
@@ -98,10 +95,6 @@ import gregtech.common.items.MetaGeneratedItem03;
 import gregtech.common.items.MetaGeneratedItem98;
 import gregtech.common.items.MetaGeneratedItem99;
 import gregtech.common.items.MetaGeneratedTool01;
-import gregtech.common.tileentities.render.RenderingTileEntityBlackhole;
-import gregtech.common.tileentities.render.RenderingTileEntityLaser;
-import gregtech.common.tileentities.render.RenderingTileEntityNanoForge;
-import gregtech.common.tileentities.render.RenderingTileEntityWormhole;
 
 public class LoaderGTBlockFluid implements Runnable {
 
@@ -136,8 +129,6 @@ public class LoaderGTBlockFluid implements Runnable {
         ItemList.Rotor_HV.set(GTOreDictUnificator.get(OrePrefixes.rotor, Materials.Steel, 1L));
         ItemList.Rotor_EV.set(GTOreDictUnificator.get(OrePrefixes.rotor, Materials.StainlessSteel, 1L));
         ItemList.Rotor_IV.set(GTOreDictUnificator.get(OrePrefixes.rotor, Materials.TungstenSteel, 1L));
-
-        ItemList.VOLUMETRIC_FLASK.set(new ItemVolumetricFlask("Volumetric_Flask", "Volumetric flask", 1_000));
 
         if (Mods.IC2NuclearControl.isModLoaded()) {
             ItemList.NC_SensorCard.set(new ItemSensorCard("sensorcard", "GregTech Sensor Card"));
@@ -702,12 +693,6 @@ public class LoaderGTBlockFluid implements Runnable {
         GregTechAPI.sBlockFrames = new BlockFrameBox();
         GregTechAPI.sBlockGlass1 = new BlockGlass1();
         GregTechAPI.sBlockTintedGlass = new BlockTintedIndustrialGlass();
-        GregTechAPI.sLaserRender = new BlockLaser();
-        GT_FML_LOGGER.debug("GTMod: Adding Renderer Blocks.");
-        GregTechAPI.sWormholeRender = new BlockRenderer<>("wormholerenderer", RenderingTileEntityWormhole::new);
-        GregTechAPI.sBlackholeRender = new BlockRenderer<>("blackholerenderer", RenderingTileEntityBlackhole::new);
-        GregTechAPI.nanoForgeRender = new BlockRenderer<>("nanoforgerenderer", RenderingTileEntityNanoForge::new);
-
         // meta ID order, DO NOT CHANGE ORDER
 
         GregTechAPI.sBlockMetal1 = new BlockMetal(
@@ -841,18 +826,6 @@ public class LoaderGTBlockFluid implements Runnable {
             "whitelist-spatial",
             tBaseMetaTileEntity.getClass()
                 .getName());
-
-        GT_FML_LOGGER.debug("GTMod: Registering the LaserRender.");
-        GameRegistry.registerTileEntity(RenderingTileEntityLaser.class, "LaserRenderer");
-
-        GT_FML_LOGGER.debug("GTMod: Registering the WormholeRender.");
-        GameRegistry.registerTileEntity(RenderingTileEntityWormhole.class, "WormholeRender");
-
-        GT_FML_LOGGER.debug("GTMod: Registering the BlackholeRender.");
-        GameRegistry.registerTileEntity(RenderingTileEntityBlackhole.class, "BlackholeRender");
-
-        GT_FML_LOGGER.debug("GTMod: Registering the NanoForgeRender.");
-        GameRegistry.registerTileEntity(RenderingTileEntityNanoForge.class, "NanoForgeRender");
 
         GT_FML_LOGGER.debug("GTMod: Registering the BaseMetaPipeEntity.");
         GameRegistry.registerTileEntity(BaseMetaPipeEntity.class, "BaseMetaPipeEntity");

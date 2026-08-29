@@ -170,11 +170,6 @@ public class GregTechAPI {
     public static Block sBlockFrames;
     public static Block sBlockGlass1;
     public static Block sBlockTintedGlass;
-    public static Block sLaserRender;
-    public static Block sWormholeRender;
-    public static Block sBlackholeRender;
-    public static Block sSpaceElevatorCable;
-    public static Block nanoForgeRender;
     /**
      * Getting assigned by the Config
      */
@@ -309,15 +304,6 @@ public class GregTechAPI {
                 return (id & B[aMeta]) != 0;
             }
         }
-        return false;
-    }
-
-    /**
-     * if this Block is a TESR Render Block
-     */
-    public static boolean isGTRenderer(Block block) {
-        if (block == GregTechAPI.sWormholeRender) return true;
-        if (block == GregTechAPI.sBlackholeRender) return true;
         return false;
     }
 

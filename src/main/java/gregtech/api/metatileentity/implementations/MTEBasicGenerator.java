@@ -246,8 +246,7 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
         ItemData association = GTOreDictUnificator.getAssociation(stack);
         // if it is a gregtech Item, make sure its not a VOLUMETRIC_FLASK or any type of cell, else do vanilla checks
         if (association != null) {
-            return !OrePrefixes.CELL_TYPES.contains(association.mPrefix)
-                && !GTUtility.areStacksEqual(ItemList.VOLUMETRIC_FLASK.get(1L), stack, true);
+            return !OrePrefixes.CELL_TYPES.contains(association.mPrefix);
         } else {
             return stack != null && // when the stack is null its not a solid
                 stack.getItem() != null && // when the item in the stack is null its not a solid

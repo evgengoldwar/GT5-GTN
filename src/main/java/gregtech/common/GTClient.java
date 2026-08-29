@@ -97,12 +97,10 @@ import gregtech.client.GTMouseEventHandler;
 import gregtech.client.GTPowerfailRenderer;
 import gregtech.client.GTWorkAreaRenderer;
 import gregtech.client.SeekingOggCodec;
-import gregtech.client.renderer.entity.RenderDrone;
 import gregtech.client.renderer.entity.RenderPowderBarrel;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Client;
-import gregtech.common.entity.EntityDrone;
 import gregtech.common.entity.EntityPowderBarrelPrimed;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.toolbox.ToolboxUtil;
@@ -112,25 +110,16 @@ import gregtech.common.pollution.Pollution;
 import gregtech.common.pollution.PollutionRenderer;
 import gregtech.common.powergoggles.PowerGogglesCommand;
 import gregtech.common.render.BaseMetaTileEntityRenderer;
-import gregtech.common.render.BlackholeRenderer;
-import gregtech.common.render.FlaskRenderer;
 import gregtech.common.render.FluidDisplayStackRenderer;
 import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.GTRendererCasing;
-import gregtech.common.render.LaserRenderer;
 import gregtech.common.render.MetaGeneratedToolRenderer;
-import gregtech.common.render.NanoForgeRenderer;
 import gregtech.common.render.RenderInit;
-import gregtech.common.render.WormholeRenderer;
 import gregtech.common.render.items.DataStickRenderer;
 import gregtech.common.render.items.InfiniteSprayCanRenderer;
 import gregtech.common.render.items.MetaGeneratedItemRenderer;
 import gregtech.common.render.items.ToolboxRenderer;
 import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
-import gregtech.common.tileentities.render.RenderingTileEntityBlackhole;
-import gregtech.common.tileentities.render.RenderingTileEntityLaser;
-import gregtech.common.tileentities.render.RenderingTileEntityNanoForge;
-import gregtech.common.tileentities.render.RenderingTileEntityWormhole;
 import gregtech.crossmod.navigator.PowerfailLayerManager;
 import gregtech.loaders.ExtraIcons;
 import gregtech.loaders.preload.GTPreLoad;
@@ -203,10 +192,6 @@ public class GTClient extends GTProxy {
         RenderingRegistry.registerBlockHandler(new GTRendererBlock());
         RenderingRegistry.registerBlockHandler(new GTRendererCasing());
 
-        ClientRegistry.bindTileEntitySpecialRenderer(RenderingTileEntityLaser.class, new LaserRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(RenderingTileEntityWormhole.class, new WormholeRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(RenderingTileEntityBlackhole.class, new BlackholeRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(RenderingTileEntityNanoForge.class, new NanoForgeRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(BaseMetaTileEntity.class, new BaseMetaTileEntityRenderer());
 
         for (MetaGeneratedItem item : MetaGeneratedItem.sInstances.values()) {
@@ -219,10 +204,6 @@ public class GTClient extends GTProxy {
                 MinecraftForgeClient.registerItemRenderer(tItem, metaToolRenderer);
             }
         }
-
-
-        final FlaskRenderer flaskRenderer = new FlaskRenderer();
-        MinecraftForgeClient.registerItemRenderer(ItemList.VOLUMETRIC_FLASK.getItem(), flaskRenderer);
 
         MinecraftForgeClient.registerItemRenderer(ItemList.ToolBox.getItem(), new ToolboxRenderer());
 
@@ -245,7 +226,6 @@ public class GTClient extends GTProxy {
 
 
         RenderManager.instance.entityRenderMap.put(EntityPowderBarrelPrimed.class, new RenderPowderBarrel());
-        RenderManager.instance.entityRenderMap.put(EntityDrone.class, new RenderDrone());
         // spotless:on
     }
 
