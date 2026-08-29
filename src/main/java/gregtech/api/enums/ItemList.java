@@ -536,11 +536,7 @@ public enum ItemList implements IItemContainer {
     Cover_FluidDetector,
     Cover_ItemDetector,
     Cover_EnergyDetector,
-    Cover_FluidStorageMonitor,
     Cover_Shutter,
-
-    Cover_Screen,
-
     Cover_Chest_Basic,
     Cover_Chest_Good,
     Cover_Chest_Advanced,
@@ -1413,7 +1409,6 @@ public enum ItemList implements IItemContainer {
     MobRep_LuV,
     MobRep_ZPM,
     MobRep_UV,
-    Cover_PlayerDetector,
 
     MagLevPython_MV,
     MagLevPython_HV,

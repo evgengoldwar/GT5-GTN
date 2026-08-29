@@ -10,7 +10,6 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_CONTROLLER;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_CONVEYOR;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ENERGYDETECTOR;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FLUIDDETECTOR;
-import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FLUID_STORAGE_MONITOR0;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ITEMDETECTOR;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_MAINTENANCE_DETECTOR;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_PUMP;
@@ -125,16 +124,13 @@ import static gregtech.common.items.IDMetaItem01.Cover_Chest_Basic;
 import static gregtech.common.items.IDMetaItem01.Cover_Chest_Good;
 import static gregtech.common.items.IDMetaItem01.Cover_Controller;
 import static gregtech.common.items.IDMetaItem01.Cover_EnergyDetector;
-import static gregtech.common.items.IDMetaItem01.Cover_FLuidStorageMonitor;
 import static gregtech.common.items.IDMetaItem01.Cover_FluidDetector;
 import static gregtech.common.items.IDMetaItem01.Cover_FluidLimiter;
 import static gregtech.common.items.IDMetaItem01.Cover_ItemDetector;
 import static gregtech.common.items.IDMetaItem01.Cover_NeedsMaintenance;
-import static gregtech.common.items.IDMetaItem01.Cover_PlayerDetector;
 import static gregtech.common.items.IDMetaItem01.Cover_RedstoneReceiver;
 import static gregtech.common.items.IDMetaItem01.Cover_RedstoneTransmitter;
 import static gregtech.common.items.IDMetaItem01.Cover_RedstoneTransmitterInternal;
-import static gregtech.common.items.IDMetaItem01.Cover_Screen;
 import static gregtech.common.items.IDMetaItem01.Cover_Shutter;
 import static gregtech.common.items.IDMetaItem01.Cover_WirelessController;
 import static gregtech.common.items.IDMetaItem01.Cover_Wireless_Energy_Debug;
@@ -494,13 +490,11 @@ import gregtech.common.covers.CoverEnergyWireless;
 import gregtech.common.covers.CoverEnergyWirelessDebug;
 import gregtech.common.covers.CoverFluidLimiter;
 import gregtech.common.covers.CoverFluidRegulator;
-import gregtech.common.covers.CoverFluidStorageMonitor;
 import gregtech.common.covers.CoverFluidfilter;
 import gregtech.common.covers.CoverItemFilter;
 import gregtech.common.covers.CoverItemMeter;
 import gregtech.common.covers.CoverLiquidMeter;
 import gregtech.common.covers.CoverNeedMaintainance;
-import gregtech.common.covers.CoverPlayerDetector;
 import gregtech.common.covers.CoverPump;
 import gregtech.common.covers.CoverRedstoneReceiverExternal;
 import gregtech.common.covers.CoverRedstoneTransmitterExternal;
@@ -3258,20 +3252,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.cover.energy_detector.tooltip",
                 new TCAspects.TC_AspectStack(TCAspects.SENSUS, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 1L)));
-        ItemList.Cover_PlayerDetector.set(
-            addItemWithLocalizationKeys(
-                Cover_PlayerDetector.ID,
-                "gt.item.cover.player_detector.name",
-                "gt.item.cover.player_detector.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.SENSUS, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 1L)));
-        ItemList.Cover_FluidStorageMonitor.set(
-            addItemWithLocalizationKeys(
-                Cover_FLuidStorageMonitor.ID,
-                "gt.item.cover.fluid_storage_monitor.name",
-                "gt.item.cover.fluid_storage_monitor.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.SENSUS, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 1L)));
         ItemList.Cover_Chest_Basic.set(
             addItemWithLocalizationKeys(
                 Cover_Chest_Basic.ID,
@@ -3316,15 +3296,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.wireless_energy_cover_debug.name",
                 "gt.item.wireless_energy_cover_debug.tooltip",
                 new TCAspects.TC_AspectStack(TCAspects.VACUOS, 9999L)));
-
-        ItemList.Cover_Screen.set(
-            addItemWithLocalizationKeys(
-                Cover_Screen.ID,
-                "gt.item.cover.screen.name",
-                "gt.item.cover.screen.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.COGNITIO, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.LUX, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.VITREUS, 1L)));
 
         ItemList.Cover_Shutter.set(
             addItemWithLocalizationKeys(
@@ -4213,19 +4184,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             context -> new CoverEUMeter(context, TextureFactory.of(OVERLAY_ENERGYDETECTOR)));
 
         CoverRegistry.registerCover(
-            ItemList.Cover_PlayerDetector.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[2][0], playerDectectorCoverTexture),
-            context -> new CoverPlayerDetector(context, playerDectectorCoverTexture));
-        CoverRegistry.registerCover(
-            ItemList.Cover_FluidStorageMonitor.get(1L),
-            TextureFactory.of(OVERLAY_FLUID_STORAGE_MONITOR0),
-            CoverFluidStorageMonitor::new);
-
-        CoverRegistry.registerDecorativeCover(
-            ItemList.Cover_Screen.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[2][0], screenCoverTexture));
-
-        CoverRegistry.registerCover(
             ItemList.Cover_Shutter.get(1L),
             TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_SHUTTER)),
             context -> new CoverShutter(context, TextureFactory.of(OVERLAY_SHUTTER)));
@@ -4611,20 +4569,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 OrePrefixes.plate.get(Materials.Tungsten), 'S', OrePrefixes.plateDouble.get(Materials.Steel) });
 
         GTModHandler.addCraftingRecipe(
-            ItemList.Cover_Screen.get(1L),
-            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE,
-            new Object[] { "AGA", "RPB", "ALA", 'A', OrePrefixes.plate.get(Materials.Aluminium), 'L',
-                OrePrefixes.dust.get(Materials.Glowstone), 'R', Dyes.dyeRed, 'G', Dyes.dyeLime, 'B', Dyes.dyeBlue, 'P',
-                OrePrefixes.plate.get(Materials.Glass) });
-
-        GTModHandler.addCraftingRecipe(
-            ItemList.Tool_Scanner.get(1L),
-            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE,
-            new Object[] { "EPR", "CSC", "PBP", 'C', OrePrefixes.circuit.get(Materials.HV), 'P',
-                OrePrefixes.plate.get(Materials.Aluminium), 'E', ItemList.Emitter_MV, 'R', ItemList.Sensor_MV, 'S',
-                ItemList.Cover_Screen, 'B', ItemList.Battery_RE_MV_Lithium });
-
-        GTModHandler.addCraftingRecipe(
             ItemList.ItemFilter_Export.get(1L),
             new Object[] { "SPS", "dIC", "SPS", 'P', OrePrefixes.plate.get(Materials.Tin), 'S',
                 OrePrefixes.screw.get(Materials.Iron), 'I', ItemList.Component_Filter, 'C',
@@ -4634,13 +4578,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             new Object[] { "SPS", "CId", "SPS", 'P', OrePrefixes.plate.get(Materials.Tin), 'S',
                 OrePrefixes.screw.get(Materials.Iron), 'I', ItemList.Component_Filter, 'C',
                 ItemList.Conveyor_Module_LV });
-
-        GTModHandler.addCraftingRecipe(
-            ItemList.Tool_Cover_Copy_Paste.get(1L),
-            GTModHandler.RecipeBits.REVERSIBLE,
-            new Object[] { "PSP", "PCP", "PBP", 'P', OrePrefixes.plate.get(Materials.Aluminium), 'S',
-                ItemList.Tool_DataStick.get(1L), 'C', ItemList.Cover_Screen.get(1L), 'B',
-                ItemList.Battery_RE_MV_Lithium.get(1L) });
     }
 
     private void craftingShapelessRecipes() {
