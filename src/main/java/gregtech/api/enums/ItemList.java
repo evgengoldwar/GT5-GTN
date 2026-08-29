@@ -1959,10 +1959,6 @@ public enum ItemList implements IItemContainer {
     Cover_Metrics_Transmitter,
     NC_AdvancedSensorCard,
 
-    TierdDrone0,
-    TierdDrone1,
-    TierdDrone2,
-    TierdDrone3,
     ElectronicsLump,
 
     ActivatedCarbonFilterMesh,

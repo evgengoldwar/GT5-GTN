@@ -90,7 +90,6 @@ import gregtech.common.items.ItemIntegratedCircuit;
 import gregtech.common.items.ItemMagLevHarness;
 import gregtech.common.items.ItemNeutronReflector;
 import gregtech.common.items.ItemSensorCard;
-import gregtech.common.items.ItemTierDrone;
 import gregtech.common.items.ItemVolumetricFlask;
 import gregtech.common.items.ItemWirelessHeadphones;
 import gregtech.common.items.MetaGeneratedItem01;
@@ -2614,12 +2613,5 @@ public class LoaderGTBlockFluid implements Runnable {
             GTModHandler.getModItem(PamsHarvestCraft.ID, "cocoapowderItem", 1L, 0));
 
         GregTechAPI.sSolenoidCoilCasings = new BlockCyclotronCoils();
-        ItemList.TierdDrone0
-            .set(new ItemTierDrone("tierdDrone0", "Drone (Level 1)", "Quadcopter Stable Small Aircraft", 1));
-        ItemList.TierdDrone1
-            .set(new ItemTierDrone("tierdDrone1", "Drone (Level 2)", "Dual Turbo High-Ejection Medium Aircraft", 2));
-        ItemList.TierdDrone2
-            .set(new ItemTierDrone("tierdDrone2", "Drone (Level 3)", "Single Engine Anti-Gravity Large Aircraft", 3));
-        ItemList.TierdDrone3.set(new ItemTierDrone("tierdDrone3", "Drone (Level 4)", "Warp engine FTL Shuttle", 4));
     }
 }
