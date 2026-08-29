@@ -678,11 +678,6 @@ public enum ItemList implements IItemContainer {
     Generator_Steam_Turbine_LV,
     Generator_Steam_Turbine_MV,
     Generator_Steam_Turbine_HV,
-    Generator_Naquadah_Mark_I,
-    Generator_Naquadah_Mark_II,
-    Generator_Naquadah_Mark_III,
-    Generator_Naquadah_Mark_IV,
-    Generator_Naquadah_Mark_V,
 
     Machine_Bronze_Furnace,
     Machine_Bronze_Macerator,
@@ -1421,19 +1416,6 @@ public enum ItemList implements IItemContainer {
     Casing_Fusion,
     Casing_Fusion2,
 
-    Generator_Plasma_EV,
-    Generator_Plasma_IV,
-    Generator_Plasma_LuV,
-
-    MagicEnergyConverter_LV,
-    MagicEnergyConverter_MV,
-    MagicEnergyConverter_HV,
-
-    MagicEnergyAbsorber_LV,
-    MagicEnergyAbsorber_MV,
-    MagicEnergyAbsorber_HV,
-    MagicEnergyAbsorber_EV,
-
     Energy_LapotronicOrb2,
     ZPM6,
     ZPM5,
@@ -1882,19 +1864,6 @@ public enum ItemList implements IItemContainer {
     Machine_UV_CircuitAssembler,
 
     Circuit_Integrated_Good,
-    Machine_IV_LightningRod,
-    Machine_HV_LightningRod,
-    Machine_EV_LightningRod,
-
-    Machine_ULV_SolarPanel,
-    Machine_LV_SolarPanel,
-    Machine_MV_SolarPanel,
-    Machine_HV_SolarPanel,
-    Machine_EV_SolarPanel,
-    Machine_IV_SolarPanel,
-    Machine_LuV_SolarPanel,
-    Machine_ZPM_SolarPanel,
-    Machine_UV_SolarPanel,
 
     ULV_Coil,
     LV_Coil,
@@ -2121,9 +2090,6 @@ public enum ItemList implements IItemContainer {
     BatteryHull_UIV_Full,
     BatteryHull_UMV_Full,
     BatteryHull_UxV_Full,
-
-    Generator_Plasma_ZPMV,
-    Generator_Plasma_UV,
 
     AlloySmelterLuV,
     AlloySmelterZPM,

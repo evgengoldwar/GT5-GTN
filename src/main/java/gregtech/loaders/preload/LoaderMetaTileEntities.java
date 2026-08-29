@@ -85,12 +85,6 @@ import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 import gregtech.common.tileentities.debug.MTEDebugTank;
 import gregtech.common.tileentities.generators.MTEDieselGenerator;
 import gregtech.common.tileentities.generators.MTEGasTurbine;
-import gregtech.common.tileentities.generators.MTELightningRod;
-import gregtech.common.tileentities.generators.MTEMagicEnergyConverter;
-import gregtech.common.tileentities.generators.MTEMagicalEnergyAbsorber;
-import gregtech.common.tileentities.generators.MTENaquadahReactor;
-import gregtech.common.tileentities.generators.MTEPlasmaGenerator;
-import gregtech.common.tileentities.generators.MTESolarGenerator;
 import gregtech.common.tileentities.generators.MTESteamTurbine;
 import gregtech.common.tileentities.machines.MTEBasicHullBronze;
 import gregtech.common.tileentities.machines.MTEBasicHullBronzeBricks;
@@ -8608,48 +8602,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 14).getStackForm(1L));
     }
 
-    private static void registerLightningRods() {
-        ItemList.Machine_HV_LightningRod.set(
-            new MTELightningRod(LIGHTNING_ROD_HV.ID, "basicgenerator.lightningrod.03", "Lightning Rod", 3)
-                .getStackForm(1));
-        ItemList.Machine_EV_LightningRod.set(
-            new MTELightningRod(LIGHTNING_ROD_EV.ID, "basicgenerator.lightningrod.04", "Lightning Rod II", 4)
-                .getStackForm(1));
-        ItemList.Machine_IV_LightningRod.set(
-            new MTELightningRod(LIGHTNING_ROD_IV.ID, "basicgenerator.lightningrod.05", "Lightning Rod III", 5)
-                .getStackForm(1));
-    }
-
-    private static void registerSolarPanels() {
-        ItemList.Machine_ULV_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_ULV.ID, "basicgenerator.solarpanel.00", "1-volt Solar Panel", 0)
-                .getStackForm(1));
-        ItemList.Machine_LV_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_LV.ID, "basicgenerator.solarpanel.01", "Basic Solar Panel", 1)
-                .getStackForm(1));
-        ItemList.Machine_MV_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_MV.ID, "basicgenerator.solarpanel.02", "Advanced Solar Panel", 2)
-                .getStackForm(1));
-        ItemList.Machine_HV_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_HV.ID, "basicgenerator.solarpanel.03", "Advanced Solar Panel II", 3)
-                .getStackForm(1));
-        ItemList.Machine_EV_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_EV.ID, "basicgenerator.solarpanel.04", "Advanced Solar Panel III", 4)
-                .getStackForm(1));
-        ItemList.Machine_IV_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_IV.ID, "basicgenerator.solarpanel.05", "Advanced Solar Panel IV", 5)
-                .getStackForm(1));
-        ItemList.Machine_LuV_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_LuV.ID, "basicgenerator.solarpanel.06", "Elite Solar Panel", 6)
-                .getStackForm(1));
-        ItemList.Machine_ZPM_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_ZPM.ID, "basicgenerator.solarpanel.07", "Elite Solar Panel II", 7)
-                .getStackForm(1));
-        ItemList.Machine_UV_SolarPanel.set(
-            new MTESolarGenerator(SOLAR_PANEL_UV.ID, "basicgenerator.solarpanel.08", "Ultimate Solar Panel", 8)
-                .getStackForm(1));
-    }
-
     private static void registerCombustionGenerators() {
         ItemList.Generator_Diesel_LV.set(
             new MTEDieselGenerator(
@@ -8702,127 +8654,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         ItemList.Generator_Steam_Turbine_HV.set(
             new MTESteamTurbine(STEAM_TURBINE_HV.ID, "basicgenerator.steamturbine.tier.03", "Turbo Steam Turbine", 3)
                 .getStackForm(1L));
-    }
-
-    private static void registerNaquadahReactors() {
-        ItemList.Generator_Naquadah_Mark_I.set(
-            new MTENaquadahReactor(
-                NAQUADAH_REACTOR_EV.ID,
-                "basicgenerator.naquadah.tier.04",
-                new String[] { "Requires Enriched Naquadah Bolts" },
-                "Naquadah Reactor Mark I",
-                4).getStackForm(1L));
-        ItemList.Generator_Naquadah_Mark_II.set(
-            new MTENaquadahReactor(
-                NAQUADAH_REACTOR_IV.ID,
-                "basicgenerator.naquadah.tier.05",
-                new String[] { "Requires Enriched Naquadah Rods" },
-                "Naquadah Reactor Mark II",
-                5).getStackForm(1L));
-        ItemList.Generator_Naquadah_Mark_III.set(
-            new MTENaquadahReactor(
-                NAQUADAH_REACTOR_LuV.ID,
-                "basicgenerator.naquadah.tier.06",
-                new String[] { "Requires Enriched Naquadah Long Rods" },
-                "Naquadah Reactor Mark III",
-                6).getStackForm(1L));
-        ItemList.Generator_Naquadah_Mark_IV.set(
-            new MTENaquadahReactor(
-                NAQUADAH_REACTOR_ZPM.ID,
-                "basicgenerator.naquadah.tier.07",
-                new String[] { "Requires Naquadria Bolts" },
-                "Naquadah Reactor Mark IV",
-                7).getStackForm(1L));
-        ItemList.Generator_Naquadah_Mark_V.set(
-            new MTENaquadahReactor(
-                NAQUADAH_REACTOR_UV.ID,
-                "basicgenerator.naquadah.tier.08",
-                new String[] { "Requires Naquadria Rods" },
-                "Naquadah Reactor Mark V",
-                8).getStackForm(1L));
-    }
-
-    private static void registerMagicEnergyConverters() {
-        ItemList.MagicEnergyConverter_LV.set(
-            new MTEMagicEnergyConverter(
-                MAGIC_ENERGY_CONVERTER_LV.ID,
-                "basicgenerator.magicenergyconverter.tier.01",
-                "Novice Magic Energy Converter",
-                1).getStackForm(1L));
-        ItemList.MagicEnergyConverter_MV.set(
-            new MTEMagicEnergyConverter(
-                MAGIC_ENERGY_CONVERTER_MV.ID,
-                "basicgenerator.magicenergyconverter.tier.02",
-                "Adept Magic Energy Converter",
-                2).getStackForm(1L));
-        ItemList.MagicEnergyConverter_HV.set(
-            new MTEMagicEnergyConverter(
-                MAGIC_ENERGY_CONVERTER_HV.ID,
-                "basicgenerator.magicenergyconverter.tier.03",
-                "Master Magic Energy Converter",
-                3).getStackForm(1L));
-    }
-
-    private static void registerMagicEnergyAbsorbers() {
-        ItemList.MagicEnergyAbsorber_LV.set(
-            new MTEMagicalEnergyAbsorber(
-                MAGIC_ENERGY_ABSORBER_LV.ID,
-                "basicgenerator.magicenergyabsorber.tier.01",
-                "Novice Magic Energy Absorber",
-                1).getStackForm(1L));
-        ItemList.MagicEnergyAbsorber_MV.set(
-            new MTEMagicalEnergyAbsorber(
-                MAGIC_ENERGY_ABSORBER_MV.ID,
-                "basicgenerator.magicenergyabsorber.tier.02",
-                "Adept Magic Energy Absorber",
-                2).getStackForm(1L));
-        ItemList.MagicEnergyAbsorber_HV.set(
-            new MTEMagicalEnergyAbsorber(
-                MAGIC_ENERGY_ABSORBER_HV.ID,
-                "basicgenerator.magicenergyabsorber.tier.03",
-                "Master Magic Energy Absorber",
-                3).getStackForm(1L));
-        ItemList.MagicEnergyAbsorber_EV.set(
-            new MTEMagicalEnergyAbsorber(
-                MAGIC_ENERGY_ABSORBER_EV.ID,
-                "basicgenerator.magicenergyabsorber.tier.04",
-                "Grandmaster Magic Energy Absorber",
-                4).getStackForm(1L));
-    }
-
-    private static void registerPlasmaGenerators() {
-        ItemList.Generator_Plasma_EV.set(
-            new MTEPlasmaGenerator(
-                PLASMA_GENERATOR_EV.ID,
-                "basicgenerator.plasmagenerator.tier.05",
-                "Plasma Generator Mark I",
-                4).getStackForm(1L));
-        ItemList.Generator_Plasma_IV.set(
-            new MTEPlasmaGenerator(
-                PLASMA_GENERATOR_IV.ID,
-                "basicgenerator.plasmagenerator.tier.06",
-                "Plasma Generator Mark II",
-                5).getStackForm(1L));
-        ItemList.Generator_Plasma_LuV.set(
-            new MTEPlasmaGenerator(
-                PLASMA_GENERATOR_LuV.ID,
-                "basicgenerator.plasmagenerator.tier.07",
-                "Plasma Generator Mark III",
-                6).getStackForm(1L));
-
-        ItemList.Generator_Plasma_ZPMV.set(
-            new MTEPlasmaGenerator(
-                PLASMA_GENERATOR_ZPM.ID,
-                "basicgenerator.plasmagenerator.tier.08",
-                "Plasma Generator Mark IV",
-                7).getStackForm(1L));
-
-        ItemList.Generator_Plasma_UV.set(
-            new MTEPlasmaGenerator(
-                PLASMA_GENERATOR_UV.ID,
-                "basicgenerator.plasmagenerator.tier.09",
-                "Ultimate Pocket Sun",
-                8).getStackForm(1L));
     }
 
     private static void registerNameRemover() {
@@ -8881,15 +8712,9 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerSuperBuffer();
         registerItemDistributor();
         registerRecipeFilter();
-        registerLightningRods();
-        registerSolarPanels();
         registerCombustionGenerators();
         registerGasTurbines();
         registerSteamTurbines();
-        registerNaquadahReactors();
-        registerMagicEnergyAbsorbers();
-        registerMagicEnergyConverters();
-        registerPlasmaGenerators();
         registerMultiblockControllers();
         registerWorldAccelerator();
         registerAlloySmelter();
