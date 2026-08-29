@@ -142,8 +142,6 @@ public class NEIGTConfig implements IConfigureNEI {
             ItemList.CuttingMachineUMV)) {
             API.addRecipeCatalyst(item.get(1), RecipeMaps.cutterFakeRecipes.unlocalizedName);
         }
-
-        API.addRecipeCatalyst(ItemList.IndustrialCuttingMachine.get(1), RecipeMaps.cutterFakeRecipes.unlocalizedName);
     }
 
     private void registerItemEntries() {
