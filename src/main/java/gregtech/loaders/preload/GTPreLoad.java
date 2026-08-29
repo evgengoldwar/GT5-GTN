@@ -325,7 +325,6 @@ public class GTPreLoad {
         GTMod.proxy.mFlintChance = Gregtech.general.flintChance;
         GTMod.proxy.mItemDespawnTime = Gregtech.general.itemDespawnTime;
         GTMod.proxy.mAllowSmallBoilerAutomation = Gregtech.general.allowSmallBoilerAutomation;
-        GTMod.proxy.mDisableVanillaOres = Worldgen.general.disableVanillaOres;
         GTMod.proxy.mIncreaseDungeonLoot = Gregtech.general.increaseDungeonLoot;
         GTMod.proxy.mAxeWhenAdventure = Gregtech.general.axeWhenAdventure;
         GTMod.proxy.mSurvivalIntoAdventure = Gregtech.general.survivalIntoAdventure;
@@ -422,14 +421,6 @@ public class GTPreLoad {
         } else {
             GT_FML_LOGGER.error("The Length of the Gas Turbine Pollution Array Config must be the same as the Default");
         }
-
-        // Worldgeneration.cfg
-        GTMod.proxy.enableUndergroundGravelGen = Worldgen.general.generateUndergroundGravelGen;
-        GTMod.proxy.enableUndergroundDirtGen = Worldgen.general.generateUndergroundDirtGen;
-        GTMod.proxy.enableBlackGraniteOres = Worldgen.general.generateBlackGraniteOres;
-        GTMod.proxy.enableRedGraniteOres = Worldgen.general.generateRedGraniteOres;
-        GTMod.proxy.enableMarbleOres = Worldgen.general.generateMarbleOres;
-        GTMod.proxy.enableBasaltOres = Worldgen.general.generateBasaltOres;
 
         // OverpoweredStuff.cfg
         GregTechAPI.mOutputRF = OPStuff.outputRF;

@@ -40,6 +40,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nullable;
 
+import gregtech.common.config.Worldgen;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -538,7 +539,6 @@ public class GTProxy implements IFuelHandler {
             "redalloyInsulated",
             "infusedteslatiteBundled"));
     public final GTBlockMap<Boolean> mCTMBlockCache = new GTBlockMap<>();
-    public boolean mDisableVanillaOres = true;
     public boolean mAllowSmallBoilerAutomation = false;
     public boolean mCraftingUnification = true;
     public boolean mInventoryUnification = true;
@@ -567,7 +567,6 @@ public class GTProxy implements IFuelHandler {
     public int mPollutionVegetationLimit = 1000000;
     public int mPollutionSourRainLimit = 2000000;
     public int mPollutionOnExplosion = 100000;
-    public int mPollutionCokeOvenPerSecond = 10;
     public int mPollutionPrimitveBlastFurnacePerSecond = 200;
     public int mPollutionEBFPerSecond = 400;
     public int mPollutionCharcoalPitPerSecond = 100;
@@ -589,8 +588,6 @@ public class GTProxy implements IFuelHandler {
     public double[] mPollutionDieselGeneratorReleasedByTier = new double[] { 0.1, 1.0, 0.9, 0.8, 0.7, 0.6 };
     public int mPollutionBaseGasTurbinePerSecond = 200;
     public double[] mPollutionGasTurbineReleasedByTier = new double[] { 0.1, 1.0, 0.9, 0.8, 0.7, 0.6 };
-    public boolean enableUndergroundGravelGen = true;
-    public boolean enableUndergroundDirtGen = true;
     public boolean mEnableAllMaterials = false;
     public boolean mEnableCleanroom = true;
     public boolean mLowGravProcessing = false;
@@ -600,10 +597,6 @@ public class GTProxy implements IFuelHandler {
     public boolean mRichOreYieldMultiplier = true;
     public boolean mNetherOreYieldMultiplier = true;
     public boolean mEndOreYieldMultiplier = true;
-    public boolean enableBlackGraniteOres = true;
-    public boolean enableRedGraniteOres = true;
-    public boolean enableMarbleOres = true;
-    public boolean enableBasaltOres = true;
     public boolean gt6Pipe = true;
     public boolean gt6Cable = true;
     public boolean ic2EnergySourceCompat = true;
@@ -1056,8 +1049,13 @@ public class GTProxy implements IFuelHandler {
                     GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials.Empty, 1L)));
         }
 
-        if (!this.enableUndergroundGravelGen) PREVENTED_ORES.add(OreGenEvent.GenerateMinable.EventType.GRAVEL);
-        if (!this.enableUndergroundDirtGen) PREVENTED_ORES.add(OreGenEvent.GenerateMinable.EventType.DIRT);
+        if (!Worldgen.general.generateUndergroundGravelGen) {
+            PREVENTED_ORES.add(OreGenEvent.GenerateMinable.EventType.GRAVEL);
+        }
+
+        if (!Worldgen.general.generateUndergroundDirtGen) {
+            PREVENTED_ORES.add(OreGenEvent.GenerateMinable.EventType.DIRT);
+        }
 
         MinecraftForge.EVENT_BUS.register(new SpaceProjectWorldSavedData());
         MinecraftForge.EVENT_BUS.register(new GlobalEnergyWorldSavedData(""));
@@ -1393,7 +1391,7 @@ public class GTProxy implements IFuelHandler {
 
     @SubscribeEvent
     public void onOreGenEvent(OreGenEvent.GenerateMinable aGenerator) {
-        if ((this.mDisableVanillaOres) && ((aGenerator.generator instanceof WorldGenMinable))
+        if ((Worldgen.general.disableVanillaOres) && ((aGenerator.generator instanceof WorldGenMinable))
             && (PREVENTED_ORES.contains(aGenerator.type))) {
             aGenerator.setResult(Result.DENY);
         }
