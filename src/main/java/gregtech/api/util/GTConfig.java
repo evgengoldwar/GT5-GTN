@@ -15,7 +15,6 @@ public class GTConfig implements Runnable {
 
     public static Configuration sConfigFileIDs;
     public static Configuration cleanroomFile;
-    public static Configuration undergroundFluidsFile;
     public final Configuration mConfig;
 
     public GTConfig(Configuration aConfig) {

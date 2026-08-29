@@ -136,7 +136,6 @@ import gregtech.api.items.MetaGeneratedItem;
 import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.net.GTPacketMusicSystemData;
 import gregtech.api.objects.GTChunkManager;
-import gregtech.api.objects.GTUODimensionList;
 import gregtech.api.objects.ItemData;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.threads.RunnableCableUpdate;
@@ -590,7 +589,6 @@ public class GTProxy implements IFuelHandler {
     public double[] mPollutionDieselGeneratorReleasedByTier = new double[] { 0.1, 1.0, 0.9, 0.8, 0.7, 0.6 };
     public int mPollutionBaseGasTurbinePerSecond = 200;
     public double[] mPollutionGasTurbineReleasedByTier = new double[] { 0.1, 1.0, 0.9, 0.8, 0.7, 0.6 };
-    public final GTUODimensionList mUndergroundOil = new GTUODimensionList();
     public boolean enableUndergroundGravelGen = true;
     public boolean enableUndergroundDirtGen = true;
     public boolean mEnableAllMaterials = false;
@@ -2441,7 +2439,6 @@ public class GTProxy implements IFuelHandler {
 
     @SubscribeEvent
     public void handleChunkLoadEvent(ChunkDataEvent.Load event) {
-        UndergroundOil.migrate(event);
         Pollution.migrate(event);
     }
 

@@ -6,7 +6,6 @@ import static gregtech.api.enums.GTValues.D1;
 import static gregtech.api.enums.GTValues.E;
 import static gregtech.api.util.GTUtility.getFluidName;
 import static gregtech.api.util.GTUtility.getTier;
-import static gregtech.common.UndergroundOil.undergroundOilReadInformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -484,19 +483,6 @@ public class ScannerHelper {
                     .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
         } else {
             list.add(transComp("chunk_info_2").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
-        }
-
-        if (player.capabilities.isCreativeMode) {
-            final FluidStack fluid = undergroundOilReadInformation(currentChunk);
-            if (fluid != null) {
-                list.add(
-                    transComp(
-                        "chunk_info_3",
-                        new ChatComponentTranslation(fluid.getUnlocalizedName()),
-                        goldComp(formatNumber(fluid.amount))));
-            } else {
-                list.add(transComp("chunk_info_4"));
-            }
         }
     }
 

@@ -132,11 +132,6 @@ public class GTPreLoad {
         GTConfig.cleanroomFile = new Configuration(tFile);
         GTConfig.cleanroomFile.load();
         GTConfig.cleanroomFile.save();
-
-        tFile = new File(new File(configDir, "GregTech"), "UndergroundFluids.cfg");
-        GTConfig.undergroundFluidsFile = new Configuration(tFile);
-        GTConfig.undergroundFluidsFile.load();
-        GTConfig.undergroundFluidsFile.save();
     }
 
     public static void runMineTweakerCompat() {
@@ -427,9 +422,6 @@ public class GTPreLoad {
         } else {
             GT_FML_LOGGER.error("The Length of the Gas Turbine Pollution Array Config must be the same as the Default");
         }
-
-        // underground fluids file
-        GTMod.proxy.mUndergroundOil.getConfig(GTConfig.undergroundFluidsFile, "undergroundfluid");
 
         // Worldgeneration.cfg
         GTMod.proxy.enableUndergroundGravelGen = Worldgen.general.generateUndergroundGravelGen;
