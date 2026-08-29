@@ -26,7 +26,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableSet;
@@ -47,9 +46,7 @@ import gregtech.api.util.GTForestryCompat;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
-import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTRecipeRegistrator;
-import gregtech.api.util.GTScannerResult;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Other;
 import gregtech.common.items.MetaGeneratedItem01;

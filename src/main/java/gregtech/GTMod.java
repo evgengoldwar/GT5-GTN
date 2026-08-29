@@ -798,8 +798,7 @@ public class GTMod {
     }
 
     @Mod.EventHandler
-    public void onMissingMappings(FMLMissingMappingsEvent event) {
-    }
+    public void onMissingMappings(FMLMissingMappingsEvent event) {}
 
     public static void logStackTrace(Throwable t) {
         final StringWriter sw = new StringWriter();

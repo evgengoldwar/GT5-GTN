@@ -15,7 +15,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.GTLoggers;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.SubTag;
 import gregtech.api.objects.ItemData;
 import gregtech.api.objects.MaterialStack;
