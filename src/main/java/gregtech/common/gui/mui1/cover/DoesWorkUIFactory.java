@@ -1,6 +1,6 @@
 package gregtech.common.gui.mui1.cover;
 
-import static gregtech.common.covers.CoverDoesWork.*;
+import static gregtech.common.covers.redstone.CoverDoesWork.*;
 import static net.minecraft.util.StatCollector.translateToLocal;
 
 import com.gtnewhorizons.modularui.api.screen.ModularWindow;

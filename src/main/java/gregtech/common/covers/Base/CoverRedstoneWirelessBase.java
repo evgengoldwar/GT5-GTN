@@ -1,4 +1,4 @@
-package gregtech.common.covers;
+package gregtech.common.covers.Base;
 
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
@@ -19,7 +19,6 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Base.Cover;
 import gregtech.common.gui.modularui.cover.CoverRedstoneWirelessBaseGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.mui1.cover.RedstoneWirelessBaseUIFactory;

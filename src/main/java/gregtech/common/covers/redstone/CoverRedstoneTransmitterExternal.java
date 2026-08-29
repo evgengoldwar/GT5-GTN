@@ -1,5 +1,6 @@
-package gregtech.common.covers;
+package gregtech.common.covers.redstone;
 
+import gregtech.common.covers.Base.CoverRedstoneWirelessBase;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;

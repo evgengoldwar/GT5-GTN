@@ -1,5 +1,6 @@
-package gregtech.common.covers;
+package gregtech.common.covers.redstone;
 
+import gregtech.common.covers.CoverWirelessController;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.covers.CoverContext;

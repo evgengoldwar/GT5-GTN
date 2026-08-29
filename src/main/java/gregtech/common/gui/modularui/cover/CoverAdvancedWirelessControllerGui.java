@@ -19,7 +19,7 @@ import com.cleanroommc.modularui.widgets.layout.Grid;
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.common.covers.Base.Cover;
-import gregtech.common.covers.CoverAdvancedWirelessController;
+import gregtech.common.covers.redstone.CoverAdvancedWirelessController;
 import gregtech.common.covers.conditions.RedstoneCondition;
 import gregtech.common.gui.modularui.cover.base.CoverAdvancedWirelessRedstoneBaseGui;
 import gregtech.common.modularui2.sync.LinkedBoolValue;

@@ -11,7 +11,7 @@ import com.gtnewhorizons.modularui.common.widget.TextWidget;
 
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.common.covers.Base.Cover;
-import gregtech.common.covers.CoverRedstoneWirelessBase;
+import gregtech.common.covers.Base.CoverRedstoneWirelessBase;
 import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerNumericWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerToggleButtonWidget;

@@ -11,7 +11,7 @@ import com.cleanroommc.modularui.widgets.layout.Grid;
 
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.common.covers.CoverControlsWork;
+import gregtech.common.covers.redstone.CoverControlsWork;
 import gregtech.common.covers.conditions.RedstoneCondition;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.modularui2.sync.LinkedBoolValue;

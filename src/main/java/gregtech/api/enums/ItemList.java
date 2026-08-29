@@ -530,7 +530,9 @@ public enum ItemList implements IItemContainer {
     Upgrade_Overclocker,
     Upgrade_Lock,
     Item_Redstone_Sniffer,
+
     Cover_FluidLimiter,
+
     Cover_Controller,
     Cover_ActivityDetector,
     Cover_FluidDetector,

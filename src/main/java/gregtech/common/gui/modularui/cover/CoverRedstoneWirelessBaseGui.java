@@ -10,7 +10,7 @@ import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.common.covers.CoverRedstoneWirelessBase;
+import gregtech.common.covers.Base.CoverRedstoneWirelessBase;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 
 public class CoverRedstoneWirelessBaseGui extends CoverBaseGui<CoverRedstoneWirelessBase> {

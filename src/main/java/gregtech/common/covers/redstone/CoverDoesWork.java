@@ -1,4 +1,4 @@
-package gregtech.common.covers;
+package gregtech.common.covers.redstone;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fluids.Fluid;
