@@ -1,4 +1,4 @@
-package gregtech.common.gui.modularui.cover;
+package gregtech.common.gui.modularui.cover.redstone;
 
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.value.sync.IntSyncValue;
@@ -7,6 +7,7 @@ import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.common.covers.redstone.CoverLiquidMeter;
+import gregtech.common.gui.modularui.cover.RowHelper;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 
 public class CoverLiquidMeterGui extends CoverBaseGui<CoverLiquidMeter> {

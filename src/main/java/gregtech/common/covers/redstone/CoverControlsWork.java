@@ -20,8 +20,8 @@ import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.conditions.RedstoneCondition;
-import gregtech.common.gui.modularui.cover.CoverControlsWorkGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
+import gregtech.common.gui.modularui.cover.redstone.CoverControlsWorkGui;
 import gregtech.common.gui.mui1.cover.ControlsWorkUIFactory;
 
 public class CoverControlsWork extends CoverLegacyData {

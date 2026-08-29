@@ -118,9 +118,6 @@ import static gregtech.common.items.IDMetaItem01.Conveyor_Module_UXV;
 import static gregtech.common.items.IDMetaItem01.Conveyor_Module_ZPM;
 import static gregtech.common.items.IDMetaItem01.Cover_ActivityDetector;
 import static gregtech.common.items.IDMetaItem01.Cover_AdvancedWirelessController;
-import static gregtech.common.items.IDMetaItem01.Cover_Chest_Advanced;
-import static gregtech.common.items.IDMetaItem01.Cover_Chest_Basic;
-import static gregtech.common.items.IDMetaItem01.Cover_Chest_Good;
 import static gregtech.common.items.IDMetaItem01.Cover_Controller;
 import static gregtech.common.items.IDMetaItem01.Cover_EnergyDetector;
 import static gregtech.common.items.IDMetaItem01.Cover_FluidDetector;
@@ -445,7 +442,6 @@ import gregtech.api.enums.OreDictNames;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.enums.TCAspects;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IItemBehaviour;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.items.MetaBaseItem;
@@ -462,7 +458,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
 import gregtech.common.config.Other;
 import gregtech.common.covers.CoverArm;
-import gregtech.common.covers.CoverChest;
 import gregtech.common.covers.CoverConveyor;
 import gregtech.common.covers.CoverFluidRegulator;
 import gregtech.common.covers.CoverPump;
@@ -3150,24 +3145,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.cover.energy_detector.tooltip",
                 new TCAspects.TC_AspectStack(TCAspects.SENSUS, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 1L)));
-        ItemList.Cover_Chest_Basic.set(
-            addItemWithLocalizationKeys(
-                Cover_Chest_Basic.ID,
-                "gt.item.cover.chest.basic.name",
-                "gt.item.cover.chest.basic.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.VACUOS, 2L)));
-        ItemList.Cover_Chest_Good.set(
-            addItemWithLocalizationKeys(
-                Cover_Chest_Good.ID,
-                "gt.item.cover.chest.good.name",
-                "gt.item.cover.chest.good.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.VACUOS, 2L)));
-        ItemList.Cover_Chest_Advanced.set(
-            addItemWithLocalizationKeys(
-                Cover_Chest_Advanced.ID,
-                "gt.item.cover.chest.advanced.name",
-                "gt.item.cover.chest.advanced.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.VACUOS, 2L)));
 
         ItemList.Cover_Shutter.set(
             addItemWithLocalizationKeys(
@@ -3926,21 +3903,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 .onlyPlaceIf(CoverControlsWork::isCoverPlaceable)
                 .build());
 
-        CoverRegistry.registerCover(
-            ItemList.Cover_Chest_Basic.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(Textures.BlockIcons.OVERLAY_COVER_CHEST_1)),
-            context -> new CoverChest(context, 9, TextureFactory.of(Textures.BlockIcons.OVERLAY_COVER_CHEST_1)),
-            CoverRegistry.PRIMITIVE_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_Chest_Good.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[2][0], TextureFactory.of(Textures.BlockIcons.OVERLAY_COVER_CHEST_2)),
-            context -> new CoverChest(context, 12, TextureFactory.of(Textures.BlockIcons.OVERLAY_COVER_CHEST_2)),
-            CoverRegistry.PRIMITIVE_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_Chest_Advanced.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[3][0], TextureFactory.of(Textures.BlockIcons.OVERLAY_COVER_CHEST_3)),
-            context -> new CoverChest(context, 15, TextureFactory.of(Textures.BlockIcons.OVERLAY_COVER_CHEST_3)),
-            CoverRegistry.PRIMITIVE_COVER_PLACER);
         CoverRegistry.registerCover(
             ItemList.Cover_ActivityDetector.get(1L),
             TextureFactory.of(MACHINE_CASINGS[2][0], doesWorkCoverTexture),

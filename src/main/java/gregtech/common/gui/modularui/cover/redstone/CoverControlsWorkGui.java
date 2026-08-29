@@ -1,4 +1,4 @@
-package gregtech.common.gui.modularui.cover;
+package gregtech.common.gui.modularui.cover.redstone;
 
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.utils.Alignment;

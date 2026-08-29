@@ -18,8 +18,8 @@ import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.Base.CoverAdvancedWirelessRedstoneBase;
 import gregtech.common.covers.conditions.RedstoneCondition;
-import gregtech.common.gui.modularui.cover.CoverWirelessControllerGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
+import gregtech.common.gui.modularui.cover.redstone.CoverWirelessControllerGui;
 import io.netty.buffer.ByteBuf;
 
 public class CoverWirelessController extends Cover.CoverAdvancedRedstoneReceiverBase {

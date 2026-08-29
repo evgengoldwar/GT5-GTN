@@ -1,4 +1,4 @@
-package gregtech.common.gui.modularui.cover;
+package gregtech.common.gui.modularui.cover.redstone;
 
 import static gregtech.api.modularui2.GTGuiTextures.OVERLAY_BUTTON_CYCLIC;
 
@@ -13,6 +13,7 @@ import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.common.covers.redstone.CoverEUMeter;
+import gregtech.common.gui.modularui.cover.RowHelper;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 
 public class CoverEUMeterGui extends CoverBaseGui<CoverEUMeter> {

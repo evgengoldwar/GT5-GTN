@@ -23,8 +23,8 @@ import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.conditions.MaintenanceAlertCondition;
 import gregtech.common.covers.modes.RedstoneMode;
-import gregtech.common.gui.modularui.cover.CoverNeedMaintenanceGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
+import gregtech.common.gui.modularui.cover.redstone.CoverNeedMaintenanceGui;
 import gregtech.common.gui.mui1.cover.NeedMaintainanceUIFactory;
 
 public class CoverNeedMaintainance extends CoverLegacyData {

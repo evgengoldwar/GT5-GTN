@@ -1,4 +1,4 @@
-package gregtech.common.gui.modularui.cover;
+package gregtech.common.gui.modularui.cover.redstone;
 
 import java.util.UUID;
 

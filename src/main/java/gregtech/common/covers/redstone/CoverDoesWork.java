@@ -16,8 +16,8 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.modes.DetectionMode;
 import gregtech.common.covers.modes.RedstoneMode;
-import gregtech.common.gui.modularui.cover.CoverDoesWorkGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
+import gregtech.common.gui.modularui.cover.redstone.CoverDoesWorkGui;
 import gregtech.common.gui.mui1.cover.DoesWorkUIFactory;
 
 public class CoverDoesWork extends CoverLegacyData {

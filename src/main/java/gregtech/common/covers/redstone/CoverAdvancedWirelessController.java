@@ -4,8 +4,8 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
-import gregtech.common.gui.modularui.cover.CoverAdvancedWirelessControllerGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
+import gregtech.common.gui.modularui.cover.redstone.CoverAdvancedWirelessControllerGui;
 
 public class CoverAdvancedWirelessController extends CoverWirelessController {
 
