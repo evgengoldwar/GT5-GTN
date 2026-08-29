@@ -15,11 +15,6 @@ public enum Mixin implements IMixins {
     GregtechCapes(new MixinBuilder()
         .addClientMixins("minecraft.AbstractClientPlayerMixin")
         .setPhase(Phase.EARLY)),
-    SoundManagerMixin(new MixinBuilder("Seeking sound playback")
-        .addClientMixins(
-            "minecraft.SoundManagerMixin",
-            "minecraft.SoundManagerInnerMixin")
-        .setPhase(Phase.EARLY)),
     StringTranslateMixin(new MixinBuilder("Keep track of currently translating mods")
         .addCommonMixins(
             "minecraft.StringTranslateMixin",

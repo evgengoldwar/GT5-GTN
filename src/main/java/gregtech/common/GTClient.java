@@ -87,7 +87,6 @@ import gregtech.api.util.ColorsMetadataSection;
 import gregtech.api.util.ColorsMetadataSectionSerializer;
 import gregtech.api.util.GTClientPreference;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTMusicSystem;
 import gregtech.api.util.GTPlayedSound;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.client.DynamicLangManager;
@@ -292,7 +291,6 @@ public class GTClient extends GTProxy {
     public void onClientConnectedToServerEvent(FMLNetworkEvent.ClientConnectedToServerEvent aEvent) {
         mFirstTick = true;
         mReloadCount++;
-        GTMusicSystem.ClientSystem.reset();
         RenderOverlay.reset();
     }
 
@@ -375,7 +373,6 @@ public class GTClient extends GTProxy {
     public void onClientTickEvent(ClientTickEvent aEvent) {
         if (aEvent.phase == TickEvent.Phase.END) {
             mTicksUntilNextCraftSound--;
-            GTMusicSystem.ClientSystem.tick();
 
             if (changeDetected > 0) changeDetected--;
             final boolean newHideValue = shouldHeldItemHideThings();

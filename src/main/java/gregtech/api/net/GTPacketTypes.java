@@ -21,7 +21,6 @@ public enum GTPacketTypes {
     SEND_COVER_DATA(16, new GTPacketSendCoverData()),
     REQUEST_COVER_DATA(17, new GTPacketRequestCoverData()),
     // ID 20 unused
-    MUSIC_SYSTEM_DATA(21, new GTPacketMusicSystemData()),
     INFINITE_SPRAYCAN(22, new GTPacketInfiniteSpraycan()),
     // ID 28 unused
     NODE_INFO(29, new GTPacketNodeInfo()),

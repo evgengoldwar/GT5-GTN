@@ -88,7 +88,6 @@ import gregtech.common.items.ItemIntegratedCircuit;
 import gregtech.common.items.ItemMagLevHarness;
 import gregtech.common.items.ItemNeutronReflector;
 import gregtech.common.items.ItemSensorCard;
-import gregtech.common.items.ItemWirelessHeadphones;
 import gregtech.common.items.MetaGeneratedItem01;
 import gregtech.common.items.MetaGeneratedItem02;
 import gregtech.common.items.MetaGeneratedItem03;
@@ -119,7 +118,6 @@ public class LoaderGTBlockFluid implements Runnable {
         new MetaGeneratedItem99();
         new MetaGeneratedTool01();
         new ItemFluidDisplay();
-        new ItemWirelessHeadphones();
         new ItemMagLevHarness();
 
         // Tiered recipe materials actually appear to be set in MTEBasicMachineWithRecipe, making these

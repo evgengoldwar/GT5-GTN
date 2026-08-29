@@ -2390,12 +2390,6 @@ public enum ItemList implements IItemContainer {
     Automation_ChestBuffer_UIV,
     Automation_ChestBuffer_UMV,
 
-    BetterJukebox_LV,
-    BetterJukebox_MV,
-    BetterJukebox_HV,
-    BetterJukebox_EV,
-    BetterJukebox_IV,
-    WirelessHeadphones,
     Thermal_Superconductor,
     Relativistic_Heat_Capacitor,
     Phononic_Seed_Crystal,

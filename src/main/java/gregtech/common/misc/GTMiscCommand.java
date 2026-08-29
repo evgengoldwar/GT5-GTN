@@ -28,7 +28,6 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
 import gregtech.api.objects.GTChunkManager;
 import gregtech.api.util.FakeCleanroom;
-import gregtech.api.util.GTMusicSystem;
 import gregtech.commands.GTBaseCommand;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
 import gregtech.common.pollution.Pollution;
@@ -155,7 +154,6 @@ public final class GTMiscCommand extends GTBaseCommand {
         switch (args[0]) {
             case "chunks" -> this.processChunksCommand(sender);
             case "cleanroom_bypass" -> this.processCleanroomBypassCommand(sender, args);
-            case "dump_music_durations" -> this.processDumpMusicDurationsCommand(sender);
             case "pollution" -> this.processPollutionCommand(sender, args);
             case "global_energy_add" -> this.processGlobalEnergyAddCommand(sender, args);
             case "global_energy_display" -> this.processGlobalEnergyDisplayCommand(sender, args);
@@ -401,13 +399,5 @@ public final class GTMiscCommand extends GTBaseCommand {
                 + SpaceProjectManager.getPlayerNameFromUUID(teamUUID)
                 + EnumChatFormatting.RESET
                 + ".");
-    }
-
-    private void processDumpMusicDurationsCommand(ICommandSender sender) {
-        if (!FMLLaunchHandler.side()
-            .isClient()) {
-            sendChatToPlayer(sender, EnumChatFormatting.RED + "This command is client-only.");
-        }
-        GTMusicSystem.ClientSystem.dumpAllRecordDurations();
     }
 }

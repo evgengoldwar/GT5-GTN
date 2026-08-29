@@ -133,7 +133,6 @@ import gregtech.api.interfaces.IToolStats;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.items.MetaGeneratedItem;
 import gregtech.api.items.MetaGeneratedTool;
-import gregtech.api.net.GTPacketMusicSystemData;
 import gregtech.api.objects.GTChunkManager;
 import gregtech.api.objects.ItemData;
 import gregtech.api.recipe.RecipeMaps;
@@ -145,7 +144,6 @@ import gregtech.api.util.GTChunkAssociatedData;
 import gregtech.api.util.GTClientPreference;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTMusicSystem;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeRegistrator;
@@ -1172,7 +1170,6 @@ public class GTProxy implements IFuelHandler {
         PLAYERS_BY_UUID = new HashMap<>();
         UUID_BY_NAME = new HashMap<>();
         isFirstWorldTick = true;
-        GTMusicSystem.ServerSystem.reset();
         wirelessChargerManager = new WirelessChargerManager();
         spawnEventHandler = new GTSpawnEventHandler();
         powerfailTracker = new GTPowerfailTracker();
@@ -1231,7 +1228,6 @@ public class GTProxy implements IFuelHandler {
     }
 
     public void onServerStopping(FMLServerStoppingEvent event) {
-        GTMusicSystem.ServerSystem.reset();
         GregTechAPI.sWirelessRedstone.clear();
         GregTechAPI.sAdvancedWirelessRedstone.clear();
     }
@@ -1381,7 +1377,6 @@ public class GTProxy implements IFuelHandler {
             || !(event.player instanceof EntityPlayerMP mpPlayer)) {
             return;
         }
-        GTValues.NW.sendToPlayer(new GTPacketMusicSystemData(GTMusicSystem.ServerSystem.serialize()), mpPlayer);
     }
 
     @SubscribeEvent
@@ -1961,7 +1956,6 @@ public class GTProxy implements IFuelHandler {
                 TICK_LOCK.unlock();
                 RunnableMachineUpdate.endTick();
                 RunnableCableUpdate.endTick();
-                GTMusicSystem.ServerSystem.tick();
             }
         }
     }
