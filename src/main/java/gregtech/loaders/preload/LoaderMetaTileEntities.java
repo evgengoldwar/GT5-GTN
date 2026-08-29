@@ -5,7 +5,6 @@ import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.MetaTileEntityIDs.*;
 import static gregtech.api.enums.Mods.ElectroMagicTools;
 import static gregtech.api.enums.Mods.Forestry;
-import static gregtech.api.enums.Mods.StorageDrawers;
 import static gregtech.api.enums.Mods.Thaumcraft;
 import static gregtech.api.recipe.RecipeMaps.alloySmelterRecipes;
 import static gregtech.api.recipe.RecipeMaps.amplifierRecipes;
@@ -64,7 +63,6 @@ import gregtech.api.metatileentity.implementations.MTEHatchMagnet;
 import gregtech.api.metatileentity.implementations.MTEHatchMaintenance;
 import gregtech.api.metatileentity.implementations.MTEHatchMuffler;
 import gregtech.api.metatileentity.implementations.MTEHatchMultiInput;
-import gregtech.api.metatileentity.implementations.MTEHatchNanite;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.metatileentity.implementations.MTEHatchOutputBus;
 import gregtech.api.metatileentity.implementations.MTEHatchOutputBusCompressed;
@@ -111,7 +109,6 @@ import gregtech.common.tileentities.machines.basic.MTEBasicMachineWithRecipeBuil
 import gregtech.common.tileentities.machines.basic.MTEBetterJukebox;
 import gregtech.common.tileentities.machines.basic.MTEBoxinator;
 import gregtech.common.tileentities.machines.basic.MTECharger;
-import gregtech.common.tileentities.machines.basic.MTEDrawerFramer;
 import gregtech.common.tileentities.machines.basic.MTEIndustrialApiary;
 import gregtech.common.tileentities.machines.basic.MTEMagLevPylon;
 import gregtech.common.tileentities.machines.basic.MTEMassfabricator;
@@ -8912,24 +8909,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .getStackForm(1L));
     }
 
-    private static void registerAirFilters() {}
-
-    private static void registerDrawerFramer() {
-
-        // if storage drawers is not loaded, do not load the drawer framer machine
-        if (!StorageDrawers.isModLoaded()) return;
-
-        ItemList.Machine_LV_DrawerFramer
-            .set(new MTEDrawerFramer(GT_Framer_LV.ID, "framer.tier.01", "Basic Drawer Framer", 1).getStackForm(1L));
-        ItemList.Machine_MV_DrawerFramer
-            .set(new MTEDrawerFramer(GT_Framer_MV.ID, "framer.tier.02", "Advanced Drawer Framer", 2).getStackForm(1L));
-        ItemList.Machine_HV_DrawerFramer
-            .set(new MTEDrawerFramer(GT_Framer_HV.ID, "framer.tier.03", "Precise Drawer Framer", 3).getStackForm(1L));
-
-    }
-
-    private static void registerNacHatches() {}
-
     @Override
     public void run() {
         GT_FML_LOGGER.debug("GTMod: Registering MetaTileEntities.");
@@ -9044,9 +9023,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerOven();
         registerNameRemover();
         registerModificationTable();
-        registerAirFilters();
-        registerNacHatches();
-        registerDrawerFramer();
 
         ItemList.DebugStructureWriter.set(
             new MTEDebugStructureWriter(DEBUG_STRUCTURE_WRITER.ID, "debugstructurewriter", "Debug Structure Writer", 5)
@@ -9075,15 +9051,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "hatch.dataaccess.auto",
                 "Automatable Data Access Hatch",
                 8).getStackForm(1L));
-        ItemList.Hatch_Nanite.set(
-            new MTEHatchNanite(HATCH_NANITE.ID, "hatch.nanite", "Nanite Containment Bus", 9, 2048).getStackForm(1));
-        ItemList.Hatch_Nanite_Singularity.set(
-            new MTEHatchNanite(
-                HATCH_NANITE_SINGULARITY.ID,
-                "hatch.nanite.singularity",
-                "Singularity Nanite Containment Bus",
-                11,
-                Integer.MAX_VALUE).getStackForm(1));
 
     }
 

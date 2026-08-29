@@ -2672,8 +2672,6 @@ public enum ItemList implements IItemContainer {
     Casing_AirFilter_Vent_T3,
     Casing_Pyrolyse,
     NameRemover,
-    Hatch_Nanite,
-    Hatch_Nanite_Singularity,
     Hatch_Catalyst_Bulk,
     Machine_Multi_AirFilterT1,
     Machine_Multi_AirFilterT2,
