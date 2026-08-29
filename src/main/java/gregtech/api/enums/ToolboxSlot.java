@@ -13,12 +13,10 @@ import net.minecraft.util.IIcon;
 import com.cleanroommc.modularui.drawable.UITexture;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
-import gregtech.api.interfaces.IToolStats;
 import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.objects.GTHashSet;

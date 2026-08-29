@@ -60,7 +60,6 @@ import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gregtech.api.util.TurbineStatCalculator;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.toolbox.ToolboxUtil;
 import mods.railcraft.api.core.items.IToolCrowbar;
@@ -463,34 +462,34 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
                 tOffset,
                 EnumChatFormatting.WHITE
                     + translateToLocalFormatted(
-                    "gt.item.desc.durability",
-                    EnumChatFormatting.GREEN + formatNumber(tMaxDamage - getToolDamage(aStack)) + " ",
-                    " " + formatNumber(tMaxDamage))
+                        "gt.item.desc.durability",
+                        EnumChatFormatting.GREEN + formatNumber(tMaxDamage - getToolDamage(aStack)) + " ",
+                        " " + formatNumber(tMaxDamage))
                     + EnumChatFormatting.GRAY);
             aList.add(
                 tOffset + 1,
                 EnumChatFormatting.WHITE
                     + translateToLocalFormatted(
-                    "gt.item.desc.level",
-                    tMaterial.getLocalizedName() + EnumChatFormatting.YELLOW,
-                    "" + getHarvestLevel(aStack, ""))
+                        "gt.item.desc.level",
+                        tMaterial.getLocalizedName() + EnumChatFormatting.YELLOW,
+                        "" + getHarvestLevel(aStack, ""))
                     + EnumChatFormatting.GRAY);
             aList.add(
                 tOffset + 2,
                 EnumChatFormatting.WHITE
                     + translateToLocalFormatted(
-                    "gt.item.desc.damage",
-                    EnumChatFormatting.BLUE + formatNumber(getToolCombatDamage(aStack)))
+                        "gt.item.desc.damage",
+                        EnumChatFormatting.BLUE + formatNumber(getToolCombatDamage(aStack)))
                     + EnumChatFormatting.GRAY);
             aList.add(
                 tOffset + 3,
                 EnumChatFormatting.WHITE
                     + translateToLocalFormatted(
-                    "gt.item.desc.mine_speed",
-                    EnumChatFormatting.GOLD + formatNumber(
-                        Math.max(
-                            Float.MIN_NORMAL,
-                            tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed)))
+                        "gt.item.desc.mine_speed",
+                        EnumChatFormatting.GOLD + formatNumber(
+                            Math.max(
+                                Float.MIN_NORMAL,
+                                tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed)))
                     + EnumChatFormatting.GRAY);
             final NBTTagCompound nbt = aStack.getTagCompound();
             if (nbt != null) {
