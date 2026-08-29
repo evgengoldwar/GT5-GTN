@@ -157,7 +157,6 @@ import gregtech.common.config.OPStuff;
 import gregtech.common.config.Worldgen;
 import gregtech.common.data.GTPowerfailTracker;
 import gregtech.common.data.WirelessEnergyHatchManager;
-import gregtech.common.data.maglev.TetherManager;
 import gregtech.common.handlers.OffhandToolFunctionalityHandler;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.MetaGeneratedItem98;
@@ -713,7 +712,6 @@ public class GTProxy implements IFuelHandler {
     public WirelessChargerManager wirelessChargerManager;
     public GTSpawnEventHandler spawnEventHandler;
     public GTPowerfailTracker powerfailTracker;
-    public TetherManager tetherManager;
     public WirelessEnergyHatchManager wirelessEnergyHatchManager;
 
     public SyncedKeybind TOOL_MODE_SWITCH_KEYBIND;
@@ -1163,15 +1161,12 @@ public class GTProxy implements IFuelHandler {
         wirelessChargerManager = new WirelessChargerManager();
         spawnEventHandler = new GTSpawnEventHandler();
         powerfailTracker = new GTPowerfailTracker();
-        tetherManager = new TetherManager();
         wirelessEnergyHatchManager = new WirelessEnergyHatchManager();
         FMLCommonHandler.instance().bus().register(wirelessChargerManager);
         MinecraftForge.EVENT_BUS.register(spawnEventHandler);
         FMLCommonHandler.instance().bus().register(powerfailTracker);
         MinecraftForge.EVENT_BUS.register(powerfailTracker);
         TeamDataRegistry.register(GTPowerfailTracker.DATA_NAME, GTPowerfailTracker.PowerfailData::new);
-        FMLCommonHandler.instance().bus().register(tetherManager);
-        MinecraftForge.EVENT_BUS.register(tetherManager);
         FMLCommonHandler.instance().bus().register(wirelessEnergyHatchManager);
         // spotless:off
     }
@@ -1234,17 +1229,12 @@ public class GTProxy implements IFuelHandler {
             FMLCommonHandler.instance().bus().unregister(powerfailTracker);
             MinecraftForge.EVENT_BUS.unregister(powerfailTracker);
         }
-        if (tetherManager != null) {
-            FMLCommonHandler.instance().bus().unregister(tetherManager);
-            MinecraftForge.EVENT_BUS.unregister(tetherManager);
-        }
         if (wirelessEnergyHatchManager != null) {
             FMLCommonHandler.instance().bus().unregister(wirelessEnergyHatchManager);
         }
         wirelessChargerManager = null;
         spawnEventHandler = null;
         powerfailTracker = null;
-        tetherManager = null;
         wirelessEnergyHatchManager = null;
         PLAYERS_BY_UUID = null;
         UUID_BY_NAME = null;

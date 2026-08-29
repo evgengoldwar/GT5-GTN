@@ -1250,10 +1250,6 @@ public enum ItemList implements IItemContainer {
     MobRep_ZPM,
     MobRep_UV,
 
-    MagLevPython_MV,
-    MagLevPython_HV,
-    MagLevPython_EV,
-
     Block_ReinforcedConcrete,
     Block_BronzePlate,
     Block_SteelPlate,
@@ -2111,8 +2107,6 @@ public enum ItemList implements IItemContainer {
     LoadbearingDistributionCasing,
     NaniteFramework,
     NaniteShieldingGlass,
-
-    MagLevHarness,
 
     StableBaryonContainmentUnit,
     StableLeptonContainmentUnit,

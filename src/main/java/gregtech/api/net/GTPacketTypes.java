@@ -28,7 +28,6 @@ public enum GTPacketTypes {
     PLAYER_TELEPORT(31, new PacketTeleportPlayer()),
     SEND_WIRELESS_EU(33, new GTPacketUpdatePowerGoggles()),
     OVERWRITE_POWER_GOGGLES_MEASUREMENTS(34, new GTPacketOverwritePowerGogglesMeasurements()),
-    TETHER(35, new GTPacketTether()),
     UPDATE_POWERFAILS(36, new GTPacketUpdatePowerfails()),
     ON_POWERFAIL(37, new GTPacketOnPowerfail()),
     CLEAR_POWERFAIL(38, new GTPacketClearPowerfail()),
