@@ -870,8 +870,6 @@ public class GTProxy implements IFuelHandler {
         ItemList.FR_Casing_Sturdy.set(GTModHandler.getModItem(Forestry.ID, "sturdyMachine", 1L));
         ItemList.FR_Casing_Hardened.set(GTModHandler.getModItem(Forestry.ID, "hardenedMachine", 1L));
 
-        ItemList.Bottle_Empty.set(new ItemStack(Items.glass_bottle, 1));
-
         ItemList.Cell_Universal_Fluid.set(GTModHandler.getIC2Item("FluidCell", 1L));
         ItemList.Cell_Empty.set(GTModHandler.getIC2Item("cell", 1L, GTModHandler.getIC2Item("cellEmpty", 1L, GTModHandler.getIC2Item("emptyCell", 1L))));
         ItemList.Cell_Water.set(GTModHandler.getIC2Item("waterCell", 1L, GTModHandler.getIC2Item("cellWater", 1L)));
@@ -923,8 +921,6 @@ public class GTProxy implements IFuelHandler {
         ItemList.IC2_ForgeHammer.set(GTModHandler.getIC2Item("ForgeHammer", 1L));
         ItemList.IC2_WireCutter.set(GTModHandler.getIC2Item("cutter", 1L));
 
-        ItemList.Credit_Iron.set(GTModHandler.getIC2Item("coin", 1L));
-
         ItemList.Circuit_Basic.set(GTModHandler.getIC2Item("electronicCircuit", 1L));
         ItemList.Circuit_Advanced.set(GTModHandler.getIC2Item("advancedCircuit", 1L));
 
@@ -940,7 +936,6 @@ public class GTProxy implements IFuelHandler {
         ItemList.Food_Baked_Potato.set(new ItemStack(Items.baked_potato, 1, 0));
         ItemList.Food_Poisonous_Potato.set(new ItemStack(Items.poisonous_potato, 1, 0));
 
-        OrePrefixes.bottle.mContainerItem = ItemList.Bottle_Empty.get(1L);
         OrePrefixes.bucket.mContainerItem = new ItemStack(Items.bucket, 1);
         OrePrefixes.cellPlasma.mContainerItem = ItemList.Cell_Empty.get(1L);
         OrePrefixes.cellMolten.mContainerItem = ItemList.Cell_Empty.get(1L);

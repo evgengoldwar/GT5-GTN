@@ -1152,17 +1152,6 @@ public class OrePrefixes {
         .materialAmount(M * 1)
         .build();
 
-    /** Glass Bottle containing a Fluid. */
-    public static final OrePrefixes bottle = new OrePrefixBuilder("bottle").withDefaultLocalName("Bottles")
-        .withSuffix(" Bottle")
-        .unifiable()
-        .materialBased()
-        .selfReferencing()
-        .container()
-        .materialGenerationBits(CELL | EMPTY)
-        .defaultStackSize(1)
-        .build();
-
     public static final OrePrefixes capsule = new OrePrefixBuilder("capsule").withDefaultLocalName("Capsules")
         .withSuffix(" Capsule")
         .materialBased()

@@ -210,7 +210,6 @@ public class LoaderGTItemData implements Runnable {
                 Materials.Iron,
                 OrePrefixes.ring.getMaterialAmount() * 2L,
                 new MaterialStack(Materials.Wood, 3628800L)));
-        GTOreDictUnificator.addItemData(ItemList.Bottle_Empty.get(1L), new ItemData(Materials.Glass, 3628800L));
         GTOreDictUnificator
             .addItemData(new ItemStack(Items.potionitem, 1, 32767), new ItemData(Materials.Glass, 3628800L));
         GTOreDictUnificator

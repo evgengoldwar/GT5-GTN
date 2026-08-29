@@ -382,7 +382,6 @@ public class MaterialBuilder {
      * <li>{@link OrePrefixes#cell}</li>
      * <li>{@link OrePrefixes#bucket}</li>
      * <li>{@link OrePrefixes#bucketClay}</li>
-     * <li>{@link OrePrefixes#bottle}</li>
      * <li>{@link OrePrefixes#capsule}</li>
      * </ul>
      */

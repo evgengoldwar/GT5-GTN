@@ -587,7 +587,6 @@ public class MaterialsInit {
             .removeOrePrefix(OrePrefixes.cell)
             .removeOrePrefix(OrePrefixes.bucket)
             .removeOrePrefix(OrePrefixes.bucketClay)
-            .removeOrePrefix(OrePrefixes.bottle)
             .constructMaterial();
     }
 
@@ -5033,7 +5032,6 @@ public class MaterialsInit {
             .addSubTag(SubTag.FOOD)
             .removeOrePrefix(OrePrefixes.bucket) // minecraft:milk_bucket
             .removeOrePrefix(OrePrefixes.bucketClay) // IguanaTweaksTConstruct:clayBucketMilk
-            .removeOrePrefix(OrePrefixes.bottle)
             .constructMaterial();
     }
 
@@ -7568,7 +7566,6 @@ public class MaterialsInit {
             .removeOrePrefix(OrePrefixes.cell) // IC2:itemCellEmpty:1
             .removeOrePrefix(OrePrefixes.bucket) // minecraft:water_bucket
             .removeOrePrefix(OrePrefixes.bucketClay) // IguanaTweaksTConstruct:clayBucketWater
-            .removeOrePrefix(OrePrefixes.bottle) // minecraft:potion:0
             .constructMaterial();
     }
 

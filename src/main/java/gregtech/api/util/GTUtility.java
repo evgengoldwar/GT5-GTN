@@ -847,7 +847,9 @@ public class GTUtility {
         boolean checkIFluidContainerItems) {
         if (isStackInvalid(stack) || fluid == null) return null;
 
-        if (GTModHandler.isWater(fluid) && ItemList.Bottle_Empty.isStackEqual(stack)) {
+        ItemStack bottle = new ItemStack(Items.glass_bottle);
+
+        if (GTModHandler.isWater(fluid) && stack.isItemEqual(bottle)) {
             if (fluid.amount >= 1000) {
                 return new ItemStack(Items.potionitem, 1, 0);
             }
@@ -983,7 +985,7 @@ public class GTUtility {
         if (ItemList.Cell_Empty.isStackEqual(aStack, false, true)) return null;
         if (aStack.getItem() == Items.potionitem || aStack.getItem() == Items.experience_bottle
             || ItemList.TF_Vial_FieryBlood.isStackEqual(aStack)
-            || ItemList.TF_Vial_FieryTears.isStackEqual(aStack)) return ItemList.Bottle_Empty.get(1);
+            || ItemList.TF_Vial_FieryTears.isStackEqual(aStack)) return new ItemStack(Items.glass_bottle, 1);
 
         if (aCheckIFluidContainerItems && aStack.getItem() instanceof IFluidContainerItem
             && ((IFluidContainerItem) aStack.getItem()).getCapacity(aStack) > 0) {
