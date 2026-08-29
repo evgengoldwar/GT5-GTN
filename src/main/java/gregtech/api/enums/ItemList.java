@@ -2484,8 +2484,6 @@ public enum ItemList implements IItemContainer {
     ManaFly,
     DebugEnergyHatch,
 
-    ChaosLocator,
-
     CokeOvenCasing,
 
     CompressedOutputBusLuV,

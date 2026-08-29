@@ -2071,8 +2071,6 @@ public class MetaGeneratedItem02 extends MetaGeneratedItemX32 {
                 "gt.item.redstone_sniffer.tooltip"));
         ItemList.Vajra_Core.set(addItemWithLocalizationKeys(Vajra_Core.ID, "gt.item.vajra_core.name", ""));
         ItemList.Magnetron.set(addItemWithLocalizationKeys(Magnetron.ID, "gt.item.magnetron.name", ""));
-        ItemList.ChaosLocator.set(
-            new ItemChaosLocator("Item_Chaos_Locator", "gt.item.chaos_locator.name", "gt.item.chaos_locator.tooltip"));
 
         final ItemGTToolbox itemToolbox = new ItemGTToolbox(
             "Item_Toolbox",
