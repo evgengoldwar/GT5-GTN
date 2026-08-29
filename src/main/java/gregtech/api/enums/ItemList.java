@@ -382,18 +382,6 @@ public enum ItemList implements IItemContainer {
     Timepiece,
     Transdimensional_Alignment_Matrix,
 
-    Steam_Valve_LV,
-    Steam_Valve_MV,
-    Steam_Valve_HV,
-    Steam_Valve_EV,
-    Steam_Valve_IV,
-
-    Steam_Regulator_LV,
-    Steam_Regulator_MV,
-    Steam_Regulator_HV,
-    Steam_Regulator_EV,
-    Steam_Regulator_IV,
-
     FluidRegulator_LV,
     FluidRegulator_MV,
     FluidRegulator_HV,
@@ -796,22 +784,6 @@ public enum ItemList implements IItemContainer {
     Wireless_Hatch_Energy_UMV,
     Wireless_Hatch_Energy_UXV,
     Wireless_Hatch_Energy_MAX,
-
-    Cover_Wireless_Energy_LV,
-    Cover_Wireless_Energy_MV,
-    Cover_Wireless_Energy_HV,
-    Cover_Wireless_Energy_EV,
-    Cover_Wireless_Energy_IV,
-    Cover_Wireless_Energy_LuV,
-    Cover_Wireless_Energy_ZPM,
-    Cover_Wireless_Energy_UV,
-    Cover_Wireless_Energy_UHV,
-    Cover_Wireless_Energy_UEV,
-    Cover_Wireless_Energy_UIV,
-    Cover_Wireless_Energy_UMV,
-    Cover_Wireless_Energy_UXV,
-    Cover_Wireless_Energy_MAX,
-    Cover_Wireless_Energy_Debug,
 
     Hatch_Input_ULV,
     Hatch_Input_LV,
@@ -1448,10 +1420,6 @@ public enum ItemList implements IItemContainer {
 
     Block_Powderbarrel,
     GelledToluene,
-
-    FluidFilter,
-    ItemFilter_Export,
-    ItemFilter_Import,
 
     QuantumEye,
     QuantumStar,
@@ -2325,11 +2293,7 @@ public enum ItemList implements IItemContainer {
             Spray_Color_Used_09, Spray_Color_Used_10, Spray_Color_Used_11, Spray_Color_Used_12, Spray_Color_Used_13,
             Spray_Color_Used_14, Spray_Color_Used_15 },
         MACHINE_CASINGS = { Casing_ULV, Casing_LV, Casing_MV, Casing_HV, Casing_EV, Casing_IV, Casing_LuV, Casing_ZPM,
-            Casing_UV, Casing_MAX, Casing_UEV, Casing_UIV, Casing_UMV, Casing_UXV, Casing_MAXV },
-        WIRELESS_ENERGY_COVERS = { Cover_Wireless_Energy_LV, Cover_Wireless_Energy_MV, Cover_Wireless_Energy_HV,
-            Cover_Wireless_Energy_EV, Cover_Wireless_Energy_IV, Cover_Wireless_Energy_LuV, Cover_Wireless_Energy_ZPM,
-            Cover_Wireless_Energy_UV, Cover_Wireless_Energy_UHV, Cover_Wireless_Energy_UEV, Cover_Wireless_Energy_UIV,
-            Cover_Wireless_Energy_UMV, Cover_Wireless_Energy_UXV, Cover_Wireless_Energy_MAX };
+            Casing_UV, Casing_MAX, Casing_UEV, Casing_UIV, Casing_UMV, Casing_UXV, Casing_MAXV };
 
     public static Fluid sOilExtraHeavy, sEpichlorhydrin, sDrillingFluid, sBlueVitriol, sNickelSulfate, sGreenVitriol,
         sToluene, sNitrationMixture, sRocketFuel, sHydricSulfur, sIndiumConcentrate, sLeadZincSolution;

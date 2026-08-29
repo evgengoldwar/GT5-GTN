@@ -18,7 +18,6 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_REDSTONE_TRANSMITTE
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_SCREEN;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_SCREEN_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_SHUTTER;
-import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_VALVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_WIRELESS_CONTROLLER;
 import static gregtech.client.GTTooltipHandler.Tier.ERV;
 import static gregtech.client.GTTooltipHandler.Tier.EV;
@@ -132,8 +131,6 @@ import static gregtech.common.items.IDMetaItem01.Cover_RedstoneTransmitter;
 import static gregtech.common.items.IDMetaItem01.Cover_RedstoneTransmitterInternal;
 import static gregtech.common.items.IDMetaItem01.Cover_Shutter;
 import static gregtech.common.items.IDMetaItem01.Cover_WirelessController;
-import static gregtech.common.items.IDMetaItem01.Cover_Wireless_Energy_Debug;
-import static gregtech.common.items.IDMetaItem01.Cover_Wireless_Energy_LV;
 import static gregtech.common.items.IDMetaItem01.Duct_Tape;
 import static gregtech.common.items.IDMetaItem01.Electric_Motor_EV;
 import static gregtech.common.items.IDMetaItem01.Electric_Motor_HV;
@@ -218,7 +215,6 @@ import static gregtech.common.items.IDMetaItem01.Field_Generator_UV;
 import static gregtech.common.items.IDMetaItem01.Field_Generator_UXV;
 import static gregtech.common.items.IDMetaItem01.Field_Generator_ZPM;
 import static gregtech.common.items.IDMetaItem01.Firebrick;
-import static gregtech.common.items.IDMetaItem01.FluidFilter;
 import static gregtech.common.items.IDMetaItem01.FluidRegulator_EV;
 import static gregtech.common.items.IDMetaItem01.FluidRegulator_HV;
 import static gregtech.common.items.IDMetaItem01.FluidRegulator_IV;
@@ -241,8 +237,6 @@ import static gregtech.common.items.IDMetaItem01.Ingot_Heavy1;
 import static gregtech.common.items.IDMetaItem01.Ingot_Heavy2;
 import static gregtech.common.items.IDMetaItem01.Ingot_Heavy3;
 import static gregtech.common.items.IDMetaItem01.Ingot_Iridium_Alloy;
-import static gregtech.common.items.IDMetaItem01.ItemFilter_Export;
-import static gregtech.common.items.IDMetaItem01.ItemFilter_Import;
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_Aluminium;
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_Chrome;
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_Iridium;
@@ -397,16 +391,6 @@ import static gregtech.common.items.IDMetaItem01.Spray_Color_Used_9;
 import static gregtech.common.items.IDMetaItem01.Spray_Color_Used_Remover;
 import static gregtech.common.items.IDMetaItem01.Spray_Empty;
 import static gregtech.common.items.IDMetaItem01.StableAdhesive;
-import static gregtech.common.items.IDMetaItem01.Steam_Regulator_EV;
-import static gregtech.common.items.IDMetaItem01.Steam_Regulator_HV;
-import static gregtech.common.items.IDMetaItem01.Steam_Regulator_IV;
-import static gregtech.common.items.IDMetaItem01.Steam_Regulator_LV;
-import static gregtech.common.items.IDMetaItem01.Steam_Regulator_MV;
-import static gregtech.common.items.IDMetaItem01.Steam_Valve_EV;
-import static gregtech.common.items.IDMetaItem01.Steam_Valve_HV;
-import static gregtech.common.items.IDMetaItem01.Steam_Valve_IV;
-import static gregtech.common.items.IDMetaItem01.Steam_Valve_LV;
-import static gregtech.common.items.IDMetaItem01.Steam_Valve_MV;
 import static gregtech.common.items.IDMetaItem01.SuperconductorComposite;
 import static gregtech.common.items.IDMetaItem01.Tesseract;
 import static gregtech.common.items.IDMetaItem01.Thermos_Can_Empty;
@@ -443,7 +427,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -481,26 +464,20 @@ import gregtech.common.config.Other;
 import gregtech.common.covers.CoverArm;
 import gregtech.common.covers.CoverChest;
 import gregtech.common.covers.CoverConveyor;
-import gregtech.common.covers.redstone.CoverEUMeter;
-import gregtech.common.covers.CoverEnergyWireless;
-import gregtech.common.covers.CoverEnergyWirelessDebug;
 import gregtech.common.covers.CoverFluidRegulator;
-import gregtech.common.covers.CoverFluidfilter;
-import gregtech.common.covers.CoverItemFilter;
-import gregtech.common.covers.redstone.CoverItemMeter;
-import gregtech.common.covers.redstone.CoverLiquidMeter;
-import gregtech.common.covers.redstone.CoverNeedMaintainance;
 import gregtech.common.covers.CoverPump;
 import gregtech.common.covers.CoverShutter;
-import gregtech.common.covers.CoverSteamRegulator;
-import gregtech.common.covers.CoverSteamValve;
-import gregtech.common.covers.redstone.CoverWirelessController;
 import gregtech.common.covers.redstone.CoverAdvancedWirelessController;
 import gregtech.common.covers.redstone.CoverControlsWork;
 import gregtech.common.covers.redstone.CoverDoesWork;
+import gregtech.common.covers.redstone.CoverEUMeter;
+import gregtech.common.covers.redstone.CoverItemMeter;
+import gregtech.common.covers.redstone.CoverLiquidMeter;
+import gregtech.common.covers.redstone.CoverNeedMaintainance;
 import gregtech.common.covers.redstone.CoverRedstoneReceiverExternal;
 import gregtech.common.covers.redstone.CoverRedstoneTransmitterExternal;
 import gregtech.common.covers.redstone.CoverRedstoneTransmitterInternal;
+import gregtech.common.covers.redstone.CoverWirelessController;
 import gregtech.common.items.behaviors.BehaviourCoverTool;
 import gregtech.common.items.behaviors.BehaviourDataOrb;
 import gregtech.common.items.behaviors.BehaviourDataStick;
@@ -2190,62 +2167,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.ITER, 512L),
                 new TCAspects.TC_AspectStack(TCAspects.AQUA, 512L)));
 
-        ItemList.Steam_Valve_LV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Valve_LV.ID,
-                "gt.item.steam_valve.lv.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(1024), formatNumber(1024 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 1L)));
-        ItemList.Steam_Valve_MV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Valve_MV.ID,
-                "gt.item.steam_valve.mv.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(2048), formatNumber(2048 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 2L)));
-        ItemList.Steam_Valve_HV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Valve_HV.ID,
-                "gt.item.steam_valve.hv.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(4096), formatNumber(4096 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 4L)));
-        ItemList.Steam_Valve_EV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Valve_EV.ID,
-                "gt.item.steam_valve.ev.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(8192), formatNumber(8192 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 8L)));
-        ItemList.Steam_Valve_IV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Valve_IV.ID,
-                "gt.item.steam_valve.iv.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(16384), formatNumber(16384 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 16L)));
-
         ItemList.FluidRegulator_LV.set(
             addItemWithLocalizationKeysAndArgs(
                 FluidRegulator_LV.ID,
@@ -2350,21 +2271,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 null,
                 "gt.item.fluid_regulator.tooltip",
                 new Object[] { formatNumber(268435456 * 20L) }));
-
-        ItemList.FluidFilter.set(
-            addItemWithLocalizationKeys(FluidFilter.ID, "gt.item.fluid_filter.name", "gt.item.fluid_filter.tooltip"));
-
-        ItemList.ItemFilter_Export.set(
-            addItemWithLocalizationKeys(
-                ItemFilter_Export.ID,
-                "gt.item.item_filter.export.name",
-                "gt.item.item_filter.export.tooltip"));
-
-        ItemList.ItemFilter_Import.set(
-            addItemWithLocalizationKeys(
-                ItemFilter_Import.ID,
-                "gt.item.item_filter.import.name",
-                "gt.item.item_filter.import.tooltip"));
 
         ItemList.Conveyor_Module_LV.set(
             addItemWithLocalizationKeys(
@@ -3263,32 +3169,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.cover.chest.advanced.tooltip",
                 new TCAspects.TC_AspectStack(TCAspects.VACUOS, 2L)));
 
-        for (int i = 1; i < 15; i++) {
-            ItemList.WIRELESS_ENERGY_COVERS[i - 1].set(
-                addItemWithLocalizationKeysAndArgs(
-                    Cover_Wireless_Energy_LV.ID + i - 1,
-                    "gt.item.wireless_energy_cover.name",
-                    new Object[] { GTValues.VN[i] },
-                    "gt.item.wireless_energy_cover.tooltip",
-                    new Object[] {
-                        StatCollector
-                            .translateToLocalFormatted("gt.tileentity.amperage", EnumChatFormatting.YELLOW + "2"),
-                        StatCollector.translateToLocalFormatted(
-                            "gt.tileentity.eup_in",
-                            EnumChatFormatting.GREEN + formatNumber(GTValues.V[i])
-                                + " ("
-                                + GTUtility.getColoredTierNameFromTier((byte) i)
-                                + EnumChatFormatting.GREEN
-                                + ")") },
-                    new TCAspects.TC_AspectStack(TCAspects.VACUOS, 2L)));
-        }
-        ItemList.Cover_Wireless_Energy_Debug.set(
-            addItemWithLocalizationKeys(
-                Cover_Wireless_Energy_Debug.ID,
-                "gt.item.wireless_energy_cover_debug.name",
-                "gt.item.wireless_energy_cover_debug.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.VACUOS, 9999L)));
-
         ItemList.Cover_Shutter.set(
             addItemWithLocalizationKeys(
                 Cover_Shutter.ID,
@@ -3367,62 +3247,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.cover.needs_maintenance.tooltip",
                 new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.MACHINA, 1L)));
-
-        ItemList.Steam_Regulator_LV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Regulator_LV.ID,
-                "gt.item.steam_regulator.lv.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(1024), formatNumber(1024 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 1L)));
-        ItemList.Steam_Regulator_MV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Regulator_MV.ID,
-                "gt.item.steam_regulator.mv.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(2048), formatNumber(2048 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 2L)));
-        ItemList.Steam_Regulator_HV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Regulator_HV.ID,
-                "gt.item.steam_regulator.hv.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(4096), formatNumber(4096 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 4L)));
-        ItemList.Steam_Regulator_EV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Regulator_EV.ID,
-                "gt.item.steam_regulator.ev.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(8192), formatNumber(8192 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 8L)));
-        ItemList.Steam_Regulator_IV.set(
-            addItemWithLocalizationKeysAndArgs(
-                Steam_Regulator_IV.ID,
-                "gt.item.steam_regulator.iv.name",
-                null,
-                "gt.item.steam_valve.tooltip",
-                new Object[] { formatNumber(16384), formatNumber(16384 * 20) },
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.ITER, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 16L)));
 
         ItemList.Black_Hole_Opener.set(
             addItemWithLocalizationKeys(
@@ -3955,27 +3779,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             context -> new CoverPump(context, 268435456, TextureFactory.of(OVERLAY_PUMP)));
 
         CoverRegistry.registerCover(
-            ItemList.Steam_Valve_LV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamValve(context, 1024, TextureFactory.of(OVERLAY_VALVE)));
-        CoverRegistry.registerCover(
-            ItemList.Steam_Valve_MV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[2][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamValve(context, 2048, TextureFactory.of(OVERLAY_VALVE)));
-        CoverRegistry.registerCover(
-            ItemList.Steam_Valve_HV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[3][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamValve(context, 4096, TextureFactory.of(OVERLAY_VALVE)));
-        CoverRegistry.registerCover(
-            ItemList.Steam_Valve_EV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[4][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamValve(context, 8192, TextureFactory.of(OVERLAY_VALVE)));
-        CoverRegistry.registerCover(
-            ItemList.Steam_Valve_IV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[5][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamValve(context, 16384, TextureFactory.of(OVERLAY_VALVE)));
-
-        CoverRegistry.registerCover(
             ItemList.FluidRegulator_LV.get(1L),
             TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_PUMP)),
             context -> new CoverFluidRegulator(context, 32, TextureFactory.of(OVERLAY_PUMP)));
@@ -4031,21 +3834,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             ItemList.FluidRegulator_MAX.get(1L),
             TextureFactory.of(MACHINE_CASINGS[13][0], TextureFactory.of(OVERLAY_PUMP)),
             context -> new CoverFluidRegulator(context, 268435456, TextureFactory.of(OVERLAY_PUMP)));
-
-        CoverRegistry.registerCover(
-            ItemList.FluidFilter.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_SHUTTER)),
-            context -> new CoverFluidfilter(context, TextureFactory.of(OVERLAY_SHUTTER)));
-
-        CoverRegistry.registerCover(
-            ItemList.ItemFilter_Export.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[5][0], TextureFactory.of(OVERLAY_CONVEYOR)),
-            context -> new CoverItemFilter(context, true, TextureFactory.of(OVERLAY_CONVEYOR)));
-
-        CoverRegistry.registerCover(
-            ItemList.ItemFilter_Import.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[5][0], TextureFactory.of(OVERLAY_CONVEYOR)),
-            context -> new CoverItemFilter(context, false, TextureFactory.of(OVERLAY_CONVEYOR)));
 
         CoverRegistry.registerCover(
             ItemList.Conveyor_Module_LV.get(1L),
@@ -4204,44 +3992,9 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
 
         CoverRegistry.registerCover(
-            ItemList.Steam_Regulator_LV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamRegulator(context, 1024, TextureFactory.of(OVERLAY_VALVE)));
-        CoverRegistry.registerCover(
-            ItemList.Steam_Regulator_MV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[2][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamRegulator(context, 2048, TextureFactory.of(OVERLAY_VALVE)));
-        CoverRegistry.registerCover(
-            ItemList.Steam_Regulator_HV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[3][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamRegulator(context, 4096, TextureFactory.of(OVERLAY_VALVE)));
-        CoverRegistry.registerCover(
-            ItemList.Steam_Regulator_EV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[4][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamRegulator(context, 8192, TextureFactory.of(OVERLAY_VALVE)));
-        CoverRegistry.registerCover(
-            ItemList.Steam_Regulator_IV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[5][0], TextureFactory.of(OVERLAY_VALVE)),
-            context -> new CoverSteamRegulator(context, 16384, TextureFactory.of(OVERLAY_VALVE)));
-
-        CoverRegistry.registerCover(
             ItemList.Cover_NeedsMaintainance.get(1L),
             TextureFactory.of(MACHINE_CASINGS[2][0], TextureFactory.of(OVERLAY_MAINTENANCE_DETECTOR)),
             context -> new CoverNeedMaintainance(context, TextureFactory.of(OVERLAY_MAINTENANCE_DETECTOR)));
-
-        for (int i = 0; i < 14; i++) {
-            int tier = i + 1;
-            CoverRegistry.registerCover(
-                ItemList.WIRELESS_ENERGY_COVERS[i].get(1),
-                TextureFactory.of(MACHINE_CASINGS[i + 1][0], Textures.BlockIcons.OVERLAYS_ENERGY_ON_WIRELESS[0]),
-                context -> new CoverEnergyWireless(context, (int) GTValues.V[tier]),
-                CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        }
-
-        CoverRegistry.registerCover(
-            ItemList.Cover_Wireless_Energy_Debug.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[14][0], TextureFactory.of(Textures.BlockIcons.OVERLAY_ENERGY_IN_DEBUG)),
-            CoverEnergyWirelessDebug::new);
 
     }
 
@@ -4554,17 +4307,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE,
             new Object[] { "TST", "SIS", "TST", 'I', OreDictNames.craftingIndustrialDiamond, 'T',
                 OrePrefixes.plate.get(Materials.Tungsten), 'S', OrePrefixes.plateDouble.get(Materials.Steel) });
-
-        GTModHandler.addCraftingRecipe(
-            ItemList.ItemFilter_Export.get(1L),
-            new Object[] { "SPS", "dIC", "SPS", 'P', OrePrefixes.plate.get(Materials.Tin), 'S',
-                OrePrefixes.screw.get(Materials.Iron), 'I', ItemList.Component_Filter, 'C',
-                ItemList.Conveyor_Module_LV });
-        GTModHandler.addCraftingRecipe(
-            ItemList.ItemFilter_Import.get(1L),
-            new Object[] { "SPS", "CId", "SPS", 'P', OrePrefixes.plate.get(Materials.Tin), 'S',
-                OrePrefixes.screw.get(Materials.Iron), 'I', ItemList.Component_Filter, 'C',
-                ItemList.Conveyor_Module_LV });
     }
 
     private void craftingShapelessRecipes() {
@@ -4737,15 +4479,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             ItemList.Tool_DataStick.get(1L),
             GTModHandler.RecipeBits.NOT_REMOVABLE,
             new Object[] { ItemList.Tool_DataStick.get(1L) });
-
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.ItemFilter_Export.get(1L),
-            GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GTModHandler.RecipeBits.BUFFERED,
-            new Object[] { ItemList.ItemFilter_Import.get(1L) });
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.ItemFilter_Import.get(1L),
-            GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GTModHandler.RecipeBits.BUFFERED,
-            new Object[] { ItemList.ItemFilter_Export.get(1L) });
 
     }
 

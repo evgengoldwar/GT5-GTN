@@ -2,7 +2,6 @@ package gregtech.common.covers.redstone;
 
 import java.util.Arrays;
 
-import gregtech.common.covers.Invertable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,6 +23,7 @@ import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
+import gregtech.common.covers.Invertable;
 import gregtech.common.gui.modularui.cover.CoverLiquidMeterGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.mui1.cover.LiquidMeterUIFactory;
