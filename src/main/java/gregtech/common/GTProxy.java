@@ -931,11 +931,6 @@ public class GTProxy implements IFuelHandler {
         ItemList.Dye_SquidInk.set(new ItemStack(Items.dye, 1, 0));
         ItemList.Dye_Cocoa.set(new ItemStack(Items.dye, 1, 3));
 
-        ItemList.Food_Baked_Bread.set(new ItemStack(Items.bread, 1, 0));
-        ItemList.Food_Raw_Potato.set(new ItemStack(Items.potato, 1, 0));
-        ItemList.Food_Baked_Potato.set(new ItemStack(Items.baked_potato, 1, 0));
-        ItemList.Food_Poisonous_Potato.set(new ItemStack(Items.poisonous_potato, 1, 0));
-
         OrePrefixes.bucket.mContainerItem = new ItemStack(Items.bucket, 1);
         OrePrefixes.cellPlasma.mContainerItem = ItemList.Cell_Empty.get(1L);
         OrePrefixes.cellMolten.mContainerItem = ItemList.Cell_Empty.get(1L);

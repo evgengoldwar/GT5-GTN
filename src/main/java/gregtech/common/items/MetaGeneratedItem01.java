@@ -3366,7 +3366,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                     Block tBlock = aItemEntity.worldObj.getBlock(tX, tY, tZ);
                     int tMetaData = aItemEntity.worldObj.getBlockMetadata(tX, tY, tZ);
                     if ((tBlock == Blocks.cauldron) && (tMetaData > 0)) {
-                        aItemEntity.setEntityItemStack(ItemList.Food_Dough.get(aItemEntity.getEntityItem().stackSize));
                         aItemEntity.delayBeforeCanPickup = 0;
                         cancelMovementAndTeleport(aItemEntity, tX, tY, tZ);
                         aItemEntity.worldObj.setBlockMetadataWithNotify(tX, tY, tZ, tMetaData - 1, 3);
@@ -3422,9 +3421,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 case "crushed":
                     return GTOreDictUnificator.get(OrePrefixes.crushedPurified, oldMaterial, stackSize);
                 case "dust":
-                    if (oldMaterial == Materials.Wheat) {
-                        return ItemList.Food_Dough.get(stackSize);
-                    }
             }
         }
 
