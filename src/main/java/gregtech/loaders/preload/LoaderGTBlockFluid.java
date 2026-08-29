@@ -42,7 +42,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.fluid.GTFluidFactory;
 import gregtech.api.items.BlockLongDistancePipe;
-import gregtech.api.items.CircuitComponentFakeItem;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.items.ItemBreederCell;
 import gregtech.api.items.ItemCoolantCellIC;
@@ -132,7 +131,6 @@ public class LoaderGTBlockFluid implements Runnable {
         new ItemWirelessHeadphones();
         new ItemMagLevHarness();
         MechArmorLoader.run();
-        new CircuitComponentFakeItem();
 
         // Tiered recipe materials actually appear to be set in MTEBasicMachineWithRecipe, making these
         // unused

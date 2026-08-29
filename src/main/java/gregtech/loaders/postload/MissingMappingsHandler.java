@@ -12,7 +12,6 @@ import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
-import gregtech.api.items.CircuitComponentFakeItem;
 
 public class MissingMappingsHandler {
 
@@ -26,12 +25,6 @@ public class MissingMappingsHandler {
         .remapBlock("GalaxySpace:spaceelevatorcable", GregTechAPI.sSpaceElevatorCable)
         .remapBlock("GalaxySpace:dysonswarmparts", GregTechAPI.sBlockCasingsDyson)
         .remapBlock("GalaxySpace:machineframes", GregTechAPI.sBlockCasingsSiphon)
-
-
-        .remapItem("gregtech:gt.gt.fakecircuitcomponent", CircuitComponentFakeItem.INSTANCE)
-
-
-
 
         .remapItem("IC2:reactorLithiumCell", ItemList.RodLithium.getItem())
         .remapItem("gregtech:gt.glowstoneCell", ItemList.RodGlowstone.getItem())
