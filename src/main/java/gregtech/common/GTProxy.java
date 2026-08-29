@@ -163,7 +163,6 @@ import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.config.OPStuff;
 import gregtech.common.data.GTPowerfailTracker;
 import gregtech.common.data.WirelessEnergyHatchManager;
-import gregtech.common.data.drone.CameraViewportManager;
 import gregtech.common.data.maglev.TetherManager;
 import gregtech.common.entity.EntityDrone;
 import gregtech.common.handlers.OffhandToolFunctionalityHandler;
@@ -178,7 +177,6 @@ import gregtech.common.pollution.Pollution;
 import gregtech.common.powergoggles.PowerGogglesWorldSavedData;
 import gregtech.common.powergoggles.handlers.PowerGogglesEventHandler;
 import gregtech.common.recipes.MacerationStackConversionRecipe;
-import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
 import gregtech.common.worldgen.HEEIslandScanner;
 import gregtech.nei.GTNEIDefaultHandler;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -733,7 +731,6 @@ public class GTProxy implements IFuelHandler {
     public WirelessChargerManager wirelessChargerManager;
     public GTSpawnEventHandler spawnEventHandler;
     public GTPowerfailTracker powerfailTracker;
-    public CameraViewportManager cameraViewportManager;
     public TetherManager tetherManager;
     public WirelessEnergyHatchManager wirelessEnergyHatchManager;
 
@@ -1208,7 +1205,6 @@ public class GTProxy implements IFuelHandler {
         wirelessChargerManager = new WirelessChargerManager();
         spawnEventHandler = new GTSpawnEventHandler();
         powerfailTracker = new GTPowerfailTracker();
-        if (cameraViewportManager == null) cameraViewportManager = new CameraViewportManager();
         tetherManager = new TetherManager();
         wirelessEnergyHatchManager = new WirelessEnergyHatchManager();
         FMLCommonHandler.instance().bus().register(wirelessChargerManager);
@@ -1218,8 +1214,6 @@ public class GTProxy implements IFuelHandler {
         TeamDataRegistry.register(GTPowerfailTracker.DATA_NAME, GTPowerfailTracker.PowerfailData::new);
         FMLCommonHandler.instance().bus().register(tetherManager);
         MinecraftForge.EVENT_BUS.register(tetherManager);
-        FMLCommonHandler.instance().bus().register(cameraViewportManager);
-        MinecraftForge.EVENT_BUS.register(cameraViewportManager);
         FMLCommonHandler.instance().bus().register(wirelessEnergyHatchManager);
         // spotless:off
     }
@@ -1244,7 +1238,6 @@ public class GTProxy implements IFuelHandler {
     }
 
     public void onServerStarted(FMLServerStartedEvent event) {
-        MTEDroneCentre.getCentreMap().clear();
         GT_FML_LOGGER.debug("GTMod: Cleaning up all OreDict Crafting Recipes, which have an empty List in them, since they are never meeting any Condition.");
         List<IRecipe> tList = CraftingManager.getInstance().getRecipeList();
         for (int i = 0; i < tList.size(); i++) {
@@ -1286,11 +1279,6 @@ public class GTProxy implements IFuelHandler {
         if (powerfailTracker != null) {
             FMLCommonHandler.instance().bus().unregister(powerfailTracker);
             MinecraftForge.EVENT_BUS.unregister(powerfailTracker);
-        }
-        if (cameraViewportManager != null) {
-            FMLCommonHandler.instance().bus().unregister(cameraViewportManager);
-            MinecraftForge.EVENT_BUS.unregister(cameraViewportManager);
-            cameraViewportManager.resetStatus();
         }
         if (tetherManager != null) {
             FMLCommonHandler.instance().bus().unregister(tetherManager);

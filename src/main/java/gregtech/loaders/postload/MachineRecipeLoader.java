@@ -1,9 +1,5 @@
 package gregtech.loaders.postload;
 
-import gregtech.loaders.postload.chains.BauxiteRefineChain;
-import gregtech.loaders.postload.chains.NaniteChain;
-import gregtech.loaders.postload.chains.PCBFactoryRecipes;
-import gregtech.loaders.postload.chains.PurifiedWaterRecipes;
 import gregtech.loaders.postload.recipes.AlloySmelterRecipes;
 import gregtech.loaders.postload.recipes.ArcFurnaceRecipes;
 import gregtech.loaders.postload.recipes.AssemblerRecipes;
@@ -113,10 +109,5 @@ public class MachineRecipeLoader implements Runnable {
         new WiremillRecipes().run();
         new TranscendentPlasmaMixerRecipes().run();
         new BECRecipes().run();
-
-        BauxiteRefineChain.run();
-        NaniteChain.run();
-        PCBFactoryRecipes.load();
-        PurifiedWaterRecipes.run();
     }
 }

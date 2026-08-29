@@ -2069,11 +2069,6 @@ public class MetaGeneratedItem02 extends MetaGeneratedItemX32 {
                 "Item_Redstone_Sniffer",
                 "gt.item.redstone_sniffer.name",
                 "gt.item.redstone_sniffer.tooltip"));
-        ItemList.DroneRemoteInterface.set(
-            new ItemDroneRemoteInterface(
-                "Item_Drone_Remote_Interface",
-                "gt.item.drone_remote_interface.name",
-                "gt.item.drone_remote_interface.tooltip"));
         ItemList.Vajra_Core.set(addItemWithLocalizationKeys(Vajra_Core.ID, "gt.item.vajra_core.name", ""));
         ItemList.Magnetron.set(addItemWithLocalizationKeys(Magnetron.ID, "gt.item.magnetron.name", ""));
         ItemList.ChaosLocator.set(

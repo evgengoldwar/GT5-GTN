@@ -34,7 +34,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.GTMod;
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -579,22 +578,6 @@ public class AssemblerRecipes implements Runnable {
             .fluidInputs(Materials.GlueAdvanced.getFluid(1 * INGOTS))
             .duration(10 * SECONDS)
             .eut(48)
-            .addTo(assemblerRecipes);
-
-        // Drone Centre
-
-        // Drone down link hatch
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Hatch_Maintenance.get(1),
-                ItemList.Sensor_IV.get(1),
-                new ItemStack(GregTechAPI.sBlockReinforced, 2, 9),
-                ItemList.Conveyor_Module_EV.get(1))
-            .circuit(3)
-            .itemOutputs(ItemList.Hatch_DroneDownLink.get(1L))
-            .fluidInputs(Materials.GlueAdvanced.getFluid(1_000))
-            .duration(5 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
             .addTo(assemblerRecipes);
 
         for (Dyes dye : Dyes.VALUES) {

@@ -1,8 +1,6 @@
 package gregtech.loaders.postload.recipes;
 
-import static gregtech.api.enums.Mods.EternalSingularity;
 import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
-import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
@@ -652,46 +650,6 @@ public class AssemblyLineRecipes implements Runnable {
             .duration(60 * SECONDS)
             .eut(TierEU.RECIPE_UV)
             .addTo(AssemblyLine);
-
-        // Drone T3
-
-        // Drone remote interface
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, ItemList.TierdDrone2.get(1))
-            .metadata(SCANNING, new Scanning(1 * MINUTES + 30 * SECONDS, TierEU.RECIPE_UHV))
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.Infinity, 16),
-                ItemList.Cover_Screen.get(4),
-                new Object[] { OrePrefixes.circuit.get(Materials.UHV), 4 },
-                ItemList.Field_Generator_UHV.get(4),
-                ItemList.Sensor_UHV.get(8),
-                ItemList.Emitter_UHV.get(8),
-                ItemList.TierdDrone2.get(1),
-                ItemList.Tool_DataOrb.get(4))
-            .itemOutputs(ItemList.DroneRemoteInterface.get(1))
-            .duration(60 * SECONDS)
-            .eut(TierEU.RECIPE_UHV)
-            .addTo(AssemblyLine);
-
-        // Drone T4
-        GTValues.RA.stdBuilder()
-            .metadata(RESEARCH_ITEM, ItemList.DroneRemoteInterface.get(1))
-            .metadata(SCANNING, new Scanning(1 * MINUTES + 30 * SECONDS, TierEU.RECIPE_UEV))
-            .itemInputs(
-                getModItem(EternalSingularity.ID, "eternal_singularity", 1L),
-                new Object[] { OrePrefixes.circuit.get(Materials.UEV), 4 },
-                ItemList.Field_Generator_UHV.get(16),
-                ItemList.NuclearStar.get(8),
-                ItemList.Emitter_UHV.get(4),
-                ItemList.ZPM3.get(1))
-            .itemOutputs(ItemList.TierdDrone3.get(1))
-            .duration(60 * SECONDS)
-            .eut(TierEU.RECIPE_UEV)
-            .addTo(AssemblyLine);
-
-        // Endothermic Fridge
-
-        // Mega Chemical Reactor
 
     }
 }

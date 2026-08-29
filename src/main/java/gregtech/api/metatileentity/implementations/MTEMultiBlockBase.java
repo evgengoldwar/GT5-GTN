@@ -149,9 +149,6 @@ import gregtech.common.tileentities.machines.MTEHatchCraftingInputSlave;
 import gregtech.common.tileentities.machines.MTEHatchInputBusME;
 import gregtech.common.tileentities.machines.MTEHatchInputME;
 import gregtech.common.tileentities.machines.RecipeCheckReason;
-import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
-import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
-import gregtech.common.tileentities.machines.multi.drone.production.ProductionRecord;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
@@ -777,23 +774,10 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public void onDisableWorking() {
-        if (!mMaintenanceHatches.isEmpty() && mMaintenanceHatches.get(0) instanceof MTEHatchDroneDownLink ddl) {
-            ddl.findConnection(this)
-                .ifPresent(conn -> {
-                    conn.setActive(false);
-                    conn.setShutdownReason(getBaseMetaTileEntity().getLastShutDownReason());
-                });
-        }
-    }
+    public void onDisableWorking() {}
 
     @Override
-    public void onEnableWorking() {
-        if (!mMaintenanceHatches.isEmpty() && mMaintenanceHatches.get(0) instanceof MTEHatchDroneDownLink ddl) {
-            ddl.findConnection(this)
-                .ifPresent(conn -> conn.setActive(true));
-        }
-    }
+    public void onEnableWorking() {}
 
     protected void runMachine(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         if (mMaxProgresstime > 0 && doRandomMaintenanceDamage()) {
@@ -805,18 +789,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                 if (mMaxProgresstime > 0) {
                     incrementProgressTime();
                     if (mProgresstime >= mMaxProgresstime) {
-                        // Record production data
-                        if (!mMaintenanceHatches.isEmpty()
-                            && mMaintenanceHatches.get(0) instanceof MTEHatchDroneDownLink ddl) {
-                            MTEDroneCentre centre = ddl.getCentre();
-                            if (centre != null) {
-                                ProductionRecord pdr = centre.productionDataRecorder;
-                                if (pdr.isActive())
-                                    pdr.addRecord(((long) mMaxProgresstime) * mEUt, mOutputItems, mOutputFluids);
-                            }
-                        }
-                        boolean isOutputAllItems = mOutputItems == null || addItemOutputs(mOutputItems);
-                        boolean isOutputAllFluids = mOutputFluids == null || addFluidOutputs(mOutputFluids);
                         mOutputItems = null;
                         mOutputFluids = null;
                         outputAfterRecipe();
@@ -2183,11 +2155,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                 return mDynamoHatches.add(hatch);
             }
             case MTEHatchMaintenance hatch -> {
-
-                if (hatch instanceof MTEHatchDroneDownLink droneDownLink) {
-                    droneDownLink.registerMachineController(this);
-                }
-
                 return mMaintenanceHatches.add(hatch);
             }
             case MTEHatchMuffler hatch -> {
@@ -2206,10 +2173,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         if (aMetaTileEntity instanceof MTEHatchMaintenance hatch) {
             hatch.updateTexture(aBaseCasingIndex);
             hatch.updateCraftingIcon(this.getMachineCraftingIcon());
-
-            if (hatch instanceof MTEHatchDroneDownLink droneDownLink) {
-                droneDownLink.registerMachineController(this);
-            }
 
             return mMaintenanceHatches.add(hatch);
         }

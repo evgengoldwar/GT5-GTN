@@ -8,7 +8,6 @@ import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
-import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -277,7 +276,6 @@ public class CompressorRecipes implements Runnable {
             .fluidInputs(Materials.MoltenProtoHalkoniteBase.getFluid(1 * STACKS))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.HotProtoHalkonite, 1))
             // Require stabilized black hole
-            .metadata(COMPRESSION_TIER, 2)
             .duration(45 * SECONDS)
             .eut(TierEU.RECIPE_UIV)
             .addTo(compressorRecipes);
@@ -287,7 +285,6 @@ public class CompressorRecipes implements Runnable {
             .fluidInputs(Materials.MoltenProtoHalkoniteBase.getFluid(32 * INGOTS))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.HotProtoHalkonite, 1))
             // Require stabilized black hole
-            .metadata(COMPRESSION_TIER, 2)
             .duration(45 * SECONDS / 4)
             .eut(TierEU.RECIPE_UIV)
             .addTo(compressorRecipes);
@@ -297,7 +294,6 @@ public class CompressorRecipes implements Runnable {
             .fluidInputs(Materials.MoltenProtoHalkoniteBase.getFluid(32 * INGOTS))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.HotProtoHalkonite, 1))
             // Require stabilized black hole
-            .metadata(COMPRESSION_TIER, 2)
             .duration(45 * SECONDS / 4)
             .eut(TierEU.RECIPE_UIV)
             .addTo(compressorRecipes);
@@ -307,7 +303,6 @@ public class CompressorRecipes implements Runnable {
             .fluidInputs(Materials.CosmicNeutronium.getPlasma(64 * INGOTS))
             .itemOutputs(ItemList.PseudoStar.get(4L))
             // Require stabilized black hole
-            .metadata(COMPRESSION_TIER, 2)
             .duration(48 * SECONDS)
             .eut(TierEU.RECIPE_UMV)
             .addTo(compressorRecipes);
@@ -316,7 +311,6 @@ public class CompressorRecipes implements Runnable {
             .itemInputs(GTOreDictUnificator.get(OrePrefixes.plate, Materials.MHDCSM, 64))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.plateSuperdense, Materials.MHDCSM, 1))
             // Require stabilized black hole
-            .metadata(COMPRESSION_TIER, 2)
             .duration(1 * HOURS + 15 * MINUTES)
             .eut(TierEU.RECIPE_UXV)
             .addTo(compressorRecipes);

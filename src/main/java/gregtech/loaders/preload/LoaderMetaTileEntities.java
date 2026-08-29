@@ -132,15 +132,6 @@ import gregtech.common.tileentities.machines.basic.MTETurboCharger;
 import gregtech.common.tileentities.machines.basic.MTEWorldAccelerator;
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineFluid;
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineItem;
-import gregtech.common.tileentities.machines.multi.compressor.MTEBlackHoleCompressor;
-import gregtech.common.tileentities.machines.multi.compressor.MTEBlackHoleUtility;
-import gregtech.common.tileentities.machines.multi.compressor.MTEIndustrialCompressor;
-import gregtech.common.tileentities.machines.multi.compressor.MTENeutroniumCompressor;
-import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
-import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
-import gregtech.common.tileentities.machines.multi.pcb.MTEPCBBioChamber;
-import gregtech.common.tileentities.machines.multi.pcb.MTEPCBCoolingTower;
-import gregtech.common.tileentities.machines.multi.pcb.MTEPCBFactory;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
 import gregtech.common.tileentities.machines.steam.MTESteamAlloySmelterBronze;
@@ -168,33 +159,6 @@ import gregtech.common.tileentities.storage.MTESuperTank;
 public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT RECIPES AND USAGES
 
     private static void registerMultiblockControllers() {
-        ItemList.PCBFactory.set(
-            new MTEPCBFactory(PCB_FACTORY_CONTROLLER.ID, "multimachine.pcbfactory", "PCB Factory").getStackForm(1));
-        ItemList.PCBBioChamber.set(
-            new MTEPCBBioChamber(PCB_BIO_CHAMBER_CONTROLLER.ID, "multimachine.pcbbiochamber", "Bio Chamber")
-                .getStackForm(1));
-        ItemList.PCBCoolingTower.set(
-            new MTEPCBCoolingTower(PCB_COOLING_TOWER_CONTROLLER.ID, "multimachine.pcbcoolingtower", "Cooling Tower")
-                .getStackForm(1));
-        ItemList.Machine_Multi_DroneCentre
-            .set(new MTEDroneCentre(Drone_Centre.ID, "multimachine_DroneCentre", "Drone Centre").getStackForm(1));
-
-        ItemList.Machine_Multi_IndustrialCompressor.set(
-            new MTEIndustrialCompressor(
-                INDUSTRIAL_COMPRESSOR_CONTROLLER.ID,
-                "multimachine.basiccompressor",
-                "Large Electric Compressor").getStackForm(1));
-        ItemList.Machine_Multi_NeutroniumCompressor.set(
-            new MTENeutroniumCompressor(
-                NEUTRONIUM_COMPRESSOR_CONTROLLER.ID,
-                "multimachine.neutroniumcompressor",
-                "Neutronium Compressor").getStackForm(1));
-        ItemList.Machine_Multi_BlackHoleCompressor.set(
-            new MTEBlackHoleCompressor(
-                BLACKHOLE_COMPRESSOR_CONTROLLER.ID,
-                "multimachine.blackholecompressor",
-                "Pseudostable Black Hole Containment Field").getStackForm(1));
-
         if (Thaumcraft.isModLoaded() && ElectroMagicTools.isModLoaded()) {
             ItemList.MagicalMaintenanceHatch.set(
                 new MTEMagicalMaintenanceHatch(
@@ -9129,9 +9093,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "Auto Maintenance Hatch",
                 6,
                 true).getStackForm(1L));
-        ItemList.Hatch_DroneDownLink.set(
-            new MTEHatchDroneDownLink(DroneDownLink.ID, "hatch.dronedownlink", "Drone DownLink Module", 5)
-                .getStackForm(1));
         ItemList.Hatch_DataAccess_EV.set(
             new MTEHatchDataAccess(DATA_ACCESS_HATCH.ID, "hatch.dataaccess", "Data Access Hatch", 4).getStackForm(1L));
         ItemList.Hatch_DataAccess_LuV.set(
@@ -9148,12 +9109,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 8).getStackForm(1L));
         ItemList.Hatch_HeatSensor
             .set(new MTEHeatSensor(HEAT_DETECTOR_HATCH.ID, "hatch.heatsensor", "Heat Sensor Hatch", 7).getStackForm(1));
-        ItemList.Hatch_BlackHoleUtility.set(
-            new MTEBlackHoleUtility(
-                HATCH_BLACK_HOLE_UTILITY.ID,
-                "hatch.blackholeutility",
-                "Black Hole Utility Hatch",
-                11).getStackForm(1));
         ItemList.Hatch_Nanite.set(
             new MTEHatchNanite(HATCH_NANITE.ID, "hatch.nanite", "Nanite Containment Bus", 9, 2048).getStackForm(1));
         ItemList.Hatch_Nanite_Singularity.set(
