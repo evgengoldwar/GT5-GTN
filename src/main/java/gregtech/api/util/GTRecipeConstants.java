@@ -330,17 +330,6 @@ public class GTRecipeConstants {
             // Recycling only has no gas variant
             builder.recipeCategory(RecipeCategories.arcFurnaceRecycling);
         } else {
-            // Generate recipe with gas
-            for (BlastFurnaceGasStat gasStat : BlastFurnaceGasStat.BlastFurnaceGasStats) {
-                int gasAmount = (int) (gasStat.recipeConsumedAmountMultiplier * baseGasAmount);
-                ret.addAll(
-                    builder.copy()
-                        .duration((int) Math.max(1, baseDuration * gasStat.recipeTimeMultiplier))
-                        .fluidInputs(GTUtility.copyAmount(gasAmount, gasStat.gas))
-                        .circuit(11)
-                        .addTo(RecipeMaps.arcFurnaceRecipes));
-            }
-
             // Generate recipe with plasma
             for (Materials mat : new Materials[] { Materials.Argon, Materials.Nitrogen }) {
                 int tPlasmaAmount = (int) Math.max(1L, baseDuration / (mat.getMass() * 16L));
@@ -654,18 +643,6 @@ public class GTRecipeConstants {
         int baseGasAmount = builder.getMetadataOrDefault(ADDITIVE_AMOUNT, 1000);
         double baseDuration = builder.getDuration();
         ArrayList<ItemStack> items = new ArrayList<>(Arrays.asList(builder.getItemInputsBasic()));
-
-        // Generate recipe with gas
-        for (BlastFurnaceGasStat gasStat : BlastFurnaceGasStat.BlastFurnaceGasStats) {
-            int gasAmount = (int) (gasStat.recipeConsumedAmountMultiplier * baseGasAmount);
-            int duration = (int) Math.max(gasStat.recipeTimeMultiplier * baseDuration, 1);
-            ret.addAll(
-                builder.copy()
-                    .itemInputs(items.toArray(new ItemStack[0]))
-                    .fluidInputs(GTUtility.copyAmount(gasAmount, gasStat.gas))
-                    .duration(duration)
-                    .addTo(RecipeMaps.blastFurnaceRecipes));
-        }
 
         // Generate recipe without gas
         if (builder.getMetadataOrDefault(NO_GAS, false)) {

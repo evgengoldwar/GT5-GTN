@@ -990,39 +990,6 @@ public class GTStructureUtility {
                     getter)));
     }
 
-    public static <T> IStructureElement<T> chainAllCasings() {
-        return chainAllCasings(-1, (te, t) -> {}, te -> -1);
-    }
-
-    public static <T> IStructureElement<T> chainAllCasings(int notSet, BiConsumer<T, Integer> setter,
-        Function<T, Integer> getter) {
-        return GTStructureChannels.TIER_CASING.use(
-            lazy(
-                t -> ofBlocksTiered(
-                    CasingTier::getCasingBlockTier,
-                    CasingTier.getCasingList(),
-                    notSet,
-                    setter,
-                    getter)));
-    }
-
-    public static <T> IStructureElement<T> noSurvivalAutoplace(IStructureElement<T> element) {
-        return new ProxyStructureElement<>(element) {
-
-            @Override
-            public PlaceResult survivalPlaceBlock(T multi, World world, int x, int y, int z, ItemStack trigger,
-                AutoPlaceEnvironment env) {
-                return SKIP;
-            }
-
-            @Override
-            public PlaceResult survivalPlaceBlock(T multi, World world, int x, int y, int z, ItemStack trigger,
-                IItemSource s, EntityPlayerMP actor, Consumer<IChatComponent> chatter) {
-                return SKIP;
-            }
-        };
-    }
-
     public static <TMTE extends IMetaTileEntity> List<TMTE> extractMTEs(Class<TMTE> mteClass, ItemStack... stacks) {
         List<TMTE> mtes = new ArrayList<>();
 

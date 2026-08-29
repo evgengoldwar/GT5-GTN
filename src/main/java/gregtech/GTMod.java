@@ -126,7 +126,6 @@ import gregtech.loaders.postload.RecyclerBlacklistLoader;
 import gregtech.loaders.postload.ScannerHandlerLoader;
 import gregtech.loaders.postload.ScrapboxDropLoader;
 import gregtech.loaders.preload.GTPreLoad;
-import gregtech.loaders.preload.LoaderCircuitBehaviors;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
 import gregtech.loaders.preload.LoaderGTItemData;
 import gregtech.loaders.preload.LoaderGTOreDictionary;
@@ -342,8 +341,6 @@ public class GTMod {
         new LoaderGTBlockFluid().run();
         new LoaderMetaTileEntities().run();
         new LoaderMetaPipeEntities().run();
-
-        new LoaderCircuitBehaviors().run();
 
         // populate itemstack instance for NBT check in GTRecipe
         setItemStacks();

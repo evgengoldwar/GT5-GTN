@@ -36,7 +36,6 @@ import gregtech.api.objects.GTHashSet;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.threads.RunnableCableUpdate;
 import gregtech.api.threads.RunnableMachineUpdate;
-import gregtech.api.util.CircuitryBehavior;
 import gregtech.api.util.GTCreativeTab;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -82,11 +81,6 @@ public class GregTechAPI {
         }, TAB_GREGTECH_ORES = new GTCreativeTab("Ores", "Ores");
 
     public static final IMetaTileEntity[] METATILEENTITIES = new IMetaTileEntity[MAXIMUM_METATILE_IDS];
-
-    /**
-     * The List of Circuit Behaviors for the Redstone Circuit Block
-     */
-    public static final Map<Integer, CircuitryBehavior> sCircuitryBehaviors = new ConcurrentHashMap<>();
     /**
      * The List of Blocks, which can conduct Machine Block Updates
      */
