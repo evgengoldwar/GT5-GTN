@@ -70,7 +70,6 @@ import gregtech.api.recipe.maps.FluidOnlyFrontend;
 import gregtech.api.recipe.maps.FormingPressBackend;
 import gregtech.api.recipe.maps.FuelBackend;
 import gregtech.api.recipe.maps.FurnaceBackend;
-import gregtech.api.recipe.maps.IceCreamMachineFrontend;
 import gregtech.api.recipe.maps.IsotopeDecayFrontend;
 import gregtech.api.recipe.maps.LargeNEIFrontend;
 import gregtech.api.recipe.maps.MicrowaveBackend;

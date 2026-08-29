@@ -185,7 +185,6 @@ import static gregtech.common.items.IDMetaItem03.Cover_SolarPanel_UIV;
 import static gregtech.common.items.IDMetaItem03.EV_Coil;
 import static gregtech.common.items.IDMetaItem03.GalliumArsenideCrystal;
 import static gregtech.common.items.IDMetaItem03.GalliumArsenideCrystalSmallPart;
-import static gregtech.common.items.IDMetaItem03.Gravitational_Lens;
 import static gregtech.common.items.IDMetaItem03.HV_Coil;
 import static gregtech.common.items.IDMetaItem03.Harmonic_Compound;
 import static gregtech.common.items.IDMetaItem03.Heavy_Hellish_Mud;
@@ -230,34 +229,6 @@ import static gregtech.common.items.IDMetaItem03.LuV_Coil;
 import static gregtech.common.items.IDMetaItem03.MAX_Coil;
 import static gregtech.common.items.IDMetaItem03.MV_Coil;
 import static gregtech.common.items.IDMetaItem03.Manafly;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_ElectrograviticValve1;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_ElectrograviticValve2;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_ElectrograviticValve3;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_EnergyConduit1;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_EnergyConduit2;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_EnergyConduit3;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_FieldManipulator1;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_FieldManipulator2;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_FieldManipulator3;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_FieldManipulator4;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_ResonanceChamber1;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_ResonanceChamber2;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_ResonanceChamber3;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_ResonanceChamber4;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_SensorArray1;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_SensorArray2;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_SensorArray3;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_SensorArray4;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_Shielding1;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_Shielding2;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_Shielding3;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_WaveFocus1;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_WaveFocus2;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_WaveFocus3;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_WaveFocus4;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_Waveguide1;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_Waveguide2;
-import static gregtech.common.items.IDMetaItem03.MetaMaterial_Waveguide3;
 import static gregtech.common.items.IDMetaItem03.NandChip;
 import static gregtech.common.items.IDMetaItem03.Naquarite_Universal_Insulator_Foil;
 import static gregtech.common.items.IDMetaItem03.Netherite_Nanoparticles;
@@ -267,7 +238,6 @@ import static gregtech.common.items.IDMetaItem03.Optical_Cpu_Containment_Housing
 import static gregtech.common.items.IDMetaItem03.Optically_Compatible_Memory;
 import static gregtech.common.items.IDMetaItem03.Optically_Perfected_CPU;
 import static gregtech.common.items.IDMetaItem03.Phononic_Seed_Crystal;
-import static gregtech.common.items.IDMetaItem03.Planck_Manifold;
 import static gregtech.common.items.IDMetaItem03.Prismarine_Precipitate;
 import static gregtech.common.items.IDMetaItem03.Prismatic_Crystal;
 import static gregtech.common.items.IDMetaItem03.PseudoStar;
@@ -1952,123 +1922,12 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.circuit.chip.plpic.name",
                 "gt.item.circuit.chip.plpic.tooltip",
                 "chipPlPIC"));
-        ItemList.Gravitational_Lens.set(
-            addItemWithLocalizationKeys(
-                Gravitational_Lens.ID,
-                "gt.item.gravitational_lens.name",
-                "gt.item.gravitational_lens.tooltip"));
-        ItemList.Planck_Manifold
-            .set(
-                addItemWithLocalizationKeys(
-                    Planck_Manifold.ID,
-                    "gt.item.planck_manifold.name",
-                    "gt.item.planck_manifold.tooltip"))
-            .setRender(new CosmicNeutroniumMetaItemRenderer());
-
-        registerMetaMaterials();
 
         registerAllTieredTooltips();
         registerAllAnimatedTooltips();
         initOrePrefixes();
         initOreDictUnificatorEntries();
         registerCovers();
-    }
-
-    private void registerMetaMaterials() {
-        // Adjective prefixes, differ depending on if the metamat uses 3 or 4 tiers
-        String[] adj3 = { "primitive", "pristine", "perfected" };
-        String[] adj4 = { "rough", "reinforced", "refined", "resplendent" };
-
-        registerMetaMaterialTiered(
-            "shielding",
-            adj3,
-            ItemList.MetaMaterial_Shielding1,
-            MetaMaterial_Shielding1.ID,
-            ItemList.MetaMaterial_Shielding2,
-            MetaMaterial_Shielding2.ID,
-            ItemList.MetaMaterial_Shielding3,
-            MetaMaterial_Shielding3.ID);
-        registerMetaMaterialTiered(
-            "waveguide",
-            adj3,
-            ItemList.MetaMaterial_Waveguide1,
-            MetaMaterial_Waveguide1.ID,
-            ItemList.MetaMaterial_Waveguide2,
-            MetaMaterial_Waveguide2.ID,
-            ItemList.MetaMaterial_Waveguide3,
-            MetaMaterial_Waveguide3.ID);
-        registerMetaMaterialTiered(
-            "energy_conduit",
-            adj3,
-            ItemList.MetaMaterial_EnergyConduit1,
-            MetaMaterial_EnergyConduit1.ID,
-            ItemList.MetaMaterial_EnergyConduit2,
-            MetaMaterial_EnergyConduit2.ID,
-            ItemList.MetaMaterial_EnergyConduit3,
-            MetaMaterial_EnergyConduit3.ID);
-        registerMetaMaterialTiered(
-            "electrogravitic_valve",
-            adj3,
-            ItemList.MetaMaterial_ElectrograviticValve1,
-            MetaMaterial_ElectrograviticValve1.ID,
-            ItemList.MetaMaterial_ElectrograviticValve2,
-            MetaMaterial_ElectrograviticValve2.ID,
-            ItemList.MetaMaterial_ElectrograviticValve3,
-            MetaMaterial_ElectrograviticValve3.ID);
-        registerMetaMaterialTiered(
-            "wave_focus",
-            adj4,
-            ItemList.MetaMaterial_WaveFocus1,
-            MetaMaterial_WaveFocus1.ID,
-            ItemList.MetaMaterial_WaveFocus2,
-            MetaMaterial_WaveFocus2.ID,
-            ItemList.MetaMaterial_WaveFocus3,
-            MetaMaterial_WaveFocus3.ID,
-            ItemList.MetaMaterial_WaveFocus4,
-            MetaMaterial_WaveFocus4.ID);
-        registerMetaMaterialTiered(
-            "resonance_chamber",
-            adj4,
-            ItemList.MetaMaterial_ResonanceChamber1,
-            MetaMaterial_ResonanceChamber1.ID,
-            ItemList.MetaMaterial_ResonanceChamber2,
-            MetaMaterial_ResonanceChamber2.ID,
-            ItemList.MetaMaterial_ResonanceChamber3,
-            MetaMaterial_ResonanceChamber3.ID,
-            ItemList.MetaMaterial_ResonanceChamber4,
-            MetaMaterial_ResonanceChamber4.ID);
-        registerMetaMaterialTiered(
-            "sensor_array",
-            adj4,
-            ItemList.MetaMaterial_SensorArray1,
-            MetaMaterial_SensorArray1.ID,
-            ItemList.MetaMaterial_SensorArray2,
-            MetaMaterial_SensorArray2.ID,
-            ItemList.MetaMaterial_SensorArray3,
-            MetaMaterial_SensorArray3.ID,
-            ItemList.MetaMaterial_SensorArray4,
-            MetaMaterial_SensorArray4.ID);
-        registerMetaMaterialTiered(
-            "field_manipulator",
-            adj4,
-            ItemList.MetaMaterial_FieldManipulator1,
-            MetaMaterial_FieldManipulator1.ID,
-            ItemList.MetaMaterial_FieldManipulator2,
-            MetaMaterial_FieldManipulator2.ID,
-            ItemList.MetaMaterial_FieldManipulator3,
-            MetaMaterial_FieldManipulator3.ID,
-            ItemList.MetaMaterial_FieldManipulator4,
-            MetaMaterial_FieldManipulator4.ID);
-    }
-
-    private void registerMetaMaterialTiered(String baseKey, String[] adjectives, Object... entries) {
-        for (int i = 0; i < entries.length; i += 2) {
-            ItemList slot = (ItemList) entries[i];
-            int id = (Integer) entries[i + 1];
-            int tier = i / 2;
-            String nameKey = "gt.item.meta_material." + baseKey + "." + adjectives[tier] + ".name";
-            slot.set(addItem(id, $ -> StatCollector.translateToLocal(nameKey), $ -> ""));
-        }
     }
 
     private void registerAllTieredTooltips() {
