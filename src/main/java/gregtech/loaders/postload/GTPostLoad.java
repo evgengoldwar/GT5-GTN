@@ -2,7 +2,6 @@ package gregtech.loaders.postload;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.Mods.BetterLoadingScreen;
-import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.Mods.GalacticraftCore;
 import static gregtech.api.enums.Mods.GalacticraftMars;
 import static gregtech.api.enums.Mods.GalaxySpace;
@@ -42,7 +41,6 @@ import gregtech.api.enums.SubTag;
 import gregtech.api.enums.TierEU;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTCLSCompat;
-import gregtech.api.util.GTForestryCompat;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
@@ -136,10 +134,6 @@ public class GTPostLoad {
 
     public static void addFakeRecipes() {
         GT_FML_LOGGER.debug("GTMod: Adding Fake Recipes for NEI");
-
-        if (Forestry.isModLoaded()) {
-            GTForestryCompat.populateFakeNeiRecipes();
-        }
 
         GTValues.RA.stdBuilder()
             .itemInputs(new ItemStack(Items.written_book, 1, 32767))

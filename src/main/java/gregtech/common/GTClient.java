@@ -5,7 +5,6 @@
 
 package gregtech.common;
 
-import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.Mods.GregTech;
 
 import java.util.Iterator;
@@ -136,7 +135,6 @@ import gregtech.common.tileentities.render.RenderingTileEntityNanoForge;
 import gregtech.common.tileentities.render.RenderingTileEntityWormhole;
 import gregtech.crossmod.navigator.PowerfailLayerManager;
 import gregtech.loaders.ExtraIcons;
-import gregtech.loaders.misc.GTBees;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.nei.NEIGTConfig;
 import mcp.mobius.waila.api.impl.ModuleRegistrar;
@@ -216,9 +214,6 @@ public class GTClient extends GTProxy {
 
         for (MetaGeneratedItem item : MetaGeneratedItem.sInstances.values()) {
             metaItemRenderer.registerItem(item);
-        }
-        if (Forestry.isModLoaded()) {
-            metaItemRenderer.registerItem(GTBees.combs);
         }
 
         final MetaGeneratedToolRenderer metaToolRenderer = new MetaGeneratedToolRenderer();

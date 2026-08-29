@@ -5,7 +5,6 @@ import static gregtech.GTLoggers.GT_ORE_DICT_LOGGER;
 import static gregtech.GT_Version.VERSION_MAJOR;
 import static gregtech.GT_Version.VERSION_MINOR;
 import static gregtech.GT_Version.VERSION_PATCH;
-import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.util.GTRecipe.setItemStacks;
 
@@ -73,7 +72,6 @@ import gregtech.api.recipe.RecipeMapBackend;
 import gregtech.api.registries.LHECoolantRegistry;
 import gregtech.api.registries.RemovedMetaRegistry;
 import gregtech.api.util.AssemblyLineServer;
-import gregtech.api.util.GTForestryCompat;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
@@ -109,7 +107,6 @@ import gregtech.loaders.load.FuelLoader;
 import gregtech.loaders.load.GTItemIterator;
 import gregtech.loaders.load.MTERecipeLoader;
 import gregtech.loaders.misc.CoverLoader;
-import gregtech.loaders.misc.GTBees;
 import gregtech.loaders.postload.GTPostLoad;
 import gregtech.loaders.postload.ItemMaxStacksizeLoader;
 import gregtech.loaders.postload.MachineTooltipsLoader;
@@ -360,12 +357,6 @@ public class GTMod {
             tRunnable.run();
         }
 
-        if (Forestry.isModLoaded()) {
-            // TODO: Refactor GTBees with proper state handling
-            // noinspection InstantiationOfUtilityClass
-            new GTBees();
-        }
-
         // Disable Low Grav regardless of config if Cleanroom is disabled.
         if (!proxy.mEnableCleanroom) {
             proxy.mLowGravProcessing = false;
@@ -503,11 +494,6 @@ public class GTMod {
             new Object[] { "RRR", "RwR", "RRR", 'R', OrePrefixes.plate.get(Materials.Iron) });
 
         GTPostLoad.registerFluidCannerRecipes();
-
-        if (Forestry.isModLoaded()) {
-            GTForestryCompat.transferCentrifugeRecipes();
-            GTForestryCompat.transferSqueezerRecipes();
-        }
 
         AE2Compat.onPostInit();
 
