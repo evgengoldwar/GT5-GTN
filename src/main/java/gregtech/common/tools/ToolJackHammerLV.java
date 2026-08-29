@@ -72,7 +72,6 @@ public class ToolJackHammerLV extends ToolDrillLV {
     public void onToolCrafted(ItemStack aStack, EntityPlayer aPlayer) {
         super.onToolCrafted(aStack, aPlayer);
         try {
-            GTMod.achievements.issueAchievement(aPlayer, "hammertime");
         } catch (Exception ignored) {}
     }
 

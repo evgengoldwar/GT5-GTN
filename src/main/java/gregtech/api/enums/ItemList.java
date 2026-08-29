@@ -606,6 +606,8 @@ public enum ItemList implements IItemContainer {
     Tool_Axe_Steel,
     Tool_Hoe_Steel,
 
+    Spray_Empty,
+
     Color_00,
     Color_01,
     Color_02,

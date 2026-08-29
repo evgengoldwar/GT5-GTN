@@ -516,12 +516,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
         // thunders without raining, but I don't know if this is true or not.
         if (worldObj.isRaining() && isRainExposed()) {
             if (getRandomNumber(10) == 0) {
-                try {
-                    GTMod.achievements.issueAchievement(
-                        this.getWorldObj()
-                            .getPlayerEntityByName(mOwnerName),
-                        "badweather");
-                } catch (Exception ignored) {}
                 GTLog.writeExplosionLog(this, this.getLocalName(), "explosion due to rain!");
                 doEnergyExplosion();
             } else {
@@ -538,12 +532,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
         if (getRandomNumber(3) != 0 || !isRainExposed()) {
             return true;
         }
-        try {
-            GTMod.achievements.issueAchievement(
-                this.getWorldObj()
-                    .getPlayerEntityByName(mOwnerName),
-                "badweather");
-        } catch (Exception ignored) {}
         GTLog.writeExplosionLog(this, this.getLocalName(), "explosion due to thunderstorm!");
         doEnergyExplosion();
         return hasValidMetaTileEntity();
@@ -1328,10 +1316,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
             doExplosion(
                 oldOutput * (getUniversalEnergyStored() >= getUniversalEnergyCapacity() ? 4
                     : getUniversalEnergyStored() >= getUniversalEnergyCapacity() / 2 ? 2 : 1));
-            GTMod.achievements.issueAchievement(
-                this.getWorldObj()
-                    .getPlayerEntityByName(mOwnerName),
-                "electricproblems");
         }
     }
 

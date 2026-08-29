@@ -55,10 +55,6 @@ public class ToolDrillHV extends ToolDrillLV {
     @Override
     public void onToolCrafted(ItemStack aStack, EntityPlayer aPlayer) {
         super.onToolCrafted(aStack, aPlayer);
-        try {
-            GTMod.achievements.issueAchievement(aPlayer, "highpowerdrill");
-            GTMod.achievements.issueAchievement(aPlayer, "buildDDrill");
-        } catch (Exception ignored) {}
     }
 
     @Override

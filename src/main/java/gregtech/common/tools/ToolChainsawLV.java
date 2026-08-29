@@ -70,8 +70,6 @@ public class ToolChainsawLV extends ToolSaw {
     public void onToolCrafted(ItemStack aStack, EntityPlayer aPlayer) {
         super.onToolCrafted(aStack, aPlayer);
         try {
-            GTMod.achievements.issueAchievement(aPlayer, "brrrr");
-            GTMod.achievements.issueAchievement(aPlayer, "buildChainsaw");
         } catch (Exception ignored) {}
     }
 

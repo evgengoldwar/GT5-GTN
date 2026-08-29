@@ -175,10 +175,6 @@ public class MTEScanner extends MTEBasicMachine {
         if (mProgresstime >= (mMaxProgresstime - 1)) {
             if ((this.mOutputItems[0] != null) && (this.mOutputItems[0].getUnlocalizedName()
                 .equals("gt.metaitem.01.32707"))) {
-                GTMod.achievements.issueAchievement(
-                    aBaseMetaTileEntity.getWorld()
-                        .getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()),
-                    "scanning");
             }
         }
         super.onPostTick(aBaseMetaTileEntity, aTick);

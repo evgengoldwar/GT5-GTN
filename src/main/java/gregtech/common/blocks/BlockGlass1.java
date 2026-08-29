@@ -37,7 +37,6 @@ public class BlockGlass1 extends BlockCasingsAbstract {
         register(4, ItemList.Hawking_Glass, translatedText("gt.casing.hawking-focus"));
         register(5, ItemList.NaniteShieldingGlass);
         register(6, ItemList.Spinmatron_Chamber_Grate);
-        register(7, ItemList.Glass_ExoFoundry);
         register(8, ItemList.ComplexNanochipGlass);
         register(9, ItemList.ElectromagneticWaveguide);
         register(10, ItemList.ReinforcedGlass);

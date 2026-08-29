@@ -27,11 +27,6 @@ public class BlockCasings13 extends BlockCasingsAbstract {
         register(7, ItemList.FieldEnergyAbsorberCasing);
         register(8, ItemList.LoadbearingDistributionCasing);
         register(9, ItemList.NaniteFramework);
-        register(10, ItemList.ColliderCasing);
-        register(11, ItemList.CMSCasing);
-        register(12, ItemList.ATLASCasing);
-        register(13, ItemList.ALICECasing);
-        register(14, ItemList.LHCbCasing);
         register(15, ItemList.NaquadahReactorCasing);
     }
 

@@ -163,8 +163,5 @@ public class ToolHardHammer extends GTTool {
     @Override
     public void onToolCrafted(ItemStack aStack, EntityPlayer aPlayer) {
         super.onToolCrafted(aStack, aPlayer);
-        try {
-            GTMod.achievements.issueAchievement(aPlayer, "tools");
-        } catch (Exception ignored) {}
     }
 }

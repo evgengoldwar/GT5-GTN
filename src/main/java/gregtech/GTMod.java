@@ -112,7 +112,6 @@ import gregtech.loaders.load.FuelLoader;
 import gregtech.loaders.load.GTItemIterator;
 import gregtech.loaders.load.MTERecipeLoader;
 import gregtech.loaders.misc.CoverLoader;
-import gregtech.loaders.misc.GTAchievements;
 import gregtech.loaders.misc.GTBees;
 import gregtech.loaders.postload.BlockResistanceLoader;
 import gregtech.loaders.postload.BookAndLootLoader;
@@ -248,8 +247,6 @@ public class GTMod {
     @Deprecated // should be removed after all mods have updated..
     public static GTProxy gregtechproxy;
     public static final boolean DEBUG = Boolean.getBoolean("gt.debug");
-
-    public static GTAchievements achievements;
 
     public GTMod() {
         GTValues.DW = new GTDummyWorld();
@@ -596,8 +593,6 @@ public class GTMod {
         GTPostLoad.addCauldronRecipe();
         GTPostLoad.identifyAnySteam();
         GTPostLoad.processToolboxBans();
-
-        achievements = new GTAchievements();
 
         GTRecipe.GTppRecipeHelper = true;
         GT_FML_LOGGER.debug("GTMod: Loading finished, de-allocating temporary Init Variables.");

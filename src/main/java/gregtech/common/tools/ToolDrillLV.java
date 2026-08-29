@@ -94,8 +94,6 @@ public class ToolDrillLV extends GTTool {
         aPlayer.triggerAchievement(AchievementList.buildPickaxe);
         aPlayer.triggerAchievement(AchievementList.buildBetterPickaxe);
         try {
-            GTMod.achievements.issueAchievement(aPlayer, "driltime");
-            GTMod.achievements.issueAchievement(aPlayer, "buildDrill");
         } catch (Exception ignored) {}
     }
 

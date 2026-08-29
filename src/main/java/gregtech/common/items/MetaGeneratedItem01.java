@@ -1724,17 +1724,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.METALLUM, 4L),
                 new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 4L)));
 
-        // IV Battery
-        ItemList.Energy_LapotronicOrb.set(
-            addItemWithLocalizationKeys(
-                Energy_Lapotronic_Orb.ID,
-                "gt.item.battery.lapotronic_orb.name",
-                "gt.item.battery.re.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.VITREUS, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 16L),
-                OrePrefixes.battery.get(Materials.IV)));
-
         // ZPM Module
         ItemList.ZPM.set(
             addItemWithLocalizationKeys(
@@ -5177,7 +5166,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
         registerTieredTooltip(ItemList.Battery_RE_HV_Cadmium.get(1), HV);
         registerTieredTooltip(ItemList.Battery_RE_HV_Lithium.get(1), HV);
         registerTieredTooltip(ItemList.Battery_RE_HV_Sodium.get(1), HV);
-        registerTieredTooltip(ItemList.Energy_LapotronicOrb.get(1), IV);
         registerTieredTooltip(ItemList.ZPM.get(1), ZPM);
         registerTieredTooltip(ItemList.Energy_LapotronicOrb2.get(1), LuV);
         registerTieredTooltip(ItemList.ZPM2.get(1), UV);

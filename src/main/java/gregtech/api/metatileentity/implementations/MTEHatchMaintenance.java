@@ -409,7 +409,6 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
         }
         if (mSolderingTool && aPlayer instanceof EntityPlayerMP tPlayer) {
             try {
-                GTMod.achievements.issueAchievement(tPlayer, "maintainance");
             } catch (Exception ignored) {}
         }
     }

@@ -3196,11 +3196,6 @@ public class MTERecipeLoader implements Runnable {
                 GTModHandler.getIC2Item("lapotronCrystal", 1L, WILDCARD), 'C', ItemList.Emitter_EV, 'G',
                 OrePrefixes.circuit.get(Materials.EV), 'P', ItemList.Field_Generator_EV });
         GTModHandler.addCraftingRecipe(
-            ItemList.MicroTransmitter_IV.get(1L),
-            GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { "CPC", aTextCableHull, "GBG", 'M', ItemList.Hull_IV, 'B', ItemList.Energy_LapotronicOrb, 'C',
-                ItemList.Emitter_IV, 'G', OrePrefixes.circuit.get(Materials.IV), 'P', ItemList.Field_Generator_IV });
-        GTModHandler.addCraftingRecipe(
             ItemList.MicroTransmitter_LUV.get(1L),
             GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] { "CPC", aTextCableHull, "GBG", 'M', ItemList.Hull_LuV, 'B', ItemList.Energy_LapotronicOrb2,
@@ -3234,11 +3229,6 @@ public class MTERecipeLoader implements Runnable {
             if (NotEnoughItems.isModLoaded()) {}
         }
 
-        GTModHandler.addCraftingRecipe(
-            ItemList.Machine_HV_LightningRod.get(1L),
-            GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { "LTL", "TMT", "LTL", 'M', ItemList.Hull_LuV, 'L', ItemList.Energy_LapotronicOrb, 'T',
-                ItemList.Transformer_ZPM_LuV });
         GTModHandler.addCraftingRecipe(
             ItemList.Machine_EV_LightningRod.get(1L),
             GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
