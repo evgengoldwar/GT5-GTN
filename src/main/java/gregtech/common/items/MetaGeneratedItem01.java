@@ -3143,13 +3143,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.ITER, 1L)));
 
-        ItemList.Tool_Cheat.set(
-            addItemWithLocalizationKeys(
-                Tool_Cheat.ID,
-                "gt.item.tool.debug_scanner.name",
-                "gt.item.tool.debug_scanner.tooltip",
-                BehaviourScanner.INSTANCE,
-                new TCAspects.TC_AspectStack(TCAspects.NEBRISUM, 64L)));
         ItemList.Tool_Scanner.set(
             addItemWithLocalizationKeys(
                 Tool_Scanner.ID,

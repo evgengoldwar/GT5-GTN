@@ -547,7 +547,6 @@ public enum ItemList implements IItemContainer {
     Tool_Lighter_Platinum_Empty,
     Tool_Lighter_Platinum_Used,
     Tool_Lighter_Platinum_Full,
-    Tool_Cheat,
     Tool_Scanner,
     Tool_DataOrb,
     Tool_DataStick,
