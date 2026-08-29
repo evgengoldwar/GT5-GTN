@@ -82,7 +82,6 @@ import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
 import gregtech.api.metatileentity.CommonMetaTileEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.net.GTPacketClientPreference;
-import gregtech.api.net.cape.GTPacketSetCape;
 import gregtech.api.render.RenderOverlay;
 import gregtech.api.util.ColorsMetadataSection;
 import gregtech.api.util.ColorsMetadataSectionSerializer;
@@ -107,7 +106,6 @@ import gregtech.common.entity.EntityDrone;
 import gregtech.common.entity.EntityPowderBarrelPrimed;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.toolbox.ToolboxUtil;
-import gregtech.common.misc.GTCapeCommand;
 import gregtech.common.misc.GTPowerfailCommandClient;
 import gregtech.common.networkanalyzer.events.WorldOverlayRenderer;
 import gregtech.common.pollution.Pollution;
@@ -187,7 +185,6 @@ public class GTClient extends GTProxy {
 
         ClientCommandHandler.instance.registerCommand(new GTPowerfailCommandClient());
         ClientCommandHandler.instance.registerCommand(new PowerGogglesCommand());
-        ClientCommandHandler.instance.registerCommand(new GTCapeCommand());
 
         if (Mods.Navigator.isModLoaded()) {
             registerMapLayers();
@@ -348,7 +345,6 @@ public class GTClient extends GTProxy {
     private void onPlayerFirstTick() {
         mFirstTick = false;
         GTValues.NW.sendToServer(new GTPacketClientPreference(mPreference));
-        GTValues.NW.sendToServer(new GTPacketSetCape(Client.preference.selectedCape));
 
         if (!Minecraft.getMinecraft()
             .isSingleplayer()) {
@@ -384,7 +380,6 @@ public class GTClient extends GTProxy {
             }
             if (e.isWorldRunning) {
                 GTValues.NW.sendToServer(new GTPacketClientPreference(mPreference));
-                GTValues.NW.sendToServer(new GTPacketSetCape(Client.preference.selectedCape));
             }
         }
     }

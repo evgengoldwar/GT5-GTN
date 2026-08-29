@@ -2,9 +2,6 @@ package gregtech.api.net;
 
 import java.util.Arrays;
 
-import gregtech.api.net.cape.GTPacketBroadcastCapes;
-import gregtech.api.net.cape.GTPacketListCapes;
-import gregtech.api.net.cape.GTPacketSetCape;
 import gregtech.common.networkanalyzer.net.GTPacketNetworkAnalyzer;
 import gregtech.common.networkanalyzer.net.GTPacketNetworkAnalyzerMode;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -30,7 +27,6 @@ public enum GTPacketTypes {
     NODE_INFO(29, new GTPacketNodeInfo()),
     COIL_STATUS(30, new GTCoilStatus()),
     PLAYER_TELEPORT(31, new PacketTeleportPlayer()),
-    LMA_CRAFTING_FX(32, new GTPacketLMACraftingFX()),
     SEND_WIRELESS_EU(33, new GTPacketUpdatePowerGoggles()),
     OVERWRITE_POWER_GOGGLES_MEASUREMENTS(34, new GTPacketOverwritePowerGogglesMeasurements()),
     TETHER(35, new GTPacketTether()),
@@ -38,9 +34,6 @@ public enum GTPacketTypes {
     ON_POWERFAIL(37, new GTPacketOnPowerfail()),
     CLEAR_POWERFAIL(38, new GTPacketClearPowerfail()),
     CHAT(39, new GTPacketChat()),
-    BROADCAST_CAPES(40, new GTPacketBroadcastCapes()),
-    LIST_CAPES(41, new GTPacketListCapes()),
-    SET_CAPE(42, new GTPacketSetCape()),
     TOOLBOX_EVENT(43, new GTPacketToolboxEvent()),
     NETWORK_ANALYZER(44, new GTPacketNetworkAnalyzer()),
     NETWORK_ANALYZER_MODE(45, new GTPacketNetworkAnalyzerMode()),
