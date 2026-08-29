@@ -12,7 +12,7 @@ import com.cleanroommc.modularui.widgets.layout.Grid;
 
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.common.covers.CoverNeedMaintainance;
+import gregtech.common.covers.redstone.CoverNeedMaintainance;
 import gregtech.common.covers.conditions.MaintenanceAlertCondition;
 import gregtech.common.covers.modes.RedstoneMode;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;

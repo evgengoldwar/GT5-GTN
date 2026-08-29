@@ -252,7 +252,7 @@ import gregtech.api.items.MetaGeneratedItemX32;
 import gregtech.api.objects.ItemData;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTOreDictUnificator;
-import gregtech.common.covers.CoverMetricsTransmitter;
+import gregtech.common.covers.redstone.CoverMetricsTransmitter;
 import gregtech.common.powergoggles.ItemPowerGoggles;
 import gregtech.common.render.items.CosmicNeutroniumMetaItemRenderer;
 import gregtech.common.render.items.GlitchEffectMetaItemRenderer;

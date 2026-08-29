@@ -1,10 +1,10 @@
 package gregtech.common.items;
 
 import static gregtech.api.enums.Mods.GregTech;
-import static gregtech.common.covers.CoverMetricsTransmitter.CARD_STATE_KEY;
-import static gregtech.common.covers.CoverMetricsTransmitter.FREQUENCY_LSB_KEY;
-import static gregtech.common.covers.CoverMetricsTransmitter.FREQUENCY_MSB_KEY;
-import static gregtech.common.covers.CoverMetricsTransmitter.MACHINE_KEY;
+import static gregtech.common.covers.redstone.CoverMetricsTransmitter.CARD_STATE_KEY;
+import static gregtech.common.covers.redstone.CoverMetricsTransmitter.FREQUENCY_LSB_KEY;
+import static gregtech.common.covers.redstone.CoverMetricsTransmitter.FREQUENCY_MSB_KEY;
+import static gregtech.common.covers.redstone.CoverMetricsTransmitter.MACHINE_KEY;
 
 import java.util.ArrayList;
 import java.util.List;

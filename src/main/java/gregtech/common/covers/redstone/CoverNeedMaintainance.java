@@ -1,4 +1,4 @@
-package gregtech.common.covers;
+package gregtech.common.covers.redstone;
 
 import static gregtech.api.util.GTUtility.*;
 import static gregtech.common.gui.mui1.cover.NeedMaintainanceUIFactory.getMaintenanceIssuesCountChat;

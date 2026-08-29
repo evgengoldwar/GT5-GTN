@@ -1,9 +1,10 @@
-package gregtech.common.covers;
+package gregtech.common.covers.redstone;
 
 import static net.minecraft.util.StatCollector.translateToLocal;
 
 import java.util.function.Function;
 
+import gregtech.common.covers.Invertable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

@@ -1,4 +1,4 @@
-package gregtech.common.covers;
+package gregtech.common.covers.redstone;
 
 import java.util.UUID;
 

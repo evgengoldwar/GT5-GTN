@@ -9,7 +9,7 @@ import com.gtnewhorizons.modularui.common.widget.TextWidget;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.common.covers.Base.Cover;
-import gregtech.common.covers.CoverEUMeter;
+import gregtech.common.covers.redstone.CoverEUMeter;
 import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerCycleButtonWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerNumericWidget;

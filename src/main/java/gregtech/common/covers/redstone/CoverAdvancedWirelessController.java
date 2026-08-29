@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
-import gregtech.common.covers.CoverWirelessController;
 import gregtech.common.gui.modularui.cover.CoverAdvancedWirelessControllerGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 

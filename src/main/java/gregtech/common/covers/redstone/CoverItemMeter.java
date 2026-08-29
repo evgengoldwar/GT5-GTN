@@ -1,15 +1,10 @@
-package gregtech.common.covers;
-
-import java.util.Arrays;
+package gregtech.common.covers.redstone;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -19,40 +14,47 @@ import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
-import gregtech.common.gui.modularui.cover.CoverLiquidMeterGui;
+import gregtech.common.gui.modularui.cover.CoverItemMeterGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
-import gregtech.common.gui.mui1.cover.LiquidMeterUIFactory;
-import gregtech.common.tileentities.storage.MTEDigitalTankBase;
+import gregtech.common.gui.mui1.cover.ItemMeterUIFactory;
+import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
+import gregtech.common.tileentities.storage.MTEDigitalChestBase;
 import io.netty.buffer.ByteBuf;
 
-/**
- * TODO: Implement overlay rendering only with {@link Cover#getOverlayTexture()}
- */
-public class CoverLiquidMeter extends Cover implements Invertable {
+public class CoverItemMeter extends Cover {
 
     private boolean inverted;
-    /**
-     * The special value {@code 0} means threshold check is disabled.
-     */
+    /** The special value {@code -1} means all slots. */
+    private int slot;
+    /** The special value {@code 0} means threshold check is disabled. */
     private int threshold;
 
-    public CoverLiquidMeter(CoverContext context, ITexture coverTexture) {
+    public CoverItemMeter(CoverContext context, ITexture coverTexture) {
         super(context, coverTexture);
         inverted = false;
+        slot = -1;
         threshold = 0;
     }
 
-    @Override
+    public int getSlot() {
+        return this.slot;
+    }
+
+    public CoverItemMeter setSlot(int slot) {
+        this.slot = slot;
+        return this;
+    }
+
     public boolean isInverted() {
         return this.inverted;
     }
 
-    @Override
-    public CoverLiquidMeter setInverted(boolean inverted) {
+    public CoverItemMeter setInverted(boolean inverted) {
         this.inverted = inverted;
         return this;
     }
@@ -61,7 +63,7 @@ public class CoverLiquidMeter extends Cover implements Invertable {
         return this.threshold;
     }
 
-    public CoverLiquidMeter setThreshold(int threshold) {
+    public CoverItemMeter setThreshold(int threshold) {
         this.threshold = threshold;
         return this;
     }
@@ -70,12 +72,14 @@ public class CoverLiquidMeter extends Cover implements Invertable {
     protected void readDataFromNbt(NBTBase nbt) {
         NBTTagCompound tag = (NBTTagCompound) nbt;
         inverted = tag.getBoolean("invert");
+        slot = tag.getInteger("slot");
         threshold = tag.getInteger("threshold");
     }
 
     @Override
     public void readDataFromPacket(ByteArrayDataInput byteData) {
         inverted = byteData.readBoolean();
+        slot = byteData.readInt();
         threshold = byteData.readInt();
     }
 
@@ -83,6 +87,7 @@ public class CoverLiquidMeter extends Cover implements Invertable {
     protected @NotNull NBTBase saveDataToNbt() {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setBoolean("invert", inverted);
+        tag.setInteger("slot", slot);
         tag.setInteger("threshold", threshold);
         return tag;
     }
@@ -90,53 +95,67 @@ public class CoverLiquidMeter extends Cover implements Invertable {
     @Override
     protected void writeDataToByteBuf(ByteBuf byteBuf) {
         byteBuf.writeBoolean(inverted);
+        byteBuf.writeInt(slot);
         byteBuf.writeInt(threshold);
     }
 
-    public static byte computeSignalBasedOnFluid(ICoverable tileEntity, boolean inverted, int threshold) {
-        if (tileEntity instanceof IFluidHandler) {
-            FluidTankInfo[] tanks = ((IFluidHandler) tileEntity).getTankInfo(ForgeDirection.UNKNOWN);
-            long max = 0;
-            long used = 0;
-            if (tanks != null) {
-                for (FluidTankInfo tank : tanks) {
-                    if (tank != null) {
-                        if (tileEntity instanceof BaseMetaTileEntity
-                            && ((BaseMetaTileEntity) tileEntity).getMetaTileEntity() instanceof MTEDigitalTankBase) {
-                            max += ((MTEDigitalTankBase) ((BaseMetaTileEntity) tileEntity).getMetaTileEntity())
-                                .getRealCapacity();
-                        } else max += tank.capacity;
-                        FluidStack tLiquid = tank.fluid;
-                        if (tLiquid != null) {
-                            used += tLiquid.amount;
-                        }
-                    }
+    public static byte computeSignalBasedOnItems(ICoverable tileEntity, boolean inverted, int threshold, int slot,
+        int ordinalSide) {
+        long max = 0;
+        long used = 0;
+        final IMetaTileEntity mte = ((IGregTechTileEntity) tileEntity).getMetaTileEntity();
+        if (mte instanceof MTEDigitalChestBase dc) {
+            max = dc.getMaxItemCount();
+            used = dc.getProgresstime();
+        } else if (mte instanceof MTEHatchOutputBusME meoutputbus) {
+            // todo for cache mode
+            if (meoutputbus.hasPhysicalSpace()) {
+                max = 64;
+            }
+        } else {
+            final int[] slots = slot >= 0 ? new int[] { slot } : tileEntity.getAccessibleSlotsFromSide(ordinalSide);
+
+            for (int i : slots) {
+                if (i >= 0 && i < tileEntity.getSizeInventory()) {
+                    max += 64;
+                    final ItemStack stack = tileEntity.getStackInSlot(i);
+                    if (stack != null) used += ((long) stack.stackSize << 6) / stack.getMaxStackSize();
                 }
             }
-
-            return GTUtility.convertRatioToRedstone(used, max, threshold, inverted);
-        } else {
-            return 0;
         }
+
+        return GTUtility.convertRatioToRedstone(used, max, threshold, inverted);
     }
 
     @Override
     public void doCoverThings(byte aInputRedstone, long aTimer) {
         ICoverable coverable = coveredTile.get();
         if (coverable != null) {
-            byte signal = computeSignalBasedOnFluid(coverable, inverted, threshold);
+            byte signal = computeSignalBasedOnItems(coverable, inverted, threshold, slot, coverSide.ordinal());
             coverable.setOutputRedstoneSignal(coverSide, signal);
         }
     }
 
     @Override
     public void onCoverScrewdriverClick(EntityPlayer aPlayer, float aX, float aY, float aZ) {
-        if (inverted) {
-            inverted = false;
-            GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.normal");
+        ICoverable coverable = coveredTile.get();
+        if (coverable == null) {
+            return;
+        }
+        if (aPlayer.isSneaking()) {
+            if (inverted) {
+                inverted = false;
+                GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.normal");
+            } else {
+                inverted = true;
+                GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.inverted");
+            }
         } else {
-            inverted = true;
-            GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.inverted");
+            slot++;
+            if (slot > coverable.getSizeInventory()) slot = -1;
+
+            if (slot == -1) GTUtility.sendChatTrans(aPlayer, "GT5U.chat.cover.slot.all");
+            else GTUtility.sendChatTrans(aPlayer, "GT5U.chat.cover.slot", slot);
         }
     }
 
@@ -185,18 +204,6 @@ public class CoverLiquidMeter extends Cover implements Invertable {
         return 5;
     }
 
-    private int getMaxCapacity() {
-        final ICoverable tile = getTile();
-        if (!tile.isDead() && tile instanceof IFluidHandler) {
-            FluidTankInfo[] tanks = ((IFluidHandler) tile).getTankInfo(ForgeDirection.UNKNOWN);
-            return Arrays.stream(tanks)
-                .mapToInt(tank -> tank.capacity)
-                .sum();
-        } else {
-            return -1;
-        }
-    }
-
     // GUI stuff
 
     @Override
@@ -205,13 +212,13 @@ public class CoverLiquidMeter extends Cover implements Invertable {
     }
 
     @Override
-    protected @NotNull CoverBaseGui<CoverLiquidMeter> getCoverGui() {
-        return new CoverLiquidMeterGui(this, getMaxCapacity());
+    protected @NotNull CoverBaseGui<?> getCoverGui() {
+        return new CoverItemMeterGui(this);
     }
 
     @Override
     public ModularWindow createWindow(CoverUIBuildContext buildContext) {
-        return new LiquidMeterUIFactory(buildContext, getMaxCapacity()).createWindow();
+        return new ItemMeterUIFactory(buildContext).createWindow();
     }
 
 }
