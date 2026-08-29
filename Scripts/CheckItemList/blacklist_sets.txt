@@ -1,0 +1,43 @@
+# Blacklist for .set() calls
+# Elements with .set() calls will be ignored
+# Add one element per line
+# Lines starting with '#' are ignored
+Armor_Core_T1
+Armor_Core_T2
+Armor_Core_T3
+Armor_Core_T4
+Armor_Frame_Adaptive
+Armor_Frame_Bulwark
+Armor_Frame_Heavy
+Armor_Frame_Infinity
+Armor_Frame_Light
+Armor_Frame_Lightning
+Armor_Frame_Medium
+Armor_Frame_Morphic
+Armor_Frame_Nimble
+Armor_Frame_Tough
+Augment_Apiarist
+Augment_ApprenticeStriders
+Augment_ArchmageStriders
+Augment_CreativeFlight
+Augment_EldritchStriders
+Augment_FallProtection
+Augment_FireImmunity
+Augment_ForceField
+Augment_GogglesOfRevealing
+Augment_Hazmat
+Augment_HoloInventory
+Augment_InertiaCanceling
+Augment_Jetpack
+Augment_JumpBoost
+Augment_KnockbackResistance
+Augment_MilkInfusion
+Augment_NightVision
+Augment_OmniMovement
+Augment_SpaceSuit
+Augment_SpeedBoost
+Augment_StepAssist
+Augment_SwimSpeed
+Augment_Terrasteel
+Augment_VectoredJetpack
+Augment_WaterBreathing
