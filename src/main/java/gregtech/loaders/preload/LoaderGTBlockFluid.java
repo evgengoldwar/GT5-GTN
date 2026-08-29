@@ -114,52 +114,6 @@ public class LoaderGTBlockFluid implements Runnable {
         Materials.Ice.mFluid = FluidRegistry.getFluid("water");
         Materials.Lava.mFluid = FluidRegistry.getFluid("lava");
 
-        GT_FML_LOGGER.debug("GTMod: Register Books.");
-
-        GTUtility.getWrittenBook(
-            "Manual_Printer",
-            "gt.book.printer_manual.name",
-            "Gregorius Techneticies",
-            "gt.book.printer_manual.page00",
-            "gt.book.printer_manual.page01",
-            "gt.book.printer_manual.page02",
-            "gt.book.printer_manual.page03",
-            "gt.book.printer_manual.page04",
-            "gt.book.printer_manual.page05",
-            "gt.book.printer_manual.page06",
-            "gt.book.printer_manual.page07");
-
-        GTUtility.getWrittenBook(
-            "Manual_Punch_Cards",
-            "gt.book.punch_card_manual_v0.name",
-            "Gregorius Techneticies",
-            "gt.book.punch_card_manual_v0.page00",
-            "gt.book.punch_card_manual_v0.page01",
-            "gt.book.punch_card_manual_v0.page02",
-            "gt.book.punch_card_manual_v0.page03",
-            "gt.book.punch_card_manual_v0.page04",
-            "gt.book.punch_card_manual_v0.page05",
-            "gt.book.punch_card_manual_v0.page06",
-            "gt.book.punch_card_manual_v0.page07",
-            "gt.book.punch_card_manual_v0.page08",
-            "gt.book.punch_card_manual_v0.page09",
-            "gt.book.punch_card_manual_v0.page10",
-            "gt.book.punch_card_manual_v0.page11",
-            "gt.book.punch_card_manual_v0.page12");
-
-        GTUtility.getWrittenBook(
-            "Manual_Microwave",
-            "gt.book.microwave_oven_manual.name",
-            "Kitchen Industries",
-            "gt.book.microwave_oven_manual.page00",
-            "gt.book.microwave_oven_manual.page01",
-            "gt.book.microwave_oven_manual.page02",
-            "gt.book.microwave_oven_manual.page03",
-            "gt.book.microwave_oven_manual.page04",
-            "gt.book.microwave_oven_manual.page05",
-            "gt.book.microwave_oven_manual.page06",
-            "gt.book.microwave_oven_manual.page07");
-
         GT_FML_LOGGER.debug("GTMod: Register Items.");
 
         new ItemIntegratedCircuit();
