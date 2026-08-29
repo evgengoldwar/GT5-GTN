@@ -40,7 +40,6 @@ import gregtech.api.util.GTCreativeTab;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gregtech.api.world.GTWorldgen;
 import gregtech.common.GTDummyWorld;
 import gregtech.common.covers.CoverPosition;
 
@@ -116,10 +115,6 @@ public class GregTechAPI {
      * automatically considered a Dimension, without being in this List.
      */
     public static final Collection<Integer> sDimensionalList = new HashSet<>();
-    /**
-     * Lists of all the active World generation Features, these are getting Initialized in Postload!
-     */
-    public static final List<GTWorldgen> sWorldgenList = new ArrayList<>();
     /**
      * A List containing all the Materials, which are somehow in use by GT and therefor receive a specific Set of Items.
      */

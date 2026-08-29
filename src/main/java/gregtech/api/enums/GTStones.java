@@ -2,7 +2,6 @@ package gregtech.api.enums;
 
 import gregtech.api.GregTechAPI;
 import gregtech.common.StoneBuilder;
-import gregtech.common.WorldgenStone;
 
 public enum GTStones {
 
@@ -391,10 +390,6 @@ public enum GTStones {
 
     GTStones(StoneBuilder stone) {
         this.stone = stone;
-    }
-
-    public WorldgenStone addGTStone() {
-        return new WorldgenStone(this.stone);
     }
 
 }

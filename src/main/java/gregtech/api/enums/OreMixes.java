@@ -11,7 +11,6 @@ import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.OreMixBuilder;
-import gregtech.common.WorldgenGTOreLayer;
 
 public enum OreMixes {
 
@@ -401,10 +400,6 @@ public enum OreMixes {
 
     OreMixes(OreMixBuilder oreMixBuilder) {
         this.oreMixBuilder = oreMixBuilder;
-    }
-
-    public WorldgenGTOreLayer addGTOreLayer() {
-        return new WorldgenGTOreLayer(this.oreMixBuilder);
     }
 
     // used in the coremod, for the shuttle schematic recipe

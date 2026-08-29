@@ -184,7 +184,6 @@ import gregtech.api.threads.RunnableSound;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.ItemIntegratedCircuit;
 import gregtech.common.items.toolbox.ToolboxUtil;
-import gregtech.common.ores.OreManager;
 import gregtech.nei.FluidDisplayStackMode;
 import ic2.api.recipe.ICannerBottleRecipeManager;
 import ic2.api.recipe.IRecipeInput;
@@ -3163,30 +3162,6 @@ public class GTUtility {
     public static boolean isPartOfOrePrefix(ItemStack aStack, OrePrefixes aPrefix) {
         return GTOreDictUnificator.getAssociation(aStack) != null
             && GTOreDictUnificator.getAssociation(aStack).mPrefix.equals(aPrefix);
-    }
-
-    public static boolean isOre(Block block, int meta) {
-        OptionalBoolean isOre = OreManager.isOre(block, meta);
-
-        if (isOre != OptionalBoolean.NONE) return isOre.getAsBoolean();
-
-        return isOre(new ItemStack(block, 1, meta));
-    }
-
-    public static boolean isOre(ItemStack aStack) {
-        int tItem = GTUtility.stackToInt(aStack);
-        if (sOreTable.containsKey(tItem)) {
-            return sOreTable.get(tItem);
-        }
-        for (int id : OreDictionary.getOreIDs(aStack)) {
-            if (OreDictionary.getOreName(id)
-                .startsWith("ore")) {
-                sOreTable.put(tItem, true);
-                return true;
-            }
-        }
-        sOreTable.put(tItem, false);
-        return false;
     }
 
     public static Optional<GTRecipe> reverseShapelessRecipe(ItemStack output, Object... aRecipe) {

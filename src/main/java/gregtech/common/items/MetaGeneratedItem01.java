@@ -4096,10 +4096,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
             ItemList.Electric_Pump_LV.get(1L),
             TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_PUMP)),
             context -> new CoverPump(context, 32, TextureFactory.of(OVERLAY_PUMP)));
-        CoverRegistry.registerCover(
-            ItemList.Electric_Pump_MV.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[2][0], TextureFactory.of(OVERLAY_PUMP)),
-            context -> new CoverPump(context, 128, TextureFactory.of(OVERLAY_PUMP)));
+
         CoverRegistry.registerCover(
             ItemList.Electric_Pump_HV.get(1L),
             TextureFactory.of(MACHINE_CASINGS[3][0], TextureFactory.of(OVERLAY_PUMP)),
@@ -4668,13 +4665,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 OrePrefixes.ring.get(Materials.AnyRubber), 'X', OrePrefixes.rotor.get(Materials.Tin), 'S',
                 OrePrefixes.screw.get(Materials.Tin), 'W', OrePrefixes.cableGt01.get(Materials.Tin), 'P',
                 OrePrefixes.pipeMedium.get(Materials.Bronze) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Electric_Pump_MV.get(1L),
-            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE,
-            new Object[] { "SXO", "dPw", "OMW", 'M', ItemList.Electric_Motor_MV, 'O',
-                OrePrefixes.ring.get(Materials.AnyRubber), 'X', OrePrefixes.rotor.get(Materials.Bronze), 'S',
-                OrePrefixes.screw.get(Materials.Bronze), 'W', OrePrefixes.cableGt01.get(Materials.AnyCopper), 'P',
-                OrePrefixes.pipeMedium.get(Materials.Steel) });
+
         GTModHandler.addCraftingRecipe(
             ItemList.Electric_Pump_HV.get(1L),
             GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE,

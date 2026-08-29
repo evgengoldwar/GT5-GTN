@@ -20,8 +20,6 @@ import gregtech.api.interfaces.IOreRecipeRegistrator;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gregtech.common.ores.OreInfo;
-import gregtech.common.ores.OreManager;
 
 public class ProcessingOre implements IOreRecipeRegistrator {
 
@@ -212,12 +210,6 @@ public class ProcessingOre implements IOreRecipeRegistrator {
             }
 
             ItemStack stoneDust = null;
-
-            try (OreInfo<?> info = OreManager.getOreInfo(aOreStack)) {
-                if (info != null) {
-                    stoneDust = info.stoneType.getDust(true, 1);
-                }
-            }
 
             if (stoneDust == null) {
                 stoneDust = GTOreDictUnificator.getDust(aPrefix.mSecondaryMaterial);

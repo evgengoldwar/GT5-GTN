@@ -533,7 +533,6 @@ public enum ItemList implements IItemContainer {
     Fuel_Can_Plastic_Filled,
     Upgrade_Battery,
     Upgrade_Overclocker,
-    Upgrade_SteamEngine,
     Upgrade_Lock,
     Item_Redstone_Sniffer,
     Cover_FluidLimiter,
@@ -692,14 +691,12 @@ public enum ItemList implements IItemContainer {
     Machine_Bronze_Boiler,
     Machine_Bronze_Boiler_Solar,
     Machine_HP_Solar,
-    Machine_Bronze_CraftingTable,
     Machine_Bronze_Furnace,
     Machine_Bronze_Macerator,
     Machine_Bronze_Extractor,
     Machine_Bronze_Hammer,
     Machine_Bronze_Compressor,
     Machine_Bronze_AlloySmelter,
-    Machine_Bricked_BlastFurnace,
     Machine_Steel_Boiler_Lava,
     Machine_Steel_Boiler,
     Machine_HP_Furnace,
@@ -1381,10 +1378,6 @@ public enum ItemList implements IItemContainer {
 
     Casing_Autoclave,
 
-    Machine_LV_Miner,
-    Machine_MV_Miner,
-    Machine_HV_Miner,
-
     Machine_IndustrialApiary,
     IndustrialApiary_Upgrade_Frame,
     IndustrialApiary_Upgrade_Acceleration_1,
@@ -1514,10 +1507,6 @@ public enum ItemList implements IItemContainer {
     Ingot_Heavy2,
     Ingot_Heavy3,
 
-    Pump_LV,
-    Pump_MV,
-    Pump_HV,
-
     Teleporter,
     Cover_NeedsMaintainance,
     Casing_Turbine,
@@ -1594,7 +1583,6 @@ public enum ItemList implements IItemContainer {
     MobRep_ZPM,
     MobRep_UV,
     Cover_PlayerDetector,
-    Machine_Multi_HeatExchanger,
 
     MagLevPython_MV,
     MagLevPython_HV,
@@ -1612,10 +1600,6 @@ public enum ItemList implements IItemContainer {
     Block_BedrockiumCompressed,
 
     Block_BrittleCharcoal,
-    Seismic_Prospector_Adv_LV,
-    Seismic_Prospector_Adv_MV,
-    Seismic_Prospector_Adv_HV,
-    Seismic_Prospector_Adv_EV,
 
     Empty_Board_Basic,
     Empty_Board_Elite,
@@ -2510,9 +2494,7 @@ public enum ItemList implements IItemContainer {
 
     ChaosLocator,
 
-    CokeOvenController,
     CokeOvenCasing,
-    CokeOvenHatch,
 
     Mechanical_Helmet,
     Mechanical_Chestplate,
@@ -2582,9 +2564,6 @@ public enum ItemList implements IItemContainer {
     CompressedInputBusUIV,
     CompressedInputBusUMV,
     CompressedInputBusUXV,
-
-    Boldarnator,
-    ThermalBoiler,
 
     ToolBox,
     MeshInterfaceNanochipCasing,

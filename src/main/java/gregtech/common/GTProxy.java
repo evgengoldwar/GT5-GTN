@@ -121,7 +121,6 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.ManualOreDictTweaks;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.Mods;
 import gregtech.api.enums.OreDictNames;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
@@ -177,7 +176,6 @@ import gregtech.common.pollution.Pollution;
 import gregtech.common.powergoggles.PowerGogglesWorldSavedData;
 import gregtech.common.powergoggles.handlers.PowerGogglesEventHandler;
 import gregtech.common.recipes.MacerationStackConversionRecipe;
-import gregtech.common.worldgen.HEEIslandScanner;
 import gregtech.nei.GTNEIDefaultHandler;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -1072,16 +1070,12 @@ public class GTProxy implements IFuelHandler {
 
         MinecraftForge.EVENT_BUS.register(new SpaceProjectWorldSavedData());
         MinecraftForge.EVENT_BUS.register(new GlobalEnergyWorldSavedData(""));
-        MinecraftForge.EVENT_BUS.register(new GTWorldgenerator.OregenPatternSavedData(""));
         MinecraftForge.EVENT_BUS.register(new GlobalMetricsCoverDatabase());
         MinecraftForge.EVENT_BUS.register(new PowerGogglesWorldSavedData());
         MinecraftForge.EVENT_BUS.register(armorEvents);
         FMLCommonHandler.instance()
             .bus()
             .register(armorEvents);
-        FMLCommonHandler.instance()
-            .bus()
-            .register(new GTWorldgenerator.OregenPatternSavedData(""));
         FMLCommonHandler.instance()
             .bus()
             .register(PowerGogglesEventHandler.getInstance());
@@ -1263,9 +1257,6 @@ public class GTProxy implements IFuelHandler {
         GTMusicSystem.ServerSystem.reset();
         GregTechAPI.sWirelessRedstone.clear();
         GregTechAPI.sAdvancedWirelessRedstone.clear();
-        if (Mods.HardcoreEnderExpansion.isModLoaded()) {
-            HEEIslandScanner.clearCache();
-        }
     }
 
     public void onServerStopped(FMLServerStoppedEvent event) {

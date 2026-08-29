@@ -104,7 +104,6 @@ import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputSlave;
 import gregtech.common.tileentities.machines.MTEHatchInputBusME;
 import gregtech.common.tileentities.machines.MTEHatchInputME;
-import gregtech.common.tileentities.machines.basic.MTEAdvSeismicProspector;
 import gregtech.common.tileentities.machines.basic.MTEBasicMachineWithRecipeBuilder;
 import gregtech.common.tileentities.machines.basic.MTEBetterJukebox;
 import gregtech.common.tileentities.machines.basic.MTEBoxinator;
@@ -113,12 +112,10 @@ import gregtech.common.tileentities.machines.basic.MTEIndustrialApiary;
 import gregtech.common.tileentities.machines.basic.MTEMagLevPylon;
 import gregtech.common.tileentities.machines.basic.MTEMassfabricator;
 import gregtech.common.tileentities.machines.basic.MTEMicrowaveEnergyTransmitter;
-import gregtech.common.tileentities.machines.basic.MTEMiner;
 import gregtech.common.tileentities.machines.basic.MTEModificationTable;
 import gregtech.common.tileentities.machines.basic.MTEMonsterRepellent;
 import gregtech.common.tileentities.machines.basic.MTENameRemover;
 import gregtech.common.tileentities.machines.basic.MTEPotionBrewer;
-import gregtech.common.tileentities.machines.basic.MTEPump;
 import gregtech.common.tileentities.machines.basic.MTEReplicator;
 import gregtech.common.tileentities.machines.basic.MTERockBreaker;
 import gregtech.common.tileentities.machines.basic.MTEScanner;
@@ -1024,21 +1021,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .getStackForm(1L));
     }
 
-    private static void registerMiner() {
-        ItemList.Machine_LV_Miner
-            .set(new MTEMiner(MINER_LV.ID, "basicmachine.miner.tier.01", "Basic Miner", 1).getStackForm(1L));
-        ItemList.Machine_MV_Miner
-            .set(new MTEMiner(MINER_MV.ID, "basicmachine.miner.tier.02", "Good Miner", 2).getStackForm(1L));
-        ItemList.Machine_HV_Miner
-            .set(new MTEMiner(MINER_HV.ID, "basicmachine.miner.tier.03", "Advanced Miner", 3).getStackForm(1L));
-    }
-
-    private static void registerPump() {
-        ItemList.Pump_LV.set(new MTEPump(PUMP_LV.ID, "basicmachine.pump.tier.01", "Basic Pump", 1).getStackForm(1L));
-        ItemList.Pump_MV.set(new MTEPump(PUMP_MV.ID, "basicmachine.pump.tier.02", "Good Pump", 2).getStackForm(1L));
-        ItemList.Pump_HV.set(new MTEPump(PUMP_HV.ID, "basicmachine.pump.tier.03", "Advanced Pump", 3).getStackForm(1L));
-    }
-
     private static void registerTeleporter() {
         ItemList.Teleporter
             .set(new MTETeleporter(TELEPORTER.ID, "basicmachine.teleporter", "Teleporter", 9).getStackForm(1L));
@@ -1157,41 +1139,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "Ultimate Time Anomaly",
                 8).getStackForm(1L));
 
-    }
-
-    private static void registerAdvancedSeismicProspector() {
-        ItemList.Seismic_Prospector_Adv_LV.set(
-            new MTEAdvSeismicProspector(
-                ADVANCED_SEISMIC_PROSPECTOR_LV.ID,
-                "basicmachine.seismicprospector.07",
-                "Advanced Seismic Prospector LV",
-                1,
-                5 * 16 / 2,
-                2).getStackForm(1));
-        ItemList.Seismic_Prospector_Adv_MV.set(
-            new MTEAdvSeismicProspector(
-                ADVANCED_SEISMIC_PROSPECTOR_MV.ID,
-                "basicmachine.seismicprospector.06",
-                "Advanced Seismic Prospector MV",
-                2,
-                7 * 16 / 2,
-                2).getStackForm(1));
-        ItemList.Seismic_Prospector_Adv_HV.set(
-            new MTEAdvSeismicProspector(
-                ADVANCED_SEISMIC_PROSPECTOR_HV.ID,
-                "basicmachine.seismicprospector.05",
-                "Advanced Seismic Prospector HV",
-                3,
-                9 * 16 / 2,
-                2).getStackForm(1));
-        ItemList.Seismic_Prospector_Adv_EV.set(
-            new MTEAdvSeismicProspector(
-                ADVANCED_SEISMIC_PROSPECTOR_EV.ID,
-                "basicmachine.seismicprospector.04",
-                "Advanced Seismic Prospector EV",
-                4,
-                11 * 16 / 2,
-                2).getStackForm(1));
     }
 
     private static void registerMicrowaveEnergyTransmitter() {
@@ -8950,12 +8897,9 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerMassFab();
         registerReplicator();
         registerBrewery();
-        registerMiner();
-        registerPump();
         registerTeleporter();
         registerMonsterRepellator();
         registerMagLevPylon();
-        registerAdvancedSeismicProspector();
         registerMicrowaveEnergyTransmitter();
         registerChestBuffer();
         registerItemFilter();
