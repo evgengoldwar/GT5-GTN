@@ -22,7 +22,6 @@ import net.minecraft.util.IChatComponent;
 
 import com.gtnewhorizon.structurelib.StructureLib;
 
-import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;

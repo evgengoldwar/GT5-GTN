@@ -731,8 +731,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
             ? (IGregTechTileEntity) tileEntity
             : null;
 
-        if (TinkerConstruct.isModLoaded() && isTConstructFaucet(tileEntity))
-            return true;
+        if (TinkerConstruct.isModLoaded() && isTConstructFaucet(tileEntity)) return true;
 
         final IFluidHandler fTileEntity = (tileEntity instanceof IFluidHandler) ? (IFluidHandler) tileEntity : null;
 

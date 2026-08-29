@@ -8,8 +8,6 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ADVANCED_WIRELESS_C
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ARM;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_CONTROLLER;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_CONVEYOR;
-import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_CRAFTING;
-import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_DRAIN;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ENERGYDETECTOR;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FLUIDDETECTOR;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FLUID_STORAGE_MONITOR0;
@@ -23,16 +21,6 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_SCREEN_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_SHUTTER;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_VALVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_WIRELESS_CONTROLLER;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_8V;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_EV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_HV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_IV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_LV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_LuV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_MV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_UV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_ZPM;
 import static gregtech.client.GTTooltipHandler.Tier.ERV;
 import static gregtech.client.GTTooltipHandler.Tier.EV;
 import static gregtech.client.GTTooltipHandler.Tier.HV;
@@ -136,8 +124,6 @@ import static gregtech.common.items.IDMetaItem01.Cover_Chest_Advanced;
 import static gregtech.common.items.IDMetaItem01.Cover_Chest_Basic;
 import static gregtech.common.items.IDMetaItem01.Cover_Chest_Good;
 import static gregtech.common.items.IDMetaItem01.Cover_Controller;
-import static gregtech.common.items.IDMetaItem01.Cover_Crafting;
-import static gregtech.common.items.IDMetaItem01.Cover_Drain;
 import static gregtech.common.items.IDMetaItem01.Cover_EnergyDetector;
 import static gregtech.common.items.IDMetaItem01.Cover_FLuidStorageMonitor;
 import static gregtech.common.items.IDMetaItem01.Cover_FluidDetector;
@@ -150,16 +136,6 @@ import static gregtech.common.items.IDMetaItem01.Cover_RedstoneTransmitter;
 import static gregtech.common.items.IDMetaItem01.Cover_RedstoneTransmitterInternal;
 import static gregtech.common.items.IDMetaItem01.Cover_Screen;
 import static gregtech.common.items.IDMetaItem01.Cover_Shutter;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_8V;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_EV;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_HV;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_IV;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_LV;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_LuV;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_MV;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_UV;
-import static gregtech.common.items.IDMetaItem01.Cover_SolarPanel_ZPM;
 import static gregtech.common.items.IDMetaItem01.Cover_WirelessController;
 import static gregtech.common.items.IDMetaItem01.Cover_Wireless_Energy_Debug;
 import static gregtech.common.items.IDMetaItem01.Cover_Wireless_Energy_LV;
@@ -3350,7 +3326,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.LUX, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.VITREUS, 1L)));
 
-
         ItemList.Cover_Shutter.set(
             addItemWithLocalizationKeys(
                 Cover_Shutter.ID,
@@ -4249,7 +4224,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
         CoverRegistry.registerDecorativeCover(
             ItemList.Cover_Screen.get(1L),
             TextureFactory.of(MACHINE_CASINGS[2][0], screenCoverTexture));
-
 
         CoverRegistry.registerCover(
             ItemList.Cover_Shutter.get(1L),
