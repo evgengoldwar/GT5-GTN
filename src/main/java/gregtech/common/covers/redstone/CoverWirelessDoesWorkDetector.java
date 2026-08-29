@@ -14,7 +14,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.modularui.KeyProvider;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
-import gregtech.common.covers.CoverPosition;
+import gregtech.common.covers.Base.CoverPosition;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.modularui.cover.redstone.CoverWirelessDoesWorkDetectorGui;
 import gregtech.common.gui.mui1.cover.WirelessActivityDetectorUIFactory;

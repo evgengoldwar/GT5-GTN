@@ -12,7 +12,7 @@ import com.gtnewhorizons.modularui.common.widget.textfield.TextFieldWidget;
 
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.gui.modularui.ICoverDataFollowerWidget;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public class CoverDataFollowerTextFieldWidget<T extends Cover> extends TextFieldWidget
     implements ICoverDataFollowerWidget<T, String> {

@@ -72,7 +72,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder.ParticleEventBuilder;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Other;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.CoverFluidRegulator;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;

@@ -1,5 +1,6 @@
 package gregtech.common.covers;
 
+import gregtech.common.covers.Base.CoverIOBase;
 import net.minecraftforge.fluids.Fluid;
 
 import org.jetbrains.annotations.NotNull;

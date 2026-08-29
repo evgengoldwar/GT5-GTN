@@ -13,7 +13,7 @@ import com.google.common.io.ByteArrayDataInput;
 
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.metatileentity.CoverableTileEntity;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import io.netty.buffer.ByteBuf;
 
 /**

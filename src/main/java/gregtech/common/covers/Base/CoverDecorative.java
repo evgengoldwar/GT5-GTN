@@ -1,4 +1,4 @@
-package gregtech.common.covers;
+package gregtech.common.covers.Base;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;

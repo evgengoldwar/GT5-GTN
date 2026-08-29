@@ -15,7 +15,7 @@ import com.gtnewhorizons.modularui.common.widget.TextWidget;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.CoverFluidRegulator;
 import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerNumericWidget;

@@ -18,8 +18,8 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Cover;
-import gregtech.common.covers.CoverDecorative;
+import gregtech.common.covers.Base.Cover;
+import gregtech.common.covers.Base.CoverDecorative;
 import gregtech.common.covers.CoverNone;
 
 public final class CoverRegistry {

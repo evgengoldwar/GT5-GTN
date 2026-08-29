@@ -1,4 +1,4 @@
-package gregtech.common.covers;
+package gregtech.common.covers.Base;
 
 import java.util.Objects;
 

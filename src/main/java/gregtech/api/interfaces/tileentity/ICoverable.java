@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.google.common.io.ByteArrayDataInput;
 
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public interface ICoverable extends IRedstoneTileEntity, IHasInventory, IBasicEnergyContainer {
 

@@ -9,6 +9,7 @@ import java.util.UUID;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.common.covers.Base.CoverLegacyData;
 
 public class CoverEnergyWireless extends CoverLegacyData {
 

@@ -13,7 +13,7 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.common.covers.CoverItemMeter;
-import gregtech.common.covers.CoverPosition;
+import gregtech.common.covers.Base.CoverPosition;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.modularui.cover.redstone.CoverWirelessItemDetectorGui;
 import gregtech.common.gui.mui1.cover.WirelessItemDetectorUIFactory;

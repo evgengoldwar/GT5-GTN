@@ -7,7 +7,7 @@ import com.gtnewhorizons.modularui.api.drawable.IDrawable;
 
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.gui.modularui.ICoverDataFollowerWidget;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public class CoverDataFollowerToggleButtonWidget<T extends Cover> extends CoverCycleButtonWidget
     implements ICoverDataFollowerWidget<T, Boolean> {

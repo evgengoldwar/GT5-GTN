@@ -3,6 +3,7 @@ package gregtech.common.covers;
 import static gregtech.api.enums.GTValues.E;
 import static net.minecraft.util.StatCollector.translateToLocal;
 
+import gregtech.common.covers.Base.Cover;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;

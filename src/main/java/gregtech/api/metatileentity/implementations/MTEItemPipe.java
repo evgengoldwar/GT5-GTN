@@ -44,7 +44,7 @@ import gregtech.api.util.GTItemTransfer;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.ItemMachines;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 @IMetaTileEntity.SkipGenerateDescription
 public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPipe, ILocalizedMetaPipeEntity {

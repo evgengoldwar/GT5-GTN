@@ -13,7 +13,7 @@ import com.cleanroommc.modularui.widgets.layout.Grid;
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTWidgetThemes;
-import gregtech.common.covers.CoverFacadeBase;
+import gregtech.common.covers.Base.CoverFacadeBase;
 
 public class CoverFacadeBaseGui extends CoverBaseGui<CoverFacadeBase> {
 

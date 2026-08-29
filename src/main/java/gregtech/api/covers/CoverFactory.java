@@ -1,6 +1,6 @@
 package gregtech.api.covers;
 
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 @FunctionalInterface
 public interface CoverFactory {

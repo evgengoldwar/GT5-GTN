@@ -44,7 +44,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTWidgetThemes;
 import gregtech.api.net.PacketTeleportPlayer;
-import gregtech.common.covers.CoverPosition;
+import gregtech.common.covers.Base.CoverPosition;
 import gregtech.common.gui.modularui.synchandler.SnifferEntryListSyncHandler;
 import gregtech.common.items.ItemRedstoneSniffer;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;

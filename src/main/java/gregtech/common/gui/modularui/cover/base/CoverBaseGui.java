@@ -20,7 +20,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTWidgetThemes;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.modularui2.widget.CoverTickRateButton;
 
 public class CoverBaseGui<T extends Cover> {

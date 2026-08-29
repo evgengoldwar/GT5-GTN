@@ -29,7 +29,7 @@ import gregtech.api.interfaces.IItemBehaviour;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.items.MetaBaseItem;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public class BehaviourCoverTool extends BehaviourNone {
 

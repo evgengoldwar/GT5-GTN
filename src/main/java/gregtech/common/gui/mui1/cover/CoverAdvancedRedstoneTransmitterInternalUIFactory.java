@@ -3,7 +3,7 @@ package gregtech.common.gui.mui1.cover;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.gui.modularui.CoverUIBuildContext;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.redstone.CoverAdvancedRedstoneTransmitterInternal;
 import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 

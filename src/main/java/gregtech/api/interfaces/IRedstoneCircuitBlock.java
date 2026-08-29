@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 /**
  * Implemented by the MetaTileEntity of the Redstone Circuit Block

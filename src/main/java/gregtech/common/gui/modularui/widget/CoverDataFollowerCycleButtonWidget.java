@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import gregtech.api.gui.modularui.ICoverDataFollowerWidget;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 /**
  * Determines button state with cover data.

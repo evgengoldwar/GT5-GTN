@@ -58,7 +58,7 @@ import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.metatileentity.CoverableTileEntity;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.IIconTexture;
 import gregtech.common.tileentities.storage.MTEDigitalTankBase;

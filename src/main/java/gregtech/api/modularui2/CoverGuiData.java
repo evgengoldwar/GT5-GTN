@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import com.cleanroommc.modularui.factory.SidedPosGuiData;
 
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 /**
  * Holds data regarding the situation in which the cover UI panel gets opened. Also provides some convenient methods.

@@ -1,7 +1,7 @@
 package gregtech.api.gui.widgets;
 
 import static gregtech.api.gui.modularui.GTUITextures.OVERLAY_BUTTON_HOURGLASS;
-import static gregtech.common.covers.Cover.MAX_TICK_RATE_ADDITION;
+import static gregtech.common.covers.Base.Cover.MAX_TICK_RATE_ADDITION;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import com.gtnewhorizons.modularui.common.widget.ButtonWidget;
 import com.gtnewhorizons.modularui.common.widget.FakeSyncWidget;
 
 import gregtech.api.gui.modularui.GTUITextures;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.text.ClientTickRateFormatter;
 
 public class CoverTickRateButton extends ButtonWidget {

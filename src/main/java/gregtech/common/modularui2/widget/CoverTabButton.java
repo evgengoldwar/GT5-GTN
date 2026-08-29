@@ -22,7 +22,7 @@ import com.cleanroommc.modularui.widgets.ButtonWidget;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.modularui2.GTWidgetThemes;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public class CoverTabButton extends ButtonWidget<CoverTabButton> {
 

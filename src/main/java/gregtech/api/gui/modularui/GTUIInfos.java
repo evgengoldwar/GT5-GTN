@@ -27,7 +27,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IHasWorldObjectAndCoords;
 import gregtech.api.net.GTPacketSendCoverData;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public class GTUIInfos {
 

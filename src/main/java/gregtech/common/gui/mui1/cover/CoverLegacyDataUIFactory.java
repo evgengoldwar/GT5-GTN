@@ -1,8 +1,8 @@
 package gregtech.common.gui.mui1.cover;
 
 import gregtech.api.gui.modularui.CoverUIBuildContext;
-import gregtech.common.covers.Cover;
-import gregtech.common.covers.CoverLegacyData;
+import gregtech.common.covers.Base.Cover;
+import gregtech.common.covers.Base.CoverLegacyData;
 
 public abstract class CoverLegacyDataUIFactory extends CoverUIFactory<CoverLegacyData> {
 

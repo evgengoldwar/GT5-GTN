@@ -2,6 +2,7 @@ package gregtech.common.covers;
 
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
+import gregtech.common.covers.Base.Cover;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

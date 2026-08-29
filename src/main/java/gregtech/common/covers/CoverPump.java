@@ -1,5 +1,6 @@
 package gregtech.common.covers;
 
+import gregtech.common.covers.Base.CoverIOBase;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;

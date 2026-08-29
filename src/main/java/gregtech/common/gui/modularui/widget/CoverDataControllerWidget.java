@@ -22,7 +22,7 @@ import gregtech.api.covers.CoverRegistry;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.gui.modularui.ICoverDataFollowerWidget;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public class CoverDataControllerWidget<T extends Cover>
     extends com.gtnewhorizons.modularui.common.widget.MultiChildWidget

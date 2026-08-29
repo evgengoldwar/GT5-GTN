@@ -7,7 +7,7 @@ import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import com.gtnewhorizons.modularui.common.widget.SlotGroup;
 
 import gregtech.api.gui.modularui.CoverUIBuildContext;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.CoverChest;
 import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 

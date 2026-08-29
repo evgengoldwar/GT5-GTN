@@ -9,7 +9,7 @@ import com.gtnewhorizons.modularui.common.widget.textfield.NumericWidget;
 
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.gui.modularui.ICoverDataFollowerWidget;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public class CoverDataFollowerNumericWidget<T extends Cover> extends NumericWidget
     implements ICoverDataFollowerWidget<T, Double> {

@@ -16,7 +16,7 @@ import com.cleanroommc.modularui.factory.AbstractUIFactory;
 import com.cleanroommc.modularui.factory.GuiManager;
 
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 /**
  * Responsible for creating cover GUI. See also: {@link Cover#buildUI}

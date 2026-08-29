@@ -41,7 +41,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.GTDummyWorld;
-import gregtech.common.covers.CoverPosition;
+import gregtech.common.covers.Base.CoverPosition;
 
 /**
  * Please do not include this File in your Mod-download as it ruins compatibility, like with the IC2-API You may just

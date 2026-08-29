@@ -25,7 +25,7 @@ import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.gui.widgets.CoverTickRateButton;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 
 public class CoverUIFactory<C> {
 

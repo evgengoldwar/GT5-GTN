@@ -2,6 +2,7 @@ package gregtech.common.covers;
 
 import static gregtech.api.objects.XSTR.XSTR_INSTANCE;
 
+import gregtech.common.covers.Base.Cover;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;

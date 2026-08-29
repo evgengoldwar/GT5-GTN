@@ -7,7 +7,7 @@ import com.gtnewhorizons.modularui.api.widget.Widget;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 
 /**

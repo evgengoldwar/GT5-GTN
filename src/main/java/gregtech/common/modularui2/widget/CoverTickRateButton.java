@@ -12,7 +12,7 @@ import com.cleanroommc.modularui.value.sync.SyncHandlers;
 import com.cleanroommc.modularui.widgets.ButtonWidget;
 
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.text.ClientTickRateFormatter;
 
 public class CoverTickRateButton extends ButtonWidget<CoverTickRateButton> {

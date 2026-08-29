@@ -14,7 +14,7 @@ import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.CoverableTileEntity;
 import gregtech.api.objects.blockupdate.BlockUpdateHandler;
-import gregtech.common.covers.Cover;
+import gregtech.common.covers.Base.Cover;
 import io.netty.buffer.ByteBuf;
 
 /**

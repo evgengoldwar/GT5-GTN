@@ -1,5 +1,6 @@
 package gregtech.common.covers;
 
+import gregtech.common.covers.Base.CoverFacadeBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

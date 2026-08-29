@@ -5,6 +5,7 @@ import static gregtech.api.enums.GTValues.V;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.common.covers.Base.CoverLegacyData;
 
 public class CoverEnergyWirelessDebug extends CoverLegacyData {
 
