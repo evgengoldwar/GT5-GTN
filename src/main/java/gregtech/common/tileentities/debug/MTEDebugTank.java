@@ -8,7 +8,6 @@ import static net.minecraft.util.StatCollector.translateToLocal;
 
 import java.util.List;
 
-import gregtech.common.tileentities.storage.MTEQuantumTank;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
@@ -18,6 +17,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
+import gregtech.common.tileentities.storage.MTEQuantumTank;
 
 public class MTEDebugTank extends MTEQuantumTank {
 

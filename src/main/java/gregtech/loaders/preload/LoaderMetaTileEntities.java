@@ -81,12 +81,8 @@ import gregtech.common.tileentities.automation.MTERecipeFilter;
 import gregtech.common.tileentities.automation.MTERegulator;
 import gregtech.common.tileentities.automation.MTESuperBuffer;
 import gregtech.common.tileentities.automation.MTETypeFilter;
-import gregtech.common.tileentities.boilers.MTEBoilerBronze;
-import gregtech.common.tileentities.boilers.MTEBoilerLava;
-import gregtech.common.tileentities.boilers.MTEBoilerSolar;
-import gregtech.common.tileentities.boilers.MTEBoilerSolarSteel;
-import gregtech.common.tileentities.boilers.MTEBoilerSteel;
 import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
+import gregtech.common.tileentities.debug.MTEDebugTank;
 import gregtech.common.tileentities.generators.MTEDieselGenerator;
 import gregtech.common.tileentities.generators.MTEGasTurbine;
 import gregtech.common.tileentities.generators.MTELightningRod;
@@ -137,7 +133,6 @@ import gregtech.common.tileentities.machines.steam.MTESteamFurnaceBronze;
 import gregtech.common.tileentities.machines.steam.MTESteamFurnaceSteel;
 import gregtech.common.tileentities.machines.steam.MTESteamMaceratorBronze;
 import gregtech.common.tileentities.machines.steam.MTESteamMaceratorSteel;
-import gregtech.common.tileentities.debug.MTEDebugTank;
 import gregtech.common.tileentities.storage.MTELocker;
 import gregtech.common.tileentities.storage.MTEQuantumChest;
 import gregtech.common.tileentities.storage.MTEQuantumTank;
@@ -7523,20 +7518,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .getStackForm(1L));
     }
 
-    private static void registerBoiler() {
-        ItemList.Machine_Bronze_Boiler
-            .set(new MTEBoilerBronze(SMALL_COAL_BOILER.ID, "boiler.bronze", "Small Coal Boiler").getStackForm(1L));
-        ItemList.Machine_Steel_Boiler.set(
-            new MTEBoilerSteel(HIGH_PRESSURE_COAL_BOILER.ID, "boiler.steel", "Large Coal Boiler").getStackForm(1L));
-        ItemList.Machine_Steel_Boiler_Lava.set(
-            new MTEBoilerLava(HIGH_PRESSURE_LAVA_BOILER.ID, "boiler.lava", "Reinforced Lava Boiler").getStackForm(1L));
-        ItemList.Machine_Bronze_Boiler_Solar
-            .set(new MTEBoilerSolar(SIMPLE_SOLAR_BOILER.ID, "boiler.solar", "Simple Solar Boiler").getStackForm(1L));
-        ItemList.Machine_HP_Solar.set(
-            new MTEBoilerSolarSteel(HIGH_PRESSURE_SOLAR_BOILER.ID, "boiler.steel.solar", "Advanced Solar Boiler")
-                .getStackForm(1L));
-    }
-
     private static void registerBatteryBuffer1x1() {
         ItemList.Battery_Buffer_1by1_ULV.set(
             new MTEBasicBatteryBuffer(
@@ -8873,7 +8854,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerCokeOvenHatch();
         registerCompressedBus();
         registerMufflerHatch();
-        registerBoiler();
         registerBatteryBuffer1x1();
         registerBatteryBuffer2x2();
         registerBatteryBuffer3x3();

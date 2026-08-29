@@ -684,17 +684,12 @@ public enum ItemList implements IItemContainer {
     Generator_Naquadah_Mark_IV,
     Generator_Naquadah_Mark_V,
 
-    Machine_Bronze_Boiler,
-    Machine_Bronze_Boiler_Solar,
-    Machine_HP_Solar,
     Machine_Bronze_Furnace,
     Machine_Bronze_Macerator,
     Machine_Bronze_Extractor,
     Machine_Bronze_Hammer,
     Machine_Bronze_Compressor,
     Machine_Bronze_AlloySmelter,
-    Machine_Steel_Boiler_Lava,
-    Machine_Steel_Boiler,
     Machine_HP_Furnace,
     Machine_HP_Macerator,
     Machine_HP_Extractor,
@@ -1369,7 +1364,6 @@ public enum ItemList implements IItemContainer {
     Spinmatron_Casing,
     Spinmatron_Chamber_Grate,
 
-    Laser_Plate,
     Casing_Laser,
 
     Casing_Autoclave,

@@ -42,7 +42,6 @@ import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
 import gregtech.common.config.MachineStats;
 import gregtech.common.config.OPStuff;
-import gregtech.common.config.Worldgen;
 import gregtech.common.pollution.PollutionConfig;
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineBase;
 

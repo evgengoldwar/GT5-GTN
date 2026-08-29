@@ -142,8 +142,7 @@ public class NEIGTConfig implements IConfigureNEI {
         }
     }
 
-    private void registerItemEntries() {
-    }
+    private void registerItemEntries() {}
 
     private void registerDumpers() {
         API.addOption(new MetaTileEntityDumper());
