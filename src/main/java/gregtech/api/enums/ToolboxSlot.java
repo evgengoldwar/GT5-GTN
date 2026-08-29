@@ -24,13 +24,6 @@ import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.objects.GTHashSet;
 import gregtech.api.util.GTUtility;
 import gregtech.common.items.ItemGTToolbox;
-import gregtech.common.tools.pocket.ToolPocketBranchCutter;
-import gregtech.common.tools.pocket.ToolPocketFile;
-import gregtech.common.tools.pocket.ToolPocketKnife;
-import gregtech.common.tools.pocket.ToolPocketMultitool;
-import gregtech.common.tools.pocket.ToolPocketSaw;
-import gregtech.common.tools.pocket.ToolPocketScrewdriver;
-import gregtech.common.tools.pocket.ToolPocketWireCutter;
 
 /**
  * Defines the various slots in the toolbox. Used both to enforce inventory restrictions as well assist with drawing
@@ -72,16 +65,6 @@ public enum ToolboxSlot {
 
     private static final ImmutableMap<Integer, ToolboxSlot> LOOKUP = Maps
         .uniqueIndex(Arrays.asList(VALUES), ToolboxSlot::getSlotID);
-
-    private static final ImmutableSet<Class<? extends IToolStats>> BANNED_TOOLS = ImmutableSet.copyOf(
-        Arrays.asList(
-            ToolPocketBranchCutter.class,
-            ToolPocketFile.class,
-            ToolPocketKnife.class,
-            ToolPocketMultitool.class,
-            ToolPocketSaw.class,
-            ToolPocketScrewdriver.class,
-            ToolPocketWireCutter.class));
 
     private final Predicate<ItemStack> itemStackTest;
     private final int slot;
@@ -167,7 +150,6 @@ public enum ToolboxSlot {
     private static Predicate<ItemStack> isItemInToolSet(GTHashSet... toolSet) {
         return (ItemStack itemStack) -> {
             if (toolSet.length == 0 || !(itemStack.getItem() instanceof final MetaGeneratedTool mgTool)
-                || BANNED_TOOLS.contains(mgTool.getToolStats(itemStack).getClass())
                 || GTMod.proxy.toolboxBans.contains(mgTool)
             ) {
                 return false;

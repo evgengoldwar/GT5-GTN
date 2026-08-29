@@ -31,7 +31,6 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTUtility;
-import gregtech.common.tools.ToolScoop;
 import mods.railcraft.api.core.items.IToolCrowbar;
 
 public class GTItemIterator implements Runnable {
@@ -172,7 +171,6 @@ public class GTItemIterator implements Runnable {
                 if (tBlock != null) {
                     if (tName.endsWith("beehives")) {
                         tBlock.setHarvestLevel("scoop", 0);
-                        ToolScoop.sBeeHiveMaterial = tBlock.getMaterial();
                     }
                     if (OrePrefixes.stone.getDefaultStackSize() < tItem.getItemStackLimit(new ItemStack(tItem, 1, 0))) {
                         if ((tBlock.isReplaceableOreGen(GTValues.DW, 0, 0, 0, Blocks.stone))

@@ -1,42 +1,15 @@
 package gregtech.common.items;
 
-import static gregtech.common.items.IDMetaTool01.BRANCHCUTTER;
-import static gregtech.common.items.IDMetaTool01.BUTCHERYKNIFE;
-import static gregtech.common.items.IDMetaTool01.BUZZSAW_HV;
-import static gregtech.common.items.IDMetaTool01.BUZZSAW_LV;
-import static gregtech.common.items.IDMetaTool01.BUZZSAW_MV;
-import static gregtech.common.items.IDMetaTool01.CHAINSAW_HV;
-import static gregtech.common.items.IDMetaTool01.CHAINSAW_LV;
-import static gregtech.common.items.IDMetaTool01.CHAINSAW_MV;
 import static gregtech.common.items.IDMetaTool01.CROWBAR;
-import static gregtech.common.items.IDMetaTool01.DRILL_HV;
-import static gregtech.common.items.IDMetaTool01.DRILL_LV;
-import static gregtech.common.items.IDMetaTool01.DRILL_MV;
 import static gregtech.common.items.IDMetaTool01.FILE;
-import static gregtech.common.items.IDMetaTool01.FILE_HV;
-import static gregtech.common.items.IDMetaTool01.FILE_LV;
-import static gregtech.common.items.IDMetaTool01.FILE_MV;
 import static gregtech.common.items.IDMetaTool01.HARDHAMMER;
-import static gregtech.common.items.IDMetaTool01.JACKHAMMER_HV;
-import static gregtech.common.items.IDMetaTool01.JACKHAMMER_LV;
-import static gregtech.common.items.IDMetaTool01.JACKHAMMER_MV;
 import static gregtech.common.items.IDMetaTool01.KNIFE;
 import static gregtech.common.items.IDMetaTool01.MORTAR;
 import static gregtech.common.items.IDMetaTool01.PLUNGER;
-import static gregtech.common.items.IDMetaTool01.POCKET_BRANCHCUTTER;
-import static gregtech.common.items.IDMetaTool01.POCKET_FILE;
-import static gregtech.common.items.IDMetaTool01.POCKET_KNIFE;
-import static gregtech.common.items.IDMetaTool01.POCKET_MULTITOOL;
-import static gregtech.common.items.IDMetaTool01.POCKET_SAW;
-import static gregtech.common.items.IDMetaTool01.POCKET_SCREWDRIVER;
-import static gregtech.common.items.IDMetaTool01.POCKET_WIRECUTTER;
 import static gregtech.common.items.IDMetaTool01.ROLLING_PIN;
 import static gregtech.common.items.IDMetaTool01.SAW;
 import static gregtech.common.items.IDMetaTool01.SCOOP;
 import static gregtech.common.items.IDMetaTool01.SCREWDRIVER;
-import static gregtech.common.items.IDMetaTool01.SCREWDRIVER_HV;
-import static gregtech.common.items.IDMetaTool01.SCREWDRIVER_LV;
-import static gregtech.common.items.IDMetaTool01.SCREWDRIVER_MV;
 import static gregtech.common.items.IDMetaTool01.SOFTMALLET;
 import static gregtech.common.items.IDMetaTool01.SOLDERING_IRON_HV;
 import static gregtech.common.items.IDMetaTool01.SOLDERING_IRON_LV;
@@ -47,13 +20,7 @@ import static gregtech.common.items.IDMetaTool01.TURBINE_HUGE;
 import static gregtech.common.items.IDMetaTool01.TURBINE_LARGE;
 import static gregtech.common.items.IDMetaTool01.TURBINE_SMALL;
 import static gregtech.common.items.IDMetaTool01.WIRECUTTER;
-import static gregtech.common.items.IDMetaTool01.WIRECUTTER_HV;
-import static gregtech.common.items.IDMetaTool01.WIRECUTTER_LV;
-import static gregtech.common.items.IDMetaTool01.WIRECUTTER_MV;
 import static gregtech.common.items.IDMetaTool01.WRENCH;
-import static gregtech.common.items.IDMetaTool01.WRENCH_HV;
-import static gregtech.common.items.IDMetaTool01.WRENCH_LV;
-import static gregtech.common.items.IDMetaTool01.WRENCH_MV;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -69,59 +36,19 @@ import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.common.tools.ItemNetworkAnalyzer;
-import gregtech.common.tools.ToolBranchCutter;
-import gregtech.common.tools.ToolButcheryKnife;
-import gregtech.common.tools.ToolBuzzSawHV;
-import gregtech.common.tools.ToolBuzzSawLV;
-import gregtech.common.tools.ToolBuzzSawMV;
-import gregtech.common.tools.ToolChainsawHV;
-import gregtech.common.tools.ToolChainsawLV;
-import gregtech.common.tools.ToolChainsawMV;
 import gregtech.common.tools.ToolCrowbar;
-import gregtech.common.tools.ToolDrillHV;
-import gregtech.common.tools.ToolDrillLV;
-import gregtech.common.tools.ToolDrillMV;
 import gregtech.common.tools.ToolFile;
-import gregtech.common.tools.ToolFileHV;
-import gregtech.common.tools.ToolFileLV;
-import gregtech.common.tools.ToolFileMV;
 import gregtech.common.tools.ToolHardHammer;
-import gregtech.common.tools.ToolJackHammerHV;
-import gregtech.common.tools.ToolJackHammerLV;
-import gregtech.common.tools.ToolJackHammerMV;
 import gregtech.common.tools.ToolKnife;
 import gregtech.common.tools.ToolMortar;
 import gregtech.common.tools.ToolPlunger;
-import gregtech.common.tools.ToolRollingPin;
 import gregtech.common.tools.ToolSaw;
-import gregtech.common.tools.ToolScoop;
 import gregtech.common.tools.ToolScrewdriver;
-import gregtech.common.tools.ToolScrewdriverHV;
-import gregtech.common.tools.ToolScrewdriverLV;
-import gregtech.common.tools.ToolScrewdriverMV;
 import gregtech.common.tools.ToolSoftMallet;
 import gregtech.common.tools.ToolSolderingIron;
-import gregtech.common.tools.ToolTrowel;
-import gregtech.common.tools.ToolTurbineHuge;
-import gregtech.common.tools.ToolTurbineLarge;
-import gregtech.common.tools.ToolTurbineNormal;
-import gregtech.common.tools.ToolTurbineSmall;
 import gregtech.common.tools.ToolVajra;
 import gregtech.common.tools.ToolWireCutter;
-import gregtech.common.tools.ToolWireCutterHV;
-import gregtech.common.tools.ToolWireCutterLV;
-import gregtech.common.tools.ToolWireCutterMV;
 import gregtech.common.tools.ToolWrench;
-import gregtech.common.tools.ToolWrenchHV;
-import gregtech.common.tools.ToolWrenchLV;
-import gregtech.common.tools.ToolWrenchMV;
-import gregtech.common.tools.pocket.ToolPocketBranchCutter;
-import gregtech.common.tools.pocket.ToolPocketFile;
-import gregtech.common.tools.pocket.ToolPocketKnife;
-import gregtech.common.tools.pocket.ToolPocketMultitool;
-import gregtech.common.tools.pocket.ToolPocketSaw;
-import gregtech.common.tools.pocket.ToolPocketScrewdriver;
-import gregtech.common.tools.pocket.ToolPocketWireCutter;
 
 public class MetaGeneratedTool01 extends MetaGeneratedTool {
 
@@ -222,24 +149,7 @@ public class MetaGeneratedTool01 extends MetaGeneratedTool {
                 new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L)),
             GregTechAPI.sWireCutterList);
-        addTool(
-            SCOOP.ID,
-            "Scoop",
-            "",
-            new ToolScoop(),
-            ToolDictNames.craftingToolScoop,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.BESTIA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.PANNUS, 2L));
-        addTool(
-            BRANCHCUTTER.ID,
-            "Branch Cutter",
-            "",
-            new ToolBranchCutter(),
-            ToolDictNames.craftingToolBranchCutter,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.METO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.HERBA, 2L));
+
         addTool(
             KNIFE.ID,
             "Knife",
@@ -250,15 +160,6 @@ public class MetaGeneratedTool01 extends MetaGeneratedTool {
             new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
             new TCAspects.TC_AspectStack(TCAspects.TELUM, 2L),
             new TCAspects.TC_AspectStack(TCAspects.CORPUS, 2L));
-        addTool(
-            BUTCHERYKNIFE.ID,
-            "Butchery Knife",
-            "Has a slow Attack Rate",
-            new ToolButcheryKnife(),
-            ToolDictNames.craftingToolBlade,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.CORPUS, 4L));
 
         addTool(
             PLUNGER.ID,
@@ -269,192 +170,7 @@ public class MetaGeneratedTool01 extends MetaGeneratedTool {
             new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
             new TCAspects.TC_AspectStack(TCAspects.VACUOS, 2L),
             new TCAspects.TC_AspectStack(TCAspects.ITER, 2L));
-        addTool(
-            ROLLING_PIN.ID,
-            "Rolling Pin",
-            "",
-            new ToolRollingPin(),
-            ToolDictNames.craftingToolRollingPin,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.LIMUS, 4L));
 
-        addTool(
-            DRILL_LV.ID,
-            "Drill (LV)",
-            "",
-            new ToolDrillLV(),
-            ToolDictNames.craftingToolMiningDrill,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.PERFODIO, 4L));
-        addTool(
-            DRILL_MV.ID,
-            "Drill (MV)",
-            "",
-            new ToolDrillMV(),
-            ToolDictNames.craftingToolMiningDrill,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.PERFODIO, 4L));
-        addTool(
-            DRILL_HV.ID,
-            "Drill (HV)",
-            "",
-            new ToolDrillHV(),
-            ToolDictNames.craftingToolMiningDrill,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.PERFODIO, 4L));
-        addTool(
-            CHAINSAW_LV.ID,
-            "Chainsaw (LV)",
-            "Can also harvest Ice",
-            new ToolChainsawLV(),
-            ToolDictNames.craftingToolSaw,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.METO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ARBOR, 2L));
-        addTool(
-            CHAINSAW_MV.ID,
-            "Chainsaw (MV)",
-            "Can also harvest Ice",
-            new ToolChainsawMV(),
-            ToolDictNames.craftingToolSaw,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.METO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ARBOR, 2L));
-        addTool(
-            CHAINSAW_HV.ID,
-            "Chainsaw (HV)",
-            "Can also harvest Ice",
-            new ToolChainsawHV(),
-            ToolDictNames.craftingToolSaw,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.METO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ARBOR, 2L));
-        GregTechAPI.registerTool(
-            addTool(
-                WRENCH_LV.ID,
-                "Wrench (LV)",
-                "Hold Left Button to dismantle Machines",
-                new ToolWrenchLV(),
-                ToolDictNames.craftingToolWrench,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L)),
-            GregTechAPI.sWrenchList);
-        GregTechAPI.registerTool(
-            addTool(
-                WRENCH_MV.ID,
-                "Wrench (MV)",
-                "Hold Left Button to dismantle Machines",
-                new ToolWrenchMV(),
-                ToolDictNames.craftingToolWrench,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L)),
-            GregTechAPI.sWrenchList);
-        GregTechAPI.registerTool(
-            addTool(
-                WRENCH_HV.ID,
-                "Wrench (HV)",
-                "Hold Left Button to dismantle Machines",
-                new ToolWrenchHV(),
-                ToolDictNames.craftingToolWrench,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L)),
-            GregTechAPI.sWrenchList);
-        GregTechAPI.registerTool(
-            addTool(
-                JACKHAMMER_LV.ID,
-                "JackHammer (LV)",
-                "Breaks Rocks into pieces",
-                new ToolJackHammerLV(),
-                ToolDictNames.craftingToolJackHammer,
-                ToolDictNames.craftingToolHardHammer,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.PERFODIO, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.PERDITIO, 2L)),
-            GregTechAPI.sJackhammerList);
-        GregTechAPI.registerTool(
-            addTool(
-                JACKHAMMER_MV.ID,
-                "JackHammer (MV)",
-                "Breaks Rocks into pieces",
-                new ToolJackHammerMV(),
-                ToolDictNames.craftingToolJackHammer,
-                ToolDictNames.craftingToolHardHammer,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.PERFODIO, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.PERDITIO, 2L)),
-            GregTechAPI.sJackhammerList);
-        GregTechAPI.registerTool(
-            addTool(
-                JACKHAMMER_HV.ID,
-                "JackHammer (HV)",
-                "Breaks Rocks into pieces",
-                new ToolJackHammerHV(),
-                ToolDictNames.craftingToolJackHammer,
-                ToolDictNames.craftingToolHardHammer,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.PERFODIO, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.PERDITIO, 2L)),
-            GregTechAPI.sJackhammerList);
-        addTool(
-            BUZZSAW_LV.ID,
-            "Buzzsaw (LV)",
-            "Not suitable for harvesting Blocks",
-            new ToolBuzzSawLV(),
-            ToolDictNames.craftingToolSaw,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ARBOR, 2L));
-        addTool(
-            BUZZSAW_MV.ID,
-            "Buzzsaw (MV)",
-            "Not suitable for harvesting Blocks",
-            new ToolBuzzSawMV(),
-            ToolDictNames.craftingToolSaw,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ARBOR, 2L));
-        addTool(
-            BUZZSAW_HV.ID,
-            "Buzzsaw (HV)",
-            "Not suitable for harvesting Blocks",
-            new ToolBuzzSawHV(),
-            ToolDictNames.craftingToolSaw,
-            new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ARBOR, 2L));
-        GregTechAPI.registerTool(
-            addTool(
-                SCREWDRIVER_LV.ID,
-                "Screwdriver (LV)",
-                "Adjusts Covers and Machines",
-                new ToolScrewdriverLV(),
-                ToolDictNames.craftingToolScrewdriver,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L)),
-            GregTechAPI.sScrewdriverList);
-        GregTechAPI.registerTool(
-            addTool(
-                SCREWDRIVER_MV.ID,
-                "Screwdriver (MV)",
-                "Adjusts Covers and Machines",
-                new ToolScrewdriverMV(),
-                ToolDictNames.craftingToolScrewdriver,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L)),
-            GregTechAPI.sScrewdriverList);
-        GregTechAPI.registerTool(
-            addTool(
-                SCREWDRIVER_HV.ID,
-                "Screwdriver (HV)",
-                "Adjusts Covers and Machines",
-                new ToolScrewdriverHV(),
-                ToolDictNames.craftingToolScrewdriver,
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L)),
-            GregTechAPI.sScrewdriverList);
         GregTechAPI.registerTool(
             addTool(
                 SOLDERING_IRON_LV.ID,
@@ -490,150 +206,9 @@ public class MetaGeneratedTool01 extends MetaGeneratedTool {
             GregTechAPI.sSolderingToolList);
 
         // Register Electric Wirecutters
-        GregTechAPI.registerTool(
-            addTool(
-                WIRECUTTER_LV.ID,
-                "Wire Cutter (LV)",
-                "Hand-held electric wire cutter",
-                new ToolWireCutterLV(),
-                ToolDictNames.craftingToolWireCutter,
-                new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 3)),
-            GregTechAPI.sWireCutterList);
-        GregTechAPI.registerTool(
-            addTool(
-                WIRECUTTER_MV.ID,
-                "Wire Cutter (MV)",
-                "Hand-held electric wire cutter",
-                new ToolWireCutterMV(),
-                ToolDictNames.craftingToolWireCutter,
-                new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 3)),
-            GregTechAPI.sWireCutterList);
-        GregTechAPI.registerTool(
-            addTool(
-                WIRECUTTER_HV.ID,
-                "Wire Cutter (HV)",
-                "Hand-held electric wire cutter",
-                new ToolWireCutterHV(),
-                ToolDictNames.craftingToolWireCutter,
-                new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 3)),
-            GregTechAPI.sWireCutterList);
 
-        // Register Electric Files
-        addTool(
-            FILE_LV.ID,
-            "File (LV)",
-            "Hand-held electric filing device",
-            new ToolFileLV(),
-            ToolDictNames.craftingToolFile,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L));
-        addTool(
-            FILE_MV.ID,
-            "File (MV)",
-            "Hand-held electric filing device",
-            new ToolFileMV(),
-            ToolDictNames.craftingToolFile,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L));
-        addTool(
-            FILE_HV.ID,
-            "File (HV)",
-            "Hand-held electric filing device",
-            new ToolFileHV(),
-            ToolDictNames.craftingToolFile,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 2L),
-            new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L));
+        // Register Electric File
 
-        addTool(TURBINE_SMALL.ID, "Small Turbine", "Turbine Rotors for your power station", new ToolTurbineSmall());
-        addTool(TURBINE.ID, "Turbine", "Turbine Rotors for your power station", new ToolTurbineNormal());
-        addTool(TURBINE_LARGE.ID, "Large Turbine", "Turbine Rotors for your power station", new ToolTurbineLarge());
-        addTool(TURBINE_HUGE.ID, "Huge Turbine", "Turbine Rotors for your power station", new ToolTurbineHuge());
-
-        addTool(
-            POCKET_MULTITOOL.ID,
-            "Pocket Multitool",
-            "6 useful Tools in one!",
-            new ToolPocketMultitool(POCKET_KNIFE.ID),
-            null,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-            new TCAspects.TC_AspectStack(TCAspects.ORDO, 3));
-        addTool(
-            POCKET_KNIFE.ID,
-            "Pocket Multitool (Knife)",
-            "",
-            new ToolPocketKnife(POCKET_SAW.ID),
-            ToolDictNames.craftingToolKnife,
-            ToolDictNames.craftingToolBlade,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-            new TCAspects.TC_AspectStack(TCAspects.ORDO, 3));
-        addTool(
-            POCKET_SAW.ID,
-            "Pocket Multitool (Saw)",
-            "Can also harvest Ice",
-            new ToolPocketSaw(POCKET_FILE.ID),
-            ToolDictNames.craftingToolSaw,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-            new TCAspects.TC_AspectStack(TCAspects.ORDO, 3));
-        addTool(
-            POCKET_FILE.ID,
-            "Pocket Multitool (File)",
-            "",
-            new ToolPocketFile(POCKET_SCREWDRIVER.ID),
-            ToolDictNames.craftingToolFile,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-            new TCAspects.TC_AspectStack(TCAspects.ORDO, 3));
-        GregTechAPI.registerTool(
-            addTool(
-                POCKET_SCREWDRIVER.ID,
-                "Pocket Multitool (Screwdriver)",
-                "Adjusts Covers and Machines",
-                new ToolPocketScrewdriver(POCKET_WIRECUTTER.ID),
-                ToolDictNames.craftingToolScrewdriver,
-                new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 3)),
-            GregTechAPI.sScrewdriverList);
-        GregTechAPI.registerTool(
-            addTool(
-                POCKET_WIRECUTTER.ID,
-                "Pocket Multitool (Wire Cutter)",
-                "",
-                new ToolPocketWireCutter(POCKET_BRANCHCUTTER.ID),
-                ToolDictNames.craftingToolWireCutter,
-                new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-                new TCAspects.TC_AspectStack(TCAspects.ORDO, 3)),
-            GregTechAPI.sWireCutterList);
-        addTool(
-            POCKET_BRANCHCUTTER.ID,
-            "Pocket Multitool (Branch Cutter)",
-            "",
-            new ToolPocketBranchCutter(POCKET_MULTITOOL.ID),
-            ToolDictNames.craftingToolBranchCutter,
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 6),
-            new TCAspects.TC_AspectStack(TCAspects.FABRICO, 3),
-            new TCAspects.TC_AspectStack(TCAspects.ORDO, 3));
-        addTool(
-            TROWEL.ID,
-            "Decorator's Trowel",
-            "",
-            new ToolTrowel(),
-            new TCAspects.TC_AspectStack(TCAspects.INSTRUMENTUM, 8),
-            new TCAspects.TC_AspectStack(TCAspects.SENSUS, 4),
-            new TCAspects.TC_AspectStack(TCAspects.PERDITIO, 2));
         ItemList.Tool_Vajra.set(new ToolVajra("Tool_Vajra", "Vajra", "", 0, 20, true));
         ItemList.NetworkAnalyzer.set(new ItemNetworkAnalyzer("Network Analyzer", "", 0, 0, true));
 
