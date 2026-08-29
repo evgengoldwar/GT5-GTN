@@ -12,7 +12,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.event.world.BlockEvent;
 
-import gregtech.GTMod;
 import gregtech.api.enums.MaterialIconRegistry;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
@@ -71,8 +70,7 @@ public class ToolJackHammerLV extends ToolDrillLV {
     @Override
     public void onToolCrafted(ItemStack aStack, EntityPlayer aPlayer) {
         super.onToolCrafted(aStack, aPlayer);
-        try {
-        } catch (Exception ignored) {}
+        try {} catch (Exception ignored) {}
     }
 
     @Override

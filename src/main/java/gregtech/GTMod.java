@@ -55,7 +55,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enchants.EnchantmentEnderDamage;
 import gregtech.api.enchants.EnchantmentHazmat;
 import gregtech.api.enchants.EnchantmentRadioactivity;
-import gregtech.api.enums.CondensateType;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -126,7 +125,6 @@ import gregtech.loaders.postload.PosteaTransformers;
 import gregtech.loaders.postload.RecyclerBlacklistLoader;
 import gregtech.loaders.postload.ScannerHandlerLoader;
 import gregtech.loaders.postload.ScrapboxDropLoader;
-import gregtech.loaders.postload.recipes.BECRecipes;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.loaders.preload.LoaderCircuitBehaviors;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
@@ -357,8 +355,6 @@ public class GTMod {
 
         GTUIInfos.init();
 
-        CondensateType.registerFluids();
-
         for (Runnable tRunnable : GregTechAPI.sAfterGTPreload) {
             tRunnable.run();
         }
@@ -411,8 +407,6 @@ public class GTMod {
         LHECoolantRegistry.registerBaseCoolants();
 
         GT_FML_LOGGER.debug("Registering SpaceDimensions");
-
-        CondensateType.registerRecipes();
 
         GregTechAPI.sLoadFinished = true;
         GT_FML_LOGGER.debug("GTMod: Load-Phase finished!");
@@ -607,7 +601,6 @@ public class GTMod {
     @Mod.EventHandler
     public void onLoadComplete(FMLLoadCompleteEvent event) {
         proxy.onLoadComplete(event);
-        new BECRecipes().runLateRecipes();
         for (Runnable tRunnable : GregTechAPI.sGTCompleteLoad) {
             tRunnable.run();
         }

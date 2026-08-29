@@ -1611,7 +1611,6 @@ public enum ItemList implements IItemContainer {
     Block_NeutroniumPlate,
     Block_BedrockiumCompressed,
 
-
     Block_BrittleCharcoal,
     Seismic_Prospector_Adv_LV,
     Seismic_Prospector_Adv_MV,
@@ -2490,7 +2489,6 @@ public enum ItemList implements IItemContainer {
     Prismatic_Crystal,
     Radiation_Proof_Prismatic_Naquadah_Composite_Sheet,
     Naquarite_Universal_Insulator_Foil,
-
 
     PrecisionFieldSyncCasing,
     MagneticAnchorCasing,

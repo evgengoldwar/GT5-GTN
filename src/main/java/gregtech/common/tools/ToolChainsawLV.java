@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.world.BlockEvent;
 
-import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -69,8 +68,7 @@ public class ToolChainsawLV extends ToolSaw {
     @Override
     public void onToolCrafted(ItemStack aStack, EntityPlayer aPlayer) {
         super.onToolCrafted(aStack, aPlayer);
-        try {
-        } catch (Exception ignored) {}
+        try {} catch (Exception ignored) {}
     }
 
     @Override

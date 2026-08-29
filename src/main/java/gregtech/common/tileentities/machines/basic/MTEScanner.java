@@ -28,7 +28,6 @@ import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
-import gregtech.GTMod;
 import gregtech.api.enums.MachineType;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.IGTScannerHandler;
@@ -174,8 +173,7 @@ public class MTEScanner extends MTEBasicMachine {
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         if (mProgresstime >= (mMaxProgresstime - 1)) {
             if ((this.mOutputItems[0] != null) && (this.mOutputItems[0].getUnlocalizedName()
-                .equals("gt.metaitem.01.32707"))) {
-            }
+                .equals("gt.metaitem.01.32707"))) {}
         }
         super.onPostTick(aBaseMetaTileEntity, aTick);
     }

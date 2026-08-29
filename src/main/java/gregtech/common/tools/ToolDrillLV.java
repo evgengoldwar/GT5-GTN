@@ -10,7 +10,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
-import gregtech.GTMod;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
@@ -93,8 +92,7 @@ public class ToolDrillLV extends GTTool {
         super.onToolCrafted(aStack, aPlayer);
         aPlayer.triggerAchievement(AchievementList.buildPickaxe);
         aPlayer.triggerAchievement(AchievementList.buildBetterPickaxe);
-        try {
-        } catch (Exception ignored) {}
+        try {} catch (Exception ignored) {}
     }
 
     @Override
