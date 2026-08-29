@@ -536,7 +536,6 @@ public enum ItemList implements IItemContainer {
     Paper_Magic_Pages,
     Paper_Punch_Card_Empty,
     Paper_Punch_Card_Encoded,
-    Tool_Cover_Copy_Paste,
     NC_SensorCard,
     NC_SensorKit,
     Tool_Matches,

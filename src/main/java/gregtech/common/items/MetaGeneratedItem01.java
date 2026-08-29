@@ -473,7 +473,6 @@ import gregtech.common.covers.redstone.CoverRedstoneReceiverExternal;
 import gregtech.common.covers.redstone.CoverRedstoneTransmitterExternal;
 import gregtech.common.covers.redstone.CoverRedstoneTransmitterInternal;
 import gregtech.common.covers.redstone.CoverWirelessController;
-import gregtech.common.items.behaviors.BehaviourCoverTool;
 import gregtech.common.items.behaviors.BehaviourDataOrb;
 import gregtech.common.items.behaviors.BehaviourDataStick;
 import gregtech.common.items.behaviors.BehaviourLighter;
@@ -2983,16 +2982,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.tool.data_stick.tooltip",
                 SubTag.NO_UNIFICATION,
                 new BehaviourDataStick()));
-
-        ItemList.Tool_Cover_Copy_Paste.set(
-            addItemWithLocalizationKeys(
-                Tool_Cover_Copy_Paste.ID,
-                "gt.item.tool.cover_copy_paste.name",
-                "gt.item.tool.cover_copy_paste.tooltip",
-                BehaviourCoverTool.INSTANCE,
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 6L),
-                new TCAspects.TC_AspectStack(TCAspects.SENSUS, 6L),
-                new TCAspects.TC_AspectStack(TCAspects.MACHINA, 6L)));
 
         ItemList.Circuit_Board_Basic.set(
             addItemWithLocalizationKeys(

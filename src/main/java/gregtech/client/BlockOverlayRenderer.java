@@ -35,7 +35,6 @@ import codechicken.lib.vec.Translation;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
-import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.ITurnable;
@@ -162,11 +161,6 @@ public class BlockOverlayRenderer {
         }
 
         if (CoverRegistry.isCover(event.currentItem)) {
-            if (!((ICoverable) aTileEntity).hasCoverAtSide(ForgeDirection.getOrientation(event.target.sideHit)))
-                drawGrid(event, true, false, event.player.isSneaking());
-        }
-
-        if (GTUtility.areStacksEqual(ItemList.Tool_Cover_Copy_Paste.get(1), event.currentItem, true)) {
             if (!((ICoverable) aTileEntity).hasCoverAtSide(ForgeDirection.getOrientation(event.target.sideHit)))
                 drawGrid(event, true, false, event.player.isSneaking());
         }
