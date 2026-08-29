@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.storage;
+package gregtech.common.tileentities.debug;
 
 import static gregtech.api.enums.Textures.BlockIcons.MACHINE_CASINGS;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_PIPE;
@@ -8,6 +8,7 @@ import static net.minecraft.util.StatCollector.translateToLocal;
 
 import java.util.List;
 
+import gregtech.common.tileentities.storage.MTEQuantumTank;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
