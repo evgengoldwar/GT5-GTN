@@ -149,7 +149,6 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeRegistrator;
 import gregtech.api.util.GTShapedRecipe;
 import gregtech.api.util.GTShapelessRecipe;
-import gregtech.api.util.GTSpawnEventHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
@@ -710,7 +709,6 @@ public class GTProxy implements IFuelHandler {
     private static Map<UUID, EntityPlayerMP> PLAYERS_BY_UUID;
     private static Map<String, UUID> UUID_BY_NAME;
     public WirelessChargerManager wirelessChargerManager;
-    public GTSpawnEventHandler spawnEventHandler;
     public GTPowerfailTracker powerfailTracker;
     public WirelessEnergyHatchManager wirelessEnergyHatchManager;
 
@@ -1159,11 +1157,9 @@ public class GTProxy implements IFuelHandler {
         UUID_BY_NAME = new HashMap<>();
         isFirstWorldTick = true;
         wirelessChargerManager = new WirelessChargerManager();
-        spawnEventHandler = new GTSpawnEventHandler();
         powerfailTracker = new GTPowerfailTracker();
         wirelessEnergyHatchManager = new WirelessEnergyHatchManager();
         FMLCommonHandler.instance().bus().register(wirelessChargerManager);
-        MinecraftForge.EVENT_BUS.register(spawnEventHandler);
         FMLCommonHandler.instance().bus().register(powerfailTracker);
         MinecraftForge.EVENT_BUS.register(powerfailTracker);
         TeamDataRegistry.register(GTPowerfailTracker.DATA_NAME, GTPowerfailTracker.PowerfailData::new);
@@ -1222,9 +1218,6 @@ public class GTProxy implements IFuelHandler {
         if (wirelessChargerManager != null) {
             FMLCommonHandler.instance().bus().unregister(wirelessChargerManager);
         }
-        if (spawnEventHandler != null) {
-            MinecraftForge.EVENT_BUS.unregister(spawnEventHandler);
-        }
         if (powerfailTracker != null) {
             FMLCommonHandler.instance().bus().unregister(powerfailTracker);
             MinecraftForge.EVENT_BUS.unregister(powerfailTracker);
@@ -1233,7 +1226,6 @@ public class GTProxy implements IFuelHandler {
             FMLCommonHandler.instance().bus().unregister(wirelessEnergyHatchManager);
         }
         wirelessChargerManager = null;
-        spawnEventHandler = null;
         powerfailTracker = null;
         wirelessEnergyHatchManager = null;
         PLAYERS_BY_UUID = null;

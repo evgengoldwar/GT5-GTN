@@ -1241,15 +1241,6 @@ public enum ItemList implements IItemContainer {
 
     ReinforcedGlass,
 
-    MobRep_LV,
-    MobRep_MV,
-    MobRep_HV,
-    MobRep_EV,
-    MobRep_IV,
-    MobRep_LuV,
-    MobRep_ZPM,
-    MobRep_UV,
-
     Block_ReinforcedConcrete,
     Block_BronzePlate,
     Block_SteelPlate,

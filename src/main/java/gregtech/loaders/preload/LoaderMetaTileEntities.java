@@ -88,7 +88,6 @@ import gregtech.common.tileentities.machines.basic.MTEBoxinator;
 import gregtech.common.tileentities.machines.basic.MTECharger;
 import gregtech.common.tileentities.machines.basic.MTEMassfabricator;
 import gregtech.common.tileentities.machines.basic.MTEMicrowaveEnergyTransmitter;
-import gregtech.common.tileentities.machines.basic.MTEMonsterRepellent;
 import gregtech.common.tileentities.machines.basic.MTENameRemover;
 import gregtech.common.tileentities.machines.basic.MTEPotionBrewer;
 import gregtech.common.tileentities.machines.basic.MTEReplicator;
@@ -990,57 +989,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
     private static void registerTeleporter() {
         ItemList.Teleporter
             .set(new MTETeleporter(TELEPORTER.ID, "basicmachine.teleporter", "Teleporter", 9).getStackForm(1L));
-    }
-
-    private static void registerMonsterRepellator() {
-        ItemList.MobRep_LV.set(
-            new MTEMonsterRepellent(
-                MONSTER_REPELLATOR_LV.ID,
-                "basicmachine.mobrep.tier.01",
-                "Basic Monster Repellator",
-                1).getStackForm(1L));
-        ItemList.MobRep_MV.set(
-            new MTEMonsterRepellent(
-                MONSTER_REPELLATOR_MV.ID,
-                "basicmachine.mobrep.tier.02",
-                "Advanced Monster Repellator",
-                2).getStackForm(1L));
-        ItemList.MobRep_HV.set(
-            new MTEMonsterRepellent(
-                MONSTER_REPELLATOR_HV.ID,
-                "basicmachine.mobrep.tier.03",
-                "Advanced Monster Repellator II",
-                3).getStackForm(1L));
-        ItemList.MobRep_EV.set(
-            new MTEMonsterRepellent(
-                MONSTER_REPELLATOR_EV.ID,
-                "basicmachine.mobrep.tier.04",
-                "Advanced Monster Repellator III",
-                4).getStackForm(1L));
-        ItemList.MobRep_IV.set(
-            new MTEMonsterRepellent(
-                MONSTER_REPELLATOR_IV.ID,
-                "basicmachine.mobrep.tier.05",
-                "Advanced Monster Repellator IV",
-                5).getStackForm(1L));
-        ItemList.MobRep_LuV.set(
-            new MTEMonsterRepellent(
-                MONSTER_REPELLATOR_LuV.ID,
-                "basicmachine.mobrep.tier.06",
-                "Advanced Monster Repellator V",
-                6).getStackForm(1L));
-        ItemList.MobRep_ZPM.set(
-            new MTEMonsterRepellent(
-                MONSTER_REPELLATOR_ZPM.ID,
-                "basicmachine.mobrep.tier.07",
-                "Advanced Monster Repellator VI",
-                7).getStackForm(1L));
-        ItemList.MobRep_UV.set(
-            new MTEMonsterRepellent(
-                MONSTER_REPELLATOR_UV.ID,
-                "basicmachine.mobrep.tier.08",
-                "Advanced Monster Repellator VII",
-                8).getStackForm(1L));
     }
 
     private void registerWorldAccelerator() {
@@ -8265,7 +8213,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerReplicator();
         registerBrewery();
         registerTeleporter();
-        registerMonsterRepellator();
         registerMicrowaveEnergyTransmitter();
         registerMultiblockControllers();
         registerWorldAccelerator();
