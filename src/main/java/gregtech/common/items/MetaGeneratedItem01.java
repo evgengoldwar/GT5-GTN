@@ -92,9 +92,6 @@ import static gregtech.common.items.IDMetaItem01.Battery_SU_MV_Sulfuric_Acid;
 import static gregtech.common.items.IDMetaItem01.Black_Hole_Closer;
 import static gregtech.common.items.IDMetaItem01.Black_Hole_Opener;
 import static gregtech.common.items.IDMetaItem01.Black_Hole_Stabilizer;
-import static gregtech.common.items.IDMetaItem01.Book_Written_01;
-import static gregtech.common.items.IDMetaItem01.Book_Written_02;
-import static gregtech.common.items.IDMetaItem01.Book_Written_03;
 import static gregtech.common.items.IDMetaItem01.Circuit_Advanced;
 import static gregtech.common.items.IDMetaItem01.Circuit_Basic;
 import static gregtech.common.items.IDMetaItem01.Circuit_Board_Advanced;
@@ -549,7 +546,6 @@ import gregtech.common.items.behaviors.BehaviourSensorKit;
 import gregtech.common.items.behaviors.BehaviourSprayColor;
 import gregtech.common.items.behaviors.BehaviourSprayColorInfinite;
 import gregtech.common.items.behaviors.BehaviourSprayColorRemover;
-import gregtech.common.items.behaviors.BehaviourWrittenBook;
 import gregtech.common.render.items.CosmicNeutroniumMetaItemRenderer;
 import gregtech.common.render.items.InfinityMetaItemRenderer;
 import gregtech.common.render.items.TranscendentalMetaItemRenderer;
@@ -1445,36 +1441,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "",
                 SubTag.INVISIBLE,
                 new ItemData(Materials.Paper, 7257600L),
-                new TCAspects.TC_AspectStack(TCAspects.COGNITIO, 2L)));
-        ItemList.Book_Written_01.set(
-            addItemWithLocalizationKeys(
-                Book_Written_01.ID,
-                "gt.item.book.written.01.name",
-                "",
-                new ItemData(Materials.Paper, 10886400L),
-                "bookWritten",
-                OreDictNames.craftingBook,
-                new BehaviourWrittenBook(),
-                new TCAspects.TC_AspectStack(TCAspects.COGNITIO, 2L)));
-        ItemList.Book_Written_02.set(
-            addItemWithLocalizationKeys(
-                Book_Written_02.ID,
-                "gt.item.book.written.02.name",
-                "",
-                new ItemData(Materials.Paper, 10886400L),
-                "bookWritten",
-                OreDictNames.craftingBook,
-                new BehaviourWrittenBook(),
-                new TCAspects.TC_AspectStack(TCAspects.COGNITIO, 2L)));
-        ItemList.Book_Written_03.set(
-            addItemWithLocalizationKeys(
-                Book_Written_03.ID,
-                "gt.item.book.written.03.name",
-                "",
-                new ItemData(Materials.Paper, 10886400L),
-                "bookWritten",
-                OreDictNames.craftingBook,
-                new BehaviourWrittenBook(),
                 new TCAspects.TC_AspectStack(TCAspects.COGNITIO, 2L)));
 
         ItemList.Schematic.set(
