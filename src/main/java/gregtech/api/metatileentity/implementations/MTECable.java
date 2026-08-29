@@ -55,7 +55,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.covers.Cover;
-import gregtech.common.covers.CoverSolarPanel;
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
@@ -640,9 +639,6 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
             && (energyConnected.inputEnergyFrom(oppositeSide, false)
                 || energyConnected.outputsEnergyTo(oppositeSide, false))))
             return true;
-
-        // Solar Panel Compat
-        if (baseMetaTile.getCoverAtSide(side) instanceof CoverSolarPanel) return true;
 
         // ((tIsGregTechTileEntity && tIsTileEntityCable) && (tAlwaysLookConnected || tLetEnergyIn || tLetEnergyOut) )
         // --> Not needed

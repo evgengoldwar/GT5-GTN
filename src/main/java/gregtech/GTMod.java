@@ -101,7 +101,6 @@ import gregtech.crossmod.ae2.AE2Compat;
 import gregtech.crossmod.chunkapi.ClientMetaManager;
 import gregtech.crossmod.holoinventory.HoloInventory;
 import gregtech.crossmod.waila.Waila;
-import gregtech.loaders.misc.CoverLoader;
 import gregtech.loaders.postload.GTPostLoad;
 import gregtech.loaders.postload.ItemMaxStacksizeLoader;
 import gregtech.loaders.postload.MachineTooltipsLoader;
@@ -406,7 +405,6 @@ public class GTMod {
         proxy.registerUnificationEntries();
 
         new ItemMaxStacksizeLoader().run();
-        new CoverLoader().run();
         StoneType.init();
 
         GTRecipeRegistrator.registerUsagesForMaterials(

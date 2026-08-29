@@ -73,7 +73,6 @@ import gregtech.api.util.WorldSpawnedEventBuilder.ParticleEventBuilder;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Other;
 import gregtech.common.covers.Cover;
-import gregtech.common.covers.CoverDrain;
 import gregtech.common.covers.CoverFluidRegulator;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -728,12 +727,11 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         final IGregTechTileEntity baseMetaTile = getBaseMetaTileEntity();
         if (baseMetaTile == null) return false;
 
-        final Cover cover = baseMetaTile.getCoverAtSide(side);
         final IGregTechTileEntity gTileEntity = (tileEntity instanceof IGregTechTileEntity)
             ? (IGregTechTileEntity) tileEntity
             : null;
 
-        if (cover instanceof CoverDrain || (TinkerConstruct.isModLoaded() && isTConstructFaucet(tileEntity)))
+        if (TinkerConstruct.isModLoaded() && isTConstructFaucet(tileEntity))
             return true;
 
         final IFluidHandler fTileEntity = (tileEntity instanceof IFluidHandler) ? (IFluidHandler) tileEntity : null;

@@ -3,9 +3,6 @@ package gregtech.common.items;
 import static com.gtnewhorizon.gtnhlib.util.AnimatedTooltipHandler.addItemTooltip;
 import static gregtech.api.enums.Textures.BlockIcons.MACHINE_CASINGS;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_METRICS_TRANSMITTER;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_UEV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_UHV;
-import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_UIV;
 import static gregtech.api.enums.Textures.ItemIcons.MASK_VOLTAGE_COIL;
 import static gregtech.client.GTTooltipHandler.Tier.EV;
 import static gregtech.client.GTTooltipHandler.Tier.HV;
@@ -291,7 +288,6 @@ import gregtech.api.objects.ItemData;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.common.covers.CoverMetricsTransmitter;
-import gregtech.common.covers.CoverSolarPanel;
 import gregtech.common.powergoggles.ItemPowerGoggles;
 import gregtech.common.render.items.CosmicNeutroniumMetaItemRenderer;
 import gregtech.common.render.items.GlitchEffectMetaItemRenderer;
@@ -1303,31 +1299,6 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
         ItemList.Tube_Wires.set(
             addItemWithLocalizationKeys(Tube_Wires.ID, "gt.item.tube_wires.name", "gt.item.tube_wires.tooltip", o));
 
-        ItemList.Cover_SolarPanel_UHV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_UHV.ID,
-                "gt.item.cover.solar_panel.uhv.name",
-                "gt.item.cover.solar_panel.uhv.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 128L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 128L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 128L)));
-        ItemList.Cover_SolarPanel_UEV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_UEV.ID,
-                "gt.item.cover.solar_panel.uev.name",
-                "gt.item.cover.solar_panel.uev.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 256L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 256L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 256L)));
-        ItemList.Cover_SolarPanel_UIV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_UIV.ID,
-                "gt.item.cover.solar_panel.uiv.name",
-                "gt.item.cover.solar_panel.uiv.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 512L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 512L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 512L)));
-
         ItemList.ULV_Coil
             .set(addItemWithLocalizationKeys(ULV_Coil.ID, "gt.item.coil.ulv.name", "gt.item.coil.ulv.tooltip", o));
         ItemList.LV_Coil
@@ -1813,21 +1784,6 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
             CoverPlacer.builder()
                 .onlyPlaceIf(CoverMetricsTransmitter::isCoverPlaceable)
                 .build());
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_UHV.get(1L),
-            TextureFactory.of(SOLARPANEL_UHV),
-            context -> new CoverSolarPanel(context, 2097152),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_UEV.get(1L),
-            TextureFactory.of(SOLARPANEL_UEV),
-            context -> new CoverSolarPanel(context, 8388608),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_UIV.get(1L),
-            TextureFactory.of(SOLARPANEL_UIV),
-            context -> new CoverSolarPanel(context, 33554432),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
     }
 
     @Override

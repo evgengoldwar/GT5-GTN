@@ -512,9 +512,7 @@ import gregtech.common.covers.CoverArm;
 import gregtech.common.covers.CoverChest;
 import gregtech.common.covers.CoverControlsWork;
 import gregtech.common.covers.CoverConveyor;
-import gregtech.common.covers.CoverCrafting;
 import gregtech.common.covers.CoverDoesWork;
-import gregtech.common.covers.CoverDrain;
 import gregtech.common.covers.CoverEUMeter;
 import gregtech.common.covers.CoverEnergyWireless;
 import gregtech.common.covers.CoverEnergyWirelessDebug;
@@ -532,7 +530,6 @@ import gregtech.common.covers.CoverRedstoneReceiverExternal;
 import gregtech.common.covers.CoverRedstoneTransmitterExternal;
 import gregtech.common.covers.CoverRedstoneTransmitterInternal;
 import gregtech.common.covers.CoverShutter;
-import gregtech.common.covers.CoverSolarPanel;
 import gregtech.common.covers.CoverSteamRegulator;
 import gregtech.common.covers.CoverSteamValve;
 import gregtech.common.covers.CoverWirelessController;
@@ -3352,19 +3349,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.COGNITIO, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.LUX, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.VITREUS, 1L)));
-        ItemList.Cover_Crafting.set(
-            addItemWithLocalizationKeys(
-                Cover_Crafting.ID,
-                "gt.item.cover.crafting.name",
-                "gt.item.cover.crafting.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.FABRICO, 4L)));
-        ItemList.Cover_Drain.set(
-            addItemWithLocalizationKeys(
-                Cover_Drain.ID,
-                "gt.item.cover.drain.name",
-                "gt.item.cover.drain.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.VACUOS, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.AQUA, 2L)));
+
 
         ItemList.Cover_Shutter.set(
             addItemWithLocalizationKeys(
@@ -3373,87 +3358,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.cover.shutter.tooltip",
                 new TCAspects.TC_AspectStack(TCAspects.ORDO, 2L),
                 new TCAspects.TC_AspectStack(TCAspects.ITER, 1L)));
-
-        ItemList.Cover_SolarPanel.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel.ID,
-                "gt.item.cover.solar_panel.basic.name",
-                "gt.item.cover.solar_panel.basic.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 1L)));
-        ItemList.Cover_SolarPanel_8V.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_8V.ID,
-                "gt.item.cover.solar_panel.8v.name",
-                "gt.item.cover.solar_panel.8v.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 2L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 2L)));
-        ItemList.Cover_SolarPanel_LV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_LV.ID,
-                "gt.item.cover.solar_panel.lv.name",
-                "gt.item.cover.solar_panel.lv.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 4L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 4L)));
-        ItemList.Cover_SolarPanel_MV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_MV.ID,
-                "gt.item.cover.solar_panel.mv.name",
-                "gt.item.cover.solar_panel.mv.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 8L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 8L)));
-        ItemList.Cover_SolarPanel_HV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_HV.ID,
-                "gt.item.cover.solar_panel.hv.name",
-                "gt.item.cover.solar_panel.hv.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 16L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 16L)));
-        ItemList.Cover_SolarPanel_EV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_EV.ID,
-                "gt.item.cover.solar_panel.ev.name",
-                "gt.item.cover.solar_panel.ev.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 32L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 32L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 32L)));
-        ItemList.Cover_SolarPanel_IV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_IV.ID,
-                "gt.item.cover.solar_panel.iv.name",
-                "gt.item.cover.solar_panel.iv.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 64L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 64L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 64L)));
-        ItemList.Cover_SolarPanel_LuV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_LuV.ID,
-                "gt.item.cover.solar_panel.luv.name",
-                "gt.item.cover.solar_panel.luv.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 64L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 64L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 64L)));
-        ItemList.Cover_SolarPanel_ZPM.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_ZPM.ID,
-                "gt.item.cover.solar_panel.zpm.name",
-                "gt.item.cover.solar_panel.zpm.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 64L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 64L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 64L)));
-        ItemList.Cover_SolarPanel_UV.set(
-            addItemWithLocalizationKeys(
-                Cover_SolarPanel_UV.ID,
-                "gt.item.cover.solar_panel.uv.name",
-                "gt.item.cover.solar_panel.uv.tooltip",
-                new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 64L),
-                new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 64L),
-                new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 64L)));
 
         ItemList.Tool_Cheat.set(
             addItemWithLocalizationKeys(
@@ -4345,70 +4249,12 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
         CoverRegistry.registerDecorativeCover(
             ItemList.Cover_Screen.get(1L),
             TextureFactory.of(MACHINE_CASINGS[2][0], screenCoverTexture));
-        CoverRegistry.registerCover(
-            ItemList.Cover_Crafting.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_CRAFTING)),
-            context -> new CoverCrafting(context, TextureFactory.of(OVERLAY_CRAFTING)),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_Drain.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[0][0], TextureFactory.of(OVERLAY_DRAIN)),
-            context -> new CoverDrain(context, TextureFactory.of(OVERLAY_DRAIN)));
+
+
         CoverRegistry.registerCover(
             ItemList.Cover_Shutter.get(1L),
             TextureFactory.of(MACHINE_CASINGS[1][0], TextureFactory.of(OVERLAY_SHUTTER)),
             context -> new CoverShutter(context, TextureFactory.of(OVERLAY_SHUTTER)));
-
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel.get(1L),
-            TextureFactory.of(SOLARPANEL),
-            context -> new CoverSolarPanel(context, 1),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_8V.get(1L),
-            TextureFactory.of(SOLARPANEL_8V),
-            context -> new CoverSolarPanel(context, 8),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_LV.get(1L),
-            TextureFactory.of(SOLARPANEL_LV),
-            context -> new CoverSolarPanel(context, 32),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_MV.get(1L),
-            TextureFactory.of(SOLARPANEL_MV),
-            context -> new CoverSolarPanel(context, 128),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_HV.get(1L),
-            TextureFactory.of(SOLARPANEL_HV),
-            context -> new CoverSolarPanel(context, 512),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_EV.get(1L),
-            TextureFactory.of(SOLARPANEL_EV),
-            context -> new CoverSolarPanel(context, 2048),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_IV.get(1L),
-            TextureFactory.of(SOLARPANEL_IV),
-            context -> new CoverSolarPanel(context, 8192),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_LuV.get(1L),
-            TextureFactory.of(SOLARPANEL_LuV),
-            context -> new CoverSolarPanel(context, 32768),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_ZPM.get(1L),
-            TextureFactory.of(SOLARPANEL_ZPM),
-            context -> new CoverSolarPanel(context, 131072),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
-        CoverRegistry.registerCover(
-            ItemList.Cover_SolarPanel_UV.get(1L),
-            TextureFactory.of(SOLARPANEL_UV),
-            context -> new CoverSolarPanel(context, 524288),
-            CoverRegistry.INTERCEPTS_RIGHT_CLICK_COVER_PLACER);
 
         CoverRegistry.registerCover(
             ItemList.Cover_RedstoneTransmitter.get(1L),
