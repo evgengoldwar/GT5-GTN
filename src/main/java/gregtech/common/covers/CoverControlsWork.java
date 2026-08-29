@@ -2,7 +2,6 @@ package gregtech.common.covers;
 
 import java.lang.ref.WeakReference;
 
-import gregtech.common.covers.Base.CoverLegacyData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -19,6 +18,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.api.util.GTUtility;
+import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.conditions.RedstoneCondition;
 import gregtech.common.gui.modularui.cover.CoverControlsWorkGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;

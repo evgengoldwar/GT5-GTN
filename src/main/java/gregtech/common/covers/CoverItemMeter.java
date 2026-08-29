@@ -1,6 +1,5 @@
 package gregtech.common.covers;
 
-import gregtech.common.covers.Base.Cover;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -19,6 +18,7 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GTUtility;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.gui.modularui.cover.CoverItemMeterGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.mui1.cover.ItemMeterUIFactory;

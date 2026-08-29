@@ -1317,7 +1317,6 @@ public enum ItemList implements IItemContainer {
     Cover_AdvancedRedstoneTransmitter,
     Cover_AdvancedRedstoneTransmitterInternal,
     Cover_AdvancedRedstoneReceiver,
-    Cover_AdvancedRedstoneReceiverInternal,
 
     Cover_WirelessFluidDetector,
     Cover_WirelessItemDetector,

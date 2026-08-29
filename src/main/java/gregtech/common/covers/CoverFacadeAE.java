@@ -1,6 +1,5 @@
 package gregtech.common.covers;
 
-import gregtech.common.covers.Base.CoverFacadeBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import appeng.facade.IFacadeItem;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.covers.CoverPlacementPredicate;
+import gregtech.common.covers.Base.CoverFacadeBase;
 
 public class CoverFacadeAE extends CoverFacadeBase {
 

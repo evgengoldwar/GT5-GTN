@@ -3,7 +3,6 @@ package gregtech.common.covers;
 import static gregtech.api.enums.GTValues.E;
 import static net.minecraft.util.StatCollector.translateToLocal;
 
-import gregtech.common.covers.Base.Cover;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -25,6 +24,7 @@ import gregtech.api.covers.CoverContext;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.util.GTUtility;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.modes.BlockMode;
 import gregtech.common.covers.modes.FilterDirectionMode;
 import gregtech.common.covers.modes.FilterType;

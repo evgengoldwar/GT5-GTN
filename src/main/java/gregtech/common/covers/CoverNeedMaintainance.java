@@ -3,7 +3,6 @@ package gregtech.common.covers;
 import static gregtech.api.util.GTUtility.*;
 import static gregtech.common.gui.mui1.cover.NeedMaintainanceUIFactory.getMaintenanceIssuesCountChat;
 
-import gregtech.common.covers.Base.CoverLegacyData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
@@ -21,6 +20,7 @@ import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
+import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.conditions.MaintenanceAlertCondition;
 import gregtech.common.covers.modes.RedstoneMode;
 import gregtech.common.gui.modularui.cover.CoverNeedMaintenanceGui;

@@ -1,6 +1,5 @@
 package gregtech.common.covers;
 
-import gregtech.common.covers.Base.Cover;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,6 +21,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.api.util.GTUtility;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.modes.MachineProcessingCondition;
 import gregtech.common.covers.modes.TransferMode;
 import gregtech.common.gui.modularui.cover.CoverFluidRegulatorGui;

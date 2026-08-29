@@ -1,6 +1,5 @@
 package gregtech.common.covers;
 
-import gregtech.common.covers.Base.CoverLegacyData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -9,6 +8,7 @@ import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.util.GTUtility;
+import gregtech.common.covers.Base.CoverLegacyData;
 
 @SuppressWarnings("unused") // Legacy from GT4. TODO: Consider re-enable registration
 public class CoverRedstoneConductor extends CoverLegacyData {

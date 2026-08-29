@@ -1,6 +1,5 @@
 package gregtech.common.covers;
 
-import gregtech.common.covers.Base.CoverIOBase;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -16,6 +15,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.api.util.GTUtility;
+import gregtech.common.covers.Base.CoverIOBase;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.modularui.cover.base.CoverIOBaseGui;
 import gregtech.common.gui.mui1.cover.PumpUIFactory;

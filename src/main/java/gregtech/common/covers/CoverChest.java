@@ -2,7 +2,6 @@ package gregtech.common.covers;
 
 import static gregtech.api.objects.XSTR.XSTR_INSTANCE;
 
-import gregtech.common.covers.Base.Cover;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -22,6 +21,7 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.util.GTByteBuffer;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.gui.modularui.cover.CoverChestGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.mui1.cover.ChestUIFactory;

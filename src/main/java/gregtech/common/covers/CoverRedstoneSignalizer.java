@@ -1,6 +1,5 @@
 package gregtech.common.covers;
 
-import gregtech.common.covers.Base.CoverLegacyData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fluids.Fluid;
 
@@ -8,6 +7,7 @@ import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.api.util.GTUtility;
+import gregtech.common.covers.Base.CoverLegacyData;
 
 @SuppressWarnings("unused") // TODO: Consider re-registering this
 public class CoverRedstoneSignalizer extends CoverLegacyData {

@@ -1,6 +1,5 @@
 package gregtech.common.covers;
 
-import gregtech.common.covers.Base.CoverIOBase;
 import net.minecraftforge.fluids.Fluid;
 
 import org.jetbrains.annotations.NotNull;
@@ -12,6 +11,7 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.util.GTItemTransfer;
+import gregtech.common.covers.Base.CoverIOBase;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.modularui.cover.base.CoverIOBaseGui;
 import gregtech.common.gui.mui1.cover.ConveyorUIFactory;

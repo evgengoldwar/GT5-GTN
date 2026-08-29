@@ -1,6 +1,5 @@
 package gregtech.common.covers;
 
-import gregtech.common.covers.Base.CoverLegacyData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fluids.Fluid;
 
@@ -14,6 +13,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.api.util.GTUtility;
+import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.modes.DetectionMode;
 import gregtech.common.covers.modes.RedstoneMode;
 import gregtech.common.gui.modularui.cover.CoverDoesWorkGui;

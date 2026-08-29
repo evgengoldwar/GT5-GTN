@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import gregtech.common.covers.Base.Cover;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -27,6 +26,7 @@ import gregtech.api.interfaces.metatileentity.IMetricsExporter;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.events.MetricsCoverDataEvent;
 import gregtech.common.misc.GlobalMetricsCoverDatabase;
 import gregtech.common.misc.GlobalMetricsCoverDatabase.State;
