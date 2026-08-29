@@ -134,8 +134,6 @@ import gregtech.api.interfaces.IToolStats;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.items.MetaGeneratedItem;
 import gregtech.api.items.MetaGeneratedTool;
-import gregtech.api.items.armor.ArmorActionManager;
-import gregtech.api.items.armor.ArmorEventHandlers;
 import gregtech.api.net.GTPacketMusicSystemData;
 import gregtech.api.objects.GTChunkManager;
 import gregtech.api.objects.GTUODimensionList;
@@ -1027,7 +1025,6 @@ public class GTProxy implements IFuelHandler {
         GTChunkManager.init();
         // spotless:on
 
-        ArmorActionManager.init();
     }
 
     public void onInitialization(FMLInitializationEvent event) {
@@ -1064,19 +1061,11 @@ public class GTProxy implements IFuelHandler {
         if (!this.enableUndergroundGravelGen) PREVENTED_ORES.add(OreGenEvent.GenerateMinable.EventType.GRAVEL);
         if (!this.enableUndergroundDirtGen) PREVENTED_ORES.add(OreGenEvent.GenerateMinable.EventType.DIRT);
 
-        ArmorEventHandlers armorEvents = new ArmorEventHandlers();
 
         MinecraftForge.EVENT_BUS.register(new SpaceProjectWorldSavedData());
         MinecraftForge.EVENT_BUS.register(new GlobalEnergyWorldSavedData(""));
         MinecraftForge.EVENT_BUS.register(new GlobalMetricsCoverDatabase());
         MinecraftForge.EVENT_BUS.register(new PowerGogglesWorldSavedData());
-        MinecraftForge.EVENT_BUS.register(armorEvents);
-        FMLCommonHandler.instance()
-            .bus()
-            .register(armorEvents);
-        FMLCommonHandler.instance()
-            .bus()
-            .register(PowerGogglesEventHandler.getInstance());
         MinecraftForge.EVENT_BUS.register(PowerGogglesEventHandler.getInstance());
         MinecraftForge.EVENT_BUS.register(new OffhandToolFunctionalityHandler());
         NetworkAnalyzerPlayerTracker.init();

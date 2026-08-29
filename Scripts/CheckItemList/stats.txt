@@ -1,10 +1,10 @@
 Enum Statistics: ItemList
 ============================================================
-Total elements: 2340
+Total elements: 2289
 Blacklist: 63
-Set blacklist: 39
-Checked elements: 2277
-Used elements: 2277
+Set blacklist: 0
+Checked elements: 2226
+Used elements: 2226
 Unused elements: 0
-Elements with .set() or register() calls: 2238
+Elements with .set() or register() calls: 2226
 Elements without .set() or register() calls: 0

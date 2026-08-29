@@ -112,7 +112,6 @@ import gregtech.common.tileentities.machines.basic.MTEIndustrialApiary;
 import gregtech.common.tileentities.machines.basic.MTEMagLevPylon;
 import gregtech.common.tileentities.machines.basic.MTEMassfabricator;
 import gregtech.common.tileentities.machines.basic.MTEMicrowaveEnergyTransmitter;
-import gregtech.common.tileentities.machines.basic.MTEModificationTable;
 import gregtech.common.tileentities.machines.basic.MTEMonsterRepellent;
 import gregtech.common.tileentities.machines.basic.MTENameRemover;
 import gregtech.common.tileentities.machines.basic.MTEPotionBrewer;
@@ -8850,12 +8849,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
             .set(new MTENameRemover(NAME_REMOVER.ID, "fix.name.remover", "Name Remover", 0).getStackForm(1L));
     }
 
-    private static void registerModificationTable() {
-        ItemList.ModificationTable.set(
-            new MTEModificationTable(MODIFICATION_TABLE.ID, "modificationtable", "Modification Table")
-                .getStackForm(1L));
-    }
-
     @Override
     public void run() {
         GT_FML_LOGGER.debug("GTMod: Registering MetaTileEntities.");
@@ -8966,7 +8959,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerPrinter();
         registerOven();
         registerNameRemover();
-        registerModificationTable();
 
         ItemList.DebugStructureWriter.set(
             new MTEDebugStructureWriter(DEBUG_STRUCTURE_WRITER.ID, "debugstructurewriter", "Debug Structure Writer", 5)
