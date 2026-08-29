@@ -13,12 +13,11 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
-import gregtech.common.covers.redstone.CoverAdvancedRedstoneReceiverBase;
 import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerToggleButtonWidget;
 
 public class AdvancedRedstoneReceiverBaseUIFactory
-    extends AdvancedWirelessRedstoneBaseUIFactory<CoverAdvancedRedstoneReceiverBase> {
+    extends AdvancedWirelessRedstoneBaseUIFactory<Cover.CoverAdvancedRedstoneReceiverBase> {
 
     public AdvancedRedstoneReceiverBaseUIFactory(CoverUIBuildContext buildContext) {
         super(buildContext);
@@ -40,15 +39,15 @@ public class AdvancedRedstoneReceiverBaseUIFactory
     }
 
     @Override
-    protected CoverAdvancedRedstoneReceiverBase adaptCover(Cover cover) {
-        if (cover instanceof CoverAdvancedRedstoneReceiverBase adaptedCover) {
+    protected Cover.CoverAdvancedRedstoneReceiverBase adaptCover(Cover cover) {
+        if (cover instanceof Cover.CoverAdvancedRedstoneReceiverBase adaptedCover) {
             return adaptedCover;
         }
         return null;
     }
 
     @Override
-    protected @NotNull CoverDataControllerWidget<CoverAdvancedRedstoneReceiverBase> getDataController() {
+    protected @NotNull CoverDataControllerWidget<Cover.CoverAdvancedRedstoneReceiverBase> getDataController() {
         return new CoverDataControllerWidget<>(this::getCover, getUIBuildContext());
     }
 
@@ -62,41 +61,41 @@ public class AdvancedRedstoneReceiverBaseUIFactory
 
     @SuppressWarnings("PointlessArithmeticExpression")
     @Override
-    protected void addUIForDataController(CoverDataControllerWidget<CoverAdvancedRedstoneReceiverBase> controller) {
+    protected void addUIForDataController(CoverDataControllerWidget<Cover.CoverAdvancedRedstoneReceiverBase> controller) {
         super.addUIForDataController(controller);
         controller
             .addFollower(
                 CoverDataFollowerToggleButtonWidget.ofDisableable(),
-                coverData -> coverData.getGateMode() == CoverAdvancedRedstoneReceiverBase.GateMode.AND,
-                (coverData, state) -> coverData.setMode(CoverAdvancedRedstoneReceiverBase.GateMode.AND),
+                coverData -> coverData.getGateMode() == Cover.CoverAdvancedRedstoneReceiverBase.GateMode.AND,
+                (coverData, state) -> coverData.setMode(Cover.CoverAdvancedRedstoneReceiverBase.GateMode.AND),
                 widget -> widget.setStaticTexture(GTUITextures.OVERLAY_BUTTON_GATE_AND)
                     .addTooltip(StatCollector.translateToLocal("GT5U.gui.tooltip.redstone_receiver.AND_Gate"))
                     .setPos(spaceX * 0, spaceY * 2))
             .addFollower(
                 CoverDataFollowerToggleButtonWidget.ofDisableable(),
-                coverData -> coverData.getGateMode() == CoverAdvancedRedstoneReceiverBase.GateMode.NAND,
-                (coverData, state) -> coverData.setMode(CoverAdvancedRedstoneReceiverBase.GateMode.NAND),
+                coverData -> coverData.getGateMode() == Cover.CoverAdvancedRedstoneReceiverBase.GateMode.NAND,
+                (coverData, state) -> coverData.setMode(Cover.CoverAdvancedRedstoneReceiverBase.GateMode.NAND),
                 widget -> widget.setStaticTexture(GTUITextures.OVERLAY_BUTTON_GATE_NAND)
                     .addTooltip(StatCollector.translateToLocal("GT5U.gui.tooltip.redstone_receiver.NAND_Gate"))
                     .setPos(spaceX * 1, spaceY * 2))
             .addFollower(
                 CoverDataFollowerToggleButtonWidget.ofDisableable(),
-                coverData -> coverData.getGateMode() == CoverAdvancedRedstoneReceiverBase.GateMode.OR,
-                (coverData, state) -> coverData.setMode(CoverAdvancedRedstoneReceiverBase.GateMode.OR),
+                coverData -> coverData.getGateMode() == Cover.CoverAdvancedRedstoneReceiverBase.GateMode.OR,
+                (coverData, state) -> coverData.setMode(Cover.CoverAdvancedRedstoneReceiverBase.GateMode.OR),
                 widget -> widget.setStaticTexture(GTUITextures.OVERLAY_BUTTON_GATE_OR)
                     .addTooltip(StatCollector.translateToLocal("GT5U.gui.tooltip.redstone_receiver.OR_Gate"))
                     .setPos(spaceX * 2, spaceY * 2))
             .addFollower(
                 CoverDataFollowerToggleButtonWidget.ofDisableable(),
-                coverData -> coverData.getGateMode() == CoverAdvancedRedstoneReceiverBase.GateMode.NOR,
-                (coverData, state) -> coverData.setMode(CoverAdvancedRedstoneReceiverBase.GateMode.NOR),
+                coverData -> coverData.getGateMode() == Cover.CoverAdvancedRedstoneReceiverBase.GateMode.NOR,
+                (coverData, state) -> coverData.setMode(Cover.CoverAdvancedRedstoneReceiverBase.GateMode.NOR),
                 widget -> widget.setStaticTexture(GTUITextures.OVERLAY_BUTTON_GATE_NOR)
                     .addTooltip(StatCollector.translateToLocal("GT5U.gui.tooltip.redstone_receiver.NOR_Gate"))
                     .setPos(spaceX * 3, spaceY * 2))
             .addFollower(
                 CoverDataFollowerToggleButtonWidget.ofDisableable(),
-                coverData -> coverData.getGateMode() == CoverAdvancedRedstoneReceiverBase.GateMode.SINGLE_SOURCE,
-                (coverData, state) -> coverData.setMode(CoverAdvancedRedstoneReceiverBase.GateMode.SINGLE_SOURCE),
+                coverData -> coverData.getGateMode() == Cover.CoverAdvancedRedstoneReceiverBase.GateMode.SINGLE_SOURCE,
+                (coverData, state) -> coverData.setMode(Cover.CoverAdvancedRedstoneReceiverBase.GateMode.SINGLE_SOURCE),
                 widget -> widget.setStaticTexture(GTUITextures.OVERLAY_BUTTON_ANALOG)
                     .addTooltips(
                         Arrays.asList(

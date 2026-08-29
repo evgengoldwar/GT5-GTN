@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import gregtech.api.interfaces.modularui.KeyProvider;
+import gregtech.common.gui.modularui.cover.base.CoverAdvancedRedstoneReceiverBaseGui;
+import gregtech.common.gui.mui1.cover.AdvancedRedstoneReceiverBaseUIFactory;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -542,4 +545,83 @@ public class Cover implements IGuiHolder<CoverGuiData> {
     }
 
     // endregion
+
+    public abstract static class CoverAdvancedRedstoneReceiverBase extends CoverAdvancedWirelessRedstoneBase {
+
+        private GateMode mode;
+
+        public CoverAdvancedRedstoneReceiverBase(CoverContext context, ITexture coverTexture) {
+            super(context, coverTexture);
+            this.mode = GateMode.AND;
+        }
+
+        public GateMode getGateMode() {
+            return mode;
+        }
+
+        public CoverAdvancedRedstoneReceiverBase setMode(GateMode mode) {
+            this.mode = mode;
+            return this;
+        }
+
+        @Override
+        protected void readDataFromNbt(NBTBase nbt) {
+            super.readDataFromNbt(nbt);
+            NBTTagCompound tag = (NBTTagCompound) nbt;
+
+            mode = GateMode.values()[tag.getByte("mode")];
+        }
+
+        @Override
+        public void readDataFromPacket(ByteArrayDataInput byteData) {
+            super.readDataFromPacket(byteData);
+            mode = GateMode.values()[byteData.readByte()];
+        }
+
+        @Override
+        protected @NotNull NBTBase saveDataToNbt() {
+            NBTTagCompound tag = (NBTTagCompound) super.saveDataToNbt();
+            tag.setByte("mode", (byte) mode.ordinal());
+
+            return tag;
+        }
+
+        @Override
+        protected void writeDataToByteBuf(ByteBuf byteBuf) {
+            super.writeDataToByteBuf(byteBuf);
+            byteBuf.writeByte(mode.ordinal());
+        }
+
+        // GUI stuff
+
+        @Override
+        public ModularWindow createWindow(CoverUIBuildContext buildContext) {
+            return new AdvancedRedstoneReceiverBaseUIFactory(buildContext).createWindow();
+        }
+
+        @Override
+        protected @NotNull CoverBaseGui<?> getCoverGui() {
+            return new CoverAdvancedRedstoneReceiverBaseGui(this);
+        }
+
+        public enum GateMode implements KeyProvider {
+
+            AND("gt.interact.desc.andgate"),
+            NAND("gt.interact.desc.nandgate"),
+            OR("gt.interact.desc.orgate"),
+            NOR("gt.interact.desc.norgate"),
+            SINGLE_SOURCE("gt.interact.desc.analogmode");
+
+            private final String key;
+
+            GateMode(String key) {
+                this.key = key;
+            }
+
+            @Override
+            public String getKey() {
+                return this.key;
+            }
+        }
+    }
 }

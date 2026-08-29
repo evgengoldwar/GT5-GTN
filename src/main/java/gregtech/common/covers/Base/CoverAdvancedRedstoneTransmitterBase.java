@@ -1,4 +1,4 @@
-package gregtech.common.covers.redstone;
+package gregtech.common.covers.Base;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -15,7 +15,6 @@ import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.util.GTUtility;
-import gregtech.common.covers.Base.CoverPosition;
 import gregtech.common.gui.modularui.cover.base.CoverAdvancedRedstoneTransmitterBaseGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import io.netty.buffer.ByteBuf;

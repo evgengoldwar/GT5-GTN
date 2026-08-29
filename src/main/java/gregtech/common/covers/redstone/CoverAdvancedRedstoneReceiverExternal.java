@@ -3,8 +3,9 @@ package gregtech.common.covers.redstone;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
+import gregtech.common.covers.Base.Cover;
 
-public class CoverAdvancedRedstoneReceiverExternal extends CoverAdvancedRedstoneReceiverBase {
+public class CoverAdvancedRedstoneReceiverExternal extends Cover.CoverAdvancedRedstoneReceiverBase {
 
     public CoverAdvancedRedstoneReceiverExternal(CoverContext context, ITexture coverTexture) {
         super(context, coverTexture);

@@ -2,6 +2,7 @@ package gregtech.common.covers;
 
 import java.util.UUID;
 
+import gregtech.common.covers.Base.Cover;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
@@ -16,13 +17,12 @@ import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.common.covers.conditions.RedstoneCondition;
-import gregtech.common.covers.redstone.CoverAdvancedRedstoneReceiverBase;
-import gregtech.common.covers.redstone.CoverAdvancedWirelessRedstoneBase;
+import gregtech.common.covers.Base.CoverAdvancedWirelessRedstoneBase;
 import gregtech.common.gui.modularui.cover.CoverWirelessControllerGui;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import io.netty.buffer.ByteBuf;
 
-public class CoverWirelessController extends CoverAdvancedRedstoneReceiverBase {
+public class CoverWirelessController extends Cover.CoverAdvancedRedstoneReceiverBase {
 
     private static final int LEGACY_FREQUENCY_MASK = 0xFFFF;
     private static final int LEGACY_PRIVATE_MASK = 0x10000;

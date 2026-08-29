@@ -1,5 +1,6 @@
 package gregtech.common.covers.redstone;
 
+import gregtech.common.covers.Base.CoverAdvancedRedstoneTransmitterBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

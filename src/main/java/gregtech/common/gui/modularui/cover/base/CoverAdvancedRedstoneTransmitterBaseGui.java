@@ -13,7 +13,7 @@ import com.cleanroommc.modularui.widgets.ToggleButton;
 import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.common.covers.redstone.CoverAdvancedRedstoneTransmitterBase;
+import gregtech.common.covers.Base.CoverAdvancedRedstoneTransmitterBase;
 
 public class CoverAdvancedRedstoneTransmitterBaseGui<T extends CoverAdvancedRedstoneTransmitterBase>
     extends CoverAdvancedWirelessRedstoneBaseGui<T> {

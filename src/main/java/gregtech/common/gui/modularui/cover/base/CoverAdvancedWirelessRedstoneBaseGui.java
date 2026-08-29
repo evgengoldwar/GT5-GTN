@@ -13,7 +13,7 @@ import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.common.covers.redstone.CoverAdvancedWirelessRedstoneBase;
+import gregtech.common.covers.Base.CoverAdvancedWirelessRedstoneBase;
 
 public class CoverAdvancedWirelessRedstoneBaseGui<T extends CoverAdvancedWirelessRedstoneBase> extends CoverBaseGui<T> {
 

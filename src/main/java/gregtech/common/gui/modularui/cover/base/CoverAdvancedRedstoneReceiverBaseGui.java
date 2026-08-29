@@ -10,20 +10,20 @@ import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.common.covers.redstone.CoverAdvancedRedstoneReceiverBase;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.modularui2.widget.builder.EnumSeriesBuilder;
 
 public class CoverAdvancedRedstoneReceiverBaseGui
-    extends CoverAdvancedWirelessRedstoneBaseGui<CoverAdvancedRedstoneReceiverBase> {
+    extends CoverAdvancedWirelessRedstoneBaseGui<Cover.CoverAdvancedRedstoneReceiverBase> {
 
-    public CoverAdvancedRedstoneReceiverBaseGui(CoverAdvancedRedstoneReceiverBase cover) {
+    public CoverAdvancedRedstoneReceiverBaseGui(Cover.CoverAdvancedRedstoneReceiverBase cover) {
         super(cover, true);
     }
 
     @Override
     public void addUIWidgets(PanelSyncManager syncManager, Flow column, CoverGuiData data) {
-        EnumSyncValue<CoverAdvancedRedstoneReceiverBase.GateMode, ?> gateModeSync = new EnumSyncValue<>(
-            CoverAdvancedRedstoneReceiverBase.GateMode.class,
+        EnumSyncValue<Cover.CoverAdvancedRedstoneReceiverBase.GateMode, ?> gateModeSync = new EnumSyncValue<>(
+            Cover.CoverAdvancedRedstoneReceiverBase.GateMode.class,
             cover::getGateMode,
             cover::setMode).allowC2S();
         syncManager.syncValue("gateMode", gateModeSync);
@@ -32,13 +32,13 @@ public class CoverAdvancedRedstoneReceiverBaseGui
 
     @Override
     protected Flow makeThirdFlow(PanelSyncManager syncManager, CoverGuiData data) {
-        EnumSyncValue<CoverAdvancedRedstoneReceiverBase.GateMode, ?> gateMode = (EnumSyncValue<CoverAdvancedRedstoneReceiverBase.GateMode, ?>) syncManager
+        EnumSyncValue<Cover.CoverAdvancedRedstoneReceiverBase.GateMode, ?> gateMode = (EnumSyncValue<Cover.CoverAdvancedRedstoneReceiverBase.GateMode, ?>) syncManager
             .getSyncHandlerFromMapKey("gateMode:0");
         return Flow.row()
             .size(140, 18)
 
             .child(
-                new EnumSeriesBuilder<>(CoverAdvancedRedstoneReceiverBase.GateMode.class).value(gateMode)
+                new EnumSeriesBuilder<>(Cover.CoverAdvancedRedstoneReceiverBase.GateMode.class).value(gateMode)
                     .overlay(
                         GTGuiTextures.OVERLAY_BUTTON_GATE_AND,
                         GTGuiTextures.OVERLAY_BUTTON_GATE_NAND,

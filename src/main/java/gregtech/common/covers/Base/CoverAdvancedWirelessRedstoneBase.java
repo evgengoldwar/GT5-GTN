@@ -1,4 +1,4 @@
-package gregtech.common.covers.redstone;
+package gregtech.common.covers.Base;
 
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
@@ -20,8 +20,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.common.covers.Base.Cover;
-import gregtech.common.covers.Base.CoverPosition;
 import io.netty.buffer.ByteBuf;
 
 public abstract class CoverAdvancedWirelessRedstoneBase extends Cover {

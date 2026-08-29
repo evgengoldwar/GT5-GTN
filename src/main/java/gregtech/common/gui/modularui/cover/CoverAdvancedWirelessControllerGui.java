@@ -18,9 +18,9 @@ import com.cleanroommc.modularui.widgets.layout.Grid;
 
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
+import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.CoverAdvancedWirelessController;
 import gregtech.common.covers.conditions.RedstoneCondition;
-import gregtech.common.covers.redstone.CoverAdvancedRedstoneReceiverBase;
 import gregtech.common.gui.modularui.cover.base.CoverAdvancedWirelessRedstoneBaseGui;
 import gregtech.common.modularui2.sync.LinkedBoolValue;
 import gregtech.common.modularui2.widget.SelectButton;
@@ -45,8 +45,8 @@ public class CoverAdvancedWirelessControllerGui
             cover::getRedstoneCondition,
             cover::setRedstoneCondition).allowC2S();
         syncManager.syncValue("condition_mode", conditionModeSyncValue);
-        EnumSyncValue<CoverAdvancedRedstoneReceiverBase.GateMode, ?> gateModeSync = new EnumSyncValue<>(
-            CoverAdvancedRedstoneReceiverBase.GateMode.class,
+        EnumSyncValue<Cover.CoverAdvancedRedstoneReceiverBase.GateMode, ?> gateModeSync = new EnumSyncValue<>(
+            Cover.CoverAdvancedRedstoneReceiverBase.GateMode.class,
             cover::getGateMode,
             cover::setMode).allowC2S();
         syncManager.syncValue("gateMode", gateModeSync);
@@ -111,7 +111,7 @@ public class CoverAdvancedWirelessControllerGui
 
     @Override
     protected Flow makeThirdFlow(PanelSyncManager syncManager, CoverGuiData data) {
-        EnumSyncValue<CoverAdvancedRedstoneReceiverBase.GateMode, ?> gateMode = (EnumSyncValue<CoverAdvancedRedstoneReceiverBase.GateMode, ?>) syncManager
+        EnumSyncValue<Cover.CoverAdvancedRedstoneReceiverBase.GateMode, ?> gateMode = (EnumSyncValue<Cover.CoverAdvancedRedstoneReceiverBase.GateMode, ?>) syncManager
             .getSyncHandlerFromMapKey("gateMode:0");
         return Flow.column()
             .size(50, 110)
@@ -120,7 +120,7 @@ public class CoverAdvancedWirelessControllerGui
             .child(new TextWidget(translateToLocal("gt.interact.desc.gatemode")))
             .childPadding(10)
             .child(
-                new EnumSeriesBuilder<>(CoverAdvancedRedstoneReceiverBase.GateMode.class).value(gateMode)
+                new EnumSeriesBuilder<>(Cover.CoverAdvancedRedstoneReceiverBase.GateMode.class).value(gateMode)
                     .overlay(
                         GTGuiTextures.OVERLAY_BUTTON_GATE_AND,
                         GTGuiTextures.OVERLAY_BUTTON_GATE_NAND,
