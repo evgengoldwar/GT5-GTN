@@ -101,7 +101,6 @@ import gregtech.crossmod.ae2.AE2Compat;
 import gregtech.crossmod.chunkapi.ClientMetaManager;
 import gregtech.crossmod.holoinventory.HoloInventory;
 import gregtech.crossmod.waila.Waila;
-import gregtech.loaders.load.GTItemIterator;
 import gregtech.loaders.misc.CoverLoader;
 import gregtech.loaders.postload.GTPostLoad;
 import gregtech.loaders.postload.ItemMaxStacksizeLoader;
@@ -357,8 +356,6 @@ public class GTMod {
         }
 
         proxy.onInitialization(event);
-
-        new GTItemIterator().run();
         proxy.registerUnificationEntries();
 
         if (Mods.Waila.isModLoaded()) {
