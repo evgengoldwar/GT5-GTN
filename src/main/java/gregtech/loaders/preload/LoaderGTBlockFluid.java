@@ -67,20 +67,14 @@ import gregtech.common.blocks.BlockCasings8;
 import gregtech.common.blocks.BlockCasings9;
 import gregtech.common.blocks.BlockCasingsBEC;
 import gregtech.common.blocks.BlockCasingsNH;
-import gregtech.common.blocks.BlockConcretes;
 import gregtech.common.blocks.BlockCyclotronCoils;
-import gregtech.common.blocks.BlockFenceMetal;
 import gregtech.common.blocks.BlockFrameBox;
 import gregtech.common.blocks.BlockGlass1;
-import gregtech.common.blocks.BlockGranites;
 import gregtech.common.blocks.BlockMachines;
 import gregtech.common.blocks.BlockMetal;
-import gregtech.common.blocks.BlockPad;
 import gregtech.common.blocks.BlockReinforced;
 import gregtech.common.blocks.BlockSheetMetal;
-import gregtech.common.blocks.BlockStones;
 import gregtech.common.blocks.BlockTintedIndustrialGlass;
-import gregtech.common.blocks.TileEntityOres;
 import gregtech.common.items.ItemAdvancedSensorCard;
 import gregtech.common.items.ItemDepletedCell;
 import gregtech.common.items.ItemFluidDisplay;
@@ -681,13 +675,8 @@ public class LoaderGTBlockFluid implements Runnable {
         GregTechAPI.sBlockCasings14 = new BlockCasings14();
         GregTechAPI.sBlockCasingsNH = new BlockCasingsNH();
         GregTechAPI.sBlockCasingsBEC = new BlockCasingsBEC();
-        GregTechAPI.sBlockGranites = new BlockGranites();
         GregTechAPI.sBlockLongDistancePipes = new BlockLongDistancePipe();
-        GregTechAPI.sBlockConcretes = new BlockConcretes();
-        GregTechAPI.sBlockStones = new BlockStones();
 
-        GregTechAPI.sBlockPad = new BlockPad();
-        GregTechAPI.sBlockFenceMetal = new BlockFenceMetal();
         GregTechAPI.sBlockFrames = new BlockFrameBox();
         GregTechAPI.sBlockGlass1 = new BlockGlass1();
         GregTechAPI.sBlockTintedGlass = new BlockTintedIndustrialGlass();
@@ -830,8 +819,6 @@ public class LoaderGTBlockFluid implements Runnable {
         FMLInterModComms.sendMessage(AppliedEnergistics2.ID, "whitelist-spatial", BaseMetaPipeEntity.class.getName());
 
         GT_FML_LOGGER.debug("GTMod: Registering the Ore TileEntity.");
-        GameRegistry.registerTileEntity(TileEntityOres.class, "GT_TileEntity_Ores");
-        FMLInterModComms.sendMessage(AppliedEnergistics2.ID, "whitelist-spatial", TileEntityOres.class.getName());
 
         GT_FML_LOGGER.debug("GTMod: Registering Fluids.");
         Materials.ConstructionFoam.mFluid = GTUtility.getFluidForFilledItem(GTModHandler.getIC2Item("CFCell", 1L), true)

@@ -171,11 +171,6 @@ public enum ItemList implements IItemContainer {
     Shape_Extruder_Small_Gear,
     Shape_Extruder_ToolHeadDrill,
 
-    // IC2 Replacements
-    PadBouncy,
-    PadSticky,
-    FenceIron,
-
     Credit_Copper,
     Credit_Iron,
     Credit_Silver,
