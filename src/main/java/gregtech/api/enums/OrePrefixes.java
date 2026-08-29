@@ -2352,16 +2352,6 @@ public class OrePrefixes {
         .materialBased()
         .build();
 
-    public static final OrePrefixes apiaryUpgrade = new OrePrefixBuilder("apiaryUpgrade")
-        .withDefaultLocalName("Industrial Apiary Upgrade")
-        .selfReferencing()
-        .build();
-
-    public static final OrePrefixes beeComb = new OrePrefixBuilder("beeComb").withDefaultLocalName("Bee Combs")
-        .unifiable()
-        .selfReferencing()
-        .build();
-
     public static final OrePrefixes nanite = new OrePrefixBuilder("nanite").withDefaultLocalName("Nanites")
         .withSuffix(" Nanites")
         .unifiable()

@@ -87,7 +87,6 @@ import gregtech.common.tileentities.machines.MTEHatchInputME;
 import gregtech.common.tileentities.machines.basic.MTEBasicMachineWithRecipeBuilder;
 import gregtech.common.tileentities.machines.basic.MTEBoxinator;
 import gregtech.common.tileentities.machines.basic.MTECharger;
-import gregtech.common.tileentities.machines.basic.MTEIndustrialApiary;
 import gregtech.common.tileentities.machines.basic.MTEMagLevPylon;
 import gregtech.common.tileentities.machines.basic.MTEMassfabricator;
 import gregtech.common.tileentities.machines.basic.MTEMicrowaveEnergyTransmitter;
@@ -872,14 +871,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         ItemList.RockBreakerUMV.set(
             new MTERockBreaker(ROCK_BREAKER_UMV.ID, "rockbreaker.tier.12", "Cryogenic Magma Solidifier R-15200", 12)
                 .getStackForm(1L));
-    }
-
-    private static void registerIndustrialApiary() {
-        if (Forestry.isModLoaded()) {
-            ItemList.Machine_IndustrialApiary.set(
-                new MTEIndustrialApiary(INDUSTRIAL_APIARY.ID, "basicmachine.industrialapiary", "Industrial Apiary", 8)
-                    .getStackForm(1L));
-        }
     }
 
     private static void registerMassFab() {
@@ -8284,7 +8275,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerScanner();
         registerPackager();
         registerRockBreaker();
-        registerIndustrialApiary();
         registerMassFab();
         registerReplicator();
         registerBrewery();
