@@ -30,7 +30,6 @@ public class PosteaTransformers implements Runnable {
 
     @Override
     public void run() {
-        registerFrameboxTransformers();
         registerProgrammedCircuitTransformers();
         registerPotassiumHydroxideTransformer();
         registerPTMEGTransformers();
@@ -50,60 +49,6 @@ public class PosteaTransformers implements Runnable {
         BlockReplacementManager.addSimpleReplacement("IC2:blockAlloyGlass", GregTechAPI.sBlockGlass1, 10);
         BlockReplacementManager
             .addSimpleReplacement("IC2:blockAlloy", ItemList.Block_ReinforcedConcrete.getBlock(), 13);
-    }
-
-    private void registerFrameboxTransformers() {
-        // These are used to convert old TileEntity frame boxes into the new system
-        // that does not use TEs by default
-
-        TileEntityReplacementManager.tileEntityTransformer("BaseMetaPipeEntity", (tag, world, chunk) -> {
-            // Read the MTE ID from the NBT data and try to figure out if this is a frame box
-            int id = tag.getInteger("mID");
-            // Framebox IDs start at 4096
-            int indexInMaterialList = id - 4096;
-            // The offset from 4096 is the index in the material list, so if this is outside the valid range then this
-            // is not a valid frame box, and we don't want to modify it
-            if (indexInMaterialList < 0 || indexInMaterialList >= GregTechAPI.sGeneratedMaterials.length) {
-                // Do not modify this TE, so return null
-                return null;
-            }
-
-            // Now we know for sure that the tileentity is a frame box
-            // If this frame has a cover on it, we need to keep it, but we still need to make sure the block
-            // is the new frame block. We can make sure to keep the TE using a pass-through transformer.
-            // This works because between the old and new frame systems, the TileEntity used for covered frames
-            // is still the same
-            if (tag.hasKey(GTValues.NBT.COVERS)) {
-                return new BlockInfo(
-                    GregTechAPI.sBlockFrames,
-                    indexInMaterialList | BlockFrameBox.MTE_BIT,
-                    PosteaTransformers::passthrough);
-            }
-
-            // If this frame has no covers, simply return a block and delete the TileEntity
-            return new BlockInfo(GregTechAPI.sBlockFrames, indexInMaterialList);
-        });
-
-        ItemStackReplacementManager.addTransformationHandler("gregtech:gt.blockmachines", (originalId, tag) -> {
-            // Get item meta id and see if this is a frame box, this works pretty much identically to the TE transformer
-            int id = tag.getInteger("Damage");
-            int indexInMaterialList = id - 4096;
-            // Not a frame box
-            if (indexInMaterialList < 0 || indexInMaterialList >= GregTechAPI.sGeneratedMaterials.length) {
-                return false;
-            }
-            // Not a frame box if the material for this id does not have a frame box associated with it.
-            // Apparently the DEFC ID overlaps with the material ID for a Bastnasite frame box for example
-            if (!GregTechAPI.sGeneratedMaterials[indexInMaterialList].hasMetalItems()) {
-                return false;
-            }
-            Item frameItem = Item.getItemFromBlock(GregTechAPI.sBlockFrames);
-            int itemId = Item.getIdFromItem(frameItem);
-            // Change this item into the correct frame item (make sure to keep amount)
-            tag.setInteger("id", itemId);
-            tag.setInteger("Damage", indexInMaterialList);
-            return true;
-        });
     }
 
     // TODO: Remove this and bio and breakthrough circuits once 2.8 is released.

@@ -121,7 +121,7 @@ public class LoaderGTBlockFluid implements Runnable {
         GregTechAPI.sBlockCasingsBEC = new BlockCasingsBEC();
         GregTechAPI.sBlockLongDistancePipes = new BlockLongDistancePipe();
 
-        GregTechAPI.sBlockFrames = new BlockFrameBox();
+//        GregTechAPI.sBlockFrames = new BlockFrameBox();
         GregTechAPI.sBlockGlass1 = new BlockGlass1();
         GregTechAPI.sBlockTintedGlass = new BlockTintedIndustrialGlass();
         // meta ID order, DO NOT CHANGE ORDER
@@ -241,10 +241,10 @@ public class LoaderGTBlockFluid implements Runnable {
 
         GregTechAPI.sBlockReinforced = new BlockReinforced("gt.blockreinforced");
 
-        GregTechAPI.sBlockSheetmetalGT = new BlockSheetMetal(
-            "gt.sheetmetal",
-            meta -> GTDataUtils.getIndexSafe(GregTechAPI.sGeneratedMaterials, meta),
-            1000);
+//        GregTechAPI.sBlockSheetmetalGT = new BlockSheetMetal(
+//            "gt.sheetmetal",
+//            meta -> GTDataUtils.getIndexSafe(GregTechAPI.sGeneratedMaterials, meta),
+//            1000);
 
         GT_FML_LOGGER.debug("GTMod: Register TileEntities.");
 
