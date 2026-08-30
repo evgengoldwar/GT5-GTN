@@ -241,7 +241,6 @@ import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_StainlessSteel
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_Steel;
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_Titanium;
 import static gregtech.common.items.IDMetaItem01.Large_Fluid_Cell_TungstenSteel;
-import static gregtech.common.items.IDMetaItem01.NC_SensorKit;
 import static gregtech.common.items.IDMetaItem01.NaquadriaSupersolid;
 import static gregtech.common.items.IDMetaItem01.Paper_Magic_Empty;
 import static gregtech.common.items.IDMetaItem01.Paper_Magic_Page;
@@ -472,7 +471,6 @@ import gregtech.common.items.behaviors.BehaviourDataStick;
 import gregtech.common.items.behaviors.BehaviourLighter;
 import gregtech.common.items.behaviors.BehaviourPrintedPages;
 import gregtech.common.items.behaviors.BehaviourScanner;
-import gregtech.common.items.behaviors.BehaviourSensorKit;
 import gregtech.common.items.behaviors.BehaviourSprayColor;
 import gregtech.common.items.behaviors.BehaviourSprayColorInfinite;
 import gregtech.common.items.behaviors.BehaviourSprayColorRemover;
@@ -3019,8 +3017,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.ELECTRUM, 6L),
                 new TCAspects.TC_AspectStack(TCAspects.SENSUS, 6L)));
 
-        ItemList.NC_SensorKit.set(
-            addItemWithLocalizationKeys(NC_SensorKit.ID, "gt.item.tool.sensor_kit.name", "", new BehaviourSensorKit()));
         ItemList.Duct_Tape.set(
             addItemWithLocalizationKeys(
                 Duct_Tape.ID,

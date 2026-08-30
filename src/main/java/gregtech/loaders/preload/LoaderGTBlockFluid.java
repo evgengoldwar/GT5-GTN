@@ -42,7 +42,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.fluid.GTFluidFactory;
 import gregtech.api.items.BlockLongDistancePipe;
-import gregtech.api.items.GTGenericItem;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.util.GTDataUtils;
@@ -72,11 +71,8 @@ import gregtech.common.blocks.BlockMetal;
 import gregtech.common.blocks.BlockReinforced;
 import gregtech.common.blocks.BlockSheetMetal;
 import gregtech.common.blocks.BlockTintedIndustrialGlass;
-import gregtech.common.items.ItemAdvancedSensorCard;
 import gregtech.common.items.ItemFluidDisplay;
 import gregtech.common.items.ItemIntegratedCircuit;
-import gregtech.common.items.ItemNeutronReflector;
-import gregtech.common.items.ItemSensorCard;
 import gregtech.common.items.MetaGeneratedItem01;
 import gregtech.common.items.MetaGeneratedItem02;
 import gregtech.common.items.MetaGeneratedItem03;
@@ -115,21 +111,6 @@ public class LoaderGTBlockFluid implements Runnable {
         ItemList.Rotor_HV.set(GTOreDictUnificator.get(OrePrefixes.rotor, Materials.Steel, 1L));
         ItemList.Rotor_EV.set(GTOreDictUnificator.get(OrePrefixes.rotor, Materials.StainlessSteel, 1L));
         ItemList.Rotor_IV.set(GTOreDictUnificator.get(OrePrefixes.rotor, Materials.TungstenSteel, 1L));
-
-        if (Mods.IC2NuclearControl.isModLoaded()) {
-            ItemList.NC_SensorCard.set(new ItemSensorCard("sensorcard", "GregTech Sensor Card"));
-            ItemList.NC_AdvancedSensorCard.set(new ItemAdvancedSensorCard());
-        } else {
-            ItemList.NC_SensorCard
-                .set(new GTGenericItem("sensorcard", "GregTech Sensor Card", "Nuclear Control not installed"));
-            ItemList.NC_AdvancedSensorCard.set(
-                new GTGenericItem(
-                    "advancedsensorcard",
-                    "GregTech Advanced Sensor Card",
-                    "Nuclear Control not installed"));
-        }
-
-        ItemList.Neutron_Reflector.set(new ItemNeutronReflector("neutronreflector", "Iridium Neutron Reflector", 0));
 
         GT_FML_LOGGER.debug("GTMod: Adding Blocks.");
         GregTechAPI.sBlockMachines = new BlockMachines();

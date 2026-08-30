@@ -333,8 +333,7 @@ public enum ItemList implements IItemContainer {
     Paper_Magic_Pages,
     Paper_Punch_Card_Empty,
     Paper_Punch_Card_Encoded,
-    NC_SensorCard,
-    NC_SensorKit,
+
     Tool_Matches,
     Tool_MatchBox_Used,
     Tool_MatchBox_Full,
@@ -1423,9 +1422,6 @@ public enum ItemList implements IItemContainer {
     ReinforcedPhotolithographicFrameworkCasing,
     RadiationProofPhotolithographicFrameworkCasing,
     InfinityCooledCasing,
-
-    Cover_Metrics_Transmitter,
-    NC_AdvancedSensorCard,
 
     ElectronicsLump,
 

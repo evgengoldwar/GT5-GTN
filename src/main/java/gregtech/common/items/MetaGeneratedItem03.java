@@ -1,8 +1,6 @@
 package gregtech.common.items;
 
 import static com.gtnewhorizon.gtnhlib.util.AnimatedTooltipHandler.addItemTooltip;
-import static gregtech.api.enums.Textures.BlockIcons.MACHINE_CASINGS;
-import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_METRICS_TRANSMITTER;
 import static gregtech.api.enums.Textures.ItemIcons.MASK_VOLTAGE_COIL;
 import static gregtech.client.GTTooltipHandler.Tier.EV;
 import static gregtech.client.GTTooltipHandler.Tier.HV;
@@ -172,7 +170,6 @@ import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_ZPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wetwarecomputer;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wetwaremainframe;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wetwaresupercomputer;
-import static gregtech.common.items.IDMetaItem03.Cover_Metrics_Transmitter;
 import static gregtech.common.items.IDMetaItem03.EV_Coil;
 import static gregtech.common.items.IDMetaItem03.GalliumArsenideCrystal;
 import static gregtech.common.items.IDMetaItem03.GalliumArsenideCrystalSmallPart;
@@ -237,8 +234,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.common.Optional;
-import gregtech.api.covers.CoverPlacer;
-import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -250,9 +245,7 @@ import gregtech.api.enums.SubTag;
 import gregtech.api.enums.TCAspects;
 import gregtech.api.items.MetaGeneratedItemX32;
 import gregtech.api.objects.ItemData;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTOreDictUnificator;
-import gregtech.common.covers.redstone.CoverMetricsTransmitter;
 import gregtech.common.powergoggles.ItemPowerGoggles;
 import gregtech.common.render.items.CosmicNeutroniumMetaItemRenderer;
 import gregtech.common.render.items.GlitchEffectMetaItemRenderer;
@@ -1342,12 +1335,6 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                     SubTag.NO_UNIFICATION))
             .setRender(new CosmicNeutroniumMetaItemRenderer());
 
-        ItemList.Cover_Metrics_Transmitter.set(
-            addItemWithLocalizationKeys(
-                Cover_Metrics_Transmitter.ID,
-                "gt.item.cover.metrics_transmitter.name",
-                "gt.item.cover.metrics_transmitter.tooltip"));
-
         ItemList.ActivatedCarbonFilterMesh.set(
             addItemWithLocalizationKeys(
                 Activated_Carbon_Filter_Mesh.ID,
@@ -1650,7 +1637,6 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
         registerAllTieredTooltips();
         registerAllAnimatedTooltips();
         initOreDictUnificatorEntries();
-        registerCovers();
     }
 
     private void registerAllTieredTooltips() {
@@ -1739,16 +1725,6 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
             ItemList.Circuit_Parts_InductorSMD.get(1L),
             true);
 
-    }
-
-    private void registerCovers() {
-        CoverRegistry.registerCover(
-            ItemList.Cover_Metrics_Transmitter.get(1L),
-            TextureFactory.of(MACHINE_CASINGS[2][0], TextureFactory.of(OVERLAY_METRICS_TRANSMITTER)),
-            context -> new CoverMetricsTransmitter(context, TextureFactory.of(OVERLAY_METRICS_TRANSMITTER)),
-            CoverPlacer.builder()
-                .onlyPlaceIf(CoverMetricsTransmitter::isCoverPlaceable)
-                .build());
     }
 
     @Override
