@@ -10,7 +10,6 @@ import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.common.items.ItemFluidDisplay;
 import gregtech.common.items.ItemIntegratedCircuit;
-import gregtech.common.items.MetaGeneratedTool01;
 
 public class LoaderGTBlockFluid implements Runnable {
 
@@ -19,7 +18,6 @@ public class LoaderGTBlockFluid implements Runnable {
         GT_FML_LOGGER.debug("GTMod: Register Items.");
         new ItemFluidDisplay();
         new ItemIntegratedCircuit();
-        new MetaGeneratedTool01();
         GT_FML_LOGGER.debug("GTMod: Register TileEntities.");
 
         BaseMetaTileEntity tBaseMetaTileEntity = GregTechAPI.constructBaseMetaTileEntity();

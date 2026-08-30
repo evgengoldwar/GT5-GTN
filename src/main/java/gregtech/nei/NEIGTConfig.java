@@ -26,7 +26,6 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.recipe.RecipeCategory;
@@ -71,17 +70,12 @@ public class NEIGTConfig implements IConfigureNEI {
     @Override
     public void loadConfig() {
         sIsAdded = false;
-        registerHideItem();
         registerHandlers();
         registerCatalysts();
         registerItemEntries();
         registerDumpers();
         registerFilters();
         sIsAdded = true;
-    }
-
-    private void registerHideItem() {
-        API.hideItem(ItemList.Display_Fluid.getWithDamage(1, 0));
     }
 
     private void registerHandlers() {

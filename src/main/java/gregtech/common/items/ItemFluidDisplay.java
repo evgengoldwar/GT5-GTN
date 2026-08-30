@@ -4,9 +4,7 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -38,11 +36,9 @@ import gregtech.common.fluid.GTFluid;
 
 public class ItemFluidDisplay extends GTGenericItem implements IFluidContainerItem {
 
-    private static final List<ItemStack> ITEM_STACKS = new ArrayList<>();
+    public static final List<ItemStack> ITEM_STACKS = new ArrayList<>();
 
     private static final int CAPACITY = 0;
-
-    private static final Map<Fluid, String> sFluidTooltips = new HashMap<>();
 
     public ItemFluidDisplay() {
         super("GregTech_FluidDisplay", "Fluid Display", null);
