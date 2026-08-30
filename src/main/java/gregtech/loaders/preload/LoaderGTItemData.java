@@ -57,7 +57,6 @@ public class LoaderGTItemData implements Runnable {
         GTOreDictUnificator.addItemData(
             GTModHandler.getModItem(TwilightForest.ID, "item.shardCluster", 1L, 0),
             new ItemData(Materials.Knightmetal, 3628800L));
-        GTOreDictUnificator.addItemData(ItemList.TF_LiveRoot.get(1L), new ItemData(Materials.LiveRoot, 3628800L));
         GTOreDictUnificator.addItemData(
             GTModHandler.getModItem(AppliedEnergistics2.ID, "item.ItemMultiMaterial", 1L, 10),
             new ItemData(Materials.CertusQuartz, 1814400L));

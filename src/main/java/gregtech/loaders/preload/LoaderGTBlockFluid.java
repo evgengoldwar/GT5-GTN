@@ -1654,13 +1654,6 @@ public class LoaderGTBlockFluid implements Runnable {
             .registerBContainers(
                 GTOreDictUnificator.get(OrePrefixes.cell, Materials.HolyWater, 1L),
                 ItemList.Cell_Empty.get(1L));
-        if (ItemList.TF_Vial_FieryBlood.get(1L) != null) {
-            FluidContainerRegistry.registerFluidContainer(
-                new FluidContainerRegistry.FluidContainerData(
-                    Materials.FierySteel.getFluid(250),
-                    ItemList.TF_Vial_FieryBlood.get(1L),
-                    new ItemStack(Items.glass_bottle, 1)));
-        }
 
         FluidContainerRegistry.registerFluidContainer(
             new FluidContainerRegistry.FluidContainerData(

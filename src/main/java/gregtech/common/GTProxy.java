@@ -819,53 +819,6 @@ public class GTProxy implements IFuelHandler {
         }
         GT_FML_LOGGER.debug("GTMod: Getting required Items of other Mods.");
 
-        ItemList.RC_ShuntingWire.set(GTModHandler.getModItem(Railcraft.ID, "machine.delta", 1L, 0));
-        ItemList.RC_ShuntingWireFrame.set(GTModHandler.getModItem(Railcraft.ID, "frame", 1L, 0));
-        ItemList.RC_Rail_Standard.set(GTModHandler.getModItem(Railcraft.ID, "part.rail", 1L, 0));
-        ItemList.RC_Rail_Adv.set(GTModHandler.getModItem(Railcraft.ID, "part.rail", 1L, 1));
-        ItemList.RC_Rail_Wooden.set(GTModHandler.getModItem(Railcraft.ID, "part.rail", 1L, 2));
-        ItemList.RC_Rail_HS.set(GTModHandler.getModItem(Railcraft.ID, "part.rail", 1L, 3));
-        ItemList.RC_Rail_Reinforced.set(GTModHandler.getModItem(Railcraft.ID, "part.rail", 1L, 4));
-        ItemList.RC_Rail_Electric.set(GTModHandler.getModItem(Railcraft.ID, "part.rail", 1L, 5));
-        ItemList.RC_Tie_Wood.set(GTModHandler.getModItem(Railcraft.ID, "part.tie", 1L, 0));
-        ItemList.RC_Tie_Stone.set(GTModHandler.getModItem(Railcraft.ID, "part.tie", 1L, 1));
-        ItemList.RC_Bed_Wood.set(GTModHandler.getModItem(Railcraft.ID, "part.railbed", 1L, 0));
-        ItemList.RC_Bed_Stone.set(GTModHandler.getModItem(Railcraft.ID, "part.railbed", 1L, 1));
-        ItemList.RC_Rebar.set(GTModHandler.getModItem(Railcraft.ID, "part.rebar", 1L));
-        ItemList.TC_Thaumometer.set(GTModHandler.getModItem(Thaumcraft.ID, "ItemThaumometer", 1L, 0));
-        ItemList.Tool_Sword_Steel.set(GTModHandler.getModItem(Railcraft.ID, "tool.steel.sword", 1L));
-        ItemList.Tool_Pickaxe_Steel.set(GTModHandler.getModItem(Railcraft.ID, "tool.steel.pickaxe", 1L));
-        ItemList.Tool_Shovel_Steel.set(GTModHandler.getModItem(Railcraft.ID, "tool.steel.shovel", 1L));
-        ItemList.Tool_Axe_Steel.set(GTModHandler.getModItem(Railcraft.ID, "tool.steel.axe", 1L));
-        ItemList.Tool_Hoe_Steel.set(GTModHandler.getModItem(Railcraft.ID, "tool.steel.hoe", 1L));
-
-        ItemList.TF_LiveRoot.set(GTModHandler.getModItem(TwilightForest.ID, "item.liveRoot", 1L, 0));
-        ItemList.TF_Vial_FieryBlood.set(GTModHandler.getModItem(TwilightForest.ID, "item.fieryBlood", 1L));
-        ItemList.TF_Vial_FieryTears.set(GTModHandler.getModItem(TwilightForest.ID, "item.fieryTears", 1L));
-
-        ItemList.FR_Lemon.set(GTModHandler.getModItem(Forestry.ID, "fruits", 1L, 3));
-        ItemList.FR_Mulch.set(GTModHandler.getModItem(Forestry.ID, "mulch", 1L));
-        ItemList.FR_Fertilizer.set(GTModHandler.getModItem(Forestry.ID, "fertilizerCompound", 1L));
-        ItemList.FR_Compost.set(GTModHandler.getModItem(Forestry.ID, "fertilizerBio", 1L));
-        ItemList.FR_Silk.set(GTModHandler.getModItem(Forestry.ID, "craftingMaterial", 1L, 2));
-        ItemList.FR_Wax.set(GTModHandler.getModItem(Forestry.ID, "beeswax", 1L));
-        ItemList.FR_WaxCapsule.set(GTModHandler.getModItem(Forestry.ID, "waxCapsule", 1L));
-        ItemList.FR_RefractoryWax.set(GTModHandler.getModItem(Forestry.ID, "refractoryWax", 1L));
-        ItemList.FR_RefractoryCapsule.set(GTModHandler.getModItem(Forestry.ID, "refractoryEmpty", 1L));
-        ItemList.FR_Bee_Drone.set(GTModHandler.getModItem(Forestry.ID, "beeDroneGE", 1L));
-        ItemList.FR_Bee_Princess.set(GTModHandler.getModItem(Forestry.ID, "beePrincessGE", 1L));
-        ItemList.FR_Bee_Queen.set(GTModHandler.getModItem(Forestry.ID, "beeQueenGE", 1L));
-        ItemList.FR_Tree_Sapling.set(GTModHandler.getModItem(Forestry.ID, "sapling", 1L, GTModHandler.getModItem(Forestry.ID, "saplingGE", 1L)));
-        ItemList.FR_Butterfly.set(GTModHandler.getModItem(Forestry.ID, "butterflyGE", 1L));
-        ItemList.FR_Larvae.set(GTModHandler.getModItem(Forestry.ID, "beeLarvaeGE", 1L));
-        ItemList.FR_Serum.set(GTModHandler.getModItem(Forestry.ID, "serumGE", 1L));
-        ItemList.FR_Caterpillar.set(GTModHandler.getModItem(Forestry.ID, "caterpillarGE", 1L));
-        ItemList.FR_PollenFertile.set(GTModHandler.getModItem(Forestry.ID, "pollenFertile", 1L));
-        ItemList.FR_Stick.set(GTModHandler.getModItem(Forestry.ID, "oakStick", 1L));
-        ItemList.FR_Casing_Impregnated.set(GTModHandler.getModItem(Forestry.ID, "impregnatedCasing", 1L));
-        ItemList.FR_Casing_Sturdy.set(GTModHandler.getModItem(Forestry.ID, "sturdyMachine", 1L));
-        ItemList.FR_Casing_Hardened.set(GTModHandler.getModItem(Forestry.ID, "hardenedMachine", 1L));
-
         ItemList.Cell_Universal_Fluid.set(GTModHandler.getIC2Item("FluidCell", 1L));
         ItemList.Cell_Empty.set(GTModHandler.getIC2Item("cell", 1L, GTModHandler.getIC2Item("cellEmpty", 1L, GTModHandler.getIC2Item("emptyCell", 1L))));
         ItemList.Cell_Water.set(GTModHandler.getIC2Item("waterCell", 1L, GTModHandler.getIC2Item("cellWater", 1L)));

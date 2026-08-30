@@ -158,7 +158,6 @@ public class LoaderGTOreDictionary implements Runnable {
         GTOreDictUnificator.registerOre(
             OreDictNames.craftingQuartz,
             GTModHandler.getModItem(AppliedEnergistics2.ID, "item.ItemMultiMaterial", 1L, 11));
-        GTOreDictUnificator.registerOre("cropLemon", ItemList.FR_Lemon.get(1L));
         GTOreDictUnificator.registerOre(OrePrefixes.battery, Materials.LV, ItemList.IC2_ReBattery.get(1L));
         GTOreDictUnificator
             .registerOre(OrePrefixes.battery, Materials.LV, GTModHandler.getIC2Item("chargedReBattery", 1L, 32767));
