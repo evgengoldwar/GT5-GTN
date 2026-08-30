@@ -3,6 +3,7 @@ package gregtech.common.items;
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatFluid;
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,7 +36,11 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
 import gregtech.common.fluid.GTFluid;
 
-public class ItemFluidDisplay extends GTGenericItem {
+public class ItemFluidDisplay extends GTGenericItem implements IFluidContainerItem {
+
+    private static final List<ItemStack> ITEM_STACKS = new ArrayList<>();
+
+    private static final int CAPACITY = 0;
 
     private static final Map<Fluid, String> sFluidTooltips = new HashMap<>();
 
@@ -147,35 +153,50 @@ public class ItemFluidDisplay extends GTGenericItem {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item aItem, CreativeTabs aTab, List<ItemStack> aList) {
-        if (GTValues.D1) {
-            int i = 0;
-            for (int j = FluidRegistry.getMaxID(); i < j; i++) {
-                ItemStack tStack = GTUtility.getFluidDisplayStack(FluidRegistry.getFluid(i));
-                if (tStack != null) {
-                    aList.add(tStack);
-                }
+        for (ItemStack itemStack : ITEM_STACKS) {
+            if (itemStack != null) {
+                aList.add(itemStack);
             }
         }
     }
 
-    public static boolean isCell(ItemStack tItemStack) {
-        for (int tOreDict : OreDictionary.getOreIDs(tItemStack)) {
-            String tOreDictName = OreDictionary.getOreName(tOreDict);
-            if (tOreDictName.startsWith("cell")) return true;
+    @Override
+    public FluidStack getFluid(ItemStack container) {
+        if (container == null) {
+            return null;
         }
-        return false;
+
+        Fluid fluid = FluidRegistry.getFluid(container.getItemDamage());
+
+        if (fluid == null) {
+            return null;
+        }
+
+        return new FluidStack(fluid, CAPACITY);
     }
 
-    public static Materials getMaterialFromCell(ItemStack tItemStack) {
-        for (int tOreDict : OreDictionary.getOreIDs(tItemStack)) {
-            String tOreDictName = OreDictionary.getOreName(tOreDict);
-            if (tOreDictName.startsWith("cell")) {
-                return Materials.getRealMaterial(
-                    tOreDictName.replace("cell", "")
-                        .replace("Molten", "")
-                        .replace("Plasma", ""));
+    @Override
+    public int getCapacity(ItemStack container) {
+        return 0;
+    }
+
+    @Override
+    public int fill(ItemStack container, FluidStack resource, boolean doFill) {
+        return 0;
+    }
+
+    @Override
+    public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
+        return null;
+    }
+
+    public static void setupFluids() {
+        int i = 0;
+        for (int j = FluidRegistry.getMaxID(); i < j; i++) {
+            ItemStack tStack = GTUtility.getFluidDisplayStack(FluidRegistry.getFluid(i));
+            if (tStack != null) {
+                ITEM_STACKS.add(tStack);
             }
         }
-        return Materials._NULL;
     }
 }

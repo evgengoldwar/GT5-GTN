@@ -17,9 +17,9 @@ public class LoaderGTBlockFluid implements Runnable {
     @Override
     public void run() {
         GT_FML_LOGGER.debug("GTMod: Register Items.");
+        new ItemFluidDisplay();
         new ItemIntegratedCircuit();
         new MetaGeneratedTool01();
-        new ItemFluidDisplay();
         GT_FML_LOGGER.debug("GTMod: Register TileEntities.");
 
         BaseMetaTileEntity tBaseMetaTileEntity = GregTechAPI.constructBaseMetaTileEntity();
