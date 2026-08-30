@@ -155,29 +155,6 @@ public final class RecipeMaps {
         .progressBarMUI2(GTGuiTextures.PROGRESSBAR_ARROW_MULTIPLE)
         .build();
 
-    public static final RecipeMap<RecipeMapBackend> benderRecipes = RecipeMapBuilder.of("gt.recipe.metalbender")
-        .maxIO(2, 1, 0, 0)
-        .minInputs(2, 0)
-        .slotOverlays(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTUITextures.OVERLAY_SLOT_BENDER : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTGuiTextures.OVERLAY_SLOT_BENDER : null)
-        .progressBar(GTUITextures.PROGRESSBAR_BENDING)
-        .progressBarMUI2(GTGuiTextures.PROGRESSBAR_BENDING)
-        .build();
-
-    public static final RecipeMap<AssemblerBackend> assemblerRecipes = RecipeMapBuilder
-        .of("gt.recipe.assembler", AssemblerBackend::new)
-        .maxIO(9, 1, 1, 0)
-        .minInputs(1, 0)
-        .slotOverlays(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTUITextures.OVERLAY_SLOT_CIRCUIT : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTGuiTextures.OVERLAY_SLOT_CIRCUIT : null)
-        .progressBar(GTUITextures.PROGRESSBAR_ASSEMBLE)
-        .progressBarMUI2(GTGuiTextures.PROGRESSBAR_ASSEMBLE)
-        .build();
-
     public static final RecipeMap<FluidCannerBackend> cannerRecipes = RecipeMapBuilder
         .of("gt.recipe.canner", FluidCannerBackend::new)
         .maxIO(2, 2, 1, 1)
