@@ -105,7 +105,6 @@ import gregtech.loaders.postload.MachineTooltipsLoader;
 import gregtech.loaders.postload.PosteaTransformers;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
-import gregtech.loaders.preload.LoaderGTItemData;
 import gregtech.loaders.preload.LoaderGTOreDictionary;
 import gregtech.loaders.preload.LoaderMetaTileEntities;
 
@@ -302,7 +301,7 @@ public class GTMod {
         GTPreLoad.runMineTweakerCompat();
 
         new LoaderGTOreDictionary().run();
-        new LoaderGTItemData().run();
+//        new LoaderGTItemData().run();
         new LoaderGTBlockFluid().run();
         new LoaderMetaTileEntities().run();
 
