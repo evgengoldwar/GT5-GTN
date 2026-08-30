@@ -1004,8 +1004,6 @@ public enum ItemList implements IItemContainer {
 
     Casing_Autoclave,
 
-    Neutron_Reflector,
-
     Casing_Fusion_Coil,
     Casing_Fusion,
     Casing_Fusion2,
@@ -1316,7 +1314,6 @@ public enum ItemList implements IItemContainer {
 
     Circuit_Microprocessor,
     Circuit_Processor,
-    Circuit_Computer,
     Circuit_Nanoprocessor,
     Circuit_Nanocomputer,
     Circuit_Elitenanocomputer,
