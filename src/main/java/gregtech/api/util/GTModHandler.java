@@ -126,11 +126,6 @@ public class GTModHandler {
     public static Collection<GTItemStack> sBoxableItems = new ArrayList<>();
 
     private static boolean sBufferCraftingRecipes = true;
-    public static List<Integer> sSingleNonBlockDamagableRecipeList_list = new ArrayList<>(100);
-    public static List<Integer> sSingleNonBlockDamagableRecipeList_warntOutput = new ArrayList<>(50);
-    public static List<Integer> sVanillaRecipeList_warntOutput = new ArrayList<>(50);
-    public static List<Integer> sAnySteamFluidIDs = new ArrayList<>();
-    public static List<Integer> sSuperHeatedSteamFluidIDs = new ArrayList<>();
 
     static {
         sNativeRecipeClasses.add(ShapedRecipes.class.getName());
@@ -242,20 +237,6 @@ public class GTModHandler {
     public static boolean isSteam(FluidStack aFluid) {
         if (aFluid == null) return false;
         return aFluid.isFluidEqual(Materials.Steam.getGas(1));
-    }
-
-    /**
-     * Returns if that Liquid is Any Steam (including other mods)
-     */
-    public static boolean isAnySteam(FluidStack aFluid) {
-        return (aFluid != null && (isSteam(aFluid) || sAnySteamFluidIDs.contains(aFluid.getFluidID())));
-    }
-
-    /**
-     * Returns if that Liquid is Super Heated Steam (including other mods)
-     */
-    public static boolean isSuperHeatedSteam(FluidStack aFluid) {
-        return (aFluid != null && sSuperHeatedSteamFluidIDs.contains(aFluid.getFluidID()));
     }
 
     /**

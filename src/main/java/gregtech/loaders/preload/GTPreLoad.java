@@ -327,7 +327,6 @@ public class GTPreLoad {
         GTMod.proxy.mGTBees = Gregtech.general.GTBees;
         GTMod.proxy.mCraftingUnification = Gregtech.general.craftingUnification;
         GTMod.proxy.mNerfedWoodPlank = Gregtech.general.nerfedWoodPlank;
-        GTMod.proxy.mChangeWoodenVanillaTools = Gregtech.general.changedWoodenVanillaTools;
         GTMod.proxy.mAchievements = Gregtech.general.achievements;
         GTMod.proxy.mExplosionItemDrop = Gregtech.general.explosionItemDrop;
         GTMod.proxy.mEnableCleanroom = Gregtech.general.enableCleanroom;

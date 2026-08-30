@@ -438,8 +438,6 @@ public class GTMod {
                 | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] { "RRR", "RwR", "RRR", 'R', OrePrefixes.plate.get(Materials.Iron) });
 
-        GTPostLoad.registerFluidCannerRecipes();
-
         AE2Compat.onPostInit();
 
         Arrays
@@ -449,8 +447,6 @@ public class GTMod {
                     "macerator", "recycler", "metalformer", "orewashingplant", "massFabricator", "replicator", })
             .map(tName -> GTModHandler.getIC2Item(tName, 1L))
             .forEach(GTModHandler::removeRecipeByOutputDelayed);
-
-        GTPostLoad.changeWoodenVanillaTools();
 
         // Register postea transformers
         new PosteaTransformers().run();
@@ -489,10 +485,7 @@ public class GTMod {
             }
         }
 
-        GTPostLoad.addSolidFakeLargeBoilerFuels();
-        GTPostLoad.addCauldronRecipe();
-        GTPostLoad.identifyAnySteam();
-        GTPostLoad.processToolboxBans();
+        new GTPostLoad().run();
 
         GTRecipe.GTppRecipeHelper = true;
         GT_FML_LOGGER.debug("GTMod: Loading finished, de-allocating temporary Init Variables.");

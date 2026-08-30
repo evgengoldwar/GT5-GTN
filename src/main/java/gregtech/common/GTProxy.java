@@ -166,7 +166,6 @@ public class GTProxy implements IFuelHandler {
     public boolean mAxeWhenAdventure = true;
     public boolean mSurvivalIntoAdventure = false;
     public boolean mNerfedWoodPlank = true;
-    public boolean mChangeWoodenVanillaTools = true;
     public boolean mIgnoreTcon = true;
     public boolean mAchievements = true;
     public boolean mChangeHarvestLevels = false;
@@ -293,8 +292,6 @@ public class GTProxy implements IFuelHandler {
     public int wailaProgressBorderColor2 = 0xFF505050;
 
     public Set<Item> toolboxBans = ImmutableSet.of();
-
-    public static final int GUI_ID_COVER_SIDE_BASE = 10; // Takes GUI ID 10 - 15
 
     private static final Map<String, Integer> oreDictBurnTimes = new Object2IntOpenHashMap<>();
 

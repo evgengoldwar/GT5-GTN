@@ -5,8 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
 
-import gregtech.common.config.Gregtech;
-
 public enum Mixin implements IMixins {
 
     // spotless:off
@@ -53,11 +51,6 @@ public enum Mixin implements IMixins {
     SplitPhysicRenderingPipeBoundingBox(
         new MixinBuilder("Allows pipes to have different bounding box for the rendering, physics and player pickblock")
             .addClientMixins("minecraft.MinecraftMixin_MouseOver")
-            .setPhase(Phase.EARLY)),
-    VanillaToolChanges(
-        new MixinBuilder("Changes wooden tools to be a little faster")
-            .addCommonMixins("minecraft.ItemToolMaterialMixin")
-            .setApplyIf(() -> Gregtech.general.changedWoodenVanillaTools)
             .setPhase(Phase.EARLY)),
 
     HEEAccessors(new MixinBuilder("Various accessors for Hardcore Ender Expansion")
