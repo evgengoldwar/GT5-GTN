@@ -66,7 +66,6 @@ import gregtech.api.objects.ItemData;
 import gregtech.api.objects.XSTR;
 import gregtech.api.recipe.RecipeLookupValidator;
 import gregtech.api.recipe.RecipeMapBackend;
-import gregtech.api.registries.LHECoolantRegistry;
 import gregtech.api.registries.RemovedMetaRegistry;
 import gregtech.api.util.AssemblyLineServer;
 import gregtech.api.util.GTLanguageManager;
@@ -349,8 +348,6 @@ public class GTMod {
         }
 
         GTStructureChannels.register();
-
-        LHECoolantRegistry.registerBaseCoolants();
 
         GT_FML_LOGGER.debug("Registering SpaceDimensions");
 
