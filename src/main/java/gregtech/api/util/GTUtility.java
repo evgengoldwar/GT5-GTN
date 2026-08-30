@@ -154,7 +154,6 @@ import gregtech.api.net.GTPacketSound;
 import gregtech.api.objects.CollectorUtils;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.objects.ItemData;
-import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.threads.RunnableSound;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.ItemIntegratedCircuit;
@@ -3016,14 +3015,6 @@ public class GTUtility {
         public boolean matches(Fluid fluid) {
             return fluid() == fluid;
         }
-    }
-
-    public static int getPlasmaFuelValueInEUPerLiterFromFluid(FluidStack aLiquid) {
-        if (aLiquid == null) return 0;
-        GTRecipe tFuel = RecipeMaps.plasmaFuels.getBackend()
-            .findFuel(aLiquid);
-        if (tFuel != null) return tFuel.mSpecialValue;
-        return 0;
     }
 
     public static MovingObjectPosition getPlayerLookingTarget(EntityPlayer viewpoint) {

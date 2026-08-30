@@ -34,7 +34,6 @@ import gregtech.api.objects.ItemData;
 import gregtech.api.recipe.RecipeCategory;
 import gregtech.api.recipe.RecipeLookupValidator;
 import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.RecipeMetadataKey;
 import gregtech.api.recipe.metadata.EmptyRecipeMetadataStorage;
 import gregtech.api.recipe.metadata.IRecipeMetadataStorage;
@@ -249,51 +248,7 @@ public class GTRecipe implements Comparable<GTRecipe> {
         mSpecialValue = aSpecialValue;
         mEUt = aEUt;
         metadataStorage = EmptyRecipeMetadataStorage.INSTANCE;
-        // checkCellBalance();
         reloadOwner();
-    }
-
-    // aSpecialValue = EU per Liter! If there is no Liquid for this Object, then it gets multiplied with 1000!
-    public GTRecipe(ItemStack aInput1, ItemStack aOutput1, ItemStack aOutput2, ItemStack aOutput3, ItemStack aOutput4,
-        int aSpecialValue, int aType) {
-        this(
-            new ItemStack[] { aInput1 },
-            new ItemStack[] { aOutput1, aOutput2, aOutput3, aOutput4 },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            0,
-            0,
-            Math.max(1, aSpecialValue));
-
-        if (mInputs.length > 0 && aSpecialValue > 0) {
-            switch (aType) {
-                // Diesel Generator
-                case 0 -> {
-                    RecipeMaps.dieselFuels.addRecipe(this);
-                }
-                // Gas Turbine
-                case 1 -> RecipeMaps.gasTurbineFuels.addRecipe(this);
-
-                // Thermal Generator
-                case 2 -> RecipeMaps.hotFuels.addRecipe(this);
-
-                // Plasma Generator
-                case 4 -> RecipeMaps.plasmaFuels.addRecipe(this);
-
-                // Magic Generator
-                case 5 -> RecipeMaps.magicFuels.addRecipe(this);
-
-                // Fluid Generator. Usually 3. Every wrong Type ends up in the Semifluid Generator
-                default -> {
-                    RecipeMaps.denseLiquidFuels.addRecipe(this);
-                }
-            }
-        }
     }
 
     // Dummy GTRecipe maker...

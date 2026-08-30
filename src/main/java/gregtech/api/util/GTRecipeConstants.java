@@ -1,36 +1,17 @@
 package gregtech.api.util;
 
-import static gregtech.GTLoggers.GT_FML_LOGGER;
-import static gregtech.api.recipe.RecipeMaps.scannerFakeRecipes;
-import static gregtech.api.util.GTRecipeMapUtil.convertCellToFluid;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Optional;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
-import org.apache.commons.lang3.ArrayUtils;
-
-import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.NaniteTier;
 import gregtech.api.interfaces.IRecipeMap;
 import gregtech.api.recipe.RecipeCategories;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.RecipeMetadataKey;
 import gregtech.api.recipe.metadata.SimpleRecipeMetadataKey;
 import gregtech.api.util.recipe.QuantumComputerRecipeData;
-import gregtech.api.util.recipe.Scanning;
-import gregtech.api.util.recipe.Sievert;
-import gregtech.common.items.IDMetaItem03;
-import gregtech.common.items.MetaGeneratedItem03;
 
 // this class is intended to be import-static-ed on every recipe script
 // so take care to not put unrelated stuff here!
@@ -199,7 +180,6 @@ public class GTRecipeConstants {
     public static final RecipeMetadataKey<Long> RESEARCH_STATION_DATA = SimpleRecipeMetadataKey
         .create(Long.class, "research_station_data");
 
-
     public static final RecipeMetadataKey<Integer> EU_MULTIPLIER = SimpleRecipeMetadataKey
         .create(Integer.class, "eu_multiplier");
 
@@ -230,7 +210,6 @@ public class GTRecipeConstants {
 
     public static final RecipeMetadataKey<DecayType> DECAY_TYPE = SimpleRecipeMetadataKey
         .create(DecayType.class, "decay-type");
-
 
     /**
      * Add a arc furnace recipe.
@@ -275,54 +254,6 @@ public class GTRecipeConstants {
 
         return ret;
     });
-
-    /**
-     * A universal fuel adder. It's actually just a dispatcher towards all actual fuel recipe maps. Dispatch based on
-     * {@link #FUEL_TYPE}. Uses {@link #FUEL_VALUE} as fuel value. Can use {@link FuelType#ordinal()} as a
-     * human-readable form of what FUEL_TYPE should be. You can bypass this and add to relevant fuel maps directly if
-     * you wish.
-     */
-    public static IRecipeMap Fuel = IRecipeMap.newRecipeMap(builder -> {
-        builder.validateInputCount(1, 1)
-            .validateNoInputFluid()
-            .validateOutputCount(-1, 1)
-            .validateNoOutputFluid();
-        if (!builder.isValid()) return Collections.emptyList();
-        Integer fuelType = builder.getMetadata(FUEL_TYPE);
-        if (fuelType == null) return Collections.emptyList();
-        builder.metadata(FUEL_VALUE, builder.getMetadataOrDefault(FUEL_VALUE, 0));
-        return FuelType.get(fuelType)
-            .getTarget()
-            .doAdd(builder);
-    });
-
-    public enum FuelType {
-
-        // ORDER MATTERS. DO NOT INSERT ELEMENT BETWEEN EXISTING ONES
-        DieselFuel(RecipeMaps.dieselFuels),
-        GasTurbine(RecipeMaps.gasTurbineFuels),
-        // appears unused
-        HotFuel(RecipeMaps.hotFuels),
-        SemiFluid(RecipeMaps.denseLiquidFuels),
-        PlasmaTurbine(RecipeMaps.plasmaFuels),
-        Magic(RecipeMaps.magicFuels),;
-
-        private static final FuelType[] VALUES = values();
-        private final IRecipeMap target;
-
-        FuelType(IRecipeMap target) {
-            this.target = target;
-        }
-
-        public static FuelType get(int fuelType) {
-            if (fuelType < 0 || fuelType >= VALUES.length) return SemiFluid;
-            return VALUES[fuelType];
-        }
-
-        public IRecipeMap getTarget() {
-            return target;
-        }
-    }
 
     static {
         GTRecipeMapUtil.SPECIAL_VALUE_ALIASES.add(COIL_HEAT);

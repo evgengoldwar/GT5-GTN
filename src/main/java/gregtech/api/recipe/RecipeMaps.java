@@ -1,73 +1,33 @@
 package gregtech.api.recipe;
 
 import static gregtech.api.enums.Mods.GTNHIntergalactic;
-import static gregtech.api.enums.Mods.NEICustomDiagrams;
-import static gregtech.api.enums.Mods.Railcraft;
-import static gregtech.api.enums.Mods.Thaumcraft;
-import static gregtech.api.util.GTRecipeConstants.ADDITIVE_AMOUNT;
-import static gregtech.api.util.GTRecipeConstants.FUEL_VALUE;
-import static gregtech.api.util.GTRecipeMapUtil.asTemplate;
 import static gregtech.api.util.GTRecipeMapUtil.buildOrEmpty;
-import static gregtech.api.util.GTUtility.clamp;
-import static gregtech.api.util.GTUtility.copyAmount;
-import static gregtech.api.util.GTUtility.getFluidForFilledItem;
-import static gregtech.api.util.GTUtility.isArrayEmptyOrNull;
-import static gregtech.api.util.GTUtility.isArrayOfLength;
-import static gregtech.api.util.GTUtility.min;
-import static gregtech.api.util.GTUtility.multiplyStack;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Optional;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 import com.cleanroommc.modularui.widgets.ProgressWidget;
 import com.gtnewhorizons.modularui.api.drawable.UITexture;
 import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
-import gregtech.api.enums.GTValues;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.enums.TierEU;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.api.objects.ItemData;
 import gregtech.api.recipe.maps.AssemblerBackend;
 import gregtech.api.recipe.maps.AssemblyLineFrontend;
-import gregtech.api.recipe.maps.CauldronFrontend;
-import gregtech.api.recipe.maps.DistillationTowerFrontend;
 import gregtech.api.recipe.maps.FluidCannerBackend;
 import gregtech.api.recipe.maps.FluidOnlyFrontend;
-import gregtech.api.recipe.maps.FormingPressBackend;
-import gregtech.api.recipe.maps.FuelBackend;
-import gregtech.api.recipe.maps.FurnaceBackend;
 import gregtech.api.recipe.maps.LargeNEIFrontend;
-import gregtech.api.recipe.maps.MicrowaveBackend;
 import gregtech.api.recipe.maps.OilCrackerBackend;
-import gregtech.api.recipe.maps.PrinterBackend;
-import gregtech.api.recipe.maps.ReplicatorBackend;
 import gregtech.api.recipe.maps.SpaceProjectFrontend;
-import gregtech.api.recipe.maps.TranscendentPlasmaMixerFrontend;
-import gregtech.api.recipe.maps.ZhuhaiFrontend;
-import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeConstants;
-import gregtech.api.util.GTRecipeMapUtil.GTRecipeTemplate;
 import gregtech.api.util.GTUtility;
-import gregtech.nei.formatter.FuelSpecialValueFormatter;
 import gregtech.nei.formatter.FusionSpecialValueFormatter;
-import gregtech.nei.formatter.HeatingCoilSpecialValueFormatter;
 import gregtech.nei.formatter.SimpleSpecialValueFormatter;
-import mods.railcraft.common.blocks.aesthetics.cube.EnumCube;
-import mods.railcraft.common.items.RailcraftToolItems;
 
 @SuppressWarnings("SimplifyOptionalCallChains")
 public final class RecipeMaps {
@@ -189,12 +149,6 @@ public final class RecipeMaps {
                     .getFusionTier(recipe.getMetadataOrDefault(GTRecipeConstants.FUSION_THRESHOLD, 0L), recipe.mEUt))
                 .thenComparing(GTRecipe::compareTo))
         .frontend(FluidOnlyFrontend::new)
-        .build();
-
-    public static final RecipeMap<RecipeMapBackend> blastFurnaceRecipes = RecipeMapBuilder.of("gt.recipe.blastfurnace")
-        .maxIO(6, 6, 1, 1)
-        .minInputs(1, 0)
-        .neiSpecialInfoFormatter(HeatingCoilSpecialValueFormatter.INSTANCE)
         .build();
 
     public static final RecipeMap<RecipeMapBackend> spaceProjectFakeRecipes = RecipeMapBuilder
@@ -354,37 +308,6 @@ public final class RecipeMaps {
         .progressBarMUI2(GTGuiTextures.PROGRESSBAR_CANNER)
         .build();
 
-    public static final RecipeMap<RecipeMapBackend> cutterFakeRecipes = RecipeMapBuilder.of("gt.recipe.fakecuttingsaw")
-        .maxIO(2, 4, 1, 0)
-        .minInputs(1, 1)
-        .slotOverlays((index, isFluid, isOutput, isSpecial) -> {
-            if (isFluid) {
-                return null;
-            }
-            if (isOutput) {
-                if (index == 0) {
-                    return GTUITextures.OVERLAY_SLOT_CUTTER_SLICED;
-                }
-                return GTUITextures.OVERLAY_SLOT_DUST;
-            }
-            return GTUITextures.OVERLAY_SLOT_BOX;
-        })
-        .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
-            if (isFluid) {
-                return null;
-            }
-            if (isOutput) {
-                if (index == 0) {
-                    return GTGuiTextures.OVERLAY_SLOT_CUTTER_SLICED;
-                }
-                return GTGuiTextures.OVERLAY_SLOT_DUST;
-            }
-            return GTGuiTextures.OVERLAY_SLOT_BOX;
-        })
-        .progressBar(GTUITextures.PROGRESSBAR_CUT)
-        .progressBarMUI2(GTGuiTextures.PROGRESSBAR_CUT)
-        .build();
-
     public static final RecipeMap<RecipeMapBackend> extruderRecipes = RecipeMapBuilder.of("gt.recipe.extruder")
         .maxIO(2, 1, 0, 0)
         .minInputs(2, 0)
@@ -417,56 +340,11 @@ public final class RecipeMaps {
         // Avoid steam machine being used as handler icon
         .build();
 
-    public static final RecipeMap<FuelBackend> dieselFuels = RecipeMapBuilder
-        .of("gt.recipe.dieselgeneratorfuel", FuelBackend::new)
-        .maxIO(1, 1, 0, 0)
-        .builderTransformer(b -> {
-            if (b.getMetadataOrDefault(FUEL_VALUE, 0) >= 1500) {
-                b.copy()
-                    .addTo(RecipeMaps.extremeDieselFuels);
-            }
-        })
-        .neiSpecialInfoFormatter(FuelSpecialValueFormatter.INSTANCE)
-        .build();
-    public static final RecipeMap<FuelBackend> extremeDieselFuels = RecipeMapBuilder
-        .of("gt.recipe.extremedieselgeneratorfuel", FuelBackend::new)
-        .maxIO(1, 1, 0, 0)
-        .neiSpecialInfoFormatter(FuelSpecialValueFormatter.INSTANCE)
-        .build();
-    public static final RecipeMap<FuelBackend> gasTurbineFuels = RecipeMapBuilder
-        .of("gt.recipe.gasturbinefuel", FuelBackend::new)
-        .maxIO(1, 1, 0, 0)
-        .builderTransformer(b -> {})
-        .neiSpecialInfoFormatter(FuelSpecialValueFormatter.INSTANCE)
-        .build();
-    public static final RecipeMap<FuelBackend> hotFuels = RecipeMapBuilder
-        .of("gt.recipe.thermalgeneratorfuel", FuelBackend::new)
-        .maxIO(1, 4, 0, 0)
-        .neiSpecialInfoFormatter(FuelSpecialValueFormatter.INSTANCE)
-        .build();
-    public static final RecipeMap<FuelBackend> denseLiquidFuels = RecipeMapBuilder
-        .of("gt.recipe.semifluidboilerfuels", FuelBackend::new)
-        .maxIO(1, 1, 0, 0)
-        .builderTransformer(b -> {})
-        .disableRegisterNEI()
-        .build();
-    public static final RecipeMap<FuelBackend> plasmaFuels = RecipeMapBuilder
-        .of("gt.recipe.plasmageneratorfuels", FuelBackend::new)
-        .maxIO(1, 1, 0, 0)
-        .neiSpecialInfoFormatter(FuelSpecialValueFormatter.INSTANCE)
-        .build();
-    public static final RecipeMap<FuelBackend> magicFuels = RecipeMapBuilder
-        .of("gt.recipe.magicfuels", FuelBackend::new)
-        .maxIO(1, 1, 0, 0)
-        .neiSpecialInfoFormatter(FuelSpecialValueFormatter.INSTANCE)
-        .build();
-
     public static final RecipeMap<RecipeMapBackend> alloyBlastSmelterRecipes = RecipeMapBuilder
         .of("gt.recipe.alloyblastsmelter")
         .maxIO(9, 9, 3, 3)
         .minInputs(1, 0)
         .frontend(LargeNEIFrontend::new)
         .build();
-
 
 }
