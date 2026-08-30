@@ -1086,8 +1086,6 @@ public class GTProxy implements IFuelHandler {
         else if (GTUtility.areStacksEqual(stack, new ItemStack(Blocks.ladder, 1))) return 100;
         else if (GTUtility.areStacksEqual(stack, new ItemStack(Items.sign, 1))) return 600;
         else if (GTUtility.areStacksEqual(stack, new ItemStack(Items.wooden_door, 1))) return 600;
-        else if (GTUtility.areStacksEqual(stack, ItemList.Block_MSSFUEL.get(1))) return 150000;
-        else if (GTUtility.areStacksEqual(stack, ItemList.Block_SSFUEL.get(1))) return 100000;
 
         return 0;
     }
