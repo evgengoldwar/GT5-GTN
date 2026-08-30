@@ -1,7 +1,5 @@
 package gregtech.common.fluid;
 
-import static gregtech.api.recipe.RecipeMaps.cannerRecipes;
-
 import java.util.Arrays;
 import java.util.function.Supplier;
 
@@ -16,14 +14,12 @@ import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.FluidState;
-import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluid;
 import gregtech.api.interfaces.fluid.IGTRegisteredFluid;
 import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTUtility;
 
 public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runnable {
 
@@ -128,13 +124,13 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
         if (fullContainer != null && emptyContainer != null) {
             final FluidStack fluidStack = new FluidStack(registeredFluid, containerSize);
             if (!FluidContainerRegistry.registerFluidContainer(fluidStack, fullContainer, emptyContainer)) {
-                GTValues.RA.stdBuilder()
-                    .itemInputs(fullContainer)
-                    .itemOutputs(GTUtility.getContainerItem(fullContainer, false))
-                    .fluidOutputs(fluidStack)
-                    .duration(fluidStack.amount / 62)
-                    .eut(1)
-                    .addTo(cannerRecipes);
+                // GTValues.RA.stdBuilder()
+                // .itemInputs(fullContainer)
+                // .itemOutputs(GTUtility.getContainerItem(fullContainer, false))
+                // .fluidOutputs(fluidStack)
+                // .duration(fluidStack.amount / 62)
+                // .eut(1)
+                // .addTo(cannerRecipes);
             }
         }
         return this;

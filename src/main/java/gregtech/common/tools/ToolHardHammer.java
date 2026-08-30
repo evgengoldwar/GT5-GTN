@@ -13,16 +13,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
-import net.minecraftforge.event.world.BlockEvent;
 
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.items.MetaGeneratedTool;
-import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTToolHarvestHelper;
-import gregtech.api.util.GTUtility;
 
 public class ToolHardHammer extends GTTool {
 
@@ -90,42 +86,8 @@ public class ToolHardHammer extends GTTool {
 
     @Override
     public boolean isMinableBlock(Block aBlock, int aMetaData) {
-        return GTToolHarvestHelper.isAppropriateTool(aBlock, aMetaData, "hammer", "pickaxe")
-            || GTToolHarvestHelper
-                .isAppropriateMaterial(aBlock, Material.rock, Material.glass, Material.ice, Material.packedIce)
-            || RecipeMaps.hammerRecipes.containsInput(new ItemStack(aBlock, 1, aMetaData));
-    }
-
-    @Override
-    public int convertBlockDrops(List<ItemStack> aDrops, ItemStack aStack, EntityPlayer aPlayer, Block aBlock, int aX,
-        int aY, int aZ, int aMetaData, int aFortune, boolean aSilkTouch, BlockEvent.HarvestDropsEvent aEvent) {
-        int rConversions = 0;
-        GTRecipe tRecipe = RecipeMaps.hammerRecipes.findRecipeQuery()
-            .items(new ItemStack(aBlock, 1, aMetaData))
-            .notUnificated(true)
-            .find();
-        if ((tRecipe == null) || (aBlock.hasTileEntity(aMetaData))) {
-            for (ItemStack tDrop : aDrops) {
-                tRecipe = RecipeMaps.hammerRecipes.findRecipeQuery()
-                    .items(GTUtility.copyAmount(1, tDrop))
-                    .notUnificated(true)
-                    .find();
-                if (tRecipe != null) {
-                    ItemStack tHammeringOutput = tRecipe.getOutput(0);
-                    if (tHammeringOutput != null) {
-                        rConversions += tDrop.stackSize;
-                        tDrop.stackSize *= tHammeringOutput.stackSize;
-                        tHammeringOutput.stackSize = tDrop.stackSize;
-                        GTUtility.setStack(tDrop, tHammeringOutput);
-                    }
-                }
-            }
-        } else {
-            aDrops.clear();
-            aDrops.add(tRecipe.getOutput(0));
-            rConversions++;
-        }
-        return rConversions;
+        return GTToolHarvestHelper.isAppropriateTool(aBlock, aMetaData, "hammer", "pickaxe") || GTToolHarvestHelper
+            .isAppropriateMaterial(aBlock, Material.rock, Material.glass, Material.ice, Material.packedIce);
     }
 
     @Override

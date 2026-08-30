@@ -442,11 +442,9 @@ import gregtech.api.items.MetaBaseItem;
 import gregtech.api.items.MetaGeneratedItemX32;
 import gregtech.api.objects.ItemData;
 import gregtech.api.objects.MaterialStack;
-import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
 import gregtech.common.config.Other;
@@ -3454,15 +3452,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
         // Materials has a plasma fluid
         if (aPrefix == OrePrefixes.cellPlasma && aMaterial.getPlasma(1L) != null) {
             if (aMaterial.hasPlasma()) return true;
-            // Loop through fusion recipes
-            for (GTRecipe recipe : RecipeMaps.fusionRecipes.getAllRecipes()) {
-                // Make sure fluid output can't be null (not sure if possible)
-                if (recipe.getFluidOutput(0) != null) {
-                    // Fusion recipe output matches current plasma cell fluid
-                    if (recipe.getFluidOutput(0)
-                        .isFluidEqual(aMaterial.getPlasma(1L))) return true;
-                }
-            }
         }
         return false;
     }

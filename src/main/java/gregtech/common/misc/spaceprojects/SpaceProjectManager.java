@@ -15,7 +15,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.mojang.authlib.GameProfile;
 
-import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTRecipe;
 import gregtech.common.misc.spaceprojects.interfaces.ISpaceBody;
 import gregtech.common.misc.spaceprojects.interfaces.ISpaceProject;
@@ -235,24 +234,6 @@ public class SpaceProjectManager {
                 aSpecialValue);
             this.projectName = projectName;
         }
-    }
-
-    /**
-     * Used to add projects to the internal map.
-     *
-     * @param project Newly created project.
-     */
-    public static void addProject(ISpaceProject project) {
-        spaceProjects.put(project.getProjectName(), project);
-        RecipeMaps.spaceProjectFakeRecipes.add(
-            new FakeSpaceProjectRecipe(
-                false,
-                project.getTotalItemsCost(),
-                project.getTotalFluidsCost(),
-                project.getProjectBuildTime(),
-                (int) project.getProjectVoltage(),
-                project.getTotalStages(),
-                project.getProjectName()));
     }
 
     /**
