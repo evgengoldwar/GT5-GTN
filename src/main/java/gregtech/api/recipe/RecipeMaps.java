@@ -1,23 +1,15 @@
 package gregtech.api.recipe;
 
 import static gregtech.api.enums.Mods.GTNHIntergalactic;
-import static gregtech.api.util.GTRecipeMapUtil.buildOrEmpty;
 
-import java.util.Collections;
 import java.util.Comparator;
-
-import net.minecraft.item.ItemStack;
 
 import com.cleanroommc.modularui.widgets.ProgressWidget;
 import com.gtnewhorizons.modularui.api.drawable.UITexture;
 import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.api.recipe.maps.AssemblerBackend;
-import gregtech.api.recipe.maps.AssemblyLineFrontend;
 import gregtech.api.recipe.maps.FluidCannerBackend;
 import gregtech.api.recipe.maps.FluidOnlyFrontend;
 import gregtech.api.recipe.maps.LargeNEIFrontend;
@@ -25,52 +17,11 @@ import gregtech.api.recipe.maps.OilCrackerBackend;
 import gregtech.api.recipe.maps.SpaceProjectFrontend;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeConstants;
-import gregtech.api.util.GTUtility;
 import gregtech.nei.formatter.FusionSpecialValueFormatter;
 import gregtech.nei.formatter.SimpleSpecialValueFormatter;
 
 @SuppressWarnings("SimplifyOptionalCallChains")
 public final class RecipeMaps {
-
-    public static final RecipeMap<RecipeMapBackend> laserEngraverRecipes = RecipeMapBuilder
-        .of("gt.recipe.laserengraver")
-        .maxIO(4, 4, 2, 2)
-        .slotOverlays(
-            (index, isFluid, isOutput,
-                isSpecial) -> !isFluid && !isOutput && index != 0 ? GTUITextures.OVERLAY_SLOT_LENS : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput,
-                isSpecial) -> !isFluid && !isOutput && index != 0 ? GTGuiTextures.OVERLAY_SLOT_LENS : null)
-        // Add a simple ordering so lower tier purified water is displayed first, otherwise it gets really confusing
-        // NEI Catalyst search requires recipes to be sorted by voltage tier. Therefore, we first sort by voltage
-        // tier,
-        // then by water tier, then the default comparator.
-        .neiRecipeComparator(
-            (a, b) -> Comparator.<GTRecipe, Integer>comparing(recipe -> recipe.mEUt)
-                .compare(a, b))
-        .build();
-
-    public static final RecipeMap<RecipeMapBackend> maceratorRecipes = RecipeMapBuilder.of("gt.recipe.macerator")
-        .maxIO(1, 4, 0, 0)
-        .minInputs(1, 0)
-        .slotOverlays(
-            (index, isFluid, isOutput, isSpecial) -> isOutput ? GTUITextures.OVERLAY_SLOT_DUST
-                : GTUITextures.OVERLAY_SLOT_CRUSHED_ORE)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput, isSpecial) -> isOutput ? GTGuiTextures.OVERLAY_SLOT_DUST
-                : GTGuiTextures.OVERLAY_SLOT_CRUSHED_ORE)
-        .slotOverlaysSteam(
-            (index, isFluid, isOutput, isSpecial) -> isOutput ? GTUITextures.OVERLAY_SLOT_DUST_STEAM
-                : GTUITextures.OVERLAY_SLOT_CRUSHED_ORE_STEAM)
-        .slotOverlaysSteamMUI2(
-            (_, _, isOutput, _) -> isOutput ? GTGuiTextures.OVERLAY_SLOT_DUST_STEAM
-                : GTGuiTextures.OVERLAY_SLOT_CRUSHED_ORE_STEAM)
-        .progressBar(GTUITextures.PROGRESSBAR_MACERATE)
-        .progressBarMUI2(GTGuiTextures.PROGRESSBAR_MACERATE)
-        .progressBarSteam(GTUITextures.PROGRESSBAR_MACERATE_STEAM)
-        .progressBarTextureSteamMUI2(GTGuiTextures.PROGRESSBAR_MACERATE_STEAM)
-        // Avoid steam machine being used as handler icon
-        .build();
 
     public static final RecipeMap<RecipeMapBackend> fusionRecipes = RecipeMapBuilder.of("gt.recipe.fusionreactor")
         .maxIO(0, 0, 2, 1)
