@@ -301,7 +301,7 @@ public class GTMod {
         GTPreLoad.runMineTweakerCompat();
 
         new LoaderGTOreDictionary().run();
-//        new LoaderGTItemData().run();
+        // new LoaderGTItemData().run();
         new LoaderGTBlockFluid().run();
         new LoaderMetaTileEntities().run();
 
