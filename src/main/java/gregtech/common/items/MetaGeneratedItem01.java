@@ -78,8 +78,6 @@ import static gregtech.common.items.IDMetaItem01.Battery_SU_MV_Sulfuric_Acid;
 import static gregtech.common.items.IDMetaItem01.Black_Hole_Closer;
 import static gregtech.common.items.IDMetaItem01.Black_Hole_Opener;
 import static gregtech.common.items.IDMetaItem01.Black_Hole_Stabilizer;
-import static gregtech.common.items.IDMetaItem01.Circuit_Advanced;
-import static gregtech.common.items.IDMetaItem01.Circuit_Basic;
 import static gregtech.common.items.IDMetaItem01.Circuit_Board_Advanced;
 import static gregtech.common.items.IDMetaItem01.Circuit_Board_Basic;
 import static gregtech.common.items.IDMetaItem01.Circuit_Board_Elite;
@@ -2802,13 +2800,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.circuit.primitive.tooltip",
                 OrePrefixes.circuit.get(Materials.ULV),
                 SubTag.NO_UNIFICATION));
-        ItemList.Circuit_Basic.set(
-            addItemWithLocalizationKeys(
-                Circuit_Basic.ID,
-                "gt.item.circuit.basic.name",
-                "gt.item.circuit.basic.tooltip",
-                OrePrefixes.circuit.get(Materials.LV),
-                SubTag.NO_UNIFICATION));
+
         ItemList.Circuit_Good.set(
             addItemWithLocalizationKeys(
                 Circuit_Good.ID,
@@ -2816,13 +2808,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 "gt.item.circuit.good.tooltip",
                 OrePrefixes.circuit.get(Materials.MV),
                 SubTag.NO_UNIFICATION));
-        ItemList.Circuit_Advanced.set(
-            addItemWithLocalizationKeys(
-                Circuit_Advanced.ID,
-                "gt.item.circuit.advanced.name",
-                "gt.item.circuit.advanced.tooltip",
-                OrePrefixes.circuit.get(Materials.HV),
-                SubTag.NO_UNIFICATION));
+
         ItemList.Circuit_Data.set(
             addItemWithLocalizationKeys(
                 Circuit_Data.ID,
@@ -2847,7 +2833,6 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
 
         // Backwards compatibility.
         ItemList.Circuit_Parts_Vacuum_Tube.set(ItemList.Circuit_Primitive.get(1));
-        ItemList.Circuit_Computer.set(ItemList.Circuit_Advanced.get(1));
 
         ItemList.Tool_DataOrb.set(
             addItemWithLocalizationKeys(
@@ -4303,9 +4288,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
         registerTieredTooltip(ItemList.Energy_Module.get(1), ZPM);
         registerTieredTooltip(ItemList.Energy_Cluster.get(1), UV);
         registerTieredTooltip(ItemList.Circuit_Primitive.get(1), ULV);
-        registerTieredTooltip(ItemList.Circuit_Basic.get(1), LV);
         registerTieredTooltip(ItemList.Circuit_Good.get(1), MV);
-        registerTieredTooltip(ItemList.Circuit_Advanced.get(1), HV);
         registerTieredTooltip(ItemList.Circuit_Data.get(1), EV);
         registerTieredTooltip(ItemList.Circuit_Elite.get(1), IV);
         registerTieredTooltip(ItemList.Circuit_Master.get(1), LuV);

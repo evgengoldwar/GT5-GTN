@@ -429,12 +429,6 @@ public class ProcessingShaping implements gregtech.api.interfaces.IOreRecipeRegi
                             .addTo(extruderRecipes);
                     }
                     case "Iron", "CastIron" -> {
-                        GTValues.RA.stdBuilder()
-                            .itemInputs(GTUtility.copyAmount(1, aStack), ItemList.Shape_Extruder_Cell.get(0L))
-                            .itemOutputs(ItemList.IC2_Fuel_Rod_Empty.get(tAmount))
-                            .duration((tAmount * 128) * TICKS)
-                            .eut(TierEU.RECIPE_LV)
-                            .addTo(extruderRecipes);
                         if (tAmount * 31 <= 64) {
                             GTValues.RA.stdBuilder()
                                 .itemInputs(GTUtility.copyAmount(31, aStack), ItemList.Shape_Mold_Anvil.get(0L))

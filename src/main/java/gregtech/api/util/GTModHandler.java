@@ -124,8 +124,6 @@ public class GTModHandler {
     public static GTHashSet sNonReplaceableItems = new GTHashSet();
     public static Object sBoxableWrapper = new GTIBoxableWrapper();
     public static Collection<GTItemStack> sBoxableItems = new ArrayList<>();
-    private static Set<GTUtility.ItemId> recyclerWhitelist;
-    private static Set<GTUtility.ItemId> recyclerBlacklist;
 
     private static boolean sBufferCraftingRecipes = true;
     public static List<Integer> sSingleNonBlockDamagableRecipeList_list = new ArrayList<>(100);
@@ -1986,64 +1984,6 @@ public class GTModHandler {
             return rStack;
         }
         return null;
-    }
-
-    /**
-     * Used in my own Recycler.
-     * <p/>
-     * Only produces Scrap if aScrapChance == 0. aScrapChance is usually the random Number I give to the Function If you
-     * directly insert 0 as aScrapChance then you can check if its Recycler-Blacklisted or similar
-     */
-    @Nullable
-    public static ItemStack getRecyclerOutput(ItemStack aInput, int aScrapChance) {
-        if (aInput == null || aScrapChance != 0) return null;
-        if (recyclerWhitelist == null) {
-            generateRecyclerCache();
-        }
-
-        if (recyclerWhitelist.isEmpty()) {
-            if (searchRecyclerCache(aInput, recyclerBlacklist)) {
-                return null;
-            } else {
-                return ItemList.IC2_Scrap.get(1);
-            }
-        } else {
-            if (searchRecyclerCache(aInput, recyclerWhitelist)) {
-                return ItemList.IC2_Scrap.get(1);
-            } else {
-                return null;
-            }
-        }
-    }
-
-    private static void generateRecyclerCache() {
-        recyclerWhitelist = new HashSet<>();
-        for (IRecipeInput input : Recipes.recyclerWhitelist) {
-            for (ItemStack stack : input.getInputs()) {
-                recyclerWhitelist.add(GTUtility.ItemId.create(stack.getItem(), stack.getItemDamage(), null));
-            }
-        }
-        recyclerBlacklist = new HashSet<>();
-        for (IRecipeInput input : Recipes.recyclerBlacklist) {
-            for (ItemStack stack : input.getInputs()) {
-                recyclerBlacklist.add(GTUtility.ItemId.create(stack.getItem(), stack.getItemDamage(), null));
-            }
-        }
-    }
-
-    private static boolean searchRecyclerCache(ItemStack stack, Set<GTUtility.ItemId> set) {
-        if (set.contains(GTUtility.ItemId.createWithoutNBT(stack))) {
-            return true;
-        }
-        // ic2.api.recipe.RecipeInputItemStack#matches expects item with wildcard meta to accept arbitrary meta
-        return set.contains(GTUtility.ItemId.createAsWildcard(stack));
-    }
-
-    /**
-     * For the Scrapboxinator
-     */
-    public static ItemStack getRandomScrapboxDrop() {
-        return Recipes.scrapboxDrops.getDrop(ItemList.IC2_Scrapbox.get(1), false);
     }
 
     /**

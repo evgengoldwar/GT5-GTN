@@ -102,8 +102,6 @@ public class LoaderGTOreDictionary implements Runnable {
         GTOreDictUnificator.registerOre(OreDictNames.craftingAnvil, new ItemStack(Blocks.anvil, 1));
         GTOreDictUnificator
             .registerOre(OreDictNames.craftingAnvil, GTModHandler.getModItem(Railcraft.ID, "anvil", 1L, 0));
-        GTOreDictUnificator
-            .registerOre(OreDictNames.craftingIndustrialDiamond, ItemList.IC2_Industrial_Diamond.get(1L));
 
         GTOreDictUnificator
             .registerOre(OrePrefixes.stone, Materials.Basalt, GTModHandler.getModItem(Railcraft.ID, "cube", 1L, 6));
@@ -158,15 +156,8 @@ public class LoaderGTOreDictionary implements Runnable {
         GTOreDictUnificator.registerOre(
             OreDictNames.craftingQuartz,
             GTModHandler.getModItem(AppliedEnergistics2.ID, "item.ItemMultiMaterial", 1L, 11));
-        GTOreDictUnificator.registerOre(OrePrefixes.battery, Materials.LV, ItemList.IC2_ReBattery.get(1L));
         GTOreDictUnificator
             .registerOre(OrePrefixes.battery, Materials.LV, GTModHandler.getIC2Item("chargedReBattery", 1L, 32767));
-        GTOreDictUnificator
-            .registerOre(OrePrefixes.battery, Materials.MV, ItemList.IC2_AdvBattery.getWithDamage(1, 32767));
-        GTOreDictUnificator
-            .registerOre(OrePrefixes.battery, Materials.HV, ItemList.IC2_EnergyCrystal.getWithDamage(1L, 32767));
-        GTOreDictUnificator
-            .registerOre(OrePrefixes.battery, Materials.EV, ItemList.IC2_LapotronCrystal.getWithDamage(1L, 32767));
 
         GTOreDictUnificator
             .registerOre(OreDictNames.craftingWireCopper, GTModHandler.getIC2Item("insulatedCopperCableItem", 1L));

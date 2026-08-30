@@ -113,23 +113,7 @@ public class LoaderGTItemData implements Runnable {
             .addItemData(new ItemStack(Blocks.stained_hardened_clay, 1, 32767), new ItemData(Materials.Clay, 3628800L));
         GTOreDictUnificator
             .addItemData(new ItemStack(Blocks.brick_block, 1, 32767), new ItemData(Materials.Brick, 3628800L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Uranium_238.get(1), new ItemData(Materials.Uranium, 3628800L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Uranium_235.get(1), new ItemData(Materials.Uranium235, 3628800L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Plutonium.get(1), new ItemData(Materials.Plutonium, 3628800L));
-        GTOreDictUnificator
-            .addItemData(ItemList.IC2_Uranium_235_Small.get(1), new ItemData(Materials.Uranium235, 403200L));
-        GTOreDictUnificator
-            .addItemData(ItemList.IC2_Plutonium_Small.get(1), new ItemData(Materials.Plutonium, 403200L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Item_Casing_Iron.get(1L), new ItemData(Materials.Iron, 1814400L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Item_Casing_Gold.get(1L), new ItemData(Materials.Gold, 1814400L));
-        GTOreDictUnificator
-            .addItemData(ItemList.IC2_Item_Casing_Bronze.get(1L), new ItemData(Materials.Bronze, 1814400L));
-        GTOreDictUnificator
-            .addItemData(ItemList.IC2_Item_Casing_Copper.get(1L), new ItemData(Materials.Copper, 1814400L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Item_Casing_Tin.get(1L), new ItemData(Materials.Tin, 1814400L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Item_Casing_Lead.get(1L), new ItemData(Materials.Lead, 1814400L));
-        GTOreDictUnificator
-            .addItemData(ItemList.IC2_Item_Casing_Steel.get(1L), new ItemData(Materials.Steel, 1814400L));
+
         GTOreDictUnificator.addItemData(new ItemStack(Items.book, 1, 32767), new ItemData(Materials.Paper, 10886400L));
         GTOreDictUnificator
             .addItemData(new ItemStack(Items.written_book, 1, 32767), new ItemData(Materials.Paper, 10886400L));
@@ -178,8 +162,6 @@ public class LoaderGTItemData implements Runnable {
                     .forEach((item, material) -> registerMetalBarUnificationData(modId, item, material)));
         GTOreDictUnificator
             .addItemData(GTModHandler.getIC2Item("ironFurnace", 1L), new ItemData(Materials.Iron, 18144000L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Food_Can_Empty.get(1L), new ItemData(Materials.Tin, 1814400L));
-        GTOreDictUnificator.addItemData(ItemList.IC2_Fuel_Rod_Empty.get(1L), new ItemData(Materials.Iron, 3628800L));
         GTOreDictUnificator.addItemData(
             new ItemStack(Blocks.light_weighted_pressure_plate, 1, 32767),
             new ItemData(Materials.Gold, 7257600L));

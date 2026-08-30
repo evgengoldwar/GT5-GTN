@@ -52,11 +52,9 @@ import gregtech.api.recipe.maps.LargeNEIFrontend;
 import gregtech.api.recipe.maps.MicrowaveBackend;
 import gregtech.api.recipe.maps.OilCrackerBackend;
 import gregtech.api.recipe.maps.PrinterBackend;
-import gregtech.api.recipe.maps.RecyclerBackend;
 import gregtech.api.recipe.maps.ReplicatorBackend;
 import gregtech.api.recipe.maps.SpaceProjectFrontend;
 import gregtech.api.recipe.maps.TranscendentPlasmaMixerFrontend;
-import gregtech.api.recipe.maps.UnpackagerBackend;
 import gregtech.api.recipe.maps.ZhuhaiFrontend;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -170,8 +168,7 @@ public final class RecipeMaps {
         .neiHandlerInfo(builder -> builder.setDisplayStack(ItemList.Machine_LV_Extractor.get(1)))
         .build();
 
-    public static final RecipeMap<RecyclerBackend> recyclerRecipes = RecipeMapBuilder
-        .of("ic.recipe.recycler", RecyclerBackend::new)
+    public static final RecipeMap<RecipeMapBackend> recyclerRecipes = RecipeMapBuilder.of("ic.recipe.recycler")
         .maxIO(1, 1, 0, 0)
         .minInputs(1, 0)
         .slotOverlays(
@@ -606,8 +603,7 @@ public final class RecipeMaps {
             return null;
         })
         .build();
-    public static final RecipeMap<UnpackagerBackend> unpackagerRecipes = RecipeMapBuilder
-        .of("gt.recipe.unpackager", UnpackagerBackend::new)
+    public static final RecipeMap<RecipeMapBackend> unpackagerRecipes = RecipeMapBuilder.of("gt.recipe.unpackager")
         .maxIO(1, 2, 0, 0)
         .minInputs(1, 0)
         .slotOverlays((index, isFluid, isOutput, isSpecial) -> !isOutput ? GTUITextures.OVERLAY_SLOT_BOXED : null)

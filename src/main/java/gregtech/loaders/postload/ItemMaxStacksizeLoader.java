@@ -6,8 +6,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
-import gregtech.GTMod;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.OrePrefixes;
 
 public class ItemMaxStacksizeLoader implements Runnable {
@@ -16,8 +14,6 @@ public class ItemMaxStacksizeLoader implements Runnable {
     public void run() {
         GT_FML_LOGGER.debug("GTMod: Changing maximum Stacksizes if configured.");
 
-        ItemList.Upgrade_Overclocker.getItem()
-            .setMaxStackSize(GTMod.proxy.mUpgradeCount);
         Items.cake.setMaxStackSize(64);
         Items.wooden_door.setMaxStackSize(8);
         Items.iron_door.setMaxStackSize(8);

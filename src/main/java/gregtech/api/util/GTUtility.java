@@ -983,7 +983,8 @@ public class GTUtility {
          * These are all special Cases, in which it is intended to have only GT Blocks outputting those Container Items
          */
         if (ItemList.Cell_Empty.isStackEqual(aStack, false, true)) return null;
-        if (aStack.getItem() == Items.potionitem || aStack.getItem() == Items.experience_bottle) return new ItemStack(Items.glass_bottle, 1);
+        if (aStack.getItem() == Items.potionitem || aStack.getItem() == Items.experience_bottle)
+            return new ItemStack(Items.glass_bottle, 1);
 
         if (aCheckIFluidContainerItems && aStack.getItem() instanceof IFluidContainerItem
             && ((IFluidContainerItem) aStack.getItem()).getCapacity(aStack) > 0) {
@@ -996,8 +997,6 @@ public class GTUtility {
         int tCapsuleCount = GTModHandler.getCapsuleCellContainerCount(aStack);
         if (tCapsuleCount > 0) return ItemList.Cell_Empty.get(tCapsuleCount);
 
-        if (ItemList.IC2_ForgeHammer.isStackEqual(aStack) || ItemList.IC2_WireCutter.isStackEqual(aStack))
-            return copyMetaData(Items.feather.getDamage(aStack) + 1, aStack);
         return null;
     }
 

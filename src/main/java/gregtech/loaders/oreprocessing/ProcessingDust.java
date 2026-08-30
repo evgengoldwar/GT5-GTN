@@ -315,17 +315,7 @@ public class ProcessingDust implements gregtech.api.interfaces.IOreRecipeRegistr
                             GTUtility.copyAmount(1, aStack),
                             GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coal, 1L));
                         break;
-                    case "Diamond": {
-                        GTValues.RA.stdBuilder()
-                            .itemInputs(GTUtility.copyAmount(4, aStack))
-                            .itemOutputs(
-                                ItemList.IC2_Industrial_Diamond.get(3L),
-                                GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.AshDark, 16L))
-                            .duration(1 * SECONDS)
-                            .eut(TierEU.RECIPE_LV)
-                            .metadata(ADDITIVE_AMOUNT, 32)
-                            .addTo(implosionRecipes);
-                    }
+                    case "Diamond": {}
                         break;
                     case "ManaDiamond":
                     case "BotaniaDragonstone": {

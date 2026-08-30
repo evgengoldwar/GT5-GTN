@@ -55,7 +55,6 @@ import gregtech.api.enchants.EnchantmentEnderDamage;
 import gregtech.api.enchants.EnchantmentHazmat;
 import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
@@ -470,7 +469,6 @@ public class GTMod {
                     iRecipe.getRecipeOutput()
                         .getDisplayName()));
         }
-        GTModHandler.removeRecipeByOutput(ItemList.IC2_ForgeHammer.getWildcard(1L));
         GTModHandler.removeRecipeByOutput(GTModHandler.getIC2Item("machine", 1L));
         GTModHandler.addCraftingRecipe(
             GTModHandler.getIC2Item("machine", 1L),

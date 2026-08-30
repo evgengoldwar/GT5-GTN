@@ -825,57 +825,6 @@ public class GTProxy implements IFuelHandler {
         ItemList.Cell_Lava.set(GTModHandler.getIC2Item("lavaCell", 1L, GTModHandler.getIC2Item("cellLava", 1L)));
         ItemList.Cell_Air.set(GTModHandler.getIC2Item("airCell", 1L, GTModHandler.getIC2Item("cellAir", 1L, GTModHandler.getIC2Item("cellOxygen", 1L))));
 
-        ItemList.IC2_Item_Casing_Iron.set(GTModHandler.getIC2Item("casingiron", 1L));
-        ItemList.IC2_Item_Casing_Gold.set(GTModHandler.getIC2Item("casinggold", 1L));
-        ItemList.IC2_Item_Casing_Bronze.set(GTModHandler.getIC2Item("casingbronze", 1L));
-        ItemList.IC2_Item_Casing_Copper.set(GTModHandler.getIC2Item("casingcopper", 1L));
-        ItemList.IC2_Item_Casing_Tin.set(GTModHandler.getIC2Item("casingtin", 1L));
-        ItemList.IC2_Item_Casing_Lead.set(GTModHandler.getIC2Item("casinglead", 1L));
-        ItemList.IC2_Item_Casing_Steel.set(GTModHandler.getIC2Item("casingadviron", 1L));
-        ItemList.IC2_Mixed_Metal_Ingot.set(GTModHandler.getIC2Item("mixedMetalIngot", 1L));
-        ItemList.IC2_Resin.set(GTModHandler.getIC2Item("resin", 1L));
-        ItemList.IC2_Plantball.set(GTModHandler.getIC2Item("plantBall", 1L));
-        ItemList.IC2_PlantballCompressed.set(GTModHandler.getIC2Item("compressedPlantBall", 1L, ItemList.IC2_Plantball.get(1L)));
-        ItemList.IC2_Energium_Dust.set(GTModHandler.getIC2Item("energiumDust", 1L));
-        ItemList.IC2_Scrap.set(GTModHandler.getIC2Item("scrap", 1L));
-        ItemList.IC2_Scrapbox.set(GTModHandler.getIC2Item("scrapBox", 1L));
-        ItemList.IC2_Fuel_Rod_Empty.set(GTModHandler.getIC2Item("fuelRod", 1L));
-        ItemList.IC2_Uranium_238.set(GTModHandler.getIC2Item("Uran238", 1L));
-        ItemList.IC2_Uranium_235.set(GTModHandler.getIC2Item("Uran235", 1L));
-        ItemList.IC2_Uranium_235_Small.set(GTModHandler.getIC2Item("smallUran235", 1L));
-        ItemList.IC2_Plutonium.set(GTModHandler.getIC2Item("Plutonium", 1L));
-        ItemList.IC2_Plutonium_Small.set(GTModHandler.getIC2Item("smallPlutonium", 1L));
-        ItemList.IC2_Uranium_Fuel.set(GTModHandler.getIC2Item("UranFuel", 1L));
-        ItemList.IC2_MOX_Fuel.set(GTModHandler.getIC2Item("MOXFuel", 1L));
-        ItemList.IC2_Food_Can_Empty.set(GTModHandler.getIC2Item("tinCan", 1L));
-        ItemList.IC2_Food_Can_Filled.set(GTModHandler.getIC2Item("filledTinCan", 1L, 0));
-        ItemList.IC2_Food_Can_Spoiled.set(GTModHandler.getIC2Item("filledTinCan", 1L, 1));
-        ItemList.IC2_Industrial_Diamond.set(GTModHandler.getIC2Item("industrialDiamond", 1L, new ItemStack(Items.diamond, 1)));
-        ItemList.IC2_Compressed_Coal_Ball.set(GTModHandler.getIC2Item("compressedCoalBall", 1L));
-        ItemList.IC2_Compressed_Coal_Chunk.set(GTModHandler.getIC2Item("coalChunk", 1L));
-        ItemList.IC2_ShaftIron.set(GTModHandler.getIC2Item("ironshaft", 1L));
-        ItemList.IC2_ShaftSteel.set(GTModHandler.getIC2Item("steelshaft", 1L));
-
-        ItemList.IC2_SuBattery.set(GTModHandler.getIC2Item("suBattery", 1L));
-        ItemList.IC2_ReBattery.set(GTModHandler.getIC2Item("reBattery", 1L));
-        ItemList.IC2_AdvBattery.set(GTModHandler.getIC2Item("advBattery", 1L));
-        ItemList.IC2_EnergyCrystal.set(GTModHandler.getIC2Item("energyCrystal", 1L));
-        ItemList.IC2_LapotronCrystal.set(GTModHandler.getIC2Item("lapotronCrystal", 1L));
-
-        ItemList.Tool_Sword_Bronze.set(GTModHandler.getIC2Item("bronzeSword", 1L));
-        ItemList.Tool_Pickaxe_Bronze.set(GTModHandler.getIC2Item("bronzePickaxe", 1L));
-        ItemList.Tool_Shovel_Bronze.set(GTModHandler.getIC2Item("bronzeShovel", 1L));
-        ItemList.Tool_Axe_Bronze.set(GTModHandler.getIC2Item("bronzeAxe", 1L));
-        ItemList.Tool_Hoe_Bronze.set(GTModHandler.getIC2Item("bronzeHoe", 1L));
-        ItemList.IC2_ForgeHammer.set(GTModHandler.getIC2Item("ForgeHammer", 1L));
-        ItemList.IC2_WireCutter.set(GTModHandler.getIC2Item("cutter", 1L));
-
-        ItemList.Circuit_Basic.set(GTModHandler.getIC2Item("electronicCircuit", 1L));
-        ItemList.Circuit_Advanced.set(GTModHandler.getIC2Item("advancedCircuit", 1L));
-
-        ItemList.Upgrade_Overclocker.set(GTModHandler.getIC2Item("overclockerUpgrade", 1L));
-        ItemList.Upgrade_Battery.set(GTModHandler.getIC2Item("energyStorageUpgrade", 1L));
-
         ItemList.Dye_Bonemeal.set(new ItemStack(Items.dye, 1, 15));
         ItemList.Dye_SquidInk.set(new ItemStack(Items.dye, 1, 0));
         ItemList.Dye_Cocoa.set(new ItemStack(Items.dye, 1, 3));
@@ -887,8 +836,6 @@ public class GTProxy implements IFuelHandler {
 
         GTModHandler.sNonReplaceableItems.add(new ItemStack(Items.bow, 1, 32767));
         GTModHandler.sNonReplaceableItems.add(new ItemStack(Items.fishing_rod, 1, 32767));
-        GTModHandler.sNonReplaceableItems.add(ItemList.IC2_ForgeHammer.getWithDamage(1L, 32767L));
-        GTModHandler.sNonReplaceableItems.add(ItemList.IC2_WireCutter.getWithDamage(1L, 32767L));
         GTModHandler.sNonReplaceableItems.add(GTModHandler.getIC2Item("painter", 1L, 32767));
         GTModHandler.sNonReplaceableItems.add(GTModHandler.getIC2Item("blackPainter", 1L, 32767));
         GTModHandler.sNonReplaceableItems.add(GTModHandler.getIC2Item("redPainter", 1L, 32767));
