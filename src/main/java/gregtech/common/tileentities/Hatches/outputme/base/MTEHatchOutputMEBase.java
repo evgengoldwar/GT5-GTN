@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.machines.outputme.base;
+package gregtech.common.tileentities.Hatches.outputme.base;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.getFluidUnit;
@@ -73,7 +73,7 @@ import gregtech.api.enums.Dyes;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GTUtility;
-import gregtech.common.tileentities.machines.outputme.util.AECacheCounter;
+import gregtech.common.tileentities.Hatches.outputme.util.AECacheCounter;
 import io.netty.buffer.ByteBuf;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 

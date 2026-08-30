@@ -21,8 +21,8 @@ import gregtech.api.metatileentity.implementations.MTEHatchOutputBus;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.api.util.ExoticEnergyInputHelper;
 import gregtech.api.util.IGTHatchAdder;
-import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
-import gregtech.common.tileentities.machines.MTEHatchCraftingInputSlave;
+import gregtech.common.tileentities.Hatches.MTEHatchCraftingInputME;
+import gregtech.common.tileentities.Hatches.MTEHatchCraftingInputSlave;
 
 public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
 

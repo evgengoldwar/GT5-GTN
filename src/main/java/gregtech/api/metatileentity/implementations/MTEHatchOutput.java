@@ -41,13 +41,13 @@ import gregtech.api.interfaces.metatileentity.IFluidLockableMui2;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.hatch.MTEHatchOutputGui;
-import gregtech.common.tileentities.machines.ISmartInputHatch;
 
 @IMetaTileEntity.SkipGenerateDescription
 public class MTEHatchOutput extends MTEHatch

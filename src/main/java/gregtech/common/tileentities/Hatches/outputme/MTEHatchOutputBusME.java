@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.machines.outputme;
+package gregtech.common.tileentities.Hatches.outputme;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ME_HATCH;
@@ -65,8 +65,8 @@ import gregtech.api.metatileentity.implementations.MTEHatchOutputBus;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.hatch.MTEHatchOutputBusMEGui;
-import gregtech.common.tileentities.machines.outputme.base.MTEHatchOutputMEBase;
-import gregtech.common.tileentities.machines.outputme.util.AECacheCounter;
+import gregtech.common.tileentities.Hatches.outputme.base.MTEHatchOutputMEBase;
+import gregtech.common.tileentities.Hatches.outputme.util.AECacheCounter;
 import io.netty.buffer.ByteBuf;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;

@@ -22,7 +22,7 @@ import gregtech.api.enums.ItemList;
 import gregtech.api.objects.AE2DigitalChestHandler;
 import gregtech.api.objects.AE2NonconsumableHatchHandler;
 import gregtech.common.covers.CoverFacadeAE;
-import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
+import gregtech.common.tileentities.Hatches.MTEHatchCraftingInputME;
 
 public final class AE2Compat {
 

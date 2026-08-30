@@ -33,6 +33,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IItemLockable;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTDataUtils;
@@ -40,7 +41,6 @@ import gregtech.api.util.GTItemTransfer;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.hatch.MTEHatchOutputBusGui;
-import gregtech.common.tileentities.machines.ISmartInputHatch;
 
 @IMetaTileEntity.SkipGenerateDescription
 public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataCopyable, IOutputBus, ISmartInputHatch {

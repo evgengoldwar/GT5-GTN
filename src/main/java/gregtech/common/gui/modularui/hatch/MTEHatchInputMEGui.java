@@ -1,7 +1,7 @@
 package gregtech.common.gui.modularui.hatch;
 
 import static gregtech.api.modularui2.GTGuis.createPopUpPanel;
-import static gregtech.common.tileentities.machines.MTEHatchInputME.SLOT_COUNT;
+import static gregtech.common.tileentities.Hatches.MTEHatchInputME.SLOT_COUNT;
 
 import java.text.MessageFormat;
 import java.util.Objects;
@@ -46,8 +46,8 @@ import gregtech.api.util.GTDataUtils;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.adapter.MTEHatchInputMESlotAdapter;
 import gregtech.common.gui.modularui.hatch.base.MTEHatchBaseGui;
-import gregtech.common.tileentities.machines.MTEHatchInputME;
-import gregtech.common.tileentities.machines.MTEHatchInputME.Slot;
+import gregtech.common.tileentities.Hatches.MTEHatchInputME;
+import gregtech.common.tileentities.Hatches.MTEHatchInputME.Slot;
 
 public class MTEHatchInputMEGui extends MTEHatchBaseGui<MTEHatchInputME> {
 

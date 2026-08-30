@@ -1,7 +1,7 @@
 package gregtech.common.gui.modularui.hatch;
 
 import static gregtech.api.modularui2.GTGuis.createPopUpPanel;
-import static gregtech.common.tileentities.machines.MTEHatchCraftingInputME.SLOT_MANUAL_START;
+import static gregtech.common.tileentities.Hatches.MTEHatchCraftingInputME.SLOT_MANUAL_START;
 
 import net.minecraft.util.StatCollector;
 
@@ -21,7 +21,7 @@ import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.common.gui.modularui.hatch.base.MTEHatchBaseGui;
 import gregtech.common.gui.modularui.util.PatternSlot;
 import gregtech.common.modularui2.widget.builder.ItemSlotGridBuilder;
-import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
+import gregtech.common.tileentities.Hatches.MTEHatchCraftingInputME;
 
 public class MTEHatchCraftingInputMEGui extends MTEHatchBaseGui<MTEHatchCraftingInputME> {
 

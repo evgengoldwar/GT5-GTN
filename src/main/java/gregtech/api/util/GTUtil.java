@@ -26,12 +26,12 @@ import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 
 import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.IDataCopyable;
+import gregtech.api.metatileentity.Hatch.IDualInputHatch;
 import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.items.behaviors.BehaviourDataOrb;
-import gregtech.common.tileentities.machines.IDualInputHatch;
-import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
+import gregtech.common.tileentities.Hatches.outputme.MTEHatchOutputME;
 
 public class GTUtil {
 

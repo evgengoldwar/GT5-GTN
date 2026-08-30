@@ -1,7 +1,7 @@
 package gregtech.common.gui.modularui.hatch;
 
 import static gregtech.api.modularui2.GTGuis.createPopUpPanel;
-import static gregtech.common.tileentities.machines.MTEHatchInputBusME.SLOT_COUNT;
+import static gregtech.common.tileentities.Hatches.MTEHatchInputBusME.SLOT_COUNT;
 
 import java.text.MessageFormat;
 import java.util.Objects;
@@ -45,8 +45,8 @@ import gregtech.common.gui.modularui.hatch.base.MTEHatchBaseGui;
 import gregtech.common.gui.modularui.util.StockingSlot;
 import gregtech.common.modularui2.widget.GhostCircuitSlotWidget;
 import gregtech.common.modularui2.widget.builder.ItemSlotGridBuilder;
-import gregtech.common.tileentities.machines.MTEHatchInputBusME;
-import gregtech.common.tileentities.machines.MTEHatchInputBusME.Slot;
+import gregtech.common.tileentities.Hatches.MTEHatchInputBusME;
+import gregtech.common.tileentities.Hatches.MTEHatchInputBusME.Slot;
 
 public class MTEHatchInputBusMEGui extends MTEHatchBaseGui<MTEHatchInputBusME> {
 

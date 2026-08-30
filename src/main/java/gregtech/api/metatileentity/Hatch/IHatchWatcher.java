@@ -1,4 +1,6 @@
-package gregtech.common.tileentities.machines;
+package gregtech.api.metatileentity.Hatch;
+
+import gregtech.api.recipe.check.RecipeCheckReason;
 
 public interface IHatchWatcher {
 

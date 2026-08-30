@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.cleanroommc.modularui.utils.serialization.IByteBufAdapter;
 
-import gregtech.common.tileentities.machines.MTEHatchInputME.Slot;
+import gregtech.common.tileentities.Hatches.MTEHatchInputME.Slot;
 
 public class MTEHatchInputMESlotAdapter implements IByteBufAdapter<Slot> {
 

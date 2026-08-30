@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.machines;
+package gregtech.api.metatileentity.Hatch;
 
 import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;

@@ -17,8 +17,8 @@ import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.core.localization.GuiText;
 import gregtech.common.gui.modularui.hatch.base.MTEHatchBaseGui;
-import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
-import gregtech.common.tileentities.machines.outputme.base.MTEHatchOutputMEBase;
+import gregtech.common.tileentities.Hatches.outputme.MTEHatchOutputBusME;
+import gregtech.common.tileentities.Hatches.outputme.base.MTEHatchOutputMEBase;
 
 public class MTEHatchOutputBusMEGui extends MTEHatchBaseGui<MTEHatchOutputBusME> {
 

@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.machines.outputme.util;
+package gregtech.common.tileentities.Hatches.outputme.util;
 
 import java.util.function.ObjLongConsumer;
 

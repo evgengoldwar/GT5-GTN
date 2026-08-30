@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidStack;
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.tileentity.IRecipeLockable;
 import gregtech.api.interfaces.tileentity.IVoidable;
+import gregtech.api.metatileentity.Hatch.IDualInputInventoryWithPattern;
 import gregtech.api.objects.GTDualInputPattern;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -25,7 +26,6 @@ import gregtech.api.recipe.check.SingleRecipeCheck;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.api.util.ParallelHelper;
-import gregtech.common.tileentities.machines.IDualInputInventoryWithPattern;
 
 /**
  * Logic class to calculate result of recipe check from inputs, based on recipemap.

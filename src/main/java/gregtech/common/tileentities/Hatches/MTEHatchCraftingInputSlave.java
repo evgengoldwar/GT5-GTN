@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.machines;
+package gregtech.common.tileentities.Hatches;
 
 import static gregtech.api.enums.GTValues.TIER_COLORS;
 import static gregtech.api.enums.GTValues.VN;
@@ -31,6 +31,9 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.Hatch.IDualInputHatchWithPattern;
+import gregtech.api.metatileentity.Hatch.IDualInputInventory;
+import gregtech.api.metatileentity.Hatch.IHatchWatcher;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.modularui2.ProxiedMteGui;

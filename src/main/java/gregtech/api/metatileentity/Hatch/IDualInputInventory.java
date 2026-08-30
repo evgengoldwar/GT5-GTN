@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.machines;
+package gregtech.api.metatileentity.Hatch;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;

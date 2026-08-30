@@ -48,6 +48,7 @@ import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.Hatch.IRecipeProcessingAwareHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
@@ -58,7 +59,6 @@ import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 import gregtech.common.gui.modularui.hatch.MTEHatchInputBusCompressedGui;
 import gregtech.common.gui.modularui.util.ProxiedItemHandlerModifiable;
 import gregtech.common.inventory.AEInventory;
-import gregtech.common.tileentities.machines.IRecipeProcessingAwareHatch;
 
 public class MTEHatchInputBusCompressed extends MTEHatchInputBus
     implements IMEMonitor<IAEItemStack>, IRecipeProcessingAwareHatch, IDataCopyable {

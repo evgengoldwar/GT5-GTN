@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.machines;
+package gregtech.common.tileentities.Hatches;
 
 import static appeng.util.item.AEFluidStackType.FLUID_STACK_TYPE;
 import static appeng.util.item.AEItemStackType.ITEM_STACK_TYPE;
@@ -116,6 +116,11 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
+import gregtech.api.metatileentity.Hatch.IDualInputHatch;
+import gregtech.api.metatileentity.Hatch.IDualInputHatchWithPattern;
+import gregtech.api.metatileentity.Hatch.IDualInputInventory;
+import gregtech.api.metatileentity.Hatch.IDualInputInventoryWithPattern;
+import gregtech.api.metatileentity.Hatch.IHatchWatcher;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.objects.GTDualInputPattern;

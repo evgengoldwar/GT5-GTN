@@ -1,4 +1,4 @@
-package gregtech.common.tileentities.machines;
+package gregtech.api.recipe.check;
 
 /**
  * Why a hatch (or module) is asking its controller for a recipe check. This decides whether the check is allowed to be
