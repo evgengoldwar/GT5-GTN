@@ -1886,7 +1886,6 @@ public enum ItemList implements IItemContainer {
     Casing_AirFilter_Turbine_T3,
     Casing_AirFilter_Vent_T3,
     Casing_Pyrolyse,
-    NameRemover,
 
     Heavy_Hellish_Mud,
     Netherite_Scrap_Seed,
