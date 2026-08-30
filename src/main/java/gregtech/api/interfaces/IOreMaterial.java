@@ -45,8 +45,6 @@ public interface IOreMaterial extends ISubTagContainer {
 
     TextureSet getTextureSet();
 
-    List<IStoneType> getValidStones();
-
     @Nullable
     Materials getGTMaterial();
 

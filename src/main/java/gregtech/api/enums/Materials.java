@@ -2087,15 +2087,6 @@ public class Materials implements IColorModulationContainer, IOreMaterial {
     }
 
     @Override
-    public List<IStoneType> getValidStones() {
-        if (contains(SubTag.ICE_ORE)) {
-            return StoneType.ICES;
-        } else {
-            return StoneType.STONES;
-        }
-    }
-
-    @Override
     public String getInternalName() {
         return mName;
     }

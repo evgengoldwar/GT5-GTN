@@ -15,17 +15,6 @@ import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.util.client.ResourceUtils;
 
-/**
- * A block icon container rendered in the alpha pass whose base icon and _OVERLAY icon are both optional. Whichever of
- * the two files exists is used (the missing one renders as invisible); if neither exists, both icons are delegated to
- * the given fallback container. Used for the per-stone-type ore texture overrides of
- * {@link gregtech.api.enums.TextureSet#withStoneOreTextures(String)}.
- *
- * <p>
- * Unlike its sibling containers, this one does not register itself into {@link GregTechAPI#sGTBlockIconload}: it is
- * created while that list is being iterated (which would throw a {@link java.util.ConcurrentModificationException}),
- * so the owning TextureSet calls {@link #run()} on it during each block icon load phase instead.
- */
 public class GTCustomAlphaFallbackBlockIconContainer extends AbstractBlockIconContainer implements Runnable {
 
     private static final int CACHE_SIZE = 256;
