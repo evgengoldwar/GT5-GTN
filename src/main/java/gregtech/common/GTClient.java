@@ -27,7 +27,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.MovementInputFromOptions;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -46,7 +45,6 @@ import com.gtnewhorizons.navigator.api.NavigatorApi;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
@@ -104,8 +102,6 @@ import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.toolbox.ToolboxUtil;
 import gregtech.common.misc.GTPowerfailCommandClient;
 import gregtech.common.networkanalyzer.events.WorldOverlayRenderer;
-import gregtech.common.pollution.Pollution;
-import gregtech.common.pollution.PollutionRenderer;
 import gregtech.common.powergoggles.PowerGogglesCommand;
 import gregtech.common.render.BaseMetaTileEntityRenderer;
 import gregtech.common.render.FluidDisplayStackRenderer;
@@ -128,7 +124,6 @@ import paulscode.sound.SoundSystemException;
 
 public class GTClient extends GTProxy {
 
-    public final PollutionRenderer mPollutionRenderer = new PollutionRenderer();
     public final MetaGeneratedItemRenderer metaItemRenderer = new MetaGeneratedItemRenderer();
     public GTPowerfailRenderer powerfailRenderer;
     public KeyBinding shakeLockKey;
@@ -210,8 +205,6 @@ public class GTClient extends GTProxy {
         metaItemRenderer.registerSpecialRenderer(ItemList.Tool_DataStick, new DataStickRenderer());
         metaItemRenderer.registerSpecialRenderer(ItemList.Spray_Color_Infinite, new InfiniteSprayCanRenderer());
         MinecraftForge.EVENT_BUS.register(new NEIGTConfig());
-        MinecraftForge.EVENT_BUS.register(mPollutionRenderer);
-        FMLCommonHandler.instance().bus().register(mPollutionRenderer);
         MinecraftForge.EVENT_BUS.register(new GTMouseEventHandler());
         MinecraftForge.EVENT_BUS.register(new BlockOverlayRenderer());
         MinecraftForge.EVENT_BUS.register(new MTEDebugStructureWriter.EventHandler());
@@ -245,8 +238,6 @@ public class GTClient extends GTProxy {
                 }
             });
         RenderInit.register();
-        Pollution.onPostInitClient();
-
         ModuleRegistrar.instance()
             .registerTooltipRenderer("waila.gt.progress", new TTRenderGTProgressBar());
     }
@@ -563,10 +554,6 @@ public class GTClient extends GTProxy {
             || (stack.getItem() instanceof ItemMachines
                 && GregTechAPI.METATILEENTITIES[stack.getItemDamage()] instanceof MetaPipeEntity
                 && player.isSneaking());
-    }
-
-    public void processChunkPollutionPacket(ChunkCoordIntPair chunk, int pollution) {
-        mPollutionRenderer.processPacket(chunk, pollution);
     }
 
     @Override

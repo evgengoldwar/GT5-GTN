@@ -9,7 +9,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.GTMod;
 import gregtech.api.enums.ParticleFX;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -18,8 +17,6 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.WorldSpawnedEventBuilder;
-import gregtech.api.util.tooltip.TooltipHelper;
-import gregtech.common.pollution.Pollution;
 
 @SuppressWarnings("unused") // Unused API is expected within scope
 @IMetaTileEntity.SkipGenerateDescription
@@ -45,9 +42,8 @@ public class MTEHatchMuffler extends MTEHatch {
 
     @Override
     public String[] getDescription() {
-        String[] description = GTSplit
-            .splitLocalizedFormatted("gt.blockmachines.muffler.desc", String.valueOf(calculatePollutionReduction(100)));
-        return mTier > 1 ? TooltipHelper.pollutionDisabledTooltip(description) : description;
+        String[] description = GTSplit.splitLocalizedFormatted("gt.blockmachines.muffler.desc", String.valueOf((100)));
+        return description;
     }
 
     @Override
@@ -111,18 +107,11 @@ public class MTEHatchMuffler extends MTEHatch {
     public void pollutionParticles(World aWorld, String name) {
         boolean chk1, chk2, chk3;
         float ran1 = XSTR_INSTANCE.nextFloat(), ran2, ran3;
-        chk1 = ran1 * 100 < calculatePollutionReduction(100);
-        if (Pollution.getPollution(getBaseMetaTileEntity()) >= GTMod.proxy.mPollutionSmogLimit) {
-            ran2 = XSTR_INSTANCE.nextFloat();
-            ran3 = XSTR_INSTANCE.nextFloat();
-            chk2 = ran2 * 100 < calculatePollutionReduction(100);
-            chk3 = ran3 * 100 < calculatePollutionReduction(100);
-            if (!(chk1 || chk2 || chk3)) return;
-        } else {
-            if (!chk1) return;
-            ran2 = ran3 = 0.0F;
-            chk2 = chk3 = false;
-        }
+        chk1 = ran1 * 100 < (100);
+
+        if (!chk1) return;
+        ran2 = ran3 = 0.0F;
+        chk2 = chk3 = false;
 
         final IGregTechTileEntity aMuffler = this.getBaseMetaTileEntity();
         final ForgeDirection aDir = aMuffler.getFrontFacing();
@@ -172,26 +161,5 @@ public class MTEHatchMuffler extends MTEHatch {
                     zPos + XSTR_INSTANCE.nextFloat() * 0.5F)
                 .run();
         }
-    }
-
-    public int calculatePollutionReduction(int aPollution) {
-        if (mTier < 2) {
-            return aPollution;
-        }
-        return (int) ((float) aPollution * ((100F - 12.5F * ((float) mTier - 1F)) / 100F));
-    }
-
-    /**
-     * @param mte             The multi-block controller's {@link MetaTileEntity} MetaTileEntity is passed so newer
-     *                        muffler hatches can do wacky things with the multis
-     * @param pollutionAmount How much pollution to output. Reduced by muffler efficiency.
-     * @return pollution success
-     */
-    public boolean polluteEnvironment(MetaTileEntity mte, int pollutionAmount) {
-        if (getBaseMetaTileEntity().getAirAtSide(getBaseMetaTileEntity().getFrontFacing())) {
-            Pollution.addPollution(getBaseMetaTileEntity(), calculatePollutionReduction(pollutionAmount));
-            return true;
-        }
-        return false;
     }
 }

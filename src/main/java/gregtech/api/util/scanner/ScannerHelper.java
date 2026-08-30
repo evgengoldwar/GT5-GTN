@@ -40,7 +40,6 @@ import gregtech.api.interfaces.tileentity.IBasicEnergyContainer;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.common.pollution.Pollution;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.reactor.IReactor;
 import ic2.api.tile.IEnergyStorage;
@@ -151,10 +150,6 @@ public class ScannerHelper {
             if (ScannerConfig.showForestryLeavesInfo) {
                 euAmount += addForestryLeavesInfoComp(resultList, tileEntity);
             }
-        }
-
-        if (ScannerConfig.showChunkInfo) {
-            addChunkInfoComp(resultList, currentChunk, player);
         }
 
         if (ScannerConfig.showDebugInfo) {
@@ -472,17 +467,6 @@ public class ScannerHelper {
             if (D1) GT_FML_LOGGER.error(e);
         }
         return euAmount;
-    }
-
-    private static void addChunkInfoComp(List<IChatComponent> list, Chunk currentChunk, EntityPlayer player) {
-        list.add(addTitleComp("title_chunk_info"));
-        if (Pollution.hasPollution(currentChunk)) {
-            list.add(
-                transComp("chunk_info_1", goldComp(formatNumber(Pollution.getPollution(currentChunk))))
-                    .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
-        } else {
-            list.add(transComp("chunk_info_2").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
-        }
     }
 
     // endregion

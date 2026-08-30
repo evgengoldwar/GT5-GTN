@@ -137,7 +137,6 @@ import gregtech.common.gui.modularui.widget.CheckRecipeResultSyncer;
 import gregtech.common.gui.modularui.widget.ShutDownReasonSyncer;
 import gregtech.common.gui.mui1.StructureErrorMui1Compat;
 import gregtech.common.items.MetaGeneratedTool01;
-import gregtech.common.pollution.Pollution;
 import gregtech.common.tileentities.machines.IDualInputHatch;
 import gregtech.common.tileentities.machines.IDualInputInventory;
 import gregtech.common.tileentities.machines.IDualInputInventoryWithPattern;
@@ -167,8 +166,8 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         mSolderingTool = false, mCrowbar = false, mRunningOnLoad = false;
     public boolean mStructureChanged = false;
     private int errorDisplayID;
-    public int mPollution = 0, mProgresstime = 0, mMaxProgresstime = 0, mEUt = 0, mEfficiencyIncrease = 0,
-        mStartUpCheck = 100, mRuntime = 0, mEfficiency = 0, lastParallel = 0, efficiencyDecrease = 1000;
+    public int mProgresstime = 0, mMaxProgresstime = 0, mEUt = 0, mEfficiencyIncrease = 0, mStartUpCheck = 100,
+        mRuntime = 0, mEfficiency = 0, lastParallel = 0, efficiencyDecrease = 1000;
     public long recipesDone = 0;
     public volatile boolean mUpdated = false;
     public int mUpdate = 0;
@@ -334,7 +333,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         aNBT.setInteger("mMaxProgresstime", mMaxProgresstime);
         aNBT.setInteger("mEfficiencyIncrease", mEfficiencyIncrease);
         aNBT.setInteger("mEfficiency", mEfficiency);
-        aNBT.setInteger("mPollution", mPollution);
         aNBT.setInteger("mRuntime", mRuntime);
         aNBT.setInteger("powerPanelMaxParallel", powerPanelMaxParallel);
         aNBT.setLong("mTotalRunTime", mTotalRunTime);
@@ -392,7 +390,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         if (mMaxProgresstime > 0) mRunningOnLoad = true;
         mEfficiencyIncrease = aNBT.getInteger("mEfficiencyIncrease");
         mEfficiency = aNBT.getInteger("mEfficiency");
-        mPollution = aNBT.getInteger("mPollution");
         mRuntime = aNBT.getInteger("mRuntime");
         mTotalRunTime = aNBT.getLong("mTotalRunTime");
         mLastWorkingTick = aNBT.getLong("mLastWorkingTick");
@@ -634,7 +631,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                     | (mMachine ? 0 : 64));
 
             aBaseMetaTileEntity.setActive(mMaxProgresstime > 0);
-            setMufflersIfChanged(aBaseMetaTileEntity.isActive() && mPollution > 0);
+            setMufflersIfChanged(aBaseMetaTileEntity.isActive());
 
             boolean isActive = mMaxProgresstime > 0;
 
@@ -783,9 +780,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         if (mMaxProgresstime > 0 && doRandomMaintenanceDamage()) {
             if (onRunningTick(mInventory[1])) {
                 markDirty();
-                if (!polluteEnvironment(getPollutionPerTick(mInventory[1]))) {
-                    stopMachine(ShutDownReasonRegistry.POLLUTION_FAIL);
-                }
                 if (mMaxProgresstime > 0) {
                     incrementProgressTime();
                     if (mProgresstime >= mMaxProgresstime) {
@@ -837,76 +831,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
     protected void incrementProgressTime() {
         mProgresstime++;
-    }
-
-    public boolean polluteEnvironment(int aPollutionLevel) {
-        final int VENT_AMOUNT = 10_000;
-        // Early exit if pollution is disabled
-        if (!GTMod.proxy.mPollution) return true;
-        mPollution += aPollutionLevel;
-        if (mPollution < VENT_AMOUNT) return true;
-        if (mMufflerHatches.isEmpty()) {
-            // No muffler present. Fail.
-            return false;
-        } else if (mMufflerHatches.size() == 1) {
-            // One muffler, use simple method for performance.
-            MTEHatchMuffler muffler = mMufflerHatches.get(0);
-            if (muffler == null || !muffler.isValid()) {
-                // Muffler invalid. Fail.
-                mMufflerHatches.remove(0);
-                return false;
-            } else {
-                if (muffler.polluteEnvironment(this, VENT_AMOUNT)) {
-                    mPollution -= VENT_AMOUNT;
-                } else {
-                    // Muffler blocked. Fail.
-                    return false;
-                }
-            }
-        } else {
-            // Multiple mufflers, split pollution output evenly between all of them.
-            int mufflerCount = 0;
-            int ventAmount = 0; // Allow venting of up to VENT_AMOUNT of pollution per muffler.
-            for (MTEHatchMuffler muffler : validMTEList(mMufflerHatches)) {
-                mufflerCount++;
-                if (ventAmount + VENT_AMOUNT <= mPollution) {
-                    ventAmount += VENT_AMOUNT;
-                }
-            }
-            // This might lose some small amount of pollution due to rounding, this is fine.
-            ventAmount /= mufflerCount;
-
-            for (MTEHatchMuffler muffler : validMTEList(mMufflerHatches)) {
-                if (muffler.polluteEnvironment(this, ventAmount)) {
-                    mPollution -= ventAmount;
-                } else {
-                    // Muffler blocked. Fail.
-                    return false;
-                }
-            }
-        }
-        return mPollution < VENT_AMOUNT;
-    }
-
-    /**
-     * How much pollution this outputs to the environment. 100 = outputs all, 0 = outputs none. Calculated as an average
-     * across all muffler hatches.
-     *
-     * @return Fraction of pollution output to the environment (out of 100).
-     */
-    public int getAveragePollutionPercentage() {
-        int pollutionPercent = 0;
-        int mufflerCount = 0;
-        for (MTEHatchMuffler muffler : validMTEList(mMufflerHatches)) {
-            pollutionPercent += muffler.calculatePollutionReduction(100);
-            mufflerCount++;
-        }
-        if (mufflerCount > 0) {
-            pollutionPercent /= mufflerCount;
-        } else {
-            pollutionPercent = 100;
-        }
-        return pollutionPercent;
     }
 
     protected void sendStartMultiBlockSoundLoop() {
@@ -1319,27 +1243,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     /**
-     * Gets the pollution this Device outputs to a Muffler per tick (10000 = one Pullution Block)
-     *
-     * @param aStack what is in controller
-     */
-    public int getPollutionPerTick(ItemStack aStack) {
-        return getPollutionPerSecond(aStack) / 20;
-    }
-
-    /**
-     * Gets the pollution produced per second by this multiblock, default to 0. Override this with its actual value in
-     * the code of the multiblock.
-     *
-     * This returns the unmodified raw pollution value, not the one after muffler discounts.
-     *
-     * @param aStack what is in controller
-     */
-    public int getPollutionPerSecond(ItemStack aStack) {
-        return 0;
-    }
-
-    /**
      * Gets the factor value to damage the ItemStack in the controller slot.
      * <p>
      * This function will be called only if the ItemStack is {@link MetaGeneratedTool01}, and the actual applied damage
@@ -1473,7 +1376,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
         GTLog.writeExplosionLog(this, "MultiBlockExplosion");
 
-        Pollution.addPollution(getBaseMetaTileEntity(), GTMod.proxy.mPollutionOnExplosion);
         mInventory[1] = null;
         // noinspection unchecked // In this case, the inspection only indicates that the array can be abused in runtime
         Iterable<MetaTileEntity> allHatches = Iterables.concat(
@@ -2448,10 +2350,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
             info.add(encode("GT5U.multiblock.scanner.efficiency", formatNumber(mEfficiency / 100.0F)));
         }
 
-        if (getPollutionPerSecond(getStackForm(1)) > 0) {
-            info.add(encode("GT5U.multiblock.scanner.pollution", formatNumber(getAveragePollutionPercentage())));
-        }
-
         if (recipesDone > 0) {
             info.add(
                 StatCollector.translateToLocalFormatted("GT5U.multiblock.recipesDone.fmt", formatNumber(recipesDone)));
@@ -2486,7 +2384,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         infoMap.put("minEnergyTier", Long.toString(minEnergyTier));
         infoMap.put("maintenanceIssues", Integer.toString(getIdealStatus() - getRepairStatus()));
         infoMap.put("energyEfficiency", Double.toString(mEfficiency / 10_000F));
-        infoMap.put("pollution", Double.toString(getAveragePollutionPercentage() / 100F));
 
         return infoMap;
     }
@@ -3908,10 +3805,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
     public boolean getDefaultHasMaintenanceChecks() {
         return true;
-    }
-
-    protected boolean requiresMuffler() {
-        return getPollutionPerSecond(null) > 0;
     }
 
     public boolean shouldCheckMaintenance() {

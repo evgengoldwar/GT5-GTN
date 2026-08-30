@@ -11,7 +11,6 @@ import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import gregtech.api.util.scanner.ScannerConfig;
-import gregtech.common.pollution.PollutionConfig;
 import gregtech.mixin.Mixin;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
@@ -21,7 +20,6 @@ public class GTCorePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     static {
         try {
-            ConfigurationManager.registerConfig(PollutionConfig.class);
             ConfigurationManager.registerConfig(ScannerConfig.class);
         } catch (ConfigException e) {
             throw new RuntimeException(e);

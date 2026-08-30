@@ -142,11 +142,9 @@ import gregtech.common.misc.GlobalEnergyWorldSavedData;
 import gregtech.common.misc.WirelessChargerManager;
 import gregtech.common.misc.spaceprojects.SpaceProjectWorldSavedData;
 import gregtech.common.networkanalyzer.events.NetworkAnalyzerPlayerTracker;
-import gregtech.common.pollution.Pollution;
 import gregtech.common.powergoggles.PowerGogglesWorldSavedData;
 import gregtech.common.powergoggles.handlers.PowerGogglesEventHandler;
 import gregtech.nei.GTNEIDefaultHandler;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
 public class GTProxy implements IFuelHandler {
@@ -173,7 +171,6 @@ public class GTProxy implements IFuelHandler {
     public boolean mAchievements = true;
     public boolean mChangeHarvestLevels = false;
     public boolean mGTBees = true;
-    public boolean mPollution = true;
     public boolean mExplosionItemDrop = false;
     public int mMaxEqualEntitiesAtOneSpot = 3;
     public int mFlintChance = 30;
@@ -183,32 +180,6 @@ public class GTProxy implements IFuelHandler {
     public int mGraniteHavestLevel = 3;
     public int mMaxHarvestLevel = 7;
     public double replicatorExponent = 1.2D;
-    public int mPollutionSmogLimit = 550000;
-    public int mPollutionPoisonLimit = 750000;
-    public int mPollutionVegetationLimit = 1000000;
-    public int mPollutionSourRainLimit = 2000000;
-    public int mPollutionOnExplosion = 100000;
-    public int mPollutionPrimitveBlastFurnacePerSecond = 200;
-    public int mPollutionEBFPerSecond = 400;
-    public int mPollutionCharcoalPitPerSecond = 100;
-    public int mPollutionLargeCombustionEnginePerSecond = 480;
-    public int mPollutionExtremeCombustionEnginePerSecond = 3840;
-    public int mPollutionImplosionCompressorPerSecond = 10000;
-    public int mPollutionLargeBronzeBoilerPerSecond = 200;
-    public int mPollutionLargeSteelBoilerPerSecond = 400;
-    public int mPollutionLargeTitaniumBoilerPerSecond = 800;
-    public int mPollutionLargeTungstenSteelBoilerPerSecond = 1600;
-    public double mPollutionReleasedByThrottle = 1.0 / 24.0; // divided by 24 because 24 circuit conf
-    public int mPollutionLargeGasTurbinePerSecond = 300;
-    public int mPollutionMultiSmelterPerSecond = 400;
-    public int mPollutionPyrolyseOvenPerSecond = 300;
-    public int mPollutionSmallCoalBoilerPerSecond = 20;
-    public int mPollutionHighPressureLavaBoilerPerSecond = 20;
-    public int mPollutionHighPressureCoalBoilerPerSecond = 30;
-    public int mPollutionBaseDieselGeneratorPerSecond = 200;
-    public double[] mPollutionDieselGeneratorReleasedByTier = new double[] { 0.1, 1.0, 0.9, 0.8, 0.7, 0.6 };
-    public int mPollutionBaseGasTurbinePerSecond = 200;
-    public double[] mPollutionGasTurbineReleasedByTier = new double[] { 0.1, 1.0, 0.9, 0.8, 0.7, 0.6 };
     public boolean mEnableAllMaterials = false;
     public boolean mEnableCleanroom = true;
     public boolean mLowGravProcessing = false;
@@ -332,7 +303,6 @@ public class GTProxy implements IFuelHandler {
     public final ReentrantLock TICK_LOCK = new ReentrantLock();
 
     private final ConcurrentMap<UUID, GTClientPreference> mClientPrefernces = new ConcurrentHashMap<>();
-    public final Int2ObjectOpenHashMap<Pollution> dimensionWisePollution = new Int2ObjectOpenHashMap<>(16);
     /** A fast lookup for players. */
     private static Map<UUID, EntityPlayerMP> PLAYERS_BY_UUID;
     private static Map<String, UUID> UUID_BY_NAME;
@@ -749,7 +719,6 @@ public class GTProxy implements IFuelHandler {
         PowerGogglesEventHandler.getInstance()
             .onServerStopped(event);
         GTChunkManager.instance.onServerStopped();
-        dimensionWisePollution.clear();
 
     }
 
@@ -1051,8 +1020,6 @@ public class GTProxy implements IFuelHandler {
                     .debug("CRAM: Time spent checking {} microseconds", (System.nanoTime() - startTime) / 1000);
             }
         }
-
-        Pollution.onWorldTick(aEvent);
     }
 
     @SubscribeEvent
@@ -1389,9 +1356,7 @@ public class GTProxy implements IFuelHandler {
     }
 
     @SubscribeEvent
-    public void handleChunkLoadEvent(ChunkDataEvent.Load event) {
-        Pollution.migrate(event);
-    }
+    public void handleChunkLoadEvent(ChunkDataEvent.Load event) {}
 
     @SubscribeEvent
     public void onBlockBreakSpeedEvent(PlayerEvent.BreakSpeed aEvent) {

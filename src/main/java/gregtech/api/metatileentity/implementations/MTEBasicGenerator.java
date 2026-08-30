@@ -27,7 +27,6 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.singleblock.base.MTEBasicGeneratorBaseGui;
-import gregtech.common.pollution.Pollution;
 
 public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMapWorkable {
 
@@ -205,8 +204,6 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
                         (maxEUStore() - aBaseMetaTileEntity.getUniversalEnergyStored()) / tFuelValue);
                     if (tFluidAmountToUse > 0
                         && aBaseMetaTileEntity.increaseStoredEnergyUnits(tFluidAmountToUse * tFuelValue, true)) {
-                        // divided by two because this is called every 10 ticks, not 20
-                        Pollution.addPollution(getBaseMetaTileEntity(), getPollution() / 2);
                         mFluid.amount -= tFluidAmountToUse * tConsumed;
                     }
                 }
@@ -224,8 +221,6 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
                     if (aBaseMetaTileEntity.addStackToSlot(getOutputSlot(), tEmptyContainer)) {
                         aBaseMetaTileEntity.increaseStoredEnergyUnits(tFuelValue, true);
                         aBaseMetaTileEntity.decrStackSize(getInputSlot(), 1);
-                        // divided by two because this is called every 10 ticks, not 20
-                        Pollution.addPollution(getBaseMetaTileEntity(), getPollution() / 2);
                     }
                 }
             }

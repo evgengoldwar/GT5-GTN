@@ -12,7 +12,6 @@ import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
 import gregtech.common.config.MachineStats;
 import gregtech.common.config.Worldgen;
-import gregtech.common.pollution.PollutionConfig;
 
 public class GTGUIClientConfig extends SimpleGuiConfig {
 
@@ -25,7 +24,6 @@ public class GTGUIClientConfig extends SimpleGuiConfig {
             Client.class,
             Gregtech.class,
             MachineStats.class,
-            PollutionConfig.class,
             ScannerConfig.class,
             Worldgen.class);
     }

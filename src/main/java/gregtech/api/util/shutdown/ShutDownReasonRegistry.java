@@ -50,11 +50,6 @@ public class ShutDownReasonRegistry {
     @Nonnull
     public static final ShutDownReason POWER_LOSS = SimpleShutDownReason.ofCritical("power_loss");
     /**
-     * Failed to output the pollution.
-     */
-    @Nonnull
-    public static final ShutDownReason POLLUTION_FAIL = SimpleShutDownReason.ofCritical("pollution_fail");
-    /**
      * Failed to output the fluids.
      */
     @Nonnull

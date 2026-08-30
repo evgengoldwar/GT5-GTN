@@ -77,7 +77,6 @@ import gregtech.api.util.shutdown.ShutDownReason;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.items.behaviors.BehaviourSoftMallet;
-import gregtech.common.pollution.Pollution;
 import gregtech.common.render.IMTERenderer;
 import gregtech.mixin.interfaces.accessors.EntityItemAccessor;
 import ic2.api.Direction;
@@ -1343,7 +1342,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
                     }
                 }
             }
-            Pollution.addPollution((TileEntity) this, GTMod.proxy.mPollutionOnExplosion);
             tMetaTileEntity.doExplosion(aAmount);
         }
     }

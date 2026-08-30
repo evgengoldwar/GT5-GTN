@@ -14,7 +14,6 @@ public enum GTPacketTypes {
     // ID 0 unused
     SOUND(1, new GTPacketSound()),
     BLOCK_EVENT(2, new GTPacketBlockEvent()),
-    POLLUTION(4, new GTPacketPollution()),
     CLIENT_PREFERENCE(9, new GTPacketClientPreference()),
     SET_CONFIGURATION_CIRCUIT(12, new GTPacketSetConfigurationCircuit()),
     UPDATE_ITEM(13, new GTPacketUpdateItem()),

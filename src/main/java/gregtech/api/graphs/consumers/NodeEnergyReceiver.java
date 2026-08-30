@@ -8,13 +8,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cofh.api.energy.IEnergyReceiver;
-import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder;
-import gregtech.common.pollution.Pollution;
 
 // consumer for RF machines
 public class NodeEnergyReceiver extends ConsumerNode {
@@ -62,8 +60,6 @@ public class NodeEnergyReceiver extends ConsumerNode {
                 tY + .5,
                 tZ + .5);
             tWorld.setBlock(tX, tY, tZ, Blocks.air);
-            if (GregTechAPI.sMachineExplosions) if (GTMod.proxy.mPollution)
-                Pollution.addPollution(tWorld.getChunkFromBlockCoords(tX, tZ), GTMod.proxy.mPollutionOnExplosion);
 
             new WorldSpawnedEventBuilder.ExplosionEffectEventBuilder().setStrength(tStrength)
                 .setSmoking(true)

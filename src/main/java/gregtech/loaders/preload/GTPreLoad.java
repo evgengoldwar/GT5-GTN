@@ -40,7 +40,6 @@ import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
 import gregtech.common.config.MachineStats;
 import gregtech.common.config.OPStuff;
-import gregtech.common.pollution.PollutionConfig;
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineBase;
 
 public class GTPreLoad {
@@ -376,47 +375,6 @@ public class GTPreLoad {
 
         // client
         loadClientConfig();
-
-        // Pollution
-        GTMod.proxy.mPollution = PollutionConfig.pollution;
-        GTMod.proxy.mPollutionSmogLimit = PollutionConfig.pollutionSmogLimit;
-        GTMod.proxy.mPollutionPoisonLimit = PollutionConfig.pollutionPoisonLimit;
-        GTMod.proxy.mPollutionVegetationLimit = PollutionConfig.pollutionVegetationLimit;
-        GTMod.proxy.mPollutionSourRainLimit = PollutionConfig.pollutionSourRainLimit;
-        GTMod.proxy.mPollutionOnExplosion = PollutionConfig.pollutionOnExplosion;
-        GTMod.proxy.mPollutionPrimitveBlastFurnacePerSecond = PollutionConfig.pollutionPrimitveBlastFurnacePerSecond;
-        GTMod.proxy.mPollutionCharcoalPitPerSecond = PollutionConfig.pollutionCharcoalPitPerSecond;
-        GTMod.proxy.mPollutionEBFPerSecond = PollutionConfig.pollutionEBFPerSecond;
-        GTMod.proxy.mPollutionLargeCombustionEnginePerSecond = PollutionConfig.pollutionLargeCombustionEnginePerSecond;
-        GTMod.proxy.mPollutionExtremeCombustionEnginePerSecond = PollutionConfig.pollutionExtremeCombustionEnginePerSecond;
-        GTMod.proxy.mPollutionImplosionCompressorPerSecond = PollutionConfig.pollutionImplosionCompressorPerSecond;
-        GTMod.proxy.mPollutionLargeBronzeBoilerPerSecond = PollutionConfig.pollutionLargeBronzeBoilerPerSecond;
-        GTMod.proxy.mPollutionLargeSteelBoilerPerSecond = PollutionConfig.pollutionLargeSteelBoilerPerSecond;
-        GTMod.proxy.mPollutionLargeTitaniumBoilerPerSecond = PollutionConfig.pollutionLargeTitaniumBoilerPerSecond;
-        GTMod.proxy.mPollutionLargeTungstenSteelBoilerPerSecond = PollutionConfig.pollutionLargeTungstenSteelBoilerPerSecond;
-        GTMod.proxy.mPollutionReleasedByThrottle = PollutionConfig.pollutionReleasedByThrottle;
-        GTMod.proxy.mPollutionLargeGasTurbinePerSecond = PollutionConfig.pollutionLargeGasTurbinePerSecond;
-        GTMod.proxy.mPollutionMultiSmelterPerSecond = PollutionConfig.pollutionMultiSmelterPerSecond;
-        GTMod.proxy.mPollutionPyrolyseOvenPerSecond = PollutionConfig.pollutionPyrolyseOvenPerSecond;
-        GTMod.proxy.mPollutionSmallCoalBoilerPerSecond = PollutionConfig.pollutionSmallCoalBoilerPerSecond;
-        GTMod.proxy.mPollutionHighPressureLavaBoilerPerSecond = PollutionConfig.pollutionHighPressureLavaBoilerPerSecond;
-        GTMod.proxy.mPollutionHighPressureCoalBoilerPerSecond = PollutionConfig.pollutionHighPressureCoalBoilerPerSecond;
-        GTMod.proxy.mPollutionBaseDieselGeneratorPerSecond = PollutionConfig.pollutionBaseDieselGeneratorPerSecond;
-        double[] mPollutionDieselGeneratorReleasedByTier = PollutionConfig.pollutionDieselGeneratorReleasedByTier;
-        if (mPollutionDieselGeneratorReleasedByTier.length
-            == GTMod.proxy.mPollutionDieselGeneratorReleasedByTier.length) {
-            GTMod.proxy.mPollutionDieselGeneratorReleasedByTier = mPollutionDieselGeneratorReleasedByTier;
-        } else {
-            GT_FML_LOGGER
-                .error("The Length of the Diesel Turbine Pollution Array Config must be the same as the Default");
-        }
-        GTMod.proxy.mPollutionBaseGasTurbinePerSecond = PollutionConfig.pollutionBaseGasTurbinePerSecond;
-        double[] mPollutionGasTurbineReleasedByTier = PollutionConfig.pollutionGasTurbineReleasedByTier;
-        if (mPollutionGasTurbineReleasedByTier.length == GTMod.proxy.mPollutionGasTurbineReleasedByTier.length) {
-            GTMod.proxy.mPollutionGasTurbineReleasedByTier = mPollutionGasTurbineReleasedByTier;
-        } else {
-            GT_FML_LOGGER.error("The Length of the Gas Turbine Pollution Array Config must be the same as the Default");
-        }
 
         // OverpoweredStuff.cfg
         GregTechAPI.mOutputRF = OPStuff.outputRF;

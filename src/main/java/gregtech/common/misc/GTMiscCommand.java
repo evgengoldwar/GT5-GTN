@@ -16,20 +16,17 @@ import java.util.UUID;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 import com.gtnewhorizon.structurelib.StructureLib;
 
-import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
 import gregtech.api.objects.GTChunkManager;
 import gregtech.api.util.FakeCleanroom;
 import gregtech.commands.GTBaseCommand;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
-import gregtech.common.pollution.Pollution;
 
 public final class GTMiscCommand extends GTBaseCommand {
 
@@ -58,7 +55,6 @@ public final class GTMiscCommand extends GTBaseCommand {
         list.add(new ChatComponentText("\"chunks\" - print a list of the force loaded chunks"));
         list.add(new ChatComponentText("\"cleanroom_bypass <on|off|status> <all|cleanroom|lowgrav>\" - Bypass cleanroom and/or low-grav requirements"));
         list.add(new ChatComponentText("\"dump_music_durations\" - dumps soundmeta/durations.json for all registered records in the game to the log. Client-only"));
-        list.add(new ChatComponentText("\"pollution <amount>\" - adds the <amount> of the pollution to the current chunk, \n if <amount> isn't specified, will add" + GTMod.proxy.mPollutionSmogLimit + "gibbl."));
         list.add(new ChatComponentText("\"toggle D1\" - toggles general.Debug (D1)"));
         list.add(new ChatComponentText("\"toggle D2\" - toggles general.Debug2 (D2)"));
         list.add(new ChatComponentText("\"toggle debugChunkloaders\" - toggles chunkloaders debug"));
@@ -153,7 +149,6 @@ public final class GTMiscCommand extends GTBaseCommand {
         switch (args[0]) {
             case "chunks" -> this.processChunksCommand(sender);
             case "cleanroom_bypass" -> this.processCleanroomBypassCommand(sender, args);
-            case "pollution" -> this.processPollutionCommand(sender, args);
             case "global_energy_add" -> this.processGlobalEnergyAddCommand(sender, args);
             case "global_energy_display" -> this.processGlobalEnergyDisplayCommand(sender, args);
             case "global_energy_join" -> this.processGlobalEnergyJoinCommand(sender, args);
@@ -239,15 +234,6 @@ public final class GTMiscCommand extends GTBaseCommand {
     private void processChunksCommand(ICommandSender sender) {
         GTChunkManager.printTickets();
         sendChatToPlayer(sender, "Forced chunks logged to GregTech.log");
-    }
-
-    private void processPollutionCommand(ICommandSender sender, String[] args) {
-        ChunkCoordinates coordinates = sender.getPlayerCoordinates();
-        int amount = (args.length < 2) ? GTMod.proxy.mPollutionSmogLimit : parseInt(sender, args[1]);
-        Pollution.addPollution(
-            sender.getEntityWorld()
-                .getChunkFromBlockCoords(coordinates.posX, coordinates.posZ),
-            amount);
     }
 
     private static BigInteger parseEU(String eu) {
