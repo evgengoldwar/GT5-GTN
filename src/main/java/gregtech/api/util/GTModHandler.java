@@ -12,10 +12,7 @@ import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.enums.GTValues.VN;
 import static gregtech.api.enums.Mods.Gendustry;
 import static gregtech.api.enums.Mods.IndustrialCraft2;
-import static gregtech.api.recipe.RecipeMaps.alloySmelterRecipes;
 import static gregtech.api.util.GTRecipeBuilder.PANIC_MODE_NULL;
-import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
 import java.util.ArrayList;
@@ -75,7 +72,6 @@ import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
 import gregtech.api.objects.GTHashSet;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.objects.ItemData;
-import gregtech.api.recipe.RecipeCategories;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.toolbox.ToolboxDelegateInventory;
 import gregtech.common.items.toolbox.ToolboxUtil;
@@ -83,9 +79,7 @@ import gregtech.mixin.interfaces.accessors.ShapedOreRecipeAccessor;
 import ic2.api.item.IBoxable;
 import ic2.api.item.IC2Items;
 import ic2.api.item.IElectricItem;
-import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.RecipeInputItemStack;
-import ic2.api.recipe.RecipeOutput;
 import ic2.api.recipe.Recipes;
 import ic2.core.item.ItemToolbox;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenCustomHashMap;
@@ -456,65 +450,6 @@ public class GTModHandler {
         FurnaceRecipes.smelting()
             .func_151394_a(input, GTUtility.copyOrNull(output), xp);
         return true;
-    }
-
-    /**
-     * Adds to Furnace AND Alloy Smelter
-     */
-    public static boolean addSmeltingAndAlloySmeltingRecipe(ItemStack aInput, ItemStack aOutput, boolean hidden) {
-        if (aInput == null || aOutput == null) {
-            return false;
-        }
-        boolean temp = aInput.stackSize == 1 && addSmeltingRecipe(aInput, aOutput);
-        ItemStack input2 = OrePrefixes.ingot.contains(aOutput) ? ItemList.Shape_Mold_Ingot.get(0)
-            : OrePrefixes.block.contains(aOutput) ? ItemList.Shape_Mold_Block.get(0)
-                : OrePrefixes.nugget.contains(aOutput) ? ItemList.Shape_Mold_Nugget.get(0) : null;
-        if (Materials.Graphite.contains(aInput)) {
-            return false;
-        }
-        if ((input2 == null) && ((OrePrefixes.ingot.contains(aInput)) || (OrePrefixes.dust.contains(aInput))
-            || (OrePrefixes.gem.contains(aInput)))) {
-            return false;
-        }
-        GTRecipeBuilder recipeBuilder = GTValues.RA.stdBuilder();
-        if (input2 == null) {
-            recipeBuilder.itemInputs(aInput);
-        } else {
-            recipeBuilder.itemInputs(aInput, input2);
-        }
-        recipeBuilder.itemOutputs(aOutput)
-            .duration(6 * SECONDS + 10 * TICKS)
-            .eut(3)
-            .recipeCategory(RecipeCategories.alloySmelterRecycling);
-        if (hidden) {
-            recipeBuilder.hidden();
-        }
-        recipeBuilder.addTo(alloySmelterRecipes);
-        return true;
-    }
-
-    public static Map<IRecipeInput, RecipeOutput> getExtractorRecipeList() {
-        return Recipes.extractor.getRecipes();
-    }
-
-    public static Map<IRecipeInput, RecipeOutput> getCompressorRecipeList() {
-        return Recipes.compressor.getRecipes();
-    }
-
-    public static Map<IRecipeInput, RecipeOutput> getMaceratorRecipeList() {
-        return Recipes.macerator.getRecipes();
-    }
-
-    public static Map<IRecipeInput, RecipeOutput> getThermalCentrifugeRecipeList() {
-        return Recipes.centrifuge.getRecipes();
-    }
-
-    public static Map<IRecipeInput, RecipeOutput> getOreWashingRecipeList() {
-        return Recipes.oreWashing.getRecipes();
-    }
-
-    public static boolean isBufferingCraftingRecipes() {
-        return sBufferCraftingRecipes;
     }
 
     /**

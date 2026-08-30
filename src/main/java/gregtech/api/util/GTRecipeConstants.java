@@ -1,20 +1,12 @@
 package gregtech.api.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.Materials;
-import gregtech.api.interfaces.IRecipeMap;
-import gregtech.api.recipe.RecipeCategories;
-import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.RecipeMetadataKey;
 import gregtech.api.recipe.metadata.SimpleRecipeMetadataKey;
 import gregtech.api.util.recipe.QuantumComputerRecipeData;
 
-// this class is intended to be import-static-ed on every recipe script
-// so take care to not put unrelated stuff here!
 public class GTRecipeConstants {
 
     /**
@@ -30,21 +22,11 @@ public class GTRecipeConstants {
     public static final RecipeMetadataKey<Boolean> CLEANROOM = SimpleRecipeMetadataKey
         .create(Boolean.class, "cleanroom");
     /**
-     * Common additive to use in recipe, e.g. for PBF, this is coal amount.
-     */
-    public static final RecipeMetadataKey<Integer> ADDITIVE_AMOUNT = SimpleRecipeMetadataKey
-        .create(Integer.class, "additives");
-    /**
      * Used for fusion reactor. Denotes ignition threshold.
      */
     public static final RecipeMetadataKey<Long> FUSION_THRESHOLD = SimpleRecipeMetadataKey
         .create(Long.class, "fusion_threshold");
 
-    /**
-     * Fuel type. TODO should we use enum directly?
-     */
-    public static final RecipeMetadataKey<Integer> FUEL_TYPE = SimpleRecipeMetadataKey
-        .create(Integer.class, "fuel_type");
     /**
      * Fuel value.
      */
@@ -61,10 +43,6 @@ public class GTRecipeConstants {
      */
     public static final RecipeMetadataKey<Materials> MATERIAL = SimpleRecipeMetadataKey
         .create(Materials.class, "material");
-    /**
-     * Marker for {@link #UniversalArcFurnace} to tell that the recipe belongs to recycling category.
-     */
-    public static final RecipeMetadataKey<Boolean> RECYCLE = SimpleRecipeMetadataKey.create(Boolean.class, "recycle");
     /**
      * For Microwave.
      */
@@ -210,50 +188,6 @@ public class GTRecipeConstants {
 
     public static final RecipeMetadataKey<DecayType> DECAY_TYPE = SimpleRecipeMetadataKey
         .create(DecayType.class, "decay-type");
-
-    /**
-     * Add a arc furnace recipe.
-     */
-    public static final IRecipeMap UniversalArcFurnace = IRecipeMap.newRecipeMap(builder -> {
-        Collection<GTRecipe> ret = new ArrayList<>();
-        boolean foundAnyItem = false;
-        for (ItemStack itemStack : builder.inputsBasic) {
-            if (itemStack == null) continue;
-            if (!GTUtility.isAnyIntegratedCircuit(itemStack)) {
-                foundAnyItem = true;
-                break;
-            }
-        }
-        if (!foundAnyItem) return ret;
-
-        boolean recycle = builder.getMetadataOrDefault(RECYCLE, false);
-        int baseGasAmount = builder.getMetadataOrDefault(ADDITIVE_AMOUNT, 10);
-        int baseDuration = builder.getDuration();
-
-        if (recycle) {
-            // Recycling only has no gas variant
-            builder.recipeCategory(RecipeCategories.arcFurnaceRecycling);
-        } else {
-            // Generate recipe with plasma
-            for (Materials mat : new Materials[] { Materials.Argon, Materials.Nitrogen }) {
-                int tPlasmaAmount = (int) Math.max(1L, baseDuration / (mat.getMass() * 16L));
-                GTRecipeBuilder plasmaBuilder = builder.copy()
-                    .duration(Math.max(1, mat == Materials.Nitrogen ? baseDuration / 4 : baseDuration / 24))
-                    .fluidInputs(mat.getPlasma(tPlasmaAmount))
-                    .circuit(11)
-                    .fluidOutputs(mat.getGas(tPlasmaAmount));
-                ret.addAll(RecipeMaps.arcFurnaceRecipes.doAdd(plasmaBuilder));
-            }
-        }
-
-        ret.addAll(
-            builder.copy()
-                .duration((int) Math.max(1, baseDuration * 1.25d))
-                .circuit(1)
-                .addTo(RecipeMaps.arcFurnaceRecipes));
-
-        return ret;
-    });
 
     static {
         GTRecipeMapUtil.SPECIAL_VALUE_ALIASES.add(COIL_HEAT);

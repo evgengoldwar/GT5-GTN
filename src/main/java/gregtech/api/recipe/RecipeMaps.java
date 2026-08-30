@@ -32,49 +32,6 @@ import gregtech.nei.formatter.SimpleSpecialValueFormatter;
 @SuppressWarnings("SimplifyOptionalCallChains")
 public final class RecipeMaps {
 
-    public static final RecipeMap<RecipeMapBackend> scannerFakeRecipes = RecipeMapBuilder.of("gt.recipe.scanner")
-        .maxIO(1, 1, 1, 0)
-        .minInputs(1, 0)
-        .useSpecialSlot()
-        .slotOverlays((index, isFluid, isOutput, isSpecial) -> {
-            if (isSpecial) {
-                return GTUITextures.OVERLAY_SLOT_DATA_ORB;
-            }
-            if (!isFluid && !isOutput) {
-                return GTUITextures.OVERLAY_SLOT_MICROSCOPE;
-            }
-            return null;
-        })
-        .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
-            if (isSpecial) {
-                return GTGuiTextures.OVERLAY_SLOT_DATA_ORB;
-            }
-            if (!isFluid && !isOutput) {
-                return GTGuiTextures.OVERLAY_SLOT_MICROSCOPE;
-            }
-            return null;
-        })
-        .build();
-
-    public static final RecipeMap<RecipeMapBackend> assemblylineVisualRecipes = RecipeMapBuilder
-        .of("gt.recipe.fakeAssemblylineProcess")
-        .maxIO(16, 1, 4, 0)
-        .minInputs(1, 0)
-        .useSpecialSlot()
-        .slotOverlays((index, isFluid, isOutput, isSpecial) -> isSpecial ? GTUITextures.OVERLAY_SLOT_DATA_ORB : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput, isSpecial) -> isSpecial ? GTGuiTextures.OVERLAY_SLOT_DATA_ORB : null)
-        .neiTransferRect(88, 8, 18, 72)
-        .neiTransferRect(124, 8, 18, 72)
-        .neiTransferRect(142, 26, 18, 18)
-        .frontend(AssemblyLineFrontend::new)
-        .build();
-
-    public static final RecipeMap<RecipeMapBackend> arcFurnaceRecipes = RecipeMapBuilder.of("gt.recipe.arcfurnace")
-        .maxIO(2, 9, 2, 1)
-        .minInputs(1, 0)
-        .build();
-
     public static final RecipeMap<RecipeMapBackend> laserEngraverRecipes = RecipeMapBuilder
         .of("gt.recipe.laserengraver")
         .maxIO(4, 4, 2, 2)
@@ -113,29 +70,6 @@ public final class RecipeMaps {
         .progressBarSteam(GTUITextures.PROGRESSBAR_MACERATE_STEAM)
         .progressBarTextureSteamMUI2(GTGuiTextures.PROGRESSBAR_MACERATE_STEAM)
         // Avoid steam machine being used as handler icon
-        .build();
-
-    public static final RecipeMap<RecipeMapBackend> fluidSolidifierRecipes = RecipeMapBuilder
-        .of("gt.recipe.fluidsolidifier")
-        .maxIO(1, 1, 1, 0)
-        .minInputs(1, 1)
-        .slotOverlays(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTUITextures.OVERLAY_SLOT_MOLD : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTGuiTextures.OVERLAY_SLOT_MOLD : null)
-        .build();
-    public static final RecipeMap<RecipeMapBackend> fluidExtractionRecipes = RecipeMapBuilder
-        .of("gt.recipe.fluidextractor")
-        .maxIO(1, 1, 0, 1)
-        .minInputs(1, 0)
-        .slotOverlays(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTUITextures.OVERLAY_SLOT_CENTRIFUGE
-                : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTGuiTextures.OVERLAY_SLOT_CENTRIFUGE
-                : null)
-        .progressBar(GTUITextures.PROGRESSBAR_EXTRACT)
-        .progressBarMUI2(GTGuiTextures.PROGRESSBAR_EXTRACT)
         .build();
 
     public static final RecipeMap<RecipeMapBackend> fusionRecipes = RecipeMapBuilder.of("gt.recipe.fusionreactor")
@@ -221,17 +155,6 @@ public final class RecipeMaps {
         .progressBarMUI2(GTGuiTextures.PROGRESSBAR_ARROW_MULTIPLE)
         .build();
 
-    public static final RecipeMap<RecipeMapBackend> wiremillRecipes = RecipeMapBuilder.of("gt.recipe.wiremill")
-        .maxIO(2, 1, 0, 0)
-        .minInputs(1, 0)
-        .slotOverlays(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTUITextures.OVERLAY_SLOT_WIREMILL : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTGuiTextures.OVERLAY_SLOT_WIREMILL : null)
-        .progressBar(GTUITextures.PROGRESSBAR_WIREMILL)
-        .progressBarMUI2(GTGuiTextures.PROGRESSBAR_WIREMILL)
-        .build();
-
     public static final RecipeMap<RecipeMapBackend> benderRecipes = RecipeMapBuilder.of("gt.recipe.metalbender")
         .maxIO(2, 1, 0, 0)
         .minInputs(2, 0)
@@ -241,33 +164,6 @@ public final class RecipeMaps {
             (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTGuiTextures.OVERLAY_SLOT_BENDER : null)
         .progressBar(GTUITextures.PROGRESSBAR_BENDING)
         .progressBarMUI2(GTGuiTextures.PROGRESSBAR_BENDING)
-        .build();
-
-    public static final RecipeMap<RecipeMapBackend> alloySmelterRecipes = RecipeMapBuilder.of("gt.recipe.alloysmelter")
-        .maxIO(2, 1, 0, 0)
-        .minInputs(2, 0)
-        .slotOverlays(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTUITextures.OVERLAY_SLOT_FURNACE : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput, isSpecial) -> !isFluid && !isOutput ? GTGuiTextures.OVERLAY_SLOT_FURNACE : null)
-        .slotOverlaysSteam((index, isFluid, isOutput, isSpecial) -> GTUITextures.OVERLAY_SLOT_FURNACE_STEAM)
-        .slotOverlaysSteamMUI2((_, _, _, _) -> GTGuiTextures.OVERLAY_SLOT_FURNACE_STEAM)
-        .progressBarSteam(GTUITextures.PROGRESSBAR_ARROW_STEAM)
-        .progressBarTextureSteamMUI2(GTGuiTextures.PROGRESSBAR_ARROW_STEAM)
-        .recipeEmitter(b -> {
-            if (Materials.Graphite.contains(b.getItemInputBasic(0))) return Collections.emptyList();
-            if (GTUtility.isArrayOfLength(b.getItemInputsBasic(), 1)) {
-                ItemStack aInput1 = b.getItemInputBasic(0);
-                if (((OrePrefixes.ingot.contains(aInput1)) || (OrePrefixes.dust.contains(aInput1))
-                    || (OrePrefixes.gem.contains(aInput1)))) return Collections.emptyList();
-            }
-            return buildOrEmpty(
-                b.validateNoInputFluid()
-                    .validateNoOutputFluid()
-                    .validateInputCount(1, 2)
-                    .validateOutputCount(1, 1));
-        })
-        // Avoid steam machine being used as handler icon
         .build();
 
     public static final RecipeMap<AssemblerBackend> assemblerRecipes = RecipeMapBuilder
@@ -308,19 +204,6 @@ public final class RecipeMaps {
         .progressBarMUI2(GTGuiTextures.PROGRESSBAR_CANNER)
         .build();
 
-    public static final RecipeMap<RecipeMapBackend> extruderRecipes = RecipeMapBuilder.of("gt.recipe.extruder")
-        .maxIO(2, 1, 0, 0)
-        .minInputs(2, 0)
-        .slotOverlays(
-            (index, isFluid, isOutput,
-                isSpecial) -> !isFluid && !isOutput && index != 0 ? GTUITextures.OVERLAY_SLOT_EXTRUDER_SHAPE : null)
-        .slotOverlaysMUI2(
-            (index, isFluid, isOutput,
-                isSpecial) -> !isFluid && !isOutput && index != 0 ? GTGuiTextures.OVERLAY_SLOT_EXTRUDER_SHAPE : null)
-        .progressBar(GTUITextures.PROGRESSBAR_EXTRUDE)
-        .progressBarMUI2(GTGuiTextures.PROGRESSBAR_EXTRUDE)
-        .build();
-
     public static final RecipeMap<RecipeMapBackend> hammerRecipes = RecipeMapBuilder.of("gt.recipe.hammer")
         .maxIO(2, 2, 2, 2)
         .minInputs(1, 0)
@@ -339,12 +222,4 @@ public final class RecipeMaps {
         .addSpecialTextureSteam(78, 42, 20, 6, GTUITextures.PROGRESSBAR_HAMMER_BASE_STEAM)
         // Avoid steam machine being used as handler icon
         .build();
-
-    public static final RecipeMap<RecipeMapBackend> alloyBlastSmelterRecipes = RecipeMapBuilder
-        .of("gt.recipe.alloyblastsmelter")
-        .maxIO(9, 9, 3, 3)
-        .minInputs(1, 0)
-        .frontend(LargeNEIFrontend::new)
-        .build();
-
 }

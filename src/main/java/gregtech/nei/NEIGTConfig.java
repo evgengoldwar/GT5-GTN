@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
 
+import gregtech.api.enums.ItemList;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
 import com.google.common.collect.ImmutableListMultimap;
@@ -45,17 +47,8 @@ import gregtech.nei.searchprovider.ChemicalFormulaFilter;
 
 public class NEIGTConfig implements IConfigureNEI {
 
-    /**
-     * This map determines the order in which NEI handlers will be registered and displayed in tabs.
-     *
-     * <p>
-     * Handlers will be displayed in ascending order of integer value. Any recipe map that is not present in this map
-     * will be assigned a value of 0. Negative values are fine.
-     */
     private static final ImmutableMap<RecipeMap<?>, Integer> RECIPE_MAP_ORDERING = ImmutableMap
         .<RecipeMap<?>, Integer>builder()
-        .put(RecipeMaps.assemblylineVisualRecipes, 1)
-        .put(RecipeMaps.scannerFakeRecipes, 2)
         .build();
 
     private static final Comparator<GTNEIDefaultHandler> RECIPE_MAP_HANDLER_COMPARATOR = Comparator

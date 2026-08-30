@@ -1,27 +1,9 @@
 package gregtech.api.util;
 
-import static gregtech.api.enums.GTValues.M;
-import static gregtech.api.enums.GTValues.RA;
-import static gregtech.api.enums.GTValues.VP;
-import static gregtech.api.recipe.RecipeMaps.arcFurnaceRecipes;
-import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
-import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
-import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
-import static gregtech.api.util.GTRecipeBuilder.INGOTS;
-import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeBuilder.TICKS;
-import static gregtech.api.util.GTRecipeConstants.RECYCLE;
-import static gregtech.api.util.GTRecipeConstants.UniversalArcFurnace;
-import static gregtech.api.util.GTUtility.getTier;
-
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -31,7 +13,6 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -40,30 +21,15 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.SetMultimap;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.enums.SubTag;
-import gregtech.api.enums.TierEU;
-import gregtech.api.interfaces.IRecipeMap;
 import gregtech.api.objects.ItemData;
 import gregtech.api.objects.MaterialStack;
-import gregtech.api.recipe.RecipeCategories;
-import gregtech.api.recipe.RecipeCategory;
 import gregtech.mixin.interfaces.accessors.ShapedOreRecipeAccessor;
 import ic2.api.reactor.IReactorComponent;
 
-/**
- * Class for Automatic Recipe registering.
- */
 public class GTRecipeRegistrator {
 
-    private static Supplier<RecipeCategory> arcFurnaceRecyclingCategorySupplier = () -> RecipeCategories.arcFurnaceRecycling;
-
-    /**
-     * List of Materials, which are used in the Creation of Sticks. All Rod Materials are automatically added to this
-     * List.
-     */
     public static final List<Materials> sRodMaterialList = new ArrayList<>();
 
     private static final ItemStack sMt1 = new ItemStack(Blocks.dirt, 1, 0), sMt2 = new ItemStack(Blocks.dirt, 1, 0);
@@ -149,305 +115,6 @@ public class GTRecipeRegistrator {
         GregTechAPI.sAfterGTPostload.add(() -> indexedRecipeListCache = null);
     }
 
-    public static void registerMaterialRecycling(ItemStack aStack, ItemData aData) {
-        if (GTUtility.isStackInvalid(aStack) || GTUtility.areStacksEqual(new ItemStack(Items.blaze_rod), aStack)
-            || GTUtility.areStacksEqual(GTOreDictUnificator.get(OrePrefixes.block, Materials.Ichorium, 1L), aStack)
-            || GTUtility.areStacksEqual(new ItemStack(Blocks.quartz_block, 1), aStack)
-            || GTUtility.areStacksEqual(new ItemStack(Blocks.obsidian), aStack)
-            || aData == null
-            || !aData.hasValidMaterialData()
-            || !aData.mMaterial.mMaterial.mAutoGenerateRecycleRecipes
-            || aData.mMaterial.mAmount <= 0
-            || GTUtility.getFluidForFilledItem(aStack, false) != null) return;
-        registerReverseMacerating(GTUtility.copyAmount(1, aStack), aData, aData.mPrefix == null, true);
-        if (!GTUtility.areStacksEqual(GTModHandler.getIC2Item("iridiumOre", 1L), aStack)) {
-            registerReverseSmelting(
-                GTUtility.copyAmount(1, aStack),
-                aData.mMaterial.mMaterial,
-                aData.mMaterial.mAmount,
-                true);
-            registerReverseFluidSmelting(
-                GTUtility.copyAmount(1, aStack),
-                aData.mMaterial.mMaterial,
-                aData.mMaterial.mAmount,
-                aData.getByProduct(0),
-                true);
-            registerReverseArcSmelting(GTUtility.copyAmount(1, aStack), aData);
-        }
-    }
-
-    /**
-     * @param aStack          the stack to be recycled.
-     * @param aMaterial       the Material.
-     * @param aMaterialAmount the amount of it in Material Units.
-     * @param isRecycling     whether to put in recycling tab.
-     */
-    public static void registerReverseFluidSmelting(ItemStack aStack, Materials aMaterial, long aMaterialAmount,
-        MaterialStack aByproduct, boolean isRecycling) {
-        if (aStack == null || aMaterial == null
-            || aMaterial.mSmeltInto.mStandardMoltenFluid == null
-            || !aMaterial.contains(SubTag.SMELTING_TO_FLUID)
-            || (aMaterialAmount * INGOTS) / (M * aStack.stackSize) <= 0) return;
-
-        ItemStack recipeOutput = aByproduct == null ? null
-            : aByproduct.mMaterial.contains(SubTag.NO_SMELTING) || !aByproduct.mMaterial.contains(SubTag.METAL)
-                ? aByproduct.mMaterial.contains(SubTag.FLAMMABLE)
-                    ? GTOreDictUnificator.getDust(Materials.Ash, aByproduct.mAmount / 2)
-                    : aByproduct.mMaterial.contains(SubTag.UNBURNABLE)
-                        ? GTOreDictUnificator.getDustOrIngot(aByproduct.mMaterial.mSmeltInto, aByproduct.mAmount)
-                        : null
-                : GTOreDictUnificator.getIngotOrDust(aByproduct.mMaterial.mSmeltInto, aByproduct.mAmount);
-
-        GTRecipeBuilder builder = RA.stdBuilder()
-            .itemInputs(GTUtility.copyAmount(1, aStack));
-        if (recipeOutput != null) {
-            builder.itemOutputs(recipeOutput);
-        }
-        long powerUsage = Math.max(8, (long) Math.sqrt(2 * aMaterial.mSmeltInto.mStandardMoltenFluid.getTemperature()));
-        // avoid full amp recipes
-        int powerTier = getTier(powerUsage);
-        if (powerTier > 0 && powerTier < VP.length && powerUsage > VP[powerTier]) {
-            powerUsage = VP[powerTier];
-        }
-        builder.fluidOutputs(aMaterial.mSmeltInto.getMolten((aMaterialAmount * INGOTS) / (M * aStack.stackSize)))
-            .duration((int) Math.max(1, (24 * aMaterialAmount) / M))
-            .eut(powerUsage);
-        if (isRecycling) builder.recipeCategory(RecipeCategories.fluidExtractorRecycling);
-        builder.addTo(fluidExtractionRecipes);
-    }
-
-    /**
-     * @param aStack             the stack to be recycled.
-     * @param aMaterial          the Material.
-     * @param aMaterialAmount    the amount of it in Material Units.
-     * @param aAllowAlloySmelter if it is allowed to be recycled inside the Alloy Smelter.
-     */
-    public static void registerReverseSmelting(ItemStack aStack, Materials aMaterial, long aMaterialAmount,
-        boolean aAllowAlloySmelter) {
-        if (aStack == null || aMaterial == null
-            || aMaterialAmount <= 0
-            || aMaterial.contains(SubTag.NO_SMELTING)
-            || (aMaterialAmount > M && aMaterial.contains(SubTag.METAL))
-            || (aMaterial.getProcessingMaterialTierEU() >= TierEU.IV)) return;
-        if (aMaterial == Materials.Naquadah || aMaterial == Materials.NaquadahEnriched) return;
-
-        aMaterialAmount /= aStack.stackSize;
-
-        if (aAllowAlloySmelter) GTModHandler.addSmeltingAndAlloySmeltingRecipe(
-            GTUtility.copyAmount(1, aStack),
-            GTOreDictUnificator.getIngot(aMaterial.mSmeltInto, aMaterialAmount),
-            false);
-        else GTModHandler.addSmeltingRecipe(
-            GTUtility.copyAmount(1, aStack),
-            GTOreDictUnificator.getIngot(aMaterial.mSmeltInto, aMaterialAmount));
-    }
-
-    public static void registerReverseArcSmelting(ItemStack aStack, ItemData aData) {
-        registerReverseArcSmelting(aStack, aData, UniversalArcFurnace, arcFurnaceRecipes);
-    }
-
-    static void registerReverseArcSmelting(ItemStack aStack, ItemData aData, IRecipeMap universalArcFurnace,
-        IRecipeMap arcFurnaceRecipes) {
-        registerReverseArcSmelting(aStack, aData, universalArcFurnace, arcFurnaceRecipes, Materials::getGas);
-    }
-
-    static void registerReverseArcSmelting(ItemStack aStack, ItemData aData, IRecipeMap universalArcFurnace,
-        IRecipeMap arcFurnaceRecipes, BiFunction<Materials, Long, FluidStack> gasStackSupplier) {
-        if (aStack == null || aData == null) return;
-        aData = new ItemData(aData);
-
-        if (!aData.hasValidMaterialData()) return;
-
-        if (aData.mMaterial.mMaterial.mSubTags.contains(SubTag.NO_RECYCLING_RECIPES)) return;
-
-        boolean isRecycle = true;
-
-        for (MaterialStack tMaterial : aData.getAllMaterialStacks()) {
-            if (tMaterial.mMaterial == Materials.Iron || tMaterial.mMaterial == Materials.Copper
-                || tMaterial.mMaterial == Materials.CastIron
-                || tMaterial.mMaterial == Materials.AnnealedCopper) {
-                ItemData stackData = GTOreDictUnificator.getItemData(aStack);
-                if (stackData != null
-                    && (stackData.mPrefix == OrePrefixes.ingot || stackData.mPrefix == OrePrefixes.dust)) {
-                    // iron ingot/dust -> cast iron, copper ingot/dust -> annealed copper
-                    isRecycle = false;
-                }
-            }
-
-            if (tMaterial.mMaterial.contains(SubTag.UNBURNABLE)) {
-                tMaterial.mMaterial = tMaterial.mMaterial.mSmeltInto.mArcSmeltInto;
-                continue;
-            }
-            if (tMaterial.mMaterial.contains(SubTag.EXPLOSIVE)) {
-                tMaterial.mMaterial = Materials.Ash;
-                tMaterial.mAmount /= 16;
-                continue;
-            }
-            if (tMaterial.mMaterial.contains(SubTag.FLAMMABLE)) {
-                tMaterial.mMaterial = Materials.Ash;
-                tMaterial.mAmount /= 8;
-                continue;
-            }
-            if (tMaterial.mMaterial.contains(SubTag.NO_SMELTING)) {
-                tMaterial.mAmount = 0;
-                continue;
-            }
-            if (tMaterial.mMaterial.contains(SubTag.METAL)) {
-
-                tMaterial.mMaterial = tMaterial.mMaterial.mSmeltInto.mArcSmeltInto;
-                continue;
-            }
-            tMaterial.mAmount = 0;
-        }
-
-        aData = new ItemData(aData);
-        if (aData.mByProducts.length > 3) for (MaterialStack tMaterial : aData.getAllMaterialStacks()) {
-            if (tMaterial.mMaterial == Materials.Ash) tMaterial.mAmount = 0;
-        }
-
-        aData = new ItemData(aData);
-
-        if (!aData.hasValidMaterialData()) return;
-
-        long tAmount = 0;
-        for (MaterialStack tMaterial : aData.getAllMaterialStacks())
-            tAmount += tMaterial.mAmount * tMaterial.mMaterial.getMass();
-
-        ArrayList<ItemStack> outputs = new ArrayList<>();
-        if (GTOreDictUnificator.getIngotOrDust(aData.mMaterial) != null) {
-            outputs.add(GTOreDictUnificator.getIngotOrDust(aData.mMaterial));
-        }
-        for (int i = 0; i < 8; i++) {
-            if (GTOreDictUnificator.getIngotOrDust(aData.getByProduct(i)) != null) {
-                outputs.add(GTOreDictUnificator.getIngotOrDust(aData.getByProduct(i)));
-            }
-        }
-        if (!outputs.isEmpty()) {
-            if (!isNoOpReverseArcSmelting(aStack, outputs)) {
-                GTRecipeBuilder recipeBuilder = GTValues.RA.stdBuilder();
-                recipeBuilder.itemInputs(aStack)
-                    .itemOutputs(outputs.toArray(new ItemStack[0]))
-                    .duration(((int) Math.max(16L, tAmount / M)) * TICKS)
-                    .eut(TierEU.RECIPE_LV)
-                    .metadata(RECYCLE, isRecycle)
-                    .addTo(universalArcFurnace);
-            }
-
-            int gasAmount = (int) Math.max(16L, tAmount / M);
-            for (Materials gas : getArcSmeltingGases(outputs)) {
-                ItemStack[] gasOutputs = getArcSmeltingOutputsWithGas(outputs, gas);
-                FluidStack gasStack = gasStackSupplier.apply(gas, (long) gasAmount);
-                if (gasOutputs == null || gasStack == null) continue;
-                GTRecipeBuilder gasRecipeBuilder = GTValues.RA.stdBuilder()
-                    .itemInputs(aStack)
-                    .circuit(11)
-                    .itemOutputs(gasOutputs)
-                    .fluidInputs(gasStack)
-                    .duration(gasAmount * TICKS)
-                    .eut(TierEU.RECIPE_LV);
-                if (isRecycle) gasRecipeBuilder.recipeCategory(arcFurnaceRecyclingCategorySupplier.get());
-                gasRecipeBuilder.addTo(arcFurnaceRecipes);
-            }
-        }
-
-    }
-
-    private static boolean isNoOpReverseArcSmelting(ItemStack input, List<ItemStack> outputs) {
-        return outputs.size() == 1 && GTOreDictUnificator.isInputStackEqual(input, outputs.get(0))
-            && input.stackSize == outputs.get(0).stackSize;
-    }
-
-    private static Set<Materials> getArcSmeltingGases(List<ItemStack> outputs) {
-        Set<Materials> gases = new LinkedHashSet<>();
-        for (ItemStack output : outputs) {
-            ItemData outputData = GTOreDictUnificator.getAssociation(output);
-            if (outputData != null) gases.addAll(outputData.mMaterial.mMaterial.mArcSmeltIntoWithGas.keySet());
-        }
-        return gases;
-    }
-
-    private static ItemStack[] getArcSmeltingOutputsWithGas(List<ItemStack> outputs, Materials gas) {
-        ItemStack[] gasOutputs = new ItemStack[outputs.size()];
-        boolean replacedOutput = false;
-        for (int i = 0; i < outputs.size(); i++) {
-            ItemStack output = outputs.get(i);
-            ItemData outputData = GTOreDictUnificator.getAssociation(output);
-            if (outputData != null && outputData.mMaterial.mMaterial.mArcSmeltIntoWithGas.containsKey(gas)) {
-                Materials gasSmeltingMaterial = outputData.mMaterial.mMaterial.mArcSmeltIntoWithGas.get(gas);
-                long materialAmount = outputData.mMaterial.mAmount * output.stackSize;
-                gasOutputs[i] = GTOreDictUnificator.getIngotOrDust(gasSmeltingMaterial, materialAmount);
-                if (gasOutputs[i] == null) return null;
-                replacedOutput = true;
-            } else {
-                gasOutputs[i] = output.copy();
-            }
-        }
-        return replacedOutput ? gasOutputs : null;
-    }
-
-    public static void registerReverseMacerating(ItemStack aStack, ItemData aData, boolean aAllowHammer,
-        boolean isRecycling) {
-        if (aStack == null || aData == null) return;
-        aData = new ItemData(aData);
-
-        if (!aData.hasValidMaterialData()) return;
-
-        for (MaterialStack tMaterial : aData.getAllMaterialStacks())
-            tMaterial.mMaterial = tMaterial.mMaterial.mMacerateInto;
-
-        aData = new ItemData(aData);
-
-        if (!aData.hasValidMaterialData()) return;
-
-        long tAmount = 0;
-        for (MaterialStack tMaterial : aData.getAllMaterialStacks()) {
-            tAmount += tMaterial.mAmount * tMaterial.mMaterial.getMass();
-        }
-
-        {
-            ArrayList<ItemStack> outputs = new ArrayList<>();
-            if (GTOreDictUnificator.getDust(aData.mMaterial) != null) {
-                outputs.add(GTOreDictUnificator.getDust(aData.mMaterial));
-            }
-            for (int i = 0; i < 3; i++) {
-                if (GTOreDictUnificator.getDust(aData.getByProduct(i)) != null) {
-                    outputs.add(GTOreDictUnificator.getDust(aData.getByProduct(i)));
-                }
-            }
-            if (!outputs.isEmpty()) {
-                ItemStack[] outputsArray = outputs.toArray(new ItemStack[0]);
-                GTRecipeBuilder recipeBuilder = GTValues.RA.stdBuilder();
-                recipeBuilder.itemInputs(aStack)
-                    .itemOutputs(outputsArray)
-                    .duration(
-                        (aData.mMaterial.mMaterial == Materials.Marble ? 1 : (int) Math.max(16, tAmount / M)) * TICKS)
-                    .eut(4);
-                if (isRecycling) recipeBuilder.recipeCategory(RecipeCategories.maceratorRecycling);
-                recipeBuilder.addTo(maceratorRecipes);
-            }
-        }
-
-        if (!aAllowHammer) {
-            return;
-        }
-
-        for (MaterialStack tMaterial : aData.getAllMaterialStacks()) {
-            if (tMaterial.mMaterial.contains(SubTag.CRYSTAL) && !tMaterial.mMaterial.contains(SubTag.METAL)
-                && tMaterial.mMaterial != Materials.Glass
-                && GTOreDictUnificator.getDust(aData.mMaterial) != null) {
-                GTValues.RA.stdBuilder()
-                    .itemInputs(GTUtility.copyAmount(1, aStack))
-                    .itemOutputs(GTOreDictUnificator.getDust(aData.mMaterial))
-                    .duration(10 * SECONDS)
-                    .eut(TierEU.RECIPE_LV)
-                    .recipeCategory(RecipeCategories.forgeHammerRecycling)
-                    .addTo(hammerRecipes);
-                break;
-            }
-        }
-
-    }
-
     public static synchronized void registerUsagesForMaterials(String aPlate, boolean aRecipeReplacing,
         ItemStack... aMats) {
         for (ItemStack aMat : aMats) {
@@ -473,15 +140,6 @@ public class GTRecipeRegistrator {
                         GTOreDictUnificator.addItemData(
                             tCrafted,
                             new ItemData(aItemData.mMaterial.mMaterial, aItemData.mMaterial.mAmount * tRecipe.amount1));
-                        //
-                        // GT_FML_LOGGER.debug("###################################################################################");
-                        // GT_FML_LOGGER.debug("registerUsagesForMaterials used aPlate: "+aPlate);
-                        // GT_FML_LOGGER.debug("registerUsagesForMaterials used aPlate:
-                        // "+aMat.getUnlocalizedName());
-                        // GT_FML_LOGGER.debug("registerUsagesForMaterials used aPlate:
-                        // "+aMat.getDisplayName());
-                        //
-                        // GT_FML_LOGGER.debug("###################################################################################");
                     }
                 }
             }

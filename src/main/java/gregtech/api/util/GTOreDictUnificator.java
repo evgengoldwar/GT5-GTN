@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -178,7 +177,6 @@ public class GTOreDictUnificator {
         } else {
             newStack = GTUtility.copyAmount(stack.stackSize, rStack);
         }
-        // NBT is assigned by reference here, so mutating it may have unexpected side effects.
         if (newStack != null) {
             newStack.setTagCompound(stack.getTagCompound());
         }
@@ -207,32 +205,13 @@ public class GTOreDictUnificator {
             return stack;
         }
 
-        // Yes, == and not .equals().
-        // This check is primarily intended to optimize for the case where both rStack and stack
-        // do not have NBT, and so we would be comparing null == null.
-        //
-        // Even if stack and rStack may have equal NBT, we prefer to do an inexpensive
-        // new ItemStack() over the potentially expensive NBTTagCompound.equals().
         if (stack.getTagCompound() == rStack.getTagCompound()) {
-            // Warning: rStack's stack size may not be equal to stack's stack size.
             return rStack;
         }
 
-        // Okay, okay, I lied, we actually do need to make a copy.
-        // This is to fix a long-standing bug where we were mutating NBT directly on rStack,
-        // which had unexpected and unpredictable ripple effects.
-        //
-        // We will do some custom copying here, to avoid ItemStack.copy(),
-        // which calls the potentially expensive NBTTagCompound.copy()
-        // NBT is assigned by reference here, so mutating it may have unexpected side effects.
         ItemStack newStack = new ItemStack(rStack.getItem(), stack.stackSize, Items.feather.getDamage(rStack));
         newStack.setTagCompound(stack.getTagCompound());
         return newStack;
-    }
-
-    public static boolean isInputStackEqual(ItemStack aStack, ItemStack unified_tStack) {
-        if (GTUtility.isStackInvalid(aStack)) return false;
-        return isInputStackEqual(aStack, getAssociation(aStack), unified_tStack);
     }
 
     public static boolean isInputStackEqual(ItemStack aStack, ItemData aStackPrefixData, ItemStack unified_tStack) {
@@ -340,16 +319,8 @@ public class GTOreDictUnificator {
             if (mRunThroughTheList) {
                 if (GregTechAPI.sLoadStarted) {
                     mRunThroughTheList = false;
-                    for (Entry<ItemStack, ItemData> tEntry : sItemStack2DataMap.entrySet()) if (!tEntry.getValue()
-                        .hasValidPrefixData() || tEntry.getValue().mPrefix.isRecyclable())
-                        GTRecipeRegistrator.registerMaterialRecycling(
-                            GTItemStack.internalCopyStack(tEntry.getKey()),
-                            tEntry.getValue());
                 }
-            } else {
-                if (!aData.hasValidPrefixData() || aData.mPrefix.isRecyclable())
-                    GTRecipeRegistrator.registerMaterialRecycling(aStack, aData);
-            }
+            } else {}
         } else {
             for (Object tObject : aData.mExtraData)
                 if (!tData.mExtraData.contains(tObject)) tData.mExtraData.add(tObject);

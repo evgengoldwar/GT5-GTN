@@ -16,12 +16,6 @@ import cpw.mods.fml.common.ModContainer;
 import gregtech.api.util.FieldsAreNonnullByDefault;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 
-/**
- * Allows certain recipes to be displayed on different tabs on NEI.
- * <p>
- * Each entry must be declared under {@link gregtech.api.recipe.RecipeCategories}, and config entry must be added to
- * {@link gregtech.common.config.Client.NEI.RecipeCategories}.
- */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @FieldsAreNonnullByDefault
