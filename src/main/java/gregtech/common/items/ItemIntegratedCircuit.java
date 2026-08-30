@@ -37,8 +37,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.GTLoggers;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.ToolboxSlot;
 import gregtech.api.interfaces.INetworkUpdatableItem;
 import gregtech.api.items.GTGenericItem;
@@ -47,7 +45,6 @@ import gregtech.api.modularui2.GTGuiThemes;
 import gregtech.api.modularui2.GTModularScreen;
 import gregtech.api.objects.XSTR;
 import gregtech.api.util.GTConfig;
-import gregtech.api.util.GTModHandler;
 import gregtech.common.gui.modularui.item.IntegratedCircuitGui;
 import gregtech.common.items.toolbox.ToolboxUtil;
 import gregtech.crossmod.backhand.Backhand;
@@ -78,110 +75,6 @@ public class ItemIntegratedCircuit extends GTGenericItem
             NON_ZERO_VARIANTS.add(aStack);
             ALL_VARIANTS.add(aStack);
         }
-
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 0L),
-            GTModHandler.RecipeBits.NOT_REMOVABLE,
-            new Object[] { OrePrefixes.circuit.get(Materials.LV) });
-        long bits = GTModHandler.RecipeBits.BUFFERED | GTModHandler.RecipeBits.NOT_REMOVABLE
-            | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS;
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 1L),
-            bits,
-            new Object[] { "d  ", " P ", aTextEmptyRow, 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 2L),
-            bits,
-            new Object[] { " d ", " P ", aTextEmptyRow, 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 3L),
-            bits,
-            new Object[] { "  d", " P ", aTextEmptyRow, 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 4L),
-            bits,
-            new Object[] { aTextEmptyRow, " Pd", aTextEmptyRow, 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 5L),
-            bits,
-            new Object[] { aTextEmptyRow, " P ", "  d", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 6L),
-            bits,
-            new Object[] { aTextEmptyRow, " P ", " d ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 7L),
-            bits,
-            new Object[] { aTextEmptyRow, " P ", "d  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 8L),
-            bits,
-            new Object[] { aTextEmptyRow, "dP ", aTextEmptyRow, 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 9L),
-            bits,
-            new Object[] { "P d", aTextEmptyRow, aTextEmptyRow, 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 10L),
-            bits,
-            new Object[] { "P  ", "  d", aTextEmptyRow, 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 11L),
-            bits,
-            new Object[] { "P  ", aTextEmptyRow, "  d", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 12L),
-            bits,
-            new Object[] { "P  ", aTextEmptyRow, " d ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 13L),
-            bits,
-            new Object[] { "  P", aTextEmptyRow, "  d", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 14L),
-            bits,
-            new Object[] { "  P", aTextEmptyRow, " d ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 15L),
-            bits,
-            new Object[] { "  P", aTextEmptyRow, "d  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 16L),
-            bits,
-            new Object[] { "  P", "d  ", aTextEmptyRow, 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 17L),
-            bits,
-            new Object[] { aTextEmptyRow, aTextEmptyRow, "d P", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 18L),
-            bits,
-            new Object[] { aTextEmptyRow, "d  ", "  P", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 19L),
-            bits,
-            new Object[] { "d  ", aTextEmptyRow, "  P", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 20L),
-            bits,
-            new Object[] { " d ", aTextEmptyRow, "  P", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 21L),
-            bits,
-            new Object[] { "d  ", aTextEmptyRow, "P  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 22L),
-            bits,
-            new Object[] { " d ", aTextEmptyRow, "P  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 23L),
-            bits,
-            new Object[] { "  d", aTextEmptyRow, "P  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Circuit_Integrated.getWithDamage(1L, 24L),
-            bits,
-            new Object[] { aTextEmptyRow, "  d", "P  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L) });
     }
 
     private static String getModeString(int aMetaData) {

@@ -1,9 +1,5 @@
 package gregtech.api.items;
 
-import net.minecraft.item.ItemStack;
-
-import gregtech.api.util.GTModHandler;
-
 /**
  * This is just a basic Tool, which has normal durability and could break Blocks.
  */
@@ -39,6 +35,5 @@ public class ItemTool extends GTGenericItem {
         setNoRepair();
         setFull3D();
         attackDamage = aEntityDamage;
-        GTModHandler.registerBoxableItemToToolBox(new ItemStack(this));
     }
 }

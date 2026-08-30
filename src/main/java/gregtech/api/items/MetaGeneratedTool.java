@@ -57,7 +57,6 @@ import gregtech.api.enums.TCAspects.TC_AspectStack;
 import gregtech.api.interfaces.IDamagableItem;
 import gregtech.api.interfaces.IToolStats;
 import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.items.ItemGTToolbox;
@@ -236,7 +235,6 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
             }
             if (GregTechAPI.sThaumcraftCompat != null)
                 GregTechAPI.sThaumcraftCompat.registerThaumcraftAspectsToItem(rStack, tAspects, false);
-            GTModHandler.registerBoxableItemToToolBox(rStack);
             return rStack;
         }
         return null;

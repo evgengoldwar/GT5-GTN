@@ -19,7 +19,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.render.items.GeneratedMaterialRenderer;
@@ -70,7 +69,6 @@ public abstract class MetaGeneratedItemX32 extends MetaGeneratedItem {
                     && (tMaterial == Materials.Lead || tMaterial == Materials.Tin
                         || tMaterial == Materials.SolderingAlloy)) {
                     GregTechAPI.sSolderingMetalList.add(tStack);
-                    GTModHandler.registerBoxableItemToToolBox(tStack);
                 }
             }
         }

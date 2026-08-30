@@ -12,12 +12,9 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -56,13 +53,11 @@ import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTGuiTheme;
 import gregtech.api.modularui2.GTGuis;
-import gregtech.api.objects.ItemData;
 import gregtech.api.objects.XSTR;
 import gregtech.api.recipe.RecipeLookupValidator;
 import gregtech.api.recipe.RecipeMapBackend;
@@ -73,7 +68,6 @@ import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
-import gregtech.api.util.GTRecipeRegistrator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.GTClient;
 import gregtech.common.GTDummyWorld;
@@ -103,7 +97,6 @@ import gregtech.loaders.postload.MachineTooltipsLoader;
 import gregtech.loaders.postload.PosteaTransformers;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
-import gregtech.loaders.preload.LoaderGTOreDictionary;
 import gregtech.loaders.preload.LoaderMetaTileEntities;
 
 @Mod(
@@ -298,7 +291,7 @@ public class GTMod {
 
         GTPreLoad.runMineTweakerCompat();
 
-        new LoaderGTOreDictionary().run();
+        // new LoaderGTOreDictionary().run();
         // new LoaderGTItemData().run();
         new LoaderGTBlockFluid().run();
         new LoaderMetaTileEntities().run();
@@ -384,41 +377,6 @@ public class GTMod {
             }
         }
 
-        GTRecipeRegistrator.registerUsagesForMaterials(
-            null,
-            false,
-            new ItemStack(Blocks.planks, 1),
-            new ItemStack(Blocks.cobblestone, 1),
-            new ItemStack(Blocks.stone, 1),
-            new ItemStack(Items.leather, 1));
-
-        GTOreDictUnificator.addItemData(
-            GTModHandler.getRecipeOutput(
-                null,
-                GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Tin, 1L),
-                null,
-                GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Tin, 1L),
-                null,
-                GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Tin, 1L),
-                null,
-                null,
-                null),
-            new ItemData(Materials.Tin, 10886400L));
-        GTModHandler.removeRecipe(
-            new ItemStack(Items.glowstone_dust, 1),
-            new ItemStack(Items.glowstone_dust, 1),
-            null,
-            new ItemStack(Items.glowstone_dust, 1),
-            new ItemStack(Items.glowstone_dust, 1));
-        GTModHandler.removeRecipeDelayed(
-            new ItemStack(Blocks.wooden_slab, 1, 0),
-            new ItemStack(Blocks.wooden_slab, 1, 1),
-            new ItemStack(Blocks.wooden_slab, 1, 2));
-        GTModHandler.addCraftingRecipe(
-            new ItemStack(Blocks.wooden_slab, 6, 0),
-            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
-            new Object[] { "WWW", 'W', new ItemStack(Blocks.planks, 1, 0) });
-
         GT_FML_LOGGER.debug(
             "GTMod: Activating OreDictionary Handler, this can take some time, as it scans the whole OreDictionary");
         GT_FML_LOGGER.info(
@@ -431,23 +389,8 @@ public class GTMod {
                     iRecipe.getRecipeOutput()
                         .getDisplayName()));
         }
-        GTModHandler.removeRecipeByOutput(GTModHandler.getIC2Item("machine", 1L));
-        GTModHandler.addCraftingRecipe(
-            GTModHandler.getIC2Item("machine", 1L),
-            GTModHandler.RecipeBits.BUFFERED | GTModHandler.RecipeBits.NOT_REMOVABLE
-                | GTModHandler.RecipeBits.REVERSIBLE
-                | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { "RRR", "RwR", "RRR", 'R', OrePrefixes.plate.get(Materials.Iron) });
 
         AE2Compat.onPostInit();
-
-        Arrays
-            .stream(
-                new String[] { "blastfurnace", "blockcutter", "inductionFurnace", "generator", "windMill", "waterMill",
-                    "solarPanel", "centrifuge", "electrolyzer", "compressor", "electroFurnace", "extractor",
-                    "macerator", "recycler", "metalformer", "orewashingplant", "massFabricator", "replicator", })
-            .map(tName -> GTModHandler.getIC2Item(tName, 1L))
-            .forEach(GTModHandler::removeRecipeByOutputDelayed);
 
         // Register postea transformers
         new PosteaTransformers().run();

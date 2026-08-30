@@ -32,13 +32,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.Textures;
 import gregtech.api.items.GTGenericBlock;
 import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.common.entity.EntityPowderBarrelPrimed;
 
@@ -135,15 +132,6 @@ public class BlockReinforced extends GTGenericBlock {
                     .setResistance(120.0F),
                 1,
                 13));
-        GTModHandler.addShapelessCraftingRecipe(
-            new ItemStack(Items.coal, 1, 1),
-            GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GTModHandler.RecipeBits.BUFFERED,
-            new Object[] { ItemList.Block_BrittleCharcoal.get(1) });
-        GTModHandler.addCraftingRecipe(
-            ItemList.Block_Powderbarrel.get(1L),
-            GTModHandler.RecipeBits.REVERSIBLE,
-            new Object[] { "WSW", "GGG", "WGW", 'W', OrePrefixes.plate.get(Materials.Wood), 'G',
-                new ItemStack(Items.gunpowder, 1), 'S', new ItemStack(Items.string, 1) });
         BlockDispenser.dispenseBehaviorRegistry
             .putObject(ItemList.Block_Powderbarrel.getItem(), new BehaviorDefaultDispenseItem() {
 

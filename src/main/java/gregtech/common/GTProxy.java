@@ -557,56 +557,6 @@ public class GTProxy implements IFuelHandler {
             }
         }
         GT_FML_LOGGER.debug("GTMod: Adding Tool Usage Crafting Recipes for OreDict Items.");
-        for (Materials aMaterial : Materials.values()) {
-            if ((aMaterial.mUnifiable) && (aMaterial.mMaterialInto == aMaterial)) {
-                if (!aMaterial.contains(SubTag.NO_ORE_PROCESSING)) {
-                    GTModHandler.addCraftingRecipe(
-                        GTOreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L),
-                        GTModHandler.RecipeBits.BITS_STD,
-                        new Object[] { "h", "X", 'X', OrePrefixes.crushedPurified.get(aMaterial) });
-                    GTModHandler.addCraftingRecipe(
-                        GTOreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L),
-                        GTModHandler.RecipeBits.BITS_STD,
-                        new Object[] { "h", "X", 'X', OrePrefixes.cleanGravel.get(aMaterial) });
-                    GTModHandler.addCraftingRecipe(
-                        GTOreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L),
-                        GTModHandler.RecipeBits.BITS_STD,
-                        new Object[] { "h", "X", 'X', OrePrefixes.reduced.get(aMaterial) });
-                    GTModHandler.addCraftingRecipe(
-                        GTOreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L),
-                        GTModHandler.RecipeBits.BITS_STD,
-                        new Object[] { "h", "X", 'X', OrePrefixes.clump.get(aMaterial) });
-                    GTModHandler.addCraftingRecipe(
-                        GTOreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L),
-                        GTModHandler.RecipeBits.BITS_STD,
-                        new Object[] { "h", "X", 'X', OrePrefixes.shard.get(aMaterial) });
-                    GTModHandler.addCraftingRecipe(
-                        GTOreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L),
-                        GTModHandler.RecipeBits.BITS_STD,
-                        new Object[] { "h", "X", 'X', OrePrefixes.crushed.get(aMaterial) });
-                    GTModHandler.addCraftingRecipe(
-                        GTOreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L),
-                        GTModHandler.RecipeBits.BITS_STD,
-                        new Object[] { "h", "X", 'X', OrePrefixes.dirtyGravel.get(aMaterial) });
-                }
-                GTModHandler.addCraftingRecipe(
-                    GTOreDictUnificator.get(OrePrefixes.dustSmall, aMaterial, 4L),
-                    GTModHandler.RecipeBits.BITS_STD,
-                    new Object[] { " X ", "   ", "   ", 'X', OrePrefixes.dust.get(aMaterial) });
-                GTModHandler.addCraftingRecipe(
-                    GTOreDictUnificator.get(OrePrefixes.dustTiny, aMaterial, 9L),
-                    GTModHandler.RecipeBits.BITS_STD,
-                    new Object[] { "X  ", "   ", "   ", 'X', OrePrefixes.dust.get(aMaterial) });
-                GTModHandler.addCraftingRecipe(
-                    GTOreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L),
-                    GTModHandler.RecipeBits.BITS_STD,
-                    new Object[] { "XX", "XX", 'X', OrePrefixes.dustSmall.get(aMaterial) });
-                GTModHandler.addCraftingRecipe(
-                    GTOreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L),
-                    GTModHandler.RecipeBits.BITS_STD,
-                    new Object[] { "XXX", "XXX", "XXX", 'X', OrePrefixes.dustTiny.get(aMaterial) });
-            }
-        }
         // Cover GUI needs to know text color which can be configured with resource packs. In theory it's not needed on
         // server, but it's just convenient to be able to write GUI code without side check. This will be reworked with
         // MUI2, but for the time being it stays here. -- miozune
@@ -893,21 +843,6 @@ public class GTProxy implements IFuelHandler {
         if (aStack.getItem() instanceof final ItemGTToolbox toolbox) {
             toolbox.onBlockHarvestingEvent(aEvent);
         }
-        if (EnchantmentHelper.getEnchantmentLevel(Enchantment.fireAspect.effectId, aStack) > 2) {
-            try {
-                for (ItemStack tDrop : aEvent.drops) {
-                    ItemStack tSmeltingOutput = GTModHandler.getSmeltingOutput(tDrop, false, null);
-                    if (tSmeltingOutput != null) {
-                        tDrop.stackSize *= tSmeltingOutput.stackSize;
-                        tSmeltingOutput.stackSize = tDrop.stackSize;
-                        GTUtility.setStack(tDrop, tSmeltingOutput);
-                    }
-                }
-            } catch (Exception e) {
-                GT_FML_LOGGER.error(e);
-            }
-        }
-
     }
 
     @SubscribeEvent
