@@ -143,7 +143,6 @@ import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 import gregtech.common.gui.modularui.widget.CheckRecipeResultSyncer;
 import gregtech.common.gui.modularui.widget.ShutDownReasonSyncer;
 import gregtech.common.gui.mui1.StructureErrorMui1Compat;
-import gregtech.common.items.MetaGeneratedTool01;
 import gregtech.common.tileentities.Hatches.MTEHatchCraftingInputME;
 import gregtech.common.tileentities.Hatches.MTEHatchCraftingInputSlave;
 import gregtech.common.tileentities.Hatches.MTEHatchInputBusME;
@@ -1242,18 +1241,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return 10000;
     }
 
-    /**
-     * Gets the factor value to damage the ItemStack in the controller slot.
-     * <p>
-     * This function will be called only if the ItemStack is {@link MetaGeneratedTool01}, and the actual applied damage
-     * value is multiplied by
-     * <a href="https://www.wolframalpha.com/input?i=plot+min%28x%2F5%2C+x%5E%280.6%29%29+range+0+to+512">a formula</a>
-     * calculated with {@link #damageFactorLow} and {@link #damageFactorHigh}. See {@link #doRandomMaintenanceDamage()}
-     * for the details.
-     *
-     * @param aStack the ItemStack in the controller slot.
-     * @return the factor value to damage the ItemStack in the controller slot.
-     */
     @Range(from = 0, to = Integer.MAX_VALUE)
     public int getDamageToComponent(@Nullable ItemStack aStack) {
         return 0;
@@ -1348,14 +1335,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
             if (mInventory[1] != null && getBaseMetaTileEntity().getRandomNumber(2) == 0
                 && !mInventory[1].getUnlocalizedName()
                     .startsWith("gt.blockmachines.basicmachine.")) {
-                if (mInventory[1].getItem() instanceof MetaGeneratedTool01 metaGeneratedTool) {
-                    metaGeneratedTool.doDamage(
-                        mInventory[1],
-                        (long) getDamageToComponent(getControllerSlot()) * (long) Math.min(
-                            Math.abs(getEUtForDamageCalc()) / this.damageFactorLow,
-                            Math.pow(Math.abs(getEUtForDamageCalc()), this.damageFactorHigh)));
-                    if (mInventory[1].stackSize == 0) mInventory[1] = null;
-                }
             }
         }
         return true;

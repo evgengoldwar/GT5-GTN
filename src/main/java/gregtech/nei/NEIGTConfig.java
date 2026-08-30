@@ -30,9 +30,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.recipe.RecipeCategory;
 import gregtech.api.recipe.RecipeMap;
-import gregtech.common.items.MetaGeneratedItem01;
-import gregtech.common.items.MetaGeneratedItem02;
-import gregtech.common.items.MetaGeneratedItem03;
 import gregtech.nei.dumper.BatchModeSupportDumper;
 import gregtech.nei.dumper.InputSeparationSupportDumper;
 import gregtech.nei.dumper.MaterialDumper;
@@ -109,9 +106,6 @@ public class NEIGTConfig implements IConfigureNEI {
     private void registerDumpers() {
         API.addOption(new MetaTileEntityDumper());
         API.addOption(new MaterialDumper());
-        API.addOption(new MetaItemDumper(MetaGeneratedItem01.INSTANCE, "metaitem01"));
-        API.addOption(new MetaItemDumper(MetaGeneratedItem02.INSTANCE, "metaitem02"));
-        API.addOption(new MetaItemDumper(MetaGeneratedItem03.INSTANCE, "metaitem03"));
         API.addOption(new VoidProtectionSupportDumper());
         API.addOption(new InputSeparationSupportDumper());
         API.addOption(new BatchModeSupportDumper());

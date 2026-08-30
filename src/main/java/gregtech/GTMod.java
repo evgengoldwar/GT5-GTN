@@ -61,7 +61,6 @@ import gregtech.api.modularui2.GTGuis;
 import gregtech.api.objects.XSTR;
 import gregtech.api.recipe.RecipeLookupValidator;
 import gregtech.api.recipe.RecipeMapBackend;
-import gregtech.api.registries.RemovedMetaRegistry;
 import gregtech.api.util.AssemblyLineServer;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
@@ -661,7 +660,6 @@ public class GTMod {
         if (event.remappedIds.isEmpty()) return;
 
         GTRecipe.reInit();
-        RemovedMetaRegistry.init();
     }
 
     @Mod.EventHandler
