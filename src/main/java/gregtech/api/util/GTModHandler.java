@@ -57,7 +57,6 @@ import gregtech.api.interfaces.IDamagableItem;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.interfaces.internal.IGTCraftingRecipe;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
-import gregtech.api.objects.GTHashSet;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.objects.ItemData;
 import gregtech.common.items.ItemGTToolbox;
@@ -98,7 +97,6 @@ public class GTModHandler {
 
     public static Collection<String> sNativeRecipeClasses = new HashSet<>();
     public static Collection<String> sSpecialRecipeClasses = new HashSet<>();
-    public static GTHashSet sNonReplaceableItems = new GTHashSet();
     public static Collection<GTItemStack> sBoxableItems = new ArrayList<>();
 
     private static boolean sBufferCraftingRecipes = true;
