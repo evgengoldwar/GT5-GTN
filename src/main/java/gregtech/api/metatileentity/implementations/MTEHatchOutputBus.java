@@ -24,7 +24,6 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizons.modularui.api.forge.ItemHandlerHelper;
 
 import gregtech.GTMod;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.OutputBusType;
 import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.IOutputBus;
@@ -112,10 +111,10 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
         }
 
         final ItemStack dataStick = aPlayer.inventory.getCurrentItem();
-        if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
-            openGui(aPlayer);
-            return true;
-        }
+        // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
+        // openGui(aPlayer);
+        // return true;
+        // }
 
         if (!pasteCopiedData(aPlayer, dataStick.stackTagCompound)) {
             aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.invalid"));
@@ -133,9 +132,9 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
             return;
         }
         final ItemStack dataStick = aPlayer.inventory.getCurrentItem();
-        if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
-            return;
-        }
+        // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
+        // return;
+        // }
 
         dataStick.stackTagCompound = getCopiedData(aPlayer);
         setDataStickName(dataStick);

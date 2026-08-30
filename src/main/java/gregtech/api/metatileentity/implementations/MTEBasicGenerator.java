@@ -21,8 +21,6 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.objects.ItemData;
-import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.maps.FuelBackend;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
@@ -269,12 +267,7 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
     }
 
     public long getFuelValue(FluidStack aLiquid, boolean aLong) {
-        RecipeMap<?> tRecipes = getRecipeMap();
-        if (aLiquid == null || !(tRecipes.getBackend() instanceof FuelBackend tFuels)) return 0;
-        GTRecipe tFuel = tFuels.findFuel(aLiquid);
-        if (tFuel == null) return 0;
-
-        return (long) tFuel.mSpecialValue * getEfficiency() * consumedFluidPerOperation(aLiquid) / 100;
+        return (long) getEfficiency() * consumedFluidPerOperation(aLiquid) / 100;
     }
 
     public int getFuelValue(ItemStack aStack) {

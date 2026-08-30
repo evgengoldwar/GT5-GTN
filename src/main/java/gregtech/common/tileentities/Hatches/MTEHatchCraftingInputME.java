@@ -1322,7 +1322,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
         if (!(aPlayer instanceof EntityPlayerMP)) return;
 
         ItemStack dataStick = aPlayer.inventory.getCurrentItem();
-        if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
+        // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
 
         this.saveToDataStick(aPlayer, dataStick);
     }

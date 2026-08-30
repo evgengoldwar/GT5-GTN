@@ -123,7 +123,6 @@ import gregtech.common.data.GTPowerfailTracker;
 import gregtech.common.data.WirelessEnergyHatchManager;
 import gregtech.common.handlers.OffhandToolFunctionalityHandler;
 import gregtech.common.items.ItemGTToolbox;
-import gregtech.common.items.MetaGeneratedItem98;
 import gregtech.common.misc.GlobalEnergyWorldSavedData;
 import gregtech.common.misc.WirelessChargerManager;
 import gregtech.common.misc.spaceprojects.SpaceProjectWorldSavedData;
@@ -535,7 +534,7 @@ public class GTProxy implements IFuelHandler {
 
         // This needs to happen late enough that all of the fluids we need have been registered.
         // onInitialization() seems to be too early, as the New Horizons Core Mod registers some fluids in post-load.
-        MetaGeneratedItem98.init();
+        // MetaGeneratedItem98.init();
 
         GTOreDictUnificator.addItemData(new ItemStack(Items.iron_door, 1), new ItemData(Materials.Iron, 21772800L));
         GTOreDictUnificator

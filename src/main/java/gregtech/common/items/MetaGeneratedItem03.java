@@ -1636,7 +1636,7 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
 
         registerAllTieredTooltips();
         registerAllAnimatedTooltips();
-        initOreDictUnificatorEntries();
+        // initOreDictUnificatorEntries();
     }
 
     private void registerAllTieredTooltips() {

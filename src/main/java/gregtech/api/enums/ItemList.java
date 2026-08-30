@@ -140,12 +140,6 @@ public enum ItemList implements IItemContainer {
     Circuit_Biowarecomputer,
     Circuit_Biowaresupercomputer,
 
-    Rotor_LV, // these aren't actually used
-    Rotor_MV,
-    Rotor_HV,
-    Rotor_EV,
-    Rotor_IV,
-
     Electric_Motor_LV,
     Electric_Motor_MV,
     Electric_Motor_HV,

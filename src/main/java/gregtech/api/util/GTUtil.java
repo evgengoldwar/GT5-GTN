@@ -24,7 +24,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 
-import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.metatileentity.Hatch.IDualInputHatch;
 import gregtech.api.metatileentity.implementations.MTEHatch;
@@ -186,9 +185,9 @@ public class GTUtil {
     public static boolean saveMultiblockInputConfiguration(MTEMultiBlockBase controller, EntityPlayer player) {
         NBTTagCompound newTag = new NBTTagCompound();
         ItemStack dataOrb = player.getHeldItem();
-        if (GTUtility.isStackInvalid(dataOrb) || !ItemList.Tool_DataOrb.isStackEqual(dataOrb, false, true)) {
-            return false;
-        }
+        // if (GTUtility.isStackInvalid(dataOrb) || !ItemList.Tool_DataOrb.isStackEqual(dataOrb, false, true)) {
+        // return false;
+        // }
         if (!controller.saveOtherHatchConfiguration(player)) {
             return false;
         }
@@ -239,7 +238,7 @@ public class GTUtil {
     }
 
     public static boolean hasMultiblockInputConfiguration(ItemStack dataOrb) {
-        return !GTUtility.isStackInvalid(dataOrb) && ItemList.Tool_DataOrb.isStackEqual(dataOrb, false, true)
+        return !GTUtility.isStackInvalid(dataOrb)
             && "MultiblockConfiguration".equals(ItemStackNBT.getString(dataOrb, "type"));
     }
 

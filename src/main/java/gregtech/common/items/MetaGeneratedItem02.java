@@ -170,14 +170,14 @@ public class MetaGeneratedItem02 extends MetaGeneratedItemX32 {
         for (int i = 0; i < 16; i = i + 1) {
             String dyeKey = "gt.item.dye." + Dyes.get(i).mName.toLowerCase()
                 .replace(" ", "_") + ".name";
-            ItemList.DYE_ONLY_ITEMS[i].set(
-                addItemWithLocalizationKeys(
-                    Dye_Colors[i],
-                    dyeKey,
-                    "",
-                    Dyes.get(i)
-                        .name(),
-                    new TCAspects.TC_AspectStack(TCAspects.SENSUS, 1L)));
+            // ItemList.DYE_ONLY_ITEMS[i].set(
+            // addItemWithLocalizationKeys(
+            // Dye_Colors[i],
+            // dyeKey,
+            // "",
+            // Dyes.get(i)
+            // .name(),
+            // new TCAspects.TC_AspectStack(TCAspects.SENSUS, 1L)));
         }
 
         ItemList.SFMixture

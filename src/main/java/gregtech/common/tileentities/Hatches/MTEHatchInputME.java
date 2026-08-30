@@ -911,8 +911,8 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
         if (!(aPlayer instanceof EntityPlayerMP))
             return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
         ItemStack dataStick = aPlayer.inventory.getCurrentItem();
-        if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true))
-            return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
+        // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true))
+        // return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
 
         if (!pasteCopiedData(aPlayer, dataStick.stackTagCompound)) return false;
 
@@ -924,7 +924,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     public void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
         if (!(aPlayer instanceof EntityPlayerMP)) return;
         ItemStack dataStick = aPlayer.inventory.getCurrentItem();
-        if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
+        // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
 
         dataStick.stackTagCompound = getCopiedData(aPlayer);
         dataStick.setStackDisplayName("Stocking Input Hatch Configuration");

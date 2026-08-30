@@ -54,8 +54,8 @@ public class GTRecipe implements Comparable<GTRecipe> {
 
     public static void setItemStacks() {
         ic2FluidCell = ItemList.Cell_Universal_Fluid.get(1);
-        dataStick = ItemList.Tool_DataStick.get(1L);
-        dataOrb = ItemList.Tool_DataOrb.get(1L);
+        // dataStick = ItemList.Tool_DataStick.get(1L);
+        // dataOrb = ItemList.Tool_DataOrb.get(1L);
     }
 
     /**
@@ -280,7 +280,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
             map.getBackend()
                 .reInit();
         }
-        RecipeAssemblyLine.reInit();
     }
 
     public ItemStack getRepresentativeInput(int aIndex) {
@@ -1151,28 +1150,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
             if (this.mPersistentHash != 0) throw new IllegalStateException("Cannot set persistent hash twice!");
             if (aPersistentHash == 0) this.mPersistentHash = 1;
             else this.mPersistentHash = aPersistentHash;
-        }
-
-        /**
-         * WARNING: this class will maintain a strong reference over ALL data sticks created this way. DO NOT call this
-         * methods recklessly as it will cause memory leak!
-         */
-        public ItemStack newDataStickForNEI(String aDisplayName, long amount) {
-            ItemStack dataStick = ItemList.Tool_DataStick.getWithName(amount, aDisplayName);
-            // we don't actually needs to set the recipe data here. no one will read the recipe data before a world load
-            // and before a world load id remap will happen and the recipe data will be finally set in the below
-            // reInit() method
-            // AssemblyLineUtils.setAssemblyLineRecipeOnDataStick(dataStick, this, false);
-            dataSticksForNEI.add(dataStick);
-            return dataStick;
-        }
-
-        public static void reInit() {
-            for (RecipeAssemblyLine recipe : sAssemblylineRecipes) {
-                for (ItemStack stack : recipe.dataSticksForNEI) {
-                    AssemblyLineUtils.setAssemblyLineRecipeOnDataStick(stack, recipe, false);
-                }
-            }
         }
 
         /**

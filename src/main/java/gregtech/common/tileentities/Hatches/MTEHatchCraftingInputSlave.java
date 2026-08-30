@@ -25,7 +25,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -227,9 +226,9 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     private boolean tryLinkDataStick(EntityPlayer aPlayer) {
         ItemStack dataStick = aPlayer.inventory.getCurrentItem();
 
-        if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
-            return false;
-        }
+        // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
+        // return false;
+        // }
         if (!ItemStackNBT.getString(dataStick, "type")
             .equals("CraftingInputBuffer")) {
             return false;
@@ -270,7 +269,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
         if (!(aPlayer instanceof EntityPlayerMP)) return;
 
         ItemStack dataStick = aPlayer.inventory.getCurrentItem();
-        if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
+        // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
         var master = getMaster();
         if (master == null) {
             aPlayer.addChatMessage(new ChatComponentText("Can't copy an unlinked proxy!"));

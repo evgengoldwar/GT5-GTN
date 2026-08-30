@@ -36,7 +36,7 @@ public final class AE2Compat {
     public static void onPostInit() {
         registerCover();
         registerExternalStorage();
-        registerBlockingModeIgnoreItems();
+        // registerBlockingModeIgnoreItems();
     }
 
     private static void registerCover() {
