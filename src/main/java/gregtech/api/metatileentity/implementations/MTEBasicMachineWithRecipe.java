@@ -38,7 +38,6 @@ import gregtech.api.objects.overclockdescriber.EUOverclockDescriber;
 import gregtech.api.recipe.BasicUIProperties;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.OverclockCalculator;
@@ -90,8 +89,6 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
         this.mRecipes = aRecipes;
         this.progressBarTexture = mRecipes.getFrontend()
             .getUIProperties().progressBarTexture;
-
-        GTModHandler.addMachineCraftingRecipe(getStackForm(1), aRecipe, this.mTier);
     }
 
     /**

@@ -1334,8 +1334,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
             }
             if (mInventory[1] != null && getBaseMetaTileEntity().getRandomNumber(2) == 0
                 && !mInventory[1].getUnlocalizedName()
-                    .startsWith("gt.blockmachines.basicmachine.")) {
-            }
+                    .startsWith("gt.blockmachines.basicmachine.")) {}
         }
         return true;
     }
