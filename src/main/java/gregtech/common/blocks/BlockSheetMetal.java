@@ -44,24 +44,6 @@ public class BlockSheetMetal extends BlockStorage implements IBlockWithTextures,
         this.materials = materials;
         this.maxMeta = maxMeta;
 
-        GregTechAPI.sAfterGTLoad.add(() -> {
-
-            for (int i = 0; i < maxMeta; i++) {
-                IOreMaterial material = materials.get(i);
-
-                if (material == null) continue;
-                if (!material.generatesPrefix(OrePrefixes.sheetmetal)) continue;
-
-                DynamicLangManager.addStack(new ItemStack(this, 1, i));
-
-                OreDictionary.registerOre(
-                    OrePrefixes.sheetmetal.get(material.getInternalName())
-                        .toString(),
-                    new ItemStack(this, 1, i));
-            }
-        });
-
-        GregTechAPI.sAfterGTPostload.add(this::registerRecipes);
         GregTechAPI.registerMachineBlock(this, -1);
     }
 
@@ -145,23 +127,6 @@ public class BlockSheetMetal extends BlockStorage implements IBlockWithTextures,
         IOreMaterial material = materials.get(aMeta);
         if (material == null) return null;
         return material.getTextureSet().mTextures[OrePrefixes.sheetmetal.getTextureIndex()].getIcon();
-    }
-
-    public void registerRecipes() {
-        for (int i = 0; i < maxMeta; i++) {
-            IOreMaterial material = materials.get(i);
-
-            if (material == null) continue;
-            if (!material.generatesPrefix(OrePrefixes.sheetmetal)) continue;
-            if (material.contains(SubTag.NO_RECIPES)) continue;
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(material.getPart(OrePrefixes.plate, 2), GTUtility.getIntegratedCircuit(11))
-                .itemOutputs(material.getPart(OrePrefixes.sheetmetal, 1))
-                .eut(TierEU.RECIPE_LV)
-                .duration(10)
-                .addTo(RecipeMaps.benderRecipes);
-        }
     }
 
     @Override

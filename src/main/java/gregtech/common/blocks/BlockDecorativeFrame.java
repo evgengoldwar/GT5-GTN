@@ -48,23 +48,6 @@ public class BlockDecorativeFrame extends BlockStorage implements IBlockWithText
         super(ItemStorage.class, aName, Material.iron);
         this.materials = materials;
         this.maxMeta = maxMeta;
-
-        GregTechAPI.sAfterGTLoad.add(() -> {
-
-            for (int i = 0; i < maxMeta; i++) {
-                IOreMaterial material = materials.get(i);
-
-                if (material == null) continue;
-                if (!material.generatesPrefix(OrePrefixes.frameGt)) continue;
-
-                OreDictionary.registerOre(
-                    OrePrefixes.frameGt.get(material.getInternalName())
-                        .toString(),
-                    new ItemStack(this, 1, i));
-            }
-        });
-
-        GregTechAPI.sAfterGTPostload.add(this::registerRecipes);
     }
 
     @Override
@@ -167,24 +150,5 @@ public class BlockDecorativeFrame extends BlockStorage implements IBlockWithText
         IOreMaterial material = materials.get(aMeta);
         if (material == null) return null;
         return material.getTextureSet().mTextures[OrePrefixes.frameGt.getTextureIndex()].getIcon();
-    }
-
-    public void registerRecipes() {
-        for (int i = 0; i < maxMeta; i++) {
-            IOreMaterial material = materials.get(i);
-
-            if (material == null) continue;
-            if (!material.generatesPrefix(OrePrefixes.frameGt)) continue;
-            if (!material.generatesPrefix(OrePrefixes.stick)) continue;
-            if (material.contains(SubTag.NO_RECIPES)) continue;
-
-            GTValues.RA.stdBuilder()
-                .itemInputs(material.getPart(OrePrefixes.stick, 4))
-                .circuit(4)
-                .itemOutputs(material.getPart(OrePrefixes.frameGt, 1))
-                .eut(TierEU.RECIPE_LV)
-                .duration(3 * SECONDS + 4 * TICKS)
-                .addTo(RecipeMaps.assemblerRecipes);
-        }
     }
 }
