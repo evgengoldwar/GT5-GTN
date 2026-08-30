@@ -119,27 +119,6 @@ public class NEIGTConfig implements IConfigureNEI {
                         entry.getKey().unlocalizedName,
                         recipeMapWorkable.getRecipeCatalystPriority()));
         }
-        API.addRecipeCatalyst(
-            GTModHandler.getIC2Item("nuclearReactor", 1, null),
-            RecipeMaps.ic2NuclearFakeRecipes.unlocalizedName);
-
-        API.addRecipeCatalyst(new ItemStack(Items.cauldron), RecipeMaps.cauldronRecipe.unlocalizedName);
-
-        for (ItemList item : Arrays.asList(
-            ItemList.Machine_LV_Cutter,
-            ItemList.Machine_MV_Cutter,
-            ItemList.Machine_HV_Cutter,
-            ItemList.Machine_EV_Cutter,
-            ItemList.Machine_IV_Cutter,
-            ItemList.CuttingMachineLuV,
-            ItemList.CuttingMachineZPM,
-            ItemList.CuttingMachineUV,
-            ItemList.CuttingMachineUHV,
-            ItemList.CuttingMachineUEV,
-            ItemList.CuttingMachineUIV,
-            ItemList.CuttingMachineUMV)) {
-            API.addRecipeCatalyst(item.get(1), RecipeMaps.cutterFakeRecipes.unlocalizedName);
-        }
     }
 
     private void registerItemEntries() {}

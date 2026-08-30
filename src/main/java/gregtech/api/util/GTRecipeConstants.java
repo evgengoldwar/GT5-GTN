@@ -60,12 +60,6 @@ public class GTRecipeConstants {
         .create(Long.class, "fusion_threshold");
 
     /**
-     * Scanning data used for scanner for assembly line recipes (time and voltage). Scanning time should be between 30
-     * seconds and 3 minutes, and the voltage 1 tiers below the available scanner tier for the recipe.
-     */
-    public static final RecipeMetadataKey<Scanning> SCANNING = SimpleRecipeMetadataKey
-        .create(Scanning.class, "scanning");
-    /**
      * Fuel type. TODO should we use enum directly?
      */
     public static final RecipeMetadataKey<Integer> FUEL_TYPE = SimpleRecipeMetadataKey
@@ -80,16 +74,7 @@ public class GTRecipeConstants {
      */
     public static final RecipeMetadataKey<Integer> COIL_HEAT = SimpleRecipeMetadataKey
         .create(Integer.class, "coil_heat");
-    /**
-     * Research item used by assline recipes.
-     */
-    public static final RecipeMetadataKey<ItemStack> RESEARCH_ITEM = SimpleRecipeMetadataKey
-        .create(ItemStack.class, "research_item");
-    /**
-     * For assembler. It accepts a single item as oredict. It looks like no one uses this anyway...
-     */
-    public static final RecipeMetadataKey<Object> OREDICT_INPUT = SimpleRecipeMetadataKey
-        .create(Object.class, "oredict_input");
+
     /**
      * Replicator output material.
      */
@@ -121,12 +106,6 @@ public class GTRecipeConstants {
         .create(Integer.class, "nano_forge_tier");
 
     /**
-     * PCB Factory nanite material
-     */
-    public static final RecipeMetadataKey<Materials> PCB_NANITE_MATERIAL = SimpleRecipeMetadataKey
-        .create(Materials.class, "pcb_nanite_material");
-
-    /**
      * FOG Exotic recipe tier.
      */
     public static final RecipeMetadataKey<Integer> FOG_EXOTIC_TIER = SimpleRecipeMetadataKey
@@ -137,18 +116,6 @@ public class GTRecipeConstants {
      */
     public static final RecipeMetadataKey<Integer> FOG_PLASMA_TIER = SimpleRecipeMetadataKey
         .create(Integer.class, "fog_plasma_tier");
-
-    /**
-     * FOG Plasma multistep requirement.
-     */
-    public static final RecipeMetadataKey<Boolean> FOG_PLASMA_MULTISTEP = SimpleRecipeMetadataKey
-        .create(Boolean.class, "fog_plasma_multistep");
-
-    /**
-     * FOG Shortened upgrade name.
-     */
-    public static final RecipeMetadataKey<String> FOG_UPGRADE_NAME_SHORT = SimpleRecipeMetadataKey
-        .create(String.class, "fog_plasma_upgrade_name_short");
 
     /**
      * DEFC Casing tier.
@@ -221,12 +188,6 @@ public class GTRecipeConstants {
         .create(Integer.class, "coal_casing_tier");
 
     /**
-     * LFTR output power.
-     */
-    public static final RecipeMetadataKey<Integer> LFTR_OUTPUT_POWER = SimpleRecipeMetadataKey
-        .create(Integer.class, "lftr_output_power");
-
-    /**
      * Sparge Tower maximum byproduct outputs.
      */
     public static final RecipeMetadataKey<Integer> SPARGE_MAX_BYPRODUCT = SimpleRecipeMetadataKey
@@ -238,32 +199,6 @@ public class GTRecipeConstants {
     public static final RecipeMetadataKey<Long> RESEARCH_STATION_DATA = SimpleRecipeMetadataKey
         .create(Long.class, "research_station_data");
 
-    /**
-     * sievert data required for the biovat recipes.
-     */
-
-    public static final RecipeMetadataKey<Sievert> SIEVERT = SimpleRecipeMetadataKey.create(Sievert.class, "SIEVERT");
-
-    public static final RecipeMetadataKey<Integer> GLASS = SimpleRecipeMetadataKey.create(Integer.class, "GLASS");
-
-    public static final RecipeMetadataKey<Integer> MASS = SimpleRecipeMetadataKey.create(Integer.class, "mass");
-
-    /**
-     * Whether non-gas recipe should be generated together with gas recipes.
-     */
-    public static final RecipeMetadataKey<Boolean> NO_GAS = SimpleRecipeMetadataKey.create(Boolean.class, "no_gas");
-
-    /**
-     * Prevents automatic generation of a non-cell multiblock variant from this recipe.
-     */
-    public static final RecipeMetadataKey<Boolean> SKIP_CELL_RECIPE_GENERATION = SimpleRecipeMetadataKey
-        .create(Boolean.class, "skip_cell_recipe_generation");
-
-    /**
-     * Circuit config in non-gas recipe. No integrated circuit applied if this is set to -1 (default).
-     */
-    public static final RecipeMetadataKey<Integer> NO_GAS_CIRCUIT_CONFIG = SimpleRecipeMetadataKey
-        .create(Integer.class, "no_gas_circuit_config");
 
     public static final RecipeMetadataKey<Integer> EU_MULTIPLIER = SimpleRecipeMetadataKey
         .create(Integer.class, "eu_multiplier");
@@ -296,16 +231,6 @@ public class GTRecipeConstants {
     public static final RecipeMetadataKey<DecayType> DECAY_TYPE = SimpleRecipeMetadataKey
         .create(DecayType.class, "decay-type");
 
-    /// Each item in a BEC assembling recipe must have an associated nanite tier. This is because the I/O node will
-    /// change the progress speed depending on how many nanites are available, and whether their tier is high enough.
-    public static final RecipeMetadataKey<NaniteTier[]> NANITE_TIERS = SimpleRecipeMetadataKey
-        .create(NaniteTier[].class, "nanite_tiers");
-
-    /// This is just the fluid inputs for a BEC recipe, but we pull mFluidInputs into a meta entry so that recipes can
-    /// start without actually consuming them. I/O nodes will consume these fluids while the recipe runs. If it doesn't
-    /// get enough, the recipe fails.
-    public static final RecipeMetadataKey<FluidStack[]> CONDENSATE_INPUT = SimpleRecipeMetadataKey
-        .create(FluidStack[].class, "condensate_input");
 
     /**
      * Add a arc furnace recipe.
@@ -348,341 +273,6 @@ public class GTRecipeConstants {
                 .circuit(1)
                 .addTo(RecipeMaps.arcFurnaceRecipes));
 
-        return ret;
-    });
-    /**
-     * Add a chemical reactor recipe to both LCR and singleblocks.
-     */
-    public static final IRecipeMap UniversalChemical = IRecipeMap.newRecipeMap(builder -> {
-        for (ItemStack input : builder.getItemInputsBasic()) {
-            // config >= 10 -> this is a special chemical recipe that output fluid/canned fluid variant.
-            // it doesn't belong to multiblocks
-            if (GTUtility.isAnyIntegratedCircuit(input) && input.getItemDamage() >= 10) {
-                return builder.addTo(RecipeMaps.chemicalReactorRecipes);
-            }
-        }
-        return GTUtility.concat(
-            builder.copy()
-                .addTo(RecipeMaps.chemicalReactorRecipes),
-            convertCellToFluid(builder, false)
-                // LCR does not need cleanroom.
-                .metadata(CLEANROOM, false)
-                .addTo(RecipeMaps.multiblockChemicalReactorRecipes));
-    });
-
-    /**
-     * Adds an engraver recipe that might use purified water. Still added to the regular recipemap if it ends up not
-     * needing it.
-     */
-    public static final IRecipeMap WaferEngravingRecipes = IRecipeMap.newRecipeMap(builder -> {
-        // spotless:off
-        enum Wafer{
-            Naquadah,
-            Europium,
-            Americium,
-            // Beamline masks
-            MaskT1,
-            MaskT2,
-            MaskT3,
-        }
-        // spotless:on
-        // Find the wafer used
-        Wafer wafer = null;
-        for (ItemStack input : builder.getItemInputsBasic()) {
-            if (input.getItem() instanceof MetaGeneratedItem03) {
-                int meta = input.getItemDamage() - 32000;
-                // Check if this input item is indicating a wafer recipe we want to modify
-                if (meta == IDMetaItem03.Circuit_Silicon_Wafer3.ID) wafer = Wafer.Naquadah;
-                else if (meta == IDMetaItem03.Circuit_Silicon_Wafer4.ID) wafer = Wafer.Europium;
-                else if (meta == IDMetaItem03.Circuit_Silicon_Wafer5.ID) wafer = Wafer.Americium;
-            }
-
-            // Now look for beamline masks
-
-            // Found a wafer, stop checking inputs
-            if (wafer != null) break;
-        }
-
-        int recipeTime = builder.duration;
-        // Bonus for using purified water of a higher tier than necessary
-        int halfBoostedRecipeTime = (int) (recipeTime * 0.75);
-        int boostedRecipeTime = (int) (recipeTime * 0.5);
-
-        // If this recipe does not use a wafer, exit without modifying it.
-        if (wafer == null) return builder.addTo(RecipeMaps.laserEngraverRecipes);
-        switch (wafer) {
-            case Naquadah -> {
-                // Naquadah wafers can use grade 1-2 purified water for a bonus, otherwise use distilled so we don't
-                // have to
-                // deal with circuits
-                return GTUtility.concat(
-                    builder.copy()
-                        .fluidInputs(ArrayUtils.addAll(builder.fluidInputs, GTModHandler.getDistilledWater(100L)))
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade1PurifiedWater.getFluid(100L)))
-                        .duration(halfBoostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade2PurifiedWater.getFluid(100L)))
-                        .duration(boostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes));
-            }
-            case Europium -> {
-                // Require purified water for europium wafers, at least grade 3
-                return GTUtility.concat(
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade3PurifiedWater.getFluid(100L)))
-                        .duration(recipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade4PurifiedWater.getFluid(100L)))
-                        .duration(boostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes));
-            }
-            case Americium -> {
-                // Require purified water for americium wafers, at least grade 5
-                return GTUtility.concat(
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade5PurifiedWater.getFluid(100L)))
-                        .duration(recipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade6PurifiedWater.getFluid(100L)))
-                        .duration(boostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes));
-            }
-            // Masks require much more purified water because they can make many wafers at once
-            case MaskT1 -> {
-                // T1 masks require grade 1, 2 or 3 purified water
-                return GTUtility.concat(
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade1PurifiedWater.getFluid(32000L)))
-                        .duration(recipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade2PurifiedWater.getFluid(32000L)))
-                        .duration(halfBoostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade3PurifiedWater.getFluid(32000L)))
-                        .duration(boostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes));
-            }
-            case MaskT2 -> {
-                // T2 masks require grade 4 or 5 purified water
-                return GTUtility.concat(
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade4PurifiedWater.getFluid(32000L)))
-                        .duration(recipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade5PurifiedWater.getFluid(32000L)))
-                        .duration(boostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes));
-            }
-            case MaskT3 -> {
-                // T3 masks require grade 6, 7 or 8 purified water
-                return GTUtility.concat(
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade6PurifiedWater.getFluid(32000L)))
-                        .duration(recipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade7PurifiedWater.getFluid(32000L)))
-                        .duration(halfBoostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes),
-                    builder.copy()
-                        .fluidInputs(
-                            ArrayUtils.addAll(builder.fluidInputs, Materials.Grade8PurifiedWater.getFluid(32000L)))
-                        .duration(boostedRecipeTime)
-                        .addTo(RecipeMaps.laserEngraverRecipes));
-            }
-        }
-
-        throw new RuntimeException("Unreachable code reached in Laser Engraver Recipe Transformer");
-    });
-
-    /**
-     * The one and only :tm: assline recipe adder. Uses {@link #RESEARCH_ITEM} metadata as research item, and
-     * {@link #SCANNING} metadata as research time and voltage.
-     */
-    public static final IRecipeMap AssemblyLine = IRecipeMap.newRecipeMap(builder -> {
-        Optional<GTRecipe.GTRecipe_WithAlt> rr = builder.forceOreDictInput()
-            .validateInputCount(4, 16)
-            .validateOutputCount(1, 1)
-            .validateOutputFluidCount(-1, 0)
-            .validateInputFluidCount(1, 4)
-            .buildWithAlt();
-        // noinspection SimplifyOptionalCallChains
-        if (!rr.isPresent()) return Collections.emptyList();
-        GTRecipe.GTRecipe_WithAlt r = rr.get();
-        ItemStack[][] mOreDictAlt = r.mOreDictAlt;
-        Object[] inputs = builder.getItemInputsOreDict();
-        ItemStack aResearchItem = builder.getMetadata(RESEARCH_ITEM);
-        if (aResearchItem == null) {
-            return Collections.emptyList();
-        }
-        ItemStack aOutput = r.mOutputs[0];
-        int tPersistentHash = 1;
-        for (int i = 0, mOreDictAltLength = mOreDictAlt.length; i < mOreDictAltLength; i++) {
-            ItemStack[] alts = mOreDictAlt[i];
-            Object input = inputs[i];
-            if (input == null) {
-                GT_FML_LOGGER.error(
-                    "addAssemblingLineRecipe {} --> {} there is some null item in that recipe",
-                    aResearchItem.getDisplayName(),
-                    aOutput.getUnlocalizedName());
-            }
-            if (input instanceof ItemStack) {
-                tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash((ItemStack) input, true, false);
-            } else if (input instanceof ItemStack[]) {
-                for (ItemStack alt : ((ItemStack[]) input)) {
-                    tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash(alt, true, false);
-                    if (alt == null) {
-                        GT_FML_LOGGER.error(
-                            "addAssemblingLineRecipe {} --> {} there is some null alt item in that recipe",
-                            aResearchItem.getDisplayName(),
-                            aOutput.getUnlocalizedName());
-                    }
-                }
-                tPersistentHash *= 31;
-            } else if (input instanceof Object[]objs) {
-                Arrays.sort(
-                    alts,
-                    Comparator
-                        .<ItemStack, String>comparing(s -> GameRegistry.findUniqueIdentifierFor(s.getItem()).modId)
-                        .thenComparing(s -> GameRegistry.findUniqueIdentifierFor(s.getItem()).name)
-                        .thenComparingInt(Items.feather::getDamage)
-                        .thenComparingInt(s -> s.stackSize));
-
-                tPersistentHash = tPersistentHash * 31 + (objs[0] == null ? "" : objs[0].toString()).hashCode();
-                tPersistentHash = tPersistentHash * 31 + ((Number) objs[1]).intValue();
-            }
-        }
-        tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash(aResearchItem, true, false);
-        tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash(aOutput, true, false);
-        for (FluidStack fluidInput : r.mFluidInputs) {
-            if (fluidInput == null) continue;
-            tPersistentHash = tPersistentHash * 31 + GTUtility.persistentHash(fluidInput, true, false);
-        }
-        Scanning scanningData = builder.getMetadataOrDefault(SCANNING, new Scanning(0, 0));
-        tPersistentHash = tPersistentHash * 31 + scanningData.time;
-        tPersistentHash = tPersistentHash * 31 + (int) scanningData.voltage;
-        tPersistentHash = tPersistentHash * 31 + r.mDuration;
-        tPersistentHash = tPersistentHash * 31 + r.mEUt;
-
-        GTRecipe.RecipeAssemblyLine tRecipe = new GTRecipe.RecipeAssemblyLine(
-            aResearchItem,
-            scanningData.time,
-            (int) scanningData.voltage,
-            r.mInputs,
-            r.mFluidInputs,
-            aOutput,
-            r.mDuration,
-            r.mEUt,
-            r.mOreDictAlt);
-        tRecipe.setPersistentHash(tPersistentHash);
-        GTRecipe.RecipeAssemblyLine.sAssemblylineRecipes.add(tRecipe);
-
-        Collection<GTRecipe> ret = new ArrayList<>(3);
-        ret.addAll(
-            GTValues.RA.stdBuilder()
-                .itemInputs(aResearchItem)
-                .itemOutputs(aOutput)
-                .special(tRecipe.newDataStickForNEI("Writes Research result", 1))
-                .duration(scanningData.time)
-                .eut(scanningData.voltage)
-                .specialValue(-201) // means it's scanned
-                .ignoreCollision()
-                .fake()
-                .addTo(scannerFakeRecipes));
-
-        ret.add(
-            RecipeMaps.assemblylineVisualRecipes.addFakeRecipe(
-                false,
-                r.mInputs,
-                new ItemStack[] { aOutput },
-                new ItemStack[] { tRecipe.newDataStickForNEI("Reads Research result", 0) },
-                r.mFluidInputs,
-                null,
-                r.mDuration,
-                r.mEUt,
-                0,
-                r.mOreDictAlt,
-                r.mAltFluidInputs,
-                false));
-
-        return ret;
-    });
-
-    /**
-     * Add Electric Blast Furnace recipes that use gasses to reduce recipe time. Keep circuit config.
-     * <p>
-     * Use {@link GTRecipeConstants#COIL_HEAT} as heat level. Use {@link #ADDITIVE_AMOUNT} metadata as base gas consumed
-     * amount, and {@link #NO_GAS} metadata to generate recipe that is without gas. Recipe time will be 1.25x without
-     * gas.<br>
-     * Use {@link #NO_GAS_CIRCUIT_CONFIG} metadata as circuit config used in non-gas recipe if {@link #NO_GAS} is set to
-     * true.
-     */
-    public static final IRecipeMap BlastFurnaceWithGas = IRecipeMap.newRecipeMap(builder -> {
-        Collection<GTRecipe> ret = new ArrayList<>();
-        int baseGasAmount = builder.getMetadataOrDefault(ADDITIVE_AMOUNT, 1000);
-        double baseDuration = builder.getDuration();
-        ArrayList<ItemStack> items = new ArrayList<>(Arrays.asList(builder.getItemInputsBasic()));
-
-        // Generate recipe without gas
-        if (builder.getMetadataOrDefault(NO_GAS, false)) {
-            int circuitConfig = builder.getMetadataOrDefault(NO_GAS_CIRCUIT_CONFIG, -1);
-            for (int i = 0; i < items.size(); i++) {
-                if (GTUtility.isAnyIntegratedCircuit(items.get(i))) {
-                    items.remove(i);
-                    break;
-                }
-            }
-            if (circuitConfig == -1) {
-                ret.addAll(
-                    builder.copy()
-                        .itemInputs(items.toArray(new ItemStack[0]))
-                        .duration((int) Math.max(baseDuration * 1.25, 1))
-                        .addTo(RecipeMaps.blastFurnaceRecipes));
-            } else {
-                ret.addAll(
-                    builder.copy()
-                        .itemInputs(items.toArray(new ItemStack[0]))
-                        .circuit(circuitConfig)
-                        .duration((int) Math.max(baseDuration * 1.25, 1))
-                        .addTo(RecipeMaps.blastFurnaceRecipes));
-            }
-        }
-        return ret;
-    });
-
-    /**
-     * Just like any normal assembler recipe, however it accepts one input item to be oredicted. Pass in the item to
-     * oredict via {@link #OREDICT_INPUT}. It will be used along all other item inputs as input of this recipe.
-     */
-    public static IRecipeMap AssemblerOD = IRecipeMap.newRecipeMap(builder -> {
-        Collection<GTRecipe> ret = new ArrayList<>();
-        for (ItemStack input : GTOreDictUnificator.getOresImmutable(builder.getMetadata(OREDICT_INPUT))) {
-            ret.addAll(
-                builder.copy()
-                    .itemInputs(GTRecipeMapUtil.appendArray(builder.getItemInputsBasic(), input))
-                    .addTo(RecipeMaps.assemblerRecipes));
-        }
         return ret;
     });
 
