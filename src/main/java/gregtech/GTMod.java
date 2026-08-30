@@ -107,7 +107,6 @@ import gregtech.loaders.preload.GTPreLoad;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
 import gregtech.loaders.preload.LoaderGTItemData;
 import gregtech.loaders.preload.LoaderGTOreDictionary;
-import gregtech.loaders.preload.LoaderMetaPipeEntities;
 import gregtech.loaders.preload.LoaderMetaTileEntities;
 
 @Mod(
@@ -306,7 +305,6 @@ public class GTMod {
         new LoaderGTItemData().run();
         new LoaderGTBlockFluid().run();
         new LoaderMetaTileEntities().run();
-        new LoaderMetaPipeEntities().run();
 
         // populate itemstack instance for NBT check in GTRecipe
         setItemStacks();
