@@ -1,7 +1,6 @@
 package gregtech.loaders.postload;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
-import static gregtech.api.enums.Mods.BetterLoadingScreen;
 import static gregtech.api.enums.Mods.GalacticraftCore;
 import static gregtech.api.enums.Mods.GalacticraftMars;
 import static gregtech.api.enums.Mods.GalaxySpace;
@@ -13,9 +12,7 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import net.minecraft.init.Blocks;
@@ -26,10 +23,8 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableSet;
 
-import cpw.mods.fml.common.ProgressManager;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
@@ -40,7 +35,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.enums.TierEU;
 import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.GTCLSCompat;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
@@ -50,8 +44,6 @@ import gregtech.common.config.Other;
 import gregtech.common.items.MetaGeneratedItem01;
 import gregtech.common.tileentities.machines.basic.MTEMassfabricator;
 import gregtech.common.tileentities.machines.basic.MTERockBreaker;
-import ic2.api.recipe.IRecipeInput;
-import ic2.api.recipe.RecipeOutput;
 
 @SuppressWarnings("deprecation")
 public class GTPostLoad {

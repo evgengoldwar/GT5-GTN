@@ -1,25 +1,14 @@
 package gregtech.loaders.preload;
 
-import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
-import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeBuilder.TICKS;
-import static gregtech.api.util.GTUtility.calculateRecipeEU;
-
 import java.util.stream.IntStream;
 
-import gregtech.api.GregTechAPI;
-import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.enums.SubTag;
 import gregtech.api.enums.TierEU;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.api.metatileentity.implementations.MTEFluidPipe;
-import gregtech.api.metatileentity.implementations.MTEFrame;
 import gregtech.api.metatileentity.implementations.MTEItemPipe;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gregtech.common.blocks.BlockFrameBox;
 
 public final class LoaderMetaPipeEntities implements Runnable {
 

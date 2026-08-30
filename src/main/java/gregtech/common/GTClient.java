@@ -86,7 +86,6 @@ import gregtech.api.render.RenderOverlay;
 import gregtech.api.util.ColorsMetadataSection;
 import gregtech.api.util.ColorsMetadataSectionSerializer;
 import gregtech.api.util.GTClientPreference;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTPlayedSound;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.client.DynamicLangManager;

@@ -429,7 +429,6 @@ public class GTMod {
             GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
             new Object[] { "WWW", 'W', new ItemStack(Blocks.planks, 1, 0) });
 
-
         GT_FML_LOGGER.debug(
             "GTMod: Activating OreDictionary Handler, this can take some time, as it scans the whole OreDictionary");
         GT_FML_LOGGER.info(
