@@ -323,11 +323,6 @@ public class GTClient extends GTProxy {
     private void onPlayerFirstTick() {
         mFirstTick = false;
         GTValues.NW.sendToServer(new GTPacketClientPreference(mPreference));
-
-        if (!Minecraft.getMinecraft()
-            .isSingleplayer()) {
-            GTModHandler.removeAllIC2Recipes();
-        }
     }
 
     private static void tickPlayedSounds() {

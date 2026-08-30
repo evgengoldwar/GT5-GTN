@@ -25,44 +25,9 @@ public final class LoaderMetaPipeEntities implements Runnable {
 
     @Override
     public void run() {
-        registerFrames();
         registerWiresAndCables();
         registerFluidPipes();
         registerItemPipes();
-    }
-
-    private static void registerFrames() {
-        for (int meta = 0; meta < GregTechAPI.sGeneratedMaterials.length; meta++) {
-            Materials material = GregTechAPI.sGeneratedMaterials[meta];
-            // This check is separated out because IntelliJ thinks Materials.Wood can be null.
-            if (material == null) continue;
-            if (material.hasMetalItems() || material == Materials.Wood) {
-                new MTEFrame(4096 + meta, "GT_Frame_" + material, material);
-
-                // Generate recipes for frame box
-                BlockFrameBox block = (BlockFrameBox) GregTechAPI.sBlockFrames;
-                GTOreDictUnificator.registerOre(OrePrefixes.frameGt, material, block.getStackForm(1, meta));
-                if (material.getProcessingMaterialTierEU() < TierEU.IV) {
-                    GTModHandler.addCraftingRecipe(
-                        block.getStackForm(2, meta),
-                        GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED
-                            | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-                        new Object[] { "SSS", "SwS", "SSS", 'S', OrePrefixes.stick.get(material) });
-                }
-
-                if (!material.contains(SubTag.NO_RECIPES)
-                    && GTOreDictUnificator.get(OrePrefixes.stick, material, 1) != null) {
-                    // Auto generate frame box recipe in an assembler.
-                    GTValues.RA.stdBuilder()
-                        .itemInputs(GTOreDictUnificator.get(OrePrefixes.stick, material, 4))
-                        .circuit(4)
-                        .itemOutputs(block.getStackForm(1, meta))
-                        .duration(3 * SECONDS + 4 * TICKS)
-                        .eut(calculateRecipeEU(material, 7))
-                        .addTo(assemblerRecipes);
-                }
-            }
-        }
     }
 
     private static void registerWiresAndCables() {

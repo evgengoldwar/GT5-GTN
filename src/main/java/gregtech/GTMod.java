@@ -14,7 +14,6 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -110,9 +109,6 @@ import gregtech.loaders.preload.LoaderGTItemData;
 import gregtech.loaders.preload.LoaderGTOreDictionary;
 import gregtech.loaders.preload.LoaderMetaPipeEntities;
 import gregtech.loaders.preload.LoaderMetaTileEntities;
-import gregtech.loaders.preload.LoaderOreProcessing;
-import ic2.api.recipe.IRecipeInput;
-import ic2.api.recipe.RecipeOutput;
 
 @Mod(
     modid = Mods.ModIDs.GREG_TECH,
@@ -218,10 +214,6 @@ public class GTMod {
         clientSide = "gregtech.common.GTClient",
         serverSide = "gregtech.common.GTProxy")
     public static GTProxy proxy;
-    /** Field renamed, reference {@link gregtech.GTMod#proxy} instead */
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @Deprecated // should be removed after all mods have updated..
-    public static GTProxy gregtechproxy;
     public static final boolean DEBUG = Boolean.getBoolean("gt.debug");
 
     public GTMod() {
@@ -310,7 +302,6 @@ public class GTMod {
 
         GTPreLoad.runMineTweakerCompat();
 
-        new LoaderOreProcessing().run();
         new LoaderGTOreDictionary().run();
         new LoaderGTItemData().run();
         new LoaderGTBlockFluid().run();
@@ -354,7 +345,6 @@ public class GTMod {
         }
 
         proxy.onInitialization(event);
-        proxy.registerUnificationEntries();
 
         if (Mods.Waila.isModLoaded()) {
             Waila.init();
@@ -401,8 +391,6 @@ public class GTMod {
             }
         }
 
-        proxy.registerUnificationEntries();
-
         new ItemMaxStacksizeLoader().run();
         StoneType.init();
 
@@ -441,26 +429,11 @@ public class GTMod {
             GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
             new Object[] { "WWW", 'W', new ItemStack(Blocks.planks, 1, 0) });
 
-        // Save a copy of these list before activateOreDictHandler(), then loop over them.
-        Map<IRecipeInput, RecipeOutput> aMaceratorRecipeList = GTModHandler.getMaceratorRecipeList();
-        Map<IRecipeInput, RecipeOutput> aCompressorRecipeList = GTModHandler.getCompressorRecipeList();
-        Map<IRecipeInput, RecipeOutput> aExtractorRecipeList = GTModHandler.getExtractorRecipeList();
-        Map<IRecipeInput, RecipeOutput> aOreWashingRecipeList = GTModHandler.getOreWashingRecipeList();
-        Map<IRecipeInput, RecipeOutput> aThermalCentrifugeRecipeList = GTModHandler.getThermalCentrifugeRecipeList();
 
         GT_FML_LOGGER.debug(
             "GTMod: Activating OreDictionary Handler, this can take some time, as it scans the whole OreDictionary");
         GT_FML_LOGGER.info(
             "If your Log stops here, you were too impatient. Wait a bit more next time, before killing Minecraft with the Task Manager.");
-
-        GTPostLoad.activateOreDictHandler();
-        GTPostLoad.replaceVanillaMaterials();
-        GTPostLoad.removeIc2Recipes(
-            aMaceratorRecipeList,
-            aCompressorRecipeList,
-            aExtractorRecipeList,
-            aOreWashingRecipeList,
-            aThermalCentrifugeRecipeList);
 
         if (GTValues.D1) {
             GTModHandler.sSingleNonBlockDamagableRecipeList.forEach(
@@ -578,7 +551,6 @@ public class GTMod {
         }
 
         proxy.onServerStarting(event);
-        GTModHandler.removeAllIC2Recipes();
         GT_FML_LOGGER.debug("GTMod: Unificating outputs of all known Recipe Types.");
         ArrayList<ItemStack> tStacks = new ArrayList<>(10000);
         GT_FML_LOGGER.debug("GTMod: IC2 Machines");

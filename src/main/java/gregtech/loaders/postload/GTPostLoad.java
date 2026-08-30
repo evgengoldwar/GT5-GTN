@@ -56,49 +56,6 @@ import ic2.api.recipe.RecipeOutput;
 @SuppressWarnings("deprecation")
 public class GTPostLoad {
 
-    public static void activateOreDictHandler() {
-        @SuppressWarnings("UnstableApiUsage") // Stable enough for this project
-        Stopwatch stopwatch = Stopwatch.createStarted();
-        GTMod.proxy.activateOreDictHandler();
-
-        // noinspection UnstableApiUsage// Stable enough for this project
-        GT_FML_LOGGER.info("Congratulations, you have been waiting long enough ({}). Have a Cake.", stopwatch.stop());
-        GT_FML_LOGGER.debug(
-            "GTMod: List of Lists of Tool Recipes: {}",
-            GTModHandler.sSingleNonBlockDamagableRecipeList_list.toString());
-        GT_FML_LOGGER.debug(
-            "GTMod: Vanilla Recipe List -> Outputs null or stackSize <=0: {}",
-            GTModHandler.sVanillaRecipeList_warntOutput.toString());
-        GT_FML_LOGGER.debug(
-            "GTMod: Single Non Block Damageable Recipe List -> Outputs null or stackSize <=0: {}",
-            GTModHandler.sSingleNonBlockDamagableRecipeList_warntOutput.toString());
-    }
-
-    public static void removeIc2Recipes(Map<IRecipeInput, RecipeOutput> aMaceratorRecipeList,
-        Map<IRecipeInput, RecipeOutput> aCompressorRecipeList, Map<IRecipeInput, RecipeOutput> aExtractorRecipeList,
-        Map<IRecipeInput, RecipeOutput> aOreWashingRecipeList,
-        Map<IRecipeInput, RecipeOutput> aThermalCentrifugeRecipeList) {
-        @SuppressWarnings("UnstableApiUsage") // Stable enough for this project
-        Stopwatch stopwatch = Stopwatch.createStarted();
-        // remove gemIridium exploit
-        ItemStack iridiumOre = GTModHandler.getIC2Item("iridiumOre", 1);
-        aCompressorRecipeList.entrySet()
-            .parallelStream()
-            .filter(
-                e -> e.getKey()
-                    .getInputs()
-                    .size() == 1 && e.getKey()
-                        .getInputs()
-                        .get(0)
-                        .isItemEqual(iridiumOre))
-            .findAny()
-            .ifPresent(e -> aCompressorRecipeList.remove(e.getKey()));
-        // Remove all IC2
-        GTModHandler.removeAllIC2Recipes();
-        // noinspection UnstableApiUsage// Stable enough for this project
-        GT_FML_LOGGER.debug("IC2 Removal ({}). Have a Cake.", stopwatch.stop());
-    }
-
     public static void registerFluidCannerRecipes() {
         for (FluidContainerRegistry.FluidContainerData tData : FluidContainerRegistry
             .getRegisteredFluidContainerData()) {
@@ -318,30 +275,6 @@ public class GTPostLoad {
         Items.wooden_shovel.setMaxDamage(64);
         Items.wooden_axe.setMaxDamage(64);
         Items.wooden_hoe.setMaxDamage(64);
-    }
-
-    public static void replaceVanillaMaterials() {
-        @SuppressWarnings("UnstableApiUsage") // Stable enough for this project
-        Stopwatch stopwatch = Stopwatch.createStarted();
-        GT_FML_LOGGER.debug("Replacing Vanilla Materials in recipes, please wait.");
-        Set<Materials> replaceVanillaItemsSet = Arrays.stream(Materials.values())
-            .filter(GTRecipeRegistrator::hasVanillaRecipes)
-            .collect(Collectors.toSet());
-
-        ProgressManager.ProgressBar progressBar = ProgressManager
-            .push("Register materials", replaceVanillaItemsSet.size());
-        if (BetterLoadingScreen.isModLoaded()) {
-            GTCLSCompat.doActualRegistrationCLS(progressBar, replaceVanillaItemsSet);
-            GTCLSCompat.pushToDisplayProgress();
-        } else {
-            replaceVanillaItemsSet.forEach(m -> {
-                progressBar.step(m.mDefaultLocalName);
-                doActualRegistration(m);
-            });
-        }
-        ProgressManager.pop(progressBar);
-        // noinspection UnstableApiUsage// stable enough for project
-        GT_FML_LOGGER.debug("Replaced Vanilla Materials ({}). Have a Cake.", stopwatch.stop());
     }
 
     public static void doActualRegistration(Materials m) {

@@ -512,17 +512,6 @@ public class GTModHandler {
         return true;
     }
 
-    /**
-     * Removes IC2 recipes.
-     */
-    public static void removeAllIC2Recipes() {
-        getMaceratorRecipeList().clear();
-        getCompressorRecipeList().clear();
-        getExtractorRecipeList().clear();
-        getOreWashingRecipeList().clear();
-        getThermalCentrifugeRecipeList().clear();
-    }
-
     public static Map<IRecipeInput, RecipeOutput> getExtractorRecipeList() {
         return Recipes.extractor.getRecipes();
     }
