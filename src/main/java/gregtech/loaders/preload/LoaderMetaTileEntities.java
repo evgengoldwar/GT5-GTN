@@ -100,18 +100,6 @@ import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipeli
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineItem;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputBusME;
 import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
-import gregtech.common.tileentities.machines.steam.MTESteamAlloySmelterBronze;
-import gregtech.common.tileentities.machines.steam.MTESteamAlloySmelterSteel;
-import gregtech.common.tileentities.machines.steam.MTESteamCompressorBronze;
-import gregtech.common.tileentities.machines.steam.MTESteamCompressorSteel;
-import gregtech.common.tileentities.machines.steam.MTESteamExtractorBronze;
-import gregtech.common.tileentities.machines.steam.MTESteamExtractorSteel;
-import gregtech.common.tileentities.machines.steam.MTESteamForgeHammerBronze;
-import gregtech.common.tileentities.machines.steam.MTESteamForgeHammerSteel;
-import gregtech.common.tileentities.machines.steam.MTESteamFurnaceBronze;
-import gregtech.common.tileentities.machines.steam.MTESteamFurnaceSteel;
-import gregtech.common.tileentities.machines.steam.MTESteamMaceratorBronze;
-import gregtech.common.tileentities.machines.steam.MTESteamMaceratorSteel;
 import gregtech.common.tileentities.storage.MTELocker;
 import gregtech.common.tileentities.storage.MTEQuantumChest;
 import gregtech.common.tileentities.storage.MTEQuantumTank;
@@ -135,27 +123,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 ItemList.MagicalMaintenanceHatch.get(1),
                 GTAuthors.buildAuthorsWithFormatSupplier(GTAuthors.AuthorJude));
         }
-    }
-
-    private static void registerSteamMachines() {
-        ItemList.Machine_Bronze_Furnace.set(
-            new MTESteamFurnaceBronze(STEAM_FURNACE.ID, "bronzemachine.furnace", "Steam Furnace").getStackForm(1L));
-        ItemList.Machine_Bronze_Macerator.set(
-            new MTESteamMaceratorBronze(STEAM_MACERATOR.ID, "bronzemachine.macerator", "Steam Macerator")
-                .getStackForm(1L));
-        ItemList.Machine_Bronze_Extractor.set(
-            new MTESteamExtractorBronze(STEAM_EXTRACTOR.ID, "bronzemachine.extractor", "Steam Extractor")
-                .getStackForm(1L));
-        ItemList.Machine_Bronze_Hammer.set(
-            new MTESteamForgeHammerBronze(STEAM_FORGE_HAMMER.ID, "bronzemachine.hammer", "Steam Forge Hammer")
-                .getStackForm(1L));
-        ItemList.Machine_Bronze_Compressor.set(
-            new MTESteamCompressorBronze(STEAM_COMPRESSOR.ID, "bronzemachine.compressor", "Steam Compressor")
-                .getStackForm(1L));
-        ItemList.Machine_Bronze_AlloySmelter.set(
-            new MTESteamAlloySmelterBronze(STEAM_ALLOY_SMELTER.ID, "bronzemachine.alloysmelter", "Steam Alloy Smelter")
-                .getStackForm(1L));
-
     }
 
     private static void registerUnpackager() {
@@ -717,33 +684,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setOverlays("ALLOY_SMELTER")
                 .build()
                 .getStackForm(1L));
-    }
-
-    private static void registerHPSteamMachines() {
-        ItemList.Machine_HP_Extractor.set(
-            new MTESteamExtractorSteel(HP_STEAM_EXTRACTOR.ID, "hpmachine.extractor", "High Pressure Steam Extractor")
-                .getStackForm(1L));
-        ItemList.Machine_HP_Furnace.set(
-            new MTESteamFurnaceSteel(HP_STEAM_FURNACE.ID, "hpmachine.furnace", "High Pressure Steam Furnace")
-                .getStackForm(1L));
-        ItemList.Machine_HP_Macerator.set(
-            new MTESteamMaceratorSteel(HP_STEAM_MACERATOR.ID, "hpmachine.macerator", "High Pressure Steam Macerator")
-                .getStackForm(1L));
-        ItemList.Machine_HP_Hammer.set(
-            new MTESteamForgeHammerSteel(
-                HP_STEAM_FORGE_HAMMER.ID,
-                "hpmachine.hammer",
-                "High Pressure Steam Forge Hammer").getStackForm(1L));
-        ItemList.Machine_HP_Compressor.set(
-            new MTESteamCompressorSteel(
-                HP_STEAM_COMPRESSOR.ID,
-                "hpmachine.compressor",
-                "High Pressure Steam Compressor").getStackForm(1L));
-        ItemList.Machine_HP_AlloySmelter.set(
-            new MTESteamAlloySmelterSteel(
-                HP_STEAM_ALLOY_SMELTER.ID,
-                "hpmachine.alloysmelter",
-                "High Pressure Alloy Smelter").getStackForm(1L));
     }
 
     private static void registerLocker() {
@@ -8203,8 +8143,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerBatteryBuffer4x4();
         registerCharger4x4();
         registerWirelessEnergyHatch();
-        registerSteamMachines();
-        registerHPSteamMachines();
         registerLocker();
         registerScanner();
         registerPackager();
