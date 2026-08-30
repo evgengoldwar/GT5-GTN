@@ -329,7 +329,6 @@ public class GTPreLoad {
         GTMod.proxy.mNerfedWoodPlank = Gregtech.general.nerfedWoodPlank;
         GTMod.proxy.mChangeWoodenVanillaTools = Gregtech.general.changedWoodenVanillaTools;
         GTMod.proxy.mAchievements = Gregtech.general.achievements;
-        GTMod.proxy.mEnableAllMaterials = Gregtech.general.enableAllMaterials;
         GTMod.proxy.mExplosionItemDrop = Gregtech.general.explosionItemDrop;
         GTMod.proxy.mEnableCleanroom = Gregtech.general.enableCleanroom;
         GTMod.proxy.mLowGravProcessing = GalacticraftCore.isModLoaded() && Gregtech.general.lowGravProcessing;

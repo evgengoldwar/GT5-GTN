@@ -180,7 +180,6 @@ public class GTProxy implements IFuelHandler {
     public int mGraniteHavestLevel = 3;
     public int mMaxHarvestLevel = 7;
     public double replicatorExponent = 1.2D;
-    public boolean mEnableAllMaterials = false;
     public boolean mEnableCleanroom = true;
     public boolean mLowGravProcessing = false;
     public boolean mAMHInteraction = true;

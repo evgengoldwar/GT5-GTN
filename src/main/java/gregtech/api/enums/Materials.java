@@ -48,8 +48,6 @@ import gregtech.common.render.items.InfinityRenderer;
 import gregtech.common.render.items.RainbowOverlayRenderer;
 import gregtech.common.render.items.TranscendentMetalRenderer;
 import gregtech.common.render.items.UniversiumRenderer;
-import gregtech.loaders.materialprocessing.ProcessingConfig;
-import gregtech.loaders.materialprocessing.ProcessingModSupport;
 import gregtech.loaders.materials.MaterialsInit;
 
 @SuppressWarnings("unused") // API Legitimately has unused Members and Methods
@@ -1567,9 +1565,6 @@ public class Materials implements IColorModulationContainer, IOreMaterial {
 
         setToolEnchantments();
         setArmorEnchantments();
-
-        new ProcessingConfig();
-        if (!GTMod.proxy.mEnableAllMaterials) new ProcessingModSupport();
 
         // This is where addon mods can add/manipulate materials
         mMaterialHandlers.forEach(IMaterialHandler::onMaterialsInit);

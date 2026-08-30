@@ -35,7 +35,6 @@ import gregtech.api.util.GTInflectionManager;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.GTUtility.ItemId;
 import gregtech.common.config.Gregtech;
-import gregtech.loaders.materialprocessing.ProcessingModSupport;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
@@ -3145,21 +3144,6 @@ public class OrePrefixes {
                     }
                     case "crushed" -> {
                         return "Ground " + "%material";
-                    }
-                }
-            }
-        }
-        if (ProcessingModSupport.aEnableThaumcraftMats) {
-            switch (aMaterial.getInternalName()) {
-                case "InfusedAir", "InfusedDull", "InfusedEarth", "InfusedEntropy", "InfusedFire", "InfusedOrder", "InfusedVis", "InfusedWater" -> {
-                    if (name.startsWith("gem")) return materialPrefix + "Shard of " + "%material";
-                    if (name.startsWith("crystal")) return materialPrefix + "Shard of " + "%material";
-                    if (name.startsWith("plate")) return materialPrefix + "%material" + " Crystal Plate";
-                    if (name.startsWith("dust")) return materialPrefix + "%material" + " Crystal Powder";
-                    switch (name) {
-                        case "crushedCentrifuged", "crushedPurified", "crushed" -> {
-                            return materialPrefix + "%material" + " Crystals";
-                        }
                     }
                 }
             }

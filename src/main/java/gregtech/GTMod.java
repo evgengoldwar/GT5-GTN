@@ -100,7 +100,6 @@ import gregtech.crossmod.chunkapi.ClientMetaManager;
 import gregtech.crossmod.holoinventory.HoloInventory;
 import gregtech.crossmod.waila.Waila;
 import gregtech.loaders.postload.GTPostLoad;
-import gregtech.loaders.postload.ItemMaxStacksizeLoader;
 import gregtech.loaders.postload.MachineTooltipsLoader;
 import gregtech.loaders.postload.PosteaTransformers;
 import gregtech.loaders.preload.GTPreLoad;
@@ -388,7 +387,6 @@ public class GTMod {
             }
         }
 
-        new ItemMaxStacksizeLoader().run();
         StoneType.init();
 
         GTRecipeRegistrator.registerUsagesForMaterials(
