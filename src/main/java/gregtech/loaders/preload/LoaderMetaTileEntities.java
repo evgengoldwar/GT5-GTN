@@ -87,7 +87,6 @@ import gregtech.common.tileentities.machines.MTEBasicHullSteel;
 import gregtech.common.tileentities.machines.MTEBasicHullSteelBricks;
 import gregtech.common.tileentities.machines.basic.MTEBasicMachineWithRecipeBuilder;
 import gregtech.common.tileentities.machines.basic.MTEBoxinator;
-import gregtech.common.tileentities.machines.basic.MTECharger;
 import gregtech.common.tileentities.machines.basic.MTEMassfabricator;
 import gregtech.common.tileentities.machines.basic.MTEMicrowaveEnergyTransmitter;
 import gregtech.common.tileentities.machines.basic.MTEPotionBrewer;
@@ -95,11 +94,8 @@ import gregtech.common.tileentities.machines.basic.MTEReplicator;
 import gregtech.common.tileentities.machines.basic.MTERockBreaker;
 import gregtech.common.tileentities.machines.basic.MTEScanner;
 import gregtech.common.tileentities.machines.basic.MTETeleporter;
-import gregtech.common.tileentities.machines.basic.MTETurboCharger;
-import gregtech.common.tileentities.machines.basic.MTEWorldAccelerator;
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineFluid;
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineItem;
-import gregtech.common.tileentities.storage.MTELocker;
 import gregtech.common.tileentities.storage.MTEQuantumChest;
 import gregtech.common.tileentities.storage.MTEQuantumTank;
 import gregtech.common.tileentities.storage.MTESuperChest;
@@ -685,28 +681,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .getStackForm(1L));
     }
 
-    private static void registerLocker() {
-        ItemList.Locker_ULV
-            .set(new MTELocker(LOCKER_ULV.ID, "locker.tier.00", "Ultra Low Voltage Locker", 0).getStackForm(1L));
-        ItemList.Locker_LV.set(new MTELocker(LOCKER_LV.ID, "locker.tier.01", "Low Voltage Locker", 1).getStackForm(1L));
-        ItemList.Locker_MV
-            .set(new MTELocker(LOCKER_MV.ID, "locker.tier.02", "Medium Voltage Locker", 2).getStackForm(1L));
-        ItemList.Locker_HV
-            .set(new MTELocker(LOCKER_HV.ID, "locker.tier.03", "High Voltage Locker", 3).getStackForm(1L));
-        ItemList.Locker_EV
-            .set(new MTELocker(LOCKER_EV.ID, "locker.tier.04", "Extreme Voltage Locker", 4).getStackForm(1L));
-        ItemList.Locker_IV
-            .set(new MTELocker(LOCKER_IV.ID, "locker.tier.05", "Insane Voltage Locker", 5).getStackForm(1L));
-        ItemList.Locker_LuV
-            .set(new MTELocker(LOCKER_LuV.ID, "locker.tier.06", "Ludicrous Voltage Locker", 6).getStackForm(1L));
-        ItemList.Locker_ZPM
-            .set(new MTELocker(LOCKER_ZPM.ID, "locker.tier.07", "ZPM Voltage Locker", 7).getStackForm(1L));
-        ItemList.Locker_UV
-            .set(new MTELocker(LOCKER_UV.ID, "locker.tier.08", "Ultimate Voltage Locker", 8).getStackForm(1L));
-        ItemList.Locker_MAX
-            .set(new MTELocker(LOCKER_UHV.ID, "locker.tier.09", "Highly Ultimate Voltage Locker", 9).getStackForm(1L));
-    }
-
     private static void registerScanner() {
         ItemList.Machine_LV_Scanner
             .set(new MTEScanner(SCANNER_LV.ID, "basicmachine.scanner.tier.01", "Basic Scanner", 1).getStackForm(1L));
@@ -928,58 +902,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
     private static void registerTeleporter() {
         ItemList.Teleporter
             .set(new MTETeleporter(TELEPORTER.ID, "basicmachine.teleporter", "Teleporter", 9).getStackForm(1L));
-    }
-
-    private void registerWorldAccelerator() {
-        ItemList.AcceleratorLV.set(
-            new MTEWorldAccelerator(
-                WORLD_ACCELERATOR_LV.ID,
-                "basicmachine.accelerator.tier.01",
-                "Basic World Accelerator",
-                1).getStackForm(1L));
-        ItemList.AcceleratorMV.set(
-            new MTEWorldAccelerator(
-                WORLD_ACCELERATOR_MV.ID,
-                "basicmachine.accelerator.tier.02",
-                "Advanced World Accelerator",
-                2).getStackForm(1L));
-        ItemList.AcceleratorHV.set(
-            new MTEWorldAccelerator(
-                WORLD_ACCELERATOR_HV.ID,
-                "basicmachine.accelerator.tier.03",
-                "Advanced World Accelerator II",
-                3).getStackForm(1L));
-        ItemList.AcceleratorEV.set(
-            new MTEWorldAccelerator(
-                WORLD_ACCELERATOR_EV.ID,
-                "basicmachine.accelerator.tier.04",
-                "Advanced World Accelerator III",
-                4).getStackForm(1L));
-        ItemList.AcceleratorIV.set(
-            new MTEWorldAccelerator(
-                WORLD_ACCELERATOR_IV.ID,
-                "basicmachine.accelerator.tier.05",
-                "Advanced World Accelerator IV",
-                5).getStackForm(1L));
-        ItemList.AcceleratorLuV.set(
-            new MTEWorldAccelerator(
-                WORLD_ACCELERATOR_LuV.ID,
-                "basicmachine.accelerator.tier.06",
-                "Elite World Accelerator",
-                6).getStackForm(1L));
-        ItemList.AcceleratorZPM.set(
-            new MTEWorldAccelerator(
-                WORLD_ACCELERATOR_ZPM.ID,
-                "basicmachine.accelerator.tier.07",
-                "Elite World Accelerator II",
-                7).getStackForm(1L));
-        ItemList.AcceleratorUV.set(
-            new MTEWorldAccelerator(
-                WORLD_ACCELERATOR_UV.ID,
-                "basicmachine.accelerator.tier.08",
-                "Ultimate Time Anomaly",
-                8).getStackForm(1L));
-
     }
 
     private static void registerMicrowaveEnergyTransmitter() {
@@ -7528,125 +7450,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 16).getStackForm(1L));
     }
 
-    private static void registerCharger4x4() {
-        ItemList.Battery_Charger_4by4_ULV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_ULV.ID,
-                "batterycharger.16.tier.00",
-                "Ultra Low Voltage Battery Charger",
-                0,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_LV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_LV.ID,
-                "batterycharger.16.tier.01",
-                "Low Voltage Battery Charger",
-                1,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_MV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_MV.ID,
-                "batterycharger.16.tier.02",
-                "Medium Voltage Battery Charger",
-                2,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_HV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_HV.ID,
-                "batterycharger.16.tier.03",
-                "High Voltage Battery Charger",
-                3,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_EV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_EV.ID,
-                "batterycharger.16.tier.04",
-                "Extreme Voltage Battery Charger",
-                4,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_IV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_IV.ID,
-                "batterycharger.16.tier.05",
-                "Insane Voltage Battery Charger",
-                5,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_LuV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_LuV.ID,
-                "batterycharger.16.tier.06",
-                "Ludicrous Voltage Battery Charger",
-                6,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_ZPM.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_ZPM.ID,
-                "batterycharger.16.tier.07",
-                "ZPM Voltage Battery Charger",
-                7,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_UV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_UV.ID,
-                "batterycharger.16.tier.08",
-                "Ultimate Voltage Battery Charger",
-                8,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-        ItemList.Battery_Charger_4by4_UHV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_BY_4_UHV.ID,
-                "batterycharger.16.tier.09",
-                "Highly Ultimate Voltage Battery Charger",
-                9,
-                "Each battery gives 8A in/4A out (min 4A/2A)",
-                4).getStackForm(1L));
-
-        ItemList.Battery_Charger_4by4_UEV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_4_UEV.ID,
-                "batterycharger.16.tier.10",
-                "Extremely Ultimate Battery Charger",
-                10,
-                "",
-                4).getStackForm(1L));
-
-        ItemList.Battery_Charger_4by4_UIV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_4_UIV.ID,
-                "batterycharger.16.tier.11",
-                "Insanely Ultimate Battery Charger",
-                11,
-                "",
-                4).getStackForm(1L));
-
-        ItemList.Battery_Charger_4by4_UMV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_4_UMV.ID,
-                "batterycharger.16.tier.12",
-                "Mega Ultimate Battery Charger",
-                12,
-                "",
-                4).getStackForm(1L));
-
-        ItemList.Battery_Charger_4by4_UXV.set(
-            new MTECharger(
-                BATTERY_CHARGER_4_4_UXV.ID,
-                "batterycharger.16.tier.13",
-                "Extended Mega Ultimate Battery Charger",
-                13,
-                "",
-                4).getStackForm(1L));
-    }
-
     private void registerCircuitAssembler() {
         ItemList.Machine_LV_CircuitAssembler.set(
             MTEBasicMachineWithRecipeBuilder.builder(CIRCUIT_ASSEMBLER_LV.ID)
@@ -7919,101 +7722,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 13).getStackForm(1L));
     }
 
-    private void registerHighAmpTransformer() {}
-
-    private void registerTurboCharger4By4() {
-        ItemList.Battery_TurboCharger_4by4_ULV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_ULV.ID,
-                "batteryturbocharger.16.tier.00",
-                "Ultra Low Voltage Turbo Charger",
-                0,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_LV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_LV.ID,
-                "batteryturbocharger.16.tier.01",
-                "Low Voltage Turbo Charger",
-                1,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_MV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_MV.ID,
-                "batteryturbocharger.16.tier.02",
-                "Medium Voltage Turbo Charger",
-                2,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_HV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_HV.ID,
-                "batteryturbocharger.16.tier.03",
-                "High Voltage Turbo Charger",
-                3,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_EV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_EV.ID,
-                "batteryturbocharger.16.tier.04",
-                "Extreme Voltage Turbo Charger",
-                4,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_IV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_IV.ID,
-                "batteryturbocharger.16.tier.05",
-                "Insane Voltage Turbo Charger",
-                5,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_LuV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_LuV.ID,
-                "batteryturbocharger.16.tier.06",
-                "Ludicrous Voltage Turbo Charger",
-                6,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_ZPM.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_ZPM.ID,
-                "batteryturbocharger.16.tier.07",
-                "ZPM Voltage Turbo Charger",
-                7,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_UV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_UV.ID,
-                "batteryturbocharger.16.tier.08",
-                "Ultimate Voltage Turbo Charger",
-                8,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-        ItemList.Battery_TurboCharger_4by4_UHV.set(
-            new MTETurboCharger(
-                TURBO_CHARGER_UHV.ID,
-                "batteryturbocharger.16.tier.09",
-                "Highly Ultimate Voltage Turbo Charger",
-                9,
-                "64A in /16A out, 120A/item, Disable to force Charge",
-                4).getStackForm(1L));
-
-    }
-
     private static void registerWirelessEnergyHatch() {
         ItemList.Wireless_Hatch_Energy_ULV.set(
             new MTEWirelessEnergy(
@@ -8135,9 +7843,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerBatteryBuffer2x2();
         registerBatteryBuffer3x3();
         registerBatteryBuffer4x4();
-        registerCharger4x4();
         registerWirelessEnergyHatch();
-        registerLocker();
         registerScanner();
         registerPackager();
         registerRockBreaker();
@@ -8147,12 +7853,10 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerTeleporter();
         registerMicrowaveEnergyTransmitter();
         registerMultiblockControllers();
-        registerWorldAccelerator();
         registerAlloySmelter();
         registerMatterAmplifier();
         registerAssemblingMachine();
         registerWetTransformer();
-        registerHighAmpTransformer();
         registerChemicalBath();
         registerChemicalReactor();
         registerFermenter();
@@ -8189,7 +7893,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerCanningMachine();
         registerElectrolyzer();
         registerCircuitAssembler();
-        registerTurboCharger4By4();
         registerUnpackager();
         registerPrinter();
         registerOven();
