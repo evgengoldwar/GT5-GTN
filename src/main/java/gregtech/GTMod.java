@@ -480,7 +480,6 @@ public class GTMod {
         for (Runnable tRunnable : GregTechAPI.sAfterGTPostload) {
             tRunnable.run();
         }
-        GTPostLoad.addFakeRecipes();
 
         if (GregTechAPI.mOutputRF || GregTechAPI.mInputRF) {
             GTUtility.checkAvailabilities();
