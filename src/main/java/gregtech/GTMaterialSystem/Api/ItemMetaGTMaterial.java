@@ -1,4 +1,4 @@
-package gregtech.MaterialSystem.Api;
+package gregtech.GTMaterialSystem.Api;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,17 +13,17 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMetaMaterial extends Item {
+public class ItemMetaGTMaterial extends Item {
 
     private static final int MAX_META = 32_767;
 
-    private final Map<Integer, Material> materialMap = new HashMap<>();
-    private final MaterialType materialType;
+    private final Map<Integer, GTMaterial> materialMap = new HashMap<>();
+    private final GTMaterialType materialType;
 
     private IIcon icon;
     private final String texturePath;
 
-    public ItemMetaMaterial(MaterialType materialType) {
+    public ItemMetaGTMaterial(GTMaterialType materialType) {
         this.materialType = materialType;
 
         this.texturePath = "gregtech:MaterialSystems/Items/" + materialType.getTextureName() + ".png";
@@ -46,7 +46,7 @@ public class ItemMetaMaterial extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        Material material = materialMap.get(stack.getItemDamage());
+        GTMaterial material = materialMap.get(stack.getItemDamage());
 
         if (material != null) {
             return material.getColor();
@@ -57,7 +57,7 @@ public class ItemMetaMaterial extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        Material material = materialMap.get(stack.getItemDamage());
+        GTMaterial material = materialMap.get(stack.getItemDamage());
 
         if (material != null) {
             return "item." + material.getName()
@@ -74,9 +74,9 @@ public class ItemMetaMaterial extends Item {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
 
-        for (Map.Entry<Integer, Material> entry : materialMap.entrySet()) {
+        for (Map.Entry<Integer, GTMaterial> entry : materialMap.entrySet()) {
 
-            Material material = entry.getValue();
+            GTMaterial material = entry.getValue();
 
             if (material.hasType(materialType)) {
                 list.add(new ItemStack(this, 1, entry.getKey()));
@@ -84,7 +84,7 @@ public class ItemMetaMaterial extends Item {
         }
     }
 
-    public void registerMaterial(Material material) {
+    public void registerMaterial(GTMaterial material) {
         if (material == null) {
             return;
         }
@@ -98,7 +98,7 @@ public class ItemMetaMaterial extends Item {
         materialMap.put(meta, material);
     }
 
-    public Material getMaterial(int meta) {
+    public GTMaterial getMaterial(int meta) {
         return materialMap.get(meta);
     }
 
@@ -106,7 +106,7 @@ public class ItemMetaMaterial extends Item {
         return materialMap.containsKey(meta);
     }
 
-    public MaterialType getMaterialType() {
+    public GTMaterialType getMaterialType() {
         return materialType;
     }
 }

@@ -1,6 +1,6 @@
-package gregtech.MaterialSystem.Api;
+package gregtech.GTMaterialSystem.Api;
 
-public enum MaterialType {
+public enum GTMaterialType {
 
     INGOT("ingot"),
     PLATE("plate"),
@@ -8,7 +8,7 @@ public enum MaterialType {
 
     private final String textureName;
 
-    MaterialType(String textureName) {
+    GTMaterialType(String textureName) {
         this.textureName = textureName;
     }
 

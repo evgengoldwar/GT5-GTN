@@ -46,7 +46,7 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import gregtech.MaterialSystem.Materials;
+import gregtech.GTMaterialSystem.GTMaterials;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enchants.EnchantmentEnderDamage;
 import gregtech.api.enchants.EnchantmentHazmat;
@@ -252,7 +252,7 @@ public class GTMod {
     @Mod.EventHandler
     public void onPreInitialization(FMLPreInitializationEvent event) {
 
-        Materials.init();
+        GTMaterials.init();
 
         Locale.setDefault(Locale.ENGLISH);
         if (GregTechAPI.sPreloadStarted) {

@@ -1,4 +1,4 @@
-package gregtech.MaterialSystem.Api;
+package gregtech.GTMaterialSystem.Api;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,19 +14,19 @@ import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockMetaMaterial extends Block {
+public class BlockMetaGTMaterial extends Block {
 
     private static final int MAX_META = 32_767;
 
-    private final Map<Integer, Material> materialMap = new HashMap<>();
+    private final Map<Integer, GTMaterial> materialMap = new HashMap<>();
 
-    private final MaterialType materialType;
+    private final GTMaterialType materialType;
 
     private IIcon icon;
 
     private final String texturePath;
 
-    public BlockMetaMaterial(MaterialType materialType) {
+    public BlockMetaGTMaterial(GTMaterialType materialType) {
         super(net.minecraft.block.material.Material.iron);
         this.materialType = materialType;
         this.texturePath = "gregtech:MaterialSystems/Blocks/" + materialType.getTextureName() + ".png";
@@ -51,7 +51,7 @@ public class BlockMetaMaterial extends Block {
     public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
 
-        Material material = materialMap.get(meta);
+        GTMaterial material = materialMap.get(meta);
 
         if (material != null) {
             return material.getColor();
@@ -63,7 +63,7 @@ public class BlockMetaMaterial extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public int getRenderColor(int meta) {
-        Material material = materialMap.get(meta);
+        GTMaterial material = materialMap.get(meta);
 
         if (material != null) {
             return material.getColor();
@@ -77,7 +77,7 @@ public class BlockMetaMaterial extends Block {
         return meta;
     }
 
-    public void registerMaterial(Material material) {
+    public void registerMaterial(GTMaterial material) {
         if (material == null) {
             return;
         }
@@ -91,14 +91,14 @@ public class BlockMetaMaterial extends Block {
         materialMap.put(meta, material);
     }
 
-    public Material getMaterial(int meta) {
+    public GTMaterial getMaterial(int meta) {
         return materialMap.get(meta);
     }
 
     public void addSubItems(Item item, List<ItemStack> list) {
-        for (Map.Entry<Integer, Material> entry : materialMap.entrySet()) {
+        for (Map.Entry<Integer, GTMaterial> entry : materialMap.entrySet()) {
 
-            Material material = entry.getValue();
+            GTMaterial material = entry.getValue();
 
             if (material.hasType(materialType)) {
                 list.add(new ItemStack(item, 1, entry.getKey()));
@@ -106,7 +106,7 @@ public class BlockMetaMaterial extends Block {
         }
     }
 
-    public MaterialType getMaterialType() {
+    public GTMaterialType getMaterialType() {
         return materialType;
     }
 }

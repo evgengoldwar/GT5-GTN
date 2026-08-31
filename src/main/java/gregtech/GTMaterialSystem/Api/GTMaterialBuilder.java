@@ -1,27 +1,27 @@
-package gregtech.MaterialSystem.Api;
+package gregtech.GTMaterialSystem.Api;
 
 import java.util.EnumSet;
 import java.util.Set;
 
-public class MaterialBuilder {
+public class GTMaterialBuilder {
 
     private final String name;
 
     private int meta = -1;
     private int color = 0xFFFFFF;
 
-    private final Set<MaterialType> types = EnumSet.noneOf(MaterialType.class);
+    private final Set<GTMaterialType> types = EnumSet.noneOf(GTMaterialType.class);
 
-    public MaterialBuilder(String name) {
+    public GTMaterialBuilder(String name) {
         this.name = name;
     }
 
-    public MaterialBuilder meta(int meta) {
+    public GTMaterialBuilder meta(int meta) {
         this.meta = meta;
         return this;
     }
 
-    public MaterialBuilder color(int r, int g, int b) {
+    public GTMaterialBuilder color(int r, int g, int b) {
 
         if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
 
@@ -33,22 +33,22 @@ public class MaterialBuilder {
         return this;
     }
 
-    public MaterialBuilder addIngot() {
-        types.add(MaterialType.INGOT);
+    public GTMaterialBuilder addIngot() {
+        types.add(GTMaterialType.INGOT);
         return this;
     }
 
-    public MaterialBuilder addPlate() {
-        types.add(MaterialType.PLATE);
+    public GTMaterialBuilder addPlate() {
+        types.add(GTMaterialType.PLATE);
         return this;
     }
 
-    public MaterialBuilder addBlock() {
-        types.add(MaterialType.BLOCK);
+    public GTMaterialBuilder addBlock() {
+        types.add(GTMaterialType.BLOCK);
         return this;
     }
 
-    public Material build() {
+    public GTMaterial build() {
 
         if (meta < 0 || meta > 32_767) {
             throw new IllegalStateException("Invalid material meta: " + meta);
@@ -58,9 +58,9 @@ public class MaterialBuilder {
             throw new IllegalStateException("Material " + name + " has no components");
         }
 
-        Material material = new Material(name, meta, color, EnumSet.copyOf(types));
+        GTMaterial material = new GTMaterial(name, meta, color, EnumSet.copyOf(types));
 
-        MaterialRegistry.getInstance()
+        GTMaterialRegistry.getInstance()
             .registerMaterial(material);
 
         return material;

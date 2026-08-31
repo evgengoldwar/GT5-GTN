@@ -1,16 +1,16 @@
-package gregtech.MaterialSystem;
+package gregtech.GTMaterialSystem;
 
-import gregtech.MaterialSystem.Api.Material;
-import gregtech.MaterialSystem.Api.MaterialBuilder;
-import gregtech.MaterialSystem.Api.MaterialRegistry;
+import gregtech.GTMaterialSystem.Api.GTMaterial;
+import gregtech.GTMaterialSystem.Api.GTMaterialBuilder;
+import gregtech.GTMaterialSystem.Api.GTMaterialRegistry;
 
-public class Materials {
+public class GTMaterials {
 
-    public static Material Steel;
-    public static Material Bronze;
+    public static GTMaterial Steel;
+    public static GTMaterial Bronze;
 
     public static void init() {
-        MaterialRegistry.getInstance()
+        GTMaterialRegistry.getInstance()
             .init();
 
         // for (int i = 0; i < 25_000; i++) {
@@ -24,14 +24,14 @@ public class Materials {
         // .build();
         // }
 
-        Steel = new MaterialBuilder("Steel").meta(0)
+        Steel = new GTMaterialBuilder("Steel").meta(0)
             .color(200, 200, 200)
             .addIngot()
             .addBlock()
             .addPlate()
             .build();
 
-        Bronze = new MaterialBuilder("Bronze").meta(1)
+        Bronze = new GTMaterialBuilder("Bronze").meta(1)
             .color(100, 100, 100)
             .addIngot()
             .addBlock()
