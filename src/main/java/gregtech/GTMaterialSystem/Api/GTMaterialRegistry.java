@@ -4,11 +4,11 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
-import gregtech.GTMaterialSystem.Blocks.GTMaterialCasing;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.GTMaterialSystem.Blocks.GTMaterialBlock;
+import gregtech.GTMaterialSystem.Blocks.GTMaterialCasing;
 import gregtech.GTMaterialSystem.Items.GTMaterialIngot;
 import gregtech.GTMaterialSystem.Items.GTMaterialPlate;
 
