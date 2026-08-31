@@ -15,8 +15,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMetaGTMaterial extends Item {
 
-    private static final int MAX_META = 32_767;
-
     private final Map<Integer, GTMaterial> materialMap = new HashMap<>();
     private final GTMaterialType materialType;
 
@@ -25,8 +23,7 @@ public class ItemMetaGTMaterial extends Item {
 
     public ItemMetaGTMaterial(GTMaterialType materialType) {
         this.materialType = materialType;
-
-        this.texturePath = "gregtech:MaterialSystems/Items/" + materialType.getTextureName() + ".png";
+        this.texturePath = GTMaterialUtils.getTextureItemPath(materialType);
         this.setHasSubtypes(true);
         this.setMaxStackSize(64);
     }
@@ -91,7 +88,7 @@ public class ItemMetaGTMaterial extends Item {
 
         int meta = material.getMeta();
 
-        if (meta < 0 || meta > MAX_META) {
+        if (meta < 0 || meta > GTMaterialUtils.MAX_MATERIAL_META) {
             throw new IllegalArgumentException("Material meta out of range: " + meta);
         }
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,8 +17,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMetaGTMaterial extends Block {
 
-    private static final int MAX_META = 32_767;
-
     private final Map<Integer, GTMaterial> materialMap = new HashMap<>();
 
     private final GTMaterialType materialType;
@@ -27,9 +26,9 @@ public class BlockMetaGTMaterial extends Block {
     private final String texturePath;
 
     public BlockMetaGTMaterial(GTMaterialType materialType) {
-        super(net.minecraft.block.material.Material.iron);
+        super(Material.iron);
         this.materialType = materialType;
-        this.texturePath = "gregtech:MaterialSystems/Blocks/" + materialType.getTextureName() + ".png";
+        this.texturePath = GTMaterialUtils.getTextureBlockPath(materialType);
         setHardness(5.0F);
         setResistance(10.0F);
     }
@@ -84,7 +83,7 @@ public class BlockMetaGTMaterial extends Block {
 
         int meta = material.getMeta();
 
-        if (meta < 0 || meta > MAX_META) {
+        if (meta < 0 || meta > GTMaterialUtils.MAX_MATERIAL_META) {
             throw new IllegalArgumentException("Material meta out of range: " + meta);
         }
 
