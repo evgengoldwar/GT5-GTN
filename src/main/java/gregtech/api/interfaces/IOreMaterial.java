@@ -8,7 +8,7 @@ import net.minecraft.util.StatCollector;
 
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
 import gregtech.api.util.GTOreDictUnificator;
@@ -46,12 +46,12 @@ public interface IOreMaterial extends ISubTagContainer {
     TextureSet getTextureSet();
 
     @Nullable
-    Materials getGTMaterial();
+    Materials_OLD getGTMaterial();
 
     boolean generatesPrefix(OrePrefixes prefix);
 
     default ItemStack getPart(OrePrefixes prefix, int amount) {
-        Materials gt = getGTMaterial();
+        Materials_OLD gt = getGTMaterial();
 
         if (gt != null) {
             return GTOreDictUnificator.get(prefix, gt, amount);

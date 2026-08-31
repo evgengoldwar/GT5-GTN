@@ -2,7 +2,7 @@ package gregtech.common;
 
 import net.minecraftforge.oredict.OreDictionary;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTUtility;
 
@@ -10,10 +10,10 @@ public class OreDictEventContainer {
 
     public final OreDictionary.OreRegisterEvent mEvent;
     public final OrePrefixes mPrefix;
-    public final Materials mMaterial;
+    public final Materials_OLD mMaterial;
     public final String mModID;
 
-    public OreDictEventContainer(OreDictionary.OreRegisterEvent aEvent, OrePrefixes aPrefix, Materials aMaterial,
+    public OreDictEventContainer(OreDictionary.OreRegisterEvent aEvent, OrePrefixes aPrefix, Materials_OLD aMaterial,
         String aModID) {
         this.mEvent = aEvent;
         this.mPrefix = aPrefix;
@@ -32,7 +32,7 @@ public class OreDictEventContainer {
         }
 
         ore.mPrefix.processOre(
-            ore.mMaterial == null ? Materials._NULL : ore.mMaterial,
+            ore.mMaterial == null ? Materials_OLD._NULL : ore.mMaterial,
             ore.mEvent.Name,
             ore.mModID,
             GTUtility.copyAmount(1, ore.mEvent.Ore));

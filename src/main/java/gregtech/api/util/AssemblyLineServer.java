@@ -10,7 +10,7 @@ import net.minecraftforge.common.config.Property;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 
 public class AssemblyLineServer {
 
@@ -54,10 +54,10 @@ public class AssemblyLineServer {
                                 entry.getKey()
                                     .length() - ".name".length()));
                     i = i % 1000;
-                    if (GregTechAPI.sGeneratedMaterials[i] != null) lServerNames.put(
+                    if (GregTechAPI.S_GENERATED_MATERIALS[i] != null) lServerNames.put(
                         entry.getKey(),
                         entry.getValue()
-                            .replace("material", GregTechAPI.sGeneratedMaterials[i].toString()));
+                            .replace("material", GregTechAPI.S_GENERATED_MATERIALS[i].toString()));
                     else lServerNames.put(entry.getKey(), null);
                 }
             } catch (Exception ignored) {}
@@ -190,14 +190,14 @@ public class AssemblyLineServer {
                                 entry.getKey()
                                     .length() - ".name".length()));
                     i = i % 1000;
-                    if (GregTechAPI.sGeneratedMaterials[i] != null) lServerNames.put(
+                    if (GregTechAPI.S_GENERATED_MATERIALS[i] != null) lServerNames.put(
                         entry.getKey(),
                         entry.getValue()
-                            .replace("material", GregTechAPI.sGeneratedMaterials[i].toString()));
+                            .replace("material", GregTechAPI.S_GENERATED_MATERIALS[i].toString()));
                     else lServerNames.put(entry.getKey(), null);
                 } else if (entry.getKey()
                     .contains("blockmetal")) {
-                        Materials[] mMats = null;
+                        Materials_OLD[] mMats = null;
                         String t = entry.getKey()
                             .substring("gt.blockmetal".length());
                         t = t.substring(0, 1);
@@ -211,7 +211,7 @@ public class AssemblyLineServer {
                         lServerNames.put(entry.getKey(), "Block of " + mMats[i].toString());
                     } else if (entry.getKey()
                         .contains("blockgem")) {
-                            Materials[] mMats = null;
+                            Materials_OLD[] mMats = null;
                             String t = entry.getKey()
                                 .substring("gt.blockgem".length());
                             t = t.substring(0, 1);

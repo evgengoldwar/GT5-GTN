@@ -7,7 +7,7 @@ import static gregtech.api.enums.GTValues.E;
 import static gregtech.api.enums.GTValues.M;
 import static gregtech.api.enums.GTValues.NW;
 import static gregtech.api.enums.GTValues.V;
-import static gregtech.api.enums.Materials.FLUID_MAP;
+import static gregtech.api.enums.Materials_OLD.FLUID_MAP;
 import static gregtech.api.enums.Mods.Translocator;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 import static net.minecraft.util.StatCollector.translateToLocal;
@@ -136,7 +136,7 @@ import gregtech.api.damagesources.GTDamageSources.DamageSourceHotItem;
 import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
@@ -876,7 +876,7 @@ public class GTUtility {
         return fullContainer;
     }
 
-    public static int calculateRecipeEU(Materials aMaterial, int defaultRecipeEUPerTick) {
+    public static int calculateRecipeEU(Materials_OLD aMaterial, int defaultRecipeEUPerTick) {
         return aMaterial.getProcessingMaterialTierEU() == 0 ? defaultRecipeEUPerTick
             : aMaterial.getProcessingMaterialTierEU();
     }
@@ -2373,9 +2373,9 @@ public class GTUtility {
         return new String(chars);
     }
 
-    public static boolean isPartOfMaterials(ItemStack aStack, Materials aMaterials) {
+    public static boolean isPartOfMaterials(ItemStack aStack, Materials_OLD aMaterialsOLD) {
         return GTOreDictUnificator.getAssociation(aStack) != null
-            && GTOreDictUnificator.getAssociation(aStack).mMaterial.mMaterial.equals(aMaterials);
+            && GTOreDictUnificator.getAssociation(aStack).mMaterial.mMaterial.equals(aMaterialsOLD);
     }
 
     /**

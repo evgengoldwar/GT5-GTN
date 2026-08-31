@@ -9,7 +9,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.util.GTDataUtils;
@@ -18,13 +18,13 @@ import gregtech.api.util.client.DynamicLangManager;
 
 public class BlockMetal extends BlockStorage {
 
-    public Materials[] mMats;
+    public Materials_OLD[] mMats;
     public OrePrefixes mPrefix;
     public IIconContainer[] mBlockIcons;
     public boolean mHideBlocks;
     public static boolean mNEIisLoaded = NotEnoughItems.isModLoaded();
 
-    public BlockMetal(String aName, Materials[] aMats, OrePrefixes aPrefix, IIconContainer[] aBlockIcons) {
+    public BlockMetal(String aName, Materials_OLD[] aMats, OrePrefixes aPrefix, IIconContainer[] aBlockIcons) {
         super(ItemStorage.class, aName, Material.iron);
         mMats = aMats;
         mPrefix = aPrefix;
@@ -33,12 +33,12 @@ public class BlockMetal extends BlockStorage {
 
         for (int i = 0; i < aMats.length; i++) {
             if (aMats[i].mMetaItemSubID > 0 && aMats[i].mHasParentMod) {
-                Materials materials = aMats[i];
+                Materials_OLD materialsOLD = aMats[i];
                 DynamicLangManager.addStack(new ItemStack(this, 1, i));
                 if (aPrefix.isUnifiable()) {
-                    GTOreDictUnificator.set(aPrefix, materials, new ItemStack(this, 1, i));
+                    GTOreDictUnificator.set(aPrefix, materialsOLD, new ItemStack(this, 1, i));
                 } else {
-                    GTOreDictUnificator.registerOre(aPrefix.get(materials), new ItemStack(this, 1, i));
+                    GTOreDictUnificator.registerOre(aPrefix.get(materialsOLD), new ItemStack(this, 1, i));
                 }
             }
         }
@@ -49,9 +49,9 @@ public class BlockMetal extends BlockStorage {
 
     @Override
     public String getLocalizedName(int meta) {
-        Materials material = GTDataUtils.getIndexSafe(mMats, meta);
+        Materials_OLD material = GTDataUtils.getIndexSafe(mMats, meta);
 
-        if (material == null) material = Materials._NULL;
+        if (material == null) material = Materials_OLD._NULL;
 
         return OrePrefixes.block.getLocalizedNameForItem(material);
     }

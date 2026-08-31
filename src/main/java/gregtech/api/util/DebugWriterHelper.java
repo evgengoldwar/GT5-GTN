@@ -25,7 +25,7 @@ import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.casing.Casings;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.common.blocks.BlockFrameBox;
@@ -40,7 +40,7 @@ public class DebugWriterHelper {
 
     private static final Map<Block, String> VANILLA_BLOCK_NAMES = new IdentityHashMap<>();
     private static final Casings[] CASINGS_VALUES = Casings.values();
-    private static final Materials[] MATERIALS_VALUES = Materials.values();
+    private static final Materials_OLD[] MATERIALS_OLD_VALUES = Materials_OLD.values();
 
     static {
         // VanillaBlocks
@@ -81,7 +81,7 @@ public class DebugWriterHelper {
         registerBlockAssociation((block, meta, symbol) -> {
             if (block instanceof BlockFrameBox) {
                 try {
-                    Materials material = BlockFrameBox.getMaterial(meta);
+                    Materials_OLD material = BlockFrameBox.getMaterial(meta);
                     if (material != null) {
                         return symbol + "-> "
                             + "addElement('"
@@ -98,7 +98,7 @@ public class DebugWriterHelper {
         // Sheet Metal
         registerBlockAssociation((block, meta, symbol) -> {
             if (block == GregTechAPI.sBlockSheetmetalGT) {
-                for (Materials material : MATERIALS_VALUES) {
+                for (Materials_OLD material : MATERIALS_OLD_VALUES) {
                     if (material.mMetaItemSubID == meta) {
                         return symbol + "-> "
                             + "addElement('"

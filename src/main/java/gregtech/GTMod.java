@@ -51,7 +51,7 @@ import gregtech.api.enchants.EnchantmentEnderDamage;
 import gregtech.api.enchants.EnchantmentHazmat;
 import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
@@ -279,7 +279,7 @@ public class GTMod {
         new EnchantmentEnderDamage();
         new EnchantmentRadioactivity();
 
-        Materials.init();
+        Materials_OLD.init();
 
         GTPreLoad.initLocalization(
             event.getModConfigurationDirectory()

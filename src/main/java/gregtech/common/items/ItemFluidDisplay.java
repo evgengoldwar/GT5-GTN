@@ -27,7 +27,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.util.GTUtility;
@@ -133,7 +133,7 @@ public class ItemFluidDisplay extends GTGenericItem implements IFluidContainerIt
     @SideOnly(Side.CLIENT)
     public static IOreMaterial getMaterial(Fluid fluid) {
         if (fluid instanceof GTFluid gtFluid) {
-            return Materials.FLUID_MAP.get(gtFluid);
+            return Materials_OLD.FLUID_MAP.get(gtFluid);
         }
         return null;
     }

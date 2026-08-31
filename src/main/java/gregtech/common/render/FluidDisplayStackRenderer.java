@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 import appeng.util.ReadableNumberConverter;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.common.items.ItemFluidDisplay;
 
 @SideOnly(Side.CLIENT)
@@ -44,7 +44,8 @@ public class FluidDisplayStackRenderer implements IItemRenderer {
         GL11.glEnable(GL11.GL_ALPHA_TEST);
 
         Fluid fluid = FluidRegistry.getFluid(item.getItemDamage());
-        Materials associatedFluidMaterial = Materials.get(item.stackTagCompound.getString("mFluidMaterialName"));
+        Materials_OLD associatedFluidMaterial = Materials_OLD
+            .get(item.stackTagCompound.getString("mFluidMaterialName"));
         if (associatedFluidMaterial.renderer == null
             || !associatedFluidMaterial.renderer.renderFluidDisplayItem(type, item, data)) {
             IIcon icon = item.getItem()

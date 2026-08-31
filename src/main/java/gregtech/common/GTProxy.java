@@ -88,7 +88,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
@@ -414,26 +414,26 @@ public class GTProxy implements IFuelHandler {
                 .getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketFired", 1L, 0);
             GTOreDictUnificator.set(
                 OrePrefixes.bucketClay,
-                Materials.Empty,
+                Materials_OLD.Empty,
                 GTModHandler.getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketFired", 1L, 0));
             GTOreDictUnificator.set(
                 OrePrefixes.bucketClay,
-                Materials.Water,
+                Materials_OLD.Water,
                 GTModHandler.getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketWater", 1L, 0));
             GTOreDictUnificator.set(
                 OrePrefixes.bucketClay,
-                Materials.Lava,
+                Materials_OLD.Lava,
                 GTModHandler.getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketLava", 1L, 0));
             GTOreDictUnificator.set(
                 OrePrefixes.bucketClay,
-                Materials.Milk,
+                Materials_OLD.Milk,
                 GTModHandler.getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketMilk", 1L, 0));
 
             FluidContainerRegistry.registerFluidContainer(
                 new FluidContainerRegistry.FluidContainerData(
-                    Materials.Milk.getFluid(1_000),
-                    GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials.Milk, 1L),
-                    GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials.Empty, 1L)));
+                    Materials_OLD.Milk.getFluid(1_000),
+                    GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials_OLD.Milk, 1L),
+                    GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials_OLD.Empty, 1L)));
         }
 
         if (!Worldgen.general.generateUndergroundGravelGen) {
@@ -475,9 +475,9 @@ public class GTProxy implements IFuelHandler {
         // onInitialization() seems to be too early, as the New Horizons Core Mod registers some fluids in post-load.
         // MetaGeneratedItem98.init();
 
-        GTOreDictUnificator.addItemData(new ItemStack(Items.iron_door, 1), new ItemData(Materials.Iron, 21772800L));
+        GTOreDictUnificator.addItemData(new ItemStack(Items.iron_door, 1), new ItemData(Materials_OLD.Iron, 21772800L));
         GTOreDictUnificator
-            .addItemData(new ItemStack(Items.wooden_door, 1, 32767), new ItemData(Materials.Wood, 21772800L));
+            .addItemData(new ItemStack(Items.wooden_door, 1, 32767), new ItemData(Materials_OLD.Wood, 21772800L));
         for (FluidContainerRegistry.FluidContainerData tData : FluidContainerRegistry
             .getRegisteredFluidContainerData()) {
             if ((tData.filledContainer.getItem() == Items.potionitem) && (tData.filledContainer.getItemDamage() == 0)) {

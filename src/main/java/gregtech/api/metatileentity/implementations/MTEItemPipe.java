@@ -29,7 +29,7 @@ import gregtech.GTMod;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.HarvestTool;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
@@ -50,7 +50,7 @@ import gregtech.common.covers.Base.Cover;
 public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPipe, ILocalizedMetaPipeEntity {
 
     public final float mThickNess;
-    public final Materials mMaterial;
+    public final Materials_OLD mMaterial;
     public final int mStepSize;
     public final int mTickTime;
     public int mTransferredItems = 0;
@@ -61,7 +61,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     private String mPrefixKey;
     private String materialKeyOverride;
 
-    public MTEItemPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials aMaterial,
+    public MTEItemPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
         int aInvSlotCount, int aStepSize, boolean aIsRestrictive, int aTickTime) {
         super(aID, aName, aInvSlotCount, false);
         this.mPrefixKey = aPrefixKey;
@@ -73,12 +73,12 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
         addInfo(aID);
     }
 
-    public MTEItemPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials aMaterial,
+    public MTEItemPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
         int aInvSlotCount, int aStepSize, boolean aIsRestrictive) {
         this(aID, aName, aPrefixKey, aThickNess, aMaterial, aInvSlotCount, aStepSize, aIsRestrictive, 20);
     }
 
-    public MTEItemPipe(String aName, float aThickNess, Materials aMaterial, int aInvSlotCount, int aStepSize,
+    public MTEItemPipe(String aName, float aThickNess, Materials_OLD aMaterial, int aInvSlotCount, int aStepSize,
         boolean aIsRestrictive, int aTickTime) {
         super(aName, aInvSlotCount);
         mIsRestrictive = aIsRestrictive;

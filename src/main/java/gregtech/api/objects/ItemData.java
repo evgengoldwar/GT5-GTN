@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 
 public class ItemData {
@@ -20,7 +20,7 @@ public class ItemData {
     public boolean mBlackListed = false;
     public ItemStack mUnificationTarget = null;
 
-    public ItemData(OrePrefixes aPrefix, Materials aMaterial, boolean aBlackListed) {
+    public ItemData(OrePrefixes aPrefix, Materials_OLD aMaterial, boolean aBlackListed) {
         mPrefix = aPrefix;
         mMaterial = aMaterial == null ? null : new MaterialStack(aMaterial, aPrefix.getMaterialAmount());
         mBlackListed = aBlackListed;
@@ -29,7 +29,7 @@ public class ItemData {
             : new MaterialStack[] { aPrefix.mSecondaryMaterial.clone() };
     }
 
-    public ItemData(OrePrefixes aPrefix, Materials aMaterial) {
+    public ItemData(OrePrefixes aPrefix, Materials_OLD aMaterial) {
         this(aPrefix, aMaterial, false);
     }
 
@@ -50,11 +50,11 @@ public class ItemData {
         }
     }
 
-    public ItemData(Materials aMaterial, long aAmount, MaterialStack... aByProducts) {
+    public ItemData(Materials_OLD aMaterial, long aAmount, MaterialStack... aByProducts) {
         this(new MaterialStack(aMaterial, aAmount), aByProducts);
     }
 
-    public ItemData(Materials aMaterial, long aAmount, Materials aByProduct, long aByProductAmount) {
+    public ItemData(Materials_OLD aMaterial, long aAmount, Materials_OLD aByProduct, long aByProductAmount) {
         this(new MaterialStack(aMaterial, aAmount), new MaterialStack(aByProduct, aByProductAmount));
     }
 

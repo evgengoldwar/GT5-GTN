@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.IDamagableItem;
 import gregtech.api.interfaces.internal.IThaumcraftCompat;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -118,7 +118,7 @@ public class GregTechAPI {
     /**
      * A List containing all the Materials, which are somehow in use by GT and therefor receive a specific Set of Items.
      */
-    public static final Materials[] sGeneratedMaterials = new Materials[1000];
+    public static final Materials_OLD[] S_GENERATED_MATERIALS = new Materials_OLD[1000];
     /**
      * For the API Version check
      */

@@ -15,7 +15,7 @@ import com.gtnewhorizons.postea.api.TileEntityReplacementManager;
 import com.gtnewhorizons.postea.utility.BlockInfo;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 
 public class PosteaTransformers implements Runnable {
@@ -56,12 +56,14 @@ public class PosteaTransformers implements Runnable {
 
     private void registerPotassiumHydroxideTransformer() {
         // For players updating from dailies
-        ItemStackReplacementManager
-            .addSimpleReplacement("dreamcraft:PotassiumHydroxideDust", Materials.PotassiumHydroxide.getDust(1), true);
+        ItemStackReplacementManager.addSimpleReplacement(
+            "dreamcraft:PotassiumHydroxideDust",
+            Materials_OLD.PotassiumHydroxide.getDust(1),
+            true);
         // For players updating directly from 2.8.4 or before
         ItemStackReplacementManager.addSimpleReplacement(
             "dreamcraft:item.PotassiumHydroxideDust",
-            Materials.PotassiumHydroxide.getDust(1),
+            Materials_OLD.PotassiumHydroxide.getDust(1),
             true); // FML Warning suppression in coremod
     }
 

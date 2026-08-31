@@ -9,7 +9,7 @@ import gregtech.api.enums.Dyes;
 import gregtech.api.enums.Element;
 import gregtech.api.enums.MaterialBuilder;
 import gregtech.api.enums.MaterialIconRegistry;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.enums.TCAspects;
@@ -69,94 +69,94 @@ public class MaterialsInit {
     }
 
     private static void loadElements() {
-        Materials.Aluminium = loadAluminium();
-        Materials.Americium = loadAmericium();
-        Materials.Antimony = loadAntimony();
-        Materials.Argon = loadArgon();
-        Materials.Arsenic = loadArsenic();
-        Materials.Barium = loadBarium();
-        Materials.Beryllium = loadBeryllium();
-        Materials.Bismuth = loadBismuth();
-        Materials.Boron = loadBoron();
-        Materials.Caesium = loadCaesium();
-        Materials.Calcium = loadCalcium();
-        Materials.Carbon = loadCarbon();
-        Materials.Cadmium = loadCadmium();
-        Materials.Cerium = loadCerium();
-        Materials.Chlorine = loadChlorine();
-        Materials.Chrome = loadChrome();
-        Materials.Cobalt = loadCobalt();
-        Materials.Copper = loadCopper();
-        Materials.Desh = loadDesh(); // Not a real element
-        Materials.Dysprosium = loadDysprosium();
-        Materials.Empty = loadEmpty(); // Not a real element
-        Materials.Erbium = loadErbium();
-        Materials.Europium = loadEuropium();
-        Materials.Flerovium = loadFlerovium();
-        Materials.Fluorine = loadFluorine();
-        Materials.Francium = loadFrancium();
-        Materials.Gadolinium = loadGadolinium();
-        Materials.Gallium = loadGallium();
-        Materials.Gold = loadGold();
-        Materials.Holmium = loadHolmium();
-        Materials.Hydrogen = loadHydrogen();
-        Materials.Helium = loadHelium();
-        Materials.Indium = loadIndium();
-        Materials.Iridium = loadIridium();
-        Materials.Iron = loadIron();
-        Materials.Lanthanum = loadLanthanum();
-        Materials.Lead = loadLead();
-        Materials.Lithium = loadLithium();
-        Materials.Lutetium = loadLutetium();
-        Materials.Magic = loadMagic(); // Not a real element
-        Materials.Magnesium = loadMagnesium();
-        Materials.Manganese = loadManganese();
-        Materials.Mercury = loadMercury();
-        Materials.MeteoricIron = loadMeteoricIron(); // Not a real element
-        Materials.Molybdenum = loadMolybdenum();
-        Materials.Naquadah = loadNaquadah(); // Not a real element
-        Materials.Neodymium = loadNeodymium();
-        Materials.Neutronium = loadNeutronium();
-        Materials.Nickel = loadNickel();
-        Materials.Niobium = loadNiobium();
-        Materials.Nitrogen = loadNitrogen();
-        Materials._NULL = loadNULL(); // Not a real element
-        Materials.Oriharukon = loadOriharukon();
-        Materials.Osmium = loadOsmium();
-        Materials.Oxygen = loadOxygen();
-        Materials.Palladium = loadPalladium();
-        Materials.Phosphorus = loadPhosphorus();
-        Materials.Platinum = loadPlatinum();
-        Materials.Plutonium = loadPlutonium();
-        Materials.Potassium = loadPotassium();
-        Materials.Praseodymium = loadPraseodymium();
-        Materials.Promethium = loadPromethium();
-        Materials.Radon = loadRadon();
-        Materials.Rubidium = loadRubidium();
-        Materials.Samarium = loadSamarium();
-        Materials.Scandium = loadScandium();
-        Materials.Silicon = loadSilicon();
-        Materials.Silver = loadSilver();
-        Materials.Sodium = loadSodium();
-        Materials.Strontium = loadStrontium();
-        Materials.Sulfur = loadSulfur();
-        Materials.Tantalum = loadTantalum();
-        Materials.Tellurium = loadTellurium();
-        Materials.Terbium = loadTerbium();
-        Materials.Thorium = loadThorium();
-        Materials.Thulium = loadThulium();
-        Materials.Tin = loadTin();
-        Materials.Titanium = loadTitanium();
-        Materials.Tritanium = loadTritanium(); // Not a real element
-        Materials.Tungsten = loadTungsten();
-        Materials.Uranium = loadUranium();
-        Materials.Vanadium = loadVanadium();
-        Materials.Ytterbium = loadYtterbium();
-        Materials.Yttrium = loadYttrium();
-        Materials.Zinc = loadZinc();
+        Materials_OLD.Aluminium = loadAluminium();
+        Materials_OLD.Americium = loadAmericium();
+        Materials_OLD.Antimony = loadAntimony();
+        Materials_OLD.Argon = loadArgon();
+        Materials_OLD.Arsenic = loadArsenic();
+        Materials_OLD.Barium = loadBarium();
+        Materials_OLD.Beryllium = loadBeryllium();
+        Materials_OLD.Bismuth = loadBismuth();
+        Materials_OLD.Boron = loadBoron();
+        Materials_OLD.Caesium = loadCaesium();
+        Materials_OLD.Calcium = loadCalcium();
+        Materials_OLD.Carbon = loadCarbon();
+        Materials_OLD.Cadmium = loadCadmium();
+        Materials_OLD.Cerium = loadCerium();
+        Materials_OLD.Chlorine = loadChlorine();
+        Materials_OLD.Chrome = loadChrome();
+        Materials_OLD.Cobalt = loadCobalt();
+        Materials_OLD.Copper = loadCopper();
+        Materials_OLD.Desh = loadDesh(); // Not a real element
+        Materials_OLD.Dysprosium = loadDysprosium();
+        Materials_OLD.Empty = loadEmpty(); // Not a real element
+        Materials_OLD.Erbium = loadErbium();
+        Materials_OLD.Europium = loadEuropium();
+        Materials_OLD.Flerovium = loadFlerovium();
+        Materials_OLD.Fluorine = loadFluorine();
+        Materials_OLD.Francium = loadFrancium();
+        Materials_OLD.Gadolinium = loadGadolinium();
+        Materials_OLD.Gallium = loadGallium();
+        Materials_OLD.Gold = loadGold();
+        Materials_OLD.Holmium = loadHolmium();
+        Materials_OLD.Hydrogen = loadHydrogen();
+        Materials_OLD.Helium = loadHelium();
+        Materials_OLD.Indium = loadIndium();
+        Materials_OLD.Iridium = loadIridium();
+        Materials_OLD.Iron = loadIron();
+        Materials_OLD.Lanthanum = loadLanthanum();
+        Materials_OLD.Lead = loadLead();
+        Materials_OLD.Lithium = loadLithium();
+        Materials_OLD.Lutetium = loadLutetium();
+        Materials_OLD.Magic = loadMagic(); // Not a real element
+        Materials_OLD.Magnesium = loadMagnesium();
+        Materials_OLD.Manganese = loadManganese();
+        Materials_OLD.Mercury = loadMercury();
+        Materials_OLD.MeteoricIron = loadMeteoricIron(); // Not a real element
+        Materials_OLD.Molybdenum = loadMolybdenum();
+        Materials_OLD.Naquadah = loadNaquadah(); // Not a real element
+        Materials_OLD.Neodymium = loadNeodymium();
+        Materials_OLD.Neutronium = loadNeutronium();
+        Materials_OLD.Nickel = loadNickel();
+        Materials_OLD.Niobium = loadNiobium();
+        Materials_OLD.Nitrogen = loadNitrogen();
+        Materials_OLD._NULL = loadNULL(); // Not a real element
+        Materials_OLD.Oriharukon = loadOriharukon();
+        Materials_OLD.Osmium = loadOsmium();
+        Materials_OLD.Oxygen = loadOxygen();
+        Materials_OLD.Palladium = loadPalladium();
+        Materials_OLD.Phosphorus = loadPhosphorus();
+        Materials_OLD.Platinum = loadPlatinum();
+        Materials_OLD.Plutonium = loadPlutonium();
+        Materials_OLD.Potassium = loadPotassium();
+        Materials_OLD.Praseodymium = loadPraseodymium();
+        Materials_OLD.Promethium = loadPromethium();
+        Materials_OLD.Radon = loadRadon();
+        Materials_OLD.Rubidium = loadRubidium();
+        Materials_OLD.Samarium = loadSamarium();
+        Materials_OLD.Scandium = loadScandium();
+        Materials_OLD.Silicon = loadSilicon();
+        Materials_OLD.Silver = loadSilver();
+        Materials_OLD.Sodium = loadSodium();
+        Materials_OLD.Strontium = loadStrontium();
+        Materials_OLD.Sulfur = loadSulfur();
+        Materials_OLD.Tantalum = loadTantalum();
+        Materials_OLD.Tellurium = loadTellurium();
+        Materials_OLD.Terbium = loadTerbium();
+        Materials_OLD.Thorium = loadThorium();
+        Materials_OLD.Thulium = loadThulium();
+        Materials_OLD.Tin = loadTin();
+        Materials_OLD.Titanium = loadTitanium();
+        Materials_OLD.Tritanium = loadTritanium(); // Not a real element
+        Materials_OLD.Tungsten = loadTungsten();
+        Materials_OLD.Uranium = loadUranium();
+        Materials_OLD.Vanadium = loadVanadium();
+        Materials_OLD.Ytterbium = loadYtterbium();
+        Materials_OLD.Yttrium = loadYttrium();
+        Materials_OLD.Zinc = loadZinc();
     }
 
-    private static Materials loadAluminium() {
+    private static Materials_OLD loadAluminium() {
         return new MaterialBuilder().setName("Aluminium")
             .setDefaultLocalName("Aluminium")
             .setElement(Element.Al)
@@ -176,13 +176,13 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.VOLATUS, 1)
-            .addOreByproduct(() -> Materials.Bauxite)
+            .addOreByproduct(() -> Materials_OLD.Bauxite)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadAmericium() {
+    private static Materials_OLD loadAmericium() {
         return new MaterialBuilder().setName("Americium")
             .setDefaultLocalName("Americium")
             .setElement(Element.Am)
@@ -202,7 +202,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAntimony() {
+    private static Materials_OLD loadAntimony() {
         return new MaterialBuilder().setName("Antimony")
             .setDefaultLocalName("Antimony")
             .setElement(Element.Sb)
@@ -217,15 +217,15 @@ public class MaterialsInit {
             .setMeltingPoint(903)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.AQUA, 1)
-            .addOreByproduct(() -> Materials.Zinc)
-            .addOreByproduct(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Zinc)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .constructMaterial();
     }
 
-    private static Materials loadArgon() {
+    private static Materials_OLD loadArgon() {
         return new MaterialBuilder().setName("Argon")
             .setDefaultLocalName("Argon")
             .setElement(Element.Ar)
@@ -240,7 +240,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadArsenic() {
+    private static Materials_OLD loadArsenic() {
         return new MaterialBuilder().setName("Arsenic")
             .setDefaultLocalName("Arsenic")
             .setElement(Element.As)
@@ -258,7 +258,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBarium() {
+    private static Materials_OLD loadBarium() {
         return new MaterialBuilder().setName("Barium")
             .setDefaultLocalName("Barium")
             .setElement(Element.Ba)
@@ -273,7 +273,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBeryllium() {
+    private static Materials_OLD loadBeryllium() {
         return new MaterialBuilder().setName("Beryllium")
             .setDefaultLocalName("Beryllium")
             .setElement(Element.Be)
@@ -289,13 +289,13 @@ public class MaterialsInit {
             .setMeltingPoint(1_560)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.LUCRUM, 1)
-            .addOreByproduct(() -> Materials.Emerald)
+            .addOreByproduct(() -> Materials_OLD.Emerald)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadBismuth() {
+    private static Materials_OLD loadBismuth() {
         return new MaterialBuilder().setName("Bismuth")
             .setDefaultLocalName("Bismuth")
             .setElement(Element.Bi)
@@ -317,7 +317,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBoron() {
+    private static Materials_OLD loadBoron() {
         return new MaterialBuilder().setName("Boron")
             .setDefaultLocalName("Boron")
             .setElement(Element.B)
@@ -332,7 +332,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCaesium() {
+    private static Materials_OLD loadCaesium() {
         return new MaterialBuilder().setName("Caesium")
             .setDefaultLocalName("Caesium")
             .setElement(Element.Cs)
@@ -351,7 +351,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCalcium() {
+    private static Materials_OLD loadCalcium() {
         return new MaterialBuilder().setName("Calcium")
             .setDefaultLocalName("Calcium")
             .setElement(Element.Ca)
@@ -368,7 +368,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCarbon() {
+    private static Materials_OLD loadCarbon() {
         return new MaterialBuilder().setName("Carbon")
             .setDefaultLocalName("Carbon")
             .setElement(Element.C)
@@ -392,7 +392,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCadmium() {
+    private static Materials_OLD loadCadmium() {
         return new MaterialBuilder().setName("Cadmium")
             .setDefaultLocalName("Cadmium")
             .setElement(Element.Cd)
@@ -410,7 +410,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCerium() {
+    private static Materials_OLD loadCerium() {
         return new MaterialBuilder().setName("Cerium")
             .setDefaultLocalName("Cerium")
             .setElement(Element.Ce)
@@ -430,7 +430,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadChlorine() {
+    private static Materials_OLD loadChlorine() {
         return new MaterialBuilder().setName("Chlorine")
             .setDefaultLocalName("Chlorine")
             .setElement(Element.Cl)
@@ -444,7 +444,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadChrome() {
+    private static Materials_OLD loadChrome() {
         return new MaterialBuilder().setName("Chrome")
             .setDefaultLocalName("Chrome")
             .setElement(Element.Cr)
@@ -462,15 +462,15 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MACHINA, 1)
-            .addOreByproduct(() -> Materials.Iron)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadCobalt() {
+    private static Materials_OLD loadCobalt() {
         return new MaterialBuilder().setName("Cobalt")
             .setDefaultLocalName("Cobalt")
             .setElement(Element.Co)
@@ -490,14 +490,14 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.INSTRUMENTUM, 1)
-            .addOreByproduct(() -> Materials.Cobaltite)
+            .addOreByproduct(() -> Materials_OLD.Cobaltite)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .addSubTag(SubTag.WASHING_SODIUMPERSULFATE)
             .constructMaterial();
     }
 
-    private static Materials loadCopper() {
+    private static Materials_OLD loadCopper() {
         return new MaterialBuilder().setName("Copper")
             .setDefaultLocalName("Copper")
             .setElement(Element.Cu)
@@ -518,10 +518,10 @@ public class MaterialsInit {
             .setMeltingPoint(1_357)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.PERMUTATIO, 1)
-            .addOreByproduct(() -> Materials.Cobalt)
-            .addOreByproduct(() -> Materials.Gold)
-            .addOreByproduct(() -> Materials.Nickel)
-            .setArcSmeltingIntoWithGas(() -> Materials.Oxygen, () -> Materials.AnnealedCopper)
+            .addOreByproduct(() -> Materials_OLD.Cobalt)
+            .addOreByproduct(() -> Materials_OLD.Gold)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
+            .setArcSmeltingIntoWithGas(() -> Materials_OLD.Oxygen, () -> Materials_OLD.AnnealedCopper)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -530,7 +530,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDesh() {
+    private static Materials_OLD loadDesh() {
         return new MaterialBuilder().setName("Desh")
             .setDefaultLocalName("Desh")
             .setElement(Element.De)
@@ -557,7 +557,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDysprosium() {
+    private static Materials_OLD loadDysprosium() {
         return new MaterialBuilder().setName("Dysprosium")
             .setDefaultLocalName("Dysprosium")
             .setElement(Element.Dy)
@@ -576,7 +576,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEmpty() {
+    private static Materials_OLD loadEmpty() {
         return new MaterialBuilder().setName("Empty")
             .setDefaultLocalName("Empty")
             .setElement(Element._NULL)
@@ -590,7 +590,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadErbium() {
+    private static Materials_OLD loadErbium() {
         return new MaterialBuilder().setName("Erbium")
             .setDefaultLocalName("Erbium")
             .setElement(Element.Er)
@@ -610,7 +610,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEuropium() {
+    private static Materials_OLD loadEuropium() {
         return new MaterialBuilder().setName("Europium")
             .setDefaultLocalName("Europium")
             .setElement(Element.Eu)
@@ -631,7 +631,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFlerovium() {
+    private static Materials_OLD loadFlerovium() {
         return new MaterialBuilder().setName("Flerovium_GT5U")
             .setDefaultLocalName("Flerovium")
             .setElement(Element.Fl)
@@ -651,7 +651,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFluorine() {
+    private static Materials_OLD loadFluorine() {
         return new MaterialBuilder().setName("Fluorine")
             .setDefaultLocalName("Fluorine")
             .setElement(Element.F)
@@ -666,7 +666,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFrancium() {
+    private static Materials_OLD loadFrancium() {
         return new MaterialBuilder().setName("Francium_GT5U")
             .setDefaultLocalName("Francium")
             .setElement(Element.Fr)
@@ -681,7 +681,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGadolinium() {
+    private static Materials_OLD loadGadolinium() {
         return new MaterialBuilder().setName("Gadolinium")
             .setDefaultLocalName("Gadolinium")
             .setElement(Element.Gd)
@@ -701,7 +701,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGallium() {
+    private static Materials_OLD loadGallium() {
         return new MaterialBuilder().setName("Gallium")
             .setDefaultLocalName("Gallium")
             .setElement(Element.Ga)
@@ -721,7 +721,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGold() {
+    private static Materials_OLD loadGold() {
         return new MaterialBuilder().setName("Gold")
             .setDefaultLocalName("Gold")
             .setElement(Element.Au)
@@ -744,8 +744,8 @@ public class MaterialsInit {
             .setMeltingPoint(1_337)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.LUCRUM, 2)
-            .addOreByproduct(() -> Materials.Copper)
-            .addOreByproduct(() -> Materials.Nickel)
+            .addOreByproduct(() -> Materials_OLD.Copper)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -757,7 +757,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHolmium() {
+    private static Materials_OLD loadHolmium() {
         return new MaterialBuilder().setName("Holmium")
             .setDefaultLocalName("Holmium")
             .setElement(Element.Ho)
@@ -777,7 +777,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHydrogen() {
+    private static Materials_OLD loadHydrogen() {
         return new MaterialBuilder().setName("Hydrogen")
             .setDefaultLocalName("Hydrogen")
             .setElement(Element.H)
@@ -799,7 +799,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHelium() {
+    private static Materials_OLD loadHelium() {
         return new MaterialBuilder().setName("Helium")
             .setDefaultLocalName("Helium")
             .setElement(Element.He)
@@ -815,7 +815,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadIndium() {
+    private static Materials_OLD loadIndium() {
         return new MaterialBuilder().setName("Indium")
             .setDefaultLocalName("Indium")
             .setElement(Element.In)
@@ -834,7 +834,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadIridium() {
+    private static Materials_OLD loadIridium() {
         return new MaterialBuilder().setName("Iridium")
             .setDefaultLocalName("Iridium")
             .setElement(Element.Ir)
@@ -854,14 +854,14 @@ public class MaterialsInit {
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MACHINA, 1)
-            .addOreByproduct(() -> Materials.Platinum)
-            .addOreByproduct(() -> Materials.Osmium)
+            .addOreByproduct(() -> Materials_OLD.Platinum)
+            .addOreByproduct(() -> Materials_OLD.Osmium)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadIron() {
+    private static Materials_OLD loadIron() {
         return new MaterialBuilder().setName("Iron")
             .setDefaultLocalName("Iron")
             .setElement(Element.Fe)
@@ -883,8 +883,8 @@ public class MaterialsInit {
             .addGearItems()
             .setMeltingPoint(1_811)
             .addAspect(TCAspects.METALLUM, 3)
-            .addOreByproduct(() -> Materials.Nickel)
-            .addOreByproduct(() -> Materials.Tin)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
+            .addOreByproduct(() -> Materials_OLD.Tin)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_TRIPLE)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
@@ -895,7 +895,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLanthanum() {
+    private static Materials_OLD loadLanthanum() {
         return new MaterialBuilder().setName("Lanthanum")
             .setDefaultLocalName("Lanthanum")
             .setElement(Element.La)
@@ -915,7 +915,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLead() {
+    private static Materials_OLD loadLead() {
         return new MaterialBuilder().setName("Lead")
             .setDefaultLocalName("Lead")
             .setElement(Element.Pb)
@@ -933,8 +933,8 @@ public class MaterialsInit {
             .setMeltingPoint(600)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.ORDO, 1)
-            .addOreByproduct(() -> Materials.Silver)
-            .addOreByproduct(() -> Materials.Sulfur)
+            .addOreByproduct(() -> Materials_OLD.Silver)
+            .addOreByproduct(() -> Materials_OLD.Sulfur)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -943,7 +943,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLithium() {
+    private static Materials_OLD loadLithium() {
         return new MaterialBuilder().setName("Lithium")
             .setDefaultLocalName("Lithium")
             .setElement(Element.Li)
@@ -958,12 +958,12 @@ public class MaterialsInit {
             .setMeltingPoint(454)
             .addAspect(TCAspects.VITREUS, 1)
             .addAspect(TCAspects.POTENTIA, 2)
-            .addOreByproduct(() -> Materials.Lithium)
+            .addOreByproduct(() -> Materials_OLD.Lithium)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadLutetium() {
+    private static Materials_OLD loadLutetium() {
         return new MaterialBuilder().setName("Lutetium")
             .setDefaultLocalName("Lutetium")
             .setElement(Element.Lu)
@@ -983,7 +983,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMagic() {
+    private static Materials_OLD loadMagic() {
         return new MaterialBuilder().setName("Magic")
             .setDefaultLocalName("Magic")
             .setElement(Element.Ma)
@@ -1008,7 +1008,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMagnesium() {
+    private static Materials_OLD loadMagnesium() {
         return new MaterialBuilder().setName("Magnesium")
             .setDefaultLocalName("Magnesium")
             .setElement(Element.Mg)
@@ -1023,14 +1023,14 @@ public class MaterialsInit {
             .setMeltingPoint(923)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.SANO, 1)
-            .addOreByproduct(() -> Materials.Olivine)
+            .addOreByproduct(() -> Materials_OLD.Olivine)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadManganese() {
+    private static Materials_OLD loadManganese() {
         return new MaterialBuilder().setName("Manganese")
             .setDefaultLocalName("Manganese")
             .setElement(Element.Mn)
@@ -1045,15 +1045,15 @@ public class MaterialsInit {
             .addToolHeadItems()
             .setMeltingPoint(1_519)
             .addAspect(TCAspects.METALLUM, 3)
-            .addOreByproduct(() -> Materials.Chrome)
-            .addOreByproduct(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Chrome)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadMercury() {
+    private static Materials_OLD loadMercury() {
         return new MaterialBuilder().setName("Mercury")
             .setDefaultLocalName("Mercury")
             .setElement(Element.Hg)
@@ -1073,7 +1073,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMeteoricIron() {
+    private static Materials_OLD loadMeteoricIron() {
         return new MaterialBuilder().setName("MeteoricIron")
             .setDefaultLocalName("Meteoric Iron")
             .setElement(Element.SpFe)
@@ -1092,10 +1092,10 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 1)
-            .addOreByproduct(() -> Materials.Iron)
-            .addOreByproduct(() -> Materials.Nickel)
-            .addOreByproduct(() -> Materials.Iridium)
-            .addOreByproduct(() -> Materials.Platinum)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
+            .addOreByproduct(() -> Materials_OLD.Iridium)
+            .addOreByproduct(() -> Materials_OLD.Platinum)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_TRIPLE)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -1103,7 +1103,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMolybdenum() {
+    private static Materials_OLD loadMolybdenum() {
         return new MaterialBuilder().setName("Molybdenum")
             .setDefaultLocalName("Molybdenum")
             .setElement(Element.Mo)
@@ -1124,7 +1124,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNaquadah() {
+    private static Materials_OLD loadNaquadah() {
         return new MaterialBuilder().setName("Naquadah")
             .setDefaultLocalName("Naquadah")
             .setElement(Element.Nq)
@@ -1147,13 +1147,13 @@ public class MaterialsInit {
             .addAspect(TCAspects.METALLUM, 3)
             .addAspect(TCAspects.RADIO, 1)
             .addAspect(TCAspects.NEBRISUM, 1)
-            .addOreByproduct(() -> Materials.NaquadahEnriched)
+            .addOreByproduct(() -> Materials_OLD.NaquadahEnriched)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadNeodymium() {
+    private static Materials_OLD loadNeodymium() {
         return new MaterialBuilder().setName("Neodymium")
             .setDefaultLocalName("Neodymium")
             .setElement(Element.Nd)
@@ -1171,14 +1171,14 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 2)
-            .addOreByproduct(() -> Materials.Monazite)
-            .addOreByproduct(() -> Materials.RareEarth)
+            .addOreByproduct(() -> Materials_OLD.Monazite)
+            .addOreByproduct(() -> Materials_OLD.RareEarth)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadNeutronium() {
+    private static Materials_OLD loadNeutronium() {
         return new MaterialBuilder().setName("Neutronium")
             .setDefaultLocalName("Neutronium")
             .setElement(Element.Nt)
@@ -1200,7 +1200,7 @@ public class MaterialsInit {
             .addAspect(TCAspects.METALLUM, 4)
             .addAspect(TCAspects.VITREUS, 3)
             .addAspect(TCAspects.ALIENIS, 2)
-            .addOreByproduct(() -> Materials.Neutronium)
+            .addOreByproduct(() -> Materials_OLD.Neutronium)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .addOrePrefix(OrePrefixes.nanite)
@@ -1208,7 +1208,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_LuV);
     }
 
-    private static Materials loadNickel() {
+    private static Materials_OLD loadNickel() {
         return new MaterialBuilder().setName("Nickel")
             .setDefaultLocalName("Nickel")
             .setElement(Element.Ni)
@@ -1226,9 +1226,9 @@ public class MaterialsInit {
             .setMeltingPoint(1_728)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.IGNIS, 1)
-            .addOreByproduct(() -> Materials.Cobalt)
-            .addOreByproduct(() -> Materials.Platinum)
-            .addOreByproduct(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Cobalt)
+            .addOreByproduct(() -> Materials_OLD.Platinum)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
@@ -1237,7 +1237,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNiobium() {
+    private static Materials_OLD loadNiobium() {
         return new MaterialBuilder().setName("Niobium")
             .setDefaultLocalName("Niobium")
             .setElement(Element.Nb)
@@ -1257,7 +1257,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNitrogen() {
+    private static Materials_OLD loadNitrogen() {
         return new MaterialBuilder().setName("Nitrogen")
             .setDefaultLocalName("Nitrogen")
             .setElement(Element.N)
@@ -1278,14 +1278,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNULL() {
+    private static Materials_OLD loadNULL() {
         return new MaterialBuilder().setName("NULL")
             .setDefaultLocalName("NULL")
             .setElement(Element._NULL)
             .constructMaterial();
     }
 
-    private static Materials loadOriharukon() {
+    private static Materials_OLD loadOriharukon() {
         return new MaterialBuilder().setName("Oriharukon")
             .setDefaultLocalName("Oriharukon")
             .setElement(Element.Oh)
@@ -1312,7 +1312,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOsmium() {
+    private static Materials_OLD loadOsmium() {
         return new MaterialBuilder().setName("Osmium")
             .setDefaultLocalName("Osmium")
             .setElement(Element.Os)
@@ -1333,14 +1333,14 @@ public class MaterialsInit {
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MACHINA, 1)
             .addAspect(TCAspects.NEBRISUM, 1)
-            .addOreByproduct(() -> Materials.Iridium)
+            .addOreByproduct(() -> Materials_OLD.Iridium)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .addSubTag(SubTag.WASHING_MERCURY)
             .constructMaterial();
     }
 
-    private static Materials loadOxygen() {
+    private static Materials_OLD loadOxygen() {
         return new MaterialBuilder().setName("Oxygen")
             .setDefaultLocalName("Oxygen")
             .setElement(Element.O)
@@ -1361,7 +1361,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPalladium() {
+    private static Materials_OLD loadPalladium() {
         return new MaterialBuilder().setName("Palladium")
             .setDefaultLocalName("Palladium")
             .setElement(Element.Pd)
@@ -1384,7 +1384,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPhosphorus() {
+    private static Materials_OLD loadPhosphorus() {
         return new MaterialBuilder().setName("Phosphorus")
             .setDefaultLocalName("Phosphorus")
             .setElement(Element.P)
@@ -1396,11 +1396,11 @@ public class MaterialsInit {
             .setMeltingPoint(317)
             .addAspect(TCAspects.IGNIS, 2)
             .addAspect(TCAspects.POTENTIA, 1)
-            .addOreByproduct(() -> Materials.Phosphate)
+            .addOreByproduct(() -> Materials_OLD.Phosphate)
             .constructMaterial();
     }
 
-    private static Materials loadPlatinum() {
+    private static Materials_OLD loadPlatinum() {
         return new MaterialBuilder().setName("Platinum")
             .setDefaultLocalName("Platinum")
             .setElement(Element.Pt)
@@ -1417,15 +1417,15 @@ public class MaterialsInit {
             .setMeltingPoint(2_041)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.NEBRISUM, 1)
-            .addOreByproduct(() -> Materials.Nickel)
-            .addOreByproduct(() -> Materials.Iridium)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
+            .addOreByproduct(() -> Materials_OLD.Iridium)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .addSubTag(SubTag.WASHING_MERCURY)
             .constructMaterial();
     }
 
-    private static Materials loadPlutonium() {
+    private static Materials_OLD loadPlutonium() {
         return new MaterialBuilder().setName("Plutonium")
             .setDefaultLocalName("Plutonium 239")
             .setElement(Element.Pu)
@@ -1442,15 +1442,15 @@ public class MaterialsInit {
             .setMeltingPoint(912)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.RADIO, 2)
-            .addOreByproduct(() -> Materials.Uranium)
-            .addOreByproduct(() -> Materials.Lead)
+            .addOreByproduct(() -> Materials_OLD.Uranium)
+            .addOreByproduct(() -> Materials_OLD.Lead)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .hasGlowingOre()
             .constructMaterial();
     }
 
-    private static Materials loadPotassium() {
+    private static Materials_OLD loadPotassium() {
         return new MaterialBuilder().setName("Potassium")
             .setDefaultLocalName("Potassium")
             .setElement(Element.K)
@@ -1466,7 +1466,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPraseodymium() {
+    private static Materials_OLD loadPraseodymium() {
         return new MaterialBuilder().setName("Praseodymium")
             .setDefaultLocalName("Praseodymium")
             .setElement(Element.Pr)
@@ -1486,7 +1486,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPromethium() {
+    private static Materials_OLD loadPromethium() {
         return new MaterialBuilder().setName("Promethium")
             .setDefaultLocalName("Promethium")
             .setElement(Element.Pm)
@@ -1506,7 +1506,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRadon() {
+    private static Materials_OLD loadRadon() {
         return new MaterialBuilder().setName("Radon")
             .setDefaultLocalName("Radon")
             .setElement(Element.Rn)
@@ -1522,7 +1522,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRubidium() {
+    private static Materials_OLD loadRubidium() {
         return new MaterialBuilder().setName("Rubidium")
             .setDefaultLocalName("Rubidium")
             .setElement(Element.Rb)
@@ -1542,7 +1542,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSamarium() {
+    private static Materials_OLD loadSamarium() {
         return new MaterialBuilder().setName("Samarium")
             .setDefaultLocalName("Samarium")
             .setElement(Element.Sm)
@@ -1564,7 +1564,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadScandium() {
+    private static Materials_OLD loadScandium() {
         return new MaterialBuilder().setName("Scandium")
             .setDefaultLocalName("Scandium")
             .setElement(Element.Sc)
@@ -1585,7 +1585,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSilicon() {
+    private static Materials_OLD loadSilicon() {
         return new MaterialBuilder().setName("Silicon")
             .setDefaultLocalName("Raw Silicon")
             .setElement(Element.Si)
@@ -1606,7 +1606,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSilver() {
+    private static Materials_OLD loadSilver() {
         return new MaterialBuilder().setName("Silver")
             .setDefaultLocalName("Silver")
             .setElement(Element.Ag)
@@ -1624,8 +1624,8 @@ public class MaterialsInit {
             .setMeltingPoint(1_234)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.LUCRUM, 1)
-            .addOreByproduct(() -> Materials.Lead)
-            .addOreByproduct(() -> Materials.Sulfur)
+            .addOreByproduct(() -> Materials_OLD.Lead)
+            .addOreByproduct(() -> Materials_OLD.Sulfur)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -1634,7 +1634,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSodium() {
+    private static Materials_OLD loadSodium() {
         return new MaterialBuilder().setName("Sodium")
             .setDefaultLocalName("Sodium")
             .setElement(Element.Na)
@@ -1650,7 +1650,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadStrontium() {
+    private static Materials_OLD loadStrontium() {
         return new MaterialBuilder().setName("Strontium")
             .setDefaultLocalName("Strontium")
             .setElement(Element.Sr)
@@ -1670,7 +1670,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSulfur() {
+    private static Materials_OLD loadSulfur() {
         return new MaterialBuilder().setName("Sulfur")
             .setDefaultLocalName("Sulfur")
             .setElement(Element.S)
@@ -1683,14 +1683,14 @@ public class MaterialsInit {
             .addPlasma()
             .setMeltingPoint(388)
             .addAspect(TCAspects.IGNIS, 1)
-            .addOreByproduct(() -> Materials.Sulfur)
+            .addOreByproduct(() -> Materials_OLD.Sulfur)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
     }
 
-    private static Materials loadTantalum() {
+    private static Materials_OLD loadTantalum() {
         return new MaterialBuilder().setName("Tantalum")
             .setDefaultLocalName("Tantalum")
             .setElement(Element.Ta)
@@ -1713,7 +1713,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTellurium() {
+    private static Materials_OLD loadTellurium() {
         return new MaterialBuilder().setName("Tellurium")
             .setDefaultLocalName("Tellurium")
             .setElement(Element.Te)
@@ -1732,7 +1732,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTerbium() {
+    private static Materials_OLD loadTerbium() {
         return new MaterialBuilder().setName("Terbium")
             .setDefaultLocalName("Terbium")
             .setElement(Element.Tb)
@@ -1751,7 +1751,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadThorium() {
+    private static Materials_OLD loadThorium() {
         return new MaterialBuilder().setName("Thorium")
             .setDefaultLocalName("Thorium")
             .setElement(Element.Th)
@@ -1767,13 +1767,13 @@ public class MaterialsInit {
             .setMeltingPoint(2_115)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.RADIO, 1)
-            .addOreByproduct(() -> Materials.Uranium)
-            .addOreByproduct(() -> Materials.Lead)
+            .addOreByproduct(() -> Materials_OLD.Uranium)
+            .addOreByproduct(() -> Materials_OLD.Lead)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadThulium() {
+    private static Materials_OLD loadThulium() {
         return new MaterialBuilder().setName("Thulium")
             .setDefaultLocalName("Thulium")
             .setElement(Element.Tm)
@@ -1793,7 +1793,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTin() {
+    private static Materials_OLD loadTin() {
         return new MaterialBuilder().setName("Tin")
             .setDefaultLocalName("Tin")
             .setElement(Element.Sn)
@@ -1810,8 +1810,8 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(505)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.VITREUS, 1)
-            .addOreByproduct(() -> Materials.Iron)
-            .addOreByproduct(() -> Materials.Zinc)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .addOreByproduct(() -> Materials_OLD.Zinc)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
@@ -1820,7 +1820,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTitanium() {
+    private static Materials_OLD loadTitanium() {
         return new MaterialBuilder().setName("Titanium")
             .setDefaultLocalName("Titanium")
             .setElement(Element.Ti)
@@ -1841,13 +1841,13 @@ public class MaterialsInit {
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.TUTAMEN, 1)
-            .addOreByproduct(() -> Materials.Almandine)
+            .addOreByproduct(() -> Materials_OLD.Almandine)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadTritanium() {
+    private static Materials_OLD loadTritanium() {
         return new MaterialBuilder().setName("Tritanium")
             .setDefaultLocalName("Tritanium")
             .setElement(Element.Tn)
@@ -1872,7 +1872,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTungsten() {
+    private static Materials_OLD loadTungsten() {
         return new MaterialBuilder().setName("Tungsten")
             .setDefaultLocalName("Tungsten")
             .setElement(Element.W)
@@ -1893,14 +1893,14 @@ public class MaterialsInit {
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addAspect(TCAspects.METALLUM, 3)
             .addAspect(TCAspects.TUTAMEN, 1)
-            .addOreByproduct(() -> Materials.Manganese)
-            .addOreByproduct(() -> Materials.Molybdenum)
+            .addOreByproduct(() -> Materials_OLD.Manganese)
+            .addOreByproduct(() -> Materials_OLD.Molybdenum)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadUranium() {
+    private static Materials_OLD loadUranium() {
         return new MaterialBuilder().setName("Uranium")
             .setDefaultLocalName("Uranium 238")
             .setElement(Element.U)
@@ -1916,15 +1916,15 @@ public class MaterialsInit {
             .setMeltingPoint(1_405)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.RADIO, 1)
-            .addOreByproduct(() -> Materials.Lead)
-            .addOreByproduct(() -> Materials.Uranium235)
-            .addOreByproduct(() -> Materials.Thorium)
+            .addOreByproduct(() -> Materials_OLD.Lead)
+            .addOreByproduct(() -> Materials_OLD.Uranium235)
+            .addOreByproduct(() -> Materials_OLD.Thorium)
             .addSubTag(SubTag.METAL)
             .hasGlowingOre()
             .constructMaterial();
     }
 
-    private static Materials loadVanadium() {
+    private static Materials_OLD loadVanadium() {
         return new MaterialBuilder().setName("Vanadium")
             .setDefaultLocalName("Vanadium")
             .setElement(Element.V)
@@ -1946,7 +1946,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadYtterbium() {
+    private static Materials_OLD loadYtterbium() {
         return new MaterialBuilder().setName("Ytterbium")
             .setDefaultLocalName("Ytterbium")
             .setElement(Element.Yb)
@@ -1966,7 +1966,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadYttrium() {
+    private static Materials_OLD loadYttrium() {
         return new MaterialBuilder().setName("Yttrium")
             .setDefaultLocalName("Yttrium")
             .setElement(Element.Y)
@@ -1986,7 +1986,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadZinc() {
+    private static Materials_OLD loadZinc() {
         return new MaterialBuilder().setName("Zinc")
             .setDefaultLocalName("Zinc")
             .setElement(Element.Zn)
@@ -2001,8 +2001,8 @@ public class MaterialsInit {
             .setMeltingPoint(692)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.SANO, 1)
-            .addOreByproduct(() -> Materials.Tin)
-            .addOreByproduct(() -> Materials.Gallium)
+            .addOreByproduct(() -> Materials_OLD.Tin)
+            .addOreByproduct(() -> Materials_OLD.Gallium)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.WASHING_SODIUMPERSULFATE)
@@ -2010,14 +2010,14 @@ public class MaterialsInit {
     }
 
     private static void loadIsotopes() {
-        Materials.Deuterium = loadDeuterium();
-        Materials.Helium3 = loadHelium3();
-        Materials.Plutonium241 = loadPlutonium241();
-        Materials.Tritium = loadTritium();
-        Materials.Uranium235 = loadUranium235();
+        Materials_OLD.Deuterium = loadDeuterium();
+        Materials_OLD.Helium3 = loadHelium3();
+        Materials_OLD.Plutonium241 = loadPlutonium241();
+        Materials_OLD.Tritium = loadTritium();
+        Materials_OLD.Uranium235 = loadUranium235();
     }
 
-    private static Materials loadDeuterium() {
+    private static Materials_OLD loadDeuterium() {
         return new MaterialBuilder().setName("Deuterium")
             .setDefaultLocalName("Deuterium")
             .setElement(Element.D)
@@ -2032,7 +2032,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHelium3() {
+    private static Materials_OLD loadHelium3() {
         return new MaterialBuilder().setName("Helium_3")
             .setDefaultLocalName("Helium-3")
             .setElement(Element.He_3)
@@ -2046,7 +2046,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPlutonium241() {
+    private static Materials_OLD loadPlutonium241() {
         return new MaterialBuilder().setName("Plutonium241")
             .setDefaultLocalName("Plutonium 241")
             .setElement(Element.Pu_241)
@@ -2071,7 +2071,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTritium() {
+    private static Materials_OLD loadTritium() {
         return new MaterialBuilder().setName("Tritium")
             .setDefaultLocalName("Tritium")
             .setElement(Element.T)
@@ -2086,7 +2086,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUranium235() {
+    private static Materials_OLD loadUranium235() {
         return new MaterialBuilder().setName("Uranium235")
             .setDefaultLocalName("Uranium 235")
             .setElement(Element.U_235)
@@ -2111,18 +2111,18 @@ public class MaterialsInit {
     }
 
     private static void loadWaterLine() {
-        Materials.FlocculationWasteLiquid = loadFlocculationWasteLiquid();
-        Materials.Grade1PurifiedWater = loadGrade1PurifiedWater();
-        Materials.Grade2PurifiedWater = loadGrade2PurifiedWater();
-        Materials.Grade3PurifiedWater = loadGrade3PurifiedWater();
-        Materials.Grade4PurifiedWater = loadGrade4PurifiedWater();
-        Materials.Grade5PurifiedWater = loadGrade5PurifiedWater();
-        Materials.Grade6PurifiedWater = loadGrade6PurifiedWater();
-        Materials.Grade7PurifiedWater = loadGrade7PurifiedWater();
-        Materials.Grade8PurifiedWater = loadGrade8PurifiedWater();
+        Materials_OLD.FlocculationWasteLiquid = loadFlocculationWasteLiquid();
+        Materials_OLD.Grade1PurifiedWater = loadGrade1PurifiedWater();
+        Materials_OLD.Grade2PurifiedWater = loadGrade2PurifiedWater();
+        Materials_OLD.Grade3PurifiedWater = loadGrade3PurifiedWater();
+        Materials_OLD.Grade4PurifiedWater = loadGrade4PurifiedWater();
+        Materials_OLD.Grade5PurifiedWater = loadGrade5PurifiedWater();
+        Materials_OLD.Grade6PurifiedWater = loadGrade6PurifiedWater();
+        Materials_OLD.Grade7PurifiedWater = loadGrade7PurifiedWater();
+        Materials_OLD.Grade8PurifiedWater = loadGrade8PurifiedWater();
     }
 
-    private static Materials loadFlocculationWasteLiquid() {
+    private static Materials_OLD loadFlocculationWasteLiquid() {
         return new MaterialBuilder().setName("FlocculationWasteLiquid")
             .setDefaultLocalName("Flocculation Waste Liquid")
             .setChemicalFormula("Al₂(OH)₃??Cl₃")
@@ -2137,7 +2137,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrade1PurifiedWater() {
+    private static Materials_OLD loadGrade1PurifiedWater() {
         return new MaterialBuilder().setName("Grade1PurifiedWater")
             .setDefaultLocalName("Filtered Water (Grade 1)")
             .setChemicalFormula("H₂O")
@@ -2152,7 +2152,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrade2PurifiedWater() {
+    private static Materials_OLD loadGrade2PurifiedWater() {
         return new MaterialBuilder().setName("Grade2PurifiedWater")
             .setDefaultLocalName("Ozonated Water (Grade 2)")
             .setChemicalFormula("H₂O")
@@ -2167,7 +2167,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrade3PurifiedWater() {
+    private static Materials_OLD loadGrade3PurifiedWater() {
         return new MaterialBuilder().setName("Grade3PurifiedWater")
             .setDefaultLocalName("Flocculated Water (Grade 3)")
             .setChemicalFormula("H₂O")
@@ -2182,7 +2182,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrade4PurifiedWater() {
+    private static Materials_OLD loadGrade4PurifiedWater() {
         return new MaterialBuilder().setName("Grade4PurifiedWater")
             .setDefaultLocalName("pH Neutralized Water (Grade 4)")
             .setChemicalFormula("H₂O")
@@ -2197,7 +2197,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrade5PurifiedWater() {
+    private static Materials_OLD loadGrade5PurifiedWater() {
         return new MaterialBuilder().setName("Grade5PurifiedWater")
             .setDefaultLocalName("Extreme-Temperature Treated Water (Grade 5)")
             .setChemicalFormula("H₂O")
@@ -2212,7 +2212,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrade6PurifiedWater() {
+    private static Materials_OLD loadGrade6PurifiedWater() {
         return new MaterialBuilder().setName("Grade6PurifiedWater")
             .setDefaultLocalName("Ultraviolet Treated Electrically Neutral Water (Grade 6)")
             .setChemicalFormula("H₂O")
@@ -2227,7 +2227,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrade7PurifiedWater() {
+    private static Materials_OLD loadGrade7PurifiedWater() {
         return new MaterialBuilder().setName("Grade7PurifiedWater")
             .setDefaultLocalName("Degassed Decontaminant-Free Water (Grade 7)")
             .setChemicalFormula("H₂O")
@@ -2242,7 +2242,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrade8PurifiedWater() {
+    private static Materials_OLD loadGrade8PurifiedWater() {
         return new MaterialBuilder().setName("Grade8PurifiedWater")
             .setDefaultLocalName("Subatomically Perfect Water (Grade 8)")
             .setChemicalFormula("H₂O")
@@ -2258,22 +2258,22 @@ public class MaterialsInit {
     }
 
     private static void loadRandom() {
-        Materials.AnyBronze = loadAnyBronze();
-        Materials.AnyCopper = loadAnyCopper();
-        Materials.AnyCarbon = loadAnyCarbon();
-        Materials.AnyIron = loadAnyIron();
-        Materials.AnyRubber = loadAnyRubber();
-        Materials.AnySyntheticRubber = loadAnySyntheticRubber();
-        Materials.BrickNether = loadBrickNether();
-        Materials.Cobblestone = loadCobblestone();
-        Materials.Crystal = loadCrystal();
-        Materials.Metal = loadMetal();
-        Materials.Organic = loadOrganic();
-        Materials.Quartz = loadQuartz();
-        Materials.Unknown = loadUnknown();
+        Materials_OLD.AnyBronze = loadAnyBronze();
+        Materials_OLD.AnyCopper = loadAnyCopper();
+        Materials_OLD.AnyCarbon = loadAnyCarbon();
+        Materials_OLD.AnyIron = loadAnyIron();
+        Materials_OLD.AnyRubber = loadAnyRubber();
+        Materials_OLD.AnySyntheticRubber = loadAnySyntheticRubber();
+        Materials_OLD.BrickNether = loadBrickNether();
+        Materials_OLD.Cobblestone = loadCobblestone();
+        Materials_OLD.Crystal = loadCrystal();
+        Materials_OLD.Metal = loadMetal();
+        Materials_OLD.Organic = loadOrganic();
+        Materials_OLD.Quartz = loadQuartz();
+        Materials_OLD.Unknown = loadUnknown();
     }
 
-    private static Materials loadAnyBronze() {
+    private static Materials_OLD loadAnyBronze() {
         return new MaterialBuilder().setName("AnyBronze")
             .setDefaultLocalName("AnyBronze")
             .setUnifiable(false)
@@ -2282,20 +2282,20 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAnyCopper() {
+    private static Materials_OLD loadAnyCopper() {
         return new MaterialBuilder().setName("AnyCopper")
             .setDefaultLocalName("AnyCopper")
             .setChemicalFormula("Cu")
             .setUnifiable(false)
             .setIconSet(TextureSet.SET_SHINY)
-            .setSmeltingInto(() -> Materials.Copper)
-            .setMaceratingInto(() -> Materials.Copper)
-            .setArcSmeltingIntoWithGas(() -> Materials.Oxygen, () -> Materials.AnnealedCopper)
+            .setSmeltingInto(() -> Materials_OLD.Copper)
+            .setMaceratingInto(() -> Materials_OLD.Copper)
+            .setArcSmeltingIntoWithGas(() -> Materials_OLD.Oxygen, () -> Materials_OLD.AnnealedCopper)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadAnyCarbon() {
+    private static Materials_OLD loadAnyCarbon() {
         return new MaterialBuilder().setName("AnyCarbon")
             .setDefaultLocalName("AnyCarbon")
             .setChemicalFormula("C")
@@ -2304,28 +2304,28 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAnyIron() {
+    private static Materials_OLD loadAnyIron() {
         return new MaterialBuilder().setName("AnyIron")
             .setDefaultLocalName("AnyIron")
             .setChemicalFormula("Fe")
             .setUnifiable(false)
             .setIconSet(TextureSet.SET_SHINY)
-            .setSmeltingInto(() -> Materials.Iron)
-            .setMaceratingInto(() -> Materials.Iron)
+            .setSmeltingInto(() -> Materials_OLD.Iron)
+            .setMaceratingInto(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadAnyRubber() {
+    private static Materials_OLD loadAnyRubber() {
         return new MaterialBuilder().setName("AnyRubber")
             .setDefaultLocalName("AnyRubber")
             .setUnifiable(false)
             .setIconSet(TextureSet.SET_SHINY)
-            .setMaceratingInto(() -> Materials.Rubber)
+            .setMaceratingInto(() -> Materials_OLD.Rubber)
             .constructMaterial();
     }
 
-    private static Materials loadAnySyntheticRubber() {
+    private static Materials_OLD loadAnySyntheticRubber() {
         return new MaterialBuilder().setName("AnySyntheticRubber")
             .setDefaultLocalName("AnySyntheticRubber")
             .setUnifiable(false)
@@ -2333,7 +2333,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBrickNether() {
+    private static Materials_OLD loadBrickNether() {
         return new MaterialBuilder().setName("BrickNether")
             .setDefaultLocalName("BrickNether")
             .setUnifiable(false)
@@ -2342,7 +2342,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCobblestone() {
+    private static Materials_OLD loadCobblestone() {
         return new MaterialBuilder().setName("Cobblestone")
             .setDefaultLocalName("Cobblestone")
             .setUnifiable(false)
@@ -2350,7 +2350,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCrystal() {
+    private static Materials_OLD loadCrystal() {
         return new MaterialBuilder().setName("Crystal")
             .setDefaultLocalName("Crystal")
             .setUnifiable(false)
@@ -2361,7 +2361,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMetal() {
+    private static Materials_OLD loadMetal() {
         return new MaterialBuilder().setName("Metal")
             .setDefaultLocalName("Metal")
             .setUnifiable(false)
@@ -2370,7 +2370,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOrganic() {
+    private static Materials_OLD loadOrganic() {
         return new MaterialBuilder().setName("Organic")
             .setDefaultLocalName("Organic")
             .setUnifiable(false)
@@ -2378,7 +2378,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadQuartz() {
+    private static Materials_OLD loadQuartz() {
         return new MaterialBuilder().setName("Quartz")
             .setDefaultLocalName("Quartz")
             .setUnifiable(false)
@@ -2391,7 +2391,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUnknown() {
+    private static Materials_OLD loadUnknown() {
         return new MaterialBuilder().setName("Unknown")
             .setDefaultLocalName("Unknown")
             .setUnifiable(false)
@@ -2400,37 +2400,37 @@ public class MaterialsInit {
     }
 
     private static void loadDontCare() {
-        Materials.Alfium = loadAlfium();
-        Materials.Aquamarine = loadAquamarine();
-        Materials.DarkThaumium = loadDarkThaumium();
-        Materials.Draconium = loadDraconium();
-        Materials.DraconiumAwakened = loadDraconiumAwakened();
-        Materials.Ender = loadEnder();
-        Materials.Endium = loadEndium();
-        Materials.Fluix = loadFluix();
-        Materials.Flux = loadFlux();
-        Materials.InfusedTeslatite = loadInfusedTeslatite();
-        Materials.IridiumSodiumOxide = loadIridiumSodiumOxide();
-        Materials.Mutation = loadMutation();
-        Materials.OsmiumTetroxide = loadOsmiumTetroxide();
-        Materials.PhasedGold = loadPhasedGold();
-        Materials.PhasedIron = loadPhasedIron();
-        Materials.PlatinumGroupSludge = loadPlatinumGroupSludge();
-        Materials.PurpleAlloy = loadPurpleAlloy();
-        Materials.RubberTreeSap = loadRubberTreeSap();
-        Materials.Serpentine = loadSerpentine();
-        Materials.SodiumPeroxide = loadSodiumPeroxide();
-        Materials.Teslatite = loadTeslatite();
+        Materials_OLD.Alfium = loadAlfium();
+        Materials_OLD.Aquamarine = loadAquamarine();
+        Materials_OLD.DarkThaumium = loadDarkThaumium();
+        Materials_OLD.Draconium = loadDraconium();
+        Materials_OLD.DraconiumAwakened = loadDraconiumAwakened();
+        Materials_OLD.Ender = loadEnder();
+        Materials_OLD.Endium = loadEndium();
+        Materials_OLD.Fluix = loadFluix();
+        Materials_OLD.Flux = loadFlux();
+        Materials_OLD.InfusedTeslatite = loadInfusedTeslatite();
+        Materials_OLD.IridiumSodiumOxide = loadIridiumSodiumOxide();
+        Materials_OLD.Mutation = loadMutation();
+        Materials_OLD.OsmiumTetroxide = loadOsmiumTetroxide();
+        Materials_OLD.PhasedGold = loadPhasedGold();
+        Materials_OLD.PhasedIron = loadPhasedIron();
+        Materials_OLD.PlatinumGroupSludge = loadPlatinumGroupSludge();
+        Materials_OLD.PurpleAlloy = loadPurpleAlloy();
+        Materials_OLD.RubberTreeSap = loadRubberTreeSap();
+        Materials_OLD.Serpentine = loadSerpentine();
+        Materials_OLD.SodiumPeroxide = loadSodiumPeroxide();
+        Materials_OLD.Teslatite = loadTeslatite();
     }
 
-    private static Materials loadAlfium() {
+    private static Materials_OLD loadAlfium() {
         return new MaterialBuilder().setName("Alfium")
             .setDefaultLocalName("Alfium")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadAquamarine() {
+    private static Materials_OLD loadAquamarine() {
         return new MaterialBuilder().setName("Aquamarine")
             .setDefaultLocalName("Aquamarine")
             .addDustItems()
@@ -2438,7 +2438,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDarkThaumium() {
+    private static Materials_OLD loadDarkThaumium() {
         return new MaterialBuilder().setName("DarkThaumium")
             .setDefaultLocalName("Dark Thaumium")
             .addDustItems()
@@ -2448,7 +2448,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDraconium() {
+    private static Materials_OLD loadDraconium() {
         return new MaterialBuilder().setName("Draconium")
             .setDefaultLocalName("Draconium")
             .setChemicalFormula("D")
@@ -2473,7 +2473,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDraconiumAwakened() {
+    private static Materials_OLD loadDraconiumAwakened() {
         return new MaterialBuilder().setName("DraconiumAwakened")
             .setDefaultLocalName("Awakened Draconium")
             .setChemicalFormula("D*")
@@ -2498,14 +2498,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEnder() {
+    private static Materials_OLD loadEnder() {
         return new MaterialBuilder().setName("Ender")
             .setDefaultLocalName("Ender")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadEndium() {
+    private static Materials_OLD loadEndium() {
         return new MaterialBuilder().setName("HeeEndium")
             .setDefaultLocalName("Endium")
             .setChemicalFormula("Em")
@@ -2522,7 +2522,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFluix() {
+    private static Materials_OLD loadFluix() {
         return new MaterialBuilder().setName("Fluix")
             .setDefaultLocalName("Fluix")
             .addDustItems()
@@ -2535,42 +2535,42 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFlux() {
+    private static Materials_OLD loadFlux() {
         return new MaterialBuilder().setName("Flux")
             .setDefaultLocalName("Flux")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadInfusedTeslatite() {
+    private static Materials_OLD loadInfusedTeslatite() {
         return new MaterialBuilder().setName("InfusedTeslatite")
             .setDefaultLocalName("Infused Teslatite")
             .setARGB(0x0064b4ff)
             .constructMaterial();
     }
 
-    private static Materials loadIridiumSodiumOxide() {
+    private static Materials_OLD loadIridiumSodiumOxide() {
         return new MaterialBuilder().setName("IridiumSodiumOxide")
             .setDefaultLocalName("Iridium Sodium Oxide")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadMutation() {
+    private static Materials_OLD loadMutation() {
         return new MaterialBuilder().setName("Mutation")
             .setDefaultLocalName("Mutation")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadOsmiumTetroxide() {
+    private static Materials_OLD loadOsmiumTetroxide() {
         return new MaterialBuilder().setName("OsmiumTetroxide")
             .setDefaultLocalName("Osmium Tetroxide")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadPhasedGold() {
+    private static Materials_OLD loadPhasedGold() {
         return new MaterialBuilder().setName("PhasedGold")
             .setDefaultLocalName("Phased Gold")
             .addDustItems()
@@ -2581,7 +2581,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPhasedIron() {
+    private static Materials_OLD loadPhasedIron() {
         return new MaterialBuilder().setName("PhasedIron")
             .setDefaultLocalName("Phased Iron")
             .addDustItems()
@@ -2593,7 +2593,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPlatinumGroupSludge() {
+    private static Materials_OLD loadPlatinumGroupSludge() {
         return new MaterialBuilder().setName("PlatinumGroupSludge")
             .setDefaultLocalName("Platinum Group Sludge")
             .setChemicalFormula(
@@ -2611,20 +2611,20 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPurpleAlloy() {
+    private static Materials_OLD loadPurpleAlloy() {
         return new MaterialBuilder().setName("PurpleAlloy")
             .setDefaultLocalName("Purple Alloy")
             .setARGB(0x0064b4ff)
             .constructMaterial();
     }
 
-    private static Materials loadRubberTreeSap() {
+    private static Materials_OLD loadRubberTreeSap() {
         return new MaterialBuilder().setName("RubberTreeSap")
             .setDefaultLocalName("Rubber Tree Sap")
             .constructMaterial();
     }
 
-    private static Materials loadSerpentine() {
+    private static Materials_OLD loadSerpentine() {
         return new MaterialBuilder().setName("Serpentine")
             .setDefaultLocalName("Serpentine")
             .setMiningLevel(2)
@@ -2634,21 +2634,21 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSodiumPeroxide() {
+    private static Materials_OLD loadSodiumPeroxide() {
         return new MaterialBuilder().setName("SodiumPeroxide")
             .setDefaultLocalName("Sodium Peroxide")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadTeslatite() {
+    private static Materials_OLD loadTeslatite() {
         return new MaterialBuilder().setName("Teslatite")
             .setDefaultLocalName("Teslatite")
             .setARGB(0x003cb4c8)
             .setMiningLevel(2)
             .addDustItems()
             .setOreMultiplier(5) // No .addOreItems?
-            .addOreByproduct(() -> Materials.Diamond)
+            .addOreByproduct(() -> Materials_OLD.Diamond)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.SMELTING_TO_FLUID)
             .addSubTag(SubTag.STONE)
@@ -2657,119 +2657,119 @@ public class MaterialsInit {
     }
 
     private static void loadUnknownComponents() {
-        Materials.Adamantium = loadAdamantium();
-        Materials.Adamite = loadAdamite();
-        Materials.Adluorite = loadAdluorite();
-        Materials.Agate = loadAgate();
-        Materials.Alduorite = loadAlduorite();
-        Materials.Amber = loadAmber();
-        Materials.Ammonium = loadAmmonium();
-        Materials.Amordrine = loadAmordrine();
-        Materials.AncientDebris = loadAncientDebris();
-        Materials.Andesite = loadAndesite();
-        Materials.Ardite = loadArdite();
-        Materials.Aredrite = loadAredrite();
-        Materials.Bitumen = loadBitumen();
-        Materials.Black = loadBlack();
-        Materials.Blizz = loadBlizz();
-        Materials.Bloodstone = loadBloodstone();
-        Materials.Bluestone = loadBluestone();
-        Materials.Blutonium = loadBlutonium();
-        Materials.CertusQuartz = loadCertusQuartz();
-        Materials.CertusQuartzCharged = loadCertusQuartzCharged();
-        Materials.Ceruclase = loadCeruclase();
-        Materials.Chimerite = loadChimerite();
-        Materials.Chrysocolla = loadChrysocolla();
-        Materials.Citrine = loadCitrine();
-        Materials.CobaltHexahydrate = loadCobaltHexahydrate();
-        Materials.ConstructionFoam = loadConstructionFoam();
-        Materials.Coral = loadCoral();
-        Materials.CrudeOil = loadCrudeOil();
-        Materials.CrystalFlux = loadCrystalFlux();
-        Materials.Cyanite = loadCyanite();
-        Materials.DarkIron = loadDarkIron();
-        Materials.DarkStone = loadDarkStone();
-        Materials.Demonite = loadDemonite();
-        Materials.Desichalkos = loadDesichalkos();
-        Materials.Dilithium = loadDilithium();
-        Materials.Draconic = loadDraconic();
-        Materials.Drulloy = loadDrulloy();
-        Materials.Duranium = loadDuranium();
-        Materials.ElectrumFlux = loadElectrumFlux();
-        Materials.Emery = loadEmery();
-        Materials.EnderiumBase = loadEnderiumBase();
-        Materials.Energized = loadEnergized();
-        Materials.FierySteel = loadFierySteel();
-        Materials.Firestone = loadFirestone();
-        Materials.Fluorite = loadFluorite();
-        Materials.Force = loadForce();
-        Materials.Forcicium = loadForcicium();
-        Materials.Forcillium = loadForcillium();
-        Materials.Glowstone = loadGlowstone();
-        Materials.Graphene = loadGraphene();
-        Materials.Graphite = loadGraphite();
-        Materials.Greenstone = loadGreenstone();
-        Materials.Hematite = loadHematite();
-        Materials.HSLA = loadHSLA();
-        Materials.Infernal = loadInfernal();
-        Materials.InfusedAir = loadInfusedAir();
-        Materials.InfusedDull = loadInfusedDull();
-        Materials.InfusedEarth = loadInfusedEarth();
-        Materials.InfusedEntropy = loadInfusedEntropy();
-        Materials.InfusedFire = loadInfusedFire();
-        Materials.InfusedGold = loadInfusedGold();
-        Materials.InfusedOrder = loadInfusedOrder();
-        Materials.InfusedVis = loadInfusedVis();
-        Materials.InfusedWater = loadInfusedWater();
-        Materials.Invisium = loadInvisium();
-        Materials.Jade = loadJade();
-        Materials.Lava = loadLava();
-        Materials.Limestone = loadLimestone();
-        Materials.Magma = loadMagma();
-        Materials.Mawsitsit = loadMawsitsit();
-        Materials.Mercassium = loadMercassium();
-        Materials.MeteoricSteel = loadMeteoricSteel();
-        Materials.Meteorite = loadMeteorite();
-        Materials.Migmatite = loadMigmatite();
-        Materials.Mimichite = loadMimichite();
-        Materials.Moonstone = loadMoonstone();
-        Materials.NaquadahAlloy = loadNaquadahAlloy();
-        Materials.NaquadahEnriched = loadNaquadahEnriched();
-        Materials.Naquadria = loadNaquadria();
-        Materials.Nether = loadNether();
-        Materials.NetherBrick = loadNetherBrick();
-        Materials.NetherQuartz = loadNetherQuartz();
-        Materials.NetherStar = loadNetherStar();
-        Materials.ObsidianFlux = loadObsidianFlux();
-        Materials.Oilsands = loadOilsands();
-        Materials.Onyx = loadOnyx();
-        Materials.Orichalcum = loadOrichalcum();
-        Materials.Osmonium = loadOsmonium();
-        Materials.Painite = loadPainite();
-        Materials.Peanutwood = loadPeanutwood();
-        Materials.Petroleum = loadPetroleum();
-        Materials.Pewter = loadPewter();
-        Materials.Phoenixite = loadPhoenixite();
-        Materials.Quartzite = loadQuartzite();
-        Materials.Randomite = loadRandomite();
-        Materials.Rubracium = loadRubracium();
-        Materials.Sand = loadSand();
-        Materials.Siltstone = loadSiltstone();
-        Materials.Spinel = loadSpinel();
-        Materials.Sunstone = loadSunstone();
-        Materials.Tar = loadTar();
-        Materials.Tartarite = loadTartarite();
-        Materials.UUAmplifier = loadUUAmplifier();
-        Materials.UUMatter = loadUUMatter();
-        Materials.Void = loadVoid();
-        Materials.Voidstone = loadVoidstone();
-        Materials.Vulcanite = loadVulcanite();
-        Materials.Vyroxeres = loadVyroxeres();
-        Materials.Yellorium = loadYellorium();
-        Materials.Zectium = loadZectium();
+        Materials_OLD.Adamantium = loadAdamantium();
+        Materials_OLD.Adamite = loadAdamite();
+        Materials_OLD.Adluorite = loadAdluorite();
+        Materials_OLD.Agate = loadAgate();
+        Materials_OLD.Alduorite = loadAlduorite();
+        Materials_OLD.Amber = loadAmber();
+        Materials_OLD.Ammonium = loadAmmonium();
+        Materials_OLD.Amordrine = loadAmordrine();
+        Materials_OLD.AncientDebris = loadAncientDebris();
+        Materials_OLD.Andesite = loadAndesite();
+        Materials_OLD.Ardite = loadArdite();
+        Materials_OLD.Aredrite = loadAredrite();
+        Materials_OLD.Bitumen = loadBitumen();
+        Materials_OLD.Black = loadBlack();
+        Materials_OLD.Blizz = loadBlizz();
+        Materials_OLD.Bloodstone = loadBloodstone();
+        Materials_OLD.Bluestone = loadBluestone();
+        Materials_OLD.Blutonium = loadBlutonium();
+        Materials_OLD.CertusQuartz = loadCertusQuartz();
+        Materials_OLD.CertusQuartzCharged = loadCertusQuartzCharged();
+        Materials_OLD.Ceruclase = loadCeruclase();
+        Materials_OLD.Chimerite = loadChimerite();
+        Materials_OLD.Chrysocolla = loadChrysocolla();
+        Materials_OLD.Citrine = loadCitrine();
+        Materials_OLD.CobaltHexahydrate = loadCobaltHexahydrate();
+        Materials_OLD.ConstructionFoam = loadConstructionFoam();
+        Materials_OLD.Coral = loadCoral();
+        Materials_OLD.CrudeOil = loadCrudeOil();
+        Materials_OLD.CrystalFlux = loadCrystalFlux();
+        Materials_OLD.Cyanite = loadCyanite();
+        Materials_OLD.DarkIron = loadDarkIron();
+        Materials_OLD.DarkStone = loadDarkStone();
+        Materials_OLD.Demonite = loadDemonite();
+        Materials_OLD.Desichalkos = loadDesichalkos();
+        Materials_OLD.Dilithium = loadDilithium();
+        Materials_OLD.Draconic = loadDraconic();
+        Materials_OLD.Drulloy = loadDrulloy();
+        Materials_OLD.Duranium = loadDuranium();
+        Materials_OLD.ElectrumFlux = loadElectrumFlux();
+        Materials_OLD.Emery = loadEmery();
+        Materials_OLD.EnderiumBase = loadEnderiumBase();
+        Materials_OLD.Energized = loadEnergized();
+        Materials_OLD.FierySteel = loadFierySteel();
+        Materials_OLD.Firestone = loadFirestone();
+        Materials_OLD.Fluorite = loadFluorite();
+        Materials_OLD.Force = loadForce();
+        Materials_OLD.Forcicium = loadForcicium();
+        Materials_OLD.Forcillium = loadForcillium();
+        Materials_OLD.Glowstone = loadGlowstone();
+        Materials_OLD.Graphene = loadGraphene();
+        Materials_OLD.Graphite = loadGraphite();
+        Materials_OLD.Greenstone = loadGreenstone();
+        Materials_OLD.Hematite = loadHematite();
+        Materials_OLD.HSLA = loadHSLA();
+        Materials_OLD.Infernal = loadInfernal();
+        Materials_OLD.InfusedAir = loadInfusedAir();
+        Materials_OLD.InfusedDull = loadInfusedDull();
+        Materials_OLD.InfusedEarth = loadInfusedEarth();
+        Materials_OLD.InfusedEntropy = loadInfusedEntropy();
+        Materials_OLD.InfusedFire = loadInfusedFire();
+        Materials_OLD.InfusedGold = loadInfusedGold();
+        Materials_OLD.InfusedOrder = loadInfusedOrder();
+        Materials_OLD.InfusedVis = loadInfusedVis();
+        Materials_OLD.InfusedWater = loadInfusedWater();
+        Materials_OLD.Invisium = loadInvisium();
+        Materials_OLD.Jade = loadJade();
+        Materials_OLD.Lava = loadLava();
+        Materials_OLD.Limestone = loadLimestone();
+        Materials_OLD.Magma = loadMagma();
+        Materials_OLD.Mawsitsit = loadMawsitsit();
+        Materials_OLD.Mercassium = loadMercassium();
+        Materials_OLD.MeteoricSteel = loadMeteoricSteel();
+        Materials_OLD.Meteorite = loadMeteorite();
+        Materials_OLD.Migmatite = loadMigmatite();
+        Materials_OLD.Mimichite = loadMimichite();
+        Materials_OLD.Moonstone = loadMoonstone();
+        Materials_OLD.NaquadahAlloy = loadNaquadahAlloy();
+        Materials_OLD.NaquadahEnriched = loadNaquadahEnriched();
+        Materials_OLD.Naquadria = loadNaquadria();
+        Materials_OLD.Nether = loadNether();
+        Materials_OLD.NetherBrick = loadNetherBrick();
+        Materials_OLD.NetherQuartz = loadNetherQuartz();
+        Materials_OLD.NetherStar = loadNetherStar();
+        Materials_OLD.ObsidianFlux = loadObsidianFlux();
+        Materials_OLD.Oilsands = loadOilsands();
+        Materials_OLD.Onyx = loadOnyx();
+        Materials_OLD.Orichalcum = loadOrichalcum();
+        Materials_OLD.Osmonium = loadOsmonium();
+        Materials_OLD.Painite = loadPainite();
+        Materials_OLD.Peanutwood = loadPeanutwood();
+        Materials_OLD.Petroleum = loadPetroleum();
+        Materials_OLD.Pewter = loadPewter();
+        Materials_OLD.Phoenixite = loadPhoenixite();
+        Materials_OLD.Quartzite = loadQuartzite();
+        Materials_OLD.Randomite = loadRandomite();
+        Materials_OLD.Rubracium = loadRubracium();
+        Materials_OLD.Sand = loadSand();
+        Materials_OLD.Siltstone = loadSiltstone();
+        Materials_OLD.Spinel = loadSpinel();
+        Materials_OLD.Sunstone = loadSunstone();
+        Materials_OLD.Tar = loadTar();
+        Materials_OLD.Tartarite = loadTartarite();
+        Materials_OLD.UUAmplifier = loadUUAmplifier();
+        Materials_OLD.UUMatter = loadUUMatter();
+        Materials_OLD.Void = loadVoid();
+        Materials_OLD.Voidstone = loadVoidstone();
+        Materials_OLD.Vulcanite = loadVulcanite();
+        Materials_OLD.Vyroxeres = loadVyroxeres();
+        Materials_OLD.Yellorium = loadYellorium();
+        Materials_OLD.Zectium = loadZectium();
     }
 
-    private static Materials loadAdamantium() {
+    private static Materials_OLD loadAdamantium() {
         return new MaterialBuilder().setName("Adamantium")
             .setDefaultLocalName("Adamantium")
             .setChemicalFormula("Ad")
@@ -2791,7 +2791,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAdamite() {
+    private static Materials_OLD loadAdamite() {
         return new MaterialBuilder().setName("Adamite")
             .setDefaultLocalName("Adamite")
             .setMiningLevel(3)
@@ -2801,7 +2801,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAdluorite() {
+    private static Materials_OLD loadAdluorite() {
         return new MaterialBuilder().setName("Adluorite")
             .setDefaultLocalName("Adluorite")
             .setMiningLevel(2)
@@ -2815,14 +2815,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAgate() {
+    private static Materials_OLD loadAgate() {
         return new MaterialBuilder().setName("Agate")
             .setDefaultLocalName("Agate")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadAlduorite() {
+    private static Materials_OLD loadAlduorite() {
         return new MaterialBuilder().setName("Alduorite")
             .setDefaultLocalName("Alduorite")
             .setChemicalFormula("SpAl")
@@ -2843,7 +2843,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAmber() {
+    private static Materials_OLD loadAmber() {
         return new MaterialBuilder().setName("Amber")
             .setDefaultLocalName("Amber")
             .setIconSet(TextureSet.SET_RUBY)
@@ -2858,12 +2858,12 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 10)
-            .addMaterial(Materials.Hydrogen, 10)
-            .addMaterial(Materials.Oxygen, 16)
+            .addMaterial(Materials_OLD.Carbon, 10)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Oxygen, 16)
             .addAspect(TCAspects.VINCULUM, 2)
             .addAspect(TCAspects.VITREUS, 1)
-            .addOreByproduct(() -> Materials.Amber)
+            .addOreByproduct(() -> Materials_OLD.Amber)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -2871,14 +2871,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAmmonium() {
+    private static Materials_OLD loadAmmonium() {
         return new MaterialBuilder().setName("Ammonium")
             .setDefaultLocalName("Ammonium")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadAmordrine() {
+    private static Materials_OLD loadAmordrine() {
         return new MaterialBuilder().setName("Amordrine")
             .setDefaultLocalName("Amordrine")
             .setTool(64, 2, 6.0f)
@@ -2890,14 +2890,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAncientDebris() {
+    private static Materials_OLD loadAncientDebris() {
         return new MaterialBuilder().setName("Debris")
             .setDefaultLocalName("Ancient Debris")
             .setARGB(0x351a0b)
             .constructMaterial();
     }
 
-    private static Materials loadAndesite() {
+    private static Materials_OLD loadAndesite() {
         return new MaterialBuilder().setName("Andesite")
             .setDefaultLocalName("Andesite")
             .setMiningLevel(2)
@@ -2906,7 +2906,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadArdite() {
+    private static Materials_OLD loadArdite() {
         return new MaterialBuilder().setName("Ardite")
             .setDefaultLocalName("Ardite")
             .setChemicalFormula("Ai")
@@ -2929,7 +2929,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAredrite() {
+    private static Materials_OLD loadAredrite() {
         return new MaterialBuilder().setName("Aredrite")
             .setDefaultLocalName("Aredrite")
             .setColor(Dyes.dyeYellow)
@@ -2943,7 +2943,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBitumen() {
+    private static Materials_OLD loadBitumen() {
         return new MaterialBuilder().setName("Bitumen")
             .setDefaultLocalName("Bitumen")
             .setMiningLevel(2)
@@ -2952,7 +2952,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBlack() {
+    private static Materials_OLD loadBlack() {
         return new MaterialBuilder().setName("Black")
             .setDefaultLocalName("Black")
             .setColor(Dyes.dyeBlack)
@@ -2960,7 +2960,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBlizz() {
+    private static Materials_OLD loadBlizz() {
         return new MaterialBuilder().setName("Blizz")
             .setDefaultLocalName("Blizz")
             .setChemicalFormula("❆Ma")
@@ -2971,7 +2971,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBloodstone() {
+    private static Materials_OLD loadBloodstone() {
         return new MaterialBuilder().setName("Bloodstone")
             .setDefaultLocalName("Bloodstone")
             .setColor(Dyes.dyeRed)
@@ -2979,7 +2979,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBluestone() {
+    private static Materials_OLD loadBluestone() {
         return new MaterialBuilder().setName("Bluestone")
             .setDefaultLocalName("Bluestone")
             .setIconSet(TextureSet.SET_DULL)
@@ -2988,7 +2988,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBlutonium() {
+    private static Materials_OLD loadBlutonium() {
         return new MaterialBuilder().setName("Blutonium")
             .setDefaultLocalName("Blutonium")
             .setIconSet(TextureSet.SET_SHINY)
@@ -3001,7 +3001,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCertusQuartz() {
+    private static Materials_OLD loadCertusQuartz() {
         return new MaterialBuilder().setName("CertusQuartz")
             .setDefaultLocalName("Certus Quartz")
             .setChemicalFormula("SiO₂")
@@ -3016,8 +3016,8 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addAspect(TCAspects.POTENTIA, 1)
             .addAspect(TCAspects.VITREUS, 1)
-            .addOreByproduct(() -> Materials.Quartzite)
-            .addOreByproduct(() -> Materials.Barite)
+            .addOreByproduct(() -> Materials_OLD.Quartzite)
+            .addOreByproduct(() -> Materials_OLD.Barite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3027,7 +3027,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCertusQuartzCharged() {
+    private static Materials_OLD loadCertusQuartzCharged() {
         return new MaterialBuilder().setName("ChargedCertusQuartz")
             .setDefaultLocalName("Charged Certus Quartz")
             .setChemicalFormula("SiO₂" + CustomGlyphs.HIGH_VOLTAGE)
@@ -3040,9 +3040,9 @@ public class MaterialsInit {
             .addAspect(TCAspects.POTENTIA, 1)
             .addAspect(TCAspects.VITREUS, 1)
             .addAspect(TCAspects.ELECTRUM, 1)
-            .addOreByproduct(() -> Materials.CertusQuartz)
-            .addOreByproduct(() -> Materials.Quartzite)
-            .addOreByproduct(() -> Materials.Barite)
+            .addOreByproduct(() -> Materials_OLD.CertusQuartz)
+            .addOreByproduct(() -> Materials_OLD.Quartzite)
+            .addOreByproduct(() -> Materials_OLD.Barite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3052,7 +3052,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCeruclase() {
+    private static Materials_OLD loadCeruclase() {
         return new MaterialBuilder().setName("Ceruclase")
             .setDefaultLocalName("Ceruclase")
             .setChemicalFormula("SpAg")
@@ -3074,28 +3074,28 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadChimerite() {
+    private static Materials_OLD loadChimerite() {
         return new MaterialBuilder().setName("Chimerite")
             .setDefaultLocalName("Chimerite")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadChrysocolla() {
+    private static Materials_OLD loadChrysocolla() {
         return new MaterialBuilder().setName("Chrysocolla")
             .setDefaultLocalName("Chrysocolla")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadCitrine() {
+    private static Materials_OLD loadCitrine() {
         return new MaterialBuilder().setName("Citrine")
             .setDefaultLocalName("Citrine")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadCobaltHexahydrate() {
+    private static Materials_OLD loadCobaltHexahydrate() {
         return new MaterialBuilder().setName("CobaltHexahydrate")
             .setDefaultLocalName("Cobalt Hexahydrate")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -3106,7 +3106,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadConstructionFoam() {
+    private static Materials_OLD loadConstructionFoam() {
         return new MaterialBuilder().setName("ConstructionFoam")
             .setDefaultLocalName("Construction Foam")
             .setIconSet(TextureSet.SET_DULL)
@@ -3124,7 +3124,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCoral() {
+    private static Materials_OLD loadCoral() {
         return new MaterialBuilder().setName("Coral")
             .setDefaultLocalName("Coral")
             .setARGB(0x00ff80ff)
@@ -3132,7 +3132,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCrudeOil() {
+    private static Materials_OLD loadCrudeOil() {
         return new MaterialBuilder().setName("CrudeOil")
             .setDefaultLocalName("Crude Oil")
             .setIconSet(TextureSet.SET_DULL)
@@ -3142,7 +3142,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCrystalFlux() {
+    private static Materials_OLD loadCrystalFlux() {
         return new MaterialBuilder().setName("CrystalFlux")
             .setDefaultLocalName("Flux Crystal")
             .setIconSet(TextureSet.SET_QUARTZ)
@@ -3155,7 +3155,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCyanite() {
+    private static Materials_OLD loadCyanite() {
         return new MaterialBuilder().setName("Cyanite")
             .setDefaultLocalName("Cyanite")
             .setColor(Dyes.dyeCyan)
@@ -3163,7 +3163,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDarkIron() {
+    private static Materials_OLD loadDarkIron() {
         return new MaterialBuilder().setName("DarkIron")
             .setDefaultLocalName("Deep Dark Iron")
             .setChemicalFormula("Sp₆Fe" + CustomGlyphs.PICKAXE)
@@ -3176,12 +3176,12 @@ public class MaterialsInit {
             .addMetalItems()
             .addOreItems()
             .addToolHeadItems()
-            .addOreByproduct(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadDarkStone() {
+    private static Materials_OLD loadDarkStone() {
         return new MaterialBuilder().setName("DarkStone")
             .setDefaultLocalName("Dark Stone")
             .setColor(Dyes.dyeBlack)
@@ -3189,7 +3189,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDemonite() {
+    private static Materials_OLD loadDemonite() {
         return new MaterialBuilder().setName("Demonite")
             .setDefaultLocalName("Demonite")
             .setColor(Dyes.dyeRed)
@@ -3197,7 +3197,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDesichalkos() {
+    private static Materials_OLD loadDesichalkos() {
         return new MaterialBuilder().setName("Desichalkos")
             .setDefaultLocalName("Desichalkos")
             .setTool(1_280, 3, 6.0f)
@@ -3209,7 +3209,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDilithium() {
+    private static Materials_OLD loadDilithium() {
         return new MaterialBuilder().setName("Dilithium")
             .setDefaultLocalName("Dilithium")
             .setChemicalFormula("∳Li∳Li∳")
@@ -3221,7 +3221,7 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addCell()
-            .addOreByproduct(() -> Materials.Dilithium)
+            .addOreByproduct(() -> Materials_OLD.Dilithium)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3231,7 +3231,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDraconic() {
+    private static Materials_OLD loadDraconic() {
         return new MaterialBuilder().setName("Draconic")
             .setDefaultLocalName("Draconic")
             .setColor(Dyes.dyeRed)
@@ -3239,7 +3239,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDrulloy() {
+    private static Materials_OLD loadDrulloy() {
         return new MaterialBuilder().setName("Drulloy")
             .setDefaultLocalName("Drulloy")
             .setColor(Dyes.dyeRed)
@@ -3248,7 +3248,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDuranium() {
+    private static Materials_OLD loadDuranium() {
         return new MaterialBuilder().setName("Duranium")
             .setDefaultLocalName("Duranium")
             .setChemicalFormula("Du")
@@ -3263,7 +3263,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadElectrumFlux() {
+    private static Materials_OLD loadElectrumFlux() {
         return new MaterialBuilder().setName("ElectrumFlux")
             .setDefaultLocalName("Fluxed Electrum")
             .setChemicalFormula("The formula is too long...", true)
@@ -3286,7 +3286,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEmery() {
+    private static Materials_OLD loadEmery() {
         return new MaterialBuilder().setName("Emery")
             .setDefaultLocalName("Emery")
             .setIconSet(TextureSet.SET_DULL)
@@ -3296,7 +3296,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEnderiumBase() {
+    private static Materials_OLD loadEnderiumBase() {
         return new MaterialBuilder().setName("EnderiumBase")
             .setDefaultLocalName("Enderium Base")
             .setIconSet(TextureSet.SET_DULL)
@@ -3313,22 +3313,22 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Tin, 2)
-            .addMaterial(Materials.Silver, 2)
-            .addMaterial(Materials.Platinum, 2)
+            .addMaterial(Materials_OLD.Tin, 2)
+            .addMaterial(Materials_OLD.Silver, 2)
+            .addMaterial(Materials_OLD.Platinum, 2)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.ALIENIS, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadEnergized() {
+    private static Materials_OLD loadEnergized() {
         return new MaterialBuilder().setName("Energized")
             .setDefaultLocalName("Energized")
             .constructMaterial();
     }
 
-    private static Materials loadFierySteel() {
+    private static Materials_OLD loadFierySteel() {
         return new MaterialBuilder().setName("FierySteel")
             .setDefaultLocalName("Fiery Steel")
             .setChemicalFormula(CustomGlyphs.BRIMSTONE + "Fe₅" + CustomGlyphs.SUBSCRIPT0 + "C")
@@ -3356,7 +3356,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFirestone() {
+    private static Materials_OLD loadFirestone() {
         return new MaterialBuilder().setName("Firestone")
             .setDefaultLocalName("Firestone")
             .setChemicalFormula("⽕")
@@ -3381,7 +3381,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFluorite() {
+    private static Materials_OLD loadFluorite() {
         return new MaterialBuilder().setName("Fluorite")
             .setDefaultLocalName("Fluorite")
             .setColor(Dyes.dyeGreen)
@@ -3391,7 +3391,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadForce() {
+    private static Materials_OLD loadForce() {
         return new MaterialBuilder().setName("Force")
             .setDefaultLocalName("Force")
             .setChemicalFormula("Fc⚙")
@@ -3407,7 +3407,7 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addAspect(TCAspects.POTENTIA, 5)
-            .addOreByproduct(() -> Materials.Force)
+            .addOreByproduct(() -> Materials_OLD.Force)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
@@ -3415,7 +3415,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadForcicium() {
+    private static Materials_OLD loadForcicium() {
         return new MaterialBuilder().setName("Forcicium")
             .setDefaultLocalName("Forcicium")
             .setChemicalFormula("◃◁◀")
@@ -3428,9 +3428,9 @@ public class MaterialsInit {
             .addOreItems()
             .addCell()
             .addAspect(TCAspects.POTENTIA, 2)
-            .addOreByproduct(() -> Materials.Thorium)
-            .addOreByproduct(() -> Materials.Neodymium)
-            .addOreByproduct(() -> Materials.RareEarth)
+            .addOreByproduct(() -> Materials_OLD.Thorium)
+            .addOreByproduct(() -> Materials_OLD.Neodymium)
+            .addOreByproduct(() -> Materials_OLD.RareEarth)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_NEODYMIUM)
@@ -3440,7 +3440,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadForcillium() {
+    private static Materials_OLD loadForcillium() {
         return new MaterialBuilder().setName("Forcillium")
             .setDefaultLocalName("Forcillium")
             .setChemicalFormula("▶▷▹")
@@ -3453,9 +3453,9 @@ public class MaterialsInit {
             .addOreItems()
             .addCell()
             .addAspect(TCAspects.POTENTIA, 2)
-            .addOreByproduct(() -> Materials.Thorium)
-            .addOreByproduct(() -> Materials.Neodymium)
-            .addOreByproduct(() -> Materials.RareEarth)
+            .addOreByproduct(() -> Materials_OLD.Thorium)
+            .addOreByproduct(() -> Materials_OLD.Neodymium)
+            .addOreByproduct(() -> Materials_OLD.RareEarth)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_NEODYMIUM)
@@ -3465,7 +3465,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGlowstone() {
+    private static Materials_OLD loadGlowstone() {
         return new MaterialBuilder().setName("Glowstone")
             .setDefaultLocalName("Glowstone")
             .setIconSet(TextureSet.SET_GLOWSTONE)
@@ -3477,8 +3477,8 @@ public class MaterialsInit {
             .addCell()
             .addAspect(TCAspects.LUX, 2)
             .addAspect(TCAspects.SENSUS, 1)
-            .addOreByproduct(() -> Materials.Redstone)
-            .addOreByproduct(() -> Materials.Gold)
+            .addOreByproduct(() -> Materials_OLD.Redstone)
+            .addOreByproduct(() -> Materials_OLD.Gold)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.SMELTING_TO_FLUID)
             .addSubTag(SubTag.STONE)
@@ -3489,7 +3489,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGraphene() {
+    private static Materials_OLD loadGraphene() {
         return new MaterialBuilder().setName("Graphene")
             .setDefaultLocalName("Graphene")
             .setIconSet(TextureSet.SET_DULL)
@@ -3498,13 +3498,13 @@ public class MaterialsInit {
             .setTool(32, 1, 6.0f)
             .addDustItems()
             .addToolHeadItems()
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.VITREUS, 2)
             .addAspect(TCAspects.ELECTRUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadGraphite() {
+    private static Materials_OLD loadGraphite() {
         return new MaterialBuilder().setName("Graphite")
             .setDefaultLocalName("Graphite")
             .setIconSet(TextureSet.SET_DULL)
@@ -3515,17 +3515,17 @@ public class MaterialsInit {
             .addOreItems()
             .addCell()
             .addToolHeadItems()
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.VITREUS, 2)
             .addAspect(TCAspects.IGNIS, 1)
-            .addOreByproduct(() -> Materials.Carbon)
+            .addOreByproduct(() -> Materials_OLD.Carbon)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
     }
 
-    private static Materials loadGreenstone() {
+    private static Materials_OLD loadGreenstone() {
         return new MaterialBuilder().setName("Greenstone")
             .setDefaultLocalName("Greenstone")
             .setIconSet(TextureSet.SET_DULL)
@@ -3534,7 +3534,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHematite() {
+    private static Materials_OLD loadHematite() {
         return new MaterialBuilder().setName("Hematite")
             .setDefaultLocalName("Hematite")
             .setMiningLevel(2)
@@ -3545,7 +3545,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHSLA() {
+    private static Materials_OLD loadHSLA() {
         return new MaterialBuilder().setName("HSLA")
             .setDefaultLocalName("HSLA Steel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -3561,19 +3561,19 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .addAspect(TCAspects.METALLUM, 1)
             .addAspect(TCAspects.ORDO, 1)
-            .addOreByproduct(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .constructMaterial();
     }
 
-    private static Materials loadInfernal() {
+    private static Materials_OLD loadInfernal() {
         return new MaterialBuilder().setName("Infernal")
             .setDefaultLocalName("Infernal")
             .constructMaterial();
     }
 
-    private static Materials loadInfusedAir() {
+    private static Materials_OLD loadInfusedAir() {
         return new MaterialBuilder().setName("InfusedAir")
             .setDefaultLocalName("Aer")
             .setChemicalFormula(CustomGlyphs.AIR)
@@ -3602,7 +3602,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInfusedDull() {
+    private static Materials_OLD loadInfusedDull() {
         return new MaterialBuilder().setName("InfusedDull")
             .setDefaultLocalName("Vacuus")
             .setIconSet(TextureSet.SET_SHARDS)
@@ -3628,7 +3628,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInfusedEarth() {
+    private static Materials_OLD loadInfusedEarth() {
         return new MaterialBuilder().setName("InfusedEarth")
             .setDefaultLocalName("Terra")
             .setChemicalFormula(CustomGlyphs.EARTH)
@@ -3657,7 +3657,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInfusedEntropy() {
+    private static Materials_OLD loadInfusedEntropy() {
         return new MaterialBuilder().setName("InfusedEntropy")
             .setDefaultLocalName("Perditio")
             .setChemicalFormula(CustomGlyphs.CHAOS)
@@ -3686,7 +3686,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInfusedFire() {
+    private static Materials_OLD loadInfusedFire() {
         return new MaterialBuilder().setName("InfusedFire")
             .setDefaultLocalName("Ignis")
             .setChemicalFormula(CustomGlyphs.FIRE)
@@ -3715,7 +3715,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInfusedGold() {
+    private static Materials_OLD loadInfusedGold() {
         return new MaterialBuilder().setName("InfusedGold")
             .setDefaultLocalName("Infused Gold")
             .setChemicalFormula("AuMa*")
@@ -3728,12 +3728,12 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addGearItems()
-            .addOreByproduct(() -> Materials.Gold)
+            .addOreByproduct(() -> Materials_OLD.Gold)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadInfusedOrder() {
+    private static Materials_OLD loadInfusedOrder() {
         return new MaterialBuilder().setName("InfusedOrder")
             .setDefaultLocalName("Ordo")
             .setChemicalFormula(CustomGlyphs.ORDER)
@@ -3762,7 +3762,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInfusedVis() {
+    private static Materials_OLD loadInfusedVis() {
         return new MaterialBuilder().setName("InfusedVis")
             .setDefaultLocalName("Auram")
             .setIconSet(TextureSet.SET_SHARDS)
@@ -3789,7 +3789,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInfusedWater() {
+    private static Materials_OLD loadInfusedWater() {
         return new MaterialBuilder().setName("InfusedWater")
             .setDefaultLocalName("Aqua")
             .setChemicalFormula(CustomGlyphs.WATER)
@@ -3818,14 +3818,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInvisium() {
+    private static Materials_OLD loadInvisium() {
         return new MaterialBuilder().setName("Invisium")
             .setDefaultLocalName("Invisium")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadJade() {
+    private static Materials_OLD loadJade() {
         return new MaterialBuilder().setName("Jade")
             .setDefaultLocalName("Jade")
             .setIconSet(TextureSet.SET_SHINY)
@@ -3836,10 +3836,10 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addToolHeadItems()
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Silicon, 2)
-            .addMaterial(Materials.Oxygen, 6)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Silicon, 2)
+            .addMaterial(Materials_OLD.Oxygen, 6)
             .addAspect(TCAspects.LUCRUM, 6)
             .addAspect(TCAspects.VITREUS, 3)
             .addSubTag(SubTag.CRYSTAL)
@@ -3848,7 +3848,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLava() {
+    private static Materials_OLD loadLava() {
         return new MaterialBuilder().setName("Lava")
             .setDefaultLocalName("Lava")
             .setIconSet(TextureSet.SET_FLUID)
@@ -3862,14 +3862,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLimestone() {
+    private static Materials_OLD loadLimestone() {
         return new MaterialBuilder().setName("Limestone")
             .setDefaultLocalName("Limestone")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadMagma() {
+    private static Materials_OLD loadMagma() {
         return new MaterialBuilder().setName("Magma")
             .setDefaultLocalName("Magma")
             .setColor(Dyes.dyeOrange)
@@ -3877,14 +3877,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMawsitsit() {
+    private static Materials_OLD loadMawsitsit() {
         return new MaterialBuilder().setName("Mawsitsit")
             .setDefaultLocalName("Mawsitsit")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadMercassium() {
+    private static Materials_OLD loadMercassium() {
         return new MaterialBuilder().setName("Mercassium")
             .setDefaultLocalName("Mercassium")
             .setTool(64, 1, 6.0f)
@@ -3896,7 +3896,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMeteoricSteel() {
+    private static Materials_OLD loadMeteoricSteel() {
         return new MaterialBuilder().setName("MeteoricSteel")
             .setDefaultLocalName("Meteoric Steel")
             .setChemicalFormula("SpFe₅" + CustomGlyphs.SUBSCRIPT0 + "C")
@@ -3912,8 +3912,8 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setDensity(51, 50)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.MeteoricIron, 50)
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.MeteoricIron, 50)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 1)
             .addAspect(TCAspects.ORDO, 1)
@@ -3921,7 +3921,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMeteorite() {
+    private static Materials_OLD loadMeteorite() {
         return new MaterialBuilder().setName("Meteorite")
             .setDefaultLocalName("Meteorite")
             .setColor(Dyes.dyePurple)
@@ -3932,7 +3932,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMigmatite() {
+    private static Materials_OLD loadMigmatite() {
         return new MaterialBuilder().setName("Migmatite")
             .setDefaultLocalName("Migmatite")
             .setIconSet(TextureSet.SET_DULL)
@@ -3940,7 +3940,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMimichite() {
+    private static Materials_OLD loadMimichite() {
         return new MaterialBuilder().setName("Mimichite")
             .setDefaultLocalName("Mimichite")
             .setIconSet(TextureSet.SET_GEM_VERTICAL)
@@ -3954,7 +3954,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMoonstone() {
+    private static Materials_OLD loadMoonstone() {
         return new MaterialBuilder().setName("Moonstone")
             .setDefaultLocalName("Moonstone")
             .setColor(Dyes.dyeWhite)
@@ -3966,7 +3966,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNaquadahAlloy() {
+    private static Materials_OLD loadNaquadahAlloy() {
         return new MaterialBuilder().setName("NaquadahAlloy")
             .setDefaultLocalName("Naquadah Alloy")
             .setChemicalFormula("Nq₂KeC")
@@ -3989,7 +3989,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNaquadahEnriched() {
+    private static Materials_OLD loadNaquadahEnriched() {
         return new MaterialBuilder().setName("NaquadahEnriched")
             .setDefaultLocalName("Enriched Naquadah")
             .setChemicalFormula("Nq+")
@@ -4012,13 +4012,13 @@ public class MaterialsInit {
             .addAspect(TCAspects.METALLUM, 3)
             .addAspect(TCAspects.RADIO, 2)
             .addAspect(TCAspects.NEBRISUM, 2)
-            .addOreByproduct(() -> Materials.Naquadah)
-            .addOreByproduct(() -> Materials.Naquadria)
+            .addOreByproduct(() -> Materials_OLD.Naquadah)
+            .addOreByproduct(() -> Materials_OLD.Naquadria)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadNaquadria() {
+    private static Materials_OLD loadNaquadria() {
         return new MaterialBuilder().setName("Naquadria")
             .setDefaultLocalName("Naquadria")
             .setChemicalFormula("Nq*")
@@ -4042,33 +4042,33 @@ public class MaterialsInit {
             .addAspect(TCAspects.METALLUM, 4)
             .addAspect(TCAspects.RADIO, 3)
             .addAspect(TCAspects.NEBRISUM, 3)
-            .addOreByproduct(() -> Materials.Naquadria)
+            .addOreByproduct(() -> Materials_OLD.Naquadria)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadNether() {
+    private static Materials_OLD loadNether() {
         return new MaterialBuilder().setName("Nether")
             .setDefaultLocalName("Nether")
             .constructMaterial();
     }
 
-    private static Materials loadNetherBrick() {
+    private static Materials_OLD loadNetherBrick() {
         return new MaterialBuilder().setName("NetherBrick")
             .setDefaultLocalName("Nether Brick")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeRed)
             .setARGB(0x00640000)
             .addDustItems()
-            .setMaceratingInto(() -> Materials.Netherrack)
+            .setMaceratingInto(() -> Materials_OLD.Netherrack)
             .addAspect(TCAspects.IGNIS, 1)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .constructMaterial();
     }
 
-    private static Materials loadNetherQuartz() {
+    private static Materials_OLD loadNetherQuartz() {
         return new MaterialBuilder().setName("NetherQuartz")
             .setDefaultLocalName("Nether Quartz")
             .setChemicalFormula("SiO₂")
@@ -4083,7 +4083,7 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addAspect(TCAspects.POTENTIA, 1)
             .addAspect(TCAspects.VITREUS, 1)
-            .addOreByproduct(() -> Materials.Netherrack)
+            .addOreByproduct(() -> Materials_OLD.Netherrack)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -4094,7 +4094,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNetherStar() {
+    private static Materials_OLD loadNetherStar() {
         return new MaterialBuilder().setName("NetherStar")
             .setDefaultLocalName("Nether Star")
             .setChemicalFormula("(Nh₂Ma)₃" + CustomGlyphs.CIRCLE_CROSS + "C₆")
@@ -4116,7 +4116,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadObsidianFlux() {
+    private static Materials_OLD loadObsidianFlux() {
         return new MaterialBuilder().setName("ObsidianFlux")
             .setDefaultLocalName("Fluxed Obsidian")
             .setIconSet(TextureSet.SET_DULL)
@@ -4128,7 +4128,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOilsands() {
+    private static Materials_OLD loadOilsands() {
         return new MaterialBuilder().setName("Oilsands")
             .setDefaultLocalName("Oilsands")
             .setARGB(0x000a0a0a)
@@ -4138,14 +4138,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOnyx() {
+    private static Materials_OLD loadOnyx() {
         return new MaterialBuilder().setName("Onyx")
             .setDefaultLocalName("Onyx")
             .addDustItems()
             .constructMaterial();
     }
 
-    private static Materials loadOrichalcum() {
+    private static Materials_OLD loadOrichalcum() {
         return new MaterialBuilder().setName("Orichalcum")
             .setDefaultLocalName("Orichalcum")
             .setChemicalFormula("SpBi")
@@ -4166,7 +4166,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOsmonium() {
+    private static Materials_OLD loadOsmonium() {
         return new MaterialBuilder().setName("Osmonium")
             .setDefaultLocalName("Osmonium")
             .setColor(Dyes.dyeBlue)
@@ -4179,16 +4179,16 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPainite() {
+    private static Materials_OLD loadPainite() {
         return new MaterialBuilder().setName("Painite")
             .setDefaultLocalName("Painite")
             .constructMaterial();
     }
 
-    private static Materials loadPeanutwood() {
+    private static Materials_OLD loadPeanutwood() {
         return new MaterialBuilder().setName("Peanutwood")
             .setDefaultLocalName("Peanut Wood")
-            .setMaceratingInto(() -> Materials.Wood)
+            .setMaceratingInto(() -> Materials_OLD.Wood)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -4196,7 +4196,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPetroleum() {
+    private static Materials_OLD loadPetroleum() {
         return new MaterialBuilder().setName("Petroleum")
             .setDefaultLocalName("Petroleum")
             .setMiningLevel(1)
@@ -4205,13 +4205,13 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPewter() {
+    private static Materials_OLD loadPewter() {
         return new MaterialBuilder().setName("Pewter")
             .setDefaultLocalName("Pewter")
             .constructMaterial();
     }
 
-    private static Materials loadPhoenixite() {
+    private static Materials_OLD loadPhoenixite() {
         return new MaterialBuilder().setName("Phoenixite")
             .setDefaultLocalName("Phoenixite")
             .setTool(64, 1, 6.0f)
@@ -4223,7 +4223,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadQuartzite() {
+    private static Materials_OLD loadQuartzite() {
         return new MaterialBuilder().setName("Quartzite")
             .setDefaultLocalName("Quartzite")
             .setChemicalFormula("SiO₂")
@@ -4234,8 +4234,8 @@ public class MaterialsInit {
             .addDustItems()
             .addGemItems()
             .addOreItems()
-            .addOreByproduct(() -> Materials.CertusQuartz)
-            .addOreByproduct(() -> Materials.Barite)
+            .addOreByproduct(() -> Materials_OLD.CertusQuartz)
+            .addOreByproduct(() -> Materials_OLD.Barite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -4246,7 +4246,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRandomite() {
+    private static Materials_OLD loadRandomite() {
         return new MaterialBuilder().setName("Randomite")
             .setDefaultLocalName("Randomite")
             .setMiningLevel(1)
@@ -4255,7 +4255,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRubracium() {
+    private static Materials_OLD loadRubracium() {
         return new MaterialBuilder().setName("Rubracium")
             .setDefaultLocalName("Rubracium")
             .setChemicalFormula("SpRb")
@@ -4268,21 +4268,21 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addGearItems()
-            .addOreByproduct(() -> Materials.Samarium)
+            .addOreByproduct(() -> Materials_OLD.Samarium)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSand() {
+    private static Materials_OLD loadSand() {
         return new MaterialBuilder().setName("Sand")
             .setDefaultLocalName("Sand")
             .setColor(Dyes.dyeYellow)
-            .setSmeltingInto(() -> Materials.Glass)
+            .setSmeltingInto(() -> Materials_OLD.Glass)
             .addSubTag(SubTag.NO_RECYCLING)
             .constructMaterial();
     }
 
-    private static Materials loadSiltstone() {
+    private static Materials_OLD loadSiltstone() {
         return new MaterialBuilder().setName("Siltstone")
             .setDefaultLocalName("Siltstone")
             .setIconSet(TextureSet.SET_DULL)
@@ -4290,7 +4290,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSpinel() {
+    private static Materials_OLD loadSpinel() {
         return new MaterialBuilder().setName("FoolsRuby")
             .setDefaultLocalName("Spinel")
             .setIconSet(TextureSet.SET_RUBY)
@@ -4301,12 +4301,12 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .addAspect(TCAspects.LUCRUM, 2)
             .addAspect(TCAspects.VITREUS, 2)
-            .addOreByproduct(() -> Materials.Jasper)
+            .addOreByproduct(() -> Materials_OLD.Jasper)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -4314,7 +4314,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSunstone() {
+    private static Materials_OLD loadSunstone() {
         return new MaterialBuilder().setName("Sunstone")
             .setDefaultLocalName("Sunstone")
             .setMiningLevel(1)
@@ -4326,7 +4326,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTar() {
+    private static Materials_OLD loadTar() {
         return new MaterialBuilder().setName("Tar")
             .setDefaultLocalName("Tar")
             .setColor(Dyes.dyeBlack)
@@ -4334,7 +4334,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTartarite() {
+    private static Materials_OLD loadTartarite() {
         return new MaterialBuilder().setName("Tartarite")
             .setDefaultLocalName("Tartarite")
             .setChemicalFormula("Tt")
@@ -4353,7 +4353,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUUAmplifier() {
+    private static Materials_OLD loadUUAmplifier() {
         return new MaterialBuilder().setName("UUAmplifier")
             .setDefaultLocalName("UU-Amplifier")
             .setChemicalFormula("Accelerates the Mass Fabricator", true)
@@ -4364,7 +4364,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUUMatter() {
+    private static Materials_OLD loadUUMatter() {
         return new MaterialBuilder().setName("UUMatter")
             .setDefaultLocalName("UU-Matter")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4375,7 +4375,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadVoid() {
+    private static Materials_OLD loadVoid() {
         return new MaterialBuilder().setName("Void")
             .setDefaultLocalName("Void Metal")
             .setChemicalFormula("ShFeMa₃")
@@ -4396,7 +4396,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadVoidstone() {
+    private static Materials_OLD loadVoidstone() {
         return new MaterialBuilder().setName("Voidstone")
             .setDefaultLocalName("Voidstone")
             .setARGB(0xc8ffffff)
@@ -4406,7 +4406,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadVulcanite() {
+    private static Materials_OLD loadVulcanite() {
         return new MaterialBuilder().setName("Vulcanite")
             .setDefaultLocalName("Vulcanite")
             .setChemicalFormula("SpCu")
@@ -4427,7 +4427,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadVyroxeres() {
+    private static Materials_OLD loadVyroxeres() {
         return new MaterialBuilder().setName("Vyroxeres")
             .setDefaultLocalName("Vyroxeres")
             .setChemicalFormula("SpBe")
@@ -4447,7 +4447,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadYellorium() {
+    private static Materials_OLD loadYellorium() {
         return new MaterialBuilder().setName("Yellorium")
             .setDefaultLocalName("Yellorium")
             .setColor(Dyes.dyeYellow)
@@ -4457,7 +4457,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadZectium() {
+    private static Materials_OLD loadZectium() {
         return new MaterialBuilder().setName("Zectium")
             .setDefaultLocalName("Zectium")
             .setColor(Dyes.dyeBlack)
@@ -4470,24 +4470,24 @@ public class MaterialsInit {
     }
 
     private static void loadTiers() {
-        Materials.ULV = loadULV();
-        Materials.LV = loadLV();
-        Materials.MV = loadMV();
-        Materials.HV = loadHV();
-        Materials.EV = loadEV();
-        Materials.IV = loadIV();
-        Materials.LuV = loadLuV();
-        Materials.ZPM = loadZPM();
-        Materials.UV = loadUV();
-        Materials.UHV = loadUHV();
-        Materials.UEV = loadUEV();
-        Materials.UIV = loadUIV();
-        Materials.UMV = loadUMV();
-        Materials.UXV = loadUXV();
-        Materials.MAX = loadMAX();
+        Materials_OLD.ULV = loadULV();
+        Materials_OLD.LV = loadLV();
+        Materials_OLD.MV = loadMV();
+        Materials_OLD.HV = loadHV();
+        Materials_OLD.EV = loadEV();
+        Materials_OLD.IV = loadIV();
+        Materials_OLD.LuV = loadLuV();
+        Materials_OLD.ZPM = loadZPM();
+        Materials_OLD.UV = loadUV();
+        Materials_OLD.UHV = loadUHV();
+        Materials_OLD.UEV = loadUEV();
+        Materials_OLD.UIV = loadUIV();
+        Materials_OLD.UMV = loadUMV();
+        Materials_OLD.UXV = loadUXV();
+        Materials_OLD.MAX = loadMAX();
     }
 
-    private static Materials loadULV() {
+    private static Materials_OLD loadULV() {
         return new MaterialBuilder().setName("Primitive")
             .setDefaultLocalName("Primitive")
             .setColor(Dyes.dyeLightGray)
@@ -4497,7 +4497,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLV() {
+    private static Materials_OLD loadLV() {
         return new MaterialBuilder().setName("Basic")
             .setDefaultLocalName("Basic")
             .setColor(Dyes.dyeLightGray)
@@ -4507,7 +4507,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMV() {
+    private static Materials_OLD loadMV() {
         return new MaterialBuilder().setName("Good")
             .setDefaultLocalName("Good")
             .setColor(Dyes.dyeLightGray)
@@ -4517,7 +4517,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHV() {
+    private static Materials_OLD loadHV() {
         return new MaterialBuilder().setName("Advanced")
             .setDefaultLocalName("Advanced")
             .setColor(Dyes.dyeLightGray)
@@ -4527,7 +4527,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEV() {
+    private static Materials_OLD loadEV() {
         return new MaterialBuilder().setName("Data")
             .setDefaultLocalName("Data")
             .setColor(Dyes.dyeLightGray)
@@ -4537,7 +4537,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadIV() {
+    private static Materials_OLD loadIV() {
         return new MaterialBuilder().setName("Elite")
             .setDefaultLocalName("Elite")
             .setColor(Dyes.dyeLightGray)
@@ -4547,7 +4547,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLuV() {
+    private static Materials_OLD loadLuV() {
         return new MaterialBuilder().setName("Master")
             .setDefaultLocalName("Master")
             .setColor(Dyes.dyeLightGray)
@@ -4557,7 +4557,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadZPM() {
+    private static Materials_OLD loadZPM() {
         return new MaterialBuilder().setName("Ultimate")
             .setDefaultLocalName("Ultimate")
             .setColor(Dyes.dyeLightGray)
@@ -4567,7 +4567,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUV() {
+    private static Materials_OLD loadUV() {
         return new MaterialBuilder().setName("Superconductor")
             .setDefaultLocalName("Superconductor")
             .setColor(Dyes.dyeLightGray)
@@ -4575,7 +4575,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUHV() {
+    private static Materials_OLD loadUHV() {
         return new MaterialBuilder().setName("Infinite")
             .setDefaultLocalName("Infinite")
             .setColor(Dyes.dyeLightGray)
@@ -4585,7 +4585,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUEV() {
+    private static Materials_OLD loadUEV() {
         return new MaterialBuilder().setName("Bio")
             .setDefaultLocalName("Bio")
             .setColor(Dyes.dyeLightGray)
@@ -4595,7 +4595,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUIV() {
+    private static Materials_OLD loadUIV() {
         return new MaterialBuilder().setName("Optical")
             .setDefaultLocalName("Optical")
             .setColor(Dyes.dyeLightGray)
@@ -4603,7 +4603,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUMV() {
+    private static Materials_OLD loadUMV() {
         return new MaterialBuilder().setName("Exotic")
             .setDefaultLocalName("Exotic")
             .setColor(Dyes.dyeLightGray)
@@ -4611,7 +4611,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUXV() {
+    private static Materials_OLD loadUXV() {
         return new MaterialBuilder().setName("Cosmic")
             .setDefaultLocalName("Cosmic")
             .setColor(Dyes.dyeLightGray)
@@ -4619,7 +4619,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMAX() {
+    private static Materials_OLD loadMAX() {
         return new MaterialBuilder().setName("Transcendent")
             .setDefaultLocalName("Transcendent")
             .setColor(Dyes.dyeLightGray)
@@ -4628,16 +4628,16 @@ public class MaterialsInit {
     }
 
     private static void loadCircuitry() {
-        Materials.Resistor = loadResistor();
-        Materials.Diode = loadDiode();
-        Materials.Transistor = loadTransistor();
-        Materials.Capacitor = loadCapacitor();
-        Materials.Inductor = loadInductor();
-        Materials.Nano = loadNano();
-        Materials.Piko = loadPiko();
+        Materials_OLD.Resistor = loadResistor();
+        Materials_OLD.Diode = loadDiode();
+        Materials_OLD.Transistor = loadTransistor();
+        Materials_OLD.Capacitor = loadCapacitor();
+        Materials_OLD.Inductor = loadInductor();
+        Materials_OLD.Nano = loadNano();
+        Materials_OLD.Piko = loadPiko();
     }
 
-    private static Materials loadResistor() {
+    private static Materials_OLD loadResistor() {
         return new MaterialBuilder().setName("Resistor")
             .setDefaultLocalName("Resistor")
             .setColor(Dyes.dyeLightGray)
@@ -4645,7 +4645,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDiode() {
+    private static Materials_OLD loadDiode() {
         return new MaterialBuilder().setName("Diode")
             .setDefaultLocalName("Diode")
             .setColor(Dyes.dyeLightGray)
@@ -4653,7 +4653,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTransistor() {
+    private static Materials_OLD loadTransistor() {
         return new MaterialBuilder().setName("Transistor")
             .setDefaultLocalName("Transistor")
             .setColor(Dyes.dyeLightGray)
@@ -4661,7 +4661,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCapacitor() {
+    private static Materials_OLD loadCapacitor() {
         return new MaterialBuilder().setName("Capacitor")
             .setDefaultLocalName("Capacitor")
             .setColor(Dyes.dyeLightGray)
@@ -4669,7 +4669,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInductor() {
+    private static Materials_OLD loadInductor() {
         return new MaterialBuilder().setName("Inductor")
             .setDefaultLocalName("Inductor")
             .setColor(Dyes.dyeLightGray)
@@ -4677,7 +4677,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNano() {
+    private static Materials_OLD loadNano() {
         return new MaterialBuilder().setName("Nano")
             .setDefaultLocalName("Bio")
             .setColor(Dyes.dyeLightGray)
@@ -4685,7 +4685,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPiko() {
+    private static Materials_OLD loadPiko() {
         return new MaterialBuilder().setName("Piko")
             .setDefaultLocalName("Bio")
             .setColor(Dyes.dyeLightGray)
@@ -4694,53 +4694,53 @@ public class MaterialsInit {
     }
 
     private static void loadNotExact() {
-        Materials.Biomass = loadBiomass();
-        Materials.CharcoalByproducts = loadCharcoalByproducts();
-        Materials.Cheese = loadCheese();
-        Materials.Chili = loadChili();
-        Materials.Chocolate = loadChocolate();
-        Materials.Cluster = loadCluster();
-        Materials.CoalFuel = loadCoalFuel();
-        Materials.Cocoa = loadCocoa();
-        Materials.Coffee = loadCoffee();
-        Materials.Creosote = loadCreosote();
-        Materials.Diesel = loadDiesel();
-        Materials.Ethanol = loadEthanol();
-        Materials.FermentedBiomass = loadFermentedBiomass();
-        Materials.FishOil = loadFishOil();
-        Materials.FryingOilHot = loadFryingOilHot();
-        Materials.Glue = loadGlue();
-        Materials.GlueAdvanced = loadGlueAdvanced();
-        Materials.Gunpowder = loadGunpowder();
-        Materials.Honey = loadHoney();
-        Materials.Leather = loadLeather();
-        Materials.Lubricant = loadLubricant();
-        Materials.MeatCooked = loadMeatCooked();
-        Materials.MeatRaw = loadMeatRaw();
-        Materials.Milk = loadMilk();
-        Materials.Mud = loadMud();
-        Materials.Oil = loadOil();
-        Materials.Paper = loadPaper();
-        Materials.Peat = loadPeat();
-        Materials.RareEarth = loadRareEarth();
-        Materials.Red = loadRed();
-        Materials.Reinforced = loadReinforced();
-        Materials.SeedOil = loadSeedOil();
-        Materials.SeedOilHemp = loadSeedOilHemp();
-        Materials.SeedOilLin = loadSeedOilLin();
-        Materials.Stone = loadStone();
-        Materials.TNT = loadTNT();
-        Materials.Unstable = loadUnstable();
-        Materials.UnstableIngot = loadUnstableIngot();
-        Materials.Vinegar = loadVinegar();
-        Materials.WeedEX9000 = loadWeedEX9000();
-        Materials.Wheat = loadWheat();
-        Materials.WoodGas = loadWoodGas();
-        Materials.WoodTar = loadWoodTar();
-        Materials.WoodVinegar = loadWoodVinegar();
+        Materials_OLD.Biomass = loadBiomass();
+        Materials_OLD.CharcoalByproducts = loadCharcoalByproducts();
+        Materials_OLD.Cheese = loadCheese();
+        Materials_OLD.Chili = loadChili();
+        Materials_OLD.Chocolate = loadChocolate();
+        Materials_OLD.Cluster = loadCluster();
+        Materials_OLD.CoalFuel = loadCoalFuel();
+        Materials_OLD.Cocoa = loadCocoa();
+        Materials_OLD.Coffee = loadCoffee();
+        Materials_OLD.Creosote = loadCreosote();
+        Materials_OLD.Diesel = loadDiesel();
+        Materials_OLD.Ethanol = loadEthanol();
+        Materials_OLD.FermentedBiomass = loadFermentedBiomass();
+        Materials_OLD.FishOil = loadFishOil();
+        Materials_OLD.FryingOilHot = loadFryingOilHot();
+        Materials_OLD.Glue = loadGlue();
+        Materials_OLD.GlueAdvanced = loadGlueAdvanced();
+        Materials_OLD.Gunpowder = loadGunpowder();
+        Materials_OLD.Honey = loadHoney();
+        Materials_OLD.Leather = loadLeather();
+        Materials_OLD.Lubricant = loadLubricant();
+        Materials_OLD.MeatCooked = loadMeatCooked();
+        Materials_OLD.MeatRaw = loadMeatRaw();
+        Materials_OLD.Milk = loadMilk();
+        Materials_OLD.Mud = loadMud();
+        Materials_OLD.Oil = loadOil();
+        Materials_OLD.Paper = loadPaper();
+        Materials_OLD.Peat = loadPeat();
+        Materials_OLD.RareEarth = loadRareEarth();
+        Materials_OLD.Red = loadRed();
+        Materials_OLD.Reinforced = loadReinforced();
+        Materials_OLD.SeedOil = loadSeedOil();
+        Materials_OLD.SeedOilHemp = loadSeedOilHemp();
+        Materials_OLD.SeedOilLin = loadSeedOilLin();
+        Materials_OLD.Stone = loadStone();
+        Materials_OLD.TNT = loadTNT();
+        Materials_OLD.Unstable = loadUnstable();
+        Materials_OLD.UnstableIngot = loadUnstableIngot();
+        Materials_OLD.Vinegar = loadVinegar();
+        Materials_OLD.WeedEX9000 = loadWeedEX9000();
+        Materials_OLD.Wheat = loadWheat();
+        Materials_OLD.WoodGas = loadWoodGas();
+        Materials_OLD.WoodTar = loadWoodTar();
+        Materials_OLD.WoodVinegar = loadWoodVinegar();
     }
 
-    private static Materials loadBiomass() {
+    private static Materials_OLD loadBiomass() {
         return new MaterialBuilder().setName("Biomass")
             .setDefaultLocalName("Forestry Biomass")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4751,7 +4751,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCharcoalByproducts() {
+    private static Materials_OLD loadCharcoalByproducts() {
         return new MaterialBuilder().setName("CharcoalByproducts")
             .setDefaultLocalName("Charcoal Byproducts")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4761,7 +4761,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCheese() {
+    private static Materials_OLD loadCheese() {
         return new MaterialBuilder().setName("Cheese")
             .setDefaultLocalName("Cheese")
             .setIconSet(TextureSet.SET_FINE)
@@ -4776,7 +4776,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadChili() {
+    private static Materials_OLD loadChili() {
         return new MaterialBuilder().setName("Chili")
             .setDefaultLocalName("Chili")
             .setIconSet(TextureSet.SET_FINE)
@@ -4787,7 +4787,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadChocolate() {
+    private static Materials_OLD loadChocolate() {
         return new MaterialBuilder().setName("Chocolate")
             .setDefaultLocalName("Chocolate")
             .setIconSet(TextureSet.SET_FINE)
@@ -4798,7 +4798,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCluster() {
+    private static Materials_OLD loadCluster() {
         return new MaterialBuilder().setName("Cluster")
             .setDefaultLocalName("Cluster")
             .setColor(Dyes.dyeWhite)
@@ -4807,7 +4807,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCoalFuel() {
+    private static Materials_OLD loadCoalFuel() {
         return new MaterialBuilder().setName("CoalFuel")
             .setDefaultLocalName("Coalfuel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4819,7 +4819,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCocoa() {
+    private static Materials_OLD loadCocoa() {
         return new MaterialBuilder().setName("Cocoa")
             .setDefaultLocalName("Cocoa")
             .setIconSet(TextureSet.SET_FINE)
@@ -4830,7 +4830,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCoffee() {
+    private static Materials_OLD loadCoffee() {
         return new MaterialBuilder().setName("Coffee")
             .setDefaultLocalName("Coffee")
             .setIconSet(TextureSet.SET_FINE)
@@ -4841,7 +4841,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCreosote() {
+    private static Materials_OLD loadCreosote() {
         return new MaterialBuilder().setName("Creosote")
             .setDefaultLocalName("Creosote")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4852,7 +4852,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDiesel() {
+    private static Materials_OLD loadDiesel() {
         return new MaterialBuilder().setName("Fuel")
             .setDefaultLocalName("Diesel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4863,7 +4863,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEthanol() {
+    private static Materials_OLD loadEthanol() {
         return new MaterialBuilder().setName("Ethanol")
             .setDefaultLocalName("Ethanol")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4872,15 +4872,15 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Diesel, 192)
             .addCell()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .addAspect(TCAspects.AQUA, 1)
             .constructMaterial();
     }
 
-    private static Materials loadFermentedBiomass() {
+    private static Materials_OLD loadFermentedBiomass() {
         return new MaterialBuilder().setName("FermentedBiomass")
             .setDefaultLocalName("Fermented Biomass")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4891,7 +4891,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFishOil() {
+    private static Materials_OLD loadFishOil() {
         return new MaterialBuilder().setName("FishOil")
             .setDefaultLocalName("Fish Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4904,7 +4904,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFryingOilHot() {
+    private static Materials_OLD loadFryingOilHot() {
         return new MaterialBuilder().setName("FryingOilHot")
             .setDefaultLocalName("Hot Frying Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4918,7 +4918,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGlue() {
+    private static Materials_OLD loadGlue() {
         return new MaterialBuilder().setName("Glue")
             .setDefaultLocalName("Refined Glue")
             .setChemicalFormula("No Horses were harmed in the making of this substance", true)
@@ -4930,7 +4930,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGlueAdvanced() {
+    private static Materials_OLD loadGlueAdvanced() {
         return new MaterialBuilder().setName("AdvancedGlue")
             .setDefaultLocalName("Advanced Glue")
             .setChemicalFormula("A chemically approved glue!", true)
@@ -4943,7 +4943,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGunpowder() {
+    private static Materials_OLD loadGunpowder() {
         return new MaterialBuilder().setName("Gunpowder")
             .setDefaultLocalName("Gunpowder")
             .setIconSet(TextureSet.SET_DULL)
@@ -4960,7 +4960,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHoney() {
+    private static Materials_OLD loadHoney() {
         return new MaterialBuilder().setName("Honey")
             .setDefaultLocalName("Honey")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4971,7 +4971,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLeather() {
+    private static Materials_OLD loadLeather() {
         return new MaterialBuilder().setName("Leather")
             .setDefaultLocalName("Leather")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -4982,7 +4982,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLubricant() {
+    private static Materials_OLD loadLubricant() {
         return new MaterialBuilder().setName("Lubricant")
             .setDefaultLocalName("Lubricant")
             .setIconSet(TextureSet.SET_FLUID)
@@ -4994,7 +4994,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMeatCooked() {
+    private static Materials_OLD loadMeatCooked() {
         return new MaterialBuilder().setName("MeatCooked")
             .setDefaultLocalName("Cooked Meat")
             .setIconSet(TextureSet.SET_FINE)
@@ -5007,20 +5007,20 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMeatRaw() {
+    private static Materials_OLD loadMeatRaw() {
         return new MaterialBuilder().setName("MeatRaw")
             .setDefaultLocalName("Raw Meat")
             .setIconSet(TextureSet.SET_FINE)
             .setColor(Dyes.dyePink)
             .setARGB(0x00ff6464)
             .addDustItems()
-            .setSmeltingInto(() -> Materials.MeatCooked)
+            .setSmeltingInto(() -> Materials_OLD.MeatCooked)
             .addSubTag(SubTag.FOOD)
             .addSubTag(SubTag.NO_SMASHING)
             .constructMaterial();
     }
 
-    private static Materials loadMilk() {
+    private static Materials_OLD loadMilk() {
         return new MaterialBuilder().setName("Milk")
             .setDefaultLocalName("Milk")
             .setIconSet(TextureSet.SET_FINE)
@@ -5035,14 +5035,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMud() {
+    private static Materials_OLD loadMud() {
         return new MaterialBuilder().setName("Mud")
             .setDefaultLocalName("Mud")
             .setColor(Dyes.dyeBrown)
             .constructMaterial();
     }
 
-    private static Materials loadOil() {
+    private static Materials_OLD loadOil() {
         return new MaterialBuilder().setName("Oil")
             .setDefaultLocalName("Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5053,7 +5053,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPaper() {
+    private static Materials_OLD loadPaper() {
         return new MaterialBuilder().setName("Paper")
             .setDefaultLocalName("Paper")
             .setIconSet(TextureSet.SET_PAPER)
@@ -5075,7 +5075,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPeat() {
+    private static Materials_OLD loadPeat() {
         return new MaterialBuilder().setName("Peat")
             .setDefaultLocalName("Peat")
             .setColor(Dyes.dyeBrown)
@@ -5084,7 +5084,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRareEarth() {
+    private static Materials_OLD loadRareEarth() {
         return new MaterialBuilder().setName("RareEarth")
             .setDefaultLocalName("Rare Earth")
             .setChemicalFormula("??????")
@@ -5097,7 +5097,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRed() {
+    private static Materials_OLD loadRed() {
         return new MaterialBuilder().setName("Red")
             .setDefaultLocalName("Red")
             .setColor(Dyes.dyeRed)
@@ -5105,7 +5105,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadReinforced() {
+    private static Materials_OLD loadReinforced() {
         return new MaterialBuilder().setName("Reinforced")
             .setDefaultLocalName("Reinforced")
             .setChemicalFormula("Fe₂(C(MgFeSi₂O₈)₈)")
@@ -5123,7 +5123,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSeedOil() {
+    private static Materials_OLD loadSeedOil() {
         return new MaterialBuilder().setName("SeedOil")
             .setDefaultLocalName("Seed Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5136,7 +5136,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSeedOilHemp() {
+    private static Materials_OLD loadSeedOilHemp() {
         return new MaterialBuilder().setName("SeedOilHemp")
             .setDefaultLocalName("Hemp Seed Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5148,7 +5148,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSeedOilLin() {
+    private static Materials_OLD loadSeedOilLin() {
         return new MaterialBuilder().setName("SeedOilLin")
             .setDefaultLocalName("Lin Seed Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5160,7 +5160,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadStone() {
+    private static Materials_OLD loadStone() {
         return new MaterialBuilder().setName("Stone")
             .setDefaultLocalName("Stone")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -5178,7 +5178,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTNT() {
+    private static Materials_OLD loadTNT() {
         return new MaterialBuilder().setName("TNT")
             .setDefaultLocalName("TNT")
             .setColor(Dyes.dyeRed)
@@ -5191,7 +5191,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUnstable() {
+    private static Materials_OLD loadUnstable() {
         return new MaterialBuilder().setName("Unstable")
             .setDefaultLocalName("Unstable")
             .setChemicalFormula(CustomGlyphs.FIXED_JAPANESE_OPENING_QUOTE + "Fe/C⌋")
@@ -5204,7 +5204,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUnstableIngot() {
+    private static Materials_OLD loadUnstableIngot() {
         return new MaterialBuilder().setName("Unstableingot")
             .setDefaultLocalName("Unstable")
             .setColor(Dyes.dyeWhite)
@@ -5214,7 +5214,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadVinegar() {
+    private static Materials_OLD loadVinegar() {
         return new MaterialBuilder().setName("Vinegar")
             .setDefaultLocalName("Vinegar")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5222,7 +5222,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadWeedEX9000() {
+    private static Materials_OLD loadWeedEX9000() {
         return new MaterialBuilder().setName("WeedEX9000")
             .setDefaultLocalName("Weed-EX 9000")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5232,7 +5232,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadWheat() {
+    private static Materials_OLD loadWheat() {
         return new MaterialBuilder().setName("Wheat")
             .setDefaultLocalName("Wheat")
             .setIconSet(TextureSet.SET_POWDER)
@@ -5246,7 +5246,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadWoodGas() {
+    private static Materials_OLD loadWoodGas() {
         return new MaterialBuilder().setName("WoodGas")
             .setDefaultLocalName("Wood Gas")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5258,7 +5258,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadWoodTar() {
+    private static Materials_OLD loadWoodTar() {
         return new MaterialBuilder().setName("WoodTar")
             .setDefaultLocalName("Wood Tar")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5269,7 +5269,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadWoodVinegar() {
+    private static Materials_OLD loadWoodVinegar() {
         return new MaterialBuilder().setName("WoodVinegar")
             .setDefaultLocalName("Wood Vinegar")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5281,11 +5281,11 @@ public class MaterialsInit {
     }
 
     private static void loadBioVatBacterialSludges() {
-        Materials.EnrichedBacterialSludge = loadEnrichedBacterialSludge();
-        Materials.FermentedBacterialSludge = loadFermentedBacterialSludge();
+        Materials_OLD.EnrichedBacterialSludge = loadEnrichedBacterialSludge();
+        Materials_OLD.FermentedBacterialSludge = loadFermentedBacterialSludge();
     }
 
-    private static Materials loadEnrichedBacterialSludge() {
+    private static Materials_OLD loadEnrichedBacterialSludge() {
         return new MaterialBuilder().setName("EnrichedBacterialSludge")
             .setDefaultLocalName("Enriched Bacterial Sludge")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5294,7 +5294,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFermentedBacterialSludge() {
+    private static Materials_OLD loadFermentedBacterialSludge() {
         return new MaterialBuilder().setName("FermentedBacterialSludge")
             .setDefaultLocalName("Fermented Bacterial Sludge")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5304,15 +5304,15 @@ public class MaterialsInit {
     }
 
     private static void loadTODOThis() {
-        Materials.AluminiumBrass = loadAluminiumBrass();
-        Materials.Endstone = loadEndstone();
-        Materials.Netherrack = loadNetherrack();
-        Materials.Osmiridium = loadOsmiridium();
-        Materials.SoulSand = loadSoulSand();
-        Materials.Sunnarium = loadSunnarium();
+        Materials_OLD.AluminiumBrass = loadAluminiumBrass();
+        Materials_OLD.Endstone = loadEndstone();
+        Materials_OLD.Netherrack = loadNetherrack();
+        Materials_OLD.Osmiridium = loadOsmiridium();
+        Materials_OLD.SoulSand = loadSoulSand();
+        Materials_OLD.Sunnarium = loadSunnarium();
     }
 
-    private static Materials loadAluminiumBrass() {
+    private static Materials_OLD loadAluminiumBrass() {
         return new MaterialBuilder().setName("AluminiumBrass")
             .setDefaultLocalName("Aluminium Brass")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -5325,28 +5325,28 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEndstone() {
+    private static Materials_OLD loadEndstone() {
         return new MaterialBuilder().setName("Endstone")
             .setDefaultLocalName("Endstone")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeYellow)
             .addDustItems()
-            .addOreByproduct(() -> Materials.Helium3)
+            .addOreByproduct(() -> Materials_OLD.Helium3)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .addOrePrefix(OrePrefixes.dustImpure)
             .constructMaterial();
     }
 
-    private static Materials loadNetherrack() {
+    private static Materials_OLD loadNetherrack() {
         return new MaterialBuilder().setName("Netherrack")
             .setDefaultLocalName("Netherrack")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeRed)
             .setARGB(0x00c80000)
             .addDustItems()
-            .addOreByproduct(() -> Materials.Sulfur)
-            .setSmeltingInto(() -> Materials.NetherBrick)
+            .addOreByproduct(() -> Materials_OLD.Sulfur)
+            .setSmeltingInto(() -> Materials_OLD.NetherBrick)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
@@ -5355,7 +5355,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOsmiridium() {
+    private static Materials_OLD loadOsmiridium() {
         return new MaterialBuilder().setName("Osmiridium")
             .setDefaultLocalName("Osmiridium")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -5372,14 +5372,14 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Iridium, 3)
-            .addMaterial(Materials.Osmium, 1)
+            .addMaterial(Materials_OLD.Iridium, 3)
+            .addMaterial(Materials_OLD.Osmium, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadSoulSand() {
+    private static Materials_OLD loadSoulSand() {
         return new MaterialBuilder().setName("SoulSand")
             .setDefaultLocalName("Soulsand")
             .setIconSet(TextureSet.SET_DULL)
@@ -5388,7 +5388,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSunnarium() {
+    private static Materials_OLD loadSunnarium() {
         return new MaterialBuilder().setName("Sunnarium")
             .setDefaultLocalName("Sunnarium")
             .setChemicalFormula("Su")
@@ -5409,119 +5409,119 @@ public class MaterialsInit {
     }
 
     private static void loadDegree1Compounds() {
-        Materials.AceticAcid = loadAceticAcid();
-        Materials.Acetone = loadAcetone();
-        Materials.AllylChloride = loadAllylChloride();
-        Materials.Almandine = loadAlmandine();
-        Materials.Ammonia = loadAmmonia();
-        Materials.Andradite = loadAndradite();
-        Materials.AnnealedCopper = loadAnnealedCopper();
-        Materials.AntimonyTrioxide = loadAntimonyTrioxide();
-        Materials.ArsenicTrioxide = loadArsenicTrioxide();
-        Materials.Asbestos = loadAsbestos();
-        Materials.Ash = loadAsh();
-        Materials.AshDark = loadAshDark();
-        Materials.BandedIron = loadBandedIron();
-        Materials.BatteryAlloy = loadBatteryAlloy();
-        Materials.Benzene = loadBenzene();
-        Materials.BlueTopaz = loadBlueTopaz();
-        Materials.Bone = loadBone();
-        Materials.Brass = loadBrass();
-        Materials.Brick = loadBrick();
-        Materials.Bronze = loadBronze();
-        Materials.BrownLimonite = loadBrownLimonite();
-        Materials.Calcite = loadCalcite();
-        Materials.CarbonDioxide = loadCarbonDioxide();
-        Materials.Cassiterite = loadCassiterite();
-        Materials.CassiteriteSand = loadCassiteriteSand();
-        Materials.Chalcopyrite = loadChalcopyrite();
-        Materials.Charcoal = loadCharcoal();
-        Materials.Chlorobenzene = loadChlorobenzene();
-        Materials.Chromite = loadChromite();
-        Materials.ChromiumDioxide = loadChromiumDioxide();
-        Materials.Cinnabar = loadCinnabar();
-        Materials.Coal = loadCoal();
-        Materials.CobaltOxide = loadCobaltOxide();
-        Materials.Cobaltite = loadCobaltite();
-        Materials.Cooperite = loadCooperite();
-        Materials.CupricOxide = loadCupricOxide();
-        Materials.Cupronickel = loadCupronickel();
-        Materials.DeepIron = loadDeepIron();
-        Materials.Diamond = loadDiamond();
-        Materials.DilutedHydrochloricAcid = loadDilutedHydrochloricAcid();
-        Materials.Electrum = loadElectrum();
-        Materials.Emerald = loadEmerald();
-        Materials.Epoxid = loadEpoxid();
-        Materials.FerriteMixture = loadFerriteMixture();
-        Materials.Ferrosilite = loadFerrosilite();
-        Materials.FreshWater = loadFreshWater();
-        Materials.Galena = loadGalena();
-        Materials.Garnierite = loadGarnierite();
-        Materials.Glyceryl = loadGlyceryl();
-        Materials.GreenSapphire = loadGreenSapphire();
-        Materials.Grossular = loadGrossular();
-        Materials.HolyWater = loadHolyWater();
-        Materials.HydricSulfide = loadHydricSulfide();
-        Materials.Ice = loadIce();
-        Materials.Ilmenite = loadIlmenite();
-        Materials.Invar = loadInvar();
-        Materials.Kanthal = loadKanthal();
-        Materials.Lazurite = loadLazurite();
-        Materials.LiquidNitrogen = loadLiquidNitrogen();
-        Materials.LiquidOxygen = loadLiquidOxygen();
-        Materials.Magnalium = loadMagnalium();
-        Materials.Magnesia = loadMagnesia();
-        Materials.Magnesite = loadMagnesite();
-        Materials.Magnesiumchloride = loadMagnesiumchloride();
-        Materials.Magnetite = loadMagnetite();
-        Materials.Massicot = loadMassicot();
-        Materials.Methane = loadMethane();
-        Materials.Molybdenite = loadMolybdenite();
-        Materials.Nichrome = loadNichrome();
-        Materials.NickelZincFerrite = loadNickelZincFerrite();
-        Materials.NiobiumNitride = loadNiobiumNitride();
-        Materials.NiobiumTitanium = loadNiobiumTitanium();
-        Materials.NitroCarbon = loadNitroCarbon();
-        Materials.NitrogenDioxide = loadNitrogenDioxide();
-        Materials.NobleGases = loadNobleGases();
-        Materials.Obsidian = loadObsidian();
-        Materials.Phosphate = loadPhosphate();
-        Materials.PigIron = loadPigIron();
-        Materials.Polycaprolactam = loadPolycaprolactam();
-        Materials.Polydimethylsiloxane = loadPolydimethylsiloxane();
-        Materials.Polyethylene = loadPolyethylene();
-        Materials.Polytetrafluoroethylene = loadPolytetrafluoroethylene();
-        Materials.Potash = loadPotash();
-        Materials.Powellite = loadPowellite();
-        Materials.Pumice = loadPumice();
-        Materials.Pyrite = loadPyrite();
-        Materials.Pyrochlore = loadPyrochlore();
-        Materials.Pyrolusite = loadPyrolusite();
-        Materials.Pyrope = loadPyrope();
-        Materials.Quicklime = loadQuicklime();
-        Materials.RockSalt = loadRockSalt();
-        Materials.Rubber = loadRubber();
-        Materials.RubberRaw = loadRubberRaw();
-        Materials.RubberSilicone = loadRubberSilicone();
-        Materials.Ruby = loadRuby();
-        Materials.Rutile = loadRutile();
-        Materials.Salt = loadSalt();
-        Materials.Saltpeter = loadSaltpeter();
-        Materials.Sapphire = loadSapphire();
-        Materials.Scheelite = loadScheelite();
-        Materials.SiliconDioxide = loadSiliconDioxide();
-        Materials.Snow = loadSnow();
-        Materials.SodaAsh = loadSodaAsh();
-        Materials.Sodalite = loadSodalite();
-        Materials.SodiumPersulfate = loadSodiumPersulfate();
-        Materials.SodiumPotassium = loadSodiumPotassium();
-        Materials.SodiumSulfide = loadSodiumSulfide();
-        Materials.Titaniumtetrachloride = loadTitaniumtetrachloride();
-        Materials.Water = Materials.Steam = loadWater();
-        Materials.Zincite = loadZincite();
+        Materials_OLD.AceticAcid = loadAceticAcid();
+        Materials_OLD.Acetone = loadAcetone();
+        Materials_OLD.AllylChloride = loadAllylChloride();
+        Materials_OLD.Almandine = loadAlmandine();
+        Materials_OLD.Ammonia = loadAmmonia();
+        Materials_OLD.Andradite = loadAndradite();
+        Materials_OLD.AnnealedCopper = loadAnnealedCopper();
+        Materials_OLD.AntimonyTrioxide = loadAntimonyTrioxide();
+        Materials_OLD.ArsenicTrioxide = loadArsenicTrioxide();
+        Materials_OLD.Asbestos = loadAsbestos();
+        Materials_OLD.Ash = loadAsh();
+        Materials_OLD.AshDark = loadAshDark();
+        Materials_OLD.BandedIron = loadBandedIron();
+        Materials_OLD.BatteryAlloy = loadBatteryAlloy();
+        Materials_OLD.Benzene = loadBenzene();
+        Materials_OLD.BlueTopaz = loadBlueTopaz();
+        Materials_OLD.Bone = loadBone();
+        Materials_OLD.Brass = loadBrass();
+        Materials_OLD.Brick = loadBrick();
+        Materials_OLD.Bronze = loadBronze();
+        Materials_OLD.BrownLimonite = loadBrownLimonite();
+        Materials_OLD.Calcite = loadCalcite();
+        Materials_OLD.CarbonDioxide = loadCarbonDioxide();
+        Materials_OLD.Cassiterite = loadCassiterite();
+        Materials_OLD.CassiteriteSand = loadCassiteriteSand();
+        Materials_OLD.Chalcopyrite = loadChalcopyrite();
+        Materials_OLD.Charcoal = loadCharcoal();
+        Materials_OLD.Chlorobenzene = loadChlorobenzene();
+        Materials_OLD.Chromite = loadChromite();
+        Materials_OLD.ChromiumDioxide = loadChromiumDioxide();
+        Materials_OLD.Cinnabar = loadCinnabar();
+        Materials_OLD.Coal = loadCoal();
+        Materials_OLD.CobaltOxide = loadCobaltOxide();
+        Materials_OLD.Cobaltite = loadCobaltite();
+        Materials_OLD.Cooperite = loadCooperite();
+        Materials_OLD.CupricOxide = loadCupricOxide();
+        Materials_OLD.Cupronickel = loadCupronickel();
+        Materials_OLD.DeepIron = loadDeepIron();
+        Materials_OLD.Diamond = loadDiamond();
+        Materials_OLD.DilutedHydrochloricAcid = loadDilutedHydrochloricAcid();
+        Materials_OLD.Electrum = loadElectrum();
+        Materials_OLD.Emerald = loadEmerald();
+        Materials_OLD.Epoxid = loadEpoxid();
+        Materials_OLD.FerriteMixture = loadFerriteMixture();
+        Materials_OLD.Ferrosilite = loadFerrosilite();
+        Materials_OLD.FreshWater = loadFreshWater();
+        Materials_OLD.Galena = loadGalena();
+        Materials_OLD.Garnierite = loadGarnierite();
+        Materials_OLD.Glyceryl = loadGlyceryl();
+        Materials_OLD.GreenSapphire = loadGreenSapphire();
+        Materials_OLD.Grossular = loadGrossular();
+        Materials_OLD.HolyWater = loadHolyWater();
+        Materials_OLD.HydricSulfide = loadHydricSulfide();
+        Materials_OLD.Ice = loadIce();
+        Materials_OLD.Ilmenite = loadIlmenite();
+        Materials_OLD.Invar = loadInvar();
+        Materials_OLD.Kanthal = loadKanthal();
+        Materials_OLD.Lazurite = loadLazurite();
+        Materials_OLD.LiquidNitrogen = loadLiquidNitrogen();
+        Materials_OLD.LiquidOxygen = loadLiquidOxygen();
+        Materials_OLD.Magnalium = loadMagnalium();
+        Materials_OLD.Magnesia = loadMagnesia();
+        Materials_OLD.Magnesite = loadMagnesite();
+        Materials_OLD.Magnesiumchloride = loadMagnesiumchloride();
+        Materials_OLD.Magnetite = loadMagnetite();
+        Materials_OLD.Massicot = loadMassicot();
+        Materials_OLD.Methane = loadMethane();
+        Materials_OLD.Molybdenite = loadMolybdenite();
+        Materials_OLD.Nichrome = loadNichrome();
+        Materials_OLD.NickelZincFerrite = loadNickelZincFerrite();
+        Materials_OLD.NiobiumNitride = loadNiobiumNitride();
+        Materials_OLD.NiobiumTitanium = loadNiobiumTitanium();
+        Materials_OLD.NitroCarbon = loadNitroCarbon();
+        Materials_OLD.NitrogenDioxide = loadNitrogenDioxide();
+        Materials_OLD.NobleGases = loadNobleGases();
+        Materials_OLD.Obsidian = loadObsidian();
+        Materials_OLD.Phosphate = loadPhosphate();
+        Materials_OLD.PigIron = loadPigIron();
+        Materials_OLD.Polycaprolactam = loadPolycaprolactam();
+        Materials_OLD.Polydimethylsiloxane = loadPolydimethylsiloxane();
+        Materials_OLD.Polyethylene = loadPolyethylene();
+        Materials_OLD.Polytetrafluoroethylene = loadPolytetrafluoroethylene();
+        Materials_OLD.Potash = loadPotash();
+        Materials_OLD.Powellite = loadPowellite();
+        Materials_OLD.Pumice = loadPumice();
+        Materials_OLD.Pyrite = loadPyrite();
+        Materials_OLD.Pyrochlore = loadPyrochlore();
+        Materials_OLD.Pyrolusite = loadPyrolusite();
+        Materials_OLD.Pyrope = loadPyrope();
+        Materials_OLD.Quicklime = loadQuicklime();
+        Materials_OLD.RockSalt = loadRockSalt();
+        Materials_OLD.Rubber = loadRubber();
+        Materials_OLD.RubberRaw = loadRubberRaw();
+        Materials_OLD.RubberSilicone = loadRubberSilicone();
+        Materials_OLD.Ruby = loadRuby();
+        Materials_OLD.Rutile = loadRutile();
+        Materials_OLD.Salt = loadSalt();
+        Materials_OLD.Saltpeter = loadSaltpeter();
+        Materials_OLD.Sapphire = loadSapphire();
+        Materials_OLD.Scheelite = loadScheelite();
+        Materials_OLD.SiliconDioxide = loadSiliconDioxide();
+        Materials_OLD.Snow = loadSnow();
+        Materials_OLD.SodaAsh = loadSodaAsh();
+        Materials_OLD.Sodalite = loadSodalite();
+        Materials_OLD.SodiumPersulfate = loadSodiumPersulfate();
+        Materials_OLD.SodiumPotassium = loadSodiumPotassium();
+        Materials_OLD.SodiumSulfide = loadSodiumSulfide();
+        Materials_OLD.Titaniumtetrachloride = loadTitaniumtetrachloride();
+        Materials_OLD.Water = Materials_OLD.Steam = loadWater();
+        Materials_OLD.Zincite = loadZincite();
     }
 
-    private static Materials loadAceticAcid() {
+    private static Materials_OLD loadAceticAcid() {
         return new MaterialBuilder().setName("AceticAcid")
             .setDefaultLocalName("Acetic Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5530,14 +5530,14 @@ public class MaterialsInit {
             .setMeltingPoint(289)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadAcetone() {
+    private static Materials_OLD loadAcetone() {
         return new MaterialBuilder().setName("Acetone")
             .setDefaultLocalName("Acetone")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5546,29 +5546,29 @@ public class MaterialsInit {
             .setMeltingPoint(178)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadAir() {
+    private static Materials_OLD loadAir() {
         return new MaterialBuilder().setName("Air")
             .setDefaultLocalName("Air")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeLightBlue)
             .setARGB(0xf0a9d0f5)
             .addCell()
-            .addMaterial(Materials.Nitrogen, 40)
-            .addMaterial(Materials.Oxygen, 11)
-            .addMaterial(Materials.Argon, 1)
-            .addMaterial(Materials.NobleGases, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 40)
+            .addMaterial(Materials_OLD.Oxygen, 11)
+            .addMaterial(Materials_OLD.Argon, 1)
+            .addMaterial(Materials_OLD.NobleGases, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadAllylChloride() {
+    private static Materials_OLD loadAllylChloride() {
         return new MaterialBuilder().setName("AllylChloride")
             .setDefaultLocalName("Allyl Chloride")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5577,14 +5577,14 @@ public class MaterialsInit {
             .setMeltingPoint(138)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 5)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 5)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadAlmandine() {
+    private static Materials_OLD loadAlmandine() {
         return new MaterialBuilder().setName("Almandine")
             .setDefaultLocalName("Almandine")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -5593,16 +5593,16 @@ public class MaterialsInit {
             .setMiningLevel(1)
             .addDustItems()
             .addOreItems()
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Iron, 3)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.GarnetRed)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Iron, 3)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.GarnetRed)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
             .constructMaterial();
     }
 
-    private static Materials loadAmmonia() {
+    private static Materials_OLD loadAmmonia() {
         return new MaterialBuilder().setName("Ammonia")
             .setDefaultLocalName("Ammonia")
             .setIconSet(TextureSet.SET_EMERALD)
@@ -5610,8 +5610,8 @@ public class MaterialsInit {
             .setARGB(0x003f3480)
             .setOreMultiplier(4)
             .addCell()
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Hydrogen, 3)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 3)
             .addElectrolyzerRecipe()
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
@@ -5620,7 +5620,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAndradite() {
+    private static Materials_OLD loadAndradite() {
         return new MaterialBuilder().setName("Andradite")
             .setDefaultLocalName("Andradite")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -5630,16 +5630,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Calcium, 3)
-            .addMaterial(Materials.Iron, 2)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.GarnetYellow)
-            .addOreByproduct(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Calcium, 3)
+            .addMaterial(Materials_OLD.Iron, 2)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.GarnetYellow)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .constructMaterial();
     }
 
-    private static Materials loadAnnealedCopper() {
+    private static Materials_OLD loadAnnealedCopper() {
         return new MaterialBuilder().setName("AnnealedCopper")
             .setDefaultLocalName("Annealed Copper")
             .setChemicalFormula("Cu*")
@@ -5651,39 +5651,39 @@ public class MaterialsInit {
             .addMetalItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Copper, 1)
-            .setArcSmeltingInto(() -> Materials.AnnealedCopper)
+            .addMaterial(Materials_OLD.Copper, 1)
+            .setArcSmeltingInto(() -> Materials_OLD.AnnealedCopper)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .constructMaterial();
     }
 
-    private static Materials loadAntimonyTrioxide() {
+    private static Materials_OLD loadAntimonyTrioxide() {
         return new MaterialBuilder().setName("AntimonyTrioxide")
             .setDefaultLocalName("Antimony Trioxide")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00e6e6f0)
             .addDustItems()
-            .addMaterial(Materials.Antimony, 2)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Antimony, 2)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadArsenicTrioxide() {
+    private static Materials_OLD loadArsenicTrioxide() {
         return new MaterialBuilder().setName("ArsenicTrioxide")
             .setDefaultLocalName("Arsenic Trioxide")
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeGreen)
             .addDustItems()
-            .addMaterial(Materials.Arsenic, 2)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Arsenic, 2)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadAsbestos() {
+    private static Materials_OLD loadAsbestos() {
         return new MaterialBuilder().setName("Asbestos")
             .setDefaultLocalName("Asbestos")
             .setIconSet(TextureSet.SET_DULL)
@@ -5694,17 +5694,17 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // Mg3Si2O5(OH)4
-            .addMaterial(Materials.Magnesium, 3)
-            .addMaterial(Materials.Silicon, 2)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Oxygen, 9)
-            .addOreByproduct(() -> Materials.Asbestos)
-            .addOreByproduct(() -> Materials.SiliconDioxide)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addMaterial(Materials_OLD.Magnesium, 3)
+            .addMaterial(Materials_OLD.Silicon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Oxygen, 9)
+            .addOreByproduct(() -> Materials_OLD.Asbestos)
+            .addOreByproduct(() -> Materials_OLD.SiliconDioxide)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .constructMaterial();
     }
 
-    private static Materials loadAsh() {
+    private static Materials_OLD loadAsh() {
         return new MaterialBuilder().setName("Ash")
             .setDefaultLocalName("Ashes")
             .setChemicalFormula("??")
@@ -5712,13 +5712,13 @@ public class MaterialsInit {
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00969696)
             .addDustItems()
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.PERDITIO, 1)
-            .addOreByproduct(() -> Materials.Carbon)
+            .addOreByproduct(() -> Materials_OLD.Carbon)
             .constructMaterial();
     }
 
-    private static Materials loadAshDark() {
+    private static Materials_OLD loadAshDark() {
         return new MaterialBuilder().setName("DarkAsh")
             .setDefaultLocalName("Dark Ashes")
             .setChemicalFormula("C" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK + "??")
@@ -5728,14 +5728,14 @@ public class MaterialsInit {
             .addDustItems()
             .setDensity(2, 1)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.IGNIS, 1)
             .addAspect(TCAspects.PERDITIO, 1)
-            .addOreByproduct(() -> Materials.Carbon)
+            .addOreByproduct(() -> Materials_OLD.Carbon)
             .constructMaterial();
     }
 
-    private static Materials loadBandedIron() {
+    private static Materials_OLD loadBandedIron() {
         return new MaterialBuilder().setName("BandedIron")
             .setDefaultLocalName("Banded Iron")
             .setIconSet(TextureSet.SET_DULL)
@@ -5745,14 +5745,14 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Iron, 2)
-            .addMaterial(Materials.Oxygen, 3)
-            .setDirectSmelting(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Iron, 2)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .setDirectSmelting(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .constructMaterial();
     }
 
-    private static Materials loadBatteryAlloy() {
+    private static Materials_OLD loadBatteryAlloy() {
         return new MaterialBuilder().setName("BatteryAlloy")
             .setDefaultLocalName("Battery Alloy")
             .setIconSet(TextureSet.SET_DULL)
@@ -5761,13 +5761,13 @@ public class MaterialsInit {
             .addDustItems()
             .addMetalItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Lead, 4)
-            .addMaterial(Materials.Antimony, 1)
+            .addMaterial(Materials_OLD.Lead, 4)
+            .addMaterial(Materials_OLD.Antimony, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadBenzene() {
+    private static Materials_OLD loadBenzene() {
         return new MaterialBuilder().setName("Benzene")
             .setDefaultLocalName("Benzene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -5777,13 +5777,13 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 360)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadBlueTopaz() {
+    private static Materials_OLD loadBlueTopaz() {
         return new MaterialBuilder().setName("BlueTopaz")
             .setDefaultLocalName("Blue Topaz")
             .setIconSet(TextureSet.SET_GEM_HORIZONTAL)
@@ -5794,14 +5794,14 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addToolHeadItems()
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Fluorine, 2)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 6)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Fluorine, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 6)
             .addAspect(TCAspects.LUCRUM, 6)
             .addAspect(TCAspects.VITREUS, 4)
-            .addOreByproduct(() -> Materials.Topaz)
+            .addOreByproduct(() -> Materials_OLD.Topaz)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -5809,14 +5809,14 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBone() {
+    private static Materials_OLD loadBone() {
         return new MaterialBuilder().setName("Bone")
             .setDefaultLocalName("Bone")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00fafafa)
             .addDustItems()
-            .addMaterial(Materials.Calcium, 1)
+            .addMaterial(Materials_OLD.Calcium, 1)
             .addAspect(TCAspects.MORTUUS, 2)
             .addAspect(TCAspects.CORPUS, 1)
             .removeOrePrefix(OrePrefixes.dust) // minecraft:dye:15
@@ -5824,7 +5824,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBrass() {
+    private static Materials_OLD loadBrass() {
         return new MaterialBuilder().setName("Brass")
             .setDefaultLocalName("Brass")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -5837,27 +5837,27 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Zinc, 1)
-            .addMaterial(Materials.Copper, 3)
+            .addMaterial(Materials_OLD.Zinc, 1)
+            .addMaterial(Materials_OLD.Copper, 3)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.INSTRUMENTUM, 1)
-            .addOreByproduct(() -> Materials.Copper)
-            .addOreByproduct(() -> Materials.Zinc)
+            .addOreByproduct(() -> Materials_OLD.Copper)
+            .addOreByproduct(() -> Materials_OLD.Zinc)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .constructMaterial();
     }
 
-    private static Materials loadBrick() {
+    private static Materials_OLD loadBrick() {
         return new MaterialBuilder().setName("Brick")
             .setDefaultLocalName("Brick")
             .setIconSet(TextureSet.SET_ROUGH)
             .setColor(Dyes.dyeBrown)
             .setARGB(0x009b5643)
             .addDustItems()
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 4)
-            .addMaterial(Materials.Oxygen, 11)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 4)
+            .addMaterial(Materials_OLD.Oxygen, 11)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .addSubTag(SubTag.STONE)
@@ -5865,7 +5865,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBronze() {
+    private static Materials_OLD loadBronze() {
         return new MaterialBuilder().setName("Bronze")
             .setDefaultLocalName("Bronze")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -5878,19 +5878,19 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Tin, 1)
-            .addMaterial(Materials.Copper, 3)
+            .addMaterial(Materials_OLD.Tin, 1)
+            .addMaterial(Materials_OLD.Copper, 3)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.INSTRUMENTUM, 1)
-            .addOreByproduct(() -> Materials.Copper)
-            .addOreByproduct(() -> Materials.Tin)
+            .addOreByproduct(() -> Materials_OLD.Copper)
+            .addOreByproduct(() -> Materials_OLD.Tin)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadBrownLimonite() {
+    private static Materials_OLD loadBrownLimonite() {
         return new MaterialBuilder().setName("BrownLimonite")
             .setDefaultLocalName("Brown Limonite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -5901,18 +5901,18 @@ public class MaterialsInit {
             .addOreItems()
             .addCentrifugeRecipe()
             // FeO(OH)
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Oxygen, 2)
-            .addOreByproduct(() -> Materials.Malachite)
-            .addOreByproduct(() -> Materials.YellowLimonite)
-            .setDirectSmelting(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
+            .addOreByproduct(() -> Materials_OLD.Malachite)
+            .addOreByproduct(() -> Materials_OLD.YellowLimonite)
+            .setDirectSmelting(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_DOUBLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .constructMaterial();
     }
 
-    private static Materials loadCalcite() {
+    private static Materials_OLD loadCalcite() {
         return new MaterialBuilder().setName("Calcite")
             .setDefaultLocalName("Calcite")
             .setIconSet(TextureSet.SET_DULL)
@@ -5922,15 +5922,15 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Oxygen, 3)
-            .addOreByproduct(() -> Materials.Andradite)
-            .addOreByproduct(() -> Materials.Malachite)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .addOreByproduct(() -> Materials_OLD.Andradite)
+            .addOreByproduct(() -> Materials_OLD.Malachite)
             .constructMaterial();
     }
 
-    private static Materials loadCarbonDioxide() {
+    private static Materials_OLD loadCarbonDioxide() {
         return new MaterialBuilder().setName("CarbonDioxide")
             .setDefaultLocalName("Carbon Dioxide")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -5940,8 +5940,8 @@ public class MaterialsInit {
             .addCell()
             .setMeltingPoint(25)
             .setBlastFurnaceTemp(1)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addSubTag(SubTag.TRANSPARENT)
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
@@ -5950,7 +5950,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCassiterite() {
+    private static Materials_OLD loadCassiterite() {
         return new MaterialBuilder().setName("Cassiterite")
             .setDefaultLocalName("Cassiterite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -5961,14 +5961,14 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(2)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Tin, 1)
-            .addMaterial(Materials.Oxygen, 2)
-            .addOreByproduct(() -> Materials.Tin)
-            .setDirectSmelting(() -> Materials.Tin)
+            .addMaterial(Materials_OLD.Tin, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
+            .addOreByproduct(() -> Materials_OLD.Tin)
+            .setDirectSmelting(() -> Materials_OLD.Tin)
             .constructMaterial();
     }
 
-    private static Materials loadCassiteriteSand() {
+    private static Materials_OLD loadCassiteriteSand() {
         return new MaterialBuilder().setName("CassiteriteSand")
             .setDefaultLocalName("Cassiterite Sand")
             .setIconSet(TextureSet.SET_SAND)
@@ -5979,14 +5979,14 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(2)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Tin, 1)
-            .addMaterial(Materials.Oxygen, 2)
-            .addOreByproduct(() -> Materials.Tin)
-            .setDirectSmelting(() -> Materials.Tin)
+            .addMaterial(Materials_OLD.Tin, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
+            .addOreByproduct(() -> Materials_OLD.Tin)
+            .setDirectSmelting(() -> Materials_OLD.Tin)
             .constructMaterial();
     }
 
-    private static Materials loadChalcopyrite() {
+    private static Materials_OLD loadChalcopyrite() {
         return new MaterialBuilder().setName("Chalcopyrite")
             .setDefaultLocalName("Chalcopyrite")
             .setIconSet(TextureSet.SET_DULL)
@@ -5996,20 +5996,20 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Copper, 1)
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Sulfur, 2)
-            .addOreByproduct(() -> Materials.Pyrite)
-            .addOreByproduct(() -> Materials.Cobalt)
-            .addOreByproduct(() -> Materials.Cadmium)
-            .addOreByproduct(() -> Materials.Gold)
-            .setDirectSmelting(() -> Materials.Copper)
+            .addMaterial(Materials_OLD.Copper, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Sulfur, 2)
+            .addOreByproduct(() -> Materials_OLD.Pyrite)
+            .addOreByproduct(() -> Materials_OLD.Cobalt)
+            .addOreByproduct(() -> Materials_OLD.Cadmium)
+            .addOreByproduct(() -> Materials_OLD.Gold)
+            .setDirectSmelting(() -> Materials_OLD.Copper)
             .addSubTag(SubTag.DONT_ADD_DEFAULT_BBF_RECIPE)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .constructMaterial();
     }
 
-    private static Materials loadCharcoal() {
+    private static Materials_OLD loadCharcoal() {
         return new MaterialBuilder().setName("Charcoal")
             .setDefaultLocalName("Charcoal")
             .setIconSet(TextureSet.SET_FINE)
@@ -6018,7 +6018,7 @@ public class MaterialsInit {
             .addDustItems()
             .addGemItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.POTENTIA, 2)
             .addAspect(TCAspects.IGNIS, 2)
             .addSubTag(SubTag.FLAMMABLE)
@@ -6030,7 +6030,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadChlorobenzene() {
+    private static Materials_OLD loadChlorobenzene() {
         return new MaterialBuilder().setName("Chlorobenzene")
             .setDefaultLocalName("Chlorobenzene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6039,14 +6039,14 @@ public class MaterialsInit {
             .setMeltingPoint(228)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 5)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 5)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadChromite() {
+    private static Materials_OLD loadChromite() {
         return new MaterialBuilder().setName("Chromite")
             .setDefaultLocalName("Chromite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6059,17 +6059,17 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_700)
             .setBlastFurnaceRequired(true)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Chrome, 2)
-            .addMaterial(Materials.Oxygen, 4)
-            .addOreByproduct(() -> Materials.Iron)
-            .addOreByproduct(() -> Materials.Magnesium)
-            .setDirectSmelting(() -> Materials.Chrome)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Chrome, 2)
+            .addMaterial(Materials_OLD.Oxygen, 4)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
+            .setDirectSmelting(() -> Materials_OLD.Chrome)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .constructMaterial();
     }
 
-    private static Materials loadChromiumDioxide() {
+    private static Materials_OLD loadChromiumDioxide() {
         return new MaterialBuilder().setName("ChromiumDioxide")
             .setDefaultLocalName("Chromium Dioxide")
             .setIconSet(TextureSet.SET_DULL)
@@ -6081,15 +6081,15 @@ public class MaterialsInit {
             .setMeltingPoint(650)
             .setBlastFurnaceTemp(650)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Chrome, 1)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Chrome, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MACHINA, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadCinnabar() {
+    private static Materials_OLD loadCinnabar() {
         return new MaterialBuilder().setName("Cinnabar")
             .setDefaultLocalName("Cinnabar")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -6099,18 +6099,18 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Mercury, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addOreByproduct(() -> Materials.Redstone)
-            .addOreByproduct(() -> Materials.Sulfur)
-            .addOreByproduct(() -> Materials.Glowstone)
-            .setDirectSmelting(() -> Materials.Mercury)
+            .addMaterial(Materials_OLD.Mercury, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addOreByproduct(() -> Materials_OLD.Redstone)
+            .addOreByproduct(() -> Materials_OLD.Sulfur)
+            .addOreByproduct(() -> Materials_OLD.Glowstone)
+            .setDirectSmelting(() -> Materials_OLD.Mercury)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .addSubTag(SubTag.SMELTING_TO_GEM)
             .constructMaterial();
     }
 
-    private static Materials loadCoal() {
+    private static Materials_OLD loadCoal() {
         return new MaterialBuilder().setName("Coal")
             .setDefaultLocalName("Coal")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -6123,11 +6123,11 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .setDensity(2, 1)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.POTENTIA, 2)
             .addAspect(TCAspects.IGNIS, 2)
-            .addOreByproduct(() -> Materials.Lignite)
-            .addOreByproduct(() -> Materials.Thorium)
+            .addOreByproduct(() -> Materials_OLD.Lignite)
+            .addOreByproduct(() -> Materials_OLD.Thorium)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -6138,20 +6138,20 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCobaltOxide() {
+    private static Materials_OLD loadCobaltOxide() {
         return new MaterialBuilder().setName("CobaltOxide")
             .setDefaultLocalName("Cobalt Oxide")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeGreen)
             .setARGB(0x00668000)
             .addDustItems()
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadCobaltite() {
+    private static Materials_OLD loadCobaltite() {
         return new MaterialBuilder().setName("Cobaltite")
             .setDefaultLocalName("Cobaltite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6161,16 +6161,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.Arsenic, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addOreByproduct(() -> Materials.Cobalt)
-            .setDirectSmelting(() -> Materials.Cobalt)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.Arsenic, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addOreByproduct(() -> Materials_OLD.Cobalt)
+            .setDirectSmelting(() -> Materials_OLD.Cobalt)
             .addSubTag(SubTag.WASHING_SODIUMPERSULFATE)
             .constructMaterial();
     }
 
-    private static Materials loadCooperite() {
+    private static Materials_OLD loadCooperite() {
         return new MaterialBuilder().setName("Cooperite")
             .setDefaultLocalName("Sheldonite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6180,20 +6180,20 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Platinum, 3)
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Palladium, 1)
-            .addOreByproduct(() -> Materials.Palladium)
-            .addOreByproduct(() -> Materials.Nickel)
-            .addOreByproduct(() -> Materials.Iridium)
-            .setDirectSmelting(() -> Materials.Platinum)
+            .addMaterial(Materials_OLD.Platinum, 3)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Palladium, 1)
+            .addOreByproduct(() -> Materials_OLD.Palladium)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
+            .addOreByproduct(() -> Materials_OLD.Iridium)
+            .setDirectSmelting(() -> Materials_OLD.Platinum)
             .addSubTag(SubTag.DONT_ADD_DEFAULT_BBF_RECIPE)
             .addSubTag(SubTag.WASHING_MERCURY)
             .constructMaterial();
     }
 
-    private static Materials loadCupricOxide() {
+    private static Materials_OLD loadCupricOxide() {
         return new MaterialBuilder().setName("CupricOxide")
             .setDefaultLocalName("Cupric Oxide")
             .setIconSet(TextureSet.SET_DULL)
@@ -6201,13 +6201,13 @@ public class MaterialsInit {
             .setARGB(0x000f0f0f)
             .addDustItems()
             .setMeltingPoint(1_599)
-            .addMaterial(Materials.Copper, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Copper, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadCupronickel() {
+    private static Materials_OLD loadCupronickel() {
         return new MaterialBuilder().setName("Cupronickel")
             .setDefaultLocalName("Cupronickel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6218,13 +6218,13 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Copper, 1)
-            .addMaterial(Materials.Nickel, 1)
+            .addMaterial(Materials_OLD.Copper, 1)
+            .addMaterial(Materials_OLD.Nickel, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadDeepIron() {
+    private static Materials_OLD loadDeepIron() {
         return new MaterialBuilder().setName("DeepIron")
             .setDefaultLocalName("Deep Iron")
             .setChemicalFormula("Sp₂Fe")
@@ -6241,17 +6241,17 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addMaterial(Materials.Iron, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 1)
-            .addOreByproduct(() -> Materials.Trinium)
-            .addOreByproduct(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Trinium)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_TRIPLE)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadDiamond() {
+    private static Materials_OLD loadDiamond() {
         return new MaterialBuilder().setName("Diamond")
             .setDefaultLocalName("Diamond")
             .setIconSet(
@@ -6269,10 +6269,10 @@ public class MaterialsInit {
             .addGearItems()
             .setDensity(64, 1)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.VITREUS, 3)
             .addAspect(TCAspects.LUCRUM, 4)
-            .addOreByproduct(() -> Materials.Graphite)
+            .addOreByproduct(() -> Materials_OLD.Graphite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -6283,7 +6283,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDilutedHydrochloricAcid() {
+    private static Materials_OLD loadDilutedHydrochloricAcid() {
         return new MaterialBuilder().setName("DilutedHydrochloricAcid_GT5U")
             .setDefaultLocalName("Diluted Hydrochloric Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6291,12 +6291,12 @@ public class MaterialsInit {
             .setARGB(0x0099a7a3)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .constructMaterial();
     }
 
-    private static Materials loadElectrum() {
+    private static Materials_OLD loadElectrum() {
         return new MaterialBuilder().setName("Electrum")
             .setDefaultLocalName("Electrum")
             .setIconSet(TextureSet.SET_SHINY)
@@ -6310,16 +6310,16 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Silver, 1)
-            .addMaterial(Materials.Gold, 1)
-            .addOreByproduct(() -> Materials.Gold)
-            .addOreByproduct(() -> Materials.Silver)
+            .addMaterial(Materials_OLD.Silver, 1)
+            .addMaterial(Materials_OLD.Gold, 1)
+            .addOreByproduct(() -> Materials_OLD.Gold)
+            .addOreByproduct(() -> Materials_OLD.Silver)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .constructMaterial();
     }
 
-    private static Materials loadEmerald() {
+    private static Materials_OLD loadEmerald() {
         return new MaterialBuilder().setName("Emerald")
             .setDefaultLocalName("Emerald")
             .setIconSet(
@@ -6334,14 +6334,14 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addToolHeadItems()
-            .addMaterial(Materials.Beryllium, 3)
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 6)
-            .addMaterial(Materials.Oxygen, 18)
+            .addMaterial(Materials_OLD.Beryllium, 3)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 6)
+            .addMaterial(Materials_OLD.Oxygen, 18)
             .addAspect(TCAspects.VITREUS, 3)
             .addAspect(TCAspects.LUCRUM, 5)
-            .addOreByproduct(() -> Materials.Beryllium)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Beryllium)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -6351,7 +6351,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEpoxid() {
+    private static Materials_OLD loadEpoxid() {
         return new MaterialBuilder().setName("Epoxid")
             .setDefaultLocalName("Epoxid")
             .setIconSet(TextureSet.SET_DULL)
@@ -6364,55 +6364,55 @@ public class MaterialsInit {
             .addGearItems()
             .removeOrePrefix(OrePrefixes.sheetmetal)
             .setMeltingPoint(400)
-            .addMaterial(Materials.Carbon, 21)
-            .addMaterial(Materials.Hydrogen, 24)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Carbon, 21)
+            .addMaterial(Materials_OLD.Hydrogen, 24)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .addAspect(TCAspects.MOTUS, 2)
             .constructMaterial();
     }
 
-    private static Materials loadFerriteMixture() {
+    private static Materials_OLD loadFerriteMixture() {
         return new MaterialBuilder().setName("FerriteMixture")
             .setDefaultLocalName("Ferrite Mixture")
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeGray)
             .setARGB(0x00b4b4b4)
             .addDustItems()
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.Zinc, 1)
-            .addMaterial(Materials.Iron, 4)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.Zinc, 1)
+            .addMaterial(Materials_OLD.Iron, 4)
             .constructMaterial();
     }
 
-    private static Materials loadFerrosilite() {
+    private static Materials_OLD loadFerrosilite() {
         return new MaterialBuilder().setName("Ferrosilite")
             .setDefaultLocalName("Ferrosilite")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeBrown)
             .setARGB(0x0097632a)
             .addDustItems()
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadFreshWater() {
+    private static Materials_OLD loadFreshWater() {
         return new MaterialBuilder().setName("FreshWater")
             .setDefaultLocalName("Fresh Water")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x000000ff)
             .addCell()
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.AQUA, 2)
             .addSubTag(SubTag.FOOD)
             .constructMaterial();
     }
 
-    private static Materials loadGalena() {
+    private static Materials_OLD loadGalena() {
         return new MaterialBuilder().setName("Galena")
             .setDefaultLocalName("Galena")
             .setIconSet(TextureSet.SET_DULL)
@@ -6422,16 +6422,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Lead, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addOreByproduct(() -> Materials.Sulfur)
-            .addOreByproduct(() -> Materials.Silver)
-            .addOreByproduct(() -> Materials.Lead)
-            .setDirectSmelting(() -> Materials.Lead)
+            .addMaterial(Materials_OLD.Lead, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addOreByproduct(() -> Materials_OLD.Sulfur)
+            .addOreByproduct(() -> Materials_OLD.Silver)
+            .addOreByproduct(() -> Materials_OLD.Lead)
+            .setDirectSmelting(() -> Materials_OLD.Lead)
             .constructMaterial();
     }
 
-    private static Materials loadGarnierite() {
+    private static Materials_OLD loadGarnierite() {
         return new MaterialBuilder().setName("Garnierite")
             .setDefaultLocalName("Garnierite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6441,15 +6441,15 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.Oxygen, 1)
-            .addOreByproduct(() -> Materials.Nickel)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_DOUBLE)
-            .setDirectSmelting(() -> Materials.Nickel)
+            .setDirectSmelting(() -> Materials_OLD.Nickel)
             .constructMaterial();
     }
 
-    private static Materials loadGlyceryl() {
+    private static Materials_OLD loadGlyceryl() {
         return new MaterialBuilder().setName("Glyceryl")
             .setDefaultLocalName("Glyceryl Trinitrate")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6458,10 +6458,10 @@ public class MaterialsInit {
             .setMeltingPoint(291)
             .addCell()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 5)
-            .addMaterial(Materials.Nitrogen, 3)
-            .addMaterial(Materials.Oxygen, 9)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 5)
+            .addMaterial(Materials_OLD.Nitrogen, 3)
+            .addMaterial(Materials_OLD.Oxygen, 9)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.EXPLOSIVE)
             .addSubTag(SubTag.NO_SMELTING)
@@ -6469,7 +6469,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGreenSapphire() {
+    private static Materials_OLD loadGreenSapphire() {
         return new MaterialBuilder().setName("GreenSapphire")
             .setDefaultLocalName("Green Sapphire")
             .setIconSet(TextureSet.SET_GEM_HORIZONTAL)
@@ -6481,12 +6481,12 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addAspect(TCAspects.LUCRUM, 5)
             .addAspect(TCAspects.VITREUS, 3)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.Sapphire)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Sapphire)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -6494,7 +6494,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrossular() {
+    private static Materials_OLD loadGrossular() {
         return new MaterialBuilder().setName("Grossular")
             .setDefaultLocalName("Grossular")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -6503,41 +6503,41 @@ public class MaterialsInit {
             .setMiningLevel(1)
             .addDustItems()
             .addOreItems()
-            .addMaterial(Materials.Calcium, 3)
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.GarnetYellow)
-            .addOreByproduct(() -> Materials.Calcium)
+            .addMaterial(Materials_OLD.Calcium, 3)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.GarnetYellow)
+            .addOreByproduct(() -> Materials_OLD.Calcium)
             .constructMaterial();
     }
 
-    private static Materials loadHolyWater() {
+    private static Materials_OLD loadHolyWater() {
         return new MaterialBuilder().setName("HolyWater")
             .setDefaultLocalName("Holy Water")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x000000ff)
             .addCell()
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.AQUA, 2)
             .addAspect(TCAspects.AURAM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadHydricSulfide() {
+    private static Materials_OLD loadHydricSulfide() {
         return new MaterialBuilder().setName("HydricSulfide")
             .setDefaultLocalName("Hydrogen Sulfide")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeOrange)
             .addCell()
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Sulfur, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Sulfur, 1)
             .constructMaterial();
     }
 
-    private static Materials loadIce() {
+    private static Materials_OLD loadIce() {
         return new MaterialBuilder().setName("Ice")
             .setDefaultLocalName("Ice")
             .setIconSet(TextureSet.SET_SHINY)
@@ -6545,9 +6545,9 @@ public class MaterialsInit {
             .setARGB(0x00c8c8ff)
             .addDustItems()
             .addCell()
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 1)
-            .setSmeltingInto(() -> Materials.Water)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .setSmeltingInto(() -> Materials_OLD.Water)
             .addAspect(TCAspects.GELUM, 2)
             .addSubTag(SubTag.FOOD)
             .addSubTag(SubTag.NO_RECYCLING)
@@ -6556,7 +6556,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadIlmenite() {
+    private static Materials_OLD loadIlmenite() {
         return new MaterialBuilder().setName("Ilmenite")
             .setDefaultLocalName("Ilmenite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6566,16 +6566,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .setDensity(2, 1)
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Titanium, 1)
-            .addMaterial(Materials.Oxygen, 3)
-            .addOreByproduct(() -> Materials.Iron)
-            .addOreByproduct(() -> Materials.Rutile)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Titanium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .addOreByproduct(() -> Materials_OLD.Rutile)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .constructMaterial();
     }
 
-    private static Materials loadInvar() {
+    private static Materials_OLD loadInvar() {
         return new MaterialBuilder().setName("Invar")
             .setDefaultLocalName("Invar")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6588,8 +6588,8 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Iron, 2)
-            .addMaterial(Materials.Nickel, 1)
+            .addMaterial(Materials_OLD.Iron, 2)
+            .addMaterial(Materials_OLD.Nickel, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.GELUM, 1)
             .addSubTag(SubTag.METAL)
@@ -6597,7 +6597,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadKanthal() {
+    private static Materials_OLD loadKanthal() {
         return new MaterialBuilder().setName("Kanthal")
             .setDefaultLocalName("Kanthal")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6612,14 +6612,14 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Chrome, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Chrome, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadLazurite() {
+    private static Materials_OLD loadLazurite() {
         return new MaterialBuilder().setName("Lazurite")
             .setDefaultLocalName("Lazurite")
             .setIconSet(TextureSet.SET_LAPIS)
@@ -6631,12 +6631,12 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(6)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Aluminium, 6)
-            .addMaterial(Materials.Silicon, 6)
-            .addMaterial(Materials.Calcium, 8)
-            .addMaterial(Materials.Sodium, 8)
-            .addOreByproduct(() -> Materials.Sodalite)
-            .addOreByproduct(() -> Materials.Lapis)
+            .addMaterial(Materials_OLD.Aluminium, 6)
+            .addMaterial(Materials_OLD.Silicon, 6)
+            .addMaterial(Materials_OLD.Calcium, 8)
+            .addMaterial(Materials_OLD.Sodium, 8)
+            .addOreByproduct(() -> Materials_OLD.Sodalite)
+            .addOreByproduct(() -> Materials_OLD.Lapis)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -6645,7 +6645,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLiquidNitrogen() {
+    private static Materials_OLD loadLiquidNitrogen() {
         return new MaterialBuilder().setName("LiquidNitrogen")
             .setDefaultLocalName("Liquid Nitrogen")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6654,12 +6654,12 @@ public class MaterialsInit {
             .addCell()
             .setMeltingPoint(4)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadLiquidOxygen() {
+    private static Materials_OLD loadLiquidOxygen() {
         return new MaterialBuilder().setName("LiquidOxygen")
             .setDefaultLocalName("Liquid Oxygen")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6668,12 +6668,12 @@ public class MaterialsInit {
             .addCell()
             .setMeltingPoint(4)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadMagnalium() {
+    private static Materials_OLD loadMagnalium() {
         return new MaterialBuilder().setName("Magnalium")
             .setDefaultLocalName("Magnalium")
             .setIconSet(TextureSet.SET_DULL)
@@ -6685,25 +6685,25 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Aluminium, 2)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadMagnesia() {
+    private static Materials_OLD loadMagnesia() {
         return new MaterialBuilder().setName("Magnesia")
             .setDefaultLocalName("Magnesia")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00ffe1e1)
             .addDustItems()
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadMagnesite() {
+    private static Materials_OLD loadMagnesite() {
         return new MaterialBuilder().setName("Magnesite")
             .setDefaultLocalName("Magnesite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6713,14 +6713,14 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Oxygen, 3)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .constructMaterial();
     }
 
-    private static Materials loadMagnesiumchloride() {
+    private static Materials_OLD loadMagnesiumchloride() {
         return new MaterialBuilder().setName("Magnesiumchloride")
             .setDefaultLocalName("Magnesiumchloride")
             .setIconSet(TextureSet.SET_DULL)
@@ -6728,12 +6728,12 @@ public class MaterialsInit {
             .setARGB(0x00d40d5c)
             .addDustItems()
             .addCell()
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Chlorine, 2)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Chlorine, 2)
             .constructMaterial();
     }
 
-    private static Materials loadMagnetite() {
+    private static Materials_OLD loadMagnetite() {
         return new MaterialBuilder().setName("Magnetite")
             .setDefaultLocalName("Magnetite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6744,32 +6744,32 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             .setMiningLevel(2)
-            .addMaterial(Materials.Iron, 3)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Iron, 3)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 1)
-            .addOreByproduct(() -> Materials.Iron)
-            .addOreByproduct(() -> Materials.Gold)
-            .setDirectSmelting(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .addOreByproduct(() -> Materials_OLD.Gold)
+            .setDirectSmelting(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_DOUBLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_GOLD)
             .constructMaterial();
     }
 
-    private static Materials loadMassicot() {
+    private static Materials_OLD loadMassicot() {
         return new MaterialBuilder().setName("Massicot")
             .setDefaultLocalName("Massicot")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeYellow)
             .setARGB(0x00ffdd55)
             .addDustItems()
-            .addMaterial(Materials.Lead, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Lead, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadMethane() {
+    private static Materials_OLD loadMethane() {
         return new MaterialBuilder().setName("Methane")
             .setDefaultLocalName("Methane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6778,8 +6778,8 @@ public class MaterialsInit {
             .setOreMultiplier(4)
             .addCell()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
@@ -6787,7 +6787,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMolybdenite() {
+    private static Materials_OLD loadMolybdenite() {
         return new MaterialBuilder().setName("Molybdenite")
             .setDefaultLocalName("Molybdenite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6798,15 +6798,15 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // MoS2 (also source of Re)
-            .addMaterial(Materials.Molybdenum, 1)
-            .addMaterial(Materials.Sulfur, 2)
-            .addOreByproduct(() -> Materials.Molybdenum)
-            .setDirectSmelting(() -> Materials.Molybdenum)
+            .addMaterial(Materials_OLD.Molybdenum, 1)
+            .addMaterial(Materials_OLD.Sulfur, 2)
+            .addOreByproduct(() -> Materials_OLD.Molybdenum)
+            .setDirectSmelting(() -> Materials_OLD.Molybdenum)
             .addSubTag(SubTag.DONT_ADD_DEFAULT_BBF_RECIPE)
             .constructMaterial();
     }
 
-    private static Materials loadNichrome() {
+    private static Materials_OLD loadNichrome() {
         return new MaterialBuilder().setName("Nichrome")
             .setDefaultLocalName("Nichrome")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -6822,13 +6822,13 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Nickel, 4)
-            .addMaterial(Materials.Chrome, 1)
+            .addMaterial(Materials_OLD.Nickel, 4)
+            .addMaterial(Materials_OLD.Chrome, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadNickelZincFerrite() {
+    private static Materials_OLD loadNickelZincFerrite() {
         return new MaterialBuilder().setName("NickelZincFerrite")
             .setDefaultLocalName("Nickel-Zinc Ferrite")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -6841,14 +6841,14 @@ public class MaterialsInit {
             .setTool(32, 0, 3.0f)
             .setBlastFurnaceRequired(true)
             .setBlastFurnaceTemp(1_500)
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.Zinc, 1)
-            .addMaterial(Materials.Iron, 4)
-            .addMaterial(Materials.Oxygen, 8)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.Zinc, 1)
+            .addMaterial(Materials_OLD.Iron, 4)
+            .addMaterial(Materials_OLD.Oxygen, 8)
             .constructMaterial();
     }
 
-    private static Materials loadNiobiumNitride() {
+    private static Materials_OLD loadNiobiumNitride() {
         // Anti-Reflective Material
         return new MaterialBuilder().setName("NiobiumNitride")
             .setDefaultLocalName("Niobium Nitride")
@@ -6861,13 +6861,13 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(2_573)
             .setBlastFurnaceRequired(true)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Niobium, 1)
-            .addMaterial(Materials.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Niobium, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadNiobiumTitanium() {
+    private static Materials_OLD loadNiobiumTitanium() {
         return new MaterialBuilder().setName("NiobiumTitanium")
             .setDefaultLocalName("Niobium-Titanium")
             .setIconSet(TextureSet.SET_DULL)
@@ -6881,13 +6881,13 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Niobium, 1)
-            .addMaterial(Materials.Titanium, 1)
+            .addMaterial(Materials_OLD.Niobium, 1)
+            .addMaterial(Materials_OLD.Titanium, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadNitroCarbon() {
+    private static Materials_OLD loadNitroCarbon() {
         return new MaterialBuilder().setName("NitroCarbon")
             .setDefaultLocalName("Nitro-Carbon")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6895,8 +6895,8 @@ public class MaterialsInit {
             .setARGB(0x00004b64)
             .addCell()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.EXPLOSIVE)
             .addSubTag(SubTag.NO_SMELTING)
@@ -6904,7 +6904,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNitrogenDioxide() {
+    private static Materials_OLD loadNitrogenDioxide() {
         return new MaterialBuilder().setName("NitrogenDioxide")
             .setDefaultLocalName("Nitrogen Dioxide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6912,12 +6912,12 @@ public class MaterialsInit {
             .setARGB(0x0064afff)
             .addCell()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadNobleGases() {
+    private static Materials_OLD loadNobleGases() {
         return new MaterialBuilder().setName("NobleGases")
             .setDefaultLocalName("Noble Gases")
             .setIconSet(TextureSet.SET_FLUID)
@@ -6927,15 +6927,15 @@ public class MaterialsInit {
             .addGas()
             .setMeltingPoint(4)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.CarbonDioxide, 21)
-            .addMaterial(Materials.Helium, 9)
-            .addMaterial(Materials.Methane, 3)
-            .addMaterial(Materials.Deuterium, 1)
+            .addMaterial(Materials_OLD.CarbonDioxide, 21)
+            .addMaterial(Materials_OLD.Helium, 9)
+            .addMaterial(Materials_OLD.Methane, 3)
+            .addMaterial(Materials_OLD.Deuterium, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadObsidian() {
+    private static Materials_OLD loadObsidian() {
         return new MaterialBuilder().setName("Obsidian")
             .setDefaultLocalName("Obsidian")
             .setIconSet(TextureSet.SET_DULL)
@@ -6944,11 +6944,11 @@ public class MaterialsInit {
             .addDustItems()
             .addMetalItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Silicon, 2)
-            .addMaterial(Materials.Oxygen, 8)
-            .addOreByproduct(() -> Materials.Olivine)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Silicon, 2)
+            .addMaterial(Materials_OLD.Oxygen, 8)
+            .addOreByproduct(() -> Materials_OLD.Olivine)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .addOrePrefix(OrePrefixes.plate)
@@ -6956,7 +6956,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPhosphate() {
+    private static Materials_OLD loadPhosphate() {
         return new MaterialBuilder().setName("Phosphate")
             .setDefaultLocalName("Phosphate")
             .setIconSet(TextureSet.SET_DULL)
@@ -6967,9 +6967,9 @@ public class MaterialsInit {
             .addOreItems()
             .addCell()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Phosphorus, 1)
-            .addMaterial(Materials.Oxygen, 4)
-            .addOreByproduct(() -> Materials.Phosphorus)
+            .addMaterial(Materials_OLD.Phosphorus, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
+            .addOreByproduct(() -> Materials_OLD.Phosphorus)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.EXPLOSIVE)
             .addSubTag(SubTag.FLAMMABLE)
@@ -6978,7 +6978,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPigIron() {
+    private static Materials_OLD loadPigIron() {
         return new MaterialBuilder().setName("PigIron")
             .setDefaultLocalName("Pig Iron")
             .setChemicalFormula("¿Fe?")
@@ -6991,17 +6991,17 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Iron, 1)
-            .addOreByproduct(() -> Materials.Iron)
-            .setSmeltingInto(() -> Materials.Iron)
-            .setMaceratingInto(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .setSmeltingInto(() -> Materials_OLD.Iron)
+            .setMaceratingInto(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_TRIPLE)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadPolycaprolactam() {
+    private static Materials_OLD loadPolycaprolactam() {
         return new MaterialBuilder().setName("Polycaprolactam")
             .setDefaultLocalName("Polycaprolactam (PCL)")
             .setIconSet(TextureSet.SET_DULL)
@@ -7014,31 +7014,31 @@ public class MaterialsInit {
             .addGearItems()
             .removeOrePrefix(OrePrefixes.sheetmetal)
             .setMeltingPoint(500)
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 11)
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 11)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadPolydimethylsiloxane() {
+    private static Materials_OLD loadPolydimethylsiloxane() {
         return new MaterialBuilder().setName("Polydimethylsiloxane")
             .setDefaultLocalName("Polydimethylsiloxane")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00f5f5f5)
             .addDustItems()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Silicon, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Silicon, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadPolyethylene() {
+    private static Materials_OLD loadPolyethylene() {
         return new MaterialBuilder().setName("Plastic")
             .setDefaultLocalName("Polyethylene (PE)")
             .setIconSet(TextureSet.SET_DULL)
@@ -7051,8 +7051,8 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(400)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
             .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
@@ -7061,7 +7061,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPolytetrafluoroethylene() {
+    private static Materials_OLD loadPolytetrafluoroethylene() {
         return new MaterialBuilder().setName("Polytetrafluoroethylene")
             .setDefaultLocalName("Polytetrafluoroethylene (PTFE)")
             .setIconSet(TextureSet.SET_DULL)
@@ -7073,8 +7073,8 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(600)
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Fluorine, 4)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Fluorine, 4)
             .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -7083,20 +7083,20 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPotash() {
+    private static Materials_OLD loadPotash() {
         return new MaterialBuilder().setName("Potash")
             .setDefaultLocalName("Potash")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeBrown)
             .setARGB(0x00784237)
             .addDustItems()
-            .addMaterial(Materials.Potassium, 2)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Potassium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadPowellite() {
+    private static Materials_OLD loadPowellite() {
         return new MaterialBuilder().setName("Powellite")
             .setDefaultLocalName("Powellite")
             .setIconSet(TextureSet.SET_DULL)
@@ -7106,13 +7106,13 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Molybdenum, 1)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Molybdenum, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadPumice() {
+    private static Materials_OLD loadPumice() {
         return new MaterialBuilder().setName("Pumice")
             .setDefaultLocalName("Pumice")
             .setIconSet(TextureSet.SET_DULL)
@@ -7122,11 +7122,11 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Stone, 1)
+            .addMaterial(Materials_OLD.Stone, 1)
             .constructMaterial();
     }
 
-    private static Materials loadPyrite() {
+    private static Materials_OLD loadPyrite() {
         return new MaterialBuilder().setName("Pyrite")
             .setDefaultLocalName("Pyrite")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -7136,19 +7136,19 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Sulfur, 2)
-            .addOreByproduct(() -> Materials.Sulfur)
-            .addOreByproduct(() -> Materials.TricalciumPhosphate)
-            .addOreByproduct(() -> Materials.Iron)
-            .setDirectSmelting(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Sulfur, 2)
+            .addOreByproduct(() -> Materials_OLD.Sulfur)
+            .addOreByproduct(() -> Materials_OLD.TricalciumPhosphate)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .setDirectSmelting(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_DOUBLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .constructMaterial();
     }
 
-    private static Materials loadPyrochlore() {
+    private static Materials_OLD loadPyrochlore() {
         return new MaterialBuilder().setName("Pyrochlore")
             .setDefaultLocalName("Pyrochlore")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -7158,16 +7158,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Calcium, 2)
-            .addMaterial(Materials.Niobium, 2)
-            .addMaterial(Materials.Oxygen, 7)
-            .addOreByproduct(() -> Materials.Apatite)
-            .addOreByproduct(() -> Materials.Calcite)
-            .addOreByproduct(() -> Materials.Niobium)
+            .addMaterial(Materials_OLD.Calcium, 2)
+            .addMaterial(Materials_OLD.Niobium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 7)
+            .addOreByproduct(() -> Materials_OLD.Apatite)
+            .addOreByproduct(() -> Materials_OLD.Calcite)
+            .addOreByproduct(() -> Materials_OLD.Niobium)
             .constructMaterial();
     }
 
-    private static Materials loadPyrolusite() {
+    private static Materials_OLD loadPyrolusite() {
         return new MaterialBuilder().setName("Pyrolusite")
             .setDefaultLocalName("Pyrolusite")
             .setIconSet(TextureSet.SET_DULL)
@@ -7177,16 +7177,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Manganese, 1)
-            .addMaterial(Materials.Oxygen, 2)
-            .addOreByproduct(() -> Materials.Manganese)
-            .addOreByproduct(() -> Materials.Tantalite)
-            .addOreByproduct(() -> Materials.Niobium)
+            .addMaterial(Materials_OLD.Manganese, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
+            .addOreByproduct(() -> Materials_OLD.Manganese)
+            .addOreByproduct(() -> Materials_OLD.Tantalite)
+            .addOreByproduct(() -> Materials_OLD.Niobium)
             .addSubTag(SubTag.DONT_ADD_DEFAULT_BBF_RECIPE)
             .constructMaterial();
     }
 
-    private static Materials loadPyrope() {
+    private static Materials_OLD loadPyrope() {
         return new MaterialBuilder().setName("Pyrope")
             .setDefaultLocalName("Pyrope")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -7195,29 +7195,29 @@ public class MaterialsInit {
             .setMiningLevel(2)
             .addDustItems()
             .addOreItems()
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Magnesium, 3)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.GarnetRed)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Magnesium, 3)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.GarnetRed)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .constructMaterial();
     }
 
-    private static Materials loadQuicklime() {
+    private static Materials_OLD loadQuicklime() {
         return new MaterialBuilder().setName("Quicklime")
             .setDefaultLocalName("Quicklime")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00f0f0f0)
             .addDustItems()
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadRockSalt() {
+    private static Materials_OLD loadRockSalt() {
         return new MaterialBuilder().setName("RockSalt")
             .setDefaultLocalName("Rock Salt")
             .setIconSet(TextureSet.SET_FINE)
@@ -7228,16 +7228,16 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(2)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Chlorine, 1)
-            .addOreByproduct(() -> Materials.Salt)
-            .addOreByproduct(() -> Materials.Borax)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Chlorine, 1)
+            .addOreByproduct(() -> Materials_OLD.Salt)
+            .addOreByproduct(() -> Materials_OLD.Borax)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .constructMaterial();
     }
 
-    private static Materials loadRubber() {
+    private static Materials_OLD loadRubber() {
         return new MaterialBuilder().setName("Rubber")
             .setDefaultLocalName("Rubber")
             .setIconSet(TextureSet.SET_SHINY)
@@ -7250,8 +7250,8 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(400)
-            .addMaterial(Materials.Carbon, 5)
-            .addMaterial(Materials.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Carbon, 5)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
             .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
@@ -7260,7 +7260,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRubberRaw() {
+    private static Materials_OLD loadRubberRaw() {
         return new MaterialBuilder().setName("RawRubber")
             .setDefaultLocalName("Raw Rubber")
             .setIconSet(TextureSet.SET_DULL)
@@ -7268,13 +7268,13 @@ public class MaterialsInit {
             .setARGB(0x00ccc789)
             .addDustItems()
             .setMeltingPoint(400)
-            .addMaterial(Materials.Carbon, 5)
-            .addMaterial(Materials.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Carbon, 5)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
             .addAspect(TCAspects.MOTUS, 2)
             .constructMaterial();
     }
 
-    private static Materials loadRubberSilicone() {
+    private static Materials_OLD loadRubberSilicone() {
         return new MaterialBuilder().setName("Silicone")
             .setDefaultLocalName("Silicone Rubber")
             .setIconSet(TextureSet.SET_DULL)
@@ -7286,10 +7286,10 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(900)
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Silicon, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Silicon, 1)
             .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
@@ -7298,7 +7298,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRuby() {
+    private static Materials_OLD loadRuby() {
         return new MaterialBuilder().setName("Ruby")
             .setDefaultLocalName("Ruby")
             .setIconSet(TextureSet.SET_RUBY)
@@ -7309,13 +7309,13 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addToolHeadItems()
-            .addMaterial(Materials.Chrome, 1)
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Chrome, 1)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addAspect(TCAspects.LUCRUM, 6)
             .addAspect(TCAspects.VITREUS, 4)
-            .addOreByproduct(() -> Materials.Chrome)
-            .addOreByproduct(() -> Materials.GarnetRed)
+            .addOreByproduct(() -> Materials_OLD.Chrome)
+            .addOreByproduct(() -> Materials_OLD.GarnetRed)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -7323,7 +7323,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRutile() {
+    private static Materials_OLD loadRutile() {
         return new MaterialBuilder().setName("Rutile")
             .setDefaultLocalName("Rutile")
             .setIconSet(TextureSet.SET_GEM_HORIZONTAL)
@@ -7333,12 +7333,12 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .setDensity(2, 1)
-            .addMaterial(Materials.Titanium, 1)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Titanium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadSalt() {
+    private static Materials_OLD loadSalt() {
         return new MaterialBuilder().setName("Salt")
             .setDefaultLocalName("Salt")
             .setIconSet(TextureSet.SET_FINE)
@@ -7348,17 +7348,17 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .setOreMultiplier(2)
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Chlorine, 1)
-            .addOreByproduct(() -> Materials.RockSalt)
-            .addOreByproduct(() -> Materials.Borax)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Chlorine, 1)
+            .addOreByproduct(() -> Materials_OLD.RockSalt)
+            .addOreByproduct(() -> Materials_OLD.Borax)
             .addSubTag(SubTag.FOOD)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .constructMaterial();
     }
 
-    private static Materials loadSaltpeter() {
+    private static Materials_OLD loadSaltpeter() {
         return new MaterialBuilder().setName("Saltpeter")
             .setDefaultLocalName("Saltpeter")
             .setIconSet(TextureSet.SET_FINE)
@@ -7369,17 +7369,17 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(4)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Oxygen, 3)
-            .addOreByproduct(() -> Materials.Saltpeter)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .addOreByproduct(() -> Materials_OLD.Saltpeter)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
     }
 
-    private static Materials loadSapphire() {
+    private static Materials_OLD loadSapphire() {
         return new MaterialBuilder().setName("Sapphire")
             .setDefaultLocalName("Sapphire")
             .setIconSet(TextureSet.SET_GEM_VERTICAL)
@@ -7390,12 +7390,12 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addToolHeadItems()
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addAspect(TCAspects.LUCRUM, 5)
             .addAspect(TCAspects.VITREUS, 3)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.GreenSapphire)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.GreenSapphire)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -7403,7 +7403,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadScheelite() {
+    private static Materials_OLD loadScheelite() {
         return new MaterialBuilder().setName("Scheelite")
             .setDefaultLocalName("Scheelite")
             .setIconSet(TextureSet.SET_DULL)
@@ -7415,24 +7415,24 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .setMeltingPoint(2_500)
             .setBlastFurnaceTemp(2_500)
-            .addMaterial(Materials.Tungsten, 1)
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Oxygen, 4)
-            .addOreByproduct(() -> Materials.Manganese)
-            .addOreByproduct(() -> Materials.Molybdenum)
-            .addOreByproduct(() -> Materials.Calcium)
+            .addMaterial(Materials_OLD.Tungsten, 1)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
+            .addOreByproduct(() -> Materials_OLD.Manganese)
+            .addOreByproduct(() -> Materials_OLD.Molybdenum)
+            .addOreByproduct(() -> Materials_OLD.Calcium)
             .constructMaterial();
     }
 
-    private static Materials loadSiliconDioxide() {
+    private static Materials_OLD loadSiliconDioxide() {
         return new MaterialBuilder().setName("SiliconDioxide")
             .setDefaultLocalName("Silicon Dioxide")
             .setIconSet(TextureSet.SET_QUARTZ)
             .setColor(Dyes.dyeLightGray)
             .addDustItems()
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Oxygen, 2)
-            .addOreByproduct(() -> Materials.SiliconDioxide)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
+            .addOreByproduct(() -> Materials_OLD.SiliconDioxide)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -7441,7 +7441,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSnow() {
+    private static Materials_OLD loadSnow() {
         return new MaterialBuilder().setName("Snow")
             .setDefaultLocalName("Snow")
             .setIconSet(TextureSet.SET_FINE)
@@ -7449,9 +7449,9 @@ public class MaterialsInit {
             .setARGB(0x00fafafa)
             .addDustItems()
             .addCell()
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 1)
-            .setSmeltingInto(() -> Materials.Water)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .setSmeltingInto(() -> Materials_OLD.Water)
             .addAspect(TCAspects.GELUM, 1)
             .addSubTag(SubTag.NO_RECYCLING)
             .addSubTag(SubTag.NO_SMASHING)
@@ -7459,21 +7459,21 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSodaAsh() {
+    private static Materials_OLD loadSodaAsh() {
         return new MaterialBuilder().setName("SodaAsh")
             .setDefaultLocalName("Soda Ash")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00dcdcff)
             .addDustItems()
-            .addMaterial(Materials.Sodium, 2)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Sodium, 2)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadSodalite() {
+    private static Materials_OLD loadSodalite() {
         return new MaterialBuilder().setName("Sodalite")
             .setDefaultLocalName("Sodalite")
             .setIconSet(TextureSet.SET_LAPIS)
@@ -7485,12 +7485,12 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(6)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Aluminium, 3)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Sodium, 4)
-            .addMaterial(Materials.Chlorine, 1)
-            .addOreByproduct(() -> Materials.Lazurite)
-            .addOreByproduct(() -> Materials.Lapis)
+            .addMaterial(Materials_OLD.Aluminium, 3)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Sodium, 4)
+            .addMaterial(Materials_OLD.Chlorine, 1)
+            .addOreByproduct(() -> Materials_OLD.Lazurite)
+            .addOreByproduct(() -> Materials_OLD.Lapis)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -7499,31 +7499,31 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSodiumPersulfate() {
+    private static Materials_OLD loadSodiumPersulfate() {
         return new MaterialBuilder().setName("SodiumPersulfate")
             .setDefaultLocalName("Sodium Persulfate")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeOrange)
             .addCell()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Sodium, 2)
-            .addMaterial(Materials.Sulfur, 2)
-            .addMaterial(Materials.Oxygen, 8)
+            .addMaterial(Materials_OLD.Sodium, 2)
+            .addMaterial(Materials_OLD.Sulfur, 2)
+            .addMaterial(Materials_OLD.Oxygen, 8)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumPotassium() {
+    private static Materials_OLD loadSodiumPotassium() {
         return new MaterialBuilder().setName("SodiumPotassium")
             .setDefaultLocalName("Sodium Potassium")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeLime)
             .setARGB(0x0016ff24)
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Potassium, 1)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Potassium, 1)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumSulfide() {
+    private static Materials_OLD loadSodiumSulfide() {
         return new MaterialBuilder().setName("SodiumSulfide")
             .setDefaultLocalName("Sodium Sulfide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7531,12 +7531,12 @@ public class MaterialsInit {
             .setARGB(0x00ffe680)
             .addDustItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Sodium, 2)
-            .addMaterial(Materials.Sulfur, 1)
+            .addMaterial(Materials_OLD.Sodium, 2)
+            .addMaterial(Materials_OLD.Sulfur, 1)
             .constructMaterial();
     }
 
-    private static Materials loadTitaniumtetrachloride() {
+    private static Materials_OLD loadTitaniumtetrachloride() {
         return new MaterialBuilder().setName("Titaniumtetrachloride")
             .setDefaultLocalName("Titaniumtetrachloride")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7544,20 +7544,20 @@ public class MaterialsInit {
             .setARGB(0x00d40d5c)
             .setMeltingPoint(249)
             .addCell()
-            .addMaterial(Materials.Titanium, 1)
-            .addMaterial(Materials.Chlorine, 4)
+            .addMaterial(Materials_OLD.Titanium, 1)
+            .addMaterial(Materials_OLD.Chlorine, 4)
             .constructMaterial();
     }
 
-    private static Materials loadWater() {
+    private static Materials_OLD loadWater() {
         return new MaterialBuilder().setName("Water")
             .setDefaultLocalName("Water")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x000000ff)
             .addCell()
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.AQUA, 2)
             .addSubTag(SubTag.FOOD)
             .addSubTag(SubTag.NO_RECYCLING)
@@ -7569,35 +7569,35 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadZincite() {
+    private static Materials_OLD loadZincite() {
         return new MaterialBuilder().setName("Zincite")
             .setDefaultLocalName("Zincite")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00fffff5)
             .addDustItems()
-            .addMaterial(Materials.Zinc, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Zinc, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
     private static void loadUnclassified01() {
-        Materials.DenseSteam = loadDenseSteam();
-        Materials.DenseSuperheatedSteam = loadDenseSuperheatedSteam();
-        Materials.DenseSupercriticalSteam = loadDenseSupercriticalSteam();
-        Materials.OilExtraHeavy = loadOilExtraHeavy();
-        Materials.OilHeavy = loadOilHeavy();
-        Materials.OilLight = loadOilLight();
-        Materials.OilMedium = loadOilMedium();
-        Materials.SuperCoolant = loadSuperCoolant();
-        Materials.EnrichedHolmium = loadEnrichedHolmium();
-        Materials.TengamPurified = loadTengamPurified();
-        Materials.TengamAttuned = loadTengamAttuned();
-        Materials.TengamRaw = loadTengamRaw();
+        Materials_OLD.DenseSteam = loadDenseSteam();
+        Materials_OLD.DenseSuperheatedSteam = loadDenseSuperheatedSteam();
+        Materials_OLD.DenseSupercriticalSteam = loadDenseSupercriticalSteam();
+        Materials_OLD.OilExtraHeavy = loadOilExtraHeavy();
+        Materials_OLD.OilHeavy = loadOilHeavy();
+        Materials_OLD.OilLight = loadOilLight();
+        Materials_OLD.OilMedium = loadOilMedium();
+        Materials_OLD.SuperCoolant = loadSuperCoolant();
+        Materials_OLD.EnrichedHolmium = loadEnrichedHolmium();
+        Materials_OLD.TengamPurified = loadTengamPurified();
+        Materials_OLD.TengamAttuned = loadTengamAttuned();
+        Materials_OLD.TengamRaw = loadTengamRaw();
     }
 
-    private static Materials loadDenseSteam() {
+    private static Materials_OLD loadDenseSteam() {
         return new MaterialBuilder().setName("DenseSteam")
             .setDefaultLocalName("Dense Steam")
             .addCell()
@@ -7607,7 +7607,7 @@ public class MaterialsInit {
             .setGasTemperature(420);
     }
 
-    private static Materials loadDenseSuperheatedSteam() {
+    private static Materials_OLD loadDenseSuperheatedSteam() {
         return new MaterialBuilder().setName("DenseSuperheatedSteam")
             .setDefaultLocalName("Dense Superheated Steam")
             .addCell()
@@ -7617,7 +7617,7 @@ public class MaterialsInit {
             .setGasTemperature(600);
     }
 
-    private static Materials loadDenseSupercriticalSteam() {
+    private static Materials_OLD loadDenseSupercriticalSteam() {
         return new MaterialBuilder().setName("DenseSupercriticalSteam")
             .setDefaultLocalName("Dense Supercritical Steam")
             .addCell()
@@ -7627,7 +7627,7 @@ public class MaterialsInit {
             .setGasTemperature(600);
     }
 
-    private static Materials loadOilExtraHeavy() {
+    private static Materials_OLD loadOilExtraHeavy() {
         return new MaterialBuilder().setName("OilExtraHeavy")
             .setDefaultLocalName("Very Heavy Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7638,7 +7638,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOilHeavy() {
+    private static Materials_OLD loadOilHeavy() {
         return new MaterialBuilder().setName("OilHeavy")
             .setDefaultLocalName("Heavy Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7649,7 +7649,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOilLight() {
+    private static Materials_OLD loadOilLight() {
         return new MaterialBuilder().setName("OilLight")
             .setDefaultLocalName("Light Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7660,7 +7660,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOilMedium() {
+    private static Materials_OLD loadOilMedium() {
         return new MaterialBuilder().setName("OilMedium")
             .setDefaultLocalName("Raw Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7671,7 +7671,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperCoolant() {
+    private static Materials_OLD loadSuperCoolant() {
         return new MaterialBuilder().setName("SuperCoolant")
             .setDefaultLocalName("Super Coolant")
             .setIconSet(TextureSet.SET_DULL)
@@ -7682,7 +7682,7 @@ public class MaterialsInit {
             .setLiquidTemperature(1);
     }
 
-    private static Materials loadEnrichedHolmium() {
+    private static Materials_OLD loadEnrichedHolmium() {
         return new MaterialBuilder().setName("EnrichedHolmium")
             .setDefaultLocalName("Enriched Holmium")
             .setChemicalFormula("Nq+₄Ho₁")
@@ -7698,7 +7698,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTengamPurified() {
+    private static Materials_OLD loadTengamPurified() {
         return new MaterialBuilder().setName("TengamPurified")
             .setDefaultLocalName("Purified Tengam")
             .setChemicalFormula("M")
@@ -7716,7 +7716,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
     }
 
-    private static Materials loadTengamAttuned() {
+    private static Materials_OLD loadTengamAttuned() {
         return new MaterialBuilder().setName("TengamAttuned")
             .setDefaultLocalName("Attuned Tengam")
             .setChemicalFormula(CustomGlyphs.HIGH_VOLTAGE + "M" + CustomGlyphs.MAGNET)
@@ -7727,9 +7727,9 @@ public class MaterialsInit {
             .addGearItems()
             .addMetalItems()
             .addToolHeadItems()
-            .setSmeltingInto(() -> Materials.TengamPurified)
-            .setMaceratingInto(() -> Materials.TengamPurified)
-            .setArcSmeltingInto(() -> Materials.TengamPurified)
+            .setSmeltingInto(() -> Materials_OLD.TengamPurified)
+            .setMaceratingInto(() -> Materials_OLD.TengamPurified)
+            .setArcSmeltingInto(() -> Materials_OLD.TengamPurified)
             .addAspect(TCAspects.MAGNETO, 4)
             .addAspect(TCAspects.ELECTRUM, 1)
             .addSubTag(SubTag.METAL)
@@ -7737,7 +7737,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
     }
 
-    private static Materials loadTengamRaw() {
+    private static Materials_OLD loadTengamRaw() {
         return new MaterialBuilder().setName("TengamRaw")
             .setDefaultLocalName("Raw Tengam")
             .setChemicalFormula("M" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
@@ -7748,26 +7748,26 @@ public class MaterialsInit {
             .addOreItems()
             .addAspect(TCAspects.MAGNETO, 1)
             .addAspect(TCAspects.ELECTRUM, 4)
-            .addOreByproduct(() -> Materials.NeodymiumMagnetic)
-            .addOreByproduct(() -> Materials.SamariumMagnetic)
+            .addOreByproduct(() -> Materials_OLD.NeodymiumMagnetic)
+            .addOreByproduct(() -> Materials_OLD.SamariumMagnetic)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
     }
 
     private static void loadUnclassified02() {
-        Materials.Gas = loadGas();
-        Materials.HeavyFuel = loadHeavyFuel();
-        Materials.LightFuel = loadLightFuel();
-        Materials.LPG = loadLPG();
-        Materials.Naphtha = loadNaphtha();
-        Materials.NaturalGas = loadNaturalGas();
-        Materials.SulfuricGas = loadSulfuricGas();
-        Materials.SulfuricHeavyFuel = loadSulfuricHeavyFuel();
-        Materials.SulfuricLightFuel = loadSulfuricLightFuel();
-        Materials.SulfuricNaphtha = loadSulfuricNaphtha();
+        Materials_OLD.Gas = loadGas();
+        Materials_OLD.HeavyFuel = loadHeavyFuel();
+        Materials_OLD.LightFuel = loadLightFuel();
+        Materials_OLD.LPG = loadLPG();
+        Materials_OLD.Naphtha = loadNaphtha();
+        Materials_OLD.NaturalGas = loadNaturalGas();
+        Materials_OLD.SulfuricGas = loadSulfuricGas();
+        Materials_OLD.SulfuricHeavyFuel = loadSulfuricHeavyFuel();
+        Materials_OLD.SulfuricLightFuel = loadSulfuricLightFuel();
+        Materials_OLD.SulfuricNaphtha = loadSulfuricNaphtha();
     }
 
-    private static Materials loadGas() {
+    private static Materials_OLD loadGas() {
         return new MaterialBuilder().setName("Gas")
             .setDefaultLocalName("Refinery Gas")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7778,7 +7778,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHeavyFuel() {
+    private static Materials_OLD loadHeavyFuel() {
         return new MaterialBuilder().setName("HeavyFuel")
             .setDefaultLocalName("Heavy Fuel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7790,7 +7790,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLightFuel() {
+    private static Materials_OLD loadLightFuel() {
         return new MaterialBuilder().setName("LightFuel")
             .setDefaultLocalName("Light Fuel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7802,7 +7802,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLPG() {
+    private static Materials_OLD loadLPG() {
         return new MaterialBuilder().setName("LPG")
             .setDefaultLocalName("LPG")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7813,7 +7813,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNaphtha() {
+    private static Materials_OLD loadNaphtha() {
         return new MaterialBuilder().setName("Naphtha")
             .setDefaultLocalName("Naphtha")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7825,7 +7825,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNaturalGas() {
+    private static Materials_OLD loadNaturalGas() {
         return new MaterialBuilder().setName("NatruralGas")
             .setDefaultLocalName("Natural Gas")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7835,7 +7835,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSulfuricGas() {
+    private static Materials_OLD loadSulfuricGas() {
         return new MaterialBuilder().setName("SulfuricGas")
             .setDefaultLocalName("Sulfuric Gas")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7845,7 +7845,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSulfuricHeavyFuel() {
+    private static Materials_OLD loadSulfuricHeavyFuel() {
         return new MaterialBuilder().setName("SulfuricHeavyFuel")
             .setDefaultLocalName("Sulfuric Heavy Fuel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7856,7 +7856,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSulfuricLightFuel() {
+    private static Materials_OLD loadSulfuricLightFuel() {
         return new MaterialBuilder().setName("SulfuricLightFuel")
             .setDefaultLocalName("Sulfuric Light Fuel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7867,7 +7867,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSulfuricNaphtha() {
+    private static Materials_OLD loadSulfuricNaphtha() {
         return new MaterialBuilder().setName("SulfuricNaphtha")
             .setDefaultLocalName("Sulfuric Naphtha")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7879,12 +7879,12 @@ public class MaterialsInit {
     }
 
     private static void loadUnclassified03() {
-        Materials.BioMediumRaw = loadBioMediumRaw();
-        Materials.BioMediumSterilized = loadBioMediumSterilized();
-        Materials.ReinforcedGlass = loadReinforcedGlass();
+        Materials_OLD.BioMediumRaw = loadBioMediumRaw();
+        Materials_OLD.BioMediumSterilized = loadBioMediumSterilized();
+        Materials_OLD.ReinforcedGlass = loadReinforcedGlass();
     }
 
-    private static Materials loadBioMediumRaw() {
+    private static Materials_OLD loadBioMediumRaw() {
         return new MaterialBuilder().setName("BioMediumRaw")
             .setDefaultLocalName("Raw Bio Catalyst Medium")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7895,7 +7895,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBioMediumSterilized() {
+    private static Materials_OLD loadBioMediumSterilized() {
         return new MaterialBuilder().setName("BiohMediumSterilized")
             .setDefaultLocalName("Sterilized Bio Catalyst Medium")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7906,7 +7906,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadReinforcedGlass() {
+    private static Materials_OLD loadReinforcedGlass() {
         return new MaterialBuilder().setName("ReinforcedGlass")
             .setDefaultLocalName("Reinforced Glass")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7921,11 +7921,11 @@ public class MaterialsInit {
     }
 
     private static void loadUnclassified04() {
-        Materials.GrowthMediumRaw = loadGrowthMediumRaw();
-        Materials.GrowthMediumSterilized = loadGrowthMediumSterilized();
+        Materials_OLD.GrowthMediumRaw = loadGrowthMediumRaw();
+        Materials_OLD.GrowthMediumSterilized = loadGrowthMediumSterilized();
     }
 
-    private static Materials loadGrowthMediumRaw() {
+    private static Materials_OLD loadGrowthMediumRaw() {
         return new MaterialBuilder().setName("GrowthMediumRaw")
             .setDefaultLocalName("Raw Growth Catalyst Medium")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7936,7 +7936,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGrowthMediumSterilized() {
+    private static Materials_OLD loadGrowthMediumSterilized() {
         return new MaterialBuilder().setName("GrowthMediumSterilized")
             .setDefaultLocalName("Growth Catalyst Medium")
             .setIconSet(TextureSet.SET_FLUID)
@@ -7948,66 +7948,66 @@ public class MaterialsInit {
     }
 
     private static void loadUnclassified05() {
-        Materials.BioDiesel = loadBioDiesel();
-        Materials.BisphenolA = loadBisphenolA();
-        Materials.Butadiene = loadButadiene();
-        Materials.Butane = loadButane();
-        Materials.Butene = loadButene();
-        Materials.CalciumAcetateSolution = loadCalciumAcetateSolution();
-        Materials.CarbonMonoxide = loadCarbonMonoxide();
-        Materials.CaesiumHydroxide = loadCaesiumHydroxide();
-        Materials.Chloramine = loadChloramine();
-        Materials.Chloroform = loadChloroform();
-        Materials.Chloromethane = loadChloromethane();
-        Materials.Cumene = loadCumene();
-        Materials.Dichlorobenzene = loadDichlorobenzene();
-        Materials.Dimethylamine = loadDimethylamine();
-        Materials.Dimethyldichlorosilane = loadDimethyldichlorosilane();
-        Materials.Dimethylhydrazine = loadDimethylhydrazine();
-        Materials.DinitrogenTetroxide = loadDinitrogenTetroxide();
-        Materials.Epichlorohydrin = loadEpichlorohydrin();
-        Materials.Ethane = loadEthane();
-        Materials.Ethenone = loadEthenone();
-        Materials.Ethylene = loadEthylene();
-        Materials.Glycerol = loadGlycerol();
-        Materials.HydrochloricAcid = loadHydrochloricAcid();
-        Materials.HydrofluoricAcid = loadHydrofluoricAcid();
-        Materials.HypochlorousAcid = loadHypochlorousAcid();
-        Materials.IronIIIChloride = loadIronIIIChloride();
-        Materials.Isoprene = loadIsoprene();
-        Materials.LifeEssence = loadLifeEssence();
-        Materials.MetalMixture = loadMetalMixture();
-        Materials.Methanol = loadMethanol();
-        Materials.MethylAcetate = loadMethylAcetate();
-        Materials.NitrationMixture = loadNitrationMixture();
-        Materials.NitricAcid = loadNitricAcid();
-        Materials.NitricOxide = loadNitricOxide();
-        Materials.Phenol = loadPhenol();
-        Materials.PhosphoricAcid = loadPhosphoricAcid();
-        Materials.PhosphorousPentoxide = loadPhosphorousPentoxide();
-        Materials.PolyphenyleneSulfide = loadPolyphenyleneSulfide();
-        Materials.Polystyrene = loadPolystyrene();
-        Materials.PolyvinylAcetate = loadPolyvinylAcetate();
-        Materials.PolyvinylChloride = loadPolyvinylChloride();
-        Materials.PotassiumHydroxide = loadPotassiumHydroxide();
-        Materials.Propane = loadPropane();
-        Materials.Propene = loadPropene();
-        Materials.SaltWater = loadSaltWater();
-        Materials.SodiumBisulfate = loadSodiumBisulfate();
-        Materials.SodiumHydroxide = loadSodiumHydroxide();
-        Materials.SodiumOxide = loadSodiumOxide();
-        Materials.Styrene = loadStyrene();
-        Materials.StyreneButadieneRubber = loadStyreneButadieneRubber();
-        Materials.SulfurDioxide = loadSulfurDioxide();
-        Materials.SulfurTrioxide = loadSulfurTrioxide();
-        Materials.Tetrafluoroethylene = loadTetrafluoroethylene();
-        Materials.Tetranitromethane = loadTetranitromethane();
-        Materials.Toluene = loadToluene();
-        Materials.VinylAcetate = loadVinylAcetate();
-        Materials.VinylChloride = loadVinylChloride();
+        Materials_OLD.BioDiesel = loadBioDiesel();
+        Materials_OLD.BisphenolA = loadBisphenolA();
+        Materials_OLD.Butadiene = loadButadiene();
+        Materials_OLD.Butane = loadButane();
+        Materials_OLD.Butene = loadButene();
+        Materials_OLD.CalciumAcetateSolution = loadCalciumAcetateSolution();
+        Materials_OLD.CarbonMonoxide = loadCarbonMonoxide();
+        Materials_OLD.CaesiumHydroxide = loadCaesiumHydroxide();
+        Materials_OLD.Chloramine = loadChloramine();
+        Materials_OLD.Chloroform = loadChloroform();
+        Materials_OLD.Chloromethane = loadChloromethane();
+        Materials_OLD.Cumene = loadCumene();
+        Materials_OLD.Dichlorobenzene = loadDichlorobenzene();
+        Materials_OLD.Dimethylamine = loadDimethylamine();
+        Materials_OLD.Dimethyldichlorosilane = loadDimethyldichlorosilane();
+        Materials_OLD.Dimethylhydrazine = loadDimethylhydrazine();
+        Materials_OLD.DinitrogenTetroxide = loadDinitrogenTetroxide();
+        Materials_OLD.Epichlorohydrin = loadEpichlorohydrin();
+        Materials_OLD.Ethane = loadEthane();
+        Materials_OLD.Ethenone = loadEthenone();
+        Materials_OLD.Ethylene = loadEthylene();
+        Materials_OLD.Glycerol = loadGlycerol();
+        Materials_OLD.HydrochloricAcid = loadHydrochloricAcid();
+        Materials_OLD.HydrofluoricAcid = loadHydrofluoricAcid();
+        Materials_OLD.HypochlorousAcid = loadHypochlorousAcid();
+        Materials_OLD.IronIIIChloride = loadIronIIIChloride();
+        Materials_OLD.Isoprene = loadIsoprene();
+        Materials_OLD.LifeEssence = loadLifeEssence();
+        Materials_OLD.MetalMixture = loadMetalMixture();
+        Materials_OLD.Methanol = loadMethanol();
+        Materials_OLD.MethylAcetate = loadMethylAcetate();
+        Materials_OLD.NitrationMixture = loadNitrationMixture();
+        Materials_OLD.NitricAcid = loadNitricAcid();
+        Materials_OLD.NitricOxide = loadNitricOxide();
+        Materials_OLD.Phenol = loadPhenol();
+        Materials_OLD.PhosphoricAcid = loadPhosphoricAcid();
+        Materials_OLD.PhosphorousPentoxide = loadPhosphorousPentoxide();
+        Materials_OLD.PolyphenyleneSulfide = loadPolyphenyleneSulfide();
+        Materials_OLD.Polystyrene = loadPolystyrene();
+        Materials_OLD.PolyvinylAcetate = loadPolyvinylAcetate();
+        Materials_OLD.PolyvinylChloride = loadPolyvinylChloride();
+        Materials_OLD.PotassiumHydroxide = loadPotassiumHydroxide();
+        Materials_OLD.Propane = loadPropane();
+        Materials_OLD.Propene = loadPropene();
+        Materials_OLD.SaltWater = loadSaltWater();
+        Materials_OLD.SodiumBisulfate = loadSodiumBisulfate();
+        Materials_OLD.SodiumHydroxide = loadSodiumHydroxide();
+        Materials_OLD.SodiumOxide = loadSodiumOxide();
+        Materials_OLD.Styrene = loadStyrene();
+        Materials_OLD.StyreneButadieneRubber = loadStyreneButadieneRubber();
+        Materials_OLD.SulfurDioxide = loadSulfurDioxide();
+        Materials_OLD.SulfurTrioxide = loadSulfurTrioxide();
+        Materials_OLD.Tetrafluoroethylene = loadTetrafluoroethylene();
+        Materials_OLD.Tetranitromethane = loadTetranitromethane();
+        Materials_OLD.Toluene = loadToluene();
+        Materials_OLD.VinylAcetate = loadVinylAcetate();
+        Materials_OLD.VinylChloride = loadVinylChloride();
     }
 
-    private static Materials loadBioDiesel() {
+    private static Materials_OLD loadBioDiesel() {
         return new MaterialBuilder().setName("BioDiesel")
             .setDefaultLocalName("Bio Diesel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8019,7 +8019,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBisphenolA() {
+    private static Materials_OLD loadBisphenolA() {
         return new MaterialBuilder().setName("BisphenolA")
             .setDefaultLocalName("Bisphenol A")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8027,14 +8027,14 @@ public class MaterialsInit {
             .setARGB(0x00d4aa00)
             .setMeltingPoint(428)
             .addCell()
-            .addMaterial(Materials.Carbon, 15)
-            .addMaterial(Materials.Hydrogen, 16)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 15)
+            .addMaterial(Materials_OLD.Hydrogen, 16)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadButadiene() {
+    private static Materials_OLD loadButadiene() {
         return new MaterialBuilder().setName("Butadiene")
             .setDefaultLocalName("Butadiene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8043,14 +8043,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 206)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
             .addElectrolyzerRecipe()
             .addCrackingRecipes()
             .constructMaterial();
     }
 
-    private static Materials loadButane() {
+    private static Materials_OLD loadButane() {
         return new MaterialBuilder().setName("Butane")
             .setDefaultLocalName("Butane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8059,14 +8059,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 296)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
             .addElectrolyzerRecipe()
             .addCrackingRecipes()
             .constructMaterial();
     }
 
-    private static Materials loadButene() {
+    private static Materials_OLD loadButene() {
         return new MaterialBuilder().setName("Butene")
             .setDefaultLocalName("Butene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8075,27 +8075,27 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 256)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
             .addElectrolyzerRecipe()
             .addCrackingRecipes()
             .constructMaterial();
     }
 
-    private static Materials loadCaesiumHydroxide() {
+    private static Materials_OLD loadCaesiumHydroxide() {
         return new MaterialBuilder().setName("CaesiumHydroxide_GT5U")
             .setDefaultLocalName("Caesium Hydroxide")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeLightBlue)
             .setARGB(0x00becaee)
             .addDustItems()
-            .addMaterial(Materials.Caesium, 1)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Caesium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadCalciumAcetateSolution() {
+    private static Materials_OLD loadCalciumAcetateSolution() {
         return new MaterialBuilder().setName("CalciumAcetateSolution")
             .setDefaultLocalName("Calcium Acetate Solution")
             .setIconSet(TextureSet.SET_RUBY)
@@ -8104,15 +8104,15 @@ public class MaterialsInit {
             .setMeltingPoint(433)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Oxygen, 4)
-            .addMaterial(Materials.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Oxygen, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadCarbonMonoxide() {
+    private static Materials_OLD loadCarbonMonoxide() {
         return new MaterialBuilder().setName("CarbonMonoxide")
             .setDefaultLocalName("Carbon Monoxide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8121,12 +8121,12 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 24)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadChloramine() {
+    private static Materials_OLD loadChloramine() {
         return new MaterialBuilder().setName("Chloramine")
             .setDefaultLocalName("Chloramine")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8135,14 +8135,14 @@ public class MaterialsInit {
             .setMeltingPoint(207)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadChloroform() {
+    private static Materials_OLD loadChloroform() {
         return new MaterialBuilder().setName("Chloroform")
             .setDefaultLocalName("Chloroform")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8151,14 +8151,14 @@ public class MaterialsInit {
             .setMeltingPoint(210)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Chlorine, 3)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Chlorine, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadChloromethane() {
+    private static Materials_OLD loadChloromethane() {
         return new MaterialBuilder().setName("Chloromethane")
             .setDefaultLocalName("Chloromethane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8167,14 +8167,14 @@ public class MaterialsInit {
             .setMeltingPoint(176)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Hydrogen, 3)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 3)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadCumene() {
+    private static Materials_OLD loadCumene() {
         return new MaterialBuilder().setName("Isopropylbenzene")
             .setDefaultLocalName("Isopropylbenzene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8183,13 +8183,13 @@ public class MaterialsInit {
             .setMeltingPoint(177)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 9)
-            .addMaterial(Materials.Hydrogen, 12)
+            .addMaterial(Materials_OLD.Carbon, 9)
+            .addMaterial(Materials_OLD.Hydrogen, 12)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadDichlorobenzene() {
+    private static Materials_OLD loadDichlorobenzene() {
         return new MaterialBuilder().setName("Dichlorobenzene")
             .setDefaultLocalName("Dichlorobenzene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8198,14 +8198,14 @@ public class MaterialsInit {
             .setMeltingPoint(327)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Chlorine, 2)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Chlorine, 2)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadDimethylamine() {
+    private static Materials_OLD loadDimethylamine() {
         return new MaterialBuilder().setName("Dimethylamine")
             .setDefaultLocalName("Dimethylamine")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8214,14 +8214,14 @@ public class MaterialsInit {
             .setMeltingPoint(180)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 7)
-            .addMaterial(Materials.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 7)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadDimethyldichlorosilane() {
+    private static Materials_OLD loadDimethyldichlorosilane() {
         return new MaterialBuilder().setName("Dimethyldichlorosilane")
             .setDefaultLocalName("Dimethyldichlorosilane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8230,15 +8230,15 @@ public class MaterialsInit {
             .setMeltingPoint(197)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Chlorine, 2)
-            .addMaterial(Materials.Silicon, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Chlorine, 2)
+            .addMaterial(Materials_OLD.Silicon, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadDimethylhydrazine() {
+    private static Materials_OLD loadDimethylhydrazine() {
         return new MaterialBuilder().setName("1,1Dimethylhydrazine")
             .setDefaultLocalName("1,1-Dimethylhydrazine")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8247,14 +8247,14 @@ public class MaterialsInit {
             .setMeltingPoint(216)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 8)
-            .addMaterial(Materials.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadDinitrogenTetroxide() {
+    private static Materials_OLD loadDinitrogenTetroxide() {
         return new MaterialBuilder().setName("DinitrogenTetroxide")
             .setDefaultLocalName("Dinitrogen Tetroxide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8263,13 +8263,13 @@ public class MaterialsInit {
             .setMeltingPoint(173)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Nitrogen, 2)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadEpichlorohydrin() {
+    private static Materials_OLD loadEpichlorohydrin() {
         return new MaterialBuilder().setName("Epichlorohydrin")
             .setDefaultLocalName("Epichlorohydrin")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8277,15 +8277,15 @@ public class MaterialsInit {
             .setARGB(0x00501d05)
             .setMeltingPoint(248)
             .addCell()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 5)
-            .addMaterial(Materials.Chlorine, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 5)
+            .addMaterial(Materials_OLD.Chlorine, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadEthane() {
+    private static Materials_OLD loadEthane() {
         return new MaterialBuilder().setName("Ethane")
             .setDefaultLocalName("Ethane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8294,14 +8294,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 168)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
             .addElectrolyzerRecipe()
             .addCrackingRecipes()
             .constructMaterial();
     }
 
-    private static Materials loadEthenone() {
+    private static Materials_OLD loadEthenone() {
         return new MaterialBuilder().setName("Ethenone")
             .setDefaultLocalName("Ethenone")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8309,14 +8309,14 @@ public class MaterialsInit {
             .setARGB(0x00141446)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadEthylene() {
+    private static Materials_OLD loadEthylene() {
         return new MaterialBuilder().setName("Ethylene")
             .setDefaultLocalName("Ethylene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8325,14 +8325,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 128)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
             .addElectrolyzerRecipe()
             .addCrackingRecipes()
             .constructMaterial();
     }
 
-    private static Materials loadGlycerol() {
+    private static Materials_OLD loadGlycerol() {
         return new MaterialBuilder().setName("Glycerol")
             .setDefaultLocalName("Glycerol")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8342,14 +8342,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.SemiFluid, 164)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 8)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadHydrochloricAcid() {
+    private static Materials_OLD loadHydrochloricAcid() {
         return new MaterialBuilder().setName("HydrochloricAcid_GT5U")
             .setDefaultLocalName("Hydrochloric Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8358,12 +8358,12 @@ public class MaterialsInit {
             .setMeltingPoint(247)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .constructMaterial();
     }
 
-    private static Materials loadHydrofluoricAcid() {
+    private static Materials_OLD loadHydrofluoricAcid() {
         return new MaterialBuilder().setName("HydrofluoricAcid_GT5U")
             .setDefaultLocalName("Hydrofluoric Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8372,13 +8372,13 @@ public class MaterialsInit {
             .setMeltingPoint(190)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Fluorine, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Fluorine, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadHypochlorousAcid() {
+    private static Materials_OLD loadHypochlorousAcid() {
         return new MaterialBuilder().setName("HypochlorousAcid")
             .setDefaultLocalName("Hypochlorous Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8387,14 +8387,14 @@ public class MaterialsInit {
             .setMeltingPoint(161)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Chlorine, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Chlorine, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadIronIIIChloride() {
+    private static Materials_OLD loadIronIIIChloride() {
         return new MaterialBuilder().setName("IronIIIChloride")
             .setDefaultLocalName("Iron III Chloride")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8403,13 +8403,13 @@ public class MaterialsInit {
             .setMeltingPoint(273)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Chlorine, 3)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Chlorine, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadIsoprene() {
+    private static Materials_OLD loadIsoprene() {
         return new MaterialBuilder().setName("Isoprene")
             .setDefaultLocalName("Isoprene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8418,13 +8418,13 @@ public class MaterialsInit {
             .setMeltingPoint(129)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 5)
-            .addMaterial(Materials.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Carbon, 5)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadLifeEssence() {
+    private static Materials_OLD loadLifeEssence() {
         return new MaterialBuilder().setName("lifeessence")
             .setDefaultLocalName("Life")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8436,7 +8436,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMetalMixture() {
+    private static Materials_OLD loadMetalMixture() {
         return new MaterialBuilder().setName("MetalMixture")
             .setDefaultLocalName("Metal Mixture")
             .setChemicalFormula(
@@ -8448,7 +8448,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMethanol() {
+    private static Materials_OLD loadMethanol() {
         return new MaterialBuilder().setName("Methanol")
             .setDefaultLocalName("Methanol")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8458,14 +8458,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Diesel, 84)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadMethylAcetate() {
+    private static Materials_OLD loadMethylAcetate() {
         return new MaterialBuilder().setName("MethylAcetate")
             .setDefaultLocalName("Methyl Acetate")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8474,14 +8474,14 @@ public class MaterialsInit {
             .setMeltingPoint(190)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadNitrationMixture() {
+    private static Materials_OLD loadNitrationMixture() {
         return new MaterialBuilder().setName("NitrationMixture")
             .setDefaultLocalName("Nitration Mixture")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8491,7 +8491,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNitricAcid() {
+    private static Materials_OLD loadNitricAcid() {
         return new MaterialBuilder().setName("NitricAcid")
             .setDefaultLocalName("Nitric Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8499,14 +8499,14 @@ public class MaterialsInit {
             .setMeltingPoint(231)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadNitricOxide() {
+    private static Materials_OLD loadNitricOxide() {
         return new MaterialBuilder().setName("NitricOxide")
             .setDefaultLocalName("Nitric Oxide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8514,13 +8514,13 @@ public class MaterialsInit {
             .setARGB(0x007dc8f0)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadPhenol() {
+    private static Materials_OLD loadPhenol() {
         return new MaterialBuilder().setName("Phenol")
             .setDefaultLocalName("Phenol")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8530,14 +8530,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 288)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadPhosphoricAcid() {
+    private static Materials_OLD loadPhosphoricAcid() {
         return new MaterialBuilder().setName("PhosphoricAcid_GT5U")
             .setDefaultLocalName("Phosphoric Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8546,13 +8546,13 @@ public class MaterialsInit {
             .setMeltingPoint(316)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Hydrogen, 3)
-            .addMaterial(Materials.Phosphorus, 1)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 3)
+            .addMaterial(Materials_OLD.Phosphorus, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadPhosphorousPentoxide() {
+    private static Materials_OLD loadPhosphorousPentoxide() {
         return new MaterialBuilder().setName("PhosphorousPentoxide")
             .setDefaultLocalName("Phosphorus Pentoxide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8560,13 +8560,13 @@ public class MaterialsInit {
             .setARGB(0x00dcdc00)
             .addCell()
             .addDustItems()
-            .addMaterial(Materials.Phosphorus, 4)
-            .addMaterial(Materials.Oxygen, 10)
+            .addMaterial(Materials_OLD.Phosphorus, 4)
+            .addMaterial(Materials_OLD.Oxygen, 10)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadPolyphenyleneSulfide() {
+    private static Materials_OLD loadPolyphenyleneSulfide() {
         return new MaterialBuilder().setName("PolyphenyleneSulfide")
             .setDefaultLocalName("Polyphenylene Sulfide (PPS)")
             .setIconSet(TextureSet.SET_DULL)
@@ -8578,16 +8578,16 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setTool(32, 1, 3.0f)
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Sulfur, 1)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Sulfur, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STRETCHY)
             .constructMaterial();
     }
 
-    private static Materials loadPolystyrene() {
+    private static Materials_OLD loadPolystyrene() {
         return new MaterialBuilder().setName("Polystyrene")
             .setDefaultLocalName("Polystyrene (PS)")
             .setIconSet(TextureSet.SET_DULL)
@@ -8600,8 +8600,8 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -8609,7 +8609,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPolyvinylAcetate() {
+    private static Materials_OLD loadPolyvinylAcetate() {
         return new MaterialBuilder().setName("PolyvinylAcetate")
             .setDefaultLocalName("Polyvinyl Acetate")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8618,13 +8618,13 @@ public class MaterialsInit {
             .setMeltingPoint(333)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadPolyvinylChloride() {
+    private static Materials_OLD loadPolyvinylChloride() {
         return new MaterialBuilder().setName("PolyvinylChloride")
             .setDefaultLocalName("Polyvinyl Chloride (PVC)")
             .setIconSet(TextureSet.SET_DULL)
@@ -8637,9 +8637,9 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 3)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 3)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -8647,20 +8647,20 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPotassiumHydroxide() {
+    private static Materials_OLD loadPotassiumHydroxide() {
         return new MaterialBuilder().setName("PotassiumHydroxide_GT5U")
             .setDefaultLocalName("Potassium Hydroxide")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeLightBlue)
             .setARGB(0x005e4a9e)
             .addDustItems()
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadPropane() {
+    private static Materials_OLD loadPropane() {
         return new MaterialBuilder().setName("Propane")
             .setDefaultLocalName("Propane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8669,14 +8669,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 232)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
             .addElectrolyzerRecipe()
             .addCrackingRecipes()
             .constructMaterial();
     }
 
-    private static Materials loadPropene() {
+    private static Materials_OLD loadPropene() {
         return new MaterialBuilder().setName("Propene")
             .setDefaultLocalName("Propene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8685,14 +8685,14 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Gas, 192)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
             .addElectrolyzerRecipe()
             .addCrackingRecipes()
             .constructMaterial();
     }
 
-    private static Materials loadSaltWater() {
+    private static Materials_OLD loadSaltWater() {
         return new MaterialBuilder().setName("SaltWater")
             .setDefaultLocalName("Salt Water")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8704,47 +8704,47 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSodiumBisulfate() {
+    private static Materials_OLD loadSodiumBisulfate() {
         return new MaterialBuilder().setName("SodiumBisulfate")
             .setDefaultLocalName("Sodium Bisulfate")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x00004455)
             .addDustItems()
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumHydroxide() {
+    private static Materials_OLD loadSodiumHydroxide() {
         return new MaterialBuilder().setName("SodiumHydroxide_GT5U")
             .setDefaultLocalName("Sodium Hydroxide")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x00003380)
             .addDustItems()
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumOxide() {
+    private static Materials_OLD loadSodiumOxide() {
         return new MaterialBuilder().setName("SodiumOxide")
             .setDefaultLocalName("Sodium Oxide")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00ffffeb)
             .addDustItems()
-            .addMaterial(Materials.Sodium, 2)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Sodium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadStyrene() {
+    private static Materials_OLD loadStyrene() {
         return new MaterialBuilder().setName("Styrene")
             .setDefaultLocalName("Styrene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8753,13 +8753,13 @@ public class MaterialsInit {
             .setMeltingPoint(243)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadStyreneButadieneRubber() {
+    private static Materials_OLD loadStyreneButadieneRubber() {
         return new MaterialBuilder().setName("StyreneButadieneRubber")
             .setDefaultLocalName("Styrene-Butadiene Rubber (SBR)")
             .setIconSet(TextureSet.SET_SHINY)
@@ -8772,8 +8772,8 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addMaterial(Materials.Styrene, 1)
-            .addMaterial(Materials.Butadiene, 3)
+            .addMaterial(Materials_OLD.Styrene, 1)
+            .addMaterial(Materials_OLD.Butadiene, 3)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -8781,7 +8781,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSulfurDioxide() {
+    private static Materials_OLD loadSulfurDioxide() {
         return new MaterialBuilder().setName("SulfurDioxide")
             .setDefaultLocalName("Sulfur Dioxide")
             .setIconSet(TextureSet.SET_FINE)
@@ -8790,8 +8790,8 @@ public class MaterialsInit {
             .setOreMultiplier(4)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
@@ -8799,7 +8799,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSulfurTrioxide() {
+    private static Materials_OLD loadSulfurTrioxide() {
         return new MaterialBuilder().setName("SulfurTrioxide")
             .setDefaultLocalName("Sulfur Trioxide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8807,13 +8807,13 @@ public class MaterialsInit {
             .setARGB(0x00a0a014)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadTetrafluoroethylene() {
+    private static Materials_OLD loadTetrafluoroethylene() {
         return new MaterialBuilder().setName("Tetrafluoroethylene")
             .setDefaultLocalName("Tetrafluoroethylene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8821,13 +8821,13 @@ public class MaterialsInit {
             .setARGB(0x007d7d7d)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Fluorine, 4)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Fluorine, 4)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadTetranitromethane() {
+    private static Materials_OLD loadTetranitromethane() {
         return new MaterialBuilder().setName("Tetranitromethane")
             .setDefaultLocalName("Tetranitromethane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8836,14 +8836,14 @@ public class MaterialsInit {
             .setMeltingPoint(287)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Nitrogen, 4)
-            .addMaterial(Materials.Oxygen, 8)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 4)
+            .addMaterial(Materials_OLD.Oxygen, 8)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadToluene() {
+    private static Materials_OLD loadToluene() {
         return new MaterialBuilder().setName("Toluene")
             .setDefaultLocalName("Toluene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8851,13 +8851,13 @@ public class MaterialsInit {
             .setARGB(0x00501d05)
             .setFuel(MaterialBuilder.FuelType.Gas, 328)
             .addCell()
-            .addMaterial(Materials.Carbon, 7)
-            .addMaterial(Materials.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Carbon, 7)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadVinylAcetate() {
+    private static Materials_OLD loadVinylAcetate() {
         return new MaterialBuilder().setName("VinylAcetate")
             .setDefaultLocalName("Vinyl Acetate")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8866,14 +8866,14 @@ public class MaterialsInit {
             .setMeltingPoint(180)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadVinylChloride() {
+    private static Materials_OLD loadVinylChloride() {
         return new MaterialBuilder().setName("VinylChloride")
             .setDefaultLocalName("Vinyl Chloride")
             .setIconSet(TextureSet.SET_FLUID)
@@ -8881,69 +8881,69 @@ public class MaterialsInit {
             .setARGB(0x00e1f0f0)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 3)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 3)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
     private static void loadRoastedOres() {
-        Materials.RoastedAntimony = loadRoastedAntimony();
-        Materials.RoastedArsenic = loadRoastedArsenic();
-        Materials.RoastedCobalt = loadRoastedCobalt();
-        Materials.RoastedCopper = loadRoastedCopper();
-        Materials.RoastedIron = loadRoastedIron();
-        Materials.RoastedLead = loadRoastedLead();
-        Materials.RoastedNickel = loadRoastedNickel();
-        Materials.RoastedZinc = loadRoastedZinc();
+        Materials_OLD.RoastedAntimony = loadRoastedAntimony();
+        Materials_OLD.RoastedArsenic = loadRoastedArsenic();
+        Materials_OLD.RoastedCobalt = loadRoastedCobalt();
+        Materials_OLD.RoastedCopper = loadRoastedCopper();
+        Materials_OLD.RoastedIron = loadRoastedIron();
+        Materials_OLD.RoastedLead = loadRoastedLead();
+        Materials_OLD.RoastedNickel = loadRoastedNickel();
+        Materials_OLD.RoastedZinc = loadRoastedZinc();
     }
 
-    private static Materials loadRoastedAntimony() {
+    private static Materials_OLD loadRoastedAntimony() {
         return new MaterialBuilder().setName("RoastedAntimony")
             .setDefaultLocalName("Roasted Antimony")
             .setChemicalFormula("Sb" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
             .setIconSet(TextureSet.SET_DULL)
             .setARGB(0x00c4b2c2)
             .addDustItems()
-            .setDirectSmelting(() -> Materials.Antimony)
+            .setDirectSmelting(() -> Materials_OLD.Antimony)
             .constructMaterial();
     }
 
-    private static Materials loadRoastedArsenic() {
+    private static Materials_OLD loadRoastedArsenic() {
         return new MaterialBuilder().setName("RoastedArsenic")
             .setDefaultLocalName("Roasted Arsenic")
             .setChemicalFormula("As" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x00f0f0f0)
             .addDustItems()
-            .setDirectSmelting(() -> Materials.Arsenic)
+            .setDirectSmelting(() -> Materials_OLD.Arsenic)
             .constructMaterial();
     }
 
-    private static Materials loadRoastedCobalt() {
+    private static Materials_OLD loadRoastedCobalt() {
         return new MaterialBuilder().setName("RoastedCobalt")
             .setDefaultLocalName("Roasted Cobalt")
             .setChemicalFormula("Co" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x00084009)
             .addDustItems()
-            .setDirectSmelting(() -> Materials.Cobalt)
+            .setDirectSmelting(() -> Materials_OLD.Cobalt)
             .constructMaterial();
     }
 
-    private static Materials loadRoastedCopper() {
+    private static Materials_OLD loadRoastedCopper() {
         return new MaterialBuilder().setName("RoastedCopper")
             .setDefaultLocalName("Roasted Copper")
             .setChemicalFormula("Cu" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
             .setIconSet(TextureSet.SET_DULL)
             .setARGB(0x004d1212)
             .addDustItems()
-            .setDirectSmelting(() -> Materials.Copper)
+            .setDirectSmelting(() -> Materials_OLD.Copper)
             .constructMaterial();
     }
 
-    private static Materials loadRoastedIron() {
+    private static Materials_OLD loadRoastedIron() {
         return new MaterialBuilder().setName("RoastedIron")
             .setDefaultLocalName("Roasted Iron")
             .setChemicalFormula("Fe" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
@@ -8952,22 +8952,22 @@ public class MaterialsInit {
             .setMiningLevel(0)
             .addDustItems()
             .addOreItems()
-            .setDirectSmelting(() -> Materials.Iron)
+            .setDirectSmelting(() -> Materials_OLD.Iron)
             .constructMaterial();
     }
 
-    private static Materials loadRoastedLead() {
+    private static Materials_OLD loadRoastedLead() {
         return new MaterialBuilder().setName("RoastedLead")
             .setDefaultLocalName("Roasted Lead")
             .setChemicalFormula("Pb" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x00a8952b)
             .addDustItems()
-            .setDirectSmelting(() -> Materials.Lead)
+            .setDirectSmelting(() -> Materials_OLD.Lead)
             .constructMaterial();
     }
 
-    private static Materials loadRoastedNickel() {
+    private static Materials_OLD loadRoastedNickel() {
         return new MaterialBuilder().setName("RoastedNickel")
             .setDefaultLocalName("Roasted Nickel")
             .setChemicalFormula("Ni" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
@@ -8976,12 +8976,12 @@ public class MaterialsInit {
             .setMiningLevel(0)
             .addDustItems()
             .addOreItems()
-            .addOreByproduct(() -> Materials.Nickel)
-            .setDirectSmelting(() -> Materials.Nickel)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
+            .setDirectSmelting(() -> Materials_OLD.Nickel)
             .constructMaterial();
     }
 
-    private static Materials loadRoastedZinc() {
+    private static Materials_OLD loadRoastedZinc() {
         return new MaterialBuilder().setName("RoastedZinc")
             .setDefaultLocalName("Roasted Zinc")
             .setChemicalFormula("Zn" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK)
@@ -8989,24 +8989,24 @@ public class MaterialsInit {
             .setARGB(0x00d1d1d1)
             .setMiningLevel(0)
             .addDustItems()
-            .setDirectSmelting(() -> Materials.Zinc)
+            .setDirectSmelting(() -> Materials_OLD.Zinc)
             .constructMaterial();
     }
 
     private static void loadSiliconLine() {
-        Materials.AluminiumFluoride = loadAluminiumFluoride();
-        Materials.CalciumDisilicide = loadCalciumDisilicide();
-        Materials.Calciumhydride = loadCalciumhydride();
-        Materials.Dichlorosilane = loadDichlorosilane();
-        Materials.Hexachlorodisilane = loadHexachlorodisilane();
-        Materials.Silane = loadSilane();
-        Materials.SiliconSG = loadSiliconSG();
-        Materials.SiliconTetrachloride = loadSiliconTetrachloride();
-        Materials.SiliconTetrafluoride = loadSiliconTetrafluoride();
-        Materials.Trichlorosilane = loadTrichlorosilane();
+        Materials_OLD.AluminiumFluoride = loadAluminiumFluoride();
+        Materials_OLD.CalciumDisilicide = loadCalciumDisilicide();
+        Materials_OLD.Calciumhydride = loadCalciumhydride();
+        Materials_OLD.Dichlorosilane = loadDichlorosilane();
+        Materials_OLD.Hexachlorodisilane = loadHexachlorodisilane();
+        Materials_OLD.Silane = loadSilane();
+        Materials_OLD.SiliconSG = loadSiliconSG();
+        Materials_OLD.SiliconTetrachloride = loadSiliconTetrachloride();
+        Materials_OLD.SiliconTetrafluoride = loadSiliconTetrafluoride();
+        Materials_OLD.Trichlorosilane = loadTrichlorosilane();
     }
 
-    private static Materials loadAluminiumFluoride() {
+    private static Materials_OLD loadAluminiumFluoride() {
         return new MaterialBuilder().setName("Aluminiumfluoride")
             .setDefaultLocalName("Aluminium Fluoride")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9017,14 +9017,14 @@ public class MaterialsInit {
             .setMeltingPoint(1_533)
             .addElectrolyzerRecipe()
             // ALF3
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Fluorine, 3)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Fluorine, 3)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.ORDO, 1)
             .constructMaterial();
     }
 
-    private static Materials loadCalciumDisilicide() {
+    private static Materials_OLD loadCalciumDisilicide() {
         return new MaterialBuilder().setName("CalciumDisilicide")
             .setDefaultLocalName("Calcium Disilicide")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9036,14 +9036,14 @@ public class MaterialsInit {
             .setMeltingPoint(1_313)
             .addElectrolyzerRecipe()
             // CaSi2
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Silicon, 2)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Silicon, 2)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.ORDO, 1)
             .constructMaterial();
     }
 
-    private static Materials loadCalciumhydride() {
+    private static Materials_OLD loadCalciumhydride() {
         return new MaterialBuilder().setName("CalciumHydride")
             .setDefaultLocalName("Calcium Hydride")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9055,14 +9055,14 @@ public class MaterialsInit {
             .setMeltingPoint(1_089)
             .addElectrolyzerRecipe()
             // CaH2
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.ORDO, 1)
             .constructMaterial();
     }
 
-    private static Materials loadDichlorosilane() {
+    private static Materials_OLD loadDichlorosilane() {
         return new MaterialBuilder().setName("Dichlorosilane")
             .setDefaultLocalName("Dichlorosilane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -9073,16 +9073,16 @@ public class MaterialsInit {
             .setMeltingPoint(151)
             .addElectrolyzerRecipe()
             // SIH2CL2
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Chlorine, 2)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Chlorine, 2)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadHexachlorodisilane() {
+    private static Materials_OLD loadHexachlorodisilane() {
         return new MaterialBuilder().setName("Hexachlorodisilane")
             .setDefaultLocalName("Hexachlorodisilane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -9092,13 +9092,13 @@ public class MaterialsInit {
             .setMeltingPoint(272)
             .addElectrolyzerRecipe()
             // SI2CL6
-            .addMaterial(Materials.Silicon, 2)
-            .addMaterial(Materials.Chlorine, 6)
+            .addMaterial(Materials_OLD.Silicon, 2)
+            .addMaterial(Materials_OLD.Chlorine, 6)
             .addAspect(TCAspects.AQUA, 1)
             .constructMaterial();
     }
 
-    private static Materials loadSilane() {
+    private static Materials_OLD loadSilane() {
         return new MaterialBuilder().setName("Silane")
             .setDefaultLocalName("Silane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -9107,13 +9107,13 @@ public class MaterialsInit {
             .addGas()
             .setMeltingPoint(88)
             // SIH4
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
             .addAspect(TCAspects.AQUA, 1)
             .constructMaterial();
     }
 
-    private static Materials loadSiliconSG() {
+    private static Materials_OLD loadSiliconSG() {
         return new MaterialBuilder().setName("SiliconSolarGrade")
             .setDefaultLocalName("Silicon Solar Grade (Poly SI)")
             .setChemicalFormula("Si*")
@@ -9134,7 +9134,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSiliconTetrachloride() {
+    private static Materials_OLD loadSiliconTetrachloride() {
         return new MaterialBuilder().setName("SiliconTetrachloride")
             .setDefaultLocalName("Silicon Tetrachloride")
             .setIconSet(TextureSet.SET_FLUID)
@@ -9144,14 +9144,14 @@ public class MaterialsInit {
             .addFluid()
             .setMeltingPoint(204)
             // SICL4
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Chlorine, 4)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Chlorine, 4)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadSiliconTetrafluoride() {
+    private static Materials_OLD loadSiliconTetrafluoride() {
         return new MaterialBuilder().setName("SiliconTetrafluoride")
             .setDefaultLocalName("Silicon Tetrafluoride")
             .setIconSet(TextureSet.SET_FLUID)
@@ -9161,15 +9161,15 @@ public class MaterialsInit {
             .addGas()
             .setMeltingPoint(178)
             // SIF4
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Fluorine, 4)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Fluorine, 4)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadTrichlorosilane() {
+    private static Materials_OLD loadTrichlorosilane() {
         return new MaterialBuilder().setName("Trichlorosilane")
             .setDefaultLocalName("Trichlorosilane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -9178,41 +9178,41 @@ public class MaterialsInit {
             .addFluid()
             .setMeltingPoint(139)
             // HSICL3
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Chlorine, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Chlorine, 3)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
     private static void loadUnclassified06() {
-        Materials.GalliumArsenide = loadGalliumArsenide();
-        Materials.IndiumGalliumPhosphide = loadIndiumGalliumPhosphide();
-        Materials.SolderingAlloy = loadSolderingAlloy();
-        Materials.Spessartine = loadSpessartine();
-        Materials.Sphalerite = loadSphalerite();
-        Materials.StainlessSteel = loadStainlessSteel();
-        Materials.Steel = loadSteel();
-        Materials.Stibnite = loadStibnite();
-        Materials.SulfuricAcid = loadSulfuricAcid();
-        Materials.Tanzanite = loadTanzanite();
-        Materials.Tetrahedrite = loadTetrahedrite();
-        Materials.TinAlloy = loadTinAlloy();
-        Materials.Topaz = loadTopaz();
-        Materials.Tungstate = loadTungstate();
-        Materials.Ultimet = loadUltimet();
-        Materials.Uraninite = loadUraninite();
-        Materials.Uvarovite = loadUvarovite();
-        Materials.VanadiumGallium = loadVanadiumGallium();
-        Materials.Wood = loadWood();
-        Materials.WroughtIron = Materials.CastIron = loadCastIron();
-        Materials.Wulfenite = loadWulfenite();
-        Materials.YellowLimonite = loadYellowLimonite();
-        Materials.YttriumBariumCuprate = loadYttriumBariumCuprate();
+        Materials_OLD.GalliumArsenide = loadGalliumArsenide();
+        Materials_OLD.IndiumGalliumPhosphide = loadIndiumGalliumPhosphide();
+        Materials_OLD.SolderingAlloy = loadSolderingAlloy();
+        Materials_OLD.Spessartine = loadSpessartine();
+        Materials_OLD.Sphalerite = loadSphalerite();
+        Materials_OLD.StainlessSteel = loadStainlessSteel();
+        Materials_OLD.Steel = loadSteel();
+        Materials_OLD.Stibnite = loadStibnite();
+        Materials_OLD.SulfuricAcid = loadSulfuricAcid();
+        Materials_OLD.Tanzanite = loadTanzanite();
+        Materials_OLD.Tetrahedrite = loadTetrahedrite();
+        Materials_OLD.TinAlloy = loadTinAlloy();
+        Materials_OLD.Topaz = loadTopaz();
+        Materials_OLD.Tungstate = loadTungstate();
+        Materials_OLD.Ultimet = loadUltimet();
+        Materials_OLD.Uraninite = loadUraninite();
+        Materials_OLD.Uvarovite = loadUvarovite();
+        Materials_OLD.VanadiumGallium = loadVanadiumGallium();
+        Materials_OLD.Wood = loadWood();
+        Materials_OLD.WroughtIron = Materials_OLD.CastIron = loadCastIron();
+        Materials_OLD.Wulfenite = loadWulfenite();
+        Materials_OLD.YellowLimonite = loadYellowLimonite();
+        Materials_OLD.YttriumBariumCuprate = loadYttriumBariumCuprate();
     }
 
-    private static Materials loadGalliumArsenide() {
+    private static Materials_OLD loadGalliumArsenide() {
         return new MaterialBuilder().setName("GalliumArsenide")
             .setDefaultLocalName("Gallium Arsenide")
             .setIconSet(TextureSet.SET_DULL)
@@ -9223,12 +9223,12 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_200)
             .setBlastFurnaceRequired(true)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Arsenic, 1)
-            .addMaterial(Materials.Gallium, 1)
+            .addMaterial(Materials_OLD.Arsenic, 1)
+            .addMaterial(Materials_OLD.Gallium, 1)
             .constructMaterial();
     }
 
-    private static Materials loadIndiumGalliumPhosphide() {
+    private static Materials_OLD loadIndiumGalliumPhosphide() {
         return new MaterialBuilder().setName("IndiumGalliumPhosphide")
             .setDefaultLocalName("Indium Gallium Phosphide")
             .setIconSet(TextureSet.SET_DULL)
@@ -9237,13 +9237,13 @@ public class MaterialsInit {
             .addDustItems()
             .addMetalItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Indium, 1)
-            .addMaterial(Materials.Gallium, 1)
-            .addMaterial(Materials.Phosphorus, 1)
+            .addMaterial(Materials_OLD.Indium, 1)
+            .addMaterial(Materials_OLD.Gallium, 1)
+            .addMaterial(Materials_OLD.Phosphorus, 1)
             .constructMaterial();
     }
 
-    private static Materials loadSolderingAlloy() {
+    private static Materials_OLD loadSolderingAlloy() {
         return new MaterialBuilder().setName("SolderingAlloy")
             .setDefaultLocalName("Soldering Alloy")
             .setIconSet(TextureSet.SET_DULL)
@@ -9254,8 +9254,8 @@ public class MaterialsInit {
             .setMeltingPoint(400)
             .setBlastFurnaceTemp(400)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Tin, 9)
-            .addMaterial(Materials.Antimony, 1)
+            .addMaterial(Materials_OLD.Tin, 9)
+            .addMaterial(Materials_OLD.Antimony, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.SOLDERING_MATERIAL)
@@ -9263,7 +9263,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSpessartine() {
+    private static Materials_OLD loadSpessartine() {
         return new MaterialBuilder().setName("Spessartine")
             .setDefaultLocalName("Spessartine")
             .setIconSet(TextureSet.SET_DULL)
@@ -9272,16 +9272,16 @@ public class MaterialsInit {
             .setMiningLevel(2)
             .addDustItems()
             .addOreItems()
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Manganese, 3)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.GarnetRed)
-            .addOreByproduct(() -> Materials.Manganese)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Manganese, 3)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.GarnetRed)
+            .addOreByproduct(() -> Materials_OLD.Manganese)
             .constructMaterial();
     }
 
-    private static Materials loadSphalerite() {
+    private static Materials_OLD loadSphalerite() {
         return new MaterialBuilder().setName("Sphalerite")
             .setDefaultLocalName("Sphalerite")
             .setIconSet(TextureSet.SET_DULL)
@@ -9289,18 +9289,18 @@ public class MaterialsInit {
             .setMiningLevel(1)
             .addDustItems()
             .addOreItems()
-            .addMaterial(Materials.Zinc, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addOreByproduct(() -> Materials.GarnetYellow)
-            .addOreByproduct(() -> Materials.Cadmium)
-            .addOreByproduct(() -> Materials.Gallium)
-            .addOreByproduct(() -> Materials.Zinc)
-            .setDirectSmelting(() -> Materials.Zinc)
+            .addMaterial(Materials_OLD.Zinc, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addOreByproduct(() -> Materials_OLD.GarnetYellow)
+            .addOreByproduct(() -> Materials_OLD.Cadmium)
+            .addOreByproduct(() -> Materials_OLD.Gallium)
+            .addOreByproduct(() -> Materials_OLD.Zinc)
+            .setDirectSmelting(() -> Materials_OLD.Zinc)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .constructMaterial();
     }
 
-    private static Materials loadStainlessSteel() {
+    private static Materials_OLD loadStainlessSteel() {
         return new MaterialBuilder().setName("StainlessSteel")
             .setDefaultLocalName("Stainless Steel")
             .setIconSet(TextureSet.SET_SHINY)
@@ -9316,16 +9316,16 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Iron, 6)
-            .addMaterial(Materials.Chrome, 1)
-            .addMaterial(Materials.Manganese, 1)
-            .addMaterial(Materials.Nickel, 1)
+            .addMaterial(Materials_OLD.Iron, 6)
+            .addMaterial(Materials_OLD.Chrome, 1)
+            .addMaterial(Materials_OLD.Manganese, 1)
+            .addMaterial(Materials_OLD.Nickel, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadSteel() {
+    private static Materials_OLD loadSteel() {
         return new MaterialBuilder().setName("Steel")
             .setDefaultLocalName("Steel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9342,11 +9342,11 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setDensity(51, 50)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Iron, 50)
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Iron, 50)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.ORDO, 1)
-            .addOreByproduct(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -9354,7 +9354,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadStibnite() {
+    private static Materials_OLD loadStibnite() {
         return new MaterialBuilder().setName("Stibnite")
             .setDefaultLocalName("Stibnite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9364,14 +9364,14 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Antimony, 2)
-            .addMaterial(Materials.Sulfur, 3)
-            .addOreByproduct(() -> Materials.Antimony)
-            .setDirectSmelting(() -> Materials.Antimony)
+            .addMaterial(Materials_OLD.Antimony, 2)
+            .addMaterial(Materials_OLD.Sulfur, 3)
+            .addOreByproduct(() -> Materials_OLD.Antimony)
+            .setDirectSmelting(() -> Materials_OLD.Antimony)
             .constructMaterial();
     }
 
-    private static Materials loadSulfuricAcid() {
+    private static Materials_OLD loadSulfuricAcid() {
         return new MaterialBuilder().setName("SulfuricAcid")
             .setDefaultLocalName("Sulfuric Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -9379,13 +9379,13 @@ public class MaterialsInit {
             .setARGB(0x00ff8000)
             .addCell()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadTanzanite() {
+    private static Materials_OLD loadTanzanite() {
         return new MaterialBuilder().setName("Tanzanite")
             .setDefaultLocalName("Tanzanite")
             .setIconSet(TextureSet.SET_GEM_VERTICAL)
@@ -9396,14 +9396,14 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addToolHeadItems()
-            .addMaterial(Materials.Calcium, 2)
-            .addMaterial(Materials.Aluminium, 3)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Oxygen, 13)
+            .addMaterial(Materials_OLD.Calcium, 2)
+            .addMaterial(Materials_OLD.Aluminium, 3)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 13)
             .addAspect(TCAspects.LUCRUM, 5)
             .addAspect(TCAspects.VITREUS, 3)
-            .addOreByproduct(() -> Materials.Opal)
+            .addOreByproduct(() -> Materials_OLD.Opal)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -9411,7 +9411,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTetrahedrite() {
+    private static Materials_OLD loadTetrahedrite() {
         return new MaterialBuilder().setName("Tetrahedrite")
             .setDefaultLocalName("Tetrahedrite")
             .setIconSet(TextureSet.SET_DULL)
@@ -9422,20 +9422,20 @@ public class MaterialsInit {
             .addOreItems()
             .addCentrifugeRecipe()
             // Cu3SbS3 + x(Fe,Zn)6Sb2S9
-            .addMaterial(Materials.Copper, 3)
-            .addMaterial(Materials.Antimony, 1)
-            .addMaterial(Materials.Sulfur, 3)
-            .addMaterial(Materials.Iron, 1)
-            .addOreByproduct(() -> Materials.Antimony)
-            .addOreByproduct(() -> Materials.Zinc)
-            .setDirectSmelting(() -> Materials.Copper)
+            .addMaterial(Materials_OLD.Copper, 3)
+            .addMaterial(Materials_OLD.Antimony, 1)
+            .addMaterial(Materials_OLD.Sulfur, 3)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addOreByproduct(() -> Materials_OLD.Antimony)
+            .addOreByproduct(() -> Materials_OLD.Zinc)
+            .setDirectSmelting(() -> Materials_OLD.Copper)
             .addSubTag(SubTag.DONT_ADD_DEFAULT_BBF_RECIPE)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .addSubTag(SubTag.WASHING_SODIUMPERSULFATE)
             .constructMaterial();
     }
 
-    private static Materials loadTinAlloy() {
+    private static Materials_OLD loadTinAlloy() {
         return new MaterialBuilder().setName("TinAlloy")
             .setDefaultLocalName("Tin Alloy")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9447,15 +9447,15 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Tin, 1)
-            .addMaterial(Materials.Iron, 1)
+            .addMaterial(Materials_OLD.Tin, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.INSTRUMENTUM, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadTopaz() {
+    private static Materials_OLD loadTopaz() {
         return new MaterialBuilder().setName("Topaz")
             .setDefaultLocalName("Topaz")
             .setIconSet(TextureSet.SET_GEM_HORIZONTAL)
@@ -9466,14 +9466,14 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addToolHeadItems()
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Fluorine, 2)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 6)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Fluorine, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 6)
             .addAspect(TCAspects.LUCRUM, 6)
             .addAspect(TCAspects.VITREUS, 4)
-            .addOreByproduct(() -> Materials.BlueTopaz)
+            .addOreByproduct(() -> Materials_OLD.BlueTopaz)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -9481,7 +9481,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTungstate() {
+    private static Materials_OLD loadTungstate() {
         return new MaterialBuilder().setName("Tungstate")
             .setDefaultLocalName("Tungstate")
             .setIconSet(TextureSet.SET_DULL)
@@ -9494,16 +9494,16 @@ public class MaterialsInit {
             .setMeltingPoint(2_500)
             .setBlastFurnaceTemp(2_500)
             .setBlastFurnaceRequired(true)
-            .addMaterial(Materials.Tungsten, 1)
-            .addMaterial(Materials.Lithium, 2)
-            .addMaterial(Materials.Oxygen, 4)
-            .addOreByproduct(() -> Materials.Manganese)
-            .addOreByproduct(() -> Materials.Silver)
-            .addOreByproduct(() -> Materials.Lithium)
+            .addMaterial(Materials_OLD.Tungsten, 1)
+            .addMaterial(Materials_OLD.Lithium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 4)
+            .addOreByproduct(() -> Materials_OLD.Manganese)
+            .addOreByproduct(() -> Materials_OLD.Silver)
+            .addOreByproduct(() -> Materials_OLD.Lithium)
             .constructMaterial();
     }
 
-    private static Materials loadUltimet() {
+    private static Materials_OLD loadUltimet() {
         return new MaterialBuilder().setName("Ultimet")
             .setDefaultLocalName("Ultimet")
             .setIconSet(TextureSet.SET_SHINY)
@@ -9520,15 +9520,15 @@ public class MaterialsInit {
             .addElectrolyzerRecipe()
             // 54% Cobalt, 26% Chromium, 9% Nickel, 5% Molybdenum, 3% Iron, 2% Tungsten, 0.8% Manganese, 0.3% Silicon,
             // 0.08% Nitrogen and 0.06% Carbon
-            .addMaterial(Materials.Cobalt, 5)
-            .addMaterial(Materials.Chrome, 2)
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.Molybdenum, 1)
+            .addMaterial(Materials_OLD.Cobalt, 5)
+            .addMaterial(Materials_OLD.Chrome, 2)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.Molybdenum, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadUraninite() {
+    private static Materials_OLD loadUraninite() {
         return new MaterialBuilder().setName("Uraninite")
             .setDefaultLocalName("Uraninite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9538,15 +9538,15 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Uranium, 1)
-            .addMaterial(Materials.Oxygen, 2)
-            .addOreByproduct(() -> Materials.Uranium)
-            .addOreByproduct(() -> Materials.Thorium)
-            .addOreByproduct(() -> Materials.Uranium235)
+            .addMaterial(Materials_OLD.Uranium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
+            .addOreByproduct(() -> Materials_OLD.Uranium)
+            .addOreByproduct(() -> Materials_OLD.Thorium)
+            .addOreByproduct(() -> Materials_OLD.Uranium235)
             .constructMaterial();
     }
 
-    private static Materials loadUvarovite() {
+    private static Materials_OLD loadUvarovite() {
         return new MaterialBuilder().setName("Uvarovite")
             .setDefaultLocalName("Uvarovite")
             .setIconSet(TextureSet.SET_DIAMOND)
@@ -9556,16 +9556,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Calcium, 3)
-            .addMaterial(Materials.Chrome, 2)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.GarnetYellow)
-            .addOreByproduct(() -> Materials.Chrome)
+            .addMaterial(Materials_OLD.Calcium, 3)
+            .addMaterial(Materials_OLD.Chrome, 2)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.GarnetYellow)
+            .addOreByproduct(() -> Materials_OLD.Chrome)
             .constructMaterial();
     }
 
-    private static Materials loadVanadiumGallium() {
+    private static Materials_OLD loadVanadiumGallium() {
         return new MaterialBuilder().setName("VanadiumGallium")
             .setDefaultLocalName("Vanadium-Gallium")
             .setIconSet(TextureSet.SET_SHINY)
@@ -9580,13 +9580,13 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Vanadium, 3)
-            .addMaterial(Materials.Gallium, 1)
+            .addMaterial(Materials_OLD.Vanadium, 3)
+            .addMaterial(Materials_OLD.Gallium, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadWood() {
+    private static Materials_OLD loadWood() {
         return new MaterialBuilder().setName("Wood")
             .setDefaultLocalName("Wood")
             .setChemicalFormula("")
@@ -9598,9 +9598,9 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .addAspect(TCAspects.ARBOR, 2)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -9611,7 +9611,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCastIron() {
+    private static Materials_OLD loadCastIron() {
         return new MaterialBuilder().setName("CastIron")
             .setDefaultLocalName("Cast Iron")
             .setChemicalFormula("Fe*")
@@ -9626,14 +9626,14 @@ public class MaterialsInit {
             .addGearItems()
             .setMeltingPoint(1_811)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Iron, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_TRIPLE)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .constructMaterial();
     }
 
-    private static Materials loadWulfenite() {
+    private static Materials_OLD loadWulfenite() {
         return new MaterialBuilder().setName("Wulfenite")
             .setDefaultLocalName("Wulfenite")
             .setIconSet(TextureSet.SET_DULL)
@@ -9643,13 +9643,13 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Lead, 1)
-            .addMaterial(Materials.Molybdenum, 1)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Lead, 1)
+            .addMaterial(Materials_OLD.Molybdenum, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadYellowLimonite() {
+    private static Materials_OLD loadYellowLimonite() {
         return new MaterialBuilder().setName("YellowLimonite")
             .setDefaultLocalName("Yellow Limonite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9660,20 +9660,20 @@ public class MaterialsInit {
             .addOreItems()
             .addCentrifugeRecipe()
             // FeO(OH) + a bit of Ni and Co
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Oxygen, 2)
-            .addOreByproduct(() -> Materials.Nickel)
-            .addOreByproduct(() -> Materials.BrownLimonite)
-            .addOreByproduct(() -> Materials.Cobalt)
-            .setDirectSmelting(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
+            .addOreByproduct(() -> Materials_OLD.Nickel)
+            .addOreByproduct(() -> Materials_OLD.BrownLimonite)
+            .addOreByproduct(() -> Materials_OLD.Cobalt)
+            .setDirectSmelting(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_DOUBLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .constructMaterial();
     }
 
-    private static Materials loadYttriumBariumCuprate() {
+    private static Materials_OLD loadYttriumBariumCuprate() {
         return new MaterialBuilder().setName("YttriumBariumCuprate")
             .setDefaultLocalName("Yttrium Barium Cuprate")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9685,118 +9685,118 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(4_500)
             .setBlastFurnaceRequired(true)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addMaterial(Materials.Yttrium, 1)
-            .addMaterial(Materials.Barium, 2)
-            .addMaterial(Materials.Copper, 3)
-            .addMaterial(Materials.Oxygen, 7)
+            .addMaterial(Materials_OLD.Yttrium, 1)
+            .addMaterial(Materials_OLD.Barium, 2)
+            .addMaterial(Materials_OLD.Copper, 3)
+            .addMaterial(Materials_OLD.Oxygen, 7)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
     private static void loadDegree2Compounds() {
-        Materials.Air = loadAir();
-        Materials.Aluminiumhydroxide = loadAluminiumHydroxide();
-        Materials.Aluminiumoxide = loadAluminiumoxide();
-        Materials.Alumite = loadAlumite();
-        Materials.Alunite = loadAlunite();
-        Materials.Amethyst = loadAmethyst();
-        Materials.Apatite = loadApatite();
-        Materials.Barite = loadBarite();
-        Materials.Bastnasite = loadBastnasite();
-        Materials.Bauxite = loadBauxite();
-        Materials.Bentonite = loadBentonite();
-        Materials.Biotite = loadBiotite();
-        Materials.BismuthBronze = loadBismuthBronze();
-        Materials.BlackBronze = loadBlackBronze();
-        Materials.BlackSteel = loadBlackSteel();
-        Materials.Blaze = loadBlaze();
-        Materials.Borax = loadBorax();
-        Materials.Chrysotile = loadChrysotile();
-        Materials.Clay = loadClay();
-        Materials.CobaltBrass = loadCobaltBrass();
-        Materials.Concrete = loadConcrete();
-        Materials.Cryolite = loadCryolite();
-        Materials.DamascusSteel = loadDamascusSteel();
-        Materials.DilutedSulfuricAcid = loadDilutedSulfuricAcid();
-        Materials.Dolomite = loadDolomite();
-        Materials.ElectricalSteel = loadElectricalSteel();
-        Materials.EnderPearl = loadEnderPearl();
-        Materials.EpoxidFiberReinforced = loadEpoxidFiberReinforced();
-        Materials.Flint = loadFlint();
-        Materials.FullersEarth = loadFullersEarth();
-        Materials.GarnetRed = loadGarnetRed();
-        Materials.GarnetYellow = loadGarnetYellow();
-        Materials.Glass = loadGlass();
-        Materials.Glauconite = loadGlauconite();
-        Materials.GlauconiteSand = loadGlauconiteSand();
-        Materials.GraniteBlack = loadGraniteBlack();
-        Materials.GraniticMineralSand = loadGraniticMineralSand();
-        Materials.Gypsum = loadGypsum();
-        Materials.HydratedCoal = loadHydratedCoal();
-        Materials.IronMagnetic = loadIronMagnetic();
-        Materials.Jasper = loadJasper();
-        Materials.Kaolinite = loadKaolinite();
-        Materials.Knightmetal = loadKnightmetal();
-        Materials.Kyanite = loadKyanite();
-        Materials.Lapis = loadLapis();
-        Materials.Lepidolite = loadLepidolite();
-        Materials.Lignite = loadLignite();
-        Materials.LiquidAir = loadLiquidAir();
-        Materials.LiveRoot = loadLiveRoot();
-        Materials.Malachite = loadMalachite();
-        Materials.Manyullyn = loadManyullyn();
-        Materials.Marble = loadMarble();
-        Materials.Mica = loadMica();
-        Materials.Mirabilite = loadMirabilite();
-        Materials.Monazite = loadMonazite();
-        Materials.NeodymiumMagnetic = loadNeodymiumMagnetic();
-        Materials.Niter = loadNiter();
-        Materials.NitroCoalFuel = loadNitroCoalFuel();
-        Materials.NitroFuel = loadNitroFuel();
-        Materials.Olivine = loadOlivine();
-        Materials.Opal = loadOpal();
-        Materials.Pentlandite = loadPentlandite();
-        Materials.Perlite = loadPerlite();
-        Materials.Pitchblende = loadPitchblende();
-        Materials.Pollucite = loadPollucite();
-        Materials.Pollution = loadPollution();
-        Materials.PotassiumFeldspar = loadPotassiumFeldspar();
-        Materials.QuartzSand = loadQuartzSand();
-        Materials.RawStyreneButadieneRubber = loadRawStyreneButadieneRubber();
-        Materials.Realgar = loadRealgar();
-        Materials.RedMud = loadRedMud();
-        Materials.Redrock = loadRedrock();
-        Materials.Redstone = loadRedstone();
-        Materials.RoseGold = loadRoseGold();
-        Materials.SamariumMagnetic = loadSamariumMagnetic();
-        Materials.Soapstone = loadSoapstone();
-        Materials.SodiumAluminate = loadSodiumAluminate();
-        Materials.SodiumCarbonate = loadSodiumCarbonate();
-        Materials.Spodumene = loadSpodumene();
-        Materials.SteelMagnetic = loadSteelMagnetic();
-        Materials.Steeleaf = loadSteeleaf();
-        Materials.SterlingSilver = loadSterlingSilver();
-        Materials.Sugar = loadSugar();
-        Materials.Talc = loadTalc();
-        Materials.Tantalite = loadTantalite();
-        Materials.Thaumium = loadThaumium();
-        Materials.TPV = loadTPV();
-        Materials.TricalciumPhosphate = loadTricalciumPhosphate();
-        Materials.Trona = loadTrona();
-        Materials.TungstenCarbide = loadTungstenCarbide();
-        Materials.TungstenSteel = loadTungstenSteel();
-        Materials.VanadiumMagnetite = loadVanadiumMagnetite();
-        Materials.VanadiumSteel = loadVanadiumSteel();
-        Materials.Vermiculite = loadVermiculite();
-        Materials.Vinteum = loadVinteum();
-        Materials.Vis = loadVis();
-        Materials.VolcanicAsh = loadVolcanicAsh();
-        Materials.Wollastonite = loadWollastonite();
-        Materials.WoodSealed = loadWoodSealed();
-        Materials.Zeolite = loadZeolite();
+        Materials_OLD.Air = loadAir();
+        Materials_OLD.Aluminiumhydroxide = loadAluminiumHydroxide();
+        Materials_OLD.Aluminiumoxide = loadAluminiumoxide();
+        Materials_OLD.Alumite = loadAlumite();
+        Materials_OLD.Alunite = loadAlunite();
+        Materials_OLD.Amethyst = loadAmethyst();
+        Materials_OLD.Apatite = loadApatite();
+        Materials_OLD.Barite = loadBarite();
+        Materials_OLD.Bastnasite = loadBastnasite();
+        Materials_OLD.Bauxite = loadBauxite();
+        Materials_OLD.Bentonite = loadBentonite();
+        Materials_OLD.Biotite = loadBiotite();
+        Materials_OLD.BismuthBronze = loadBismuthBronze();
+        Materials_OLD.BlackBronze = loadBlackBronze();
+        Materials_OLD.BlackSteel = loadBlackSteel();
+        Materials_OLD.Blaze = loadBlaze();
+        Materials_OLD.Borax = loadBorax();
+        Materials_OLD.Chrysotile = loadChrysotile();
+        Materials_OLD.Clay = loadClay();
+        Materials_OLD.CobaltBrass = loadCobaltBrass();
+        Materials_OLD.Concrete = loadConcrete();
+        Materials_OLD.Cryolite = loadCryolite();
+        Materials_OLD.DamascusSteel = loadDamascusSteel();
+        Materials_OLD.DilutedSulfuricAcid = loadDilutedSulfuricAcid();
+        Materials_OLD.Dolomite = loadDolomite();
+        Materials_OLD.ElectricalSteel = loadElectricalSteel();
+        Materials_OLD.EnderPearl = loadEnderPearl();
+        Materials_OLD.EpoxidFiberReinforced = loadEpoxidFiberReinforced();
+        Materials_OLD.Flint = loadFlint();
+        Materials_OLD.FullersEarth = loadFullersEarth();
+        Materials_OLD.GarnetRed = loadGarnetRed();
+        Materials_OLD.GarnetYellow = loadGarnetYellow();
+        Materials_OLD.Glass = loadGlass();
+        Materials_OLD.Glauconite = loadGlauconite();
+        Materials_OLD.GlauconiteSand = loadGlauconiteSand();
+        Materials_OLD.GraniteBlack = loadGraniteBlack();
+        Materials_OLD.GraniticMineralSand = loadGraniticMineralSand();
+        Materials_OLD.Gypsum = loadGypsum();
+        Materials_OLD.HydratedCoal = loadHydratedCoal();
+        Materials_OLD.IronMagnetic = loadIronMagnetic();
+        Materials_OLD.Jasper = loadJasper();
+        Materials_OLD.Kaolinite = loadKaolinite();
+        Materials_OLD.Knightmetal = loadKnightmetal();
+        Materials_OLD.Kyanite = loadKyanite();
+        Materials_OLD.Lapis = loadLapis();
+        Materials_OLD.Lepidolite = loadLepidolite();
+        Materials_OLD.Lignite = loadLignite();
+        Materials_OLD.LiquidAir = loadLiquidAir();
+        Materials_OLD.LiveRoot = loadLiveRoot();
+        Materials_OLD.Malachite = loadMalachite();
+        Materials_OLD.Manyullyn = loadManyullyn();
+        Materials_OLD.Marble = loadMarble();
+        Materials_OLD.Mica = loadMica();
+        Materials_OLD.Mirabilite = loadMirabilite();
+        Materials_OLD.Monazite = loadMonazite();
+        Materials_OLD.NeodymiumMagnetic = loadNeodymiumMagnetic();
+        Materials_OLD.Niter = loadNiter();
+        Materials_OLD.NitroCoalFuel = loadNitroCoalFuel();
+        Materials_OLD.NitroFuel = loadNitroFuel();
+        Materials_OLD.Olivine = loadOlivine();
+        Materials_OLD.Opal = loadOpal();
+        Materials_OLD.Pentlandite = loadPentlandite();
+        Materials_OLD.Perlite = loadPerlite();
+        Materials_OLD.Pitchblende = loadPitchblende();
+        Materials_OLD.Pollucite = loadPollucite();
+        Materials_OLD.Pollution = loadPollution();
+        Materials_OLD.PotassiumFeldspar = loadPotassiumFeldspar();
+        Materials_OLD.QuartzSand = loadQuartzSand();
+        Materials_OLD.RawStyreneButadieneRubber = loadRawStyreneButadieneRubber();
+        Materials_OLD.Realgar = loadRealgar();
+        Materials_OLD.RedMud = loadRedMud();
+        Materials_OLD.Redrock = loadRedrock();
+        Materials_OLD.Redstone = loadRedstone();
+        Materials_OLD.RoseGold = loadRoseGold();
+        Materials_OLD.SamariumMagnetic = loadSamariumMagnetic();
+        Materials_OLD.Soapstone = loadSoapstone();
+        Materials_OLD.SodiumAluminate = loadSodiumAluminate();
+        Materials_OLD.SodiumCarbonate = loadSodiumCarbonate();
+        Materials_OLD.Spodumene = loadSpodumene();
+        Materials_OLD.SteelMagnetic = loadSteelMagnetic();
+        Materials_OLD.Steeleaf = loadSteeleaf();
+        Materials_OLD.SterlingSilver = loadSterlingSilver();
+        Materials_OLD.Sugar = loadSugar();
+        Materials_OLD.Talc = loadTalc();
+        Materials_OLD.Tantalite = loadTantalite();
+        Materials_OLD.Thaumium = loadThaumium();
+        Materials_OLD.TPV = loadTPV();
+        Materials_OLD.TricalciumPhosphate = loadTricalciumPhosphate();
+        Materials_OLD.Trona = loadTrona();
+        Materials_OLD.TungstenCarbide = loadTungstenCarbide();
+        Materials_OLD.TungstenSteel = loadTungstenSteel();
+        Materials_OLD.VanadiumMagnetite = loadVanadiumMagnetite();
+        Materials_OLD.VanadiumSteel = loadVanadiumSteel();
+        Materials_OLD.Vermiculite = loadVermiculite();
+        Materials_OLD.Vinteum = loadVinteum();
+        Materials_OLD.Vis = loadVis();
+        Materials_OLD.VolcanicAsh = loadVolcanicAsh();
+        Materials_OLD.Wollastonite = loadWollastonite();
+        Materials_OLD.WoodSealed = loadWoodSealed();
+        Materials_OLD.Zeolite = loadZeolite();
     }
 
-    private static Materials loadAluminiumHydroxide() {
+    private static Materials_OLD loadAluminiumHydroxide() {
         return new MaterialBuilder().setName("AluminiumHydroxide")
             .setDefaultLocalName("Aluminium Hydroxide")
             .setChemicalFormula("Al(OH)₃")
@@ -9809,14 +9809,14 @@ public class MaterialsInit {
             .setMeltingPoint(1_200)
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Oxygen, 3)
-            .addMaterial(Materials.Hydrogen, 3)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 3)
             .addAspect(TCAspects.GELUM, 2)
             .constructMaterial();
     }
 
-    private static Materials loadAluminiumoxide() {
+    private static Materials_OLD loadAluminiumoxide() {
         return new MaterialBuilder().setName("Alumina")
             .setDefaultLocalName("Alumina")
             .setIconSet(TextureSet.SET_QUARTZ)
@@ -9828,13 +9828,13 @@ public class MaterialsInit {
             .setMeltingPoint(2_054)
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addAspect(TCAspects.GELUM, 2)
             .constructMaterial();
     }
 
-    private static Materials loadAlumite() {
+    private static Materials_OLD loadAlumite() {
         return new MaterialBuilder().setName("Alumite")
             .setDefaultLocalName("Obzinite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9845,15 +9845,15 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addMaterial(Materials.Zinc, 5)
-            .addMaterial(Materials.Steel, 2)
-            .addMaterial(Materials.Obsidian, 2)
+            .addMaterial(Materials_OLD.Zinc, 5)
+            .addMaterial(Materials_OLD.Steel, 2)
+            .addMaterial(Materials_OLD.Obsidian, 2)
             .addAspect(TCAspects.STRONTIO, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadAlunite() {
+    private static Materials_OLD loadAlunite() {
         return new MaterialBuilder().setName("Alunite")
             .setDefaultLocalName("Alunite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -9862,15 +9862,15 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // KAl3(SO4)2(OH)6
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Aluminium, 3)
-            .addMaterial(Materials.Silicon, 2)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 14)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 3)
+            .addMaterial(Materials_OLD.Silicon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 14)
             .constructMaterial();
     }
 
-    private static Materials loadAmethyst() {
+    private static Materials_OLD loadAmethyst() {
         return new MaterialBuilder().setName("Amethyst")
             .setDefaultLocalName("Amethyst")
             .setIconSet(TextureSet.SET_FLINT)
@@ -9882,11 +9882,11 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.SiliconDioxide, 4)
-            .addMaterial(Materials.Iron, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 4)
+            .addMaterial(Materials_OLD.Iron, 1)
             .addAspect(TCAspects.LUCRUM, 6)
             .addAspect(TCAspects.VITREUS, 4)
-            .addOreByproduct(() -> Materials.Amethyst)
+            .addOreByproduct(() -> Materials_OLD.Amethyst)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -9894,7 +9894,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadApatite() {
+    private static Materials_OLD loadApatite() {
         return new MaterialBuilder().setName("Apatite")
             .setDefaultLocalName("Apatite")
             .setIconSet(TextureSet.SET_DIAMOND)
@@ -9906,13 +9906,13 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(4)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Calcium, 5)
-            .addMaterial(Materials.Phosphate, 3)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Calcium, 5)
+            .addMaterial(Materials_OLD.Phosphate, 3)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .addAspect(TCAspects.MESSIS, 2)
-            .addOreByproduct(() -> Materials.TricalciumPhosphate)
-            .addOreByproduct(() -> Materials.Phosphate)
-            .addOreByproduct(() -> Materials.Pyrochlore)
+            .addOreByproduct(() -> Materials_OLD.TricalciumPhosphate)
+            .addOreByproduct(() -> Materials_OLD.Phosphate)
+            .addOreByproduct(() -> Materials_OLD.Pyrochlore)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -9921,7 +9921,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBarite() {
+    private static Materials_OLD loadBarite() {
         return new MaterialBuilder().setName("Barite")
             .setDefaultLocalName("Barite")
             .setIconSet(TextureSet.SET_DULL)
@@ -9930,13 +9930,13 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Barium, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Barium, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadBastnasite() {
+    private static Materials_OLD loadBastnasite() {
         return new MaterialBuilder().setName("Bastnasite")
             .setDefaultLocalName("Bastnasite")
             .setIconSet(TextureSet.SET_FINE)
@@ -9946,17 +9946,17 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // (Ce, La, Y)CO3F
-            .addMaterial(Materials.Cerium, 1)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Fluorine, 1)
-            .addMaterial(Materials.Oxygen, 3)
-            .addOreByproduct(() -> Materials.Neodymium)
-            .addOreByproduct(() -> Materials.RareEarth)
+            .addMaterial(Materials_OLD.Cerium, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Fluorine, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .addOreByproduct(() -> Materials_OLD.Neodymium)
+            .addOreByproduct(() -> Materials_OLD.RareEarth)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_NEODYMIUM)
             .constructMaterial();
     }
 
-    private static Materials loadBauxite() {
+    private static Materials_OLD loadBauxite() {
         return new MaterialBuilder().setName("Bauxite")
             .setDefaultLocalName("Bauxite")
             .setIconSet(TextureSet.SET_DULL)
@@ -9966,17 +9966,17 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Rutile, 2)
-            .addMaterial(Materials.Aluminium, 16)
-            .addMaterial(Materials.Hydrogen, 10)
-            .addMaterial(Materials.Oxygen, 11)
-            .addOreByproduct(() -> Materials.Grossular)
-            .addOreByproduct(() -> Materials.Rutile)
-            .addOreByproduct(() -> Materials.Gallium)
+            .addMaterial(Materials_OLD.Rutile, 2)
+            .addMaterial(Materials_OLD.Aluminium, 16)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Oxygen, 11)
+            .addOreByproduct(() -> Materials_OLD.Grossular)
+            .addOreByproduct(() -> Materials_OLD.Rutile)
+            .addOreByproduct(() -> Materials_OLD.Gallium)
             .constructMaterial();
     }
 
-    private static Materials loadBentonite() {
+    private static Materials_OLD loadBentonite() {
         return new MaterialBuilder().setName("Bentonite")
             .setDefaultLocalName("Bentonite")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -9986,35 +9986,35 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // (Na,Ca)0.33(Al,Mg)2(Si4O10)(OH)2 nH2O
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Magnesium, 6)
-            .addMaterial(Materials.Silicon, 12)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Water, 5)
-            .addMaterial(Materials.Oxygen, 36)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.Calcium)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Magnesium, 6)
+            .addMaterial(Materials_OLD.Silicon, 12)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Water, 5)
+            .addMaterial(Materials_OLD.Oxygen, 36)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Calcium)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .constructMaterial();
     }
 
-    private static Materials loadBiotite() {
+    private static Materials_OLD loadBiotite() {
         return new MaterialBuilder().setName("Biotite")
             .setDefaultLocalName("Biotite")
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeGray)
             .setARGB(0x00141e14)
             .addDustItems()
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Magnesium, 3)
-            .addMaterial(Materials.Aluminium, 3)
-            .addMaterial(Materials.Fluorine, 2)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 10)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Magnesium, 3)
+            .addMaterial(Materials_OLD.Aluminium, 3)
+            .addMaterial(Materials_OLD.Fluorine, 2)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 10)
             .constructMaterial();
     }
 
-    private static Materials loadBismuthBronze() {
+    private static Materials_OLD loadBismuthBronze() {
         return new MaterialBuilder().setName("BismuthBronze")
             .setDefaultLocalName("Bismuth Bronze")
             .setIconSet(TextureSet.SET_DULL)
@@ -10029,14 +10029,14 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_100)
             .setBlastFurnaceRequired(true)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Bismuth, 1)
-            .addMaterial(Materials.Zinc, 1)
-            .addMaterial(Materials.Copper, 3)
+            .addMaterial(Materials_OLD.Bismuth, 1)
+            .addMaterial(Materials_OLD.Zinc, 1)
+            .addMaterial(Materials_OLD.Copper, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadBlackBronze() {
+    private static Materials_OLD loadBlackBronze() {
         return new MaterialBuilder().setName("BlackBronze")
             .setDefaultLocalName("Black Bronze")
             .setIconSet(TextureSet.SET_DULL)
@@ -10051,14 +10051,14 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(2_000)
             .setBlastFurnaceRequired(true)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Gold, 1)
-            .addMaterial(Materials.Silver, 1)
-            .addMaterial(Materials.Copper, 3)
+            .addMaterial(Materials_OLD.Gold, 1)
+            .addMaterial(Materials_OLD.Silver, 1)
+            .addMaterial(Materials_OLD.Copper, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadBlackSteel() {
+    private static Materials_OLD loadBlackSteel() {
         return new MaterialBuilder().setName("BlackSteel")
             .setDefaultLocalName("Black Steel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -10074,15 +10074,15 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.BlackBronze, 1)
-            .addMaterial(Materials.Steel, 3)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.BlackBronze, 1)
+            .addMaterial(Materials_OLD.Steel, 3)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadBlaze() {
+    private static Materials_OLD loadBlaze() {
         return new MaterialBuilder().setName("Blaze")
             .setDefaultLocalName("Blaze")
             .setIconSet(TextureSet.SET_BLAZE)
@@ -10092,9 +10092,9 @@ public class MaterialsInit {
             .setMeltingPoint(6_400)
             .setDensity(3, 2)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.AshDark, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Magic, 1)
+            .addMaterial(Materials_OLD.AshDark, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Magic, 1)
             .addAspect(TCAspects.PRAECANTATIO, 2)
             .addAspect(TCAspects.IGNIS, 4)
             .addSubTag(SubTag.BURNING)
@@ -10108,7 +10108,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBorax() {
+    private static Materials_OLD loadBorax() {
         return new MaterialBuilder().setName("Borax")
             .setDefaultLocalName("Borax")
             .setIconSet(TextureSet.SET_FINE)
@@ -10118,14 +10118,14 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Sodium, 2)
-            .addMaterial(Materials.Boron, 4)
-            .addMaterial(Materials.Oxygen, 7)
-            .addMaterial(Materials.Water, 10)
+            .addMaterial(Materials_OLD.Sodium, 2)
+            .addMaterial(Materials_OLD.Boron, 4)
+            .addMaterial(Materials_OLD.Oxygen, 7)
+            .addMaterial(Materials_OLD.Water, 10)
             .constructMaterial();
     }
 
-    private static Materials loadChrysotile() {
+    private static Materials_OLD loadChrysotile() {
         return new MaterialBuilder().setName("Chrysotile")
             .setDefaultLocalName("Chrysotile")
             .setIconSet(TextureSet.SET_DULL)
@@ -10143,33 +10143,33 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Asbestos, 1)
-            .addOreByproduct(() -> Materials.Asbestos)
-            .addOreByproduct(() -> Materials.SiliconDioxide)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addMaterial(Materials_OLD.Asbestos, 1)
+            .addOreByproduct(() -> Materials_OLD.Asbestos)
+            .addOreByproduct(() -> Materials_OLD.SiliconDioxide)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadClay() {
+    private static Materials_OLD loadClay() {
         return new MaterialBuilder().setName("Clay")
             .setDefaultLocalName("Clay")
             .setIconSet(TextureSet.SET_ROUGH)
             .setColor(Dyes.dyeLightBlue)
             .setARGB(0x00c8c8dc)
             .addDustItems()
-            .addMaterial(Materials.Sodium, 2)
-            .addMaterial(Materials.Lithium, 1)
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 2)
-            .addMaterial(Materials.Oxygen, 7)
-            .addMaterial(Materials.Water, 2)
-            .addOreByproduct(() -> Materials.Clay)
+            .addMaterial(Materials_OLD.Sodium, 2)
+            .addMaterial(Materials_OLD.Lithium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 2)
+            .addMaterial(Materials_OLD.Oxygen, 7)
+            .addMaterial(Materials_OLD.Water, 2)
+            .addOreByproduct(() -> Materials_OLD.Clay)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .constructMaterial();
     }
 
-    private static Materials loadCobaltBrass() {
+    private static Materials_OLD loadCobaltBrass() {
         return new MaterialBuilder().setName("CobaltBrass")
             .setDefaultLocalName("Cobalt Brass")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -10181,14 +10181,14 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Brass, 7)
-            .addMaterial(Materials.Tin, 1)
-            .addMaterial(Materials.Cobalt, 1)
+            .addMaterial(Materials_OLD.Brass, 7)
+            .addMaterial(Materials_OLD.Tin, 1)
+            .addMaterial(Materials_OLD.Cobalt, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadConcrete() {
+    private static Materials_OLD loadConcrete() {
         return new MaterialBuilder().setName("Concrete")
             .setDefaultLocalName("Concrete")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -10196,7 +10196,7 @@ public class MaterialsInit {
             .setARGB(0x00646464)
             .addDustItems()
             .setMeltingPoint(300)
-            .addMaterial(Materials.Stone, 1)
+            .addMaterial(Materials_OLD.Stone, 1)
             .addAspect(TCAspects.TERRA, 1)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.SMELTING_TO_FLUID)
@@ -10205,7 +10205,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCryolite() {
+    private static Materials_OLD loadCryolite() {
         return new MaterialBuilder().setName("Cryolite")
             .setDefaultLocalName("Cryolite")
             .setIconSet(TextureSet.SET_QUARTZ)
@@ -10217,15 +10217,15 @@ public class MaterialsInit {
             .setMeltingPoint(1_012)
             .setBlastFurnaceTemp(1_012)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addMaterial(Materials.Sodium, 3)
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Fluorine, 6)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.Sodium)
+            .addMaterial(Materials_OLD.Sodium, 3)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Fluorine, 6)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Sodium)
             .constructMaterial();
     }
 
-    private static Materials loadDamascusSteel() {
+    private static Materials_OLD loadDamascusSteel() {
         return new MaterialBuilder().setName("DamascusSteel")
             .setDefaultLocalName("Damascus Steel")
             .setChemicalFormula("(Fe₅" + CustomGlyphs.SUBSCRIPT0 + "C)₉Mn₄Cr₄CSiV")
@@ -10243,12 +10243,12 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Steel, 1)
+            .addMaterial(Materials_OLD.Steel, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadDilutedSulfuricAcid() {
+    private static Materials_OLD loadDilutedSulfuricAcid() {
         return new MaterialBuilder().setName("DilutedSulfuricAcid")
             .setDefaultLocalName("Diluted Sulfuric Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -10256,11 +10256,11 @@ public class MaterialsInit {
             .setARGB(0x00c07820)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.SulfuricAcid, 1)
+            .addMaterial(Materials_OLD.SulfuricAcid, 1)
             .constructMaterial();
     }
 
-    private static Materials loadDolomite() {
+    private static Materials_OLD loadDolomite() {
         return new MaterialBuilder().setName("Dolomite")
             .setDefaultLocalName("Dolomite")
             .setIconSet(TextureSet.SET_FLINT)
@@ -10270,14 +10270,14 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // CaMg(CO3)2
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Oxygen, 6)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Oxygen, 6)
             .constructMaterial();
     }
 
-    private static Materials loadElectricalSteel() {
+    private static Materials_OLD loadElectricalSteel() {
         return new MaterialBuilder().setName("ElectricalSteel")
             .setDefaultLocalName("Electrical Steel")
             .setIconSet(TextureSet.SET_DARKSTEEL)
@@ -10293,15 +10293,15 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Steel, 1)
-            .addMaterial(Materials.Coal, 1)
-            .addMaterial(Materials.Silicon, 1)
+            .addMaterial(Materials_OLD.Steel, 1)
+            .addMaterial(Materials_OLD.Coal, 1)
+            .addMaterial(Materials_OLD.Silicon, 1)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
             .constructMaterial();
     }
 
-    private static Materials loadEnderPearl() {
+    private static Materials_OLD loadEnderPearl() {
         return new MaterialBuilder().setName("EnderPearl")
             .setDefaultLocalName("Enderpearl")
             .setIconSet(TextureSet.SET_SHINY)
@@ -10313,10 +10313,10 @@ public class MaterialsInit {
             .addGemItems()
             .setDensity(16, 10)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Beryllium, 1)
-            .addMaterial(Materials.Potassium, 4)
-            .addMaterial(Materials.Nitrogen, 5)
-            .addMaterial(Materials.Magic, 6)
+            .addMaterial(Materials_OLD.Beryllium, 1)
+            .addMaterial(Materials_OLD.Potassium, 4)
+            .addMaterial(Materials_OLD.Nitrogen, 5)
+            .addMaterial(Materials_OLD.Magic, 6)
             .addAspect(TCAspects.ALIENIS, 4)
             .addAspect(TCAspects.ITER, 4)
             .addAspect(TCAspects.PRAECANTATIO, 2)
@@ -10329,7 +10329,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEpoxidFiberReinforced() {
+    private static Materials_OLD loadEpoxidFiberReinforced() {
         return new MaterialBuilder().setName("EpoxidFiberReinforced")
             .setDefaultLocalName("Fiber-Reinforced Epoxy Resin")
             .setIconSet(TextureSet.SET_DULL)
@@ -10343,12 +10343,12 @@ public class MaterialsInit {
             .removeOrePrefix(OrePrefixes.sheetmetal)
             .setMeltingPoint(400)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Epoxid, 1)
+            .addMaterial(Materials_OLD.Epoxid, 1)
             .addAspect(TCAspects.MOTUS, 2)
             .constructMaterial();
     }
 
-    private static Materials loadFlint() {
+    private static Materials_OLD loadFlint() {
         return new MaterialBuilder().setName("Flint")
             .setDefaultLocalName("Flint")
             .setIconSet(TextureSet.SET_FLINT)
@@ -10359,10 +10359,10 @@ public class MaterialsInit {
             .addDustItems()
             .addToolHeadItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.SiliconDioxide, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 1)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.INSTRUMENTUM, 1)
-            .addOreByproduct(() -> Materials.Obsidian)
+            .addOreByproduct(() -> Materials_OLD.Obsidian)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
@@ -10371,7 +10371,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFullersEarth() {
+    private static Materials_OLD loadFullersEarth() {
         return new MaterialBuilder().setName("FullersEarth")
             .setDefaultLocalName("Fullers Earth")
             .setIconSet(TextureSet.SET_FINE)
@@ -10381,18 +10381,18 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // (Mg,Al)2Si4O10(OH) 4(H2O)
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Silicon, 4)
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Water, 4)
-            .addMaterial(Materials.Oxygen, 11)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.SiliconDioxide)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Silicon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Water, 4)
+            .addMaterial(Materials_OLD.Oxygen, 11)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.SiliconDioxide)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .constructMaterial();
     }
 
-    private static Materials loadGarnetRed() {
+    private static Materials_OLD loadGarnetRed() {
         return new MaterialBuilder().setName("GarnetRed")
             .setDefaultLocalName("Red Garnet")
             .setIconSet(TextureSet.SET_RUBY)
@@ -10404,13 +10404,13 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Pyrope, 3)
-            .addMaterial(Materials.Almandine, 5)
-            .addMaterial(Materials.Spessartine, 8)
+            .addMaterial(Materials_OLD.Pyrope, 3)
+            .addMaterial(Materials_OLD.Almandine, 5)
+            .addMaterial(Materials_OLD.Spessartine, 8)
             .addAspect(TCAspects.VITREUS, 3)
-            .addOreByproduct(() -> Materials.Spessartine)
-            .addOreByproduct(() -> Materials.Pyrope)
-            .addOreByproduct(() -> Materials.Almandine)
+            .addOreByproduct(() -> Materials_OLD.Spessartine)
+            .addOreByproduct(() -> Materials_OLD.Pyrope)
+            .addOreByproduct(() -> Materials_OLD.Almandine)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -10418,7 +10418,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGarnetYellow() {
+    private static Materials_OLD loadGarnetYellow() {
         return new MaterialBuilder().setName("GarnetYellow")
             .setDefaultLocalName("Yellow Garnet")
             .setIconSet(TextureSet.SET_RUBY)
@@ -10430,13 +10430,13 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Andradite, 5)
-            .addMaterial(Materials.Grossular, 8)
-            .addMaterial(Materials.Uvarovite, 3)
+            .addMaterial(Materials_OLD.Andradite, 5)
+            .addMaterial(Materials_OLD.Grossular, 8)
+            .addMaterial(Materials_OLD.Uvarovite, 3)
             .addAspect(TCAspects.VITREUS, 3)
-            .addOreByproduct(() -> Materials.Andradite)
-            .addOreByproduct(() -> Materials.Grossular)
-            .addOreByproduct(() -> Materials.Uvarovite)
+            .addOreByproduct(() -> Materials_OLD.Andradite)
+            .addOreByproduct(() -> Materials_OLD.Grossular)
+            .addOreByproduct(() -> Materials_OLD.Uvarovite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.NO_SMASHING)
@@ -10445,7 +10445,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGlass() {
+    private static Materials_OLD loadGlass() {
         return new MaterialBuilder().setName("Glass")
             .setDefaultLocalName("Glass")
             .setIconSet(TextureSet.SET_GLASS)
@@ -10456,7 +10456,7 @@ public class MaterialsInit {
             .addGemItems()
             .setMeltingPoint(1_500)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.SiliconDioxide, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 1)
             .addAspect(TCAspects.VITREUS, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_RECYCLING)
@@ -10466,7 +10466,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGlauconite() {
+    private static Materials_OLD loadGlauconite() {
         return new MaterialBuilder().setName("Glauconite")
             .setDefaultLocalName("Glauconite")
             .setIconSet(TextureSet.SET_DULL)
@@ -10475,19 +10475,19 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // (K,Na)(Fe3+,Al,Mg)2(Si,Al)4O10(OH)2
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Magnesium, 2)
-            .addMaterial(Materials.Aluminium, 4)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.Sodium)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Magnesium, 2)
+            .addMaterial(Materials_OLD.Aluminium, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.Sodium)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .constructMaterial();
     }
 
-    private static Materials loadGlauconiteSand() {
+    private static Materials_OLD loadGlauconiteSand() {
         return new MaterialBuilder().setName("GlauconiteSand")
             .setDefaultLocalName("Glauconite Sand")
             .setIconSet(TextureSet.SET_DULL)
@@ -10496,19 +10496,19 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // (K,Na)(Fe3+,Al,Mg)2(Si,Al)4O10(OH)2
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Magnesium, 2)
-            .addMaterial(Materials.Aluminium, 4)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.Sodium)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Magnesium, 2)
+            .addMaterial(Materials_OLD.Aluminium, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.Sodium)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .constructMaterial();
     }
 
-    private static Materials loadGraniteBlack() {
+    private static Materials_OLD loadGraniteBlack() {
         return new MaterialBuilder().setName("GraniteBlack")
             .setDefaultLocalName("Black Granite")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -10519,10 +10519,10 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.SiliconDioxide, 4)
-            .addMaterial(Materials.Biotite, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 4)
+            .addMaterial(Materials_OLD.Biotite, 1)
             .addAspect(TCAspects.TUTAMEN, 1)
-            .addOreByproduct(() -> Materials.Biotite)
+            .addOreByproduct(() -> Materials_OLD.Biotite)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .addOrePrefix(OrePrefixes.dustImpure)
@@ -10530,7 +10530,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGraniticMineralSand() {
+    private static Materials_OLD loadGraniticMineralSand() {
         return new MaterialBuilder().setName("GraniticMineralSand")
             .setDefaultLocalName("Granitic Mineral Sand")
             .setIconSet(TextureSet.SET_SAND)
@@ -10540,20 +10540,20 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Magnetite, 1)
-            .addMaterial(Materials.GraniteBlack, 1)
+            .addMaterial(Materials_OLD.Magnetite, 1)
+            .addMaterial(Materials_OLD.GraniteBlack, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 1)
-            .addOreByproduct(() -> Materials.GraniteBlack)
-            .addOreByproduct(() -> Materials.Magnetite)
-            .setDirectSmelting(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.GraniteBlack)
+            .addOreByproduct(() -> Materials_OLD.Magnetite)
+            .setDirectSmelting(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_DOUBLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_GOLD)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .constructMaterial();
     }
 
-    private static Materials loadGypsum() {
+    private static Materials_OLD loadGypsum() {
         return new MaterialBuilder().setName("Gypsum")
             .setDefaultLocalName("Gypsum")
             .setIconSet(TextureSet.SET_DULL)
@@ -10563,14 +10563,14 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // CaSO4 2H2O
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Oxygen, 4)
-            .addMaterial(Materials.Water, 2)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
+            .addMaterial(Materials_OLD.Water, 2)
             .constructMaterial();
     }
 
-    private static Materials loadHydratedCoal() {
+    private static Materials_OLD loadHydratedCoal() {
         return new MaterialBuilder().setName("HydratedCoal")
             .setDefaultLocalName("Hydrated Coal")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -10579,12 +10579,12 @@ public class MaterialsInit {
             .addDustItems()
             .setDensity(9, 8)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Coal, 8)
-            .addMaterial(Materials.Water, 1)
+            .addMaterial(Materials_OLD.Coal, 8)
+            .addMaterial(Materials_OLD.Water, 1)
             .constructMaterial();
     }
 
-    private static Materials loadIronMagnetic() {
+    private static Materials_OLD loadIronMagnetic() {
         return new MaterialBuilder().setName("IronMagnetic")
             .setDefaultLocalName("Magnetic Iron")
             .setChemicalFormula("Fe" + CustomGlyphs.MAGNET)
@@ -10597,9 +10597,9 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Iron, 1)
-            .setSmeltingInto(() -> Materials.Iron)
-            .setMaceratingInto(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .setSmeltingInto(() -> Materials_OLD.Iron)
+            .setMaceratingInto(() -> Materials_OLD.Iron)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 1)
             .addSubTag(SubTag.METAL)
@@ -10608,7 +10608,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadJasper() {
+    private static Materials_OLD loadJasper() {
         return new MaterialBuilder().setName("Jasper")
             .setDefaultLocalName("Jasper")
             .setIconSet(TextureSet.SET_EMERALD)
@@ -10620,7 +10620,7 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.SiliconDioxide, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 1)
             .addAspect(TCAspects.LUCRUM, 4)
             .addAspect(TCAspects.VITREUS, 2)
             .addSubTag(SubTag.CRYSTAL)
@@ -10630,7 +10630,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadKaolinite() {
+    private static Materials_OLD loadKaolinite() {
         return new MaterialBuilder().setName("Kaolinite")
             .setDefaultLocalName("Kaolinite")
             .setIconSet(TextureSet.SET_DULL)
@@ -10639,14 +10639,14 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // Al2Si2O5(OH)4
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 2)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Oxygen, 9)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Oxygen, 9)
             .constructMaterial();
     }
 
-    private static Materials loadKnightmetal() {
+    private static Materials_OLD loadKnightmetal() {
         return new MaterialBuilder().setName("Knightmetal")
             .setDefaultLocalName("Knightmetal")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -10661,15 +10661,15 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Steel, 2)
-            .addMaterial(Materials.Magic, 1)
+            .addMaterial(Materials_OLD.Steel, 2)
+            .addMaterial(Materials_OLD.Magic, 1)
             .addAspect(TCAspects.LUCRUM, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadKyanite() {
+    private static Materials_OLD loadKyanite() {
         return new MaterialBuilder().setName("Kyanite")
             .setDefaultLocalName("Kyanite")
             .setIconSet(TextureSet.SET_FLINT)
@@ -10678,13 +10678,13 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // Al2SiO5
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Oxygen, 5)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 5)
             .constructMaterial();
     }
 
-    private static Materials loadLapis() {
+    private static Materials_OLD loadLapis() {
         return new MaterialBuilder().setName("Lapis")
             .setDefaultLocalName("Lapis")
             .setIconSet(TextureSet.SET_LAPIS)
@@ -10696,14 +10696,14 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(6)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Lazurite, 12)
-            .addMaterial(Materials.Sodalite, 2)
-            .addMaterial(Materials.Pyrite, 1)
-            .addMaterial(Materials.Calcite, 1)
+            .addMaterial(Materials_OLD.Lazurite, 12)
+            .addMaterial(Materials_OLD.Sodalite, 2)
+            .addMaterial(Materials_OLD.Pyrite, 1)
+            .addMaterial(Materials_OLD.Calcite, 1)
             .addAspect(TCAspects.SENSUS, 1)
-            .addOreByproduct(() -> Materials.Lazurite)
-            .addOreByproduct(() -> Materials.Sodalite)
-            .addOreByproduct(() -> Materials.Pyrite)
+            .addOreByproduct(() -> Materials_OLD.Lazurite)
+            .addOreByproduct(() -> Materials_OLD.Sodalite)
+            .addOreByproduct(() -> Materials_OLD.Pyrite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -10714,7 +10714,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLepidolite() {
+    private static Materials_OLD loadLepidolite() {
         return new MaterialBuilder().setName("Lepidolite")
             .setDefaultLocalName("Lepidolite")
             .setIconSet(TextureSet.SET_FINE)
@@ -10723,17 +10723,17 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // K(Li,Al,Rb)3(Al,Si)4O10(F,OH)2
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Lithium, 3)
-            .addMaterial(Materials.Aluminium, 4)
-            .addMaterial(Materials.Fluorine, 2)
-            .addMaterial(Materials.Oxygen, 10)
-            .addOreByproduct(() -> Materials.Lithium)
-            .addOreByproduct(() -> Materials.Caesium)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Lithium, 3)
+            .addMaterial(Materials_OLD.Aluminium, 4)
+            .addMaterial(Materials_OLD.Fluorine, 2)
+            .addMaterial(Materials_OLD.Oxygen, 10)
+            .addOreByproduct(() -> Materials_OLD.Lithium)
+            .addOreByproduct(() -> Materials_OLD.Caesium)
             .constructMaterial();
     }
 
-    private static Materials loadLignite() {
+    private static Materials_OLD loadLignite() {
         return new MaterialBuilder().setName("Lignite")
             .setDefaultLocalName("Lignite Coal")
             .setIconSet(TextureSet.SET_LIGNITE)
@@ -10744,9 +10744,9 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Water, 1)
-            .addOreByproduct(() -> Materials.Coal)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Water, 1)
+            .addOreByproduct(() -> Materials_OLD.Coal)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -10755,7 +10755,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLiquidAir() {
+    private static Materials_OLD loadLiquidAir() {
         return new MaterialBuilder().setName("LiquidAir")
             .setDefaultLocalName("Liquid Air")
             .setIconSet(TextureSet.SET_FLUID)
@@ -10764,15 +10764,15 @@ public class MaterialsInit {
             .addCell()
             .setMeltingPoint(4)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Nitrogen, 40)
-            .addMaterial(Materials.Oxygen, 11)
-            .addMaterial(Materials.Argon, 1)
-            .addMaterial(Materials.NobleGases, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 40)
+            .addMaterial(Materials_OLD.Oxygen, 11)
+            .addMaterial(Materials_OLD.Argon, 1)
+            .addMaterial(Materials_OLD.NobleGases, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadLiveRoot() {
+    private static Materials_OLD loadLiveRoot() {
         return new MaterialBuilder().setName("LiveRoot")
             .setDefaultLocalName("Liveroot")
             .setChemicalFormula("(COH₃)Ma")
@@ -10783,8 +10783,8 @@ public class MaterialsInit {
             .addDustItems()
             .setDensity(4, 3)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Wood, 3)
-            .addMaterial(Materials.Magic, 1)
+            .addMaterial(Materials_OLD.Wood, 3)
+            .addMaterial(Materials_OLD.Magic, 1)
             .addAspect(TCAspects.ARBOR, 2)
             .addAspect(TCAspects.VICTUS, 2)
             .addAspect(TCAspects.PRAECANTATIO, 1)
@@ -10797,7 +10797,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMalachite() {
+    private static Materials_OLD loadMalachite() {
         return new MaterialBuilder().setName("Malachite")
             .setDefaultLocalName("Malachite")
             .setIconSet(TextureSet.SET_DULL)
@@ -10808,19 +10808,19 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // Cu2CO3(OH)2
-            .addMaterial(Materials.Copper, 2)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 5)
-            .addOreByproduct(() -> Materials.Copper)
-            .addOreByproduct(() -> Materials.BrownLimonite)
-            .addOreByproduct(() -> Materials.Calcite)
-            .setDirectSmelting(() -> Materials.Copper)
+            .addMaterial(Materials_OLD.Copper, 2)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 5)
+            .addOreByproduct(() -> Materials_OLD.Copper)
+            .addOreByproduct(() -> Materials_OLD.BrownLimonite)
+            .addOreByproduct(() -> Materials_OLD.Calcite)
+            .setDirectSmelting(() -> Materials_OLD.Copper)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .constructMaterial();
     }
 
-    private static Materials loadManyullyn() {
+    private static Materials_OLD loadManyullyn() {
         return new MaterialBuilder().setName("Manyullyn")
             .setDefaultLocalName("Manyullyn")
             .setChemicalFormula("AiCo")
@@ -10838,14 +10838,14 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.Ardite, 1)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.Ardite, 1)
             .addAspect(TCAspects.STRONTIO, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadMarble() {
+    private static Materials_OLD loadMarble() {
         return new MaterialBuilder().setName("Marble")
             .setDefaultLocalName("Marble")
             .setIconSet(TextureSet.SET_FINE)
@@ -10856,10 +10856,10 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Calcite, 7)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Calcite, 7)
             .addAspect(TCAspects.PERFODIO, 1)
-            .addOreByproduct(() -> Materials.Calcite)
+            .addOreByproduct(() -> Materials_OLD.Calcite)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .addOrePrefix(OrePrefixes.dustImpure)
@@ -10867,7 +10867,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMica() {
+    private static Materials_OLD loadMica() {
         return new MaterialBuilder().setName("Mica")
             .setDefaultLocalName("Mica")
             .setIconSet(TextureSet.SET_FINE)
@@ -10876,15 +10876,15 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // KAl2(AlSi3O10)(F,OH)2
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Aluminium, 3)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Fluorine, 2)
-            .addMaterial(Materials.Oxygen, 10)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 3)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Fluorine, 2)
+            .addMaterial(Materials_OLD.Oxygen, 10)
             .constructMaterial();
     }
 
-    private static Materials loadMirabilite() {
+    private static Materials_OLD loadMirabilite() {
         return new MaterialBuilder().setName("Mirabilite")
             .setDefaultLocalName("Mirabilite")
             .setIconSet(TextureSet.SET_DULL)
@@ -10894,14 +10894,14 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // Na2SO4 10H2O
-            .addMaterial(Materials.Sodium, 2)
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Water, 10)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Sodium, 2)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Water, 10)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadMonazite() {
+    private static Materials_OLD loadMonazite() {
         return new MaterialBuilder().setName("Monazite")
             .setDefaultLocalName("Monazite")
             .setIconSet(TextureSet.SET_DIAMOND)
@@ -10918,11 +10918,11 @@ public class MaterialsInit {
             // lanthanides in such monazites contain about 45.8% cerium, about 24% lanthanum, about 17% neodymium, about
             // 5% praseodymium, and minor quantities of samarium, gadolinium, and yttrium. Europium concentrations tend
             // to be low, about 0.05% Thorium content of monazite is variable.
-            .addMaterial(Materials.RareEarth, 1)
-            .addMaterial(Materials.Phosphate, 1)
-            .addOreByproduct(() -> Materials.Thorium)
-            .addOreByproduct(() -> Materials.Neodymium)
-            .addOreByproduct(() -> Materials.RareEarth)
+            .addMaterial(Materials_OLD.RareEarth, 1)
+            .addMaterial(Materials_OLD.Phosphate, 1)
+            .addOreByproduct(() -> Materials_OLD.Thorium)
+            .addOreByproduct(() -> Materials_OLD.Neodymium)
+            .addOreByproduct(() -> Materials_OLD.RareEarth)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_NEODYMIUM)
@@ -10932,7 +10932,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNeodymiumMagnetic() {
+    private static Materials_OLD loadNeodymiumMagnetic() {
         return new MaterialBuilder().setName("NeodymiumMagnetic")
             .setDefaultLocalName("Magnetic Neodymium")
             .setChemicalFormula("Nd" + CustomGlyphs.MAGNET)
@@ -10948,10 +10948,10 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_297)
             .setBlastFurnaceRequired(true)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Neodymium, 1)
-            .setSmeltingInto(() -> Materials.Neodymium)
-            .setMaceratingInto(() -> Materials.Neodymium)
-            .setArcSmeltingInto(() -> Materials.Neodymium)
+            .addMaterial(Materials_OLD.Neodymium, 1)
+            .setSmeltingInto(() -> Materials_OLD.Neodymium)
+            .setMaceratingInto(() -> Materials_OLD.Neodymium)
+            .setArcSmeltingInto(() -> Materials_OLD.Neodymium)
             .addAspect(TCAspects.METALLUM, 1)
             .addAspect(TCAspects.MAGNETO, 3)
             .addSubTag(SubTag.METAL)
@@ -10959,7 +10959,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNiter() {
+    private static Materials_OLD loadNiter() {
         return new MaterialBuilder().setName("Niter")
             .setDefaultLocalName("Niter")
             .setIconSet(TextureSet.SET_FLINT)
@@ -10970,8 +10970,8 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Saltpeter, 1)
-            .addOreByproduct(() -> Materials.Saltpeter)
+            .addMaterial(Materials_OLD.Saltpeter, 1)
+            .addOreByproduct(() -> Materials_OLD.Saltpeter)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -10979,7 +10979,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNitroCoalFuel() {
+    private static Materials_OLD loadNitroCoalFuel() {
         return new MaterialBuilder().setName("NitroCoalFuel")
             .setDefaultLocalName("Nitro-Coalfuel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -10987,8 +10987,8 @@ public class MaterialsInit {
             .setARGB(0x00324632)
             .setFuel(MaterialBuilder.FuelType.Diesel, 48)
             .addCell()
-            .addMaterial(Materials.Glyceryl, 1)
-            .addMaterial(Materials.CoalFuel, 4)
+            .addMaterial(Materials_OLD.Glyceryl, 1)
+            .addMaterial(Materials_OLD.CoalFuel, 4)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.EXPLOSIVE)
             .addSubTag(SubTag.NO_SMELTING)
@@ -10996,7 +10996,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNitroFuel() {
+    private static Materials_OLD loadNitroFuel() {
         return new MaterialBuilder().setName("NitroFuel")
             .setDefaultLocalName("Cetane-Boosted Diesel")
             .setIconSet(TextureSet.SET_FLUID)
@@ -11011,7 +11011,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOlivine() {
+    private static Materials_OLD loadOlivine() {
         return new MaterialBuilder().setName("Olivine")
             .setDefaultLocalName("Olivine")
             .setIconSet(TextureSet.SET_RUBY)
@@ -11023,13 +11023,13 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Magnesium, 2)
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.SiliconDioxide, 2)
+            .addMaterial(Materials_OLD.Magnesium, 2)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 2)
             .addAspect(TCAspects.LUCRUM, 4)
             .addAspect(TCAspects.VITREUS, 2)
-            .addOreByproduct(() -> Materials.Pyrope)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addOreByproduct(() -> Materials_OLD.Pyrope)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -11037,7 +11037,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOpal() {
+    private static Materials_OLD loadOpal() {
         return new MaterialBuilder().setName("Opal")
             .setDefaultLocalName("Opal")
             .setIconSet(TextureSet.SET_OPAL)
@@ -11049,10 +11049,10 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.SiliconDioxide, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 1)
             .addAspect(TCAspects.LUCRUM, 5)
             .addAspect(TCAspects.VITREUS, 3)
-            .addOreByproduct(() -> Materials.Tanzanite)
+            .addOreByproduct(() -> Materials_OLD.Tanzanite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -11060,7 +11060,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPentlandite() {
+    private static Materials_OLD loadPentlandite() {
         return new MaterialBuilder().setName("Pentlandite")
             .setDefaultLocalName("Pentlandite")
             .setIconSet(TextureSet.SET_DULL)
@@ -11070,18 +11070,18 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // (Fe,Ni)9S8
-            .addMaterial(Materials.Nickel, 9)
-            .addMaterial(Materials.Sulfur, 8)
-            .addOreByproduct(() -> Materials.Iron)
-            .addOreByproduct(() -> Materials.Sulfur)
-            .addOreByproduct(() -> Materials.Cobalt)
-            .setDirectSmelting(() -> Materials.Nickel)
+            .addMaterial(Materials_OLD.Nickel, 9)
+            .addMaterial(Materials_OLD.Sulfur, 8)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .addOreByproduct(() -> Materials_OLD.Sulfur)
+            .addOreByproduct(() -> Materials_OLD.Cobalt)
+            .setDirectSmelting(() -> Materials_OLD.Nickel)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .constructMaterial();
     }
 
-    private static Materials loadPerlite() {
+    private static Materials_OLD loadPerlite() {
         return new MaterialBuilder().setName("Perlite")
             .setDefaultLocalName("Perlite")
             .setIconSet(TextureSet.SET_DULL)
@@ -11091,12 +11091,12 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Obsidian, 2)
-            .addMaterial(Materials.Water, 1)
+            .addMaterial(Materials_OLD.Obsidian, 2)
+            .addMaterial(Materials_OLD.Water, 1)
             .constructMaterial();
     }
 
-    private static Materials loadPitchblende() {
+    private static Materials_OLD loadPitchblende() {
         return new MaterialBuilder().setName("Pitchblende")
             .setDefaultLocalName("Pitchblende")
             .setIconSet(TextureSet.SET_DULL)
@@ -11106,16 +11106,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Uraninite, 3)
-            .addMaterial(Materials.Thorium, 1)
-            .addMaterial(Materials.Lead, 1)
-            .addOreByproduct(() -> Materials.Thorium)
-            .addOreByproduct(() -> Materials.Uranium)
-            .addOreByproduct(() -> Materials.Lead)
+            .addMaterial(Materials_OLD.Uraninite, 3)
+            .addMaterial(Materials_OLD.Thorium, 1)
+            .addMaterial(Materials_OLD.Lead, 1)
+            .addOreByproduct(() -> Materials_OLD.Thorium)
+            .addOreByproduct(() -> Materials_OLD.Uranium)
+            .addOreByproduct(() -> Materials_OLD.Lead)
             .constructMaterial();
     }
 
-    private static Materials loadPollucite() {
+    private static Materials_OLD loadPollucite() {
         return new MaterialBuilder().setName("Pollucite")
             .setDefaultLocalName("Pollucite")
             .setIconSet(TextureSet.SET_DULL)
@@ -11124,18 +11124,18 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // (Cs,Na)2Al2Si4O12 2H2O (also a source of Rb)
-            .addMaterial(Materials.Caesium, 2)
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.Silicon, 4)
-            .addMaterial(Materials.Water, 2)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.Caesium)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.Rubidium)
+            .addMaterial(Materials_OLD.Caesium, 2)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.Silicon, 4)
+            .addMaterial(Materials_OLD.Water, 2)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.Caesium)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Rubidium)
             .constructMaterial();
     }
 
-    private static Materials loadPollution() {
+    private static Materials_OLD loadPollution() {
         return new MaterialBuilder().setName("Pollution")
             .setDefaultLocalName("Pollution")
             .setIconSet(TextureSet.SET_FLUID)
@@ -11144,21 +11144,21 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPotassiumFeldspar() {
+    private static Materials_OLD loadPotassiumFeldspar() {
         return new MaterialBuilder().setName("PotassiumFeldspar")
             .setDefaultLocalName("Potassium Feldspar")
             .setIconSet(TextureSet.SET_FINE)
             .setColor(Dyes.dyePink)
             .setARGB(0x00782828)
             .addDustItems()
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 8)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 8)
             .constructMaterial();
     }
 
-    private static Materials loadQuartzSand() {
+    private static Materials_OLD loadQuartzSand() {
         return new MaterialBuilder().setName("QuartzSand")
             .setDefaultLocalName("Quartz Sand")
             .setChemicalFormula("(SiO₂)" + CustomGlyphs.SUBSCRIPT_QUESTION_MARK + "??")
@@ -11168,27 +11168,27 @@ public class MaterialsInit {
             .setMiningLevel(1)
             .addDustItems()
             .addOreItems()
-            .addMaterial(Materials.CertusQuartz, 1)
-            .addMaterial(Materials.Quartzite, 1)
-            .addOreByproduct(() -> Materials.CertusQuartz)
-            .addOreByproduct(() -> Materials.Quartzite)
-            .addOreByproduct(() -> Materials.Barite)
+            .addMaterial(Materials_OLD.CertusQuartz, 1)
+            .addMaterial(Materials_OLD.Quartzite, 1)
+            .addOreByproduct(() -> Materials_OLD.CertusQuartz)
+            .addOreByproduct(() -> Materials_OLD.Quartzite)
+            .addOreByproduct(() -> Materials_OLD.Barite)
             .constructMaterial();
     }
 
-    private static Materials loadRawStyreneButadieneRubber() {
+    private static Materials_OLD loadRawStyreneButadieneRubber() {
         return new MaterialBuilder().setName("RawStyreneButadieneRubber")
             .setDefaultLocalName("Raw Styrene-Butadiene Rubber")
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeGray)
             .setARGB(0x0054403d)
             .addDustItems()
-            .addMaterial(Materials.Styrene, 1)
-            .addMaterial(Materials.Butadiene, 3)
+            .addMaterial(Materials_OLD.Styrene, 1)
+            .addMaterial(Materials_OLD.Butadiene, 3)
             .constructMaterial();
     }
 
-    private static Materials loadRealgar() {
+    private static Materials_OLD loadRealgar() {
         return new MaterialBuilder().setName("Realgar")
             .setDefaultLocalName("Realgar")
             .setIconSet(TextureSet.SET_DULL)
@@ -11200,14 +11200,14 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addGearItems()
-            .addMaterial(Materials.Arsenic, 4)
-            .addMaterial(Materials.Sulfur, 4)
+            .addMaterial(Materials_OLD.Arsenic, 4)
+            .addMaterial(Materials_OLD.Sulfur, 4)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadRedMud() {
+    private static Materials_OLD loadRedMud() {
         return new MaterialBuilder().setName("RedMud")
             .setDefaultLocalName("Red Mud")
             .setIconSet(TextureSet.SET_FLUID)
@@ -11218,7 +11218,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRedrock() {
+    private static Materials_OLD loadRedrock() {
         return new MaterialBuilder().setName("Redrock")
             .setDefaultLocalName("Redrock")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -11226,17 +11226,17 @@ public class MaterialsInit {
             .setARGB(0x00ff5032)
             .addDustItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Calcite, 2)
-            .addMaterial(Materials.Flint, 1)
-            .addMaterial(Materials.Clay, 1)
-            .addOreByproduct(() -> Materials.Clay)
+            .addMaterial(Materials_OLD.Calcite, 2)
+            .addMaterial(Materials_OLD.Flint, 1)
+            .addMaterial(Materials_OLD.Clay, 1)
+            .addOreByproduct(() -> Materials_OLD.Clay)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .addOrePrefix(OrePrefixes.dustImpure)
             .constructMaterial();
     }
 
-    private static Materials loadRedstone() {
+    private static Materials_OLD loadRedstone() {
         return new MaterialBuilder().setName("Redstone")
             .setDefaultLocalName("Redstone")
             .setIconSet(TextureSet.SET_REDSTONE)
@@ -11248,15 +11248,15 @@ public class MaterialsInit {
             .setOreMultiplier(5)
             .setMeltingPoint(500)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Pyrite, 5)
-            .addMaterial(Materials.Ruby, 1)
-            .addMaterial(Materials.Mercury, 3)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Pyrite, 5)
+            .addMaterial(Materials_OLD.Ruby, 1)
+            .addMaterial(Materials_OLD.Mercury, 3)
             .addAspect(TCAspects.MACHINA, 1)
             .addAspect(TCAspects.POTENTIA, 2)
-            .addOreByproduct(() -> Materials.Cinnabar)
-            .addOreByproduct(() -> Materials.RareEarth)
-            .addOreByproduct(() -> Materials.Glowstone)
+            .addOreByproduct(() -> Materials_OLD.Cinnabar)
+            .addOreByproduct(() -> Materials_OLD.RareEarth)
+            .addOreByproduct(() -> Materials_OLD.Glowstone)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.PULVERIZING_CINNABAR)
             .addSubTag(SubTag.SMELTING_TO_FLUID)
@@ -11269,7 +11269,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRoseGold() {
+    private static Materials_OLD loadRoseGold() {
         return new MaterialBuilder().setName("RoseGold")
             .setDefaultLocalName("Rose Gold")
             .setIconSet(TextureSet.SET_SHINY)
@@ -11284,13 +11284,13 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_600)
             .setBlastFurnaceRequired(true)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Copper, 1)
-            .addMaterial(Materials.Gold, 4)
+            .addMaterial(Materials_OLD.Copper, 1)
+            .addMaterial(Materials_OLD.Gold, 4)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSamariumMagnetic() {
+    private static Materials_OLD loadSamariumMagnetic() {
         return new MaterialBuilder().setName("SamariumMagnetic")
             .setDefaultLocalName("Magnetic Samarium")
             .setChemicalFormula("Sm" + CustomGlyphs.MAGNET)
@@ -11305,10 +11305,10 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_345)
             .setBlastFurnaceRequired(true)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Samarium, 1)
-            .setSmeltingInto(() -> Materials.Samarium)
-            .setMaceratingInto(() -> Materials.Samarium)
-            .setArcSmeltingInto(() -> Materials.Samarium)
+            .addMaterial(Materials_OLD.Samarium, 1)
+            .setSmeltingInto(() -> Materials_OLD.Samarium)
+            .setMaceratingInto(() -> Materials_OLD.Samarium)
+            .setArcSmeltingInto(() -> Materials_OLD.Samarium)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.RADIO, 1)
             .addAspect(TCAspects.MAGNETO, 10)
@@ -11317,7 +11317,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSoapstone() {
+    private static Materials_OLD loadSoapstone() {
         return new MaterialBuilder().setName("Soapstone")
             .setDefaultLocalName("Soapstone")
             .setIconSet(TextureSet.SET_DULL)
@@ -11327,14 +11327,14 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // H2Mg3(SiO3)4
-            .addMaterial(Materials.Magnesium, 3)
-            .addMaterial(Materials.Silicon, 4)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 12)
+            .addMaterial(Materials_OLD.Magnesium, 3)
+            .addMaterial(Materials_OLD.Silicon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 12)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumAluminate() {
+    private static Materials_OLD loadSodiumAluminate() {
         return new MaterialBuilder().setName("SodiumAluminate")
             .setDefaultLocalName("Sodium Aluminate")
             .setIconSet(TextureSet.SET_QUARTZ)
@@ -11346,13 +11346,13 @@ public class MaterialsInit {
             .setMeltingPoint(1_800)
             .setBlastFurnaceRequired(false)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumCarbonate() {
+    private static Materials_OLD loadSodiumCarbonate() {
         return new MaterialBuilder().setName("SodiumCarbonate")
             .setDefaultLocalName("Sodium Carbonate")
             .setIconSet(TextureSet.SET_QUARTZ)
@@ -11365,13 +11365,13 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(false)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Sodium, 2)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Sodium, 2)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .constructMaterial();
     }
 
-    private static Materials loadSpodumene() {
+    private static Materials_OLD loadSpodumene() {
         return new MaterialBuilder().setName("Spodumene")
             .setDefaultLocalName("Spodumene")
             .setIconSet(TextureSet.SET_DULL)
@@ -11380,16 +11380,16 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // LiAl(SiO3)2
-            .addMaterial(Materials.Lithium, 1)
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Silicon, 2)
-            .addMaterial(Materials.Oxygen, 6)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.Lithium)
+            .addMaterial(Materials_OLD.Lithium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Silicon, 2)
+            .addMaterial(Materials_OLD.Oxygen, 6)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Lithium)
             .constructMaterial();
     }
 
-    private static Materials loadSteelMagnetic() {
+    private static Materials_OLD loadSteelMagnetic() {
         return new MaterialBuilder().setName("SteelMagnetic")
             .setDefaultLocalName("Magnetic Steel")
             .setChemicalFormula("Fe₅" + CustomGlyphs.SUBSCRIPT0 + "C" + CustomGlyphs.MAGNET)
@@ -11405,10 +11405,10 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_000)
             .setBlastFurnaceRequired(true)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Steel, 1)
-            .setSmeltingInto(() -> Materials.Steel)
-            .setMaceratingInto(() -> Materials.Steel)
-            .setArcSmeltingInto(() -> Materials.Steel)
+            .addMaterial(Materials_OLD.Steel, 1)
+            .setSmeltingInto(() -> Materials_OLD.Steel)
+            .setMaceratingInto(() -> Materials_OLD.Steel)
+            .setArcSmeltingInto(() -> Materials_OLD.Steel)
             .addAspect(TCAspects.METALLUM, 1)
             .addAspect(TCAspects.ORDO, 1)
             .addAspect(TCAspects.MAGNETO, 1)
@@ -11418,7 +11418,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSteeleaf() {
+    private static Materials_OLD loadSteeleaf() {
         return new MaterialBuilder().setName("Steeleaf")
             .setDefaultLocalName("Steeleaf")
             .setIconSet(TextureSet.SET_LEAF)
@@ -11433,8 +11433,8 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Steel, 1)
-            .addMaterial(Materials.Magic, 1)
+            .addMaterial(Materials_OLD.Steel, 1)
+            .addMaterial(Materials_OLD.Magic, 1)
             .addAspect(TCAspects.HERBA, 2)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.PRAECANTATIO, 1)
@@ -11447,7 +11447,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSterlingSilver() {
+    private static Materials_OLD loadSterlingSilver() {
         return new MaterialBuilder().setName("SterlingSilver")
             .setDefaultLocalName("Sterling Silver")
             .setIconSet(TextureSet.SET_SHINY)
@@ -11462,13 +11462,13 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_700)
             .setBlastFurnaceRequired(true)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Copper, 1)
-            .addMaterial(Materials.Silver, 4)
+            .addMaterial(Materials_OLD.Copper, 1)
+            .addMaterial(Materials_OLD.Silver, 4)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSugar() {
+    private static Materials_OLD loadSugar() {
         return new MaterialBuilder().setName("Sugar")
             .setDefaultLocalName("Sugar")
             .setIconSet(TextureSet.SET_FINE)
@@ -11477,9 +11477,9 @@ public class MaterialsInit {
             .setMeltingPoint(462)
             .addDustItems()
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Water, 5)
-            .addMaterial(Materials.Oxygen, 25)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Water, 5)
+            .addMaterial(Materials_OLD.Oxygen, 25)
             .addAspect(TCAspects.HERBA, 1)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.AER, 1)
@@ -11489,7 +11489,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTalc() {
+    private static Materials_OLD loadTalc() {
         return new MaterialBuilder().setName("Talc")
             .setDefaultLocalName("Talc")
             .setIconSet(TextureSet.SET_DULL)
@@ -11499,14 +11499,14 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // H2Mg3(SiO3)4
-            .addMaterial(Materials.Magnesium, 3)
-            .addMaterial(Materials.Silicon, 4)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 12)
+            .addMaterial(Materials_OLD.Magnesium, 3)
+            .addMaterial(Materials_OLD.Silicon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 12)
             .constructMaterial();
     }
 
-    private static Materials loadTantalite() {
+    private static Materials_OLD loadTantalite() {
         return new MaterialBuilder().setName("Tantalite")
             .setDefaultLocalName("Tantalite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11516,16 +11516,16 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // (Fe, Mn)Ta2O6 (also source of Nb)
-            .addMaterial(Materials.Manganese, 1)
-            .addMaterial(Materials.Tantalum, 2)
-            .addMaterial(Materials.Oxygen, 6)
-            .addOreByproduct(() -> Materials.Manganese)
-            .addOreByproduct(() -> Materials.Niobium)
-            .addOreByproduct(() -> Materials.Tantalum)
+            .addMaterial(Materials_OLD.Manganese, 1)
+            .addMaterial(Materials_OLD.Tantalum, 2)
+            .addMaterial(Materials_OLD.Oxygen, 6)
+            .addOreByproduct(() -> Materials_OLD.Manganese)
+            .addOreByproduct(() -> Materials_OLD.Niobium)
+            .addOreByproduct(() -> Materials_OLD.Tantalum)
             .constructMaterial();
     }
 
-    private static Materials loadThaumium() {
+    private static Materials_OLD loadThaumium() {
         return new MaterialBuilder().setName("Thaumium")
             .setDefaultLocalName("Thaumium")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11538,8 +11538,8 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setDensity(2, 1)
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Magic, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Magic, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.PRAECANTATIO, 1)
             .addSubTag(SubTag.MAGICAL)
@@ -11548,7 +11548,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTPV() {
+    private static Materials_OLD loadTPV() {
         return new MaterialBuilder().setName("TPVAlloy")
             .setDefaultLocalName("TPV-Alloy")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11565,14 +11565,14 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Titanium, 3)
-            .addMaterial(Materials.Platinum, 3)
-            .addMaterial(Materials.Vanadium, 1)
+            .addMaterial(Materials_OLD.Titanium, 3)
+            .addMaterial(Materials_OLD.Platinum, 3)
+            .addMaterial(Materials_OLD.Vanadium, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadTricalciumPhosphate() {
+    private static Materials_OLD loadTricalciumPhosphate() {
         return new MaterialBuilder().setName("TricalciumPhosphate")
             .setDefaultLocalName("Tricalcium Phosphate")
             .setIconSet(TextureSet.SET_FLINT)
@@ -11585,11 +11585,11 @@ public class MaterialsInit {
             .setOreMultiplier(3)
             .addCell()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Calcium, 3)
-            .addMaterial(Materials.Phosphate, 2)
-            .addOreByproduct(() -> Materials.Apatite)
-            .addOreByproduct(() -> Materials.Phosphate)
-            .addOreByproduct(() -> Materials.Pyrochlore)
+            .addMaterial(Materials_OLD.Calcium, 3)
+            .addMaterial(Materials_OLD.Phosphate, 2)
+            .addOreByproduct(() -> Materials_OLD.Apatite)
+            .addOreByproduct(() -> Materials_OLD.Phosphate)
+            .addOreByproduct(() -> Materials_OLD.Pyrochlore)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.EXPLOSIVE)
             .addSubTag(SubTag.FLAMMABLE)
@@ -11599,7 +11599,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTrona() {
+    private static Materials_OLD loadTrona() {
         return new MaterialBuilder().setName("Trona")
             .setDefaultLocalName("Trona")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11609,15 +11609,15 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // Na3(CO3)(HCO3) 2H2O
-            .addMaterial(Materials.Sodium, 3)
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 1)
-            .addMaterial(Materials.Water, 2)
-            .addMaterial(Materials.Oxygen, 6)
+            .addMaterial(Materials_OLD.Sodium, 3)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Water, 2)
+            .addMaterial(Materials_OLD.Oxygen, 6)
             .constructMaterial();
     }
 
-    private static Materials loadTungstenCarbide() {
+    private static Materials_OLD loadTungstenCarbide() {
         return new MaterialBuilder().setName("TungstenCarbide")
             .setDefaultLocalName("Tungstencarbide")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11635,13 +11635,13 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Tungsten, 1)
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Tungsten, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadTungstenSteel() {
+    private static Materials_OLD loadTungstenSteel() {
         return new MaterialBuilder().setName("TungstenSteel")
             .setDefaultLocalName("Tungstensteel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11658,14 +11658,14 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Steel, 1)
-            .addMaterial(Materials.Tungsten, 1)
+            .addMaterial(Materials_OLD.Steel, 1)
+            .addMaterial(Materials_OLD.Tungsten, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadVanadiumMagnetite() {
+    private static Materials_OLD loadVanadiumMagnetite() {
         return new MaterialBuilder().setName("VanadiumMagnetite")
             .setDefaultLocalName("Vanadium Magnetite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11676,17 +11676,17 @@ public class MaterialsInit {
             .addOreItems()
             .addCentrifugeRecipe()
             // Mixture of Fe3O4 and V2O5
-            .addMaterial(Materials.Magnetite, 1)
-            .addMaterial(Materials.Vanadium, 1)
+            .addMaterial(Materials_OLD.Magnetite, 1)
+            .addMaterial(Materials_OLD.Vanadium, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 1)
-            .addOreByproduct(() -> Materials.Magnetite)
-            .addOreByproduct(() -> Materials.Vanadium)
+            .addOreByproduct(() -> Materials_OLD.Magnetite)
+            .addOreByproduct(() -> Materials_OLD.Vanadium)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_GOLD)
             .constructMaterial();
     }
 
-    private static Materials loadVanadiumSteel() {
+    private static Materials_OLD loadVanadiumSteel() {
         return new MaterialBuilder().setName("VanadiumSteel")
             .setDefaultLocalName("Vanadiumsteel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11702,14 +11702,14 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Vanadium, 1)
-            .addMaterial(Materials.Chrome, 1)
-            .addMaterial(Materials.Steel, 7)
+            .addMaterial(Materials_OLD.Vanadium, 1)
+            .addMaterial(Materials_OLD.Chrome, 1)
+            .addMaterial(Materials_OLD.Steel, 7)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadVermiculite() {
+    private static Materials_OLD loadVermiculite() {
         return new MaterialBuilder().setName("Vermiculite")
             .setDefaultLocalName("Vermiculite")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11718,20 +11718,20 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // (Mg+2, Fe+2, Fe+3)3 [(AlSi)4O10] (OH)2 4H2O)
-            .addMaterial(Materials.Iron, 3)
-            .addMaterial(Materials.Aluminium, 4)
-            .addMaterial(Materials.Silicon, 4)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Water, 4)
-            .addMaterial(Materials.Oxygen, 12)
-            .addOreByproduct(() -> Materials.Iron)
-            .addOreByproduct(() -> Materials.Aluminiumoxide)
-            .addOreByproduct(() -> Materials.Magnesium)
+            .addMaterial(Materials_OLD.Iron, 3)
+            .addMaterial(Materials_OLD.Aluminium, 4)
+            .addMaterial(Materials_OLD.Silicon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Water, 4)
+            .addMaterial(Materials_OLD.Oxygen, 12)
+            .addOreByproduct(() -> Materials_OLD.Iron)
+            .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
+            .addOreByproduct(() -> Materials_OLD.Magnesium)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
             .constructMaterial();
     }
 
-    private static Materials loadVinteum() {
+    private static Materials_OLD loadVinteum() {
         return new MaterialBuilder().setName("Vinteum")
             .setDefaultLocalName("Vinteum")
             .setChemicalFormula("FeMa*")
@@ -11748,16 +11748,16 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Thaumium, 1)
+            .addMaterial(Materials_OLD.Thaumium, 1)
             .addAspect(TCAspects.VITREUS, 2)
             .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addOreByproduct(() -> Materials.Vinteum)
+            .addOreByproduct(() -> Materials_OLD.Vinteum)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.lens)
             .constructMaterial();
     }
 
-    private static Materials loadVis() {
+    private static Materials_OLD loadVis() {
         return new MaterialBuilder().setName("Vis")
             .setDefaultLocalName("Vis")
             .setIconSet(TextureSet.SET_SHINY)
@@ -11765,13 +11765,13 @@ public class MaterialsInit {
             .setARGB(0x008000ff)
             .setFuel(MaterialBuilder.FuelType.Magic, 32)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Magic, 1)
+            .addMaterial(Materials_OLD.Magic, 1)
             .addAspect(TCAspects.AURAM, 2)
             .addAspect(TCAspects.PRAECANTATIO, 1)
             .constructMaterial();
     }
 
-    private static Materials loadVolcanicAsh() {
+    private static Materials_OLD loadVolcanicAsh() {
         return new MaterialBuilder().setName("VolcanicAsh")
             .setDefaultLocalName("Volcanic Ashes")
             .setIconSet(TextureSet.SET_FLINT)
@@ -11779,13 +11779,13 @@ public class MaterialsInit {
             .setARGB(0x003c3232)
             .addDustItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Flint, 6)
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Magnesium, 1)
+            .addMaterial(Materials_OLD.Flint, 6)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Magnesium, 1)
             .constructMaterial();
     }
 
-    private static Materials loadWollastonite() {
+    private static Materials_OLD loadWollastonite() {
         return new MaterialBuilder().setName("Wollastonite")
             .setDefaultLocalName("Wollastonite")
             .setIconSet(TextureSet.SET_DULL)
@@ -11795,13 +11795,13 @@ public class MaterialsInit {
             .addOreItems()
             .addElectrolyzerRecipe()
             // CaSiO3
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .constructMaterial();
     }
 
-    private static Materials loadWoodSealed() {
+    private static Materials_OLD loadWoodSealed() {
         return new MaterialBuilder().setName("WoodSealed")
             .setDefaultLocalName("Sealed Wood")
             .setChemicalFormula("")
@@ -11813,8 +11813,8 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addMaterial(Materials.Wood, 1)
-            .setMaceratingInto(() -> Materials.Wood)
+            .addMaterial(Materials_OLD.Wood, 1)
+            .setMaceratingInto(() -> Materials_OLD.Wood)
             .addAspect(TCAspects.ARBOR, 2)
             .addAspect(TCAspects.FABRICO, 1)
             .addSubTag(SubTag.FLAMMABLE)
@@ -11826,7 +11826,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadZeolite() {
+    private static Materials_OLD loadZeolite() {
         return new MaterialBuilder().setName("Zeolite")
             .setDefaultLocalName("Zeolite")
             .setIconSet(TextureSet.SET_DULL)
@@ -11835,34 +11835,34 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             // NaCa4(Si27Al9)O72
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Calcium, 4)
-            .addMaterial(Materials.Silicon, 27)
-            .addMaterial(Materials.Aluminium, 9)
-            .addMaterial(Materials.Oxygen, 72)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Calcium, 4)
+            .addMaterial(Materials_OLD.Silicon, 27)
+            .addMaterial(Materials_OLD.Aluminium, 9)
+            .addMaterial(Materials_OLD.Oxygen, 72)
             .constructMaterial();
     }
 
     private static void loadDegree3Compounds() {
-        Materials.Basalt = loadBasalt();
-        Materials.BlueSteel = loadBlueSteel();
-        Materials.BorosilicateGlass = loadBorosilicateGlass();
-        Materials.Cryotheum = loadCryotheum();
-        Materials.DarkSteel = loadDarkSteel();
-        Materials.Diatomite = loadDiatomite();
-        Materials.EnderEye = loadEnderEye();
-        Materials.Fireclay = loadFireclay();
-        Materials.GarnetSand = loadGarnetSand();
-        Materials.HSSG = loadHSSG();
-        Materials.IronWood = loadIronWood();
-        Materials.Pyrotheum = loadPyrotheum();
-        Materials.GraniteRed = loadGraniteRed();
-        Materials.RedAlloy = loadRedAlloy();
-        Materials.RedSteel = loadRedSteel();
-        Materials.RedstoneAlloy = loadRedstoneAlloy();
+        Materials_OLD.Basalt = loadBasalt();
+        Materials_OLD.BlueSteel = loadBlueSteel();
+        Materials_OLD.BorosilicateGlass = loadBorosilicateGlass();
+        Materials_OLD.Cryotheum = loadCryotheum();
+        Materials_OLD.DarkSteel = loadDarkSteel();
+        Materials_OLD.Diatomite = loadDiatomite();
+        Materials_OLD.EnderEye = loadEnderEye();
+        Materials_OLD.Fireclay = loadFireclay();
+        Materials_OLD.GarnetSand = loadGarnetSand();
+        Materials_OLD.HSSG = loadHSSG();
+        Materials_OLD.IronWood = loadIronWood();
+        Materials_OLD.Pyrotheum = loadPyrotheum();
+        Materials_OLD.GraniteRed = loadGraniteRed();
+        Materials_OLD.RedAlloy = loadRedAlloy();
+        Materials_OLD.RedSteel = loadRedSteel();
+        Materials_OLD.RedstoneAlloy = loadRedstoneAlloy();
     }
 
-    private static Materials loadBasalt() {
+    private static Materials_OLD loadBasalt() {
         return new MaterialBuilder().setName("Basalt")
             .setDefaultLocalName("Basalt")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -11874,13 +11874,13 @@ public class MaterialsInit {
             .addGearItems()
             .addCentrifugeRecipe()
             .setAutoGeneratedRecycleRecipes(false)
-            .addMaterial(Materials.Olivine, 1)
-            .addMaterial(Materials.Calcite, 3)
-            .addMaterial(Materials.Flint, 8)
-            .addMaterial(Materials.AshDark, 4)
+            .addMaterial(Materials_OLD.Olivine, 1)
+            .addMaterial(Materials_OLD.Calcite, 3)
+            .addMaterial(Materials_OLD.Flint, 8)
+            .addMaterial(Materials_OLD.AshDark, 4)
             .addAspect(TCAspects.TENEBRAE, 1)
-            .addOreByproduct(() -> Materials.Olivine)
-            .addOreByproduct(() -> Materials.AshDark)
+            .addOreByproduct(() -> Materials_OLD.Olivine)
+            .addOreByproduct(() -> Materials_OLD.AshDark)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .addOrePrefix(OrePrefixes.dustImpure)
@@ -11888,7 +11888,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBlueSteel() {
+    private static Materials_OLD loadBlueSteel() {
         return new MaterialBuilder().setName("BlueSteel")
             .setDefaultLocalName("Blue Steel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -11904,15 +11904,15 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.RoseGold, 1)
-            .addMaterial(Materials.Brass, 1)
-            .addMaterial(Materials.Steel, 2)
-            .addMaterial(Materials.BlackSteel, 4)
+            .addMaterial(Materials_OLD.RoseGold, 1)
+            .addMaterial(Materials_OLD.Brass, 1)
+            .addMaterial(Materials_OLD.Steel, 2)
+            .addMaterial(Materials_OLD.BlackSteel, 4)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadBorosilicateGlass() {
+    private static Materials_OLD loadBorosilicateGlass() {
         return new MaterialBuilder().setName("BorosilicateGlass")
             .setDefaultLocalName("Borosilicate Glass")
             .setIconSet(TextureSet.SET_GLASS)
@@ -11920,8 +11920,8 @@ public class MaterialsInit {
             .setARGB(0x00e6f3e6)
             .addDustItems()
             .addMetalItems()
-            .addMaterial(Materials.Boron, 1)
-            .addMaterial(Materials.Glass, 7)
+            .addMaterial(Materials_OLD.Boron, 1)
+            .addMaterial(Materials_OLD.Glass, 7)
             .addCentrifugeRecipe()
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_RECYCLING)
@@ -11930,13 +11930,13 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCryotheum() {
+    private static Materials_OLD loadCryotheum() {
         return new MaterialBuilder().setName("Cryotheum")
             .setDefaultLocalName("Cryotheum")
             .setChemicalFormula(
-                "(KNO₃)(" + Materials.Lapis.getChemicalFormula()
+                "(KNO₃)(" + Materials_OLD.Lapis.getChemicalFormula()
                     + ")(H₂O)("
-                    + Materials.Blizz.getChemicalFormula()
+                    + Materials_OLD.Blizz.getChemicalFormula()
                     + ")")
             .setIconSet(TextureSet.SET_CRYOTHEUM)
             .setColor(Dyes.dyeLightBlue)
@@ -11944,17 +11944,17 @@ public class MaterialsInit {
             .addDustItems()
             .setDensity(4, 1)
             .setAutoGeneratedRecycleRecipes(false)
-            .addMaterial(Materials.Saltpeter, 1)
-            .addMaterial(Materials.Lapis, 1)
-            .addMaterial(Materials.Snow, 1)
-            .addMaterial(Materials.Blizz, 1)
+            .addMaterial(Materials_OLD.Saltpeter, 1)
+            .addMaterial(Materials_OLD.Lapis, 1)
+            .addMaterial(Materials_OLD.Snow, 1)
+            .addMaterial(Materials_OLD.Blizz, 1)
             .addAspect(TCAspects.PRAECANTATIO, 2)
             .addAspect(TCAspects.SENSUS, 1)
             .addAspect(TCAspects.GELUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadDarkSteel() {
+    private static Materials_OLD loadDarkSteel() {
         return new MaterialBuilder().setName("DarkSteel")
             .setDefaultLocalName("Dark Steel")
             .setIconSet(TextureSet.SET_DARKSTEEL)
@@ -11969,15 +11969,15 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.ElectricalSteel, 1)
-            .addMaterial(Materials.Coal, 1)
-            .addMaterial(Materials.Obsidian, 1)
+            .addMaterial(Materials_OLD.ElectricalSteel, 1)
+            .addMaterial(Materials_OLD.Coal, 1)
+            .addMaterial(Materials_OLD.Obsidian, 1)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
             .constructMaterial();
     }
 
-    private static Materials loadDiatomite() {
+    private static Materials_OLD loadDiatomite() {
         return new MaterialBuilder().setName("Diatomite")
             .setDefaultLocalName("Diatomite")
             .setIconSet(TextureSet.SET_DULL)
@@ -11987,15 +11987,15 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Flint, 8)
-            .addMaterial(Materials.BandedIron, 1)
-            .addMaterial(Materials.Sapphire, 1)
-            .addOreByproduct(() -> Materials.BandedIron)
-            .addOreByproduct(() -> Materials.Sapphire)
+            .addMaterial(Materials_OLD.Flint, 8)
+            .addMaterial(Materials_OLD.BandedIron, 1)
+            .addMaterial(Materials_OLD.Sapphire, 1)
+            .addOreByproduct(() -> Materials_OLD.BandedIron)
+            .addOreByproduct(() -> Materials_OLD.Sapphire)
             .constructMaterial();
     }
 
-    private static Materials loadEnderEye() {
+    private static Materials_OLD loadEnderEye() {
         return new MaterialBuilder().setName("EnderEye")
             .setDefaultLocalName("Endereye")
             .setIconSet(TextureSet.SET_SHINY)
@@ -12006,8 +12006,8 @@ public class MaterialsInit {
             .addDustItems()
             .addGemItems()
             .setDensity(2, 1)
-            .addMaterial(Materials.EnderPearl, 1)
-            .addMaterial(Materials.Blaze, 1)
+            .addMaterial(Materials_OLD.EnderPearl, 1)
+            .addMaterial(Materials_OLD.Blaze, 1)
             .addAspect(TCAspects.SENSUS, 4)
             .addAspect(TCAspects.ALIENIS, 4)
             .addAspect(TCAspects.ITER, 4)
@@ -12022,7 +12022,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFireclay() {
+    private static Materials_OLD loadFireclay() {
         return new MaterialBuilder().setName("Fireclay")
             .setDefaultLocalName("Fireclay")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -12030,12 +12030,12 @@ public class MaterialsInit {
             .setARGB(0x00ada09b)
             .addDustItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Brick, 1)
-            .addMaterial(Materials.Clay, 1)
+            .addMaterial(Materials_OLD.Brick, 1)
+            .addMaterial(Materials_OLD.Clay, 1)
             .constructMaterial();
     }
 
-    private static Materials loadGarnetSand() {
+    private static Materials_OLD loadGarnetSand() {
         return new MaterialBuilder().setName("GarnetSand")
             .setDefaultLocalName("Garnet Sand")
             .setIconSet(TextureSet.SET_SAND)
@@ -12045,14 +12045,14 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.GarnetRed, 1)
-            .addMaterial(Materials.GarnetYellow, 1)
-            .addOreByproduct(() -> Materials.GarnetRed)
-            .addOreByproduct(() -> Materials.GarnetYellow)
+            .addMaterial(Materials_OLD.GarnetRed, 1)
+            .addMaterial(Materials_OLD.GarnetYellow, 1)
+            .addOreByproduct(() -> Materials_OLD.GarnetRed)
+            .addOreByproduct(() -> Materials_OLD.GarnetYellow)
             .constructMaterial();
     }
 
-    private static Materials loadHSSG() {
+    private static Materials_OLD loadHSSG() {
         return new MaterialBuilder().setName("HSSG")
             .setDefaultLocalName("HSS-G")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -12070,16 +12070,16 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.TungstenSteel, 5)
-            .addMaterial(Materials.Chrome, 1)
-            .addMaterial(Materials.Molybdenum, 2)
-            .addMaterial(Materials.Vanadium, 1)
+            .addMaterial(Materials_OLD.TungstenSteel, 5)
+            .addMaterial(Materials_OLD.Chrome, 1)
+            .addMaterial(Materials_OLD.Molybdenum, 2)
+            .addMaterial(Materials_OLD.Vanadium, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadIronWood() {
+    private static Materials_OLD loadIronWood() {
         return new MaterialBuilder().setName("IronWood")
             .setDefaultLocalName("Ironwood")
             .setIconSet(TextureSet.SET_WOOD)
@@ -12095,9 +12095,9 @@ public class MaterialsInit {
             .addGearItems()
             .setDensity(19, 18)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Iron, 9)
-            .addMaterial(Materials.LiveRoot, 9)
-            .addMaterial(Materials.Gold, 1)
+            .addMaterial(Materials_OLD.Iron, 9)
+            .addMaterial(Materials_OLD.LiveRoot, 9)
+            .addMaterial(Materials_OLD.Gold, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
@@ -12106,7 +12106,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPyrotheum() {
+    private static Materials_OLD loadPyrotheum() {
         return new MaterialBuilder().setName("Pyrotheum")
             .setDefaultLocalName("Pyrotheum")
             .setIconSet(TextureSet.SET_PYROTHEUM)
@@ -12116,16 +12116,16 @@ public class MaterialsInit {
             .setDensity(4, 1)
             .setHeatDamage(5.0f)
             .setAutoGeneratedRecycleRecipes(false)
-            .addMaterial(Materials.Coal, 1)
-            .addMaterial(Materials.Redstone, 1)
-            .addMaterial(Materials.Blaze, 1)
-            .addMaterial(Materials.Sulfur, 1)
+            .addMaterial(Materials_OLD.Coal, 1)
+            .addMaterial(Materials_OLD.Redstone, 1)
+            .addMaterial(Materials_OLD.Blaze, 1)
+            .addMaterial(Materials_OLD.Sulfur, 1)
             .addAspect(TCAspects.PRAECANTATIO, 2)
             .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadGraniteRed() {
+    private static Materials_OLD loadGraniteRed() {
         return new MaterialBuilder().setName("GraniteRed")
             .setDefaultLocalName("Red Granite")
             .setIconSet(TextureSet.SET_ROUGH)
@@ -12135,11 +12135,11 @@ public class MaterialsInit {
             .addDustItems()
             .addToolHeadItems()
             .addGearItems()
-            .addMaterial(Materials.Aluminium, 2)
-            .addMaterial(Materials.PotassiumFeldspar, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Aluminium, 2)
+            .addMaterial(Materials_OLD.PotassiumFeldspar, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addAspect(TCAspects.TUTAMEN, 1)
-            .addOreByproduct(() -> Materials.PotassiumFeldspar)
+            .addOreByproduct(() -> Materials_OLD.PotassiumFeldspar)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .addOrePrefix(OrePrefixes.dustImpure)
@@ -12147,10 +12147,10 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRedAlloy() {
+    private static Materials_OLD loadRedAlloy() {
         return new MaterialBuilder().setName("RedAlloy")
             .setDefaultLocalName("Red Alloy")
-            .setChemicalFormula("Cu(" + Materials.Redstone.getChemicalFormula() + ")₄")
+            .setChemicalFormula("Cu(" + Materials_OLD.Redstone.getChemicalFormula() + ")₄")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeRed)
             .setARGB(0x00c80000)
@@ -12159,14 +12159,14 @@ public class MaterialsInit {
             .setMeltingPoint(500)
             .setDensity(5, 1)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Copper, 1)
-            .addMaterial(Materials.Redstone, 4)
+            .addMaterial(Materials_OLD.Copper, 1)
+            .addMaterial(Materials_OLD.Redstone, 4)
             .addAspect(TCAspects.MACHINA, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadRedSteel() {
+    private static Materials_OLD loadRedSteel() {
         return new MaterialBuilder().setName("RedSteel")
             .setDefaultLocalName("Red Steel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -12182,15 +12182,15 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.SterlingSilver, 1)
-            .addMaterial(Materials.BismuthBronze, 1)
-            .addMaterial(Materials.Steel, 2)
-            .addMaterial(Materials.BlackSteel, 4)
+            .addMaterial(Materials_OLD.SterlingSilver, 1)
+            .addMaterial(Materials_OLD.BismuthBronze, 1)
+            .addMaterial(Materials_OLD.Steel, 2)
+            .addMaterial(Materials_OLD.BlackSteel, 4)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadRedstoneAlloy() {
+    private static Materials_OLD loadRedstoneAlloy() {
         return new MaterialBuilder().setName("RedstoneAlloy")
             .setDefaultLocalName("Redstone Alloy")
             .setIconSet(TextureSet.SET_DARKSTEEL)
@@ -12206,24 +12206,24 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Redstone, 1)
-            .addMaterial(Materials.Silicon, 1)
-            .addMaterial(Materials.Coal, 1)
+            .addMaterial(Materials_OLD.Redstone, 1)
+            .addMaterial(Materials_OLD.Silicon, 1)
+            .addMaterial(Materials_OLD.Coal, 1)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
             .constructMaterial();
     }
 
     private static void loadDegree4Compounds() {
-        Materials.BasalticMineralSand = loadBasalticMineralSand();
-        Materials.ConductiveIron = loadConductiveIron();
-        Materials.EndSteel = loadEndSteel();
-        Materials.HSSE = loadHSSE();
-        Materials.HSSS = loadHSSS();
-        Materials.PulsatingIron = loadPulsatingIron();
+        Materials_OLD.BasalticMineralSand = loadBasalticMineralSand();
+        Materials_OLD.ConductiveIron = loadConductiveIron();
+        Materials_OLD.EndSteel = loadEndSteel();
+        Materials_OLD.HSSE = loadHSSE();
+        Materials_OLD.HSSS = loadHSSS();
+        Materials_OLD.PulsatingIron = loadPulsatingIron();
     }
 
-    private static Materials loadBasalticMineralSand() {
+    private static Materials_OLD loadBasalticMineralSand() {
         return new MaterialBuilder().setName("BasalticMineralSand")
             .setDefaultLocalName("Basaltic Mineral Sand")
             .setIconSet(TextureSet.SET_SAND)
@@ -12233,20 +12233,20 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Magnetite, 1)
-            .addMaterial(Materials.Basalt, 1)
+            .addMaterial(Materials_OLD.Magnetite, 1)
+            .addMaterial(Materials_OLD.Basalt, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.MAGNETO, 1)
-            .addOreByproduct(() -> Materials.Basalt)
-            .addOreByproduct(() -> Materials.Magnetite)
-            .setDirectSmelting(() -> Materials.Iron)
+            .addOreByproduct(() -> Materials_OLD.Basalt)
+            .addOreByproduct(() -> Materials_OLD.Magnetite)
+            .setDirectSmelting(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_DOUBLE)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_GOLD)
             .addSubTag(SubTag.INDUCTIONSMELTING_LOW_OUTPUT)
             .constructMaterial();
     }
 
-    private static Materials loadConductiveIron() {
+    private static Materials_OLD loadConductiveIron() {
         return new MaterialBuilder().setName("ConductiveIron")
             .setDefaultLocalName("Conductive Iron")
             .setIconSet(TextureSet.SET_DARKSTEEL)
@@ -12261,15 +12261,15 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.RedstoneAlloy, 1)
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Silver, 1)
+            .addMaterial(Materials_OLD.RedstoneAlloy, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Silver, 1)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
             .constructMaterial();
     }
 
-    private static Materials loadEndSteel() {
+    private static Materials_OLD loadEndSteel() {
         return new MaterialBuilder().setName("EndSteel")
             .setDefaultLocalName("End Steel")
             .setIconSet(TextureSet.SET_END_STEEL)
@@ -12285,14 +12285,14 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.DarkSteel, 1)
-            .addMaterial(Materials.Tungsten, 1)
-            .addMaterial(Materials.Endstone, 1)
+            .addMaterial(Materials_OLD.DarkSteel, 1)
+            .addMaterial(Materials_OLD.Tungsten, 1)
+            .addMaterial(Materials_OLD.Endstone, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadHSSE() {
+    private static Materials_OLD loadHSSE() {
         return new MaterialBuilder().setName("HSSE")
             .setDefaultLocalName("HSS-E")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -12310,15 +12310,15 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.HSSG, 6)
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.Manganese, 1)
-            .addMaterial(Materials.Silicon, 1)
+            .addMaterial(Materials_OLD.HSSG, 6)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.Manganese, 1)
+            .addMaterial(Materials_OLD.Silicon, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadHSSS() {
+    private static Materials_OLD loadHSSS() {
         return new MaterialBuilder().setName("HSSS")
             .setDefaultLocalName("HSS-S")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -12336,15 +12336,15 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.HSSG, 6)
-            .addMaterial(Materials.Iridium, 2)
-            .addMaterial(Materials.Osmium, 1)
+            .addMaterial(Materials_OLD.HSSG, 6)
+            .addMaterial(Materials_OLD.Iridium, 2)
+            .addMaterial(Materials_OLD.Osmium, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadPulsatingIron() {
+    private static Materials_OLD loadPulsatingIron() {
         return new MaterialBuilder().setName("PulsatingIron")
             .setDefaultLocalName("Pulsating Iron")
             .setIconSet(TextureSet.SET_DARKSTEEL)
@@ -12359,22 +12359,22 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.EnderPearl, 1)
-            .addMaterial(Materials.RedstoneAlloy, 1)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.EnderPearl, 1)
+            .addMaterial(Materials_OLD.RedstoneAlloy, 1)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
             .constructMaterial();
     }
 
     private static void loadDegree5Compounds() {
-        Materials.CrystallineAlloy = loadCrystallineAlloy();
-        Materials.EnergeticAlloy = loadEnergeticAlloy();
-        Materials.EnergeticSilver = loadEnergeticSilver();
-        Materials.MelodicAlloy = loadMelodicAlloy();
+        Materials_OLD.CrystallineAlloy = loadCrystallineAlloy();
+        Materials_OLD.EnergeticAlloy = loadEnergeticAlloy();
+        Materials_OLD.EnergeticSilver = loadEnergeticSilver();
+        Materials_OLD.MelodicAlloy = loadMelodicAlloy();
     }
 
-    private static Materials loadCrystallineAlloy() {
+    private static Materials_OLD loadCrystallineAlloy() {
         return new MaterialBuilder().setName("CrystallineAlloy")
             .setDefaultLocalName("Crystalline Alloy")
             .setIconSet(TextureSet.SET_CRYSTALLINE)
@@ -12391,14 +12391,14 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Gold, 1)
-            .addMaterial(Materials.Diamond, 1)
-            .addMaterial(Materials.PulsatingIron, 1)
+            .addMaterial(Materials_OLD.Gold, 1)
+            .addMaterial(Materials_OLD.Diamond, 1)
+            .addMaterial(Materials_OLD.PulsatingIron, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadEnergeticAlloy() {
+    private static Materials_OLD loadEnergeticAlloy() {
         return new MaterialBuilder().setName("EnergeticAlloy")
             .setDefaultLocalName("Energetic Alloy")
             .setIconSet(TextureSet.SET_ENERGETIC)
@@ -12413,14 +12413,14 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.ConductiveIron, 1)
-            .addMaterial(Materials.Gold, 1)
-            .addMaterial(Materials.BlackSteel, 1)
+            .addMaterial(Materials_OLD.ConductiveIron, 1)
+            .addMaterial(Materials_OLD.Gold, 1)
+            .addMaterial(Materials_OLD.BlackSteel, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadEnergeticSilver() {
+    private static Materials_OLD loadEnergeticSilver() {
         return new MaterialBuilder().setName("EnergeticSilver")
             .setDefaultLocalName("Energetic Silver")
             .setIconSet(TextureSet.SET_ENERGETIC_SILVER)
@@ -12435,14 +12435,14 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Silver, 1)
-            .addMaterial(Materials.ConductiveIron, 1)
-            .addMaterial(Materials.BlackSteel, 1)
+            .addMaterial(Materials_OLD.Silver, 1)
+            .addMaterial(Materials_OLD.ConductiveIron, 1)
+            .addMaterial(Materials_OLD.BlackSteel, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadMelodicAlloy() {
+    private static Materials_OLD loadMelodicAlloy() {
         return new MaterialBuilder().setName("MelodicAlloy")
             .setDefaultLocalName("Melodic Alloy")
             .setIconSet(TextureSet.SET_MELODIC)
@@ -12459,22 +12459,22 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.EndSteel, 1)
-            .addMaterial(Materials.EnderEye, 1)
-            .addMaterial(Materials.Oriharukon, 1)
+            .addMaterial(Materials_OLD.EndSteel, 1)
+            .addMaterial(Materials_OLD.EnderEye, 1)
+            .addMaterial(Materials_OLD.Oriharukon, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
     private static void loadDegree6Compounds() {
-        Materials.CrystallinePinkSlime = loadCrystallinePinkSlime();
-        Materials.StellarAlloy = loadStellarAlloy();
-        Materials.VibrantAlloy = loadVibrantAlloy();
-        Materials.VividAlloy = loadVividAlloy();
+        Materials_OLD.CrystallinePinkSlime = loadCrystallinePinkSlime();
+        Materials_OLD.StellarAlloy = loadStellarAlloy();
+        Materials_OLD.VibrantAlloy = loadVibrantAlloy();
+        Materials_OLD.VividAlloy = loadVividAlloy();
     }
 
-    private static Materials loadCrystallinePinkSlime() {
+    private static Materials_OLD loadCrystallinePinkSlime() {
         return new MaterialBuilder().setName("CrystallinePinkSlime")
             .setDefaultLocalName("Crystalline Pink Slime")
             .setIconSet(TextureSet.SET_CRYSTALLINE_PINK_SLIME)
@@ -12491,15 +12491,15 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.CrystallineAlloy, 1)
-            .addMaterial(Materials.Diamond, 1)
+            .addMaterial(Materials_OLD.CrystallineAlloy, 1)
+            .addMaterial(Materials_OLD.Diamond, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
             .constructMaterial();
     }
 
-    private static Materials loadStellarAlloy() {
+    private static Materials_OLD loadStellarAlloy() {
         return new MaterialBuilder().setName("StellarAlloy")
             .setDefaultLocalName("Stellar Alloy")
             .setIconSet(TextureSet.SET_STELLAR)
@@ -12516,15 +12516,15 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.NetherStar, 1)
-            .addMaterial(Materials.MelodicAlloy, 1)
-            .addMaterial(Materials.Naquadah, 1)
+            .addMaterial(Materials_OLD.NetherStar, 1)
+            .addMaterial(Materials_OLD.MelodicAlloy, 1)
+            .addMaterial(Materials_OLD.Naquadah, 1)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
             .constructMaterial();
     }
 
-    private static Materials loadVibrantAlloy() {
+    private static Materials_OLD loadVibrantAlloy() {
         return new MaterialBuilder().setName("VibrantAlloy")
             .setDefaultLocalName("Vibrant Alloy")
             .setIconSet(TextureSet.SET_VIBRANT)
@@ -12541,14 +12541,14 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.EnergeticAlloy, 1)
-            .addMaterial(Materials.EnderEye, 1)
-            .addMaterial(Materials.Chrome, 1)
+            .addMaterial(Materials_OLD.EnergeticAlloy, 1)
+            .addMaterial(Materials_OLD.EnderEye, 1)
+            .addMaterial(Materials_OLD.Chrome, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadVividAlloy() {
+    private static Materials_OLD loadVividAlloy() {
         return new MaterialBuilder().setName("VividAlloy")
             .setDefaultLocalName("Vivid Alloy")
             .setIconSet(TextureSet.SET_VIVID)
@@ -12565,40 +12565,40 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.EnergeticSilver, 1)
-            .addMaterial(Materials.EnderEye, 1)
-            .addMaterial(Materials.Chrome, 1)
+            .addMaterial(Materials_OLD.EnergeticSilver, 1)
+            .addMaterial(Materials_OLD.EnderEye, 1)
+            .addMaterial(Materials_OLD.Chrome, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
     private static void loadPolybenzimidazoleLine() {
-        Materials.ChromiumTrioxide = loadChromiumTrioxide();
-        Materials.Diaminobenzidin = loadDiaminobenzidin();
-        Materials.Dichlorobenzidine = loadDichlorobenzidine();
-        Materials.Dimethylbenzene = loadDimethylbenzene();
-        Materials.Diphenylisophthalate = loadDiphenylisophthalate();
-        Materials.Nitrochlorobenzene = loadNitrochlorobenzene();
-        Materials.PhthalicAcid = loadPhthalicAcid();
-        Materials.Polybenzimidazole = loadPolybenzimidazole();
-        Materials.PotassiumNitrade = loadPotassiumNitrade();
-        Materials.Potassiumdichromate = loadPotassiumdichromate();
+        Materials_OLD.ChromiumTrioxide = loadChromiumTrioxide();
+        Materials_OLD.Diaminobenzidin = loadDiaminobenzidin();
+        Materials_OLD.Dichlorobenzidine = loadDichlorobenzidine();
+        Materials_OLD.Dimethylbenzene = loadDimethylbenzene();
+        Materials_OLD.Diphenylisophthalate = loadDiphenylisophthalate();
+        Materials_OLD.Nitrochlorobenzene = loadNitrochlorobenzene();
+        Materials_OLD.PhthalicAcid = loadPhthalicAcid();
+        Materials_OLD.Polybenzimidazole = loadPolybenzimidazole();
+        Materials_OLD.PotassiumNitrade = loadPotassiumNitrade();
+        Materials_OLD.Potassiumdichromate = loadPotassiumdichromate();
     }
 
-    private static Materials loadChromiumTrioxide() {
+    private static Materials_OLD loadChromiumTrioxide() {
         return new MaterialBuilder().setName("Chromiumtrioxide")
             .setDefaultLocalName("Chromium Trioxide")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyePink)
             .setARGB(0x00ffe4e1)
             .addDustItems()
-            .addMaterial(Materials.Chrome, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Chrome, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadDiaminobenzidin() {
+    private static Materials_OLD loadDiaminobenzidin() {
         return new MaterialBuilder().setName("3,3Diaminobenzidine")
             .setDefaultLocalName("3,3-Diaminobenzidine")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12607,13 +12607,13 @@ public class MaterialsInit {
             .setMeltingPoint(448)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 12)
-            .addMaterial(Materials.Hydrogen, 14)
-            .addMaterial(Materials.Nitrogen, 4)
+            .addMaterial(Materials_OLD.Carbon, 12)
+            .addMaterial(Materials_OLD.Hydrogen, 14)
+            .addMaterial(Materials_OLD.Nitrogen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadDichlorobenzidine() {
+    private static Materials_OLD loadDichlorobenzidine() {
         return new MaterialBuilder().setName("3,3Dichlorobenzidine")
             .setDefaultLocalName("3,3-Dichlorobenzidine")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12622,14 +12622,14 @@ public class MaterialsInit {
             .setMeltingPoint(405)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 12)
-            .addMaterial(Materials.Hydrogen, 10)
-            .addMaterial(Materials.Nitrogen, 2)
-            .addMaterial(Materials.Chlorine, 2)
+            .addMaterial(Materials_OLD.Carbon, 12)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Chlorine, 2)
             .constructMaterial();
     }
 
-    private static Materials loadDimethylbenzene() {
+    private static Materials_OLD loadDimethylbenzene() {
         return new MaterialBuilder().setName("Dimethylbenzene")
             .setDefaultLocalName("1,2-Dimethylbenzene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12638,13 +12638,13 @@ public class MaterialsInit {
             .setMeltingPoint(248)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadDiphenylisophthalate() {
+    private static Materials_OLD loadDiphenylisophthalate() {
         return new MaterialBuilder().setName("DiphenylIsophtalate")
             .setDefaultLocalName("Diphenyl Isophthalate")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12653,13 +12653,13 @@ public class MaterialsInit {
             .setMeltingPoint(409)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 20)
-            .addMaterial(Materials.Hydrogen, 14)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Carbon, 20)
+            .addMaterial(Materials_OLD.Hydrogen, 14)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadNitrochlorobenzene() {
+    private static Materials_OLD loadNitrochlorobenzene() {
         return new MaterialBuilder().setName("2Nitrochlorobenzene")
             .setDefaultLocalName("2-Nitrochlorobenzene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12668,15 +12668,15 @@ public class MaterialsInit {
             .setMeltingPoint(306)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Chlorine, 1)
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Chlorine, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadPhthalicAcid() {
+    private static Materials_OLD loadPhthalicAcid() {
         return new MaterialBuilder().setName("phtalicacid")
             .setDefaultLocalName("Phthalic Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12685,13 +12685,13 @@ public class MaterialsInit {
             .setMeltingPoint(207)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadPolybenzimidazole() {
+    private static Materials_OLD loadPolybenzimidazole() {
         return new MaterialBuilder().setName("Polybenzimidazole")
             .setDefaultLocalName("Polybenzimidazole (PBI)")
             .setIconSet(TextureSet.SET_DULL)
@@ -12703,9 +12703,9 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(1_450)
-            .addMaterial(Materials.Carbon, 20)
-            .addMaterial(Materials.Nitrogen, 4)
-            .addMaterial(Materials.Hydrogen, 12)
+            .addMaterial(Materials_OLD.Carbon, 20)
+            .addMaterial(Materials_OLD.Nitrogen, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 12)
             .addAspect(TCAspects.ORDO, 2)
             .addAspect(TCAspects.VOLATUS, 1)
             .addSubTag(SubTag.FLAMMABLE)
@@ -12715,46 +12715,46 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPotassiumNitrade() {
+    private static Materials_OLD loadPotassiumNitrade() {
         return new MaterialBuilder().setName("PotassiumNitrate")
             .setDefaultLocalName("Potassium Nitrate")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyePurple)
             .setARGB(0x0081228d)
             .addDustItems()
-            .addMaterial(Materials.Potassium, 1)
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Potassium, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadPotassiumdichromate() {
+    private static Materials_OLD loadPotassiumdichromate() {
         return new MaterialBuilder().setName("PotassiumDichromate")
             .setDefaultLocalName("Potassium Dichromate")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyePink)
             .setARGB(0x00ff087f)
             .addDustItems()
-            .addMaterial(Materials.Potassium, 2)
-            .addMaterial(Materials.Chrome, 2)
-            .addMaterial(Materials.Oxygen, 7)
+            .addMaterial(Materials_OLD.Potassium, 2)
+            .addMaterial(Materials_OLD.Chrome, 2)
+            .addMaterial(Materials_OLD.Oxygen, 7)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
     private static void loadGasolineLine() {
-        Materials.AntiKnock = loadAntiKnock();
-        Materials.GasolinePremium = loadGasolinePremium();
-        Materials.GasolineRaw = loadGasolineRaw();
-        Materials.GasolineRegular = loadGasolineRegular();
-        Materials.MTBEMixture = loadMTBEMixture();
-        Materials.MTBEMixtureAlt = loadMTBEMixtureAlt();
-        Materials.NitrousOxide = loadNitrousOxide();
-        Materials.Octane = loadOctane();
+        Materials_OLD.AntiKnock = loadAntiKnock();
+        Materials_OLD.GasolinePremium = loadGasolinePremium();
+        Materials_OLD.GasolineRaw = loadGasolineRaw();
+        Materials_OLD.GasolineRegular = loadGasolineRegular();
+        Materials_OLD.MTBEMixture = loadMTBEMixture();
+        Materials_OLD.MTBEMixtureAlt = loadMTBEMixtureAlt();
+        Materials_OLD.NitrousOxide = loadNitrousOxide();
+        Materials_OLD.Octane = loadOctane();
     }
 
-    private static Materials loadAntiKnock() {
+    private static Materials_OLD loadAntiKnock() {
         return new MaterialBuilder().setName("EthylTertButylEther")
             .setDefaultLocalName("Anti-Knock Agent")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12762,13 +12762,13 @@ public class MaterialsInit {
             .setMeltingPoint(179)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 14)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 14)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadGasolinePremium() {
+    private static Materials_OLD loadGasolinePremium() {
         return new MaterialBuilder().setName("HighOctaneGasoline")
             .setDefaultLocalName("High Octane Gasoline")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12780,7 +12780,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGasolineRaw() {
+    private static Materials_OLD loadGasolineRaw() {
         return new MaterialBuilder().setName("RawGasoline")
             .setDefaultLocalName("Raw Gasoline")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12791,7 +12791,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGasolineRegular() {
+    private static Materials_OLD loadGasolineRegular() {
         return new MaterialBuilder().setName("Gasoline")
             .setDefaultLocalName("Gasoline")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12803,33 +12803,33 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMTBEMixture() {
+    private static Materials_OLD loadMTBEMixture() {
         return new MaterialBuilder().setName("MTBEReactionMixture(Butene)")
             .setDefaultLocalName("MTBE Reaction Mixture (Butene)")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeWhite)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 5)
-            .addMaterial(Materials.Hydrogen, 12)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 5)
+            .addMaterial(Materials_OLD.Hydrogen, 12)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadMTBEMixtureAlt() {
+    private static Materials_OLD loadMTBEMixtureAlt() {
         return new MaterialBuilder().setName("MTBEReactionMixture(Butane)")
             .setDefaultLocalName("MTBE Reaction Mixture (Butane)")
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeWhite)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Carbon, 5)
-            .addMaterial(Materials.Hydrogen, 14)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 5)
+            .addMaterial(Materials_OLD.Hydrogen, 14)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadNitrousOxide() {
+    private static Materials_OLD loadNitrousOxide() {
         return new MaterialBuilder().setName("NitrousOxide")
             .setDefaultLocalName("Nitrous Oxide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12837,13 +12837,13 @@ public class MaterialsInit {
             .setARGB(0x007dc8ff)
             .addCell()
             .addGas()
-            .addMaterial(Materials.Nitrogen, 2)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadOctane() {
+    private static Materials_OLD loadOctane() {
         return new MaterialBuilder().setName("Octane")
             .setDefaultLocalName("Octane")
             .setIconSet(TextureSet.SET_FLUID)
@@ -12852,20 +12852,20 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Diesel, 80)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 18)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 18)
             .constructMaterial();
     }
 
     private static void loadAdded() {
-        Materials.BloodInfusedIron = loadBloodInfusedIron();
-        Materials.Electrotine = loadElectrotine();
-        Materials.Galgadorian = loadGalgadorian();
-        Materials.GalgadorianEnhanced = loadGalgadorianEnhanced();
-        Materials.Shadow = loadShadow();
+        Materials_OLD.BloodInfusedIron = loadBloodInfusedIron();
+        Materials_OLD.Electrotine = loadElectrotine();
+        Materials_OLD.Galgadorian = loadGalgadorian();
+        Materials_OLD.GalgadorianEnhanced = loadGalgadorianEnhanced();
+        Materials_OLD.Shadow = loadShadow();
     }
 
-    private static Materials loadBloodInfusedIron() {
+    private static Materials_OLD loadBloodInfusedIron() {
         return new MaterialBuilder().setName("BloodInfusedIron")
             .setDefaultLocalName("Blood Infused Iron")
             .setChemicalFormula(CustomGlyphs.BRIMSTONE + "Fe")
@@ -12884,7 +12884,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadElectrotine() {
+    private static Materials_OLD loadElectrotine() {
         return new MaterialBuilder().setName("Electrotine")
             .setDefaultLocalName("Electrotine")
             .setChemicalFormula("Rp")
@@ -12895,12 +12895,12 @@ public class MaterialsInit {
             .addDustItems()
             .addOreItems()
             .setOreMultiplier(5)
-            .addMaterial(Materials.Redstone, 1)
-            .addMaterial(Materials.Electrum, 1)
+            .addMaterial(Materials_OLD.Redstone, 1)
+            .addMaterial(Materials_OLD.Electrum, 1)
             .addAspect(TCAspects.ELECTRUM, 2)
-            .addOreByproduct(() -> Materials.Redstone)
-            .addOreByproduct(() -> Materials.Electrum)
-            .addOreByproduct(() -> Materials.Diamond)
+            .addOreByproduct(() -> Materials_OLD.Redstone)
+            .addOreByproduct(() -> Materials_OLD.Electrum)
+            .addOreByproduct(() -> Materials_OLD.Diamond)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.SMELTING_TO_FLUID)
             .addSubTag(SubTag.STONE)
@@ -12909,7 +12909,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGalgadorian() {
+    private static Materials_OLD loadGalgadorian() {
         return new MaterialBuilder().setName("Galgadorian")
             .setDefaultLocalName("Galgadorian")
             .setChemicalFormula("???C₉Nh₃Fe₂(C(MgFeSi₂O₈)₈)")
@@ -12928,7 +12928,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGalgadorianEnhanced() {
+    private static Materials_OLD loadGalgadorianEnhanced() {
         return new MaterialBuilder().setName("EnhancedGalgadorian")
             .setDefaultLocalName("Enhanced Galgadorian")
             .setChemicalFormula("???C₉Nh₃Fe₂(C(MgFeSi₂O₈)₈)")
@@ -12947,7 +12947,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadShadow() {
+    private static Materials_OLD loadShadow() {
         return new MaterialBuilder().setName("Shadow")
             .setDefaultLocalName("Shadow Metal")
             .setChemicalFormula("Sh₆(FeMa₃)₂")
@@ -12970,16 +12970,16 @@ public class MaterialsInit {
     }
 
     private static void loadGalaxySpace() {
-        Materials.BlackPlutonium = loadBlackPlutonium();
-        Materials.CallistoIce = loadCallistoIce();
-        Materials.Duralumin = loadDuralumin();
-        Materials.Ledox = loadLedox();
-        Materials.MysteriousCrystal = loadMysteriousCrystal();
-        Materials.Mytryl = loadMytryl();
-        Materials.Quantium = loadQuantium();
+        Materials_OLD.BlackPlutonium = loadBlackPlutonium();
+        Materials_OLD.CallistoIce = loadCallistoIce();
+        Materials_OLD.Duralumin = loadDuralumin();
+        Materials_OLD.Ledox = loadLedox();
+        Materials_OLD.MysteriousCrystal = loadMysteriousCrystal();
+        Materials_OLD.Mytryl = loadMytryl();
+        Materials_OLD.Quantium = loadQuantium();
     }
 
-    private static Materials loadBlackPlutonium() {
+    private static Materials_OLD loadBlackPlutonium() {
         return new MaterialBuilder().setName("BlackPlutonium")
             .setDefaultLocalName("Black Plutonium")
             .setChemicalFormula("SpPu")
@@ -13002,7 +13002,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCallistoIce() {
+    private static Materials_OLD loadCallistoIce() {
         return new MaterialBuilder().setName("CallistoIce")
             .setDefaultLocalName("Callisto Ice")
             .setChemicalFormula("SpH₂O")
@@ -13020,7 +13020,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDuralumin() {
+    private static Materials_OLD loadDuralumin() {
         return new MaterialBuilder().setName("Duralumin")
             .setDefaultLocalName("Duralumin")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13036,15 +13036,15 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_600)
             .setBlastFurnaceRequired(true)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Aluminium, 6)
-            .addMaterial(Materials.Copper, 1)
-            .addMaterial(Materials.Manganese, 1)
-            .addMaterial(Materials.Magnesium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 6)
+            .addMaterial(Materials_OLD.Copper, 1)
+            .addMaterial(Materials_OLD.Manganese, 1)
+            .addMaterial(Materials_OLD.Magnesium, 1)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
 
-    private static Materials loadLedox() {
+    private static Materials_OLD loadLedox() {
         return new MaterialBuilder().setName("Ledox")
             .setDefaultLocalName("Ledox")
             .setChemicalFormula("SpPb")
@@ -13062,7 +13062,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMysteriousCrystal() {
+    private static Materials_OLD loadMysteriousCrystal() {
         return new MaterialBuilder().setName("MysteriousCrystal")
             .setDefaultLocalName("Mysterious Crystal")
             .setChemicalFormula(CustomGlyphs.CIRCLE_STAR)
@@ -13084,7 +13084,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMytryl() {
+    private static Materials_OLD loadMytryl() {
         return new MaterialBuilder().setName("Mytryl")
             .setDefaultLocalName("Mytryl")
             .setChemicalFormula("SpPt₂FeMa")
@@ -13100,14 +13100,14 @@ public class MaterialsInit {
             .setMeltingPoint(3_600)
             .setBlastFurnaceTemp(3_600)
             .setBlastFurnaceRequired(true)
-            .addOreByproduct(() -> Materials.Samarium)
-            .addOreByproduct(() -> Materials.Zinc)
+            .addOreByproduct(() -> Materials_OLD.Samarium)
+            .addOreByproduct(() -> Materials_OLD.Zinc)
             .addSubTag(SubTag.MULTI_PLATE)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadQuantium() {
+    private static Materials_OLD loadQuantium() {
         return new MaterialBuilder().setName("Quantium")
             .setDefaultLocalName("Quantium")
             .setChemicalFormula("Qt")
@@ -13131,17 +13131,17 @@ public class MaterialsInit {
     }
 
     private static void loadUnclassified07() {
-        Materials.AstralSilver = loadAstralSilver();
-        Materials.BlueAlloy = loadBlueAlloy();
-        Materials.ClayCompound = loadClayCompound();
-        Materials.Enderium = loadEnderium();
-        Materials.Mithril = loadMithril();
-        Materials.ShadowIron = loadShadowIron();
-        Materials.ShadowSteel = loadShadowSteel();
-        Materials.Soularium = loadSoularium();
+        Materials_OLD.AstralSilver = loadAstralSilver();
+        Materials_OLD.BlueAlloy = loadBlueAlloy();
+        Materials_OLD.ClayCompound = loadClayCompound();
+        Materials_OLD.Enderium = loadEnderium();
+        Materials_OLD.Mithril = loadMithril();
+        Materials_OLD.ShadowIron = loadShadowIron();
+        Materials_OLD.ShadowSteel = loadShadowSteel();
+        Materials_OLD.Soularium = loadSoularium();
     }
 
-    private static Materials loadAstralSilver() {
+    private static Materials_OLD loadAstralSilver() {
         return new MaterialBuilder().setName("AstralSilver")
             .setDefaultLocalName("Astral Silver")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13153,16 +13153,16 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Silver, 2)
-            .addMaterial(Materials.Thaumium, 1)
-            .addOreByproduct(() -> Materials.Silver)
+            .addMaterial(Materials_OLD.Silver, 2)
+            .addMaterial(Materials_OLD.Thaumium, 1)
+            .addOreByproduct(() -> Materials_OLD.Silver)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.WASHING_MERCURY)
             .constructMaterial();
     }
 
-    private static Materials loadBlueAlloy() {
+    private static Materials_OLD loadBlueAlloy() {
         return new MaterialBuilder().setName("BlueAlloy")
             .setDefaultLocalName("Blue Alloy")
             .setChemicalFormula("AgRp₄")
@@ -13172,14 +13172,14 @@ public class MaterialsInit {
             .addDustItems()
             .addMetalItems()
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Silver, 1)
-            .addMaterial(Materials.Electrotine, 4)
+            .addMaterial(Materials_OLD.Silver, 1)
+            .addMaterial(Materials_OLD.Electrotine, 4)
             .addAspect(TCAspects.ELECTRUM, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadClayCompound() {
+    private static Materials_OLD loadClayCompound() {
         return new MaterialBuilder().setName("CrudeSteel")
             .setDefaultLocalName("Clay Compound")
             .setIconSet(TextureSet.SET_CRUDE_STEEL)
@@ -13193,14 +13193,14 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_000)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Stone, 1)
-            .addMaterial(Materials.Clay, 1)
-            .addMaterial(Materials.Flint, 1)
+            .addMaterial(Materials_OLD.Stone, 1)
+            .addMaterial(Materials_OLD.Clay, 1)
+            .addMaterial(Materials_OLD.Flint, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadEnderium() {
+    private static Materials_OLD loadEnderium() {
         return new MaterialBuilder().setName("Enderium")
             .setDefaultLocalName("Enderium")
             .setIconSet(TextureSet.SET_DULL)
@@ -13218,9 +13218,9 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.EnderiumBase, 2)
-            .addMaterial(Materials.Thaumium, 1)
-            .addMaterial(Materials.EnderPearl, 1)
+            .addMaterial(Materials_OLD.EnderiumBase, 2)
+            .addMaterial(Materials_OLD.Thaumium, 1)
+            .addMaterial(Materials_OLD.EnderPearl, 1)
             .addAspect(TCAspects.METALLUM, 2)
             .addAspect(TCAspects.ALIENIS, 1)
             .addSubTag(SubTag.MAGICAL)
@@ -13228,7 +13228,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMithril() {
+    private static Materials_OLD loadMithril() {
         return new MaterialBuilder().setName("Mithril")
             .setDefaultLocalName("Mithril")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13246,9 +13246,9 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Platinum, 2)
-            .addMaterial(Materials.Thaumium, 1)
-            .addOreByproduct(() -> Materials.Platinum)
+            .addMaterial(Materials_OLD.Platinum, 2)
+            .addMaterial(Materials_OLD.Thaumium, 1)
+            .addOreByproduct(() -> Materials_OLD.Platinum)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -13257,7 +13257,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadShadowIron() {
+    private static Materials_OLD loadShadowIron() {
         return new MaterialBuilder().setName("ShadowIron")
             .setDefaultLocalName("Shadow Iron")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -13275,16 +13275,16 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Thaumium, 3)
-            .addOreByproduct(() -> Materials.Iron)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Thaumium, 3)
+            .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_TRIPLE)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
 
-    private static Materials loadShadowSteel() {
+    private static Materials_OLD loadShadowSteel() {
         return new MaterialBuilder().setName("ShadowSteel")
             .setDefaultLocalName("Shadow Steel")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -13298,13 +13298,13 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_700)
             .setBlastFurnaceRequired(true)
             .addCentrifugeRecipe()
-            .addMaterial(Materials.Steel, 1)
-            .addMaterial(Materials.Thaumium, 3)
+            .addMaterial(Materials_OLD.Steel, 1)
+            .addMaterial(Materials_OLD.Thaumium, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSoularium() {
+    private static Materials_OLD loadSoularium() {
         return new MaterialBuilder().setName("Soularium")
             .setDefaultLocalName("Soularium")
             .setIconSet(TextureSet.SET_DARKSTEEL)
@@ -13320,22 +13320,22 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.SoulSand, 1)
-            .addMaterial(Materials.Gold, 1)
-            .addMaterial(Materials.Ash, 1)
+            .addMaterial(Materials_OLD.SoulSand, 1)
+            .addMaterial(Materials_OLD.Gold, 1)
+            .addMaterial(Materials_OLD.Ash, 1)
             .constructMaterial();
     }
 
     private static void loadOverpoweredMaterials() {
-        Materials.Bedrockium = loadBedrockium();
-        Materials.CosmicNeutronium = loadCosmicNeutronium();
-        Materials.Ichorium = loadIchorium();
-        Materials.Infinity = loadInfinity();
-        Materials.InfinityCatalyst = loadInfinityCatalyst();
-        Materials.Trinium = loadTrinium();
+        Materials_OLD.Bedrockium = loadBedrockium();
+        Materials_OLD.CosmicNeutronium = loadCosmicNeutronium();
+        Materials_OLD.Ichorium = loadIchorium();
+        Materials_OLD.Infinity = loadInfinity();
+        Materials_OLD.InfinityCatalyst = loadInfinityCatalyst();
+        Materials_OLD.Trinium = loadTrinium();
     }
 
-    private static Materials loadBedrockium() {
+    private static Materials_OLD loadBedrockium() {
         return new MaterialBuilder().setName("Bedrockium")
             .setDefaultLocalName("Bedrockium")
             .setIconSet(TextureSet.SET_BEDROCKIUM)
@@ -13350,8 +13350,8 @@ public class MaterialsInit {
             .setMeltingPoint(9_900)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addMaterial(Materials.SiliconDioxide, 26_244)
-            .addMaterial(Materials.Diamond, 9)
+            .addMaterial(Materials_OLD.SiliconDioxide, 26_244)
+            .addMaterial(Materials_OLD.Diamond, 9)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
@@ -13359,7 +13359,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_EV);
     }
 
-    private static Materials loadCosmicNeutronium() {
+    private static Materials_OLD loadCosmicNeutronium() {
         return new MaterialBuilder().setName("CosmicNeutronium")
             .setDefaultLocalName("Cosmic Neutronium")
             .setChemicalFormula("SpNt")
@@ -13387,7 +13387,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_ZPM);
     }
 
-    private static Materials loadIchorium() {
+    private static Materials_OLD loadIchorium() {
         return new MaterialBuilder().setName("Ichorium")
             .setDefaultLocalName("Ichorium")
             .setChemicalFormula("IcMa")
@@ -13413,7 +13413,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadInfinity() {
+    private static Materials_OLD loadInfinity() {
         return new MaterialBuilder().setName("Infinity")
             .setDefaultLocalName("Infinity")
             .setChemicalFormula("If*")
@@ -13438,7 +13438,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
     }
 
-    private static Materials loadInfinityCatalyst() {
+    private static Materials_OLD loadInfinityCatalyst() {
         return new MaterialBuilder().setName("InfinityCatalyst")
             .setDefaultLocalName("Infinity Catalyst")
             .setChemicalFormula("If")
@@ -13462,7 +13462,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
     }
 
-    private static Materials loadTrinium() {
+    private static Materials_OLD loadTrinium() {
         return new MaterialBuilder().setName("Trinium")
             .setDefaultLocalName("Trinium")
             .setChemicalFormula("Ke")
@@ -13486,20 +13486,20 @@ public class MaterialsInit {
     }
 
     private static void loadSuperconductorBases() {
-        Materials.SuperconductorMVBase = loadSuperconductorMVBase();
-        Materials.SuperconductorHVBase = loadSuperconductorHVBase();
-        Materials.SuperconductorEVBase = loadSuperconductorEVBase();
-        Materials.SuperconductorIVBase = loadSuperconductorIVBase();
-        Materials.SuperconductorLuVBase = loadSuperconductorLuVBase();
-        Materials.SuperconductorZPMBase = loadSuperconductorZPMBase();
-        Materials.SuperconductorUVBase = loadSuperconductorUVBase();
-        Materials.SuperconductorUHVBase = loadSuperconductorUHVBase();
-        Materials.SuperconductorUEVBase = loadSuperconductorUEVBase();
-        Materials.SuperconductorUIVBase = loadSuperconductorUIVBase();
-        Materials.SuperconductorUMVBase = loadSuperconductorUMVBase();
+        Materials_OLD.SuperconductorMVBase = loadSuperconductorMVBase();
+        Materials_OLD.SuperconductorHVBase = loadSuperconductorHVBase();
+        Materials_OLD.SuperconductorEVBase = loadSuperconductorEVBase();
+        Materials_OLD.SuperconductorIVBase = loadSuperconductorIVBase();
+        Materials_OLD.SuperconductorLuVBase = loadSuperconductorLuVBase();
+        Materials_OLD.SuperconductorZPMBase = loadSuperconductorZPMBase();
+        Materials_OLD.SuperconductorUVBase = loadSuperconductorUVBase();
+        Materials_OLD.SuperconductorUHVBase = loadSuperconductorUHVBase();
+        Materials_OLD.SuperconductorUEVBase = loadSuperconductorUEVBase();
+        Materials_OLD.SuperconductorUIVBase = loadSuperconductorUIVBase();
+        Materials_OLD.SuperconductorUMVBase = loadSuperconductorUMVBase();
     }
 
-    private static Materials loadSuperconductorMVBase() {
+    private static Materials_OLD loadSuperconductorMVBase() {
         return new MaterialBuilder().setName("Pentacadmiummagnesiumhexaoxid")
             .setDefaultLocalName("Superconductor Base MV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13513,15 +13513,15 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Cadmium, 5)
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.Oxygen, 6)
+            .addMaterial(Materials_OLD.Cadmium, 5)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 6)
             .addAspect(TCAspects.ELECTRUM, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorHVBase() {
+    private static Materials_OLD loadSuperconductorHVBase() {
         return new MaterialBuilder().setName("Titaniumonabariumdecacoppereikosaoxid")
             .setDefaultLocalName("Superconductor Base HV")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -13535,16 +13535,16 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Titanium, 1)
-            .addMaterial(Materials.Barium, 9)
-            .addMaterial(Materials.Copper, 10)
-            .addMaterial(Materials.Oxygen, 20)
+            .addMaterial(Materials_OLD.Titanium, 1)
+            .addMaterial(Materials_OLD.Barium, 9)
+            .addMaterial(Materials_OLD.Copper, 10)
+            .addMaterial(Materials_OLD.Oxygen, 20)
             .addAspect(TCAspects.ELECTRUM, 6)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorEVBase() {
+    private static Materials_OLD loadSuperconductorEVBase() {
         return new MaterialBuilder().setName("Uraniumtriplatinid")
             .setDefaultLocalName("Superconductor Base EV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13558,14 +13558,14 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Uranium, 1)
-            .addMaterial(Materials.Platinum, 3)
+            .addMaterial(Materials_OLD.Uranium, 1)
+            .addMaterial(Materials_OLD.Platinum, 3)
             .addAspect(TCAspects.ELECTRUM, 9)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorIVBase() {
+    private static Materials_OLD loadSuperconductorIVBase() {
         return new MaterialBuilder().setName("Vanadiumtriindinid")
             .setDefaultLocalName("Superconductor Base IV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13579,14 +13579,14 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Vanadium, 1)
-            .addMaterial(Materials.Indium, 3)
+            .addMaterial(Materials_OLD.Vanadium, 1)
+            .addMaterial(Materials_OLD.Indium, 3)
             .addAspect(TCAspects.ELECTRUM, 12)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorLuVBase() {
+    private static Materials_OLD loadSuperconductorLuVBase() {
         return new MaterialBuilder().setName("Tetraindiumditindibariumtitaniumheptacoppertetrakaidekaoxid")
             .setDefaultLocalName("Superconductor Base LuV")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -13600,18 +13600,18 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Indium, 4)
-            .addMaterial(Materials.Tin, 2)
-            .addMaterial(Materials.Barium, 2)
-            .addMaterial(Materials.Titanium, 1)
-            .addMaterial(Materials.Copper, 7)
-            .addMaterial(Materials.Oxygen, 14)
+            .addMaterial(Materials_OLD.Indium, 4)
+            .addMaterial(Materials_OLD.Tin, 2)
+            .addMaterial(Materials_OLD.Barium, 2)
+            .addMaterial(Materials_OLD.Titanium, 1)
+            .addMaterial(Materials_OLD.Copper, 7)
+            .addMaterial(Materials_OLD.Oxygen, 14)
             .addAspect(TCAspects.ELECTRUM, 15)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorZPMBase() {
+    private static Materials_OLD loadSuperconductorZPMBase() {
         return new MaterialBuilder().setName("Tetranaquadahdiindiumhexaplatiumosminid")
             .setDefaultLocalName("Superconductor Base ZPM")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -13625,16 +13625,16 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Naquadah, 4)
-            .addMaterial(Materials.Indium, 2)
-            .addMaterial(Materials.Palladium, 6)
-            .addMaterial(Materials.Osmium, 1)
+            .addMaterial(Materials_OLD.Naquadah, 4)
+            .addMaterial(Materials_OLD.Indium, 2)
+            .addMaterial(Materials_OLD.Palladium, 6)
+            .addMaterial(Materials_OLD.Osmium, 1)
             .addAspect(TCAspects.ELECTRUM, 18)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorUVBase() {
+    private static Materials_OLD loadSuperconductorUVBase() {
         return new MaterialBuilder().setName("Longasssuperconductornameforuvwire")
             .setDefaultLocalName("Superconductor Base UV")
             .setChemicalFormula("Nq*₄(Ir₃Os)₃EuSm")
@@ -13649,17 +13649,17 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Naquadria, 4)
-            .addMaterial(Materials.Osmiridium, 3)
-            .addMaterial(Materials.Europium, 1)
-            .addMaterial(Materials.Samarium, 1)
+            .addMaterial(Materials_OLD.Naquadria, 4)
+            .addMaterial(Materials_OLD.Osmiridium, 3)
+            .addMaterial(Materials_OLD.Europium, 1)
+            .addMaterial(Materials_OLD.Samarium, 1)
             .addAspect(TCAspects.ELECTRUM, 21)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_LuV);
     }
 
-    private static Materials loadSuperconductorUHVBase() {
+    private static Materials_OLD loadSuperconductorUHVBase() {
         return new MaterialBuilder().setName("Longasssuperconductornameforuhvwire")
             .setDefaultLocalName("Superconductor Base UHV")
             .setChemicalFormula("D₆(SpNt)₇Tn₅Am₆")
@@ -13674,17 +13674,17 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Draconium, 6)
-            .addMaterial(Materials.CosmicNeutronium, 7)
-            .addMaterial(Materials.Tritanium, 5)
-            .addMaterial(Materials.Americium, 6)
+            .addMaterial(Materials_OLD.Draconium, 6)
+            .addMaterial(Materials_OLD.CosmicNeutronium, 7)
+            .addMaterial(Materials_OLD.Tritanium, 5)
+            .addMaterial(Materials_OLD.Americium, 6)
             .addAspect(TCAspects.ELECTRUM, 24)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_ZPM);
     }
 
-    private static Materials loadSuperconductorUEVBase() {
+    private static Materials_OLD loadSuperconductorUEVBase() {
         return new MaterialBuilder().setName("SuperconductorUEVBase")
             .setDefaultLocalName("Superconductor Base UEV")
             .setChemicalFormula("D*₅If*₅(✦◆✦)(⚷⚙⚷Ni4Ti6)")
@@ -13704,7 +13704,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
     }
 
-    private static Materials loadSuperconductorUIVBase() {
+    private static Materials_OLD loadSuperconductorUIVBase() {
         return new MaterialBuilder().setName("SuperconductorUIVBase")
             .setDefaultLocalName("Superconductor Base UIV")
             .setChemicalFormula("(C₁₄Os₁₁O₇Ag₃SpH₂O)₄?₁" + CustomGlyphs.SUBSCRIPT0 + "(Fs⚶)₆(⌘☯☯⌘)₅")
@@ -13724,7 +13724,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UHV);
     }
 
-    private static Materials loadSuperconductorUMVBase() {
+    private static Materials_OLD loadSuperconductorUMVBase() {
         return new MaterialBuilder().setName("SuperconductorUMVBase")
             .setDefaultLocalName("Superconductor Base UMV")
             .setChemicalFormula(
@@ -13746,20 +13746,20 @@ public class MaterialsInit {
     }
 
     private static void loadSuperconductors() {
-        Materials.SuperconductorMV = loadSuperconductorMV();
-        Materials.SuperconductorHV = loadSuperconductorHV();
-        Materials.SuperconductorEV = loadSuperconductorEV();
-        Materials.SuperconductorIV = loadSuperconductorIV();
-        Materials.SuperconductorLuV = loadSuperconductorLuV();
-        Materials.SuperconductorZPM = loadSuperconductorZPM();
-        Materials.SuperconductorUV = loadSuperconductorUV();
-        Materials.SuperconductorUHV = loadSuperconductorUHV();
-        Materials.SuperconductorUEV = loadSuperconductorUEV();
-        Materials.SuperconductorUIV = loadSuperconductorUIV();
-        Materials.SuperconductorUMV = loadSuperconductorUMV();
+        Materials_OLD.SuperconductorMV = loadSuperconductorMV();
+        Materials_OLD.SuperconductorHV = loadSuperconductorHV();
+        Materials_OLD.SuperconductorEV = loadSuperconductorEV();
+        Materials_OLD.SuperconductorIV = loadSuperconductorIV();
+        Materials_OLD.SuperconductorLuV = loadSuperconductorLuV();
+        Materials_OLD.SuperconductorZPM = loadSuperconductorZPM();
+        Materials_OLD.SuperconductorUV = loadSuperconductorUV();
+        Materials_OLD.SuperconductorUHV = loadSuperconductorUHV();
+        Materials_OLD.SuperconductorUEV = loadSuperconductorUEV();
+        Materials_OLD.SuperconductorUIV = loadSuperconductorUIV();
+        Materials_OLD.SuperconductorUMV = loadSuperconductorUMV();
     }
 
-    private static Materials loadSuperconductorMV() {
+    private static Materials_OLD loadSuperconductorMV() {
         return new MaterialBuilder().setName("SuperconductorMV")
             .setDefaultLocalName("Superconductor MV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13771,7 +13771,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorHV() {
+    private static Materials_OLD loadSuperconductorHV() {
         return new MaterialBuilder().setName("SuperconductorHV")
             .setDefaultLocalName("Superconductor HV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13783,7 +13783,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorEV() {
+    private static Materials_OLD loadSuperconductorEV() {
         return new MaterialBuilder().setName("SuperconductorEV")
             .setDefaultLocalName("Superconductor EV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13795,7 +13795,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorIV() {
+    private static Materials_OLD loadSuperconductorIV() {
         return new MaterialBuilder().setName("SuperconductorIV")
             .setDefaultLocalName("Superconductor IV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13807,7 +13807,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorLuV() {
+    private static Materials_OLD loadSuperconductorLuV() {
         return new MaterialBuilder().setName("SuperconductorLuV")
             .setDefaultLocalName("Superconductor LuV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13819,7 +13819,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorZPM() {
+    private static Materials_OLD loadSuperconductorZPM() {
         return new MaterialBuilder().setName("SuperconductorZPM")
             .setDefaultLocalName("Superconductor ZPM")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13831,7 +13831,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorUV() {
+    private static Materials_OLD loadSuperconductorUV() {
         return new MaterialBuilder().setName("SuperconductorUV")
             .setDefaultLocalName("Superconductor UV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13843,7 +13843,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorUHV() {
+    private static Materials_OLD loadSuperconductorUHV() {
         return new MaterialBuilder().setName("Superconductor")
             .setDefaultLocalName("Superconductor UHV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13855,7 +13855,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorUEV() {
+    private static Materials_OLD loadSuperconductorUEV() {
         return new MaterialBuilder().setName("SuperconductorUEV")
             .setDefaultLocalName("Superconductor UEV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13865,7 +13865,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorUIV() {
+    private static Materials_OLD loadSuperconductorUIV() {
         return new MaterialBuilder().setName("SuperconductorUIV")
             .setDefaultLocalName("Superconductor UIV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13875,7 +13875,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSuperconductorUMV() {
+    private static Materials_OLD loadSuperconductorUMV() {
         return new MaterialBuilder().setName("SuperconductorUMV")
             .setDefaultLocalName("Superconductor UMV")
             .setIconSet(TextureSet.SET_SHINY)
@@ -13886,38 +13886,38 @@ public class MaterialsInit {
     }
 
     private static void loadWaterLineChemicals() {
-        Materials.ActivatedCarbon = loadActivatedCarbon();
-        Materials.PreActivatedCarbon = loadPreActivatedCarbon();
-        Materials.DirtyActivatedCarbon = loadDirtyActivatedCarbon();
-        Materials.PolyAluminiumChloride = loadPolyAluminiumChloride();
-        Materials.Ozone = loadOzone();
-        Materials.StableBaryonicMatter = loadStableBaryonicMatter();
+        Materials_OLD.ActivatedCarbon = loadActivatedCarbon();
+        Materials_OLD.PreActivatedCarbon = loadPreActivatedCarbon();
+        Materials_OLD.DirtyActivatedCarbon = loadDirtyActivatedCarbon();
+        Materials_OLD.PolyAluminiumChloride = loadPolyAluminiumChloride();
+        Materials_OLD.Ozone = loadOzone();
+        Materials_OLD.StableBaryonicMatter = loadStableBaryonicMatter();
     }
 
-    private static Materials loadActivatedCarbon() {
+    private static Materials_OLD loadActivatedCarbon() {
         return new MaterialBuilder().setName("ActivatedCarbon")
             .setDefaultLocalName("Activated Carbon")
             .setIconSet(TextureSet.SET_DULL)
             .setARGB(0x00141414)
             .addDustItems()
             .setAutoGeneratedRecycleRecipes(false)
-            .addMaterial(Materials.Carbon, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
             .constructMaterial();
     }
 
-    private static Materials loadPreActivatedCarbon() {
+    private static Materials_OLD loadPreActivatedCarbon() {
         return new MaterialBuilder().setName("PreActivatedCarbon")
             .setDefaultLocalName("Pre-Activated Carbon")
             .setIconSet(TextureSet.SET_DULL)
             .setARGB(0x000f3341)
             .addDustItems()
             .setAutoGeneratedRecycleRecipes(false)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.PhosphoricAcid, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.PhosphoricAcid, 1)
             .constructMaterial();
     }
 
-    private static Materials loadDirtyActivatedCarbon() {
+    private static Materials_OLD loadDirtyActivatedCarbon() {
         return new MaterialBuilder()
             // don't change this to the more sensible name or a centrifuge recipe appears
             .setName("carbonactivateddirty")
@@ -13926,12 +13926,12 @@ public class MaterialsInit {
             .setARGB(0x006e6e6e)
             .addDustItems()
             .setAutoGeneratedRecycleRecipes(false)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.PhosphoricAcid, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.PhosphoricAcid, 1)
             .constructMaterial();
     }
 
-    private static Materials loadPolyAluminiumChloride() {
+    private static Materials_OLD loadPolyAluminiumChloride() {
         return new MaterialBuilder().setName("PolyaluminiumChloride")
             .setDefaultLocalName("Polyaluminium Chloride")
             .setChemicalFormula("Al₂(OH)₃Cl₃")
@@ -13942,18 +13942,18 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadOzone() {
+    private static Materials_OLD loadOzone() {
         return new MaterialBuilder().setName("Ozone")
             .setDefaultLocalName("Ozone")
             .setIconSet(TextureSet.SET_FLUID)
             .setARGB(0x00bef4fa)
             .addGas()
             .addCell()
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .constructMaterial();
     }
 
-    private static Materials loadStableBaryonicMatter() {
+    private static Materials_OLD loadStableBaryonicMatter() {
         return new MaterialBuilder().setName("stablebaryonicmatter")
             .setDefaultLocalName("Stabilised Baryonic Matter")
             .setIconSet(TextureSet.SET_SBM)
@@ -13965,19 +13965,19 @@ public class MaterialsInit {
     }
 
     private static void loadRadoxLine() {
-        Materials.RadoxCracked = loadRadoxCracked();
-        Materials.RadoxGas = loadRadoxGas();
-        Materials.RadoxHeavy = loadRadoxHeavy();
-        Materials.RadoxLight = loadRadoxLight();
-        Materials.RadoxPolymer = loadRadoxPolymer();
-        Materials.RadoxRaw = loadRadoxRaw();
-        Materials.RadoxSuperHeavy = loadRadoxSuperHeavy();
-        Materials.RadoxSuperLight = loadRadoxSuperLight();
-        Materials.Xenoxene = loadXenoxene();
-        Materials.XenoxeneDiluted = loadXenoxeneDiluted();
+        Materials_OLD.RadoxCracked = loadRadoxCracked();
+        Materials_OLD.RadoxGas = loadRadoxGas();
+        Materials_OLD.RadoxHeavy = loadRadoxHeavy();
+        Materials_OLD.RadoxLight = loadRadoxLight();
+        Materials_OLD.RadoxPolymer = loadRadoxPolymer();
+        Materials_OLD.RadoxRaw = loadRadoxRaw();
+        Materials_OLD.RadoxSuperHeavy = loadRadoxSuperHeavy();
+        Materials_OLD.RadoxSuperLight = loadRadoxSuperLight();
+        Materials_OLD.Xenoxene = loadXenoxene();
+        Materials_OLD.XenoxeneDiluted = loadXenoxeneDiluted();
     }
 
-    private static Materials loadRadoxCracked() {
+    private static Materials_OLD loadRadoxCracked() {
         return new MaterialBuilder().setName("CrackedRadox")
             .setDefaultLocalName("Cracked Radox")
             .setIconSet(TextureSet.SET_DULL)
@@ -13986,7 +13986,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRadoxGas() {
+    private static Materials_OLD loadRadoxGas() {
         return new MaterialBuilder().setName("RadoxGas")
             .setDefaultLocalName("Radox Gas")
             .setIconSet(TextureSet.SET_DULL)
@@ -13995,7 +13995,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRadoxHeavy() {
+    private static Materials_OLD loadRadoxHeavy() {
         return new MaterialBuilder().setName("HeavyRadox")
             .setDefaultLocalName("Heavy Radox")
             .setIconSet(TextureSet.SET_DULL)
@@ -14004,7 +14004,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRadoxLight() {
+    private static Materials_OLD loadRadoxLight() {
         return new MaterialBuilder().setName("LightRadox")
             .setDefaultLocalName("Light Radox")
             .setIconSet(TextureSet.SET_DULL)
@@ -14013,7 +14013,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRadoxPolymer() {
+    private static Materials_OLD loadRadoxPolymer() {
         return new MaterialBuilder().setName("RadoxPoly")
             .setDefaultLocalName("Radox Polymer")
             .setIconSet(TextureSet.SET_DULL)
@@ -14026,11 +14026,11 @@ public class MaterialsInit {
             .addCell()
             .addGas()
             .setMeltingPoint(6_203)
-            .addMaterial(Materials.Carbon, 14)
-            .addMaterial(Materials.Osmium, 11)
-            .addMaterial(Materials.Oxygen, 7)
-            .addMaterial(Materials.Silver, 3)
-            .addMaterial(Materials.CallistoIce, 1)
+            .addMaterial(Materials_OLD.Carbon, 14)
+            .addMaterial(Materials_OLD.Osmium, 11)
+            .addMaterial(Materials_OLD.Oxygen, 7)
+            .addMaterial(Materials_OLD.Silver, 3)
+            .addMaterial(Materials_OLD.CallistoIce, 1)
             .addAspect(TCAspects.HUMANUS, 2)
             .addSubTag(SubTag.SOFT)
             .removeOrePrefix(OrePrefixes.cell) // non molten cell is useless
@@ -14038,7 +14038,7 @@ public class MaterialsInit {
             .setGasTemperature(12_406);
     }
 
-    private static Materials loadRadoxRaw() {
+    private static Materials_OLD loadRadoxRaw() {
         return new MaterialBuilder().setName("RawRadox")
             .setDefaultLocalName("Raw Radox")
             .setIconSet(TextureSet.SET_DULL)
@@ -14047,7 +14047,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRadoxSuperHeavy() {
+    private static Materials_OLD loadRadoxSuperHeavy() {
         return new MaterialBuilder().setName("SuperHeavyRadox")
             .setDefaultLocalName("Super Heavy Radox")
             .setIconSet(TextureSet.SET_DULL)
@@ -14056,7 +14056,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRadoxSuperLight() {
+    private static Materials_OLD loadRadoxSuperLight() {
         return new MaterialBuilder().setName("SuperLightRadox")
             .setDefaultLocalName("Super Light Radox")
             .setIconSet(TextureSet.SET_DULL)
@@ -14065,7 +14065,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadXenoxene() {
+    private static Materials_OLD loadXenoxene() {
         return new MaterialBuilder().setName("Xenoxene")
             .setDefaultLocalName("Xenoxene")
             .setIconSet(TextureSet.SET_DULL)
@@ -14074,7 +14074,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadXenoxeneDiluted() {
+    private static Materials_OLD loadXenoxeneDiluted() {
         return new MaterialBuilder().setName("DilutedXenoxene")
             .setDefaultLocalName("Diluted Xenoxene")
             .setIconSet(TextureSet.SET_DULL)
@@ -14084,19 +14084,19 @@ public class MaterialsInit {
     }
 
     private static void loadNetheriteLine() {
-        Materials.NetherAir = loadNetherAir();
-        Materials.NetherSemiFluid = loadNethersemifluid();
-        Materials.NefariousGas = loadNefariousGas();
-        Materials.NefariousOil = loadNefariousOil();
-        Materials.PoorNetherWaste = loadPoorNetherWaste();
-        Materials.RichNetherWaste = loadRichNetherWaste();
-        Materials.HellishMetal = loadHellishMetal();
-        Materials.Netherite = loadNetherite();
-        Materials.Netherite.remove(SubTag.SMELTING_TO_FLUID);
-        Materials.ActivatedNetherite = loadActivatedNetherite();
+        Materials_OLD.NetherAir = loadNetherAir();
+        Materials_OLD.NetherSemiFluid = loadNethersemifluid();
+        Materials_OLD.NefariousGas = loadNefariousGas();
+        Materials_OLD.NefariousOil = loadNefariousOil();
+        Materials_OLD.PoorNetherWaste = loadPoorNetherWaste();
+        Materials_OLD.RichNetherWaste = loadRichNetherWaste();
+        Materials_OLD.HellishMetal = loadHellishMetal();
+        Materials_OLD.Netherite = loadNetherite();
+        Materials_OLD.Netherite.remove(SubTag.SMELTING_TO_FLUID);
+        Materials_OLD.ActivatedNetherite = loadActivatedNetherite();
     }
 
-    private static Materials loadNetherAir() {
+    private static Materials_OLD loadNetherAir() {
         return new MaterialBuilder().setName("netherair")
             .setDefaultLocalName("Nether Air")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14106,7 +14106,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNethersemifluid() {
+    private static Materials_OLD loadNethersemifluid() {
         return new MaterialBuilder().setName("nethersemifluid")
             .setDefaultLocalName("Nether Semifluid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14116,7 +14116,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNefariousGas() {
+    private static Materials_OLD loadNefariousGas() {
         return new MaterialBuilder().setName("nefariousgas")
             .setDefaultLocalName("Nefarious Gas")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14127,7 +14127,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNefariousOil() {
+    private static Materials_OLD loadNefariousOil() {
         return new MaterialBuilder().setName("nefariousoil")
             .setDefaultLocalName("Nefarious Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14138,7 +14138,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPoorNetherWaste() {
+    private static Materials_OLD loadPoorNetherWaste() {
         return new MaterialBuilder().setName("poornetherwaste")
             .setDefaultLocalName("Poor Nether Waste")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14148,7 +14148,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRichNetherWaste() {
+    private static Materials_OLD loadRichNetherWaste() {
         return new MaterialBuilder().setName("richnetherwaste")
             .setDefaultLocalName("Rich Nether Waste")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14158,7 +14158,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHellishMetal() {
+    private static Materials_OLD loadHellishMetal() {
         return new MaterialBuilder().setName("HellishMetal")
             .setDefaultLocalName("Hellish Metal")
             .setChemicalFormula("RhMa")
@@ -14176,7 +14176,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNetherite() {
+    private static Materials_OLD loadNetherite() {
         return new MaterialBuilder().setName("Netherite")
             .setDefaultLocalName("Netherite")
             .setChemicalFormula("NrAuMa*")
@@ -14201,7 +14201,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_ZPM);
     }
 
-    private static Materials loadActivatedNetherite() {
+    private static Materials_OLD loadActivatedNetherite() {
         // The corresponding fluid is registered manually in LoaderGTBlockFluid so it can use a molten texture and a
         // custom temperature, so addFluid() is intentionally omitted here to avoid a duplicate registration.
         return new MaterialBuilder().setName("activatednetherite")
@@ -14213,17 +14213,17 @@ public class MaterialsInit {
     }
 
     private static void loadPrismaticAcidLine() {
-        Materials.PrismarineSolution = loadPrismarineSolution();
-        Materials.PrismarineContaminatedHydrogenPeroxide = loadPrismarinecontaminatedhydrogenperoxide();
-        Materials.PrismarineRichNitrobenzeneSolution = loadPrismarinerichnitrobenzenesolution();
-        Materials.PrismarineContaminatedNitrobenzeSolution = loadPrismarinecontaminatednitrobenzenesolution();
-        Materials.PrismaticGas = loadPrismaticGas();
-        Materials.PrismaticAcid = loadPrismaticAcid();
-        Materials.PrismaticNaquadah = loadPrismaticNaquadah();
-        Materials.PrismaticNaquadahCompositeSlurry = loadPrismaticNaquadahCompositeSlurry();
+        Materials_OLD.PrismarineSolution = loadPrismarineSolution();
+        Materials_OLD.PrismarineContaminatedHydrogenPeroxide = loadPrismarinecontaminatedhydrogenperoxide();
+        Materials_OLD.PrismarineRichNitrobenzeneSolution = loadPrismarinerichnitrobenzenesolution();
+        Materials_OLD.PrismarineContaminatedNitrobenzeSolution = loadPrismarinecontaminatednitrobenzenesolution();
+        Materials_OLD.PrismaticGas = loadPrismaticGas();
+        Materials_OLD.PrismaticAcid = loadPrismaticAcid();
+        Materials_OLD.PrismaticNaquadah = loadPrismaticNaquadah();
+        Materials_OLD.PrismaticNaquadahCompositeSlurry = loadPrismaticNaquadahCompositeSlurry();
     }
 
-    private static Materials loadPrismarineSolution() {
+    private static Materials_OLD loadPrismarineSolution() {
         return new MaterialBuilder().setName("prismarinesolution")
             .setDefaultLocalName("Prismarine Solution")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -14233,7 +14233,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPrismarinecontaminatedhydrogenperoxide() {
+    private static Materials_OLD loadPrismarinecontaminatedhydrogenperoxide() {
         return new MaterialBuilder().setName("prismarinecontaminatedhydrogenperoxide")
             .setDefaultLocalName("Prismarine-Contaminated Hydrogen Peroxide")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -14243,7 +14243,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPrismarinerichnitrobenzenesolution() {
+    private static Materials_OLD loadPrismarinerichnitrobenzenesolution() {
         return new MaterialBuilder().setName("prismarinerichnitrobenzenesolution")
             .setDefaultLocalName("Prismarine-Rich Nitrobenzene Solution")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -14253,7 +14253,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPrismarinecontaminatednitrobenzenesolution() {
+    private static Materials_OLD loadPrismarinecontaminatednitrobenzenesolution() {
         return new MaterialBuilder().setName("prismarinecontaminatednitrobenzenesolution")
             .setDefaultLocalName("Prismarine-Contaminated Nitrobenzene Solution")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -14263,7 +14263,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPrismaticGas() {
+    private static Materials_OLD loadPrismaticGas() {
         return new MaterialBuilder().setName("prismaticgas")
             .setDefaultLocalName("Prismatic Gas")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -14273,7 +14273,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPrismaticAcid() {
+    private static Materials_OLD loadPrismaticAcid() {
         return new MaterialBuilder().setName("prismaticacid")
             .setDefaultLocalName("Prismatic Acid")
             .setIconSet(TextureSet.SET_PRISMATIC_ACID)
@@ -14284,10 +14284,10 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPrismaticNaquadah() {
+    private static Materials_OLD loadPrismaticNaquadah() {
         return new MaterialBuilder().setName("prismaticnaquadah")
             .setDefaultLocalName("Prismatic Naquadah")
-            .setChemicalFormula(Materials.Naquadah.getChemicalFormula() + "\u0394")
+            .setChemicalFormula(Materials_OLD.Naquadah.getChemicalFormula() + "\u0394")
             .setFlavorText("Absorbs all radiation")
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x00373737)
@@ -14298,7 +14298,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_ZPM);
     }
 
-    private static Materials loadPrismaticNaquadahCompositeSlurry() {
+    private static Materials_OLD loadPrismaticNaquadahCompositeSlurry() {
         return new MaterialBuilder().setName("prismaticnaquadahcompositeslurry")
             .setDefaultLocalName("Prismatic Naquadah Composite Slurry")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14310,24 +14310,24 @@ public class MaterialsInit {
     }
 
     private static void loadAcidRecipes() {
-        Materials.ImpureFranciumSolution = loadImpureFranciumSolution();
-        Materials.FranciumHydroxide = loadFranciumHydroxide();
-        Materials.FranciumSlurry = loadFranciumSlurry();
-        Materials.ThoriumElutionAdsorbent = loadThoriumElutionAdsorbent();
-        Materials.PhosphorusChlorineMixture = loadPhosphorusChlorineMixture();
-        Materials.PhosphorusPentachloride = loadPhosphorusPentachloride();
-        Materials.ToxicAir = loadToxicAir();
-        Materials.ToxicSlurry = loadToxicSlurry();
-        Materials.DestabilizationSlurry = loadDestabilizationSlurry();
-        Materials.AgitatingSlurry = loadAgitatingSlurry();
-        Materials.UltraContaminatedGas = loadUltraContaminatedGas();
-        Materials.StagnantWasteWater = loadStagnantWasteWater();
-        Materials.ActivatedWasteWater = loadActivatedWasteWater();
-        Materials.ChlorosulfonicAcid = loadChlorosulfonicAcid();
-        Materials.PoisonousSlurry = loadPoisonousSlurry();
+        Materials_OLD.ImpureFranciumSolution = loadImpureFranciumSolution();
+        Materials_OLD.FranciumHydroxide = loadFranciumHydroxide();
+        Materials_OLD.FranciumSlurry = loadFranciumSlurry();
+        Materials_OLD.ThoriumElutionAdsorbent = loadThoriumElutionAdsorbent();
+        Materials_OLD.PhosphorusChlorineMixture = loadPhosphorusChlorineMixture();
+        Materials_OLD.PhosphorusPentachloride = loadPhosphorusPentachloride();
+        Materials_OLD.ToxicAir = loadToxicAir();
+        Materials_OLD.ToxicSlurry = loadToxicSlurry();
+        Materials_OLD.DestabilizationSlurry = loadDestabilizationSlurry();
+        Materials_OLD.AgitatingSlurry = loadAgitatingSlurry();
+        Materials_OLD.UltraContaminatedGas = loadUltraContaminatedGas();
+        Materials_OLD.StagnantWasteWater = loadStagnantWasteWater();
+        Materials_OLD.ActivatedWasteWater = loadActivatedWasteWater();
+        Materials_OLD.ChlorosulfonicAcid = loadChlorosulfonicAcid();
+        Materials_OLD.PoisonousSlurry = loadPoisonousSlurry();
     }
 
-    private static Materials loadImpureFranciumSolution() {
+    private static Materials_OLD loadImpureFranciumSolution() {
         return new MaterialBuilder().setName("ImpureFranciumSolution")
             .setDefaultLocalName("Impure Francium Solution")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14337,7 +14337,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFranciumSlurry() {
+    private static Materials_OLD loadFranciumSlurry() {
         return new MaterialBuilder().setName("FranciumSlurry")
             .setDefaultLocalName("Francium Slurry")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14347,20 +14347,20 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadFranciumHydroxide() {
+    private static Materials_OLD loadFranciumHydroxide() {
         return new MaterialBuilder().setName("FranciumHydroxide")
             .setDefaultLocalName("Francium Hydroxide")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyePink)
             .setARGB(0x00f2653d)
             .addDustItems()
-            .addMaterial(Materials.Francium, 1)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Francium, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadThoriumElutionAdsorbent() {
+    private static Materials_OLD loadThoriumElutionAdsorbent() {
         return new MaterialBuilder().setName("ThoriumElutionAdsorbent")
             .setDefaultLocalName("Thorium Elution Adsorbent")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14372,7 +14372,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPhosphorusChlorineMixture() {
+    private static Materials_OLD loadPhosphorusChlorineMixture() {
         return new MaterialBuilder().setName("PhosphorusChlorineMixture")
             .setDefaultLocalName("Phosphorus-Chlorine Mixture")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14384,7 +14384,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPhosphorusPentachloride() {
+    private static Materials_OLD loadPhosphorusPentachloride() {
         return new MaterialBuilder().setName("PhosphorusPentachloride")
             .setDefaultLocalName("Phosphorus Pentachloride")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14393,13 +14393,13 @@ public class MaterialsInit {
             .setMeltingPoint(434)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Phosphorus, 1)
-            .addMaterial(Materials.Chlorine, 5)
+            .addMaterial(Materials_OLD.Phosphorus, 1)
+            .addMaterial(Materials_OLD.Chlorine, 5)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadToxicAir() {
+    private static Materials_OLD loadToxicAir() {
         return new MaterialBuilder().setName("ToxicAir")
             .setDefaultLocalName("Toxic Air")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14411,7 +14411,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadToxicSlurry() {
+    private static Materials_OLD loadToxicSlurry() {
         return new MaterialBuilder().setName("ToxicSlurry")
             .setDefaultLocalName("Toxic Slurry")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14422,7 +14422,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDestabilizationSlurry() {
+    private static Materials_OLD loadDestabilizationSlurry() {
         return new MaterialBuilder().setName("DestabilizationSlurry")
             .setDefaultLocalName("Destabilization Slurry")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14433,7 +14433,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadAgitatingSlurry() {
+    private static Materials_OLD loadAgitatingSlurry() {
         return new MaterialBuilder().setName("AgitatingSlurry")
             .setDefaultLocalName("Agitating Slurry")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14445,7 +14445,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadUltraContaminatedGas() {
+    private static Materials_OLD loadUltraContaminatedGas() {
         return new MaterialBuilder().setName("UltraContaminatedGas")
             .setDefaultLocalName("Ultra Contaminated Gas")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14457,7 +14457,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadStagnantWasteWater() {
+    private static Materials_OLD loadStagnantWasteWater() {
         return new MaterialBuilder().setName("StagnantWasteWater")
             .setDefaultLocalName("Stagnant Waste Water")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14468,7 +14468,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadActivatedWasteWater() {
+    private static Materials_OLD loadActivatedWasteWater() {
         return new MaterialBuilder().setName("ActivatedWasteWater")
             .setDefaultLocalName("Activated Waste Water")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14480,7 +14480,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadChlorosulfonicAcid() {
+    private static Materials_OLD loadChlorosulfonicAcid() {
         return new MaterialBuilder().setName("ChlorosulfonicAcid")
             .setDefaultLocalName("Chlorosulfonic Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14489,15 +14489,15 @@ public class MaterialsInit {
             .setMeltingPoint(193)
             .addCell()
             .addFluid()
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Sulfur, 1)
-            .addMaterial(Materials.Oxygen, 3)
-            .addMaterial(Materials.Chlorine, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Sulfur, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .addMaterial(Materials_OLD.Chlorine, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
 
-    private static Materials loadPoisonousSlurry() {
+    private static Materials_OLD loadPoisonousSlurry() {
         return new MaterialBuilder().setName("PoisonousSlurry")
             .setDefaultLocalName("Poisonous Slurry")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14510,12 +14510,12 @@ public class MaterialsInit {
     }
 
     private static void loadMagicMaterials() {
-        Materials.ComplexityCatalyst = loadComplexityCatalyst();
-        Materials.EntropicCatalyst = loadEntropicCatalyst();
-        Materials.SoulInfusedMedium = loadSoulInfusedMedium();
+        Materials_OLD.ComplexityCatalyst = loadComplexityCatalyst();
+        Materials_OLD.EntropicCatalyst = loadEntropicCatalyst();
+        Materials_OLD.SoulInfusedMedium = loadSoulInfusedMedium();
     }
 
-    private static Materials loadComplexityCatalyst() {
+    private static Materials_OLD loadComplexityCatalyst() {
         return new MaterialBuilder().setName("ComplexityCatalyst")
             .setDefaultLocalName("Complexity Catalyst")
             .setIconSet(TextureSet.SET_DULL)
@@ -14525,7 +14525,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEntropicCatalyst() {
+    private static Materials_OLD loadEntropicCatalyst() {
         return new MaterialBuilder().setName("EntropicCatalyst")
             .setDefaultLocalName("Entropic Catalyst")
             .setIconSet(TextureSet.SET_DULL)
@@ -14535,7 +14535,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSoulInfusedMedium() {
+    private static Materials_OLD loadSoulInfusedMedium() {
         return new MaterialBuilder().setName("SoulInfusedMedium")
             .setDefaultLocalName("Soul Infused Medium")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14546,18 +14546,18 @@ public class MaterialsInit {
     }
 
     private static void loadBotaniaMaterials() {
-        Materials.Manasteel = loadManasteel();
-        Materials.Terrasteel = loadTerrasteel();
-        Materials.ElvenElementium = loadElvenElementium();
-        Materials.Livingrock = loadLivingrock();
-        Materials.GaiaSpirit = loadGaiaSpirit();
-        Materials.Livingwood = loadLivingwood();
-        Materials.Dreamwood = loadDreamwood();
-        Materials.ManaDiamond = loadManaDiamond();
-        Materials.Dragonstone = loadDragonstone();
+        Materials_OLD.Manasteel = loadManasteel();
+        Materials_OLD.Terrasteel = loadTerrasteel();
+        Materials_OLD.ElvenElementium = loadElvenElementium();
+        Materials_OLD.Livingrock = loadLivingrock();
+        Materials_OLD.GaiaSpirit = loadGaiaSpirit();
+        Materials_OLD.Livingwood = loadLivingwood();
+        Materials_OLD.Dreamwood = loadDreamwood();
+        Materials_OLD.ManaDiamond = loadManaDiamond();
+        Materials_OLD.Dragonstone = loadDragonstone();
     }
 
-    private static Materials loadManasteel() {
+    private static Materials_OLD loadManasteel() {
         return new MaterialBuilder().setName("Manasteel")
             .setDefaultLocalName("Manasteel")
             .setChemicalFormula("Ms")
@@ -14578,7 +14578,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTerrasteel() {
+    private static Materials_OLD loadTerrasteel() {
         return new MaterialBuilder().setName("Terrasteel")
             .setDefaultLocalName("Terrasteel")
             .setChemicalFormula("Tr")
@@ -14600,7 +14600,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadElvenElementium() {
+    private static Materials_OLD loadElvenElementium() {
         return new MaterialBuilder().setName("ElvenElementium")
             .setDefaultLocalName("Elven Elementium")
             .setChemicalFormula("Ef")
@@ -14622,7 +14622,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLivingrock() {
+    private static Materials_OLD loadLivingrock() {
         return new MaterialBuilder().setName("Livingrock")
             .setDefaultLocalName("Livingrock")
             .setChemicalFormula("Lv")
@@ -14640,7 +14640,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGaiaSpirit() {
+    private static Materials_OLD loadGaiaSpirit() {
         return new MaterialBuilder().setName("GaiaSpirit")
             .setDefaultLocalName("Gaia Spirit")
             .setChemicalFormula("Gs")
@@ -14657,7 +14657,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLivingwood() {
+    private static Materials_OLD loadLivingwood() {
         return new MaterialBuilder().setName("Livingwood")
             .setDefaultLocalName("Livingwood")
             .setChemicalFormula("Lw")
@@ -14677,7 +14677,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDreamwood() {
+    private static Materials_OLD loadDreamwood() {
         return new MaterialBuilder().setName("Dreamwood")
             .setDefaultLocalName("Dreamwood")
             .setChemicalFormula("Dw")
@@ -14698,7 +14698,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadManaDiamond() {
+    private static Materials_OLD loadManaDiamond() {
         return new MaterialBuilder().setName("ManaDiamond")
             .setDefaultLocalName("Mana Diamond")
             .setChemicalFormula("Ma₄C")
@@ -14714,7 +14714,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDragonstone() {
+    private static Materials_OLD loadDragonstone() {
         return new MaterialBuilder().setName("BotaniaDragonstone")
             .setDefaultLocalName("Dragonstone")
             .setChemicalFormula("Dg")
@@ -14731,56 +14731,56 @@ public class MaterialsInit {
     }
 
     private static void loadKevlarLine() {
-        Materials.DiphenylmethaneDiisocyanate = loadDiphenylmethaneDiisocyanate();
-        Materials.DiaminodiphenylmethanMixture = loadDiaminodiphenylmethanMixture();
-        Materials.DiphenylmethaneDiisocyanateMixture = loadDiphenylmethaneDiisocyanateMixture();
-        Materials.Butyraldehyde = loadButyraldehyde();
-        Materials.Isobutyraldehyde = loadIsobutyraldehyde();
-        Materials.NickelTetracarbonyl = loadNickelTetracarbonyl();
-        Materials.KevlarCatalyst = loadKevlarCatalyst();
-        Materials.EthyleneOxide = loadEthyleneOxide();
-        Materials.SiliconOil = loadSiliconOil();
-        Materials.Ethyleneglycol = loadEthyleneglycol();
-        Materials.Acetaldehyde = loadAcetaldehyde();
-        Materials.Pentaerythritol = loadPentaerythritol();
-        Materials.PolyurethaneResin = loadPolyurethaneResin();
-        Materials.NMethylIIPyrrolidone = loadNMethylIIPyrrolidone();
-        Materials.TerephthaloylChloride = loadTerephthaloylChloride();
-        Materials.Acetylene = loadAcetylene();
-        Materials.IVNitroaniline = loadIVNitroaniline();
-        Materials.ParaPhenylenediamine = loadParaPhenylenediamine();
-        Materials.Methylamine = loadMethylamine();
-        Materials.Trimethylamine = loadTrimethylamine();
-        Materials.GammaButyrolactone = loadGammaButyrolactone();
-        Materials.CalciumCarbide = loadCalciumCarbide();
-        Materials.LiquidCrystalKevlar = loadLiquidCrystalKevlar();
-        Materials.IIButinIIVdiol = loadIIButinIIVdiol();
-        Materials.NickelAluminide = loadNickelAluminide();
-        Materials.RaneyNickelActivated = loadRaneyNickelActivated();
-        Materials.BismuthIIIOxide = loadBismuthIIIOxide();
-        Materials.ThionylChloride = loadThionylChloride();
-        Materials.SulfurDichloride = loadSulfurDichloride();
-        Materials.DimethylTerephthalate = loadDimethylTerephthalate();
-        Materials.Kevlar = loadKevlar();
-        Materials.TerephthalicAcid = loadTerephthalicAcid();
-        Materials.IIIDimethylbenzene = loadIIIDimethylbenzene();
-        Materials.IVDimethylbenzene = loadIVDimethylbenzene();
-        Materials.CobaltIINaphthenate = loadCobaltIINaphthenate();
-        Materials.NaphthenicAcid = loadNaphthenicAcid();
-        Materials.CobaltIIHydroxide = loadCobaltIIHydroxide();
-        Materials.CobaltIIAcetate = loadCobaltIIAcetate();
-        Materials.CobaltIINitrate = loadCobaltIINitrate();
-        Materials.OrganorhodiumCatalyst = loadOrganorhodiumCatalyst();
-        Materials.SodiumBorohydride = loadSodiumBorohydride();
-        Materials.RhodiumChloride = loadRhodiumChloride();
-        Materials.Triphenylphosphene = loadTriphenylphosphene();
-        Materials.PhosphorusTrichloride = loadPhosphorusTrichloride();
-        Materials.SodiumHydride = loadSodiumHydride();
-        Materials.TrimethylBorate = loadTrimethylBorate();
-        Materials.SodiumMethoxide = loadSodiumMethoxide();
+        Materials_OLD.DiphenylmethaneDiisocyanate = loadDiphenylmethaneDiisocyanate();
+        Materials_OLD.DiaminodiphenylmethanMixture = loadDiaminodiphenylmethanMixture();
+        Materials_OLD.DiphenylmethaneDiisocyanateMixture = loadDiphenylmethaneDiisocyanateMixture();
+        Materials_OLD.Butyraldehyde = loadButyraldehyde();
+        Materials_OLD.Isobutyraldehyde = loadIsobutyraldehyde();
+        Materials_OLD.NickelTetracarbonyl = loadNickelTetracarbonyl();
+        Materials_OLD.KevlarCatalyst = loadKevlarCatalyst();
+        Materials_OLD.EthyleneOxide = loadEthyleneOxide();
+        Materials_OLD.SiliconOil = loadSiliconOil();
+        Materials_OLD.Ethyleneglycol = loadEthyleneglycol();
+        Materials_OLD.Acetaldehyde = loadAcetaldehyde();
+        Materials_OLD.Pentaerythritol = loadPentaerythritol();
+        Materials_OLD.PolyurethaneResin = loadPolyurethaneResin();
+        Materials_OLD.NMethylIIPyrrolidone = loadNMethylIIPyrrolidone();
+        Materials_OLD.TerephthaloylChloride = loadTerephthaloylChloride();
+        Materials_OLD.Acetylene = loadAcetylene();
+        Materials_OLD.IVNitroaniline = loadIVNitroaniline();
+        Materials_OLD.ParaPhenylenediamine = loadParaPhenylenediamine();
+        Materials_OLD.Methylamine = loadMethylamine();
+        Materials_OLD.Trimethylamine = loadTrimethylamine();
+        Materials_OLD.GammaButyrolactone = loadGammaButyrolactone();
+        Materials_OLD.CalciumCarbide = loadCalciumCarbide();
+        Materials_OLD.LiquidCrystalKevlar = loadLiquidCrystalKevlar();
+        Materials_OLD.IIButinIIVdiol = loadIIButinIIVdiol();
+        Materials_OLD.NickelAluminide = loadNickelAluminide();
+        Materials_OLD.RaneyNickelActivated = loadRaneyNickelActivated();
+        Materials_OLD.BismuthIIIOxide = loadBismuthIIIOxide();
+        Materials_OLD.ThionylChloride = loadThionylChloride();
+        Materials_OLD.SulfurDichloride = loadSulfurDichloride();
+        Materials_OLD.DimethylTerephthalate = loadDimethylTerephthalate();
+        Materials_OLD.Kevlar = loadKevlar();
+        Materials_OLD.TerephthalicAcid = loadTerephthalicAcid();
+        Materials_OLD.IIIDimethylbenzene = loadIIIDimethylbenzene();
+        Materials_OLD.IVDimethylbenzene = loadIVDimethylbenzene();
+        Materials_OLD.CobaltIINaphthenate = loadCobaltIINaphthenate();
+        Materials_OLD.NaphthenicAcid = loadNaphthenicAcid();
+        Materials_OLD.CobaltIIHydroxide = loadCobaltIIHydroxide();
+        Materials_OLD.CobaltIIAcetate = loadCobaltIIAcetate();
+        Materials_OLD.CobaltIINitrate = loadCobaltIINitrate();
+        Materials_OLD.OrganorhodiumCatalyst = loadOrganorhodiumCatalyst();
+        Materials_OLD.SodiumBorohydride = loadSodiumBorohydride();
+        Materials_OLD.RhodiumChloride = loadRhodiumChloride();
+        Materials_OLD.Triphenylphosphene = loadTriphenylphosphene();
+        Materials_OLD.PhosphorusTrichloride = loadPhosphorusTrichloride();
+        Materials_OLD.SodiumHydride = loadSodiumHydride();
+        Materials_OLD.TrimethylBorate = loadTrimethylBorate();
+        Materials_OLD.SodiumMethoxide = loadSodiumMethoxide();
     }
 
-    private static Materials loadDiphenylmethaneDiisocyanate() {
+    private static Materials_OLD loadDiphenylmethaneDiisocyanate() {
         return new MaterialBuilder().setName("DiphenylmethaneDiisocyanate")
             .setDefaultLocalName("4,4'-Diphenylmethane Diisocyanate")
             .setIconSet(TextureSet.SET_DULL)
@@ -14788,16 +14788,16 @@ public class MaterialsInit {
             .setARGB(0x00ffe632)
             .addDustItems()
             .setMeltingPoint(310)
-            .addMaterial(Materials.Carbon, 15)
-            .addMaterial(Materials.Hydrogen, 10)
-            .addMaterial(Materials.Nitrogen, 2)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 15)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadDiaminodiphenylmethanMixture() {
+    private static Materials_OLD loadDiaminodiphenylmethanMixture() {
         return new MaterialBuilder().setName("DiaminodiphenylmethanMixture")
             .setDefaultLocalName("Diaminodiphenylmethane Mixture")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14806,15 +14806,15 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(365)
-            .addMaterial(Materials.Carbon, 13)
-            .addMaterial(Materials.Hydrogen, 14)
-            .addMaterial(Materials.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Carbon, 13)
+            .addMaterial(Materials_OLD.Hydrogen, 14)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadDiphenylmethaneDiisocyanateMixture() {
+    private static Materials_OLD loadDiphenylmethaneDiisocyanateMixture() {
         return new MaterialBuilder().setName("DiphenylmethaneDiisocyanateMixture")
             .setDefaultLocalName("Diphenylmethane Diisocyanate Mixture")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14823,16 +14823,16 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(310)
-            .addMaterial(Materials.Carbon, 15)
-            .addMaterial(Materials.Hydrogen, 10)
-            .addMaterial(Materials.Nitrogen, 2)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 15)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadButyraldehyde() {
+    private static Materials_OLD loadButyraldehyde() {
         return new MaterialBuilder().setName("Butyraldehyde")
             .setDefaultLocalName("Butyraldehyde")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14840,15 +14840,15 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(176)
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 8)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadIsobutyraldehyde() {
+    private static Materials_OLD loadIsobutyraldehyde() {
         return new MaterialBuilder().setName("Isobutyraldehyde")
             .setDefaultLocalName("Isobutyraldehyde")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14857,15 +14857,15 @@ public class MaterialsInit {
             .addFluid()
             .setMeltingPoint(208)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 8)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadNickelTetracarbonyl() {
+    private static Materials_OLD loadNickelTetracarbonyl() {
         return new MaterialBuilder().setName("NickelTetracarbonyl")
             .setDefaultLocalName("Nickel Tetracarbonyl")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14873,15 +14873,15 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(256)
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.METALLUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadKevlarCatalyst() {
+    private static Materials_OLD loadKevlarCatalyst() {
         return new MaterialBuilder().setName("PolyurethaneCatalystADust")
             .setDefaultLocalName("Polyurethane Catalyst A")
             .setIconSet(TextureSet.SET_DULL)
@@ -14894,7 +14894,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEthyleneOxide() {
+    private static Materials_OLD loadEthyleneOxide() {
         return new MaterialBuilder().setName("EthyleneOxide")
             .setDefaultLocalName("Ethylene Oxide")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14902,15 +14902,15 @@ public class MaterialsInit {
             .addCell()
             .addGas()
             .setMeltingPoint(160)
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadSiliconOil() {
+    private static Materials_OLD loadSiliconOil() {
         return new MaterialBuilder().setName("SiliconOil")
             .setDefaultLocalName("Silicon Oil")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14923,7 +14923,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadEthyleneglycol() {
+    private static Materials_OLD loadEthyleneglycol() {
         return new MaterialBuilder().setName("EthyleneGlycol")
             .setDefaultLocalName("Ethylene Glycol")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14931,15 +14931,15 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(260)
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadAcetaldehyde() {
+    private static Materials_OLD loadAcetaldehyde() {
         return new MaterialBuilder().setName("Acetaldehyde")
             .setDefaultLocalName("Acetaldehyde")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14947,30 +14947,30 @@ public class MaterialsInit {
             .addCell()
             .addGas()
             .setMeltingPoint(150)
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.AQUA, 1)
             .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadPentaerythritol() {
+    private static Materials_OLD loadPentaerythritol() {
         return new MaterialBuilder().setName("Pentaerythritol")
             .setDefaultLocalName("Pentaerythritol")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .addDustItems()
             .setMeltingPoint(533)
-            .addMaterial(Materials.Carbon, 5)
-            .addMaterial(Materials.Hydrogen, 12)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Carbon, 5)
+            .addMaterial(Materials_OLD.Hydrogen, 12)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.LUCRUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadPolyurethaneResin() {
+    private static Materials_OLD loadPolyurethaneResin() {
         return new MaterialBuilder().setName("PolyurethaneResin")
             .setDefaultLocalName("Polyurethane Resin")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14981,7 +14981,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadNMethylIIPyrrolidone() {
+    private static Materials_OLD loadNMethylIIPyrrolidone() {
         return new MaterialBuilder().setName("NMethylpyrolidone")
             .setDefaultLocalName("N-Methyl-2-pyrrolidone")
             .setIconSet(TextureSet.SET_FLUID)
@@ -14989,16 +14989,16 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(249)
-            .addMaterial(Materials.Carbon, 5)
-            .addMaterial(Materials.Hydrogen, 9)
-            .addMaterial(Materials.Nitrogen, 1)
-            .addMaterial(Materials.Oxygen, 1)
+            .addMaterial(Materials_OLD.Carbon, 5)
+            .addMaterial(Materials_OLD.Hydrogen, 9)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Oxygen, 1)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
-    private static Materials loadTerephthaloylChloride() {
+    private static Materials_OLD loadTerephthaloylChloride() {
         return new MaterialBuilder().setName("TerephthaloylChloride")
             .setDefaultLocalName("Terephthaloyl Chloride")
             .setIconSet(TextureSet.SET_POWDER)
@@ -15006,16 +15006,16 @@ public class MaterialsInit {
             .setARGB(0x0000ff0c)
             .addDustItems()
             .setMeltingPoint(355)
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 4)
-            .addMaterial(Materials.Chlorine, 2)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Chlorine, 2)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.VITREUS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadAcetylene() {
+    private static Materials_OLD loadAcetylene() {
         // TODO: Add to JUPITER Athmosphere and Enceladus and to moon of Saturn
         return new MaterialBuilder().setName("Acetylene")
             .setDefaultLocalName("Acetylene")
@@ -15024,12 +15024,12 @@ public class MaterialsInit {
             .addCell()
             .addGas()
             .setMeltingPoint(192)
-            .addMaterial(Materials.Carbon, 2)
-            .addMaterial(Materials.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Carbon, 2)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadIVNitroaniline() {
+    private static Materials_OLD loadIVNitroaniline() {
         return new MaterialBuilder().setName("4Nitroaniline")
             .setDefaultLocalName("4-Nitroaniline")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15038,16 +15038,16 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(420)
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Nitrogen, 2)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.VITREUS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadParaPhenylenediamine() {
+    private static Materials_OLD loadParaPhenylenediamine() {
         return new MaterialBuilder().setName("pPhenylenediamine")
             .setDefaultLocalName("para-Phenylenediamine")
             .setIconSet(TextureSet.SET_POWDER)
@@ -15055,15 +15055,15 @@ public class MaterialsInit {
             .setARGB(0x00fbec5d)
             .addDustItems()
             .setMeltingPoint(293)
-            .addMaterial(Materials.Carbon, 6)
-            .addMaterial(Materials.Hydrogen, 8)
-            .addMaterial(Materials.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Carbon, 6)
+            .addMaterial(Materials_OLD.Hydrogen, 8)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
             .addAspect(TCAspects.TERRA, 1)
             .addAspect(TCAspects.VITREUS, 1)
             .constructMaterial();
     }
 
-    private static Materials loadMethylamine() {
+    private static Materials_OLD loadMethylamine() {
         return new MaterialBuilder().setName("Methylamine")
             .setDefaultLocalName("Methylamine")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15073,13 +15073,13 @@ public class MaterialsInit {
             .addGas()
             .setMeltingPoint(180)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Hydrogen, 5)
-            .addMaterial(Materials.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 5)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadTrimethylamine() {
+    private static Materials_OLD loadTrimethylamine() {
         return new MaterialBuilder().setName("Trimethylamine")
             .setDefaultLocalName("Trimethylamine")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15089,13 +15089,13 @@ public class MaterialsInit {
             .addGas()
             .setMeltingPoint(156)
             .addElectrolyzerRecipe()
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 9)
-            .addMaterial(Materials.Nitrogen, 1)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 9)
+            .addMaterial(Materials_OLD.Nitrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadGammaButyrolactone() {
+    private static Materials_OLD loadGammaButyrolactone() {
         return new MaterialBuilder().setName("GammaButyrolactone")
             .setDefaultLocalName("gamma-Butyrolactone")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15104,13 +15104,13 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(229)
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadCalciumCarbide() {
+    private static Materials_OLD loadCalciumCarbide() {
         return new MaterialBuilder().setName("CacliumCarbide")
             .setDefaultLocalName("Calcium Carbide")
             .setIconSet(TextureSet.SET_DULL)
@@ -15118,12 +15118,12 @@ public class MaterialsInit {
             .setARGB(0x00ebebeb)
             .addDustItems()
             .setMeltingPoint(2430)
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Carbon, 2)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Carbon, 2)
             .constructMaterial();
     }
 
-    private static Materials loadLiquidCrystalKevlar() {
+    private static Materials_OLD loadLiquidCrystalKevlar() {
         return new MaterialBuilder().setName("LiquidCrystalKevlar")
             .setDefaultLocalName("Liquid Crystal Kevlar")
             .setChemicalFormula("[-CO-C₆H₄-CO-NH-C₆H₄-NH-]n")
@@ -15135,7 +15135,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadIIButinIIVdiol() {
+    private static Materials_OLD loadIIButinIIVdiol() {
         return new MaterialBuilder().setName("2Butin14diol")
             .setDefaultLocalName("2-Butin-1,4-diol")
             .setIconSet(TextureSet.SET_POWDER)
@@ -15143,13 +15143,13 @@ public class MaterialsInit {
             .setARGB(0x00f7f7b4)
             .addDustItems()
             .setMeltingPoint(331)
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadNickelAluminide() {
+    private static Materials_OLD loadNickelAluminide() {
         return new MaterialBuilder().setName("NickelAluminide")
             .setDefaultLocalName("Nickel Aluminide")
             .setIconSet(TextureSet.SET_METALLIC)
@@ -15161,12 +15161,12 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_668)
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.Aluminium, 3)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.Aluminium, 3)
             .constructMaterial();
     }
 
-    private static Materials loadRaneyNickelActivated() {
+    private static Materials_OLD loadRaneyNickelActivated() {
         return new MaterialBuilder().setName("RaneyNickelActivated")
             .setDefaultLocalName("Raney Nickel")
             .setIconSet(TextureSet.SET_POWDER)
@@ -15174,12 +15174,12 @@ public class MaterialsInit {
             .setARGB(0x00e6e6e6)
             .addDustItems()
             .setMeltingPoint(1_955)
-            .addMaterial(Materials.Nickel, 1)
-            .addMaterial(Materials.Aluminium, 1)
+            .addMaterial(Materials_OLD.Nickel, 1)
+            .addMaterial(Materials_OLD.Aluminium, 1)
             .constructMaterial();
     }
 
-    private static Materials loadBismuthIIIOxide() {
+    private static Materials_OLD loadBismuthIIIOxide() {
         return new MaterialBuilder().setName("BismuthIIIOxide")
             .setDefaultLocalName("Bismuth Oxide")
             .setIconSet(TextureSet.SET_POWDER)
@@ -15187,12 +15187,12 @@ public class MaterialsInit {
             .setARGB(0x00323232)
             .addDustItems()
             .setMeltingPoint(1090)
-            .addMaterial(Materials.Bismuth, 2)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Bismuth, 2)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .constructMaterial();
     }
 
-    private static Materials loadThionylChloride() {
+    private static Materials_OLD loadThionylChloride() {
         // SOCl2
         return new MaterialBuilder().setName("ThionylChloride")
             .setDefaultLocalName("Thionyl Chloride")
@@ -15203,7 +15203,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSulfurDichloride() {
+    private static Materials_OLD loadSulfurDichloride() {
         // SCl2
         return new MaterialBuilder().setName("SulfurDichloride")
             .setDefaultLocalName("Sulfur Dichloride")
@@ -15215,7 +15215,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDimethylTerephthalate() {
+    private static Materials_OLD loadDimethylTerephthalate() {
         return new MaterialBuilder().setName("DimethylTerephthalate")
             .setDefaultLocalName("Dimethyl Terephthalate")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15223,13 +15223,13 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(415)
-            .addMaterial(Materials.Carbon, 10)
-            .addMaterial(Materials.Hydrogen, 10)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Carbon, 10)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadKevlar() {
+    private static Materials_OLD loadKevlar() {
         return new MaterialBuilder().setName("Kevlar")
             .setDefaultLocalName("Kevlar")
             .setIconSet(TextureSet.SET_DULL)
@@ -15245,7 +15245,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTerephthalicAcid() {
+    private static Materials_OLD loadTerephthalicAcid() {
         return new MaterialBuilder().setName("TerephthalicAcid")
             .setDefaultLocalName("Terephthalic Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15253,13 +15253,13 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(480)
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadIIIDimethylbenzene() {
+    private static Materials_OLD loadIIIDimethylbenzene() {
         return new MaterialBuilder().setName("1,3Dimethylbenzene")
             .setDefaultLocalName("1,3-Dimethylbenzene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15268,13 +15268,13 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(225)
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadIVDimethylbenzene() {
+    private static Materials_OLD loadIVDimethylbenzene() {
         return new MaterialBuilder().setName("1,4Dimethylbenzene")
             .setDefaultLocalName("1,4-Dimethylbenzene")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15283,13 +15283,13 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(286)
-            .addMaterial(Materials.Carbon, 8)
-            .addMaterial(Materials.Hydrogen, 10)
+            .addMaterial(Materials_OLD.Carbon, 8)
+            .addMaterial(Materials_OLD.Hydrogen, 10)
             .addElectrolyzerRecipe()
             .constructMaterial();
     }
 
-    private static Materials loadCobaltIINaphthenate() {
+    private static Materials_OLD loadCobaltIINaphthenate() {
         return new MaterialBuilder().setName("Cobalt(II)Naphthenate")
             .setDefaultLocalName("Cobalt II Naphthenate")
             .setIconSet(TextureSet.SET_DULL)
@@ -15297,14 +15297,14 @@ public class MaterialsInit {
             .setARGB(0x008f5f27)
             .addDustItems()
             .setMeltingPoint(413)
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.Carbon, 22)
-            .addMaterial(Materials.Hydrogen, 14)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.Carbon, 22)
+            .addMaterial(Materials_OLD.Hydrogen, 14)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadNaphthenicAcid() {
+    private static Materials_OLD loadNaphthenicAcid() {
         return new MaterialBuilder().setName("NaphthenicAcid")
             .setDefaultLocalName("Naphthenic Acid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15315,7 +15315,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadCobaltIIHydroxide() {
+    private static Materials_OLD loadCobaltIIHydroxide() {
         return new MaterialBuilder().setName("CobaltIIHydroxide")
             .setDefaultLocalName("Cobalt II Hydroxide")
             .setChemicalFormula("Co(OH)₂")
@@ -15324,13 +15324,13 @@ public class MaterialsInit {
             .setARGB(0x00e58cef)
             .addDustItems()
             .setMeltingPoint(441)
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.Hydrogen, 2)
-            .addMaterial(Materials.Oxygen, 2)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 2)
             .constructMaterial();
     }
 
-    private static Materials loadCobaltIIAcetate() {
+    private static Materials_OLD loadCobaltIIAcetate() {
         return new MaterialBuilder().setName("Cobalt(II)Acetate")
             .setDefaultLocalName("Cobalt II Acetate")
             .setIconSet(TextureSet.SET_POWDER)
@@ -15338,14 +15338,14 @@ public class MaterialsInit {
             .setARGB(0x00dba2e5)
             .addDustItems()
             .setMeltingPoint(413)
-            .addMaterial(Materials.Carbon, 4)
-            .addMaterial(Materials.Hydrogen, 6)
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.Oxygen, 4)
+            .addMaterial(Materials_OLD.Carbon, 4)
+            .addMaterial(Materials_OLD.Hydrogen, 6)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.Oxygen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadCobaltIINitrate() {
+    private static Materials_OLD loadCobaltIINitrate() {
         return new MaterialBuilder().setName("Cobalt(II)Nitrate")
             .setDefaultLocalName("Cobalt II Nitrate")
             .setChemicalFormula("Co(NO₃)₂")
@@ -15354,13 +15354,13 @@ public class MaterialsInit {
             .setARGB(0x00aa0000)
             .addDustItems()
             .setMeltingPoint(373)
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.Nitrogen, 2)
-            .addMaterial(Materials.Oxygen, 6)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.Nitrogen, 2)
+            .addMaterial(Materials_OLD.Oxygen, 6)
             .constructMaterial();
     }
 
-    private static Materials loadOrganorhodiumCatalyst() {
+    private static Materials_OLD loadOrganorhodiumCatalyst() {
         return new MaterialBuilder().setName("OrganorhodiumCatalyst")
             .setDefaultLocalName("Organorhodium Catalyst")
             .setChemicalFormula("RhHCO(P(C₆H₅)₃)₃")
@@ -15369,25 +15369,25 @@ public class MaterialsInit {
             .setARGB(0x00aa0000)
             .addDustItems()
             .setMeltingPoint(373)
-            .addMaterial(Materials.Cobalt, 1)
-            .addMaterial(Materials.NitricAcid, 2)
+            .addMaterial(Materials_OLD.Cobalt, 1)
+            .addMaterial(Materials_OLD.NitricAcid, 2)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumBorohydride() {
+    private static Materials_OLD loadSodiumBorohydride() {
         return new MaterialBuilder().setName("SodiumBorohydride")
             .setDefaultLocalName("Sodium Borohydride")
             .setIconSet(TextureSet.SET_POWDER)
             .setColor(Dyes.dyeWhite)
             .addDustItems()
             .setMeltingPoint(673)
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Boron, 1)
-            .addMaterial(Materials.Hydrogen, 4)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Boron, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 4)
             .constructMaterial();
     }
 
-    private static Materials loadRhodiumChloride() {
+    private static Materials_OLD loadRhodiumChloride() {
         return new MaterialBuilder().setName("RhodiumChloride")
             .setDefaultLocalName("Rhodium Chloride")
             .setChemicalFormula("RhCl₃")
@@ -15399,20 +15399,20 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadTriphenylphosphene() {
+    private static Materials_OLD loadTriphenylphosphene() {
         return new MaterialBuilder().setName("Triphenylphosphene")
             .setDefaultLocalName("Triphenylphosphine")
             .setIconSet(TextureSet.SET_POWDER)
             .setColor(Dyes.dyeWhite)
             .addDustItems()
             .setMeltingPoint(353)
-            .addMaterial(Materials.Carbon, 18)
-            .addMaterial(Materials.Hydrogen, 15)
-            .addMaterial(Materials.Phosphorus, 1)
+            .addMaterial(Materials_OLD.Carbon, 18)
+            .addMaterial(Materials_OLD.Hydrogen, 15)
+            .addMaterial(Materials_OLD.Phosphorus, 1)
             .constructMaterial();
     }
 
-    private static Materials loadPhosphorusTrichloride() {
+    private static Materials_OLD loadPhosphorusTrichloride() {
         return new MaterialBuilder().setName("PhosphorusTrichloride")
             .setDefaultLocalName("Phosphorus Trichloride")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15421,12 +15421,12 @@ public class MaterialsInit {
             .addFluid()
             .addDustItems()
             .setMeltingPoint(179)
-            .addMaterial(Materials.Phosphorus, 1)
-            .addMaterial(Materials.Chlorine, 3)
+            .addMaterial(Materials_OLD.Phosphorus, 1)
+            .addMaterial(Materials_OLD.Chlorine, 3)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumHydride() {
+    private static Materials_OLD loadSodiumHydride() {
         return new MaterialBuilder().setName("SodiumHydride")
             .setDefaultLocalName("Sodium Hydride")
             .setIconSet(TextureSet.SET_POWDER)
@@ -15434,12 +15434,12 @@ public class MaterialsInit {
             .setARGB(0x00c0c0c0)
             .addDustItems()
             .setMeltingPoint(911)
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadTrimethylBorate() {
+    private static Materials_OLD loadTrimethylBorate() {
         return new MaterialBuilder().setName("TrimethylBorate")
             .setDefaultLocalName("Trimethyl Borate")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15447,40 +15447,40 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(239)
-            .addMaterial(Materials.Carbon, 3)
-            .addMaterial(Materials.Hydrogen, 9)
-            .addMaterial(Materials.Boron, 1)
-            .addMaterial(Materials.Oxygen, 3)
+            .addMaterial(Materials_OLD.Carbon, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 9)
+            .addMaterial(Materials_OLD.Boron, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
             .constructMaterial();
     }
 
-    private static Materials loadSodiumMethoxide() {
+    private static Materials_OLD loadSodiumMethoxide() {
         return new MaterialBuilder().setName("SodiumMethoxide")
             .setDefaultLocalName("Sodium Methoxide")
             .setIconSet(TextureSet.SET_POWDER)
             .setColor(Dyes.dyeWhite)
             .addDustItems()
             .setMeltingPoint(400)
-            .addMaterial(Materials.Carbon, 1)
-            .addMaterial(Materials.Hydrogen, 3)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Sodium, 1)
+            .addMaterial(Materials_OLD.Carbon, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 3)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Sodium, 1)
             .constructMaterial();
     }
 
     private static void loadAluminiumOres() {
-        Materials.BauxiteSlurry = loadBauxiteSlurry();
-        Materials.HeatedBauxiteSlurry = loadHeatedBauxiteSlurry();
-        Materials.SluiceJuice = loadSluiceJuice();
-        Materials.SluiceSand = loadSluiceSand();
-        Materials.BauxiteSlag = loadBauxiteSlag();
-        Materials.IlmeniteSlag = loadIlmeniteSlag();
-        Materials.GreenSapphireJuice = loadGreenSapphireJuice();
-        Materials.SapphireJuice = loadSapphireJuice();
-        Materials.RubyJuice = loadRubyJuice();
+        Materials_OLD.BauxiteSlurry = loadBauxiteSlurry();
+        Materials_OLD.HeatedBauxiteSlurry = loadHeatedBauxiteSlurry();
+        Materials_OLD.SluiceJuice = loadSluiceJuice();
+        Materials_OLD.SluiceSand = loadSluiceSand();
+        Materials_OLD.BauxiteSlag = loadBauxiteSlag();
+        Materials_OLD.IlmeniteSlag = loadIlmeniteSlag();
+        Materials_OLD.GreenSapphireJuice = loadGreenSapphireJuice();
+        Materials_OLD.SapphireJuice = loadSapphireJuice();
+        Materials_OLD.RubyJuice = loadRubyJuice();
     }
 
-    private static Materials loadBauxiteSlurry() {
+    private static Materials_OLD loadBauxiteSlurry() {
         return new MaterialBuilder().setName("BauxiteSlurry")
             .setDefaultLocalName("Bauxite Slurry")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15492,7 +15492,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHeatedBauxiteSlurry() {
+    private static Materials_OLD loadHeatedBauxiteSlurry() {
         return new MaterialBuilder().setName("HeadedBauxiteSlurry")
             .setDefaultLocalName("Heated Bauxite Slurry")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15504,7 +15504,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSluiceJuice() {
+    private static Materials_OLD loadSluiceJuice() {
         return new MaterialBuilder().setName("SluiceJuice")
             .setDefaultLocalName("Sluice Juice")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15516,7 +15516,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSluiceSand() {
+    private static Materials_OLD loadSluiceSand() {
         return new MaterialBuilder().setName("SluiceSand")
             .setDefaultLocalName("Sluice Sand")
             .setIconSet(TextureSet.SET_FINE)
@@ -15526,7 +15526,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadBauxiteSlag() {
+    private static Materials_OLD loadBauxiteSlag() {
         return new MaterialBuilder().setName("BauxiteSlag")
             .setDefaultLocalName("Bauxite Slag")
             .setIconSet(TextureSet.SET_FINE)
@@ -15536,7 +15536,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadIlmeniteSlag() {
+    private static Materials_OLD loadIlmeniteSlag() {
         return new MaterialBuilder().setName("IlmeniteSlag")
             .setDefaultLocalName("Ilmenite Slag")
             .setIconSet(TextureSet.SET_FINE)
@@ -15546,7 +15546,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadGreenSapphireJuice() {
+    private static Materials_OLD loadGreenSapphireJuice() {
         return new MaterialBuilder().setName("GreenSapphireJuice")
             .setDefaultLocalName("Green Sapphire Juice")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15557,7 +15557,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSapphireJuice() {
+    private static Materials_OLD loadSapphireJuice() {
         return new MaterialBuilder().setName("SapphireJuice")
             .setDefaultLocalName("Sapphire Juice")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15568,7 +15568,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadRubyJuice() {
+    private static Materials_OLD loadRubyJuice() {
         return new MaterialBuilder().setName("RubyJuice")
             .setDefaultLocalName("Ruby Juice")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15580,56 +15580,56 @@ public class MaterialsInit {
     }
 
     private static void loadUEVPlusMaterials() {
-        Materials.DTCC = loadDTCC();
-        Materials.DTPC = loadDTPC();
-        Materials.DTRC = loadDTRC();
-        Materials.DTEC = loadDTEC();
-        Materials.DTSC = loadDTSC();
-        Materials.ExcitedDTCC = loadExcitedDTCC();
-        Materials.ExcitedDTPC = loadExcitedDTPC();
-        Materials.ExcitedDTRC = loadExcitedDTRC();
-        Materials.ExcitedDTEC = loadExcitedDTEC();
-        Materials.ExcitedDTSC = loadExcitedDTSC();
-        Materials.DTR = loadDTR();
-        Materials.SpaceTime = loadSpaceTime();
-        Materials.TranscendentMetal = loadTranscendentMetal();
-        Materials.MHDCSM = loadMHDCSM();
-        Materials.RawStarMatter = loadRawStarMatter();
-        Materials.WhiteDwarfMatter = loadWhiteDwarfMatter();
-        Materials.BlackDwarfMatter = loadBlackDwarfMatter();
-        Materials.Time = loadTime();
-        Materials.Space = loadSpace();
-        Materials.Universium = loadUniversium();
-        Materials.Eternity = loadEternity();
-        Materials.PrimordialMatter = loadPrimordialMatter();
-        Materials.MagMatter = loadMagMatter();
-        Materials.QuarkGluonPlasma = loadQuarkGluonPlasma();
-        Materials.PhononMedium = loadPhononMedium();
-        Materials.PhononCrystalSolution = loadPhononCrystalSolution();
-        Materials.SixPhasedCopper = loadSixPhasedCopper();
-        Materials.Mellion = loadMellion();
-        Materials.Creon = loadCreon();
-        Materials.GravitonShard = loadGravitonShard();
-        Materials.DimensionallyShiftedSuperfluid = loadDimensionallyShiftedSuperfluid();
-        Materials.MoltenProtoHalkoniteBase = loadMoltenProtoHalkoniteBase();
-        Materials.HotProtoHalkonite = loadHotProtoHalkonite();
-        Materials.ProtoHalkonite = loadProtoHalkonite();
-        Materials.MoltenExoHalkoniteBase = loadMoltenExoHalkoniteBase();
-        Materials.HotExoHalkonite = loadHotExoHalkonite();
-        Materials.ExoHalkonite = loadExoHalkonite();
-        Materials.Antimatter = loadAntimatter();
-        Materials.Protomatter = loadProtomatter();
-        Materials.StargateCrystalSlurry = loadStargateCrystalSlurry();
-        Materials.LumipodExtract = loadLumipodExtract();
-        Materials.InactiveCosmicSolder = loadInactiveCosmicSolder();
-        Materials.BoundlessCosmicSolder = loadBoundlessCosmicSolder();
-        Materials.BiocatalyzedPropulsionFluid = loadBiocatalyzedPropulsionFluid();
-        Materials.Shijima = loadShijima();
-        Materials.Churitsu = loadChuritsu();
-        Materials.ComputationBase = loadComputationBase();
+        Materials_OLD.DTCC = loadDTCC();
+        Materials_OLD.DTPC = loadDTPC();
+        Materials_OLD.DTRC = loadDTRC();
+        Materials_OLD.DTEC = loadDTEC();
+        Materials_OLD.DTSC = loadDTSC();
+        Materials_OLD.ExcitedDTCC = loadExcitedDTCC();
+        Materials_OLD.ExcitedDTPC = loadExcitedDTPC();
+        Materials_OLD.ExcitedDTRC = loadExcitedDTRC();
+        Materials_OLD.ExcitedDTEC = loadExcitedDTEC();
+        Materials_OLD.ExcitedDTSC = loadExcitedDTSC();
+        Materials_OLD.DTR = loadDTR();
+        Materials_OLD.SpaceTime = loadSpaceTime();
+        Materials_OLD.TranscendentMetal = loadTranscendentMetal();
+        Materials_OLD.MHDCSM = loadMHDCSM();
+        Materials_OLD.RawStarMatter = loadRawStarMatter();
+        Materials_OLD.WhiteDwarfMatter = loadWhiteDwarfMatter();
+        Materials_OLD.BlackDwarfMatter = loadBlackDwarfMatter();
+        Materials_OLD.Time = loadTime();
+        Materials_OLD.Space = loadSpace();
+        Materials_OLD.Universium = loadUniversium();
+        Materials_OLD.Eternity = loadEternity();
+        Materials_OLD.PrimordialMatter = loadPrimordialMatter();
+        Materials_OLD.MagMatter = loadMagMatter();
+        Materials_OLD.QuarkGluonPlasma = loadQuarkGluonPlasma();
+        Materials_OLD.PhononMedium = loadPhononMedium();
+        Materials_OLD.PhononCrystalSolution = loadPhononCrystalSolution();
+        Materials_OLD.SixPhasedCopper = loadSixPhasedCopper();
+        Materials_OLD.Mellion = loadMellion();
+        Materials_OLD.Creon = loadCreon();
+        Materials_OLD.GravitonShard = loadGravitonShard();
+        Materials_OLD.DimensionallyShiftedSuperfluid = loadDimensionallyShiftedSuperfluid();
+        Materials_OLD.MoltenProtoHalkoniteBase = loadMoltenProtoHalkoniteBase();
+        Materials_OLD.HotProtoHalkonite = loadHotProtoHalkonite();
+        Materials_OLD.ProtoHalkonite = loadProtoHalkonite();
+        Materials_OLD.MoltenExoHalkoniteBase = loadMoltenExoHalkoniteBase();
+        Materials_OLD.HotExoHalkonite = loadHotExoHalkonite();
+        Materials_OLD.ExoHalkonite = loadExoHalkonite();
+        Materials_OLD.Antimatter = loadAntimatter();
+        Materials_OLD.Protomatter = loadProtomatter();
+        Materials_OLD.StargateCrystalSlurry = loadStargateCrystalSlurry();
+        Materials_OLD.LumipodExtract = loadLumipodExtract();
+        Materials_OLD.InactiveCosmicSolder = loadInactiveCosmicSolder();
+        Materials_OLD.BoundlessCosmicSolder = loadBoundlessCosmicSolder();
+        Materials_OLD.BiocatalyzedPropulsionFluid = loadBiocatalyzedPropulsionFluid();
+        Materials_OLD.Shijima = loadShijima();
+        Materials_OLD.Churitsu = loadChuritsu();
+        Materials_OLD.ComputationBase = loadComputationBase();
     }
 
-    private static Materials loadDTCC() {
+    private static Materials_OLD loadDTCC() {
         return new MaterialBuilder().setName("DimensionallyTranscendentCrudeCatalyst")
             .setDefaultLocalName("Dimensionally Transcendent Crude Catalyst")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15643,7 +15643,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDTPC() {
+    private static Materials_OLD loadDTPC() {
         return new MaterialBuilder().setName("DimensionallyTranscendentProsaicCatalyst")
             .setDefaultLocalName("Dimensionally Transcendent Prosaic Catalyst")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15657,7 +15657,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDTRC() {
+    private static Materials_OLD loadDTRC() {
         return new MaterialBuilder().setName("DimensionallyTranscendentResplendentCatalyst")
             .setDefaultLocalName("Dimensionally Transcendent Resplendent Catalyst")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15671,7 +15671,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDTEC() {
+    private static Materials_OLD loadDTEC() {
         return new MaterialBuilder().setName("DimensionallyTranscendentExoticCatalyst")
             .setDefaultLocalName("Dimensionally Transcendent Exotic Catalyst")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15685,7 +15685,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDTSC() {
+    private static Materials_OLD loadDTSC() {
         return new MaterialBuilder().setName("DimensionallyTranscendentStellarCatalyst")
             .setDefaultLocalName("Dimensionally Transcendent Stellar Catalyst")
             .setChemicalFormula("Stellar", true)
@@ -15700,7 +15700,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadExcitedDTCC() {
+    private static Materials_OLD loadExcitedDTCC() {
         return new MaterialBuilder().setName("ExcitedDTCC")
             .setDefaultLocalName("Excited Dimensionally Transcendent Crude Catalyst")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15713,7 +15713,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadExcitedDTPC() {
+    private static Materials_OLD loadExcitedDTPC() {
         return new MaterialBuilder().setName("ExcitedDTPC")
             .setDefaultLocalName("Excited Dimensionally Transcendent Prosaic Catalyst")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15726,7 +15726,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadExcitedDTRC() {
+    private static Materials_OLD loadExcitedDTRC() {
         return new MaterialBuilder().setName("ExcitedDTRC")
             .setDefaultLocalName("Excited Dimensionally Transcendent Resplendent Catalyst")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15739,7 +15739,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadExcitedDTEC() {
+    private static Materials_OLD loadExcitedDTEC() {
         return new MaterialBuilder().setName("ExcitedDTEC")
             .setDefaultLocalName("Excited Dimensionally Transcendent Exotic Catalyst")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15752,7 +15752,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadExcitedDTSC() {
+    private static Materials_OLD loadExcitedDTSC() {
         return new MaterialBuilder().setName("ExcitedDTSC")
             .setDefaultLocalName("Excited Dimensionally Transcendent Stellar Catalyst")
             .setChemicalFormula("[-Stellar-Stellar-]", true)
@@ -15766,7 +15766,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDTR() {
+    private static Materials_OLD loadDTR() {
         return new MaterialBuilder().setName("DimensionallyTranscendentResidue")
             .setDefaultLocalName("Dimensionally Transcendent Residue")
             .setChemicalFormula(CustomGlyphs.SPARKLES + "-" + CustomGlyphs.EMPTY_SET)
@@ -15780,7 +15780,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSpaceTime() {
+    private static Materials_OLD loadSpaceTime() {
         return new MaterialBuilder().setName("SpaceTime")
             .setDefaultLocalName("SpaceTime")
             .setChemicalFormula("\u03A6")
@@ -15801,7 +15801,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
     }
 
-    private static Materials loadTranscendentMetal() {
+    private static Materials_OLD loadTranscendentMetal() {
         return new MaterialBuilder().setName("TranscendentMetal")
             .setDefaultLocalName("Transcendent Metal")
             .setChemicalFormula("TsЖ")
@@ -15830,7 +15830,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UHV);
     }
 
-    private static Materials loadMHDCSM() {
+    private static Materials_OLD loadMHDCSM() {
         return new MaterialBuilder().setName("MagnetohydrodynamicallyConstrainedStarMatter")
             .setDefaultLocalName("Magnetohydrodynamically Constrained Star Matter")
             .setChemicalFormula(
@@ -15867,7 +15867,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UIV);
     }
 
-    private static Materials loadRawStarMatter() {
+    private static Materials_OLD loadRawStarMatter() {
         return new MaterialBuilder().setName("RawStarMatter")
             .setDefaultLocalName("Condensed Raw Stellar Plasma Mixture")
             .setChemicalFormula(CustomGlyphs.GALAXY)
@@ -15879,7 +15879,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadWhiteDwarfMatter() {
+    private static Materials_OLD loadWhiteDwarfMatter() {
         return new MaterialBuilder().setName("WhiteDwarfMatter")
             .setDefaultLocalName("White Dwarf Matter")
             .setChemicalFormula("∅")
@@ -15899,7 +15899,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UXV);
     }
 
-    private static Materials loadBlackDwarfMatter() {
+    private static Materials_OLD loadBlackDwarfMatter() {
         return new MaterialBuilder().setName("BlackDwarfMatter")
             .setDefaultLocalName("Black Dwarf Matter")
             .setChemicalFormula(">>∅<<")
@@ -15921,7 +15921,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UXV);
     }
 
-    private static Materials loadTime() {
+    private static Materials_OLD loadTime() {
         return new MaterialBuilder().setName("temporalFluid")
             .setDefaultLocalName("Tachyon Rich Temporal Fluid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15933,7 +15933,7 @@ public class MaterialsInit {
             .setLiquidTemperature(0);
     }
 
-    private static Materials loadSpace() {
+    private static Materials_OLD loadSpace() {
         return new MaterialBuilder().setName("spatialFluid")
             .setDefaultLocalName("Spatially Enlarged Fluid")
             .setIconSet(TextureSet.SET_FLUID)
@@ -15945,7 +15945,7 @@ public class MaterialsInit {
             .setLiquidTemperature(0);
     }
 
-    private static Materials loadUniversium() {
+    private static Materials_OLD loadUniversium() {
         return new MaterialBuilder().setName("Universium")
             .setDefaultLocalName("Universium")
             .setChemicalFormula("\u03A3" + EnumChatFormatting.OBFUSCATED + "X")
@@ -15969,7 +15969,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UXV);
     }
 
-    private static Materials loadEternity() {
+    private static Materials_OLD loadEternity() {
         return new MaterialBuilder().setName("Eternity")
             .setDefaultLocalName("Eternity")
             .setChemicalFormula("En⦼")
@@ -15992,7 +15992,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UMV);
     }
 
-    private static Materials loadPrimordialMatter() {
+    private static Materials_OLD loadPrimordialMatter() {
         return new MaterialBuilder().setName("PrimordialMatter")
             .setDefaultLocalName("Liquid Primordial Matter")
             .setIconSet(TextureSet.SET_FLUID)
@@ -16005,7 +16005,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMagMatter() {
+    private static Materials_OLD loadMagMatter() {
         return new MaterialBuilder().setName("Magmatter")
             .setDefaultLocalName("Magmatter")
             .setChemicalFormula("M⎋")
@@ -16025,7 +16025,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UMV);
     }
 
-    private static Materials loadQuarkGluonPlasma() {
+    private static Materials_OLD loadQuarkGluonPlasma() {
         return new MaterialBuilder().setName("QuarkGluonPlasma")
             .setDefaultLocalName("Degenerate Quark Gluon Plasma")
             .setChemicalFormula(
@@ -16045,7 +16045,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPhononMedium() {
+    private static Materials_OLD loadPhononMedium() {
         return new MaterialBuilder().setName("PhononMedium")
             .setDefaultLocalName("Lossless Phonon Transfer Medium")
             .setChemicalFormula(
@@ -16064,7 +16064,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPhononCrystalSolution() {
+    private static Materials_OLD loadPhononCrystalSolution() {
         return new MaterialBuilder().setName("PhononCrystalSolution")
             .setDefaultLocalName("Saturated Phononic Crystal Solution")
             .setChemicalFormula("〄")
@@ -16077,7 +16077,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadSixPhasedCopper() {
+    private static Materials_OLD loadSixPhasedCopper() {
         return new MaterialBuilder().setName("SixPhasedCopper")
             .setDefaultLocalName("Six-Phased Copper")
             .setChemicalFormula("✢")
@@ -16100,13 +16100,13 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
     }
 
-    private static Materials loadMellion() {
+    private static Materials_OLD loadMellion() {
         return new MaterialBuilder().setName("Mellion")
             .setDefaultLocalName("Mellion")
             .setChemicalFormula(
-                "Tn₁₁Or₈Rb₁₁(" + Materials.FierySteel.getChemicalFormula()
+                "Tn₁₁Or₈Rb₁₁(" + Materials_OLD.FierySteel.getChemicalFormula()
                     + ")₇"
-                    + Materials.Firestone.getChemicalFormula()
+                    + Materials_OLD.Firestone.getChemicalFormula()
                     + "₁₃?₁₃")
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x003c0505)
@@ -16126,7 +16126,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
     }
 
-    private static Materials loadCreon() {
+    private static Materials_OLD loadCreon() {
         return new MaterialBuilder().setName("Creon")
             .setDefaultLocalName("Creon")
             .setChemicalFormula("⸎")
@@ -16149,7 +16149,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
     }
 
-    private static Materials loadGravitonShard() {
+    private static Materials_OLD loadGravitonShard() {
         return new MaterialBuilder().setName("GravitonShard")
             .setDefaultLocalName("Graviton Shard")
             .setIconSet(TextureSet.SET_GRAVITON_SHARD)
@@ -16163,7 +16163,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadDimensionallyShiftedSuperfluid() {
+    private static Materials_OLD loadDimensionallyShiftedSuperfluid() {
         return new MaterialBuilder().setName("dimensionallyshiftedsuperfluid")
             .setDefaultLocalName("Dimensionally Shifted Superfluid")
             .setIconSet(TextureSet.SET_DIMENSIONALLY_SHIFTED_SUPER_FLUID)
@@ -16174,16 +16174,16 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadMoltenProtoHalkoniteBase() {
+    private static Materials_OLD loadMoltenProtoHalkoniteBase() {
         return new MaterialBuilder().setName("protohalkonitebase")
             .setDefaultLocalName("Molten Proto-Halkonite Steel Base")
             .setChemicalFormula(
-                "(" + Materials.TranscendentMetal.getChemicalFormula()
+                "(" + Materials_OLD.TranscendentMetal.getChemicalFormula()
                     + ")₂"
                     + "(W₈Nq*₇("
-                    + Materials.Bedrockium.getChemicalFormula()
+                    + Materials_OLD.Bedrockium.getChemicalFormula()
                     + ")₄C₄V₃SpPu)₂"
-                    + Materials.Tartarite.getChemicalFormula()
+                    + Materials_OLD.Tartarite.getChemicalFormula()
                     + "₂"
                     + "((CW)₇Ti₃)₃"
                     + CustomGlyphs.FIRE
@@ -16202,10 +16202,10 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHotProtoHalkonite() {
+    private static Materials_OLD loadHotProtoHalkonite() {
         return new MaterialBuilder().setName("hotprotohalkonite")
             .setDefaultLocalName("Hot Proto-Halkonite Steel")
-            .setChemicalFormula(Materials.MoltenProtoHalkoniteBase.getChemicalFormula())
+            .setChemicalFormula(Materials_OLD.MoltenProtoHalkoniteBase.getChemicalFormula())
             .setIconSet(TextureSet.SET_HOT_PROTOHALKONITE)
             .addDustItems()
             .addMetalItems()
@@ -16237,10 +16237,10 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
     }
 
-    private static Materials loadProtoHalkonite() {
+    private static Materials_OLD loadProtoHalkonite() {
         return new MaterialBuilder().setName("protohalkonite")
             .setDefaultLocalName("Proto-Halkonite Steel")
-            .setChemicalFormula(Materials.MoltenProtoHalkoniteBase.getChemicalFormula())
+            .setChemicalFormula(Materials_OLD.MoltenProtoHalkoniteBase.getChemicalFormula())
             .setFlavorText("Forged to be indestructible, probably")
             .setIconSet(TextureSet.SET_PROTOHALKONITE)
             .addDustItems()
@@ -16273,7 +16273,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
     }
 
-    private static Materials loadMoltenExoHalkoniteBase() {
+    private static Materials_OLD loadMoltenExoHalkoniteBase() {
         return new MaterialBuilder().setName("moltenexohalkonitebase")
             .setDefaultLocalName("Molten Exo-Halkonite Steel Preparation Base")
             .setIconSet(TextureSet.SET_FLUID)
@@ -16286,7 +16286,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHotExoHalkonite() {
+    private static Materials_OLD loadHotExoHalkonite() {
         return new MaterialBuilder().setName("hotexohalkonite")
             .setDefaultLocalName("Hot Exo-Halkonite Steel")
             .setIconSet(TextureSet.SET_HOT_EXOHALKONITE)
@@ -16322,7 +16322,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
     }
 
-    private static Materials loadExoHalkonite() {
+    private static Materials_OLD loadExoHalkonite() {
         return new MaterialBuilder().setName("exohalkonite")
             .setDefaultLocalName("Exo-Halkonite Steel")
             .setIconSet(TextureSet.SET_EXOHALKONITE)
@@ -16358,7 +16358,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
     }
 
-    private static Materials loadAntimatter() {
+    private static Materials_OLD loadAntimatter() {
         return new MaterialBuilder().setName("Antimatter")
             .setDefaultLocalName("Semi-Stable Antimatter")
             .setIconSet(TextureSet.SET_FLUID)
@@ -16369,7 +16369,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadProtomatter() {
+    private static Materials_OLD loadProtomatter() {
         return new MaterialBuilder().setName("Protomatter")
             .setDefaultLocalName("Protomatter")
             .setIconSet(TextureSet.SET_FLUID)
@@ -16380,7 +16380,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadStargateCrystalSlurry() {
+    private static Materials_OLD loadStargateCrystalSlurry() {
         return new MaterialBuilder().setName("sgcrystalslurry")
             .setDefaultLocalName("Stargate Crystal Slurry")
             .setIconSet(TextureSet.SET_SG_CRYSTAL_SLURRY)
@@ -16390,7 +16390,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_MAX);
     }
 
-    private static Materials loadLumipodExtract() {
+    private static Materials_OLD loadLumipodExtract() {
         return new MaterialBuilder().setName("BrightLumipodExtract")
             .setDefaultLocalName("Bright Lumipod Extract")
             .setIconSet(TextureSet.SET_FLUID)
@@ -16405,7 +16405,7 @@ public class MaterialsInit {
             .setLiquidTemperature(298);
     }
 
-    private static Materials loadInactiveCosmicSolder() {
+    private static Materials_OLD loadInactiveCosmicSolder() {
         return new MaterialBuilder().setName("InactiveCosmicSolder")
             .setDefaultLocalName("Inactive Cosmic Solder")
             .setChemicalFormula("✦✦✦✦✦")
@@ -16419,7 +16419,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UMV);
     }
 
-    private static Materials loadBoundlessCosmicSolder() {
+    private static Materials_OLD loadBoundlessCosmicSolder() {
         return new MaterialBuilder().setName("BoundlessCosmicSolder")
             .setDefaultLocalName("Boundless Cosmic Solder")
             .setChemicalFormula("✧✦✧✦✧")
@@ -16433,7 +16433,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UMV);
     }
 
-    private static Materials loadBiocatalyzedPropulsionFluid() {
+    private static Materials_OLD loadBiocatalyzedPropulsionFluid() {
         return new MaterialBuilder().setName("BiocatalyzedPropulsionFluid")
             .setDefaultLocalName("Biocatalyzed Propulsion Fluid")
             .setChemicalFormula("ඞ")
@@ -16450,26 +16450,26 @@ public class MaterialsInit {
     }
 
     private static void loadGTNHMaterials() {
-        Materials.Signalum = loadSignalum();
-        Materials.Lumium = loadLumium();
-        Materials.Prismarine = loadPrismarine();
-        Materials.AquaRegia = loadAquaRegia();
-        Materials.SolutionBlueVitriol = loadSolutionBlueVitriol();
-        Materials.SolutionNickelSulfate = loadSolutionNickelSulfate();
-        Materials.Lodestone = loadLodestone();
-        Materials.Luminite = loadLuminite();
-        Materials.Chlorite = loadChlorite();
-        Materials.Staurolite = loadStaurolite();
-        Materials.Cordierite = loadCordierite();
-        Materials.Datolite = loadDatolite();
-        Materials.MetamorphicMineralMixture = loadMetamorphicMineralMixture();
-        Materials.Plagioclase = loadPlagioclase();
-        Materials.Epidote = loadEpidote();
-        Materials.UnformedHexanite = loadUnformedHexanite();
-        Materials.Hexanite = loadHexanite();
+        Materials_OLD.Signalum = loadSignalum();
+        Materials_OLD.Lumium = loadLumium();
+        Materials_OLD.Prismarine = loadPrismarine();
+        Materials_OLD.AquaRegia = loadAquaRegia();
+        Materials_OLD.SolutionBlueVitriol = loadSolutionBlueVitriol();
+        Materials_OLD.SolutionNickelSulfate = loadSolutionNickelSulfate();
+        Materials_OLD.Lodestone = loadLodestone();
+        Materials_OLD.Luminite = loadLuminite();
+        Materials_OLD.Chlorite = loadChlorite();
+        Materials_OLD.Staurolite = loadStaurolite();
+        Materials_OLD.Cordierite = loadCordierite();
+        Materials_OLD.Datolite = loadDatolite();
+        Materials_OLD.MetamorphicMineralMixture = loadMetamorphicMineralMixture();
+        Materials_OLD.Plagioclase = loadPlagioclase();
+        Materials_OLD.Epidote = loadEpidote();
+        Materials_OLD.UnformedHexanite = loadUnformedHexanite();
+        Materials_OLD.Hexanite = loadHexanite();
     }
 
-    private static Materials loadSignalum() {
+    private static Materials_OLD loadSignalum() {
         return new MaterialBuilder().setName("Signalum")
             .setDefaultLocalName("Signalum")
             .addDustItems()
@@ -16478,7 +16478,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLumium() {
+    private static Materials_OLD loadLumium() {
         return new MaterialBuilder().setName("Lumium")
             .setDefaultLocalName("Lumium")
             .addDustItems()
@@ -16487,32 +16487,32 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPrismarine() {
+    private static Materials_OLD loadPrismarine() {
         return new MaterialBuilder().setName("Prismarine")
             .setDefaultLocalName("Prismarine")
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .constructMaterial();
     }
 
-    private static Materials loadAquaRegia() {
+    private static Materials_OLD loadAquaRegia() {
         return new MaterialBuilder().setName("AquaRegia")
             .setDefaultLocalName("Aqua Regia")
             .constructMaterial();
     }
 
-    private static Materials loadSolutionBlueVitriol() {
+    private static Materials_OLD loadSolutionBlueVitriol() {
         return new MaterialBuilder().setName("SolutionBlueVitriol")
             .setDefaultLocalName("Blue Vitriol Solution")
             .constructMaterial();
     }
 
-    private static Materials loadSolutionNickelSulfate() {
+    private static Materials_OLD loadSolutionNickelSulfate() {
         return new MaterialBuilder().setName("SolutionNickelSulfate")
             .setDefaultLocalName("Nickel Sulfate Solution")
             .constructMaterial();
     }
 
-    private static Materials loadLodestone() {
+    private static Materials_OLD loadLodestone() {
         return new MaterialBuilder().setName("Lodestone")
             .setDefaultLocalName("Lodestone")
             .setMiningLevel(0)
@@ -16521,7 +16521,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadLuminite() {
+    private static Materials_OLD loadLuminite() {
         return new MaterialBuilder().setName("Luminite")
             .setDefaultLocalName("Luminite")
             .setColor(Dyes.dyeWhite)
@@ -16532,68 +16532,68 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadChlorite() {
+    private static Materials_OLD loadChlorite() {
         return new MaterialBuilder().setName("Chlorite")
             .setDefaultLocalName("Chlorite")
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeLime)
             .addDustItems()
             .setARGB(0x00607d6c)
-            .addMaterial(Materials.Iron, 3)
-            .addMaterial(Materials.Magnesium, 2)
-            .addMaterial(Materials.Aluminiumoxide, 1)
-            .addMaterial(Materials.SiliconDioxide, 3)
-            .addMaterial(Materials.Water, 4)
-            .addMaterial(Materials.Oxygen, 5)
+            .addMaterial(Materials_OLD.Iron, 3)
+            .addMaterial(Materials_OLD.Magnesium, 2)
+            .addMaterial(Materials_OLD.Aluminiumoxide, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 3)
+            .addMaterial(Materials_OLD.Water, 4)
+            .addMaterial(Materials_OLD.Oxygen, 5)
             .constructMaterial();
     }
 
-    private static Materials loadStaurolite() {
+    private static Materials_OLD loadStaurolite() {
         return new MaterialBuilder().setName("Staurolite")
             .setDefaultLocalName("Staurolite")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeBrown)
             .addDustItems()
             .setARGB(0x003f2816)
-            .addMaterial(Materials.Iron, 2)
-            .addMaterial(Materials.Aluminium, 9)
-            .addMaterial(Materials.SiliconDioxide, 4)
-            .addMaterial(Materials.Oxygen, 16)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Iron, 2)
+            .addMaterial(Materials_OLD.Aluminium, 9)
+            .addMaterial(Materials_OLD.SiliconDioxide, 4)
+            .addMaterial(Materials_OLD.Oxygen, 16)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadCordierite() {
+    private static Materials_OLD loadCordierite() {
         return new MaterialBuilder().setName("Cordierite")
             .setDefaultLocalName("Cordierite")
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyePurple)
             .setARGB(0x00434b82)
             .addDustItems()
-            .addMaterial(Materials.Iron, 1)
-            .addMaterial(Materials.Magnesium, 1)
-            .addMaterial(Materials.SiliconDioxide, 5)
-            .addMaterial(Materials.Aluminiumoxide, 1)
-            .addMaterial(Materials.Oxygen, 5)
+            .addMaterial(Materials_OLD.Iron, 1)
+            .addMaterial(Materials_OLD.Magnesium, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 5)
+            .addMaterial(Materials_OLD.Aluminiumoxide, 1)
+            .addMaterial(Materials_OLD.Oxygen, 5)
             .constructMaterial();
     }
 
-    private static Materials loadDatolite() {
+    private static Materials_OLD loadDatolite() {
         return new MaterialBuilder().setName("Datolite")
             .setDefaultLocalName("Datolite")
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00eac4ce)
             .addDustItems()
-            .addMaterial(Materials.Calcium, 1)
-            .addMaterial(Materials.Boron, 1)
-            .addMaterial(Materials.SiliconDioxide, 1)
-            .addMaterial(Materials.Oxygen, 3)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Calcium, 1)
+            .addMaterial(Materials_OLD.Boron, 1)
+            .addMaterial(Materials_OLD.SiliconDioxide, 1)
+            .addMaterial(Materials_OLD.Oxygen, 3)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadMetamorphicMineralMixture() {
+    private static Materials_OLD loadMetamorphicMineralMixture() {
         return new MaterialBuilder().setName("MetamorphicMineralMixture")
             .setDefaultLocalName("Metamorphic Mineral Mixture")
             .setIconSet(TextureSet.SET_DULL)
@@ -16603,36 +16603,36 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadPlagioclase() {
+    private static Materials_OLD loadPlagioclase() {
         return new MaterialBuilder().setName("Plagioclase")
             .setDefaultLocalName("Plagioclase")
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00c1bab2)
             .addDustItems()
-            .addMaterial(Materials.Sodium, 1)
-            .addMaterial(Materials.Aluminium, 1)
-            .addMaterial(Materials.Silicon, 3)
-            .addMaterial(Materials.Oxygen, 8)
+            .addMaterial(Materials_OLD.Sodium, 1)
+            .addMaterial(Materials_OLD.Aluminium, 1)
+            .addMaterial(Materials_OLD.Silicon, 3)
+            .addMaterial(Materials_OLD.Oxygen, 8)
             .constructMaterial();
     }
 
-    private static Materials loadEpidote() {
+    private static Materials_OLD loadEpidote() {
         return new MaterialBuilder().setName("Epidote")
             .setDefaultLocalName("Epidote")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeLime)
             .setARGB(0x008cb121)
             .addDustItems()
-            .addMaterial(Materials.Calcium, 2)
-            .addMaterial(Materials.Aluminium, 3)
-            .addMaterial(Materials.SiliconDioxide, 3)
-            .addMaterial(Materials.Oxygen, 1)
-            .addMaterial(Materials.Hydrogen, 1)
+            .addMaterial(Materials_OLD.Calcium, 2)
+            .addMaterial(Materials_OLD.Aluminium, 3)
+            .addMaterial(Materials_OLD.SiliconDioxide, 3)
+            .addMaterial(Materials_OLD.Oxygen, 1)
+            .addMaterial(Materials_OLD.Hydrogen, 1)
             .constructMaterial();
     }
 
-    private static Materials loadUnformedHexanite() {
+    private static Materials_OLD loadUnformedHexanite() {
         return new MaterialBuilder().setName("Unformed Hexanite")
             .setDefaultLocalName("Unformed Hexanite")
             .setChemicalFormula("Hx*")
@@ -16649,7 +16649,7 @@ public class MaterialsInit {
             .constructMaterial();
     }
 
-    private static Materials loadHexanite() {
+    private static Materials_OLD loadHexanite() {
         return new MaterialBuilder().setName("Hexanite")
             .setDefaultLocalName("Hexanite")
             .setChemicalFormula("Hx⚶")
@@ -16679,11 +16679,11 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_UMV);
     }
 
-    private static Materials loadShijima() {
+    private static Materials_OLD loadShijima() {
         return new MaterialBuilder().setName("Shijima")
             .setDefaultLocalName("Shijima")
             .setChemicalFormula(
-                "(" + Materials.NetherStar.getChemicalFormula()
+                "(" + Materials_OLD.NetherStar.getChemicalFormula()
                     + ")₈Tb₇Tc₄("
                     + CustomGlyphs.FIXED_JAPANESE_OPENING_QUOTE
                     + "Fe/C⌋"
@@ -16703,7 +16703,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_ZPM);
     }
 
-    private static Materials loadChuritsu() {
+    private static Materials_OLD loadChuritsu() {
         return new MaterialBuilder().setName("Churitsu")
             .setDefaultLocalName("Churitsu")
             .setChemicalFormula(
@@ -16728,7 +16728,7 @@ public class MaterialsInit {
             .setProcessingMaterialTierEU(TierEU.RECIPE_ZPM);
     }
 
-    private static Materials loadComputationBase() {
+    private static Materials_OLD loadComputationBase() {
         return new MaterialBuilder().setName("Computation Base")
             .setDefaultLocalName("Computation Base")
             .setChemicalFormula("01010011 01000111")
@@ -16748,10 +16748,10 @@ public class MaterialsInit {
     }
 
     private static void loadChimeraGems() {
-        Materials.Amalgatite = loadAmalgatite();
+        Materials_OLD.Amalgatite = loadAmalgatite();
     }
 
-    private static Materials loadAmalgatite() {
+    private static Materials_OLD loadAmalgatite() {
         return new MaterialBuilder().setName("Amalgatite")
             .setDefaultLocalName("Amalgatite")
             .setChemicalFormula(EnumChatFormatting.OBFUSCATED + "?????????")

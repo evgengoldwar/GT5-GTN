@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 
 public class ReasonOutOfFluid implements ShutDownReason {
 
@@ -52,7 +52,7 @@ public class ReasonOutOfFluid implements ShutDownReason {
     @NotNull
     @Override
     public ShutDownReason newInstance() {
-        return new ReasonOutOfFluid(Materials.Water.getFluid(0));
+        return new ReasonOutOfFluid(Materials_OLD.Water.getFluid(0));
     }
 
     @Override

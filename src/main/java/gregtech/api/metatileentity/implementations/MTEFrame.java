@@ -6,7 +6,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.HarvestTool;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -22,16 +22,16 @@ import gregtech.common.blocks.BlockFrameBox;
 public class MTEFrame extends MetaPipeEntity implements ILocalizedMetaPipeEntity {
 
     public static final String LOCALIZED_DESC_FORMAT = "gt.blockmachines.gt_frame.desc.format";
-    public final Materials mMaterial;
+    public final Materials_OLD mMaterial;
 
-    public MTEFrame(int aID, String aName, Materials aMaterial) {
+    public MTEFrame(int aID, String aName, Materials_OLD aMaterial) {
         super(aID, aName, 0);
         mMaterial = aMaterial;
         // Hide TileEntity frame in NEI, since we have the block version now that should always be used
         codechicken.nei.api.API.hideItem(this.getStackForm(1));
     }
 
-    public MTEFrame(String aName, Materials aMaterial) {
+    public MTEFrame(String aName, Materials_OLD aMaterial) {
         super(aName, 0);
         mMaterial = aMaterial;
     }
@@ -137,7 +137,7 @@ public class MTEFrame extends MetaPipeEntity implements ILocalizedMetaPipeEntity
     }
 
     @Override
-    public Materials getMaterial() {
+    public Materials_OLD getMaterial() {
         return mMaterial;
     }
 

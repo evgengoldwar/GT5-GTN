@@ -2594,17 +2594,17 @@ public class OrePrefixes {
         cellPlasma.mHeatDamage = 6.0F;
 
         block.ignoreMaterials(
-            Materials.Ice,
-            Materials.Snow,
-            Materials.Concrete,
-            Materials.Glass,
-            Materials.Glowstone,
-            Materials.DarkIron,
-            Materials.Marble,
-            Materials.Quartz,
-            Materials.CertusQuartz,
-            Materials.Limestone);
-        ingot.ignoreMaterials(Materials.Brick, Materials.NetherBrick);
+            Materials_OLD.Ice,
+            Materials_OLD.Snow,
+            Materials_OLD.Concrete,
+            Materials_OLD.Glass,
+            Materials_OLD.Glowstone,
+            Materials_OLD.DarkIron,
+            Materials_OLD.Marble,
+            Materials_OLD.Quartz,
+            Materials_OLD.CertusQuartz,
+            Materials_OLD.Limestone);
+        ingot.ignoreMaterials(Materials_OLD.Brick, Materials_OLD.NetherBrick);
 
         dust.addFamiliarPrefix(dustTiny);
         dust.addFamiliarPrefix(dustSmall);
@@ -2626,7 +2626,7 @@ public class OrePrefixes {
             }
         }
 
-        cell.disableComponent(Materials.GravitonShard);
+        cell.disableComponent(Materials_OLD.GravitonShard);
 
         dust.mGeneratedItems.addAll(dustPure.mGeneratedItems);
         dust.mGeneratedItems.addAll(dustImpure.mGeneratedItems);
@@ -2707,44 +2707,44 @@ public class OrePrefixes {
         wireFine.mCondition = SubTag.METAL;
 
         sheetmetal.mCondition = new ICondition.And<>(
-            obj -> obj instanceof Materials mat && mat.hasMetalItems(),
+            obj -> obj instanceof Materials_OLD mat && mat.hasMetalItems(),
             new ICondition.Nor<>(SubTag.STRETCHY, SubTag.SOFT, SubTag.BOUNCY, SubTag.NO_SMASHING));
         // -----
 
-        pipeRestrictiveTiny.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.materialAmount);
-        pipeRestrictiveSmall.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.materialAmount * 2);
-        pipeRestrictiveMedium.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.materialAmount * 3);
-        pipeRestrictiveLarge.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.materialAmount * 4);
-        pipeRestrictiveHuge.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.materialAmount * 5);
-        bucket.mSecondaryMaterial = new MaterialStack(Materials.Iron, ingot.materialAmount * 3);
-        bucketClay.mSecondaryMaterial = new MaterialStack(Materials.Clay, dust.materialAmount * 5);
-        CELL_TYPES
-            .forEach(prefix -> prefix.mSecondaryMaterial = new MaterialStack(Materials.Tin, plate.materialAmount * 2));
-        oreRedgranite.mSecondaryMaterial = new MaterialStack(Materials.GraniteRed, dust.materialAmount);
-        oreBlackgranite.mSecondaryMaterial = new MaterialStack(Materials.GraniteBlack, dust.materialAmount);
-        oreNetherrack.mSecondaryMaterial = new MaterialStack(Materials.Netherrack, dust.materialAmount);
-        oreNether.mSecondaryMaterial = new MaterialStack(Materials.Netherrack, dust.materialAmount);
-        oreEndstone.mSecondaryMaterial = new MaterialStack(Materials.Endstone, dust.materialAmount);
-        oreEnd.mSecondaryMaterial = new MaterialStack(Materials.Endstone, dust.materialAmount);
-        oreMarble.mSecondaryMaterial = new MaterialStack(Materials.Marble, dust.materialAmount);
-        oreBasalt.mSecondaryMaterial = new MaterialStack(Materials.Basalt, dust.materialAmount);
-        oreDense.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount);
-        orePoor.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount * 2);
-        oreSmall.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount * 2);
-        oreNormal.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount * 2);
-        rawOre.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount);
-        oreRich.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount * 2);
-        ore.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount);
-        crushed.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount);
+        pipeRestrictiveTiny.mSecondaryMaterial = new MaterialStack(Materials_OLD.Steel, ring.materialAmount);
+        pipeRestrictiveSmall.mSecondaryMaterial = new MaterialStack(Materials_OLD.Steel, ring.materialAmount * 2);
+        pipeRestrictiveMedium.mSecondaryMaterial = new MaterialStack(Materials_OLD.Steel, ring.materialAmount * 3);
+        pipeRestrictiveLarge.mSecondaryMaterial = new MaterialStack(Materials_OLD.Steel, ring.materialAmount * 4);
+        pipeRestrictiveHuge.mSecondaryMaterial = new MaterialStack(Materials_OLD.Steel, ring.materialAmount * 5);
+        bucket.mSecondaryMaterial = new MaterialStack(Materials_OLD.Iron, ingot.materialAmount * 3);
+        bucketClay.mSecondaryMaterial = new MaterialStack(Materials_OLD.Clay, dust.materialAmount * 5);
+        CELL_TYPES.forEach(
+            prefix -> prefix.mSecondaryMaterial = new MaterialStack(Materials_OLD.Tin, plate.materialAmount * 2));
+        oreRedgranite.mSecondaryMaterial = new MaterialStack(Materials_OLD.GraniteRed, dust.materialAmount);
+        oreBlackgranite.mSecondaryMaterial = new MaterialStack(Materials_OLD.GraniteBlack, dust.materialAmount);
+        oreNetherrack.mSecondaryMaterial = new MaterialStack(Materials_OLD.Netherrack, dust.materialAmount);
+        oreNether.mSecondaryMaterial = new MaterialStack(Materials_OLD.Netherrack, dust.materialAmount);
+        oreEndstone.mSecondaryMaterial = new MaterialStack(Materials_OLD.Endstone, dust.materialAmount);
+        oreEnd.mSecondaryMaterial = new MaterialStack(Materials_OLD.Endstone, dust.materialAmount);
+        oreMarble.mSecondaryMaterial = new MaterialStack(Materials_OLD.Marble, dust.materialAmount);
+        oreBasalt.mSecondaryMaterial = new MaterialStack(Materials_OLD.Basalt, dust.materialAmount);
+        oreDense.mSecondaryMaterial = new MaterialStack(Materials_OLD.Stone, dust.materialAmount);
+        orePoor.mSecondaryMaterial = new MaterialStack(Materials_OLD.Stone, dust.materialAmount * 2);
+        oreSmall.mSecondaryMaterial = new MaterialStack(Materials_OLD.Stone, dust.materialAmount * 2);
+        oreNormal.mSecondaryMaterial = new MaterialStack(Materials_OLD.Stone, dust.materialAmount * 2);
+        rawOre.mSecondaryMaterial = new MaterialStack(Materials_OLD.Stone, dust.materialAmount);
+        oreRich.mSecondaryMaterial = new MaterialStack(Materials_OLD.Stone, dust.materialAmount * 2);
+        ore.mSecondaryMaterial = new MaterialStack(Materials_OLD.Stone, dust.materialAmount);
+        crushed.mSecondaryMaterial = new MaterialStack(Materials_OLD.Stone, dust.materialAmount);
         toolHeadChainsaw.mSecondaryMaterial = new MaterialStack(
-            Materials.Steel,
+            Materials_OLD.Steel,
             plate.materialAmount * 4 + ring.materialAmount * 2);
         toolHeadWrench.mSecondaryMaterial = new MaterialStack(
-            Materials.Steel,
+            Materials_OLD.Steel,
             ring.materialAmount + screw.materialAmount * 2);
-        bulletGtSmall.mSecondaryMaterial = new MaterialStack(Materials.Brass, ingot.materialAmount / 9);
-        bulletGtMedium.mSecondaryMaterial = new MaterialStack(Materials.Brass, ingot.materialAmount / 6);
-        bulletGtLarge.mSecondaryMaterial = new MaterialStack(Materials.Brass, ingot.materialAmount / 3);
+        bulletGtSmall.mSecondaryMaterial = new MaterialStack(Materials_OLD.Brass, ingot.materialAmount / 9);
+        bulletGtMedium.mSecondaryMaterial = new MaterialStack(Materials_OLD.Brass, ingot.materialAmount / 6);
+        bulletGtLarge.mSecondaryMaterial = new MaterialStack(Materials_OLD.Brass, ingot.materialAmount / 3);
     }
 
     public final ArrayList<ItemStack> mPrefixedItems = new GTArrayList<>(false, 16);
@@ -2752,7 +2752,7 @@ public class OrePrefixes {
     public final List<TC_AspectStack> mAspects = new ArrayList<>();
     public final Collection<OrePrefixes> mFamiliarPrefixes = new HashSet<>();
 
-    public final Collection<Materials> mDisabledItems = new HashSet<>(), mNotGeneratedItems = new HashSet<>(),
+    public final Collection<Materials_OLD> mDisabledItems = new HashSet<>(), mNotGeneratedItems = new HashSet<>(),
         mIgnoredMaterials = new HashSet<>(), mGeneratedItems = new HashSet<>();
     private final ArrayList<IOreRecipeRegistrator> mOreProcessing = new ArrayList<>();
     public ItemStack mContainerItem = null;
@@ -2808,7 +2808,7 @@ public class OrePrefixes {
         return aName != null && aName.startsWith(aPrefix.toString());
     }
 
-    public void disableComponent(Materials aMaterial) {
+    public void disableComponent(Materials_OLD aMaterial) {
         if (!this.mDisabledItems.contains(aMaterial)) this.mDisabledItems.add(aMaterial);
     }
 
@@ -2944,19 +2944,19 @@ public class OrePrefixes {
         return aReplacement;
     }
 
-    public static Materials getMaterial(String aOre) {
-        return Materials.get(stripPrefix(aOre));
+    public static Materials_OLD getMaterial(String aOre) {
+        return Materials_OLD.get(stripPrefix(aOre));
     }
 
-    public static Materials getMaterial(String aOre, OrePrefixes aPrefix) {
-        return Materials.get(aOre.replaceFirst(aPrefix.toString(), ""));
+    public static Materials_OLD getMaterial(String aOre, OrePrefixes aPrefix) {
+        return Materials_OLD.get(aOre.replaceFirst(aPrefix.toString(), ""));
     }
 
-    public static Materials getRealMaterial(String aOre, OrePrefixes aPrefix) {
-        return Materials.getRealMaterial(aOre.replaceFirst(aPrefix.toString(), ""));
+    public static Materials_OLD getRealMaterial(String aOre, OrePrefixes aPrefix) {
+        return Materials_OLD.getRealMaterial(aOre.replaceFirst(aPrefix.toString(), ""));
     }
 
-    public void enableComponent(Materials aMaterial) {
+    public void enableComponent(Materials_OLD aMaterial) {
         this.mDisabledItems.remove(aMaterial);
     }
 
@@ -2984,9 +2984,9 @@ public class OrePrefixes {
         return false;
     }
 
-    public boolean doGenerateItem(Materials aMaterial) {
+    public boolean doGenerateItem(Materials_OLD aMaterial) {
         if (aMaterial == null) return false;
-        if (aMaterial == Materials._NULL) return false;
+        if (aMaterial == Materials_OLD._NULL) return false;
         if (aMaterial.mMetaItemSubID == -1) return false;
         if (!aMaterial.mHasParentMod) return false;
 
@@ -3010,12 +3010,12 @@ public class OrePrefixes {
         return mCondition == null || mCondition.isTrue(aMaterial);
     }
 
-    public boolean ignoreMaterials(Materials... aMaterials) {
-        for (Materials tMaterial : aMaterials) if (tMaterial != null) mIgnoredMaterials.add(tMaterial);
+    public boolean ignoreMaterials(Materials_OLD... aMaterials) {
+        for (Materials_OLD tMaterial : aMaterials) if (tMaterial != null) mIgnoredMaterials.add(tMaterial);
         return true;
     }
 
-    public boolean isIgnored(Materials aMaterial) {
+    public boolean isIgnored(Materials_OLD aMaterial) {
         if (aMaterial != null && (!aMaterial.mUnifiable || aMaterial != aMaterial.mMaterialInto)) return true;
         return mIgnoredMaterials.contains(aMaterial);
     }
@@ -3030,11 +3030,11 @@ public class OrePrefixes {
         return mOreProcessing.add(aRegistrator);
     }
 
-    public void processOre(Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
+    public void processOre(Materials_OLD aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
 
         if (aMaterial == null) return;
         if (aMaterial.contains(SubTag.NO_RECIPES)) return;
-        if (aMaterial == Materials._NULL && !isSelfReferencing && isMaterialBased) return;
+        if (aMaterial == Materials_OLD._NULL && !isSelfReferencing && isMaterialBased) return;
         if (!GTUtility.isStackValid(aStack)) return;
 
         for (IOreRecipeRegistrator tRegistrator : mOreProcessing) {
@@ -3051,11 +3051,11 @@ public class OrePrefixes {
     }
 
     public Object get(Object aMaterial) {
-        if (aMaterial instanceof Materials) return new ItemData(this, (Materials) aMaterial);
+        if (aMaterial instanceof Materials_OLD) return new ItemData(this, (Materials_OLD) aMaterial);
         return name + aMaterial;
     }
 
-    public String getDefaultLocalNameForItem(Materials aMaterial) {
+    public String getDefaultLocalNameForItem(Materials_OLD aMaterial) {
         return aMaterial.getDefaultLocalizedNameForItem(getDefaultLocalNameFormatForItem(aMaterial));
     }
 
@@ -3166,7 +3166,7 @@ public class OrePrefixes {
     }
 
     public String getDefaultLocalNameFormatForItem() {
-        return getDefaultLocalNameForItem(Materials._NULL);
+        return getDefaultLocalNameForItem(Materials_OLD._NULL);
     }
 
     public static String getOreprefixKey(String prefix, String formatString) {
@@ -3187,7 +3187,7 @@ public class OrePrefixes {
     }
 
     public String getOreprefixKey() {
-        return getOreprefixKey(Materials._NULL);
+        return getOreprefixKey(Materials_OLD._NULL);
     }
 
     public String getLocalizedNameForItem(IOreMaterial materials) {

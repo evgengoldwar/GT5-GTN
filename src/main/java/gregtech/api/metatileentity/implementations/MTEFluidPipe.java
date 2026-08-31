@@ -48,7 +48,7 @@ import gregtech.GTMod;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.HarvestTool;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.ParticleFX;
@@ -113,7 +113,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     public final float mThickNess;
-    public final Materials mMaterial;
+    public final Materials_OLD mMaterial;
     public final int mCapacity, mHeatResistance, mPipeAmount;
     public final boolean mGasProof;
     public final FluidStack[] mFluids;
@@ -126,13 +126,13 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     private String materialKeyOverride;
     private boolean shouldSkipMaterialTooltip = false;
 
-    public MTEFluidPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials aMaterial, int aCapacity,
-        int aHeatResistance, boolean aGasProof) {
+    public MTEFluidPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
+        int aCapacity, int aHeatResistance, boolean aGasProof) {
         this(aID, aName, aPrefixKey, aThickNess, aMaterial, aCapacity, aHeatResistance, aGasProof, 1);
     }
 
-    public MTEFluidPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials aMaterial, int aCapacity,
-        int aHeatResistance, boolean aGasProof, int aFluidTypes) {
+    public MTEFluidPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
+        int aCapacity, int aHeatResistance, boolean aGasProof, int aFluidTypes) {
         super(aID, aName, 0, false);
         mPrefixKey = aPrefixKey;
         mThickNess = aThickNess;
@@ -145,7 +145,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         addInfo(aID);
     }
 
-    public MTEFluidPipe(String aName, float aThickNess, Materials aMaterial, int aCapacity, int aHeatResistance,
+    public MTEFluidPipe(String aName, float aThickNess, Materials_OLD aMaterial, int aCapacity, int aHeatResistance,
         boolean aGasProof, int aFluidTypes) {
         super(aName, 0);
         mThickNess = aThickNess;

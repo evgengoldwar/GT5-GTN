@@ -28,7 +28,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.Dyes;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.ParticleFX;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TierEU;
@@ -155,7 +155,7 @@ public abstract class MTEBasicMachineBronze extends MTEBasicMachine {
     public FluidTankInfo[] getTankInfo(ForgeDirection side) {
         int steamAmount = (int) getBaseMetaTileEntity().getStoredSteam() * 2;
         int steamCapacity = (int) getBaseMetaTileEntity().getSteamCapacity() * 2;
-        FluidStack steam = Materials.Steam.getGas(steamAmount);
+        FluidStack steam = Materials_OLD.Steam.getGas(steamAmount);
         return new FluidTankInfo[] { new FluidTankInfo(steam, steamCapacity) };
     }
 

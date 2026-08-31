@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.Optional;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.interfaces.IOreMaterial;
 import mods.railcraft.common.items.firestone.IItemFirestoneBurning;
@@ -67,7 +67,7 @@ public class ItemStorage extends ItemBlock implements IItemFirestoneBurning {
     public boolean shouldBurn(ItemStack itemStack) {
         if (this.field_150939_a instanceof BlockMetal metal) {
             int damage = itemStack.getItemDamage();
-            return (damage >= 0 && damage < metal.mMats.length && metal.mMats[damage] == Materials.Firestone);
+            return (damage >= 0 && damage < metal.mMats.length && metal.mMats[damage] == Materials_OLD.Firestone);
         }
         return false;
     }

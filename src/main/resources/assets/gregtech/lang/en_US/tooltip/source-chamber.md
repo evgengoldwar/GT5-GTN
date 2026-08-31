@@ -1,7 +1,7 @@
-Generates particle beams from specific §dsource materials
+Generates particle beams from specific §dsource materialsOLD
 {lang:gtnhlanth.tt.beaminfo}
 {gray:{hr}}
-NEI has the list of §dsource materials§7 and their stats
+NEI has the list of §dsource materialsOLD§7 and their stats
 Recipes are all one second long and output a single beam packet
 Increasing the power above the §3EU/t Required§7 asymptotically approaches the §dMax Material Energy
 {gray:{hr}}

@@ -81,12 +81,12 @@ public class MaterialBuilder {
     private int oreMultiplier = 1;
     private final List<MaterialStack> materialList = new ArrayList<>();
     private final List<TCAspects.TC_AspectStack> aspects = new ArrayList<>();
-    private final List<Supplier<Materials>> pendingOreByproducts = new ArrayList<>();
-    private Supplier<Materials> pendingSmeltingInto;
-    private Supplier<Materials> pendingMaceratingInto;
-    private Supplier<Materials> pendingArcSmeltingInto;
-    private final Map<Supplier<Materials>, Supplier<Materials>> pendingArcSmeltingIntoWithGas = new LinkedHashMap<>();
-    private Supplier<Materials> pendingDirectSmelting;
+    private final List<Supplier<Materials_OLD>> pendingOreByproducts = new ArrayList<>();
+    private Supplier<Materials_OLD> pendingSmeltingInto;
+    private Supplier<Materials_OLD> pendingMaceratingInto;
+    private Supplier<Materials_OLD> pendingArcSmeltingInto;
+    private final Map<Supplier<Materials_OLD>, Supplier<Materials_OLD>> pendingArcSmeltingIntoWithGas = new LinkedHashMap<>();
+    private Supplier<Materials_OLD> pendingDirectSmelting;
     private final LinkedHashSet<SubTag> subTags = new LinkedHashSet<>();
     private final List<OrePrefixes> orePrefixBlacklist = new ArrayList<>();
     private final List<OrePrefixes> orePrefixWhitelist = new ArrayList<>();
@@ -94,8 +94,8 @@ public class MaterialBuilder {
 
     public MaterialBuilder() {}
 
-    public Materials constructMaterial() {
-        Materials material = new Materials(
+    public Materials_OLD constructMaterial() {
+        Materials_OLD material = new Materials_OLD(
             // spotless:off
             name,
             defaultLocalName,
@@ -498,7 +498,7 @@ public class MaterialBuilder {
         return this;
     }
 
-    public MaterialBuilder addMaterial(Materials material, int amount) {
+    public MaterialBuilder addMaterial(Materials_OLD material, int amount) {
         this.materialList.add(new MaterialStack(material, amount));
         return this;
     }
@@ -509,37 +509,37 @@ public class MaterialBuilder {
         return this;
     }
 
-    public MaterialBuilder addOreByproduct(Supplier<Materials> material) {
+    public MaterialBuilder addOreByproduct(Supplier<Materials_OLD> material) {
         pendingOreByproducts.add(material);
         return this;
     }
 
     /** Sets what this material smelts into. */
-    public MaterialBuilder setSmeltingInto(Supplier<Materials> material) {
+    public MaterialBuilder setSmeltingInto(Supplier<Materials_OLD> material) {
         pendingSmeltingInto = material;
         return this;
     }
 
     /** Sets what this material macerates into. */
-    public MaterialBuilder setMaceratingInto(Supplier<Materials> material) {
+    public MaterialBuilder setMaceratingInto(Supplier<Materials_OLD> material) {
         pendingMaceratingInto = material;
         return this;
     }
 
     /** Sets what this material arc smelts into. */
-    public MaterialBuilder setArcSmeltingInto(Supplier<Materials> material) {
+    public MaterialBuilder setArcSmeltingInto(Supplier<Materials_OLD> material) {
         pendingArcSmeltingInto = material;
         return this;
     }
 
     /** Sets what this material arc smelts into when a specific gas is used. */
-    public MaterialBuilder setArcSmeltingIntoWithGas(Supplier<Materials> gas, Supplier<Materials> material) {
+    public MaterialBuilder setArcSmeltingIntoWithGas(Supplier<Materials_OLD> gas, Supplier<Materials_OLD> material) {
         pendingArcSmeltingIntoWithGas.put(gas, material);
         return this;
     }
 
     /** Sets what the ore of this material smelts into. */
-    public MaterialBuilder setDirectSmelting(Supplier<Materials> material) {
+    public MaterialBuilder setDirectSmelting(Supplier<Materials_OLD> material) {
         pendingDirectSmelting = material;
         return this;
     }

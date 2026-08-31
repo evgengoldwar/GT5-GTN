@@ -29,7 +29,7 @@ import cpw.mods.fml.common.ModContainer;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTConfig;
 import gregtech.api.util.GTLanguageManager;
@@ -107,7 +107,7 @@ public class GTPreLoad {
         }
         GTLanguageManager.sEnglishFile.load();
 
-        Materials.getMaterialsMap()
+        Materials_OLD.getMaterialsMap()
             .values()
             .parallelStream()
             .filter(Objects::nonNull)
@@ -191,12 +191,12 @@ public class GTPreLoad {
                                 if (mIt == 2) tags = prefixes2;
                                 if (mIt == 3) tags = prefixes3;
                                 if (tags == null) tags = GTValues.emptyStringArray;
-                                if (GregTechAPI.sGeneratedMaterials[material] != null) {
+                                if (GregTechAPI.S_GENERATED_MATERIALS[material] != null) {
                                     final String tag;
                                     if (tags.length > prefix) {
-                                        tag = tags[prefix] + GregTechAPI.sGeneratedMaterials[material].mName;
+                                        tag = tags[prefix] + GregTechAPI.S_GENERATED_MATERIALS[material].mName;
                                     } else {
-                                        tag = GregTechAPI.sGeneratedMaterials[material].mName;
+                                        tag = GregTechAPI.S_GENERATED_MATERIALS[material].mName;
                                     }
                                     if (!oreTags.contains(tag)) oreTags.add(tag);
                                 } else if (material > 0) {
@@ -238,7 +238,7 @@ public class GTPreLoad {
             final String reEnable = mMTTags.get(i);
             OrePrefixes tPrefix = OrePrefixes.getOrePrefix(reEnable);
             if (tPrefix != null) {
-                Materials tName = Materials.get(reEnable.replaceFirst(tPrefix.toString(), ""));
+                Materials_OLD tName = Materials_OLD.get(reEnable.replaceFirst(tPrefix.toString(), ""));
                 tPrefix.mDisabledItems.remove(tName);
                 tPrefix.mGeneratedItems.add(tName);
                 if (tPrefix == OrePrefixes.screw) {

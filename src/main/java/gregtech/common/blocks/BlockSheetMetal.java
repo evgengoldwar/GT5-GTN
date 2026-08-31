@@ -16,7 +16,7 @@ import appeng.api.parts.IFacadeControl;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
 import gregtech.api.interfaces.IBlockWithTextures;
@@ -44,7 +44,7 @@ public class BlockSheetMetal extends BlockStorage implements IBlockWithTextures,
     public String getLocalizedName(int meta) {
         IOreMaterial material = materials.get(meta);
 
-        if (material == null) material = Materials._NULL;
+        if (material == null) material = Materials_OLD._NULL;
 
         return OrePrefixes.sheetmetal.getLocalizedNameForItem(material);
     }

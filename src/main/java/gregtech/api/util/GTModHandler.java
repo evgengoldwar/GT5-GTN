@@ -45,7 +45,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OreDictNames;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.ToolDictNames;
@@ -141,12 +141,12 @@ public class GTModHandler {
 
     public static boolean isWater(FluidStack aFluid) {
         if (aFluid == null) return false;
-        return aFluid.isFluidEqual(Materials.Water.getFluid(1));
+        return aFluid.isFluidEqual(Materials_OLD.Water.getFluid(1));
     }
 
     public static boolean isSteam(FluidStack aFluid) {
         if (aFluid == null) return false;
-        return aFluid.isFluidEqual(Materials.Steam.getGas(1));
+        return aFluid.isFluidEqual(Materials_OLD.Steam.getGas(1));
     }
 
     public static ItemStack getIC2Item(String aItem, long aAmount, ItemStack aReplacement) {
@@ -560,10 +560,10 @@ public class GTModHandler {
                 case ItemData itemData -> {
                     String tString = in.toString();
                     switch (tString) {
-                        case "plankWood" -> tItemDataMap.put(chr, new ItemData(Materials.Wood, M));
-                        case "stoneNetherrack" -> tItemDataMap.put(chr, new ItemData(Materials.Netherrack, M));
-                        case "stoneObsidian" -> tItemDataMap.put(chr, new ItemData(Materials.Obsidian, M));
-                        case "stoneEndstone" -> tItemDataMap.put(chr, new ItemData(Materials.Endstone, M));
+                        case "plankWood" -> tItemDataMap.put(chr, new ItemData(Materials_OLD.Wood, M));
+                        case "stoneNetherrack" -> tItemDataMap.put(chr, new ItemData(Materials_OLD.Netherrack, M));
+                        case "stoneObsidian" -> tItemDataMap.put(chr, new ItemData(Materials_OLD.Obsidian, M));
+                        case "stoneEndstone" -> tItemDataMap.put(chr, new ItemData(Materials_OLD.Endstone, M));
                         default -> tItemDataMap.put(chr, itemData);
                     }
                     ItemStack tStack = GTOreDictUnificator.getFirstOre(in, 1);
@@ -573,17 +573,17 @@ public class GTModHandler {
                 }
                 case String s -> {
                     if (in.equals(OreDictNames.craftingChest.toString()))
-                        tItemDataMap.put(chr, new ItemData(Materials.Wood, M * 8));
+                        tItemDataMap.put(chr, new ItemData(Materials_OLD.Wood, M * 8));
                     else if (in.equals(OreDictNames.craftingBook.toString()))
-                        tItemDataMap.put(chr, new ItemData(Materials.Paper, M * 3));
+                        tItemDataMap.put(chr, new ItemData(Materials_OLD.Paper, M * 3));
                     else if (in.equals(OreDictNames.craftingPiston.toString()))
-                        tItemDataMap.put(chr, new ItemData(Materials.Stone, M * 4, Materials.Wood, M * 3));
+                        tItemDataMap.put(chr, new ItemData(Materials_OLD.Stone, M * 4, Materials_OLD.Wood, M * 3));
                     else if (in.equals(OreDictNames.craftingFurnace.toString()))
-                        tItemDataMap.put(chr, new ItemData(Materials.Stone, M * 8));
+                        tItemDataMap.put(chr, new ItemData(Materials_OLD.Stone, M * 8));
                     else if (in.equals(OreDictNames.craftingIndustrialDiamond.toString()))
-                        tItemDataMap.put(chr, new ItemData(Materials.Diamond, M));
+                        tItemDataMap.put(chr, new ItemData(Materials_OLD.Diamond, M));
                     else if (in.equals(OreDictNames.craftingAnvil.toString()))
-                        tItemDataMap.put(chr, new ItemData(Materials.Iron, M * 10));
+                        tItemDataMap.put(chr, new ItemData(Materials_OLD.Iron, M * 10));
                     ItemStack tStack = GTOreDictUnificator.getFirstOre(in, 1);
                     if (tStack == null) tRemoveRecipe = false;
                     else tItemStackMap.put(chr, tStack);

@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 
 public class MaterialDumper extends GregTechIDDumper {
 
@@ -24,7 +24,7 @@ public class MaterialDumper extends GregTechIDDumper {
     @Override
     protected Iterable<String[]> dump(Mode mode) {
         List<String[]> dump = new ArrayList<>();
-        Map<Integer, Materials> idMap = Arrays.stream(GregTechAPI.sGeneratedMaterials)
+        Map<Integer, Materials_OLD> idMap = Arrays.stream(GregTechAPI.S_GENERATED_MATERIALS)
             .filter(Objects::nonNull)
             .collect(Collectors.toMap(m -> m.mMetaItemSubID, m -> m));
         for (int i = 0; i < 1000; i++) {

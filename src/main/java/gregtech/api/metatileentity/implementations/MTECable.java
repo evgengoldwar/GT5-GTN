@@ -27,7 +27,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.HarvestTool;
 import gregtech.api.enums.MaterialIconRegistry;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Textures;
 import gregtech.api.graphs.Node;
 import gregtech.api.graphs.NodeList;
@@ -68,14 +68,14 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, ILocalizedMetaPipeEntity {
 
     public final float mThickNess;
-    public final Materials mMaterial;
+    public final Materials_OLD mMaterial;
     public final long mCableLossPerMeter, mAmperage, mVoltage;
     public final boolean mInsulated, mCanShock;
     private String prefixKey;
 
     public int mTransferredAmperage = 0;
 
-    public MTECable(int aID, String aName, String aPrefixKey, float aThickNess, Materials aMaterial,
+    public MTECable(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
         long aCableLossPerMeter, long aAmperage, long aVoltage, boolean aInsulated, boolean aCanShock) {
         super(aID, aName, 0);
         prefixKey = aPrefixKey;
@@ -88,7 +88,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
         mCableLossPerMeter = aCableLossPerMeter;
     }
 
-    public MTECable(String aName, float aThickNess, Materials aMaterial, long aCableLossPerMeter, long aAmperage,
+    public MTECable(String aName, float aThickNess, Materials_OLD aMaterial, long aCableLossPerMeter, long aAmperage,
         long aVoltage, boolean aInsulated, boolean aCanShock) {
         super(aName, 0);
         mThickNess = aThickNess;

@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.FluidState;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluid;
@@ -156,7 +156,7 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
      * @inheritDoc
      */
     @Override
-    public IGTRegisteredFluid configureMaterials(final Materials material) {
+    public IGTRegisteredFluid configureMaterials(final Materials_OLD material) {
         if (material != null) {
             switch (fluidState) {
                 case SLURRY -> material.mSolid = registeredFluid;
@@ -165,7 +165,7 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
                 case MOLTEN -> material.mStandardMoltenFluid = registeredFluid;
                 default -> material.mFluid = registeredFluid;
             }
-            Materials.FLUID_MAP.put(registeredFluid, material);
+            Materials_OLD.FLUID_MAP.put(registeredFluid, material);
         }
         return this;
     }

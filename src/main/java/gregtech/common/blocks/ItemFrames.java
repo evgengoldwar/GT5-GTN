@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.metatileentity.implementations.MTEFrame;
 
 public class ItemFrames extends ItemBlock {
@@ -44,7 +44,7 @@ public class ItemFrames extends ItemBlock {
     @Override
     public int getColorFromItemStack(ItemStack aStack, int aPass) {
         int meta = aStack.getItemDamage();
-        Materials material = BlockFrameBox.getMaterial(meta);
+        Materials_OLD material = BlockFrameBox.getMaterial(meta);
         if (material == null) return 0;
         return (material.mRGBa[0] << 16) | (material.mRGBa[1] << 8) | material.mRGBa[2];
     }

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
 import gregtech.api.interfaces.IBlockWithTextures;
@@ -45,7 +45,7 @@ public class BlockDecorativeFrame extends BlockStorage implements IBlockWithText
     public String getLocalizedName(int meta) {
         IOreMaterial material = materials.get(meta);
 
-        if (material == null) material = Materials._NULL;
+        if (material == null) material = Materials_OLD._NULL;
 
         return OrePrefixes.frameGt.getLocalizedNameForItem(material);
     }

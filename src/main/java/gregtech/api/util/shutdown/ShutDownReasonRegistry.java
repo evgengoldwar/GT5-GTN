@@ -9,7 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 
 public class ShutDownReasonRegistry {
 
@@ -143,7 +143,7 @@ public class ShutDownReasonRegistry {
 
     static {
         register(new SimpleShutDownReason("", false));
-        register(new ReasonOutOfFluid(Materials.Water.getFluid(0)));
+        register(new ReasonOutOfFluid(Materials_OLD.Water.getFluid(0)));
         register(new ReasonOutOfItem(new ItemStack(Items.feather, 1)));
         register(new ReasonOutOfStuff("stuff", 1));
     }

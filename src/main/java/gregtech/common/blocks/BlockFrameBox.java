@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.Dyes;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IBlockWithTextures;
 import gregtech.api.interfaces.IIconContainer;
@@ -63,8 +63,8 @@ public class BlockFrameBox extends BlockContainer implements IBlockWithTextures 
 
         GameRegistry.registerBlock(this, ItemFrames.class, getUnlocalizedName());
 
-        for (int meta = 1; meta < GregTechAPI.sGeneratedMaterials.length; meta++) {
-            Materials material = GregTechAPI.sGeneratedMaterials[meta];
+        for (int meta = 1; meta < GregTechAPI.S_GENERATED_MATERIALS.length; meta++) {
+            Materials_OLD material = GregTechAPI.S_GENERATED_MATERIALS[meta];
             if (material != null && material.hasMetalItems()) {
 
                 ITexture[] texture = { TextureFactory.of(
@@ -86,13 +86,13 @@ public class BlockFrameBox extends BlockContainer implements IBlockWithTextures 
         return mUnlocalizedName;
     }
 
-    public static String getLocalizedName(Materials materials) {
-        return switch (materials.mName) {
+    public static String getLocalizedName(Materials_OLD materialsOLD) {
+        return switch (materialsOLD.mName) {
             case "InfusedAir", "InfusedDull", "InfusedEarth", "InfusedEntropy", "InfusedFire", "InfusedOrder", "InfusedVis", "InfusedWater" -> OrePrefixes
-                .getLocalizedNameForItem("%material Infused Stone", materials);
+                .getLocalizedNameForItem("%material Infused Stone", materialsOLD);
             case "Vermiculite", "Bentonite", "Kaolinite", "Talc", "BasalticMineralSand", "GraniticMineralSand", "GlauconiteSand", "CassiteriteSand", "GarnetSand", "QuartzSand", "Pitchblende", "FullersEarth" -> OrePrefixes
-                .getLocalizedNameForItem("%material", materials);
-            default -> OrePrefixes.frameGt.getLocalizedNameForItem(materials);
+                .getLocalizedNameForItem("%material", materialsOLD);
+            default -> OrePrefixes.frameGt.getLocalizedNameForItem(materialsOLD);
         };
     }
 
@@ -130,8 +130,8 @@ public class BlockFrameBox extends BlockContainer implements IBlockWithTextures 
     }
 
     // Get the material that this frame box is made of
-    public static Materials getMaterial(int meta) {
-        return GregTechAPI.sGeneratedMaterials[meta & MATERIAL_MASK];
+    public static Materials_OLD getMaterial(int meta) {
+        return GregTechAPI.S_GENERATED_MATERIALS[meta & MATERIAL_MASK];
     }
 
     @Override
@@ -186,8 +186,8 @@ public class BlockFrameBox extends BlockContainer implements IBlockWithTextures 
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item aItem, CreativeTabs aTab, List<ItemStack> aList) {
-        for (int i = 0; i < GregTechAPI.sGeneratedMaterials.length; i++) {
-            Materials tMaterial = GregTechAPI.sGeneratedMaterials[i];
+        for (int i = 0; i < GregTechAPI.S_GENERATED_MATERIALS.length; i++) {
+            Materials_OLD tMaterial = GregTechAPI.S_GENERATED_MATERIALS[i];
             // If material is not null and has a frame box item associated with it
             if (tMaterial != null && tMaterial.hasMetalItems()) {
                 aList.add(new ItemStack(aItem, 1, i));
@@ -456,7 +456,7 @@ public class BlockFrameBox extends BlockContainer implements IBlockWithTextures 
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        Materials material = GregTechAPI.sGeneratedMaterials[meta & MATERIAL_MASK];
+        Materials_OLD material = GregTechAPI.S_GENERATED_MATERIALS[meta & MATERIAL_MASK];
         if (material == null) return null;
         return material.mIconSet.mTextures[OrePrefixes.frameGt.getTextureIndex()].getIcon();
     }

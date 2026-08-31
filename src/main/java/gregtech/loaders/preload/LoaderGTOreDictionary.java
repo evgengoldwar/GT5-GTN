@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OreDictNames;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTModHandler;
@@ -28,73 +28,77 @@ public class LoaderGTOreDictionary implements Runnable {
     @Override
     public void run() {
         GT_FML_LOGGER.debug("GTMod: Register OreDict Entries of Non-GT-Items.");
-        GTOreDictUnificator.set(OrePrefixes.cell, Materials.Empty, ItemList.Cell_Empty.get(1L));
+        GTOreDictUnificator.set(OrePrefixes.cell, Materials_OLD.Empty, ItemList.Cell_Empty.get(1L));
         // GTOreDictUnificator.set(OrePrefixes.cell, Materials.Lava, ItemList.Cell_Lava.get(1L));
         // GTOreDictUnificator.set(OrePrefixes.cell, Materials.Lava, GTModHandler.getIC2Item("lavaCell", 1L));
-        GTOreDictUnificator.set(OrePrefixes.cell, Materials.Water, ItemList.Cell_Water.get(1L));
-        GTOreDictUnificator.set(OrePrefixes.cell, Materials.Water, GTModHandler.getIC2Item("waterCell", 1L));
+        GTOreDictUnificator.set(OrePrefixes.cell, Materials_OLD.Water, ItemList.Cell_Water.get(1L));
+        GTOreDictUnificator.set(OrePrefixes.cell, Materials_OLD.Water, GTModHandler.getIC2Item("waterCell", 1L));
         GTOreDictUnificator.set(
             OrePrefixes.cell,
-            Materials.Creosote,
+            Materials_OLD.Creosote,
             GTModHandler.getModItem(Railcraft.ID, "fluid.creosote.cell", 1L));
 
-        GTOreDictUnificator.set(OrePrefixes.cell, Materials.UUMatter, GTModHandler.getIC2Item("uuMatterCell", 1L));
-        GTOreDictUnificator.set(OrePrefixes.cell, Materials.ConstructionFoam, GTModHandler.getIC2Item("CFCell", 1L));
+        GTOreDictUnificator.set(OrePrefixes.cell, Materials_OLD.UUMatter, GTModHandler.getIC2Item("uuMatterCell", 1L));
+        GTOreDictUnificator
+            .set(OrePrefixes.cell, Materials_OLD.ConstructionFoam, GTModHandler.getIC2Item("CFCell", 1L));
 
-        GTOreDictUnificator.set(OrePrefixes.bucket, Materials.Empty, new ItemStack(Items.bucket, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.bucket, Materials.Water, new ItemStack(Items.water_bucket, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.bucket, Materials.Lava, new ItemStack(Items.lava_bucket, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.bucket, Materials.Milk, new ItemStack(Items.milk_bucket, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.bucket, Materials_OLD.Empty, new ItemStack(Items.bucket, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.bucket, Materials_OLD.Water, new ItemStack(Items.water_bucket, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.bucket, Materials_OLD.Lava, new ItemStack(Items.lava_bucket, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.bucket, Materials_OLD.Milk, new ItemStack(Items.milk_bucket, 1, 0));
         // Clay buckets handled in gregtech.common.GTProxy.onInitialization()
         // as they aren't registered until Iguana Tweaks pre-init.
 
-        GTOreDictUnificator.set(OrePrefixes.plateAlloy, Materials.Iridium, GTModHandler.getIC2Item("iridiumPlate", 1L));
-        GTOreDictUnificator.set(OrePrefixes.plateAlloy, Materials.HV, GTModHandler.getIC2Item("advancedAlloy", 1L));
-        GTOreDictUnificator.set(OrePrefixes.plateAlloy, Materials.Carbon, GTModHandler.getIC2Item("carbonPlate", 1L));
+        GTOreDictUnificator
+            .set(OrePrefixes.plateAlloy, Materials_OLD.Iridium, GTModHandler.getIC2Item("iridiumPlate", 1L));
+        GTOreDictUnificator.set(OrePrefixes.plateAlloy, Materials_OLD.HV, GTModHandler.getIC2Item("advancedAlloy", 1L));
+        GTOreDictUnificator
+            .set(OrePrefixes.plateAlloy, Materials_OLD.Carbon, GTModHandler.getIC2Item("carbonPlate", 1L));
 
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.Coal, new ItemStack(Blocks.coal_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.Iron, new ItemStack(Blocks.iron_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.Lapis, new ItemStack(Blocks.lapis_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.Redstone, new ItemStack(Blocks.redstone_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.Redstone, new ItemStack(Blocks.lit_redstone_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.Gold, new ItemStack(Blocks.gold_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.Diamond, new ItemStack(Blocks.diamond_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.Emerald, new ItemStack(Blocks.emerald_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ore, Materials.NetherQuartz, new ItemStack(Blocks.quartz_ore, 1));
-        GTOreDictUnificator.set(OrePrefixes.ingot, Materials.Copper, GTModHandler.getIC2Item("copperIngot", 1L));
-        GTOreDictUnificator.set(OrePrefixes.ingot, Materials.Tin, GTModHandler.getIC2Item("tinIngot", 1L));
-        GTOreDictUnificator.set(OrePrefixes.ingot, Materials.Lead, GTModHandler.getIC2Item("leadIngot", 1L));
-        GTOreDictUnificator.set(OrePrefixes.ingot, Materials.Bronze, GTModHandler.getIC2Item("bronzeIngot", 1L));
-        GTOreDictUnificator.set(OrePrefixes.ingot, Materials.Silver, GTModHandler.getIC2Item("silverIngot", 1L));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.Lapis, new ItemStack(Items.dye, 1, 4));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.EnderEye, new ItemStack(Items.ender_eye, 1));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.EnderPearl, new ItemStack(Items.ender_pearl, 1));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.Diamond, new ItemStack(Items.diamond, 1));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.Emerald, new ItemStack(Items.emerald, 1));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.Coal, new ItemStack(Items.coal, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.Charcoal, new ItemStack(Items.coal, 1, 1));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.NetherQuartz, new ItemStack(Items.quartz, 1));
-        GTOreDictUnificator.set(OrePrefixes.gem, Materials.NetherStar, new ItemStack(Items.nether_star, 1));
-        GTOreDictUnificator.set(OrePrefixes.nugget, Materials.Gold, new ItemStack(Items.gold_nugget, 1));
-        GTOreDictUnificator.set(OrePrefixes.ingot, Materials.Gold, new ItemStack(Items.gold_ingot, 1));
-        GTOreDictUnificator.set(OrePrefixes.ingot, Materials.Iron, new ItemStack(Items.iron_ingot, 1));
-        GTOreDictUnificator.set(OrePrefixes.plate, Materials.Paper, new ItemStack(Items.paper, 1));
-        GTOreDictUnificator.set(OrePrefixes.dust, Materials.Sugar, new ItemStack(Items.sugar, 1));
-        GTOreDictUnificator.set(OrePrefixes.dust, Materials.Bone, ItemList.Dye_Bonemeal.get(1L));
-        GTOreDictUnificator.set(OrePrefixes.stick, Materials.Wood, new ItemStack(Items.stick, 1));
-        GTOreDictUnificator.set(OrePrefixes.dust, Materials.Redstone, new ItemStack(Items.redstone, 1));
-        GTOreDictUnificator.set(OrePrefixes.dust, Materials.Gunpowder, new ItemStack(Items.gunpowder, 1));
-        GTOreDictUnificator.set(OrePrefixes.dust, Materials.Glowstone, new ItemStack(Items.glowstone_dust, 1));
-        GTOreDictUnificator.set(OrePrefixes.dust, Materials.Blaze, new ItemStack(Items.blaze_powder, 1));
-        GTOreDictUnificator.set(OrePrefixes.stick, Materials.Blaze, new ItemStack(Items.blaze_rod, 1));
-        GTOreDictUnificator.set(OrePrefixes.block, Materials.Iron, new ItemStack(Blocks.iron_block, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.block, Materials.Gold, new ItemStack(Blocks.gold_block, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.block, Materials.Diamond, new ItemStack(Blocks.diamond_block, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.block, Materials.Emerald, new ItemStack(Blocks.emerald_block, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.block, Materials.Lapis, new ItemStack(Blocks.lapis_block, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.block, Materials.Coal, new ItemStack(Blocks.coal_block, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.block, Materials.Redstone, new ItemStack(Blocks.redstone_block, 1, 0));
-        GTOreDictUnificator.set(OrePrefixes.block, Materials.NetherQuartz, new ItemStack(Blocks.quartz_block, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.Coal, new ItemStack(Blocks.coal_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.Iron, new ItemStack(Blocks.iron_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.Lapis, new ItemStack(Blocks.lapis_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.Redstone, new ItemStack(Blocks.redstone_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.Redstone, new ItemStack(Blocks.lit_redstone_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.Gold, new ItemStack(Blocks.gold_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.Diamond, new ItemStack(Blocks.diamond_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.Emerald, new ItemStack(Blocks.emerald_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ore, Materials_OLD.NetherQuartz, new ItemStack(Blocks.quartz_ore, 1));
+        GTOreDictUnificator.set(OrePrefixes.ingot, Materials_OLD.Copper, GTModHandler.getIC2Item("copperIngot", 1L));
+        GTOreDictUnificator.set(OrePrefixes.ingot, Materials_OLD.Tin, GTModHandler.getIC2Item("tinIngot", 1L));
+        GTOreDictUnificator.set(OrePrefixes.ingot, Materials_OLD.Lead, GTModHandler.getIC2Item("leadIngot", 1L));
+        GTOreDictUnificator.set(OrePrefixes.ingot, Materials_OLD.Bronze, GTModHandler.getIC2Item("bronzeIngot", 1L));
+        GTOreDictUnificator.set(OrePrefixes.ingot, Materials_OLD.Silver, GTModHandler.getIC2Item("silverIngot", 1L));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.Lapis, new ItemStack(Items.dye, 1, 4));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.EnderEye, new ItemStack(Items.ender_eye, 1));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.EnderPearl, new ItemStack(Items.ender_pearl, 1));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.Diamond, new ItemStack(Items.diamond, 1));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.Emerald, new ItemStack(Items.emerald, 1));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.Coal, new ItemStack(Items.coal, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.Charcoal, new ItemStack(Items.coal, 1, 1));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.NetherQuartz, new ItemStack(Items.quartz, 1));
+        GTOreDictUnificator.set(OrePrefixes.gem, Materials_OLD.NetherStar, new ItemStack(Items.nether_star, 1));
+        GTOreDictUnificator.set(OrePrefixes.nugget, Materials_OLD.Gold, new ItemStack(Items.gold_nugget, 1));
+        GTOreDictUnificator.set(OrePrefixes.ingot, Materials_OLD.Gold, new ItemStack(Items.gold_ingot, 1));
+        GTOreDictUnificator.set(OrePrefixes.ingot, Materials_OLD.Iron, new ItemStack(Items.iron_ingot, 1));
+        GTOreDictUnificator.set(OrePrefixes.plate, Materials_OLD.Paper, new ItemStack(Items.paper, 1));
+        GTOreDictUnificator.set(OrePrefixes.dust, Materials_OLD.Sugar, new ItemStack(Items.sugar, 1));
+        GTOreDictUnificator.set(OrePrefixes.dust, Materials_OLD.Bone, ItemList.Dye_Bonemeal.get(1L));
+        GTOreDictUnificator.set(OrePrefixes.stick, Materials_OLD.Wood, new ItemStack(Items.stick, 1));
+        GTOreDictUnificator.set(OrePrefixes.dust, Materials_OLD.Redstone, new ItemStack(Items.redstone, 1));
+        GTOreDictUnificator.set(OrePrefixes.dust, Materials_OLD.Gunpowder, new ItemStack(Items.gunpowder, 1));
+        GTOreDictUnificator.set(OrePrefixes.dust, Materials_OLD.Glowstone, new ItemStack(Items.glowstone_dust, 1));
+        GTOreDictUnificator.set(OrePrefixes.dust, Materials_OLD.Blaze, new ItemStack(Items.blaze_powder, 1));
+        GTOreDictUnificator.set(OrePrefixes.stick, Materials_OLD.Blaze, new ItemStack(Items.blaze_rod, 1));
+        GTOreDictUnificator.set(OrePrefixes.block, Materials_OLD.Iron, new ItemStack(Blocks.iron_block, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.block, Materials_OLD.Gold, new ItemStack(Blocks.gold_block, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.block, Materials_OLD.Diamond, new ItemStack(Blocks.diamond_block, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.block, Materials_OLD.Emerald, new ItemStack(Blocks.emerald_block, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.block, Materials_OLD.Lapis, new ItemStack(Blocks.lapis_block, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.block, Materials_OLD.Coal, new ItemStack(Blocks.coal_block, 1, 0));
+        GTOreDictUnificator.set(OrePrefixes.block, Materials_OLD.Redstone, new ItemStack(Blocks.redstone_block, 1, 0));
+        GTOreDictUnificator
+            .set(OrePrefixes.block, Materials_OLD.NetherQuartz, new ItemStack(Blocks.quartz_block, 1, 0));
 
         if (Blocks.ender_chest != null) {
             GTOreDictUnificator.registerOre(OreDictNames.enderChest, new ItemStack(Blocks.ender_chest, 1));
@@ -104,20 +108,20 @@ public class LoaderGTOreDictionary implements Runnable {
             .registerOre(OreDictNames.craftingAnvil, GTModHandler.getModItem(Railcraft.ID, "anvil", 1L, 0));
 
         GTOreDictUnificator
-            .registerOre(OrePrefixes.stone, Materials.Basalt, GTModHandler.getModItem(Railcraft.ID, "cube", 1L, 6));
+            .registerOre(OrePrefixes.stone, Materials_OLD.Basalt, GTModHandler.getModItem(Railcraft.ID, "cube", 1L, 6));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.stone, Materials.Marble, GTModHandler.getModItem(Railcraft.ID, "cube", 1L, 7));
+            .registerOre(OrePrefixes.stone, Materials_OLD.Marble, GTModHandler.getModItem(Railcraft.ID, "cube", 1L, 7));
         GTOreDictUnificator.registerOre(
             OrePrefixes.stone,
-            Materials.Basalt,
+            Materials_OLD.Basalt,
             GTModHandler.getModItem(Railcraft.ID, "brick.abyssal", 1L, 32767));
         GTOreDictUnificator.registerOre(
             OrePrefixes.stone,
-            Materials.Marble,
+            Materials_OLD.Marble,
             GTModHandler.getModItem(Railcraft.ID, "brick.quarried", 1L, 32767));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.stone, Materials.Obsidian, new ItemStack(Blocks.obsidian, 1, 32767));
-        GTOreDictUnificator.registerOre(OrePrefixes.stone, Materials.Stone, new ItemStack(Blocks.stone, 1, 0));
+            .registerOre(OrePrefixes.stone, Materials_OLD.Obsidian, new ItemStack(Blocks.obsidian, 1, 32767));
+        GTOreDictUnificator.registerOre(OrePrefixes.stone, Materials_OLD.Stone, new ItemStack(Blocks.stone, 1, 0));
         GTOreDictUnificator.registerOre(OrePrefixes.stoneMossy, new ItemStack(Blocks.mossy_cobblestone, 1, 32767));
         GTOreDictUnificator.registerOre(OrePrefixes.stoneCobble, new ItemStack(Blocks.mossy_cobblestone, 1, 32767));
         GTOreDictUnificator.registerOre(OrePrefixes.stoneCobble, new ItemStack(Blocks.cobblestone, 1, 32767));
@@ -126,15 +130,16 @@ public class LoaderGTOreDictionary implements Runnable {
         GTOreDictUnificator.registerOre(OrePrefixes.stoneMossy, new ItemStack(Blocks.stonebrick, 1, 1));
         GTOreDictUnificator.registerOre(OrePrefixes.stoneCracked, new ItemStack(Blocks.stonebrick, 1, 2));
         GTOreDictUnificator.registerOre(OrePrefixes.stoneChiseled, new ItemStack(Blocks.stonebrick, 1, 3));
-        GTOreDictUnificator.registerOre(OrePrefixes.stone, Materials.Sand, new ItemStack(Blocks.sandstone, 1, 32767));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.stone, Materials.Netherrack, new ItemStack(Blocks.netherrack, 1, 32767));
+            .registerOre(OrePrefixes.stone, Materials_OLD.Sand, new ItemStack(Blocks.sandstone, 1, 32767));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.stone, Materials.NetherBrick, new ItemStack(Blocks.nether_brick, 1, 32767));
+            .registerOre(OrePrefixes.stone, Materials_OLD.Netherrack, new ItemStack(Blocks.netherrack, 1, 32767));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.stone, Materials.Endstone, new ItemStack(Blocks.end_stone, 1, 32767));
+            .registerOre(OrePrefixes.stone, Materials_OLD.NetherBrick, new ItemStack(Blocks.nether_brick, 1, 32767));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.stone, Materials.Glowstone, new ItemStack(Blocks.glowstone, 1, 32767));
+            .registerOre(OrePrefixes.stone, Materials_OLD.Endstone, new ItemStack(Blocks.end_stone, 1, 32767));
+        GTOreDictUnificator
+            .registerOre(OrePrefixes.stone, Materials_OLD.Glowstone, new ItemStack(Blocks.glowstone, 1, 32767));
 
         GTOreDictUnificator
             .registerOre("paperResearchFragment", GTModHandler.getModItem(Thaumcraft.ID, "ItemResource", 1L, 9));
@@ -157,7 +162,7 @@ public class LoaderGTOreDictionary implements Runnable {
             OreDictNames.craftingQuartz,
             GTModHandler.getModItem(AppliedEnergistics2.ID, "item.ItemMultiMaterial", 1L, 11));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.battery, Materials.LV, GTModHandler.getIC2Item("chargedReBattery", 1L, 32767));
+            .registerOre(OrePrefixes.battery, Materials_OLD.LV, GTModHandler.getIC2Item("chargedReBattery", 1L, 32767));
 
         GTOreDictUnificator
             .registerOre(OreDictNames.craftingWireCopper, GTModHandler.getIC2Item("insulatedCopperCableItem", 1L));
@@ -251,153 +256,157 @@ public class LoaderGTOreDictionary implements Runnable {
         GTOreDictUnificator.addToBlacklist(GTModHandler.getIC2Item("electronicCircuit", 1L));
         GTOreDictUnificator.addToBlacklist(GTModHandler.getIC2Item("advancedCircuit", 1L));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.circuit, Materials.LV, GTModHandler.getIC2Item("electronicCircuit", 1L));
+            .registerOre(OrePrefixes.circuit, Materials_OLD.LV, GTModHandler.getIC2Item("electronicCircuit", 1L));
         GTOreDictUnificator
-            .registerOre(OrePrefixes.circuit, Materials.HV, GTModHandler.getIC2Item("advancedCircuit", 1L));
+            .registerOre(OrePrefixes.circuit, Materials_OLD.HV, GTModHandler.getIC2Item("advancedCircuit", 1L));
 
         GTOreDictUnificator.registerOre(
             OrePrefixes.itemCasing,
-            Materials.Copper,
+            Materials_OLD.Copper,
             GTModHandler.getModItem(IndustrialCraft2.ID, "itemCasing", 1L, 0));
         GTOreDictUnificator.registerOre(
             OrePrefixes.itemCasing,
-            Materials.Tin,
+            Materials_OLD.Tin,
             GTModHandler.getModItem(IndustrialCraft2.ID, "itemCasing", 1L, 1));
         GTOreDictUnificator.registerOre(
             OrePrefixes.itemCasing,
-            Materials.Bronze,
+            Materials_OLD.Bronze,
             GTModHandler.getModItem(IndustrialCraft2.ID, "itemCasing", 1L, 2));
         GTOreDictUnificator.registerOre(
             OrePrefixes.itemCasing,
-            Materials.Gold,
+            Materials_OLD.Gold,
             GTModHandler.getModItem(IndustrialCraft2.ID, "itemCasing", 1L, 3));
         GTOreDictUnificator.registerOre(
             OrePrefixes.itemCasing,
-            Materials.Iron,
+            Materials_OLD.Iron,
             GTModHandler.getModItem(IndustrialCraft2.ID, "itemCasing", 1L, 4));
         GTOreDictUnificator.registerOre(
             OrePrefixes.itemCasing,
-            Materials.Steel,
+            Materials_OLD.Steel,
             GTModHandler.getModItem(IndustrialCraft2.ID, "itemCasing", 1L, 5));
         GTOreDictUnificator.registerOre(
             OrePrefixes.itemCasing,
-            Materials.Lead,
+            Materials_OLD.Lead,
             GTModHandler.getModItem(IndustrialCraft2.ID, "itemCasing", 1L, 6));
 
         // Fake Circuits
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.ULV,
+            Materials_OLD.ULV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitULV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.LV,
+            Materials_OLD.LV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitLV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.MV,
+            Materials_OLD.MV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitMV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.HV,
+            Materials_OLD.HV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitHV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.EV,
+            Materials_OLD.EV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitEV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.IV,
+            Materials_OLD.IV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitIV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.LuV,
+            Materials_OLD.LuV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitLuV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.ZPM,
+            Materials_OLD.ZPM,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitZPM", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.UV,
+            Materials_OLD.UV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitUV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.UHV,
+            Materials_OLD.UHV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitUHV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.UEV,
+            Materials_OLD.UEV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitUEV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.UIV,
+            Materials_OLD.UIV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitUIV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.UMV,
+            Materials_OLD.UMV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitUMV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.UXV,
+            Materials_OLD.UXV,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitUXV", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.circuit,
-            Materials.MAX,
+            Materials_OLD.MAX,
             GTModHandler.getModItem(NewHorizonsCoreMod.ID, "CircuitMAX", 1L));
 
-        GTOreDictUnificator
-            .registerOre(OrePrefixes.block, Materials.Manasteel, GTModHandler.getModItem(Botania.ID, "storage", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.block,
-            Materials.Terrasteel,
+            Materials_OLD.Manasteel,
+            GTModHandler.getModItem(Botania.ID, "storage", 1L));
+        GTOreDictUnificator.registerOre(
+            OrePrefixes.block,
+            Materials_OLD.Terrasteel,
             GTModHandler.getModItem(Botania.ID, "storage", 1L, 1));
         GTOreDictUnificator.registerOre(
             OrePrefixes.ingot,
-            Materials.ElvenElementium,
+            Materials_OLD.ElvenElementium,
             GTModHandler.getModItem(Botania.ID, "manaResource", 1L, 7));
         GTOreDictUnificator.registerOre(
             OrePrefixes.nugget,
-            Materials.ElvenElementium,
+            Materials_OLD.ElvenElementium,
             GTModHandler.getModItem(Botania.ID, "manaResource", 1L, 19));
         GTOreDictUnificator.registerOre(
             OrePrefixes.block,
-            Materials.ElvenElementium,
+            Materials_OLD.ElvenElementium,
             GTModHandler.getModItem(Botania.ID, "storage", 1L, 2));
         GTOreDictUnificator.registerOre(
             OrePrefixes.block,
-            Materials.Livingrock,
+            Materials_OLD.Livingrock,
             GTModHandler.getModItem(Botania.ID, "livingrock", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.ingot,
-            Materials.GaiaSpirit,
+            Materials_OLD.GaiaSpirit,
             GTModHandler.getModItem(Botania.ID, "manaResource", 1L, 14));
         GTOreDictUnificator.registerOre(
             OrePrefixes.block,
-            Materials.Livingwood,
+            Materials_OLD.Livingwood,
             GTModHandler.getModItem(Botania.ID, "livingwood", 1L));
-        GTOreDictUnificator
-            .registerOre(OrePrefixes.block, Materials.Dreamwood, GTModHandler.getModItem(Botania.ID, "dreamwood", 1L));
+        GTOreDictUnificator.registerOre(
+            OrePrefixes.block,
+            Materials_OLD.Dreamwood,
+            GTModHandler.getModItem(Botania.ID, "dreamwood", 1L));
         GTOreDictUnificator.registerOre(
             OrePrefixes.gem,
-            Materials.ManaDiamond,
+            Materials_OLD.ManaDiamond,
             GTModHandler.getModItem(Botania.ID, "manaResource", 1L, 2));
         GTOreDictUnificator.registerOre(
             OrePrefixes.block,
-            Materials.ManaDiamond,
+            Materials_OLD.ManaDiamond,
             GTModHandler.getModItem(Botania.ID, "storage", 1L, 3));
         GTOreDictUnificator.registerOre(
             OrePrefixes.gem,
-            Materials.Dragonstone,
+            Materials_OLD.Dragonstone,
             GTModHandler.getModItem(Botania.ID, "manaResource", 1L, 9));
         GTOreDictUnificator.registerOre(
             OrePrefixes.block,
-            Materials.Dragonstone,
+            Materials_OLD.Dragonstone,
             GTModHandler.getModItem(Botania.ID, "storage", 1L, 4));
 
         GTOreDictUnificator.registerOre(
             OrePrefixes.ore,
-            Materials.Desh,
+            Materials_OLD.Desh,
             GTModHandler.getModItem(GalacticraftMars.ID, "item.null", 1L, 0));
     }
 }

@@ -2,7 +2,7 @@ package gregtech.api.util;
 
 import net.minecraft.item.ItemStack;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.IToolStats;
 import gregtech.api.items.MetaGeneratedTool;
 
@@ -11,7 +11,7 @@ public class TurbineStatCalculator {
     public MetaGeneratedTool turbine;
     public ItemStack item;
     public long tMaxDamage;
-    public Materials tMaterial;
+    public Materials_OLD tMaterial;
     public IToolStats tStats;
 
     public TurbineStatCalculator(MetaGeneratedTool turbineItem, ItemStack aStack) {

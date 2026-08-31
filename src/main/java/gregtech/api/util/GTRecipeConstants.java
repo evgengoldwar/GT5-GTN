@@ -2,7 +2,7 @@ package gregtech.api.util;
 
 import net.minecraft.item.ItemStack;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.recipe.RecipeMetadataKey;
 import gregtech.api.recipe.metadata.SimpleRecipeMetadataKey;
 import gregtech.api.util.recipe.QuantumComputerRecipeData;
@@ -41,8 +41,8 @@ public class GTRecipeConstants {
     /**
      * Replicator output material.
      */
-    public static final RecipeMetadataKey<Materials> MATERIAL = SimpleRecipeMetadataKey
-        .create(Materials.class, "material");
+    public static final RecipeMetadataKey<Materials_OLD> MATERIAL = SimpleRecipeMetadataKey
+        .create(Materials_OLD.class, "material");
     /**
      * For Microwave.
      */

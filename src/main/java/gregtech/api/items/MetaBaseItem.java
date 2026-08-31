@@ -40,7 +40,7 @@ import com.gtnewhorizons.modularui.api.KeyboardUtil;
 
 import gregtech.GTLoggers;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IItemBehaviour;
 import gregtech.api.util.GTModHandler;
@@ -243,11 +243,11 @@ public abstract class MetaBaseItem extends GTGenericItem
     }
 
     /** Returns null for item damage out of bounds. */
-    public Materials getMaterial(int damage) {
-        if (!Materials.isMaterialItem(damage)) {
+    public Materials_OLD getMaterial(int damage) {
+        if (!Materials_OLD.isMaterialItem(damage)) {
             return null;
         }
-        return GregTechAPI.sGeneratedMaterials[damage % 1_000];
+        return GregTechAPI.S_GENERATED_MATERIALS[damage % 1_000];
     }
 
     @Override

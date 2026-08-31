@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 import com.gtnewhorizon.gtnhlib.util.ItemRenderUtil;
 
 import gregtech.GTMod;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.IToolStats;
@@ -46,7 +46,7 @@ public class MetaGeneratedToolRenderer implements IItemRenderer {
             renderToolPart(type, stack, toolStats, true);
 
             if ((type == ItemRenderType.INVENTORY)
-                && (MetaGeneratedTool.getPrimaryMaterial(stack) != Materials._NULL)) {
+                && (MetaGeneratedTool.getPrimaryMaterial(stack) != Materials_OLD._NULL)) {
                 if (GTMod.proxy.mRenderItemDurabilityBar) {
                     IIconContainer iconContainer;
                     long damage = MetaGeneratedTool.getToolDamage(stack);

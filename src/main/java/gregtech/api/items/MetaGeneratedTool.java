@@ -51,7 +51,7 @@ import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enchants.EnchantmentRadioactivity;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.TCAspects.TC_AspectStack;
 import gregtech.api.interfaces.IDamagableItem;
@@ -106,22 +106,22 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
 
     /* ---------- FOR ADDING CUSTOM ITEMS INTO THE REMAINING 766 RANGE ---------- */
 
-    public static Materials getPrimaryMaterial(ItemStack aStack) {
+    public static Materials_OLD getPrimaryMaterial(ItemStack aStack) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("GT.ToolStats");
-            if (aNBT != null) return Materials.getRealMaterial(aNBT.getString("PrimaryMaterial"));
+            if (aNBT != null) return Materials_OLD.getRealMaterial(aNBT.getString("PrimaryMaterial"));
         }
-        return Materials._NULL;
+        return Materials_OLD._NULL;
     }
 
-    public static Materials getSecondaryMaterial(ItemStack aStack) {
+    public static Materials_OLD getSecondaryMaterial(ItemStack aStack) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("GT.ToolStats");
-            if (aNBT != null) return Materials.getRealMaterial(aNBT.getString("SecondaryMaterial"));
+            if (aNBT != null) return Materials_OLD.getRealMaterial(aNBT.getString("SecondaryMaterial"));
         }
-        return Materials._NULL;
+        return Materials_OLD._NULL;
     }
 
     /* ---------- INTERNAL OVERRIDES ---------- */
@@ -249,8 +249,8 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
      * @param aSecondaryMaterial Secondary (Rod/Handle) Material of this Tool
      * @param aElectricArray     The Electric Stats of this Tool (or null if not electric)
      */
-    public final ItemStack getToolWithStats(int aToolID, int aAmount, Materials aPrimaryMaterial,
-        Materials aSecondaryMaterial, long[] aElectricArray) {
+    public final ItemStack getToolWithStats(int aToolID, int aAmount, Materials_OLD aPrimaryMaterial,
+        Materials_OLD aSecondaryMaterial, long[] aElectricArray) {
         ItemStack rStack = new ItemStack(this, aAmount, aToolID);
         IToolStats tToolStats = getToolStats(rStack);
         if (tToolStats != null) {
@@ -433,7 +433,7 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
                 ItemStack tStack = new ItemStack(this, 1, i);
                 isItemStackUsable(tStack);
                 aList.add(tStack);
-                aList.add(getToolWithStats(i, 1, Materials.Neutronium, Materials.Neutronium, null));
+                aList.add(getToolWithStats(i, 1, Materials_OLD.Neutronium, Materials_OLD.Neutronium, null));
             }
         }
     }
@@ -452,7 +452,7 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
     @Override
     public void addAdditionalToolTips(List<String> aList, ItemStack aStack, EntityPlayer aPlayer) {
         long tMaxDamage = getToolMaxDamage(aStack);
-        Materials tMaterial = getPrimaryMaterial(aStack);
+        Materials_OLD tMaterial = getPrimaryMaterial(aStack);
         IToolStats tStats = getToolStats(aStack);
         int tOffset = getElectricStats(aStack) != null ? 2 : 1;
         if (tStats != null) {
@@ -789,7 +789,7 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
             ItemStackNBT.removeTag(aStack, "ench");
             return false;
         }
-        Materials aMaterial = getPrimaryMaterial(aStack);
+        Materials_OLD aMaterial = getPrimaryMaterial(aStack);
         HashMap<Integer, Integer> tMap = new HashMap<>(), tResult = new HashMap<>();
         if (aMaterial.mToolEnchantment != null) {
             tMap.put(aMaterial.mToolEnchantment.effectId, (int) aMaterial.mToolEnchantmentLevel);

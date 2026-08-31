@@ -1454,7 +1454,7 @@ GTPP.tooltip.circuit_table.1=Change default setting with a Screwdriver
 GTPP.tooltip.circuit_table.2=Default is used to select slot for auto-insertion
 
 # Decayables Chest
-GTPP.tooltip.decayables_chest.0=Chest which holds radioactive materials
+GTPP.tooltip.decayables_chest.0=Chest which holds radioactive materialsOLD
 GTPP.tooltip.decayables_chest.1=Items which decay will tick while inside
 GTPP.tooltip.decayables_chest.2=Place with right-click
 
@@ -1831,7 +1831,7 @@ gt.multiblock.DieselEngine.lubricant=Lubricant, next to a Gear Box
 gt.multiblock.DieselEngine.oxygen_optional=Oxygen, optional, next to a Gear Box
 
 gt.multiblock.ThermalBoiler.desc1=Uses the heat from §chot fluids§7 to evaporate water into §rsteam
-gt.multiblock.ThermalBoiler.desc2=Filters raw materials from §clava§7 and §cpahoehoe lava
+gt.multiblock.ThermalBoiler.desc2=Filters raw materialsOLD from §clava§7 and §cpahoehoe lava
 gt.multiblock.ThermalBoiler.desc3=Requires a Lava Filter in the controller slot for byproducts
 gt.multiblock.ThermalBoiler.desc4=Explodes after 10s if it runs out of water
 
@@ -3499,7 +3499,7 @@ GT5U.gui.text.beamcrafter.guiheadercrafting=Current Particles Required
 GT5U.gui.text.beamcrafter.guiheaderbuffer=Current Particle Buffer
 
 gt.blockmachines.multimachine.beamcrafting.beamcrafter.machinetype=Beam Crafter, Beam Assembler
-gt.blockmachines.multimachine.beamcrafting.beamcrafter.tooltip1=Collides two beams of particles into target materials to modify
+gt.blockmachines.multimachine.beamcrafting.beamcrafter.tooltip1=Collides two beams of particles into target materialsOLD to modify
 gt.blockmachines.multimachine.beamcrafting.beamcrafter.tooltip2=their subatomic structure
 gt.blockmachines.multimachine.beamcrafting.beamcrafter.tooltip3=Input Beams can be supplied to either Beam Input Hatch
 gt.blockmachines.multimachine.beamcrafting.beamcrafter.tooltip4=Inputs are consumed immediately and will wait for particles
@@ -4905,7 +4905,7 @@ gt.item.field_generator.umv.name=Field Generator (UMV)
 gt.item.field_generator.uxv.name=Field Generator (UXV)
 gt.item.field_generator.max.name=Field Generator (MAX)
 
-## Advanced materials
+## Advanced materialsOLD
 gt.item.material.stable_adhesive.name=Hyper-Stable Self-Healing Adhesive
 gt.item.material.stable_adhesive.tooltip=Complete and selective adhesion, even when torn or damaged
 gt.item.material.superconductor_composite.name=Superconductor Rare-Earth Composite
@@ -6049,7 +6049,7 @@ gt.item.intensely_bonded_netherite_nanoparticles.tooltip=
 gt.item.hot_netherite_scrap.name=Hot Netherite Scrap
 gt.item.hot_netherite_scrap.tooltip=Activated?
 
-## Other materials
+## Other materialsOLD
 gt.item.beryllium_shielding_plate.name=Beryllium Shielding Plate
 gt.item.beryllium_shielding_plate.tooltip=A plate made of Beryllium, used for reactor shielding
 gt.item.alumina_support_ring.name=Alumina Support Ring
@@ -6093,7 +6093,7 @@ nei.options.tools.dump.gt5u=GT5u
 nei.options.tools.dump.gt5u.metatileentity=MetaTileEntity
 nei.options.tools.dump.gt5u.metatileentitys=MetaTileEntities
 nei.options.tools.dump.gt5u.material=Material
-nei.options.tools.dump.gt5u.materials=Materials
+nei.options.tools.dump.gt5u.materialsOLD=Materials
 nei.options.tools.dump.gt5u.void_protection=Void protection missing support
 nei.options.tools.dump.gt5u.void_protections=Void protection missing supports
 nei.options.tools.dump.gt5u.input_separation=Input separation missing support

@@ -25,7 +25,7 @@ import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchInput;
 import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
@@ -345,12 +345,12 @@ public class GTRecipe implements Comparable<GTRecipe> {
         int tOutputAmount = GTModHandler.getCapsuleCellContainerCountMultipliedWithStackSize(mOutputs);
 
         if (tInputAmount < tOutputAmount) {
-            if (!Materials.Tin.contains(mInputs)) {
+            if (!Materials_OLD.Tin.contains(mInputs)) {
                 GT_FML_LOGGER.error("You get more Cells, than you put in? There must be something wrong.");
                 GT_FML_LOGGER.error(new Exception());
             }
         } else if (tInputAmount > tOutputAmount) {
-            if (!Materials.Tin.contains(mOutputs)) {
+            if (!Materials_OLD.Tin.contains(mOutputs)) {
                 GT_FML_LOGGER.error("You get less Cells, than you put in? GT Machines usually don't destroy Cells.");
                 GT_FML_LOGGER.error(new Exception());
             }

@@ -4761,7 +4761,7 @@ gt.item.field_generator.umv.name=Генератор поля (UMV)
 gt.item.field_generator.uxv.name=Генератор поля (UXV)
 gt.item.field_generator.max.name=Генератор поля (MAX)
 
-## Advanced materials
+## Advanced materialsOLD
 gt.item.material.stable_adhesive.name=Сверхстабильный самовосстанавливающийся клей
 gt.item.material.stable_adhesive.tooltip=Полная и выборочная склеивание, даже при разрыве или повреждении
 gt.item.material.superconductor_composite.name=Сверхпроводящий редкоземельный композит
@@ -5765,7 +5765,7 @@ gt.item.intensely_bonded_netherite_nanoparticles.tooltip=
 gt.item.hot_netherite_scrap.name=Раскалённый незеритовый лом
 gt.item.hot_netherite_scrap.tooltip=Активированный?
 
-## Other materials
+## Other materialsOLD
 gt.item.beryllium_shielding_plate.name=Бериллиевая экранирующая пластина
 gt.item.beryllium_shielding_plate.tooltip=Пластина из бериллия, используемая для защиты реактора
 gt.item.alumina_support_ring.name=Алюминиевое опорное кольцо
@@ -5807,7 +5807,7 @@ nei.options.tools.dump.gt5u=GT5u
 nei.options.tools.dump.gt5u.metatileentity=MetaTileEntity
 nei.options.tools.dump.gt5u.metatileentitys=MetaTileEntities
 nei.options.tools.dump.gt5u.material=Материал
-nei.options.tools.dump.gt5u.materials=Материалы
+nei.options.tools.dump.gt5u.materialsOLD=Материалы
 nei.options.tools.dump.gt5u.void_protection=Отсутствует поддержка защиты от переполнения
 nei.options.tools.dump.gt5u.void_protections=Отсутствует поддержка защиты от переполнения
 nei.options.tools.dump.gt5u.input_separation=Отсутствует поддержка разделения входов

@@ -62,7 +62,7 @@ import com.gtnewhorizon.structurelib.util.ItemStackPredicate;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.HeatingCoilLevel;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.IHeatingCoil;
@@ -195,7 +195,7 @@ public class GTStructureUtility {
         return allFilled;
     }
 
-    public static <T> IStructureElement<T> ofSheetMetal(Materials material) {
+    public static <T> IStructureElement<T> ofSheetMetal(Materials_OLD material) {
         if (material == null) throw new IllegalArgumentException("material for sheet metal can not be null!");
         return new ProxyStructureElement<>(ofBlock(sBlockSheetmetalGT, material.mMetaItemSubID)) {
 
@@ -214,7 +214,7 @@ public class GTStructureUtility {
         };
     }
 
-    public static <T> IStructureElement<T> ofFrame(Materials aFrameMaterial) {
+    public static <T> IStructureElement<T> ofFrame(Materials_OLD aFrameMaterial) {
         if (aFrameMaterial == null) throw new IllegalArgumentException();
         return new IStructureElement<>() {
 
@@ -225,7 +225,7 @@ public class GTStructureUtility {
                 Block block = world.getBlock(x, y, z);
                 if (block instanceof BlockFrameBox frameBox) {
                     int meta = world.getBlockMetadata(x, y, z);
-                    Materials material = BlockFrameBox.getMaterial(meta);
+                    Materials_OLD material = BlockFrameBox.getMaterial(meta);
                     return aFrameMaterial == material;
                 }
                 return false;

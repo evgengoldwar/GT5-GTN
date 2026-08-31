@@ -20,7 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.objects.GTItemStack;
@@ -49,15 +49,15 @@ public class GTOreDictUnificator {
         return GTUtility.isStackInStackSet(aStack, sNoUnificationList);
     }
 
-    public static void add(OrePrefixes aPrefix, Materials aMaterial, ItemStack aStack) {
+    public static void add(OrePrefixes aPrefix, Materials_OLD aMaterial, ItemStack aStack) {
         set(aPrefix, aMaterial, aStack, false, false);
     }
 
-    public static void set(OrePrefixes aPrefix, Materials aMaterial, ItemStack aStack) {
+    public static void set(OrePrefixes aPrefix, Materials_OLD aMaterial, ItemStack aStack) {
         set(aPrefix, aMaterial, aStack, true, false);
     }
 
-    public static void set(OrePrefixes aPrefix, Materials aMaterial, ItemStack aStack, boolean aOverwrite,
+    public static void set(OrePrefixes aPrefix, Materials_OLD aMaterial, ItemStack aStack, boolean aOverwrite,
         boolean aAlreadyRegistered) {
         if (aMaterial == null || aPrefix == null
             || GTUtility.isStackInvalid(aStack)
@@ -327,7 +327,7 @@ public class GTOreDictUnificator {
         }
     }
 
-    public static void addAssociation(OrePrefixes aPrefix, Materials aMaterial, ItemStack aStack,
+    public static void addAssociation(OrePrefixes aPrefix, Materials_OLD aMaterial, ItemStack aStack,
         boolean aBlackListed) {
         if (aPrefix == null || aMaterial == null || GTUtility.isStackInvalid(aStack)) return;
         if (Items.feather.getDamage(aStack) == WILDCARD) for (byte i = 0; i < 16; i++)
@@ -380,7 +380,7 @@ public class GTOreDictUnificator {
         return aMaterial == null ? null : getDust(aMaterial.mMaterial, aMaterial.mAmount);
     }
 
-    public static ItemStack getDust(Materials aMaterial, long aMaterialAmount) {
+    public static ItemStack getDust(Materials_OLD aMaterial, long aMaterialAmount) {
         if (aMaterialAmount <= 0) return null;
         ItemStack rStack = null;
         if (((aMaterialAmount % M == 0) || aMaterialAmount >= M * 16))
@@ -396,7 +396,7 @@ public class GTOreDictUnificator {
         return aMaterial == null ? null : getIngot(aMaterial.mMaterial, aMaterial.mAmount);
     }
 
-    public static ItemStack getIngot(Materials aMaterial, long aMaterialAmount) {
+    public static ItemStack getIngot(Materials_OLD aMaterial, long aMaterialAmount) {
         if (aMaterialAmount <= 0) return null;
         ItemStack rStack = null;
         if (((aMaterialAmount % (M * 9) == 0 && aMaterialAmount / (M * 9) > 1) || aMaterialAmount >= M * 72))
@@ -408,7 +408,7 @@ public class GTOreDictUnificator {
         return rStack;
     }
 
-    public static ItemStack getIngotOrDust(Materials aMaterial, long aMaterialAmount) {
+    public static ItemStack getIngotOrDust(Materials_OLD aMaterial, long aMaterialAmount) {
         if (aMaterialAmount <= 0) return null;
         ItemStack rStack = getIngot(aMaterial, aMaterialAmount);
         if (rStack == null) rStack = getDust(aMaterial, aMaterialAmount);
@@ -421,7 +421,7 @@ public class GTOreDictUnificator {
         return rStack;
     }
 
-    public static ItemStack getDustOrIngot(Materials aMaterial, long aMaterialAmount) {
+    public static ItemStack getDustOrIngot(Materials_OLD aMaterial, long aMaterialAmount) {
         if (aMaterialAmount <= 0) return null;
         ItemStack rStack = getDust(aMaterial, aMaterialAmount);
         if (rStack == null) rStack = getIngot(aMaterial, aMaterialAmount);
