@@ -14,7 +14,10 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import gregtech.MaterialSystem.Api.MaterialType;
+import gregtech.MaterialSystem.Materials;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -250,6 +253,9 @@ public class GTMod {
 
     @Mod.EventHandler
     public void onPreInitialization(FMLPreInitializationEvent event) {
+
+        Materials.init();
+
         Locale.setDefault(Locale.ENGLISH);
         if (GregTechAPI.sPreloadStarted) {
             return;
@@ -317,6 +323,16 @@ public class GTMod {
     @Mod.EventHandler
     public void onInitialization(FMLInitializationEvent event) {
         DataRegistry.registerDataManager(new ClientMetaManager(), 1000);
+
+        GTModHandler.addCraftingRecipe(
+            Materials.Bronze.get(MaterialType.INGOT, 1),
+            new Object[] {
+                "PPP",
+                "PPP",
+                "PPP",
+                'P', new ItemStack(Items.stick)
+            }
+        );
 
         if (GregTechAPI.sLoadStarted) {
             return;
