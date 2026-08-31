@@ -62,7 +62,7 @@ public class ItemMetaMaterial extends Item {
         if (material != null) {
             return "item." + material.getName()
                 .toLowerCase()
-                + "."
+                + "_"
                 + materialType.name()
                     .toLowerCase();
         }

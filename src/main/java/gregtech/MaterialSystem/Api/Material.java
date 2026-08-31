@@ -46,7 +46,12 @@ public class Material {
             throw new IllegalArgumentException("Material " + name + " does not have component " + type);
         }
 
-        return MaterialRegistry.getInstance()
-            .getItem(type, meta, amount);
+        MaterialRegistry registry = MaterialRegistry.getInstance();
+
+        if (registry.getBlock(type) != null) {
+            return registry.getBlock(type, meta, amount);
+        }
+
+        return registry.getItem(type, meta, amount);
     }
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.MaterialSystem.Blocks.MaterialBlock;
 import gregtech.MaterialSystem.Items.ItemIngot;
 import gregtech.MaterialSystem.Items.ItemPlate;
 
@@ -15,6 +16,8 @@ public final class MaterialRegistry {
     private static final MaterialRegistry INSTANCE = new MaterialRegistry();
 
     private final Map<MaterialType, ItemMetaMaterial> items = new EnumMap<>(MaterialType.class);
+
+    private final Map<MaterialType, BlockMetaMaterial> blocks = new EnumMap<>(MaterialType.class);
 
     private final Map<Integer, Material> materials = new HashMap<>();
 
@@ -25,24 +28,32 @@ public final class MaterialRegistry {
     }
 
     public void init() {
-        register(MaterialType.INGOT, new ItemIngot());
-        register(MaterialType.PLATE, new ItemPlate());
+        registerItem(MaterialType.INGOT, new ItemIngot());
+        registerItem(MaterialType.PLATE, new ItemPlate());
+
+        registerBlock(MaterialType.BLOCK, new MaterialBlock());
     }
 
-    private void register(MaterialType type, ItemMetaMaterial item) {
-
+    private void registerItem(MaterialType type, ItemMetaMaterial item) {
         items.put(type, item);
-
         GameRegistry.registerItem(item, "meta_" + type.getTextureName());
     }
 
-    public void registerMaterial(Material material) {
+    private void registerBlock(MaterialType type, BlockMetaMaterial block) {
+        blocks.put(type, block);
+        GameRegistry.registerBlock(block, ItemBlockMetaMaterial.class, "meta_" + type.getTextureName());
+    }
 
+    public void registerMaterial(Material material) {
         if (material == null) {
             return;
         }
 
         int meta = material.getMeta();
+
+        if (meta < 0 || meta > 32_000) {
+            throw new IllegalArgumentException("Material meta out of range: " + meta);
+        }
 
         if (materials.containsKey(meta)) {
             throw new IllegalStateException(
@@ -56,45 +67,53 @@ public final class MaterialRegistry {
 
         for (MaterialType type : MaterialType.values()) {
 
-            if (material.hasType(type)) {
+            if (!material.hasType(type)) {
+                continue;
+            }
 
-                ItemMetaMaterial item = items.get(type);
+            ItemMetaMaterial item = items.get(type);
 
-                if (item != null) {
-                    item.registerMaterial(material);
-                }
+            if (item != null) {
+                item.registerMaterial(material);
+            }
+
+            BlockMetaMaterial block = blocks.get(type);
+
+            if (block != null) {
+                block.registerMaterial(material);
             }
         }
-    }
-
-    public Material getMaterial(int meta) {
-        return materials.get(meta);
     }
 
     public ItemMetaMaterial getItem(MaterialType type) {
         return items.get(type);
     }
 
-    public ItemStack getItem(MaterialType type, int meta, int amount) {
+    public BlockMetaMaterial getBlock(MaterialType type) {
+        return blocks.get(type);
+    }
 
+    public ItemStack getItem(MaterialType type, int meta, int amount) {
         ItemMetaMaterial item = items.get(type);
 
-        if (item == null) {
-            return null;
-        }
-
-        if (!item.hasMaterial(meta)) {
+        if (item == null || !item.hasMaterial(meta)) {
             return null;
         }
 
         return new ItemStack(item, amount, meta);
     }
 
-    public ItemStack getIngot(int meta, int amount) {
-        return getItem(MaterialType.INGOT, meta, amount);
+    public ItemStack getBlock(MaterialType type, int meta, int amount) {
+        BlockMetaMaterial block = blocks.get(type);
+
+        if (block == null || block.getMaterial(meta) == null) {
+            return null;
+        }
+
+        return new ItemStack(block, amount, meta);
     }
 
-    public ItemStack getPlate(int meta, int amount) {
-        return getItem(MaterialType.PLATE, meta, amount);
+    public Material getMaterial(int meta) {
+        return materials.get(meta);
     }
 }

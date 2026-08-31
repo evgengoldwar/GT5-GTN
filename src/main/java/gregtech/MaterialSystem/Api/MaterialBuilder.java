@@ -43,6 +43,11 @@ public class MaterialBuilder {
         return this;
     }
 
+    public MaterialBuilder addBlock() {
+        types.add(MaterialType.BLOCK);
+        return this;
+    }
+
     public Material build() {
 
         if (meta < 0 || meta > 32_767) {

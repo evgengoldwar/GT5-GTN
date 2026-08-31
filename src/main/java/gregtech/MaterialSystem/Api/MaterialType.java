@@ -3,7 +3,8 @@ package gregtech.MaterialSystem.Api;
 public enum MaterialType {
 
     INGOT("ingot"),
-    PLATE("plate");
+    PLATE("plate"),
+    BLOCK("block");
 
     private final String textureName;
 
