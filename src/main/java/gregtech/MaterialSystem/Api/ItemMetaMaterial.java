@@ -1,6 +1,5 @@
 package gregtech.MaterialSystem.Api;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +26,7 @@ public class ItemMetaMaterial extends Item {
     public ItemMetaMaterial(MaterialType materialType) {
         this.materialType = materialType;
 
-        this.texturePath =
-            "gregtech:MaterialSystems/Items/"
-                + materialType.getTextureName()
-                + ".png";
+        this.texturePath = "gregtech:MaterialSystems/Items/" + materialType.getTextureName() + ".png";
         this.setHasSubtypes(true);
         this.setMaxStackSize(64);
     }
@@ -64,10 +60,11 @@ public class ItemMetaMaterial extends Item {
         Material material = materialMap.get(stack.getItemDamage());
 
         if (material != null) {
-            return "item."
-                + material.getName().toLowerCase()
+            return "item." + material.getName()
+                .toLowerCase()
                 + "."
-                + materialType.name().toLowerCase();
+                + materialType.name()
+                    .toLowerCase();
         }
 
         return super.getUnlocalizedName(stack);
@@ -82,11 +79,7 @@ public class ItemMetaMaterial extends Item {
             Material material = entry.getValue();
 
             if (material.hasType(materialType)) {
-                list.add(new ItemStack(
-                    this,
-                    1,
-                    entry.getKey()
-                ));
+                list.add(new ItemStack(this, 1, entry.getKey()));
             }
         }
     }
@@ -99,9 +92,7 @@ public class ItemMetaMaterial extends Item {
         int meta = material.getMeta();
 
         if (meta < 0 || meta > MAX_META) {
-            throw new IllegalArgumentException(
-                "Material meta out of range: " + meta
-            );
+            throw new IllegalArgumentException("Material meta out of range: " + meta);
         }
 
         materialMap.put(meta, material);

@@ -14,10 +14,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import gregtech.MaterialSystem.Api.MaterialType;
-import gregtech.MaterialSystem.Materials;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -49,6 +46,7 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import gregtech.MaterialSystem.Materials;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enchants.EnchantmentEnderDamage;
 import gregtech.api.enchants.EnchantmentHazmat;
@@ -324,15 +322,15 @@ public class GTMod {
     public void onInitialization(FMLInitializationEvent event) {
         DataRegistry.registerDataManager(new ClientMetaManager(), 1000);
 
-        GTModHandler.addCraftingRecipe(
-            Materials.Bronze.get(MaterialType.INGOT, 1),
-            new Object[] {
-                "PPP",
-                "PPP",
-                "PPP",
-                'P', new ItemStack(Items.stick)
-            }
-        );
+        // GTModHandler.addCraftingRecipe(
+        // Materials.Bronze.get(MaterialType.INGOT, 1),
+        // new Object[] {
+        // "PPP",
+        // "PPP",
+        // "PPP",
+        // 'P', new ItemStack(Items.stick)
+        // }
+        // );
 
         if (GregTechAPI.sLoadStarted) {
             return;

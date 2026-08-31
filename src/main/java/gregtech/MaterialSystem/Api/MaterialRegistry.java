@@ -7,7 +7,6 @@ import java.util.Map;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-
 import gregtech.MaterialSystem.Items.ItemIngot;
 import gregtech.MaterialSystem.Items.ItemPlate;
 
@@ -15,14 +14,11 @@ public final class MaterialRegistry {
 
     private static final MaterialRegistry INSTANCE = new MaterialRegistry();
 
-    private final Map<MaterialType, ItemMetaMaterial> items =
-        new EnumMap<>(MaterialType.class);
+    private final Map<MaterialType, ItemMetaMaterial> items = new EnumMap<>(MaterialType.class);
 
-    private final Map<Integer, Material> materials =
-        new HashMap<>();
+    private final Map<Integer, Material> materials = new HashMap<>();
 
-    private MaterialRegistry() {
-    }
+    private MaterialRegistry() {}
 
     public static MaterialRegistry getInstance() {
         return INSTANCE;
@@ -37,10 +33,7 @@ public final class MaterialRegistry {
 
         items.put(type, item);
 
-        GameRegistry.registerItem(
-            item,
-            "meta_" + type.getTextureName()
-        );
+        GameRegistry.registerItem(item, "meta_" + type.getTextureName());
     }
 
     public void registerMaterial(Material material) {
@@ -55,8 +48,8 @@ public final class MaterialRegistry {
             throw new IllegalStateException(
                 "Material meta " + meta
                     + " is already registered by "
-                    + materials.get(meta).getName()
-            );
+                    + materials.get(meta)
+                        .getName());
         }
 
         materials.put(meta, material);

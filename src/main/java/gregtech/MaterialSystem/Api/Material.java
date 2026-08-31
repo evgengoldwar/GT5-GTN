@@ -1,8 +1,8 @@
 package gregtech.MaterialSystem.Api;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.Set;
+
+import net.minecraft.item.ItemStack;
 
 public class Material {
 
@@ -43,10 +43,7 @@ public class Material {
 
     public ItemStack get(MaterialType type, int amount) {
         if (!hasType(type)) {
-            throw new IllegalArgumentException(
-                "Material " + name +
-                    " does not have component " + type
-            );
+            throw new IllegalArgumentException("Material " + name + " does not have component " + type);
         }
 
         return MaterialRegistry.getInstance()

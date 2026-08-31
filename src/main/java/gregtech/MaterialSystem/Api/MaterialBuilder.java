@@ -10,8 +10,7 @@ public class MaterialBuilder {
     private int meta = -1;
     private int color = 0xFFFFFF;
 
-    private final Set<MaterialType> types =
-        EnumSet.noneOf(MaterialType.class);
+    private final Set<MaterialType> types = EnumSet.noneOf(MaterialType.class);
 
     public MaterialBuilder(String name) {
         this.name = name;
@@ -24,19 +23,12 @@ public class MaterialBuilder {
 
     public MaterialBuilder color(int r, int g, int b) {
 
-        if (r < 0 || r > 255 ||
-            g < 0 || g > 255 ||
-            b < 0 || b > 255) {
+        if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
 
-            throw new IllegalArgumentException(
-                "RGB values must be between 0 and 255"
-            );
+            throw new IllegalArgumentException("RGB values must be between 0 and 255");
         }
 
-        this.color =
-            (r << 16)
-                | (g << 8)
-                | b;
+        this.color = (r << 16) | (g << 8) | b;
 
         return this;
     }
@@ -54,23 +46,14 @@ public class MaterialBuilder {
     public Material build() {
 
         if (meta < 0 || meta > 32_767) {
-            throw new IllegalStateException(
-                "Invalid material meta: " + meta
-            );
+            throw new IllegalStateException("Invalid material meta: " + meta);
         }
 
         if (types.isEmpty()) {
-            throw new IllegalStateException(
-                "Material " + name + " has no components"
-            );
+            throw new IllegalStateException("Material " + name + " has no components");
         }
 
-        Material material = new Material(
-            name,
-            meta,
-            color,
-            EnumSet.copyOf(types)
-        );
+        Material material = new Material(name, meta, color, EnumSet.copyOf(types));
 
         MaterialRegistry.getInstance()
             .registerMaterial(material);
