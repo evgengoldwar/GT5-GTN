@@ -6,7 +6,6 @@ import java.util.Set;
 public class GTMaterialBuilder {
 
     private final String name;
-
     private int meta = -1;
     private int color = 0xFFFFFF;
 
@@ -22,9 +21,7 @@ public class GTMaterialBuilder {
     }
 
     public GTMaterialBuilder color(int r, int g, int b) {
-
         if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
-
             throw new IllegalArgumentException("RGB values must be between 0 and 255");
         }
 
@@ -48,9 +45,13 @@ public class GTMaterialBuilder {
         return this;
     }
 
-    public GTMaterial build() {
+    public GTMaterialBuilder addCasing() {
+        types.add(GTMaterialType.CASING);
+        return this;
+    }
 
-        if (meta < 0 || meta > 32_767) {
+    public GTMaterial build() {
+        if (meta < 0 || meta > GTMaterialUtils.MAX_MATERIAL_META) {
             throw new IllegalStateException("Invalid material meta: " + meta);
         }
 

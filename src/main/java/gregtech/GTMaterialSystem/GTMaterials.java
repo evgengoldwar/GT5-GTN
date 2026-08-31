@@ -29,6 +29,7 @@ public class GTMaterials {
             .addIngot()
             .addBlock()
             .addPlate()
+            .addCasing()
             .build();
 
         Bronze = new GTMaterialBuilder("Bronze").meta(1)

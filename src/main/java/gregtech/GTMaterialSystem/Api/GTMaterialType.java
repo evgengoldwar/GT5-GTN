@@ -4,7 +4,8 @@ public enum GTMaterialType {
 
     INGOT("ingot"),
     PLATE("plate"),
-    BLOCK("block");
+    BLOCK("block"),
+    CASING("casing");
 
     private final String textureName;
 

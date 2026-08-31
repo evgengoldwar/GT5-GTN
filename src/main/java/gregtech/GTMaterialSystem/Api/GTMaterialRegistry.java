@@ -4,10 +4,11 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import gregtech.GTMaterialSystem.Blocks.GTMaterialCasing;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.GTMaterialSystem.Blocks.GTMaterialBlockGT;
+import gregtech.GTMaterialSystem.Blocks.GTMaterialBlock;
 import gregtech.GTMaterialSystem.Items.GTMaterialIngot;
 import gregtech.GTMaterialSystem.Items.GTMaterialPlate;
 
@@ -31,7 +32,8 @@ public final class GTMaterialRegistry {
         registerItem(GTMaterialType.INGOT, new GTMaterialIngot());
         registerItem(GTMaterialType.PLATE, new GTMaterialPlate());
 
-        registerBlock(GTMaterialType.BLOCK, new GTMaterialBlockGT());
+        registerBlock(GTMaterialType.BLOCK, new GTMaterialBlock());
+        registerBlock(GTMaterialType.CASING, new GTMaterialCasing());
     }
 
     private void registerItem(GTMaterialType type, ItemMetaGTMaterial item) {
@@ -51,7 +53,7 @@ public final class GTMaterialRegistry {
 
         int meta = material.getMeta();
 
-        if (meta < 0 || meta > 32_000) {
+        if (meta < 0 || meta > GTMaterialUtils.MAX_MATERIAL_META) {
             throw new IllegalArgumentException("Material meta out of range: " + meta);
         }
 
