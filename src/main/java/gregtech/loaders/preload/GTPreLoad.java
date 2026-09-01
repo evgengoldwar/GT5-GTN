@@ -2,7 +2,6 @@ package gregtech.loaders.preload;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.Mods.CraftTweaker;
-import static gregtech.api.enums.Mods.GalacticraftCore;
 import static gregtech.api.enums.Mods.GregTech;
 
 import java.io.BufferedReader;
@@ -38,7 +37,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
-import gregtech.common.config.MachineStats;
 import gregtech.common.config.OPStuff;
 import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineBase;
 
