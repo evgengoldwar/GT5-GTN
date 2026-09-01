@@ -1333,13 +1333,11 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
             mReleaseEnergy = false;
             // Normal Explosion Code
             tMetaTileEntity.onExplosion();
-            if (GTMod.proxy.mExplosionItemDrop) {
-                for (int i = 0; i < this.getSizeInventory(); i++) {
-                    final ItemStack tItem = this.getStackInSlot(i);
-                    if ((tItem != null) && (tItem.stackSize > 0) && (this.isValidSlot(i))) {
-                        dropItems(tItem);
-                        this.setInventorySlotContents(i, null);
-                    }
+            for (int i = 0; i < this.getSizeInventory(); i++) {
+                final ItemStack tItem = this.getStackInSlot(i);
+                if ((tItem != null) && (tItem.stackSize > 0) && (this.isValidSlot(i))) {
+                    dropItems(tItem);
+                    this.setInventorySlotContents(i, null);
                 }
             }
             tMetaTileEntity.doExplosion(aAmount);

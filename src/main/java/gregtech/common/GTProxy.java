@@ -137,32 +137,10 @@ public class GTProxy implements IFuelHandler {
         OreGenEvent.GenerateMinable.EventType.REDSTONE,
         OreGenEvent.GenerateMinable.EventType.LAPIS,
         OreGenEvent.GenerateMinable.EventType.QUARTZ);
-    public final HashSet<ItemStack> mRegisteredOres = new HashSet<>(10000);
     public final GTBlockMap<Boolean> mCTMBlockCache = new GTBlockMap<>();
-    public boolean mAllowSmallBoilerAutomation = false;
-    public boolean mCraftingUnification = true;
-    public boolean mInventoryUnification = true;
-    public boolean mIncreaseDungeonLoot = true;
-    public boolean mAxeWhenAdventure = true;
-    public boolean mSurvivalIntoAdventure = false;
-    public boolean mNerfedWoodPlank = true;
     public boolean mIgnoreTcon = true;
-    public boolean mAchievements = true;
-    public boolean mChangeHarvestLevels = false;
-    public boolean mGTBees = true;
-    public boolean mExplosionItemDrop = false;
     public int mMaxEqualEntitiesAtOneSpot = 3;
-    public int mFlintChance = 30;
     public int mItemDespawnTime = 6000;
-    public int mUpgradeCount = 4;
-    public int[] mHarvestLevel = new int[1000];
-    public int mGraniteHavestLevel = 3;
-    public int mMaxHarvestLevel = 7;
-    public double replicatorExponent = 1.2D;
-    public boolean mEnableCleanroom = true;
-    public boolean mLowGravProcessing = false;
-    public boolean mAMHInteraction = true;
-    public boolean mForceFreeFace = true;
     public boolean mMixedOreOnlyYieldsTwoThirdsOfPureOre = false;
     public boolean mRichOreYieldMultiplier = true;
     public boolean mNetherOreYieldMultiplier = true;
@@ -372,7 +350,6 @@ public class GTProxy implements IFuelHandler {
         }
         GregTechAPI.sPreloadStarted = true;
         this.mIgnoreTcon = OPStuff.ignoreTinkerConstruct;
-        this.replicatorExponent = OPStuff.replicatorExponent;
         for (FluidContainerRegistry.FluidContainerData tData : FluidContainerRegistry.getRegisteredFluidContainerData()) {
             if ((tData.filledContainer.getItem() == Items.potionitem) && (tData.filledContainer.getItemDamage() == 0)) {
                 tData.fluid.amount = 0;
@@ -434,14 +411,6 @@ public class GTProxy implements IFuelHandler {
                     Materials_OLD.Milk.getFluid(1_000),
                     GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials_OLD.Milk, 1L),
                     GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials_OLD.Empty, 1L)));
-        }
-
-        if (!Worldgen.general.generateUndergroundGravelGen) {
-            PREVENTED_ORES.add(OreGenEvent.GenerateMinable.EventType.GRAVEL);
-        }
-
-        if (!Worldgen.general.generateUndergroundDirtGen) {
-            PREVENTED_ORES.add(OreGenEvent.GenerateMinable.EventType.DIRT);
         }
 
         MinecraftForge.EVENT_BUS.register(new SpaceProjectWorldSavedData());
@@ -699,42 +668,15 @@ public class GTProxy implements IFuelHandler {
 
     @SubscribeEvent
     public void onPlayerJoinEvent(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.player == null || event.player.isClientWorld()
-            || !(event.player instanceof EntityPlayerMP mpPlayer)) {
-            return;
+        if (event.player != null) {
+            event.player.isClientWorld();
         }
     }
 
     @SubscribeEvent
-    public void onOreGenEvent(OreGenEvent.GenerateMinable aGenerator) {
-        if ((Worldgen.general.disableVanillaOres) && ((aGenerator.generator instanceof WorldGenMinable))
-            && (PREVENTED_ORES.contains(aGenerator.type))) {
-            aGenerator.setResult(Result.DENY);
-        }
-    }
-
-    @SubscribeEvent
-    public void onPlayerInteraction(PlayerInteractEvent aEvent) {
-        if ((aEvent.entityPlayer == null) || (aEvent.entityPlayer.worldObj == null)
-            || (aEvent.action == null)
-            || (aEvent.world.provider == null)
-            || aEvent.world.isRemote) {
-            return;
-        }
-        ItemStack aStack = aEvent.entityPlayer.getCurrentEquippedItem();
-        if ((aStack != null) && (aEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
-            && (aStack.getItem() == Items.flint_and_steel)) {
-            if ((!aEvent.entityPlayer.capabilities.isCreativeMode)
-                && (aEvent.world.rand.nextInt(100) >= this.mFlintChance)) {
-                aEvent.setCanceled(true);
-                aStack.damageItem(1, aEvent.entityPlayer);
-                if (aStack.getItemDamage() >= aStack.getMaxDamage()) {
-                    aStack.stackSize -= 1;
-                }
-                if (aStack.stackSize <= 0) {
-                    ForgeEventFactory.onPlayerDestroyItem(aEvent.entityPlayer, aStack);
-                }
-            }
+    public void onOreGenEvent(OreGenEvent.GenerateMinable generateMinable) {
+        if (generateMinable.generator instanceof WorldGenMinable && PREVENTED_ORES.contains(generateMinable.type)) {
+            generateMinable.setResult(Result.DENY);
         }
     }
 
@@ -883,41 +825,6 @@ public class GTProxy implements IFuelHandler {
             if (tileEntity instanceof IGregTechTileEntity) {
                 tileEntity.onChunkUnload();
             }
-        }
-    }
-
-    @SubscribeEvent
-    public void onPlayerTickEventServer(TickEvent.PlayerTickEvent event) {
-        final EntityPlayer player = event.player;
-        if (!event.side.isServer() || event.phase == TickEvent.Phase.END
-            || player.isDead
-            || player.ticksExisted % 120 != 0) {
-            return;
-        }
-
-        final ItemStack[] mainInventory = player.inventory.mainInventory;
-        for (ItemStack stack : mainInventory) {
-            applyItemEffects(player, stack);
-            if (this.mInventoryUnification) {
-                GTOreDictUnificator.setStack(true, stack);
-            }
-        }
-        final ItemStack[] armorInventory = player.inventory.armorInventory;
-        for (final ItemStack stack : armorInventory) {
-            applyItemEffects(player, stack);
-        }
-    }
-
-    private static void applyItemEffects(EntityPlayer player, ItemStack stack) {
-        if (stack == null || player.capabilities.isCreativeMode) {
-            return;
-        }
-        GTUtility.applyRadioactivity(player, GTUtility.getRadioactivityLevel(stack), stack.stackSize);
-        final float heat = GTUtility.getHeatDamageFromItem(stack);
-        if (heat > 0.0F) {
-            GTUtility.applyHeatDamageFromItem(player, heat, stack);
-        } else if (heat < 0.0F) {
-            GTUtility.applyFrostDamage(player, -heat);
         }
     }
 

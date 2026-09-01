@@ -340,11 +340,6 @@ public class GTMod {
             tRunnable.run();
         }
 
-        // Disable Low Grav regardless of config if Cleanroom is disabled.
-        if (!proxy.mEnableCleanroom) {
-            proxy.mLowGravProcessing = false;
-        }
-
         proxy.onInitialization(event);
 
         if (Mods.Waila.isModLoaded()) {
@@ -356,11 +351,7 @@ public class GTMod {
 
         GTStructureChannels.register();
 
-        GT_FML_LOGGER.debug("Registering SpaceDimensions");
-
         GregTechAPI.sLoadFinished = true;
-        GT_FML_LOGGER.debug("GTMod: Load-Phase finished!");
-        GT_ORE_DICT_LOGGER.info("GTMod: Load-Phase finished!");
 
         for (Runnable tRunnable : GregTechAPI.sAfterGTLoad) {
             tRunnable.run();
@@ -489,130 +480,7 @@ public class GTMod {
         }
 
         proxy.onServerStarting(event);
-        GT_FML_LOGGER.debug("GTMod: Unificating outputs of all known Recipe Types.");
-        ArrayList<ItemStack> tStacks = new ArrayList<>(10000);
-        GT_FML_LOGGER.debug("GTMod: IC2 Machines");
-
-        ic2.api.recipe.Recipes.cannerBottle.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.centrifuge.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.compressor.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.extractor.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.macerator.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.metalformerCutting.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.metalformerExtruding.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.metalformerRolling.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.matterAmplifier.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-        ic2.api.recipe.Recipes.oreWashing.getRecipes()
-            .values()
-            .stream()
-            .map(t -> t.items)
-            .forEach(tStacks::addAll);
-
-        GT_FML_LOGGER.debug("GTMod: Dungeon Loot");
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("dungeonChest")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("bonusChest")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("villageBlacksmith")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("strongholdCrossing")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("strongholdLibrary")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("strongholdCorridor")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("pyramidJungleDispenser")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("pyramidJungleChest")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("pyramidDesertyChest")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("mineshaftCorridor")
-            .getItems(new XSTR())) {
-            tStacks.add(tContent.theItemId);
-        }
-        GT_FML_LOGGER.debug("GTMod: Smelting");
-
-        // Deal with legacy Minecraft raw types
-        tStacks.addAll(
-            FurnaceRecipes.smelting()
-                .getSmeltingList()
-                .values());
-
-        if (proxy.mCraftingUnification) {
-            GT_FML_LOGGER.debug("GTMod: Crafting Recipes");
-            for (IRecipe tRecipe : CraftingManager.getInstance()
-                .getRecipeList()) {
-                if ((tRecipe instanceof IRecipe)) {
-                    tStacks.add(tRecipe.getRecipeOutput());
-                }
-            }
-        }
-        for (ItemStack tOutput : tStacks) {
-            if (!proxy.mRegisteredOres.contains(tOutput)) {
-                GTOreDictUnificator.setStack(tOutput);
-            } else {
-                logMultilineError(GT_FML_LOGGER, generateGTErr01Message(tOutput));
-                tOutput.setStackDisplayName("ERROR! PLEASE CHECK YOUR LOG FOR 'GT-ERR-01'!");
-            }
-        }
         GregTechAPI.mServerStarted = true;
-        GT_FML_LOGGER.debug("GTMod: ServerStarting-Phase finished!");
-        GT_ORE_DICT_LOGGER.info("GTMod: ServerStarting-Phase finished!");
 
         for (Runnable tRunnable : GregTechAPI.sAfterGTServerstart) {
             tRunnable.run();

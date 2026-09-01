@@ -317,21 +317,7 @@ public class GTPreLoad {
         GregTechAPI.sDoShowAllItemsInCreative = Gregtech.general.doShowAllItemsInCreative;
         GregTechAPI.sMultiThreadedSounds = Gregtech.general.multiThreadedSounds;
         GTMod.proxy.mMaxEqualEntitiesAtOneSpot = Gregtech.general.maxEqualEntitiesAtOneSpot;
-        GTMod.proxy.mFlintChance = Gregtech.general.flintChance;
         GTMod.proxy.mItemDespawnTime = Gregtech.general.itemDespawnTime;
-        GTMod.proxy.mAllowSmallBoilerAutomation = Gregtech.general.allowSmallBoilerAutomation;
-        GTMod.proxy.mIncreaseDungeonLoot = Gregtech.general.increaseDungeonLoot;
-        GTMod.proxy.mAxeWhenAdventure = Gregtech.general.axeWhenAdventure;
-        GTMod.proxy.mSurvivalIntoAdventure = Gregtech.general.survivalIntoAdventure;
-        GTMod.proxy.mInventoryUnification = Gregtech.general.inventoryUnification;
-        GTMod.proxy.mGTBees = Gregtech.general.GTBees;
-        GTMod.proxy.mCraftingUnification = Gregtech.general.craftingUnification;
-        GTMod.proxy.mNerfedWoodPlank = Gregtech.general.nerfedWoodPlank;
-        GTMod.proxy.mAchievements = Gregtech.general.achievements;
-        GTMod.proxy.mExplosionItemDrop = Gregtech.general.explosionItemDrop;
-        GTMod.proxy.mEnableCleanroom = Gregtech.general.enableCleanroom;
-        GTMod.proxy.mLowGravProcessing = GalacticraftCore.isModLoaded() && Gregtech.general.lowGravProcessing;
-        GTMod.proxy.mAMHInteraction = Gregtech.general.autoMaintenaceHatchesInteraction;
         GTMod.proxy.mMixedOreOnlyYieldsTwoThirdsOfPureOre = Gregtech.general.mixedOreOnlyYieldsTwoThirdsOfPureOre;
         GTMod.proxy.mRichOreYieldMultiplier = Gregtech.general.richOreYieldMultiplier;
         GTMod.proxy.mNetherOreYieldMultiplier = Gregtech.general.netherOreYieldMultiplier;
@@ -381,14 +367,8 @@ public class GTPreLoad {
         GregTechAPI.mRFtoEU = OPStuff.howMuchEUWith100RFInInput;
         GregTechAPI.mRFExplosions = OPStuff.RFExplosions;
 
-        // MachineStats.cfg
-        GTMod.proxy.mForceFreeFace = MachineStats.machines.forceFreeFace;
-
         // ore_drop_behavior
         GTMod.proxy.oreDropSystem = Gregtech.oreDropBehavior.setting;
-
-        // features
-        GTMod.proxy.mUpgradeCount = Math.min(64, Math.max(1, Gregtech.features.upgradeStackSize));
 
         GTRecipeBuilder.onConfigLoad();
     }

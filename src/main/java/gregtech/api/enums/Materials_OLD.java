@@ -1706,23 +1706,7 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
         return "materials." + aMaterial.mConfigSection + "." + cOre;
     }
 
-    private static void addHarvestLevelNerfs(Materials_OLD aMaterial) {
-        /* Moved the harvest level changes from GTMod to have fewer things iterating over MATERIALS_ARRAY */
-        if (GTMod.proxy.mChangeHarvestLevels && aMaterial.mToolQuality > 0
-            && aMaterial.mMetaItemSubID < GTMod.proxy.mHarvestLevel.length
-            && aMaterial.mMetaItemSubID >= 0) {
-            GTMod.proxy.mHarvestLevel[aMaterial.mMetaItemSubID] = aMaterial.mToolQuality;
-        }
-    }
-
-    private static void addHarvestLevels() {
-        GTMod.proxy.mChangeHarvestLevels = Gregtech.harvestLevel.activateHarvestLevelChange;
-        GTMod.proxy.mMaxHarvestLevel = Math.min(15, Gregtech.harvestLevel.maxHarvestLevel);
-        GTMod.proxy.mGraniteHavestLevel = Gregtech.harvestLevel.graniteHarvestLevel;
-    }
-
     public static void initMaterialProperties() {
-        addHarvestLevels();
         for (Materials_OLD aMaterial : MATERIALS_MAP.values()) {
             if (aMaterial == null || aMaterial == Materials_OLD._NULL || aMaterial == Materials_OLD.Empty) {
                 continue;
@@ -1731,7 +1715,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
             addToolValues(aMaterial);
             addEnchantmentValues(aMaterial);
             addHasGasFluid(aMaterial);
-            addHarvestLevelNerfs(aMaterial);
         }
     }
 

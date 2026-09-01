@@ -492,18 +492,11 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
 
     @Override
     public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (aBaseMetaTileEntity.isClientSide()) return true;
-        if (!GTMod.proxy.mForceFreeFace) {
-            openGui(aPlayer);
+        if (aBaseMetaTileEntity.isClientSide()) {
             return true;
         }
-        for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-            if (aBaseMetaTileEntity.getAirAtSide(side)) {
-                openGui(aPlayer);
-                return true;
-            }
-        }
-        GTUtility.sendChatTrans(aPlayer, "GT5U.chat.machine.no_free_side");
+
+        openGui(aPlayer);
         return true;
     }
 
@@ -1107,9 +1100,6 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             getBaseMetaTileEntity().setOnFire();
             return DID_NOT_FIND_RECIPE;
         }
-        if (GTMod.proxy.mLowGravProcessing && (tRecipe.mSpecialValue == -100 || tRecipe.mSpecialValue == -300)
-            && !isValidForLowGravity(tRecipe, getBaseMetaTileEntity().getWorld().provider.dimensionId))
-            return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS;
         if (tRecipe.mCanBeBuffered) mLastRecipe = tRecipe;
         if (!canOutput(tRecipe)) {
             mOutputBlocked++;

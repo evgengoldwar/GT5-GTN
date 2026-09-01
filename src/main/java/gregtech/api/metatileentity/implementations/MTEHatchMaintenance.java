@@ -163,7 +163,7 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
 
     @Override
     public boolean isValidSlot(int aIndex) {
-        return mAuto && GTMod.proxy.mAMHInteraction;
+        return mAuto;
     }
 
     @Override
@@ -463,13 +463,13 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     @Override
     public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
         ItemStack aStack) {
-        return mAuto && GTMod.proxy.mAMHInteraction;
+        return mAuto;
     }
 
     @Override
     public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
         ItemStack aStack) {
-        if (mAuto && GTMod.proxy.mAMHInteraction) {
+        if (mAuto) {
             for (int i = 0; i < getSizeInventory(); i++) if (GTUtility.areStacksEqual(
                 GTOreDictUnificator.get(false, aStack),
                 GTOreDictUnificator.get(false, getStackInSlot(i)))) return i == aIndex;

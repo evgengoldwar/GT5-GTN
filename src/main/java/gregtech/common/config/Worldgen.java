@@ -62,11 +62,6 @@ public class Worldgen {
         @Config.RequiresMcRestart
         public boolean generateRedGraniteOres;
 
-        @Config.Comment("If true, disables vanilla oregen.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean disableVanillaOres;
-
         @Config.Comment("if true, enables underground dirt gen. Does nothing if the vanilla oregen is enabled!")
         @Config.DefaultBoolean(true)
         @Config.RequiresMcRestart
