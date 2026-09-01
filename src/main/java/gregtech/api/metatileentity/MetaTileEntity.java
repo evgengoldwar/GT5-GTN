@@ -638,11 +638,6 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
         return ((BaseMetaTileEntity) getBaseMetaTileEntity()).getLightValue() > 0 ? 0 : 255;
     }
 
-    @Override
-    public boolean shouldJoinIc2Enet() {
-        return false;
-    }
-
     public boolean shouldTriggerBlockUpdate() {
         return false;
     }

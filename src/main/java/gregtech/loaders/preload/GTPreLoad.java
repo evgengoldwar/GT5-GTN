@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +31,6 @@ import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTConfig;
 import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.config.Client;
@@ -316,18 +314,6 @@ public class GTPreLoad {
         GregTechAPI.sMultiThreadedSounds = Gregtech.general.multiThreadedSounds;
         GTMod.proxy.mMaxEqualEntitiesAtOneSpot = Gregtech.general.maxEqualEntitiesAtOneSpot;
         GTMod.proxy.mItemDespawnTime = Gregtech.general.itemDespawnTime;
-        GTMod.proxy.mMixedOreOnlyYieldsTwoThirdsOfPureOre = Gregtech.general.mixedOreOnlyYieldsTwoThirdsOfPureOre;
-        GTMod.proxy.mRichOreYieldMultiplier = Gregtech.general.richOreYieldMultiplier;
-        GTMod.proxy.mNetherOreYieldMultiplier = Gregtech.general.netherOreYieldMultiplier;
-        GTMod.proxy.mEndOreYieldMultiplier = Gregtech.general.endOreYieldMultiplier;
-        GTMod.proxy.gt6Pipe = Gregtech.general.gt6Pipe;
-        GTMod.proxy.gt6Cable = Gregtech.general.gt6Cable;
-        GTMod.proxy.ic2EnergySourceCompat = Gregtech.general.ic2EnergySourceCompat;
-        GTMod.proxy.costlyCableConnection = Gregtech.general.costlyCableConnection;
-        GTMod.proxy.crashOnNullRecipeInput = Gregtech.general.crashOnNullRecipeInput;
-        if ((boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")) {
-            GTMod.proxy.crashOnNullRecipeInput = false; // Use flags in GTRecipeBuilder instead!
-        }
         GTLanguageManager.i18nPlaceholder = Gregtech.general.i18nPlaceholder;
         MTELongDistancePipelineBase.minimalDistancePoints = Gregtech.general.minimalDistancePoints;
         GTValues.mCTMEnabledBlock.addAll(Arrays.asList(Gregtech.general.CTMWhitelist));
@@ -364,11 +350,6 @@ public class GTPreLoad {
         GregTechAPI.mEUtoRF = OPStuff.howMuchRFWith100EUInInput;
         GregTechAPI.mRFtoEU = OPStuff.howMuchEUWith100RFInInput;
         GregTechAPI.mRFExplosions = OPStuff.RFExplosions;
-
-        // ore_drop_behavior
-        GTMod.proxy.oreDropSystem = Gregtech.oreDropBehavior.setting;
-
-        GTRecipeBuilder.onConfigLoad();
     }
 
     public static void loadClientConfig() {

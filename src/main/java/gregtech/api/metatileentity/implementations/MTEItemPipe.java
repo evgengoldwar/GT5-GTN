@@ -25,7 +25,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.gtnhlib.util.ItemUtil;
 
-import gregtech.GTMod;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.HarvestTool;
@@ -199,15 +198,13 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     @Override
     public void saveNBTData(NBTTagCompound aNBT) {
         aNBT.setByte("mLastReceivedFrom", (byte) mLastReceivedFrom.ordinal());
-        if (GTMod.proxy.gt6Pipe) aNBT.setByte("mConnections", mConnections);
+        aNBT.setByte("mConnections", mConnections);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         mLastReceivedFrom = ForgeDirection.getOrientation(aNBT.getByte("mLastReceivedFrom"));
-        if (GTMod.proxy.gt6Pipe) {
-            mConnections = aNBT.getByte("mConnections");
-        }
+        mConnections = aNBT.getByte("mConnections");
     }
 
     @Override
@@ -224,7 +221,9 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
                 mCurrentTransferStartTick = 0;
             }
 
-            if (!GTMod.proxy.gt6Pipe || mCheckConnections) checkConnections();
+            if (mCheckConnections) {
+                checkConnections();
+            }
 
             doTickProfilingInThisTick = true;
             if (oLastReceivedFrom == mLastReceivedFrom) {
@@ -256,17 +255,14 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     @Override
     public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
         float aX, float aY, float aZ, ItemStack aTool) {
-        if (GTMod.proxy.gt6Pipe) {
-            final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
-            if (isConnectedAtSide(tSide)) {
-                disconnect(tSide);
-                GTUtility.sendChatTrans(entityPlayer, "GT5U.chat.disconnected");
-            } else {
-                if (connect(tSide) > 0) GTUtility.sendChatTrans(entityPlayer, "GT5U.chat.connected");
-            }
-            return true;
+        final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
+        if (isConnectedAtSide(tSide)) {
+            disconnect(tSide);
+            GTUtility.sendChatTrans(entityPlayer, "GT5U.chat.disconnected");
+        } else {
+            if (connect(tSide) > 0) GTUtility.sendChatTrans(entityPlayer, "GT5U.chat.connected");
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -448,12 +444,6 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
         }
 
         return connectable;
-    }
-
-    @Override
-    public boolean getGT6StyleConnection() {
-        // Yes if GT6 pipes are enabled
-        return GTMod.proxy.gt6Pipe;
     }
 
     @Override

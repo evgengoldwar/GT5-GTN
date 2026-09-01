@@ -31,7 +31,6 @@ import gregtech.api.fluid.GTFluidFactory;
 import gregtech.api.interfaces.IColorModulationContainer;
 import gregtech.api.interfaces.IMaterialHandler;
 import gregtech.api.interfaces.IOreMaterial;
-import gregtech.api.interfaces.IStoneType;
 import gregtech.api.interfaces.ISubTagContainer;
 import gregtech.api.objects.MaterialStack;
 import gregtech.api.util.GTLanguageManager;
@@ -2053,14 +2052,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
     @Override
     public int getId() {
         return mMetaItemSubID;
-    }
-
-    public boolean isValidForStone(IStoneType stoneType) {
-        if (contains(SubTag.ICE_ORE)) {
-            return stoneType.getCategory() == StoneCategory.Ice;
-        } else {
-            return stoneType.getCategory() == StoneCategory.Stone;
-        }
     }
 
     @Override

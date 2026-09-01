@@ -192,7 +192,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
             if (isServerSide) {
                 if (mTickTimer == 10) {
                     issueBlockUpdate();
-                    joinEnet();
                 }
                 handlePositionChange();
             }
@@ -337,7 +336,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
                             : "GT5U.scanner.debug.not_accessible"));
             }
         }
-        if (joinedIc2Enet) tList.add(StatCollector.translateToLocal("GT5U.scanner.debug.ic2_enet"));
 
         return mMetaTileEntity != null ? mMetaTileEntity.getSpecialDebugInfo(this, aPlayer, aLogLevel, tList)
             : new ArrayList<>();
@@ -369,9 +367,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public void setFrontFacing(ForgeDirection aFacing) {
-        doEnetUpdate();
-    }
+    public void setFrontFacing(ForgeDirection aFacing) {}
 
     @Override
     public int getSizeInventory() {
@@ -437,7 +433,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
             mMetaTileEntity.onRemoval();
             mMetaTileEntity.setBaseMetaTileEntity(null);
         }
-        leaveEnet();
         super.invalidate();
     }
 
@@ -770,7 +765,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
                         // logic handled internally
                         sendSoundToPlayers(SoundResource.GTCEU_OP_WIRECUTTER, 1.0F, 1);
                     }
-                    doEnetUpdate();
                     return true;
                 }
 
@@ -788,7 +782,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
                             new ChatComponentTranslation(GTUtility.getUnlocalizedSideName(wrenchingSide)));
                         sendSoundToPlayers(SoundResource.IC2_TOOLS_BATTERY_USE, 3.0F, -1);
                     }
-                    doEnetUpdate();
                     return true;
                 }
 

@@ -23,7 +23,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 
@@ -57,21 +56,18 @@ import gregtech.api.interfaces.modularui.IGetGUITextureSet;
 import gregtech.api.interfaces.tileentity.IGTEnet;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.IHasWorldObjectAndCoords;
-import gregtech.api.interfaces.tileentity.IIC2Enet;
 import gregtech.api.net.GTPacketSetConfigurationCircuit;
 import gregtech.api.util.GTTooltipDataCache;
 import gregtech.api.util.GTUtility;
 import gregtech.common.data.GTBlockEventTracker;
 import gregtech.common.gui.modularui.base.ItemSelectBaseGui;
-import ic2.api.energy.event.EnergyTileLoadEvent;
-import ic2.api.energy.event.EnergyTileUnloadEvent;
 
 /**
  * The Functions my old TileEntities and my BaseMetaTileEntities have in common.
  * <p/>
  * Basically everything a TileEntity should have.
  */
-public abstract class BaseTileEntity extends TileEntity implements IHasWorldObjectAndCoords, IIC2Enet, IGTEnet,
+public abstract class BaseTileEntity extends TileEntity implements IHasWorldObjectAndCoords, IGTEnet,
     ITileWithModularUI, IAddGregtechLogo, IGetGUITextureSet, IAddInventorySlots {
 
     /**
@@ -487,14 +483,12 @@ public abstract class BaseTileEntity extends TileEntity implements IHasWorldObje
 
     @Override
     public void invalidate() {
-        leaveEnet();
         clearNullMarkersFromTileEntityBuffer();
         super.invalidate();
     }
 
     @Override
     public void onChunkUnload() {
-        leaveEnet();
         clearNullMarkersFromTileEntityBuffer();
         super.onChunkUnload();
         isDead = true;
@@ -586,42 +580,6 @@ public abstract class BaseTileEntity extends TileEntity implements IHasWorldObje
 
     public boolean useModularUI() {
         return false;
-    }
-
-    /*
-     * IC2 Energy Compat
-     */
-    protected TileIC2EnergySink ic2EnergySink = null;
-    protected boolean joinedIc2Enet = false;
-
-    protected void createIc2Sink() {
-        if (ic2EnergySink == null && isServerSide() && shouldJoinIc2Enet()) {
-            ic2EnergySink = new TileIC2EnergySink((IGregTechTileEntity) this);
-        }
-    }
-
-    @Override
-    public void doEnetUpdate() {
-        leaveEnet();
-        joinEnet();
-    }
-
-    protected void joinEnet() {
-        if (isClientSide() || joinedIc2Enet || !shouldJoinIc2Enet()) return;
-
-        if (ic2EnergySink == null) createIc2Sink();
-
-        if (ic2EnergySink != null) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(ic2EnergySink));
-            joinedIc2Enet = true;
-        }
-    }
-
-    protected void leaveEnet() {
-        if (joinedIc2Enet && ic2EnergySink != null && isServerSide()) {
-            joinedIc2Enet = false;
-            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(ic2EnergySink));
-        }
     }
 
     // === GUI stuff ===

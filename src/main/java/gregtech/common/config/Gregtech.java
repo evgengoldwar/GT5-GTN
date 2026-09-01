@@ -3,7 +3,6 @@ package gregtech.common.config;
 import com.gtnewhorizon.gtnhlib.config.Config;
 
 import gregtech.api.enums.Mods;
-import gregtech.common.GTProxy;
 
 @Config(
     modid = Mods.ModIDs.GREG_TECH,
@@ -22,17 +21,8 @@ public class Gregtech {
     @Config.Comment("General section")
     public static final General general = new General();
 
-    @Config.Comment("Harvest level section")
-    public static final HarvestLevel harvestLevel = new HarvestLevel();
-
     @Config.Comment("Machines section")
     public static final Machines machines = new Machines();
-
-    @Config.Comment("Ore drop behavior section")
-    public static final OreDropBehavior oreDropBehavior = new OreDropBehavior();
-
-    @Config.Comment("Void miners")
-    public static final VoidMiners voidMiners = new VoidMiners();
 
     @Config.LangKey("GT5U.gui.config.gregtech.debug")
     public static class Debug {
@@ -395,25 +385,6 @@ public class Gregtech {
         public int schedulerProfileLevel;
     }
 
-    @Config.LangKey("GT5U.gui.config.gregtech.harvest_level")
-    public static class HarvestLevel {
-
-        @Config.Comment("Activate Harvest Level Change")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean activateHarvestLevelChange;
-
-        @Config.Comment("Maximum harvest level")
-        @Config.DefaultInt(7)
-        @Config.RequiresMcRestart
-        public int maxHarvestLevel;
-
-        @Config.Comment("GraniteHarvestLevel harvest level")
-        @Config.DefaultInt(3)
-        @Config.RequiresMcRestart
-        public int graniteHarvestLevel;
-    }
-
     @Config.LangKey("GT5U.gui.config.gregtech.machines")
     public static class Machines {
 
@@ -565,36 +536,5 @@ public class Gregtech {
         @Config.Name("Item Slots Suffix Format")
         @Config.RequiresMcRestart
         public String itemSlotsSuffixFormat = " {%s}";
-    }
-
-    @Config.LangKey("GT5U.gui.config.gregtech.ore_drop_behavior")
-    public static class OreDropBehavior {
-
-        @Config.Comment({ "Settings:",
-            " - 'PerDimBlock': Sets the drop to the block variant of the ore block based on dimension, defaults to stone type",
-            " - 'UnifiedBlock': Sets the drop to the stone variant of the ore block",
-            " - 'Block': Sets the drop to the ore  mined",
-            " - 'FortuneItem': Sets the drop to the new ore item and makes it affected by fortune"
-                + " - 'Item': Sets the drop to the new ore item" })
-
-        @Config.DefaultEnum("FortuneItem")
-        @Config.RequiresMcRestart
-        public GTProxy.OreDropSystem setting = GTProxy.OreDropSystem.FortuneItem;
-    }
-
-    @Config.LangKey("GT5U.gui.config.gregtech.void_miners")
-    public static class VoidMiners {
-
-        @Config.Comment("List of GregTech material names to adjust weight. Example line: \"Aluminium : 0.3\". Intervening whitespace will be ignored. Use the debug options to get valid names. Use weight <= 0 to disable an ore entirely. Anything not specified in the list will have weight 1. See: gregtech.api.enums.Materials")
-        @Config.Name("Deep Dark GT Ore Weights")
-        public String[] gregtechWeightsDD;
-
-        @Config.Comment("List of BartWorks material names to adjust weight. Example line: \"Bismutite : 0.3\". Intervening whitespace will be ignored. Use the debug options to get valid names. Use weight <= 0 to disable an ore entirely. Anything not specified in the list will have weight 1. See: bartworks.system.material.Werkstoff")
-        @Config.Name("Deep Dark BW Ore Weights")
-        public String[] bartworksWeightsDD;
-
-        @Config.Comment("List of GT++ material names to adjust weight. Example line: \"Cerite : 0.3\". Intervening whitespace will be ignored. Use the debug options to get valid names. Use weight <= 0 to disable an ore entirely. Anything not specified in the list will have weight 1. See: gtPlusPlus.core.material.ORES")
-        @Config.Name("Deep Dark GT++ Ore Weights")
-        public String[] gtppWeightsDD;
     }
 }

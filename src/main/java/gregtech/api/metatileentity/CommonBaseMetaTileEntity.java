@@ -583,15 +583,6 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity
     }
 
     /*
-     * IC2 Energy Compat
-     */
-    @Override
-    public boolean shouldJoinIc2Enet() {
-        final IMetaTileEntity meta = getMetaTileEntity();
-        return meta != null && meta.shouldJoinIc2Enet();
-    }
-
-    /*
      * Modular UI Support
      */
 

@@ -259,11 +259,6 @@ public class MTETransformer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean shouldJoinIc2Enet() {
-        return true;
-    }
-
-    @Override
     public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         final ForgeDirection facing = getBaseMetaTileEntity().getFrontFacing();

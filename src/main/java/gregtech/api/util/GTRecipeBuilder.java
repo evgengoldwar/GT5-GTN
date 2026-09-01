@@ -21,7 +21,6 @@ import org.jetbrains.annotations.Contract;
 
 import com.LazyFlesh.variablehorizons.variants.VariantNames;
 
-import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
 import gregtech.api.interfaces.IRecipeMap;
@@ -251,11 +250,6 @@ public class GTRecipeBuilder {
             GT_FML_LOGGER.error(new IllegalArgumentException());
         }
     }
-
-    public static void onConfigLoad() {
-        PANIC_MODE_NULL |= GTMod.proxy.crashOnNullRecipeInput;
-    }
-
     // endregion
 
     // region setter

@@ -44,7 +44,6 @@ import net.minecraftforge.fluids.IFluidHandler;
 import org.apache.commons.lang3.tuple.MutableTriple;
 
 import cpw.mods.fml.common.Optional;
-import gregtech.GTMod;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.HarvestTool;
@@ -268,10 +267,8 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         for (int i = 0; i < mPipeAmount; i++) if (mFluids[i] != null)
             aNBT.setTag("mFluid" + (i == 0 ? "" : i), mFluids[i].writeToNBT(new NBTTagCompound()));
         aNBT.setByte("mLastReceivedFrom", mLastReceivedFrom);
-        if (GTMod.proxy.gt6Pipe) {
-            aNBT.setByte("mConnections", mConnections);
-            aNBT.setByte("mDisableInput", mDisableInput);
-        }
+        aNBT.setByte("mConnections", mConnections);
+        aNBT.setByte("mDisableInput", mDisableInput);
     }
 
     @Override
@@ -279,10 +276,8 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         for (int i = 0; i < mPipeAmount; i++)
             mFluids[i] = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("mFluid" + (i == 0 ? "" : i)));
         mLastReceivedFrom = aNBT.getByte("mLastReceivedFrom");
-        if (GTMod.proxy.gt6Pipe) {
-            mConnections = aNBT.getByte("mConnections");
-            mDisableInput = aNBT.getByte("mDisableInput");
-        }
+        mConnections = aNBT.getByte("mConnections");
+        mDisableInput = aNBT.getByte("mDisableInput");
     }
 
     @Override
@@ -321,7 +316,9 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
                 mLastReceivedFrom = 0;
             }
 
-            if (!GTMod.proxy.gt6Pipe || mCheckConnections) checkConnections();
+            if (mCheckConnections) {
+                checkConnections();
+            }
 
             final boolean shouldDistribute = (oLastReceivedFrom == mLastReceivedFrom);
             for (int i = 0, j = aBaseMetaTileEntity.getRandomNumber(mPipeAmount); i < mPipeAmount; i++) {
@@ -619,92 +616,90 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
         float aX, float aY, float aZ, ItemStack aTool) {
 
-        if (GTMod.proxy.gt6Pipe) {
-            final int mode = MetaGeneratedTool.getToolMode(aTool);
-            IGregTechTileEntity currentPipeBase = getBaseMetaTileEntity();
-            MTEFluidPipe currentPipe = (MTEFluidPipe) currentPipeBase.getMetaTileEntity();
-            final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
-            final byte tMask = (byte) (tSide.flag);
+        final int mode = MetaGeneratedTool.getToolMode(aTool);
+        IGregTechTileEntity currentPipeBase = getBaseMetaTileEntity();
+        MTEFluidPipe currentPipe = (MTEFluidPipe) currentPipeBase.getMetaTileEntity();
+        final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
+        final byte tMask = (byte) (tSide.flag);
 
-            if (mode == ToolModes.REGULAR.get()) {
+        if (mode == ToolModes.REGULAR.get()) {
+            if (entityPlayer.isSneaking()) {
+                currentPipe.blockPipeOnSide(tSide, entityPlayer, tMask);
+            } else currentPipe.connectPipeOnSide(tSide, entityPlayer);
+            return true;
+        }
+
+        if (mode == ToolModes.WRENCH_LINE.get()) {
+
+            boolean initialState = entityPlayer.isSneaking() ? currentPipe.isInputDisabledAtSide(tSide)
+                : currentPipe.isConnectedAtSide(tSide);
+
+            boolean wasActionPerformed = false;
+
+            int limit = Other.pipeWrenchingChainRange;
+            for (int connected = 0; connected < limit; connected++) {
+
+                TileEntity nextPipeBaseTile = currentPipeBase.getTileEntityAtSide(tSide);
+
+                // if next tile doesn't exist or if next tile is not GT tile
+                if (!(nextPipeBaseTile instanceof IGregTechTileEntity nextPipeBase)) {
+                    return wasActionPerformed;
+                }
+
+                // if next tile is wrong color
+                if (!currentPipe.connectableColor(nextPipeBaseTile)) {
+                    return wasActionPerformed;
+                }
+
+                MTEFluidPipe nextPipe = nextPipeBase.getMetaTileEntity() instanceof MTEFluidPipe
+                    ? (MTEFluidPipe) nextPipeBase.getMetaTileEntity()
+                    : null;
+
+                // if next tile entity is not a pipe
+                if (nextPipe == null) {
+                    return wasActionPerformed;
+                }
+
+                // if pipes are same size
+                if (mPipeAmount != nextPipe.mPipeAmount) {
+                    return wasActionPerformed;
+                }
+
+                // making sure next pipe has same fluid
+                for (int i = 0; i < mPipeAmount; i++) {
+                    if (mFluids[i] != null && nextPipe.mFluids[i] != null) {
+                        if (!mFluids[i].isFluidEqual(nextPipe.mFluids[i])) {
+                            return wasActionPerformed;
+                        }
+                    } else if (mFluids[i] == null || nextPipe.mFluids[i] == null) {
+                        // one pipe is empty, so it doesn't matter if the other has fluid.
+                    } else if (mFluids[i] != nextPipe.mFluids[i]) {
+                        return wasActionPerformed;
+                    }
+                }
+
+                boolean currentState = entityPlayer.isSneaking() ? currentPipe.isInputDisabledAtSide(tSide)
+                    : currentPipe.isConnectedAtSide(tSide);
+
+                /*
+                 * Making sure next pipe will have same action applied to it e.g. Connecting pipe won`t trigger
+                 * disconnect if next pipe is already connected
+                 */
+                if (currentState != initialState) {
+                    return wasActionPerformed;
+                }
+
                 if (entityPlayer.isSneaking()) {
                     currentPipe.blockPipeOnSide(tSide, entityPlayer, tMask);
                 } else currentPipe.connectPipeOnSide(tSide, entityPlayer);
-                return true;
+
+                wasActionPerformed = true;
+
+                currentPipeBase = nextPipeBase;
+                currentPipe = nextPipe;
+
             }
-
-            if (mode == ToolModes.WRENCH_LINE.get()) {
-
-                boolean initialState = entityPlayer.isSneaking() ? currentPipe.isInputDisabledAtSide(tSide)
-                    : currentPipe.isConnectedAtSide(tSide);
-
-                boolean wasActionPerformed = false;
-
-                int limit = Other.pipeWrenchingChainRange;
-                for (int connected = 0; connected < limit; connected++) {
-
-                    TileEntity nextPipeBaseTile = currentPipeBase.getTileEntityAtSide(tSide);
-
-                    // if next tile doesn't exist or if next tile is not GT tile
-                    if (!(nextPipeBaseTile instanceof IGregTechTileEntity nextPipeBase)) {
-                        return wasActionPerformed;
-                    }
-
-                    // if next tile is wrong color
-                    if (!currentPipe.connectableColor(nextPipeBaseTile)) {
-                        return wasActionPerformed;
-                    }
-
-                    MTEFluidPipe nextPipe = nextPipeBase.getMetaTileEntity() instanceof MTEFluidPipe
-                        ? (MTEFluidPipe) nextPipeBase.getMetaTileEntity()
-                        : null;
-
-                    // if next tile entity is not a pipe
-                    if (nextPipe == null) {
-                        return wasActionPerformed;
-                    }
-
-                    // if pipes are same size
-                    if (mPipeAmount != nextPipe.mPipeAmount) {
-                        return wasActionPerformed;
-                    }
-
-                    // making sure next pipe has same fluid
-                    for (int i = 0; i < mPipeAmount; i++) {
-                        if (mFluids[i] != null && nextPipe.mFluids[i] != null) {
-                            if (!mFluids[i].isFluidEqual(nextPipe.mFluids[i])) {
-                                return wasActionPerformed;
-                            }
-                        } else if (mFluids[i] == null || nextPipe.mFluids[i] == null) {
-                            // one pipe is empty, so it doesn't matter if the other has fluid.
-                        } else if (mFluids[i] != nextPipe.mFluids[i]) {
-                            return wasActionPerformed;
-                        }
-                    }
-
-                    boolean currentState = entityPlayer.isSneaking() ? currentPipe.isInputDisabledAtSide(tSide)
-                        : currentPipe.isConnectedAtSide(tSide);
-
-                    /*
-                     * Making sure next pipe will have same action applied to it e.g. Connecting pipe won`t trigger
-                     * disconnect if next pipe is already connected
-                     */
-                    if (currentState != initialState) {
-                        return wasActionPerformed;
-                    }
-
-                    if (entityPlayer.isSneaking()) {
-                        currentPipe.blockPipeOnSide(tSide, entityPlayer, tMask);
-                    } else currentPipe.connectPipeOnSide(tSide, entityPlayer);
-
-                    wasActionPerformed = true;
-
-                    currentPipeBase = nextPipeBase;
-                    currentPipe = nextPipe;
-
-                }
-                return wasActionPerformed;
-            }
+            return wasActionPerformed;
         }
         return false;
     }
@@ -755,12 +750,6 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     private boolean isTranslocator(TileEntity tTileEntity) {
         // Translocators return a TankInfo, but it's of 0 length - so check the class if we see this pattern
         return tTileEntity instanceof codechicken.translocator.TileLiquidTranslocator;
-    }
-
-    @Override
-    public boolean getGT6StyleConnection() {
-        // Yes if GT6 pipes are enabled
-        return GTMod.proxy.gt6Pipe;
     }
 
     @Override

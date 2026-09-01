@@ -137,32 +137,6 @@ public class GTProxy implements IFuelHandler {
     public boolean mIgnoreTcon = true;
     public int mMaxEqualEntitiesAtOneSpot = 3;
     public int mItemDespawnTime = 6000;
-    public boolean mMixedOreOnlyYieldsTwoThirdsOfPureOre = false;
-    public boolean mRichOreYieldMultiplier = true;
-    public boolean mNetherOreYieldMultiplier = true;
-    public boolean mEndOreYieldMultiplier = true;
-    public boolean gt6Pipe = true;
-    public boolean gt6Cable = true;
-    public boolean ic2EnergySourceCompat = true;
-    public boolean cableMultiConnectEnabled = true;
-    public int cableMultiConnectLimit = 10000;
-    public boolean costlyCableConnection = false;
-    public boolean crashOnNullRecipeInput = false;
-
-    public enum OreDropSystem {
-        /** Will always drop the block version. */
-        Block,
-        /** Will drop the dimension-specific block version, or stone. */
-        PerDimBlock,
-        /** Will always drop the stone block version. */
-        UnifiedBlock,
-        /** Drops raw ore, and is affected by fortune. */
-        FortuneItem,
-        /** Drops raw ore, and is not affected by fortune. */
-        Item
-    }
-
-    public OreDropSystem oreDropSystem = OreDropSystem.FortuneItem;
 
     /** This enables ambient-occlusion smooth lighting on tiles */
     public boolean mRenderTileAmbientOcclusion = true;

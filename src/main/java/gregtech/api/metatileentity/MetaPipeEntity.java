@@ -732,7 +732,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
                     ((IConnectable) tPipe).connect(oppositeSide);
                 }
                 return 1;
-            } else if ((getGT6StyleConnection() && baseMetaTile.getAirAtSide(side)) || canConnect(side, tTileEntity)) {
+            } else if ((baseMetaTile.getAirAtSide(side)) || canConnect(side, tTileEntity)) {
                 // Allow open connections to Air, if the GT6 style pipe/cables are enabled, so that it'll connect to
                 // the next block placed down next to it
                 connectAtSide(side);
@@ -752,7 +752,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         // Verify connections around us. If GT6 style cables are not enabled then revert to old behavior and try
         // connecting to everything around us
         for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-            if ((!getGT6StyleConnection() || isConnectedAtSide(side)) && connect(side) == 0) {
+            if ((isConnectedAtSide(side)) && connect(side) == 0) {
                 disconnect(side);
             }
         }
@@ -887,15 +887,6 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     }
 
     public boolean canConnect(ForgeDirection side, TileEntity tTileEntity) {
-        return false;
-    }
-
-    public boolean getGT6StyleConnection() {
-        return false;
-    }
-
-    @Override
-    public boolean shouldJoinIc2Enet() {
         return false;
     }
 

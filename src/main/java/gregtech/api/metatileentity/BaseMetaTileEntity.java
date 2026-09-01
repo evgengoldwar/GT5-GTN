@@ -302,10 +302,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
                 return;
             }
             if (isServerSide) {
-                if (mTickTimer == 10) {
-                    joinEnet();
-                }
-
                 handlePositionChange();
                 handleFacingChange();
 
@@ -781,7 +777,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
                         : "GT5U.scanner.debug.machine_not_allowed_to_work"));
             if (!mHasEnoughEnergy) tList.add(StatCollector.translateToLocal("GT5U.scanner.debug.needs_power"));
         }
-        if (joinedIc2Enet) tList.add(StatCollector.translateToLocal("GT5U.scanner.debug.ic2_enet"));
         return mMetaTileEntity.getSpecialDebugInfo(this, aPlayer, aLogLevel, tList);
     }
 
@@ -823,8 +818,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
             mFacing = aFacing;
             scheduleTexturePacket();
             mMetaTileEntity.onFacingChange();
-
-            doEnetUpdate();
             cableUpdateDelay = 10;
 
             if (mMetaTileEntity.shouldTriggerBlockUpdate()) {
@@ -897,7 +890,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
     @Override
     public void invalidate() {
         tileEntityInvalid = false;
-        leaveEnet();
         if (canAccessData()) {
             invalidateAE();
             mMetaTileEntity.onRemoval();
@@ -1523,7 +1515,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
                             sendSoundToPlayers(SoundResource.IC2_TOOLS_BATTERY_USE, 3.0F, -1);
                         }
                         if (tCurrentItem.stackSize == 0) ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
-                        doEnetUpdate();
                         cableUpdateDelay = 10;
                         return true;
                     }
@@ -1536,7 +1527,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
                             if (tCurrentItem.stackSize == 0)
                                 ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
                         }
-                        doEnetUpdate();
                         cableUpdateDelay = 10;
                         return true;
                     }

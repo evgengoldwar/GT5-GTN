@@ -556,8 +556,6 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     String getAlternativeModeText();
 
-    boolean shouldJoinIc2Enet();
-
     /**
      * just return in should recurse since we are already in meta tile...
      */
