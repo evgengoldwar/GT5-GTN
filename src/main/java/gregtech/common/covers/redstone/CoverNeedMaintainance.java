@@ -4,7 +4,6 @@ import static gregtech.api.util.GTUtility.*;
 import static gregtech.common.gui.mui1.cover.NeedMaintainanceUIFactory.getMaintenanceIssuesCountChat;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.fluids.Fluid;
 
@@ -18,7 +17,6 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.conditions.MaintenanceAlertCondition;
@@ -31,12 +29,6 @@ public class CoverNeedMaintainance extends CoverLegacyData {
 
     public CoverNeedMaintainance(CoverContext context, ITexture coverTexture) {
         super(context, coverTexture);
-    }
-
-    public static boolean isRotor(ItemStack rotor) {
-        return (rotor != null && rotor.getItem() instanceof MetaGeneratedTool
-            && rotor.getItemDamage() >= 170
-            && rotor.getItemDamage() <= 176);
     }
 
     public MaintenanceAlertCondition getMaintenanceAlertCondition() {
@@ -77,26 +69,11 @@ public class CoverNeedMaintainance extends CoverLegacyData {
             if (mTileEntity instanceof MTEMultiBlockBase multi) {
                 final int ideal = multi.getIdealStatus();
                 final int real = multi.getRepairStatus();
-                final ItemStack tRotor = multi.getRealInventory()[1];
                 final int coverVar = this.coverData >>> 1;
                 if (coverVar < 5) {
                     if (ideal - real > coverVar) needsRepair = true;
                 } else if (coverVar == 5 || coverVar == 6) {
-                    if (isRotor(tRotor)) {
-                        long tMax = MetaGeneratedTool.getToolMaxDamage(tRotor);
-                        long tCur = MetaGeneratedTool.getToolDamage(tRotor);
-                        if (coverVar == 5) {
-                            needsRepair = (tCur >= tMax * 8 / 10);
-                        } else {
-                            long mExpectedDamage = Math.round(
-                                Math.min(
-                                    multi.mEUt / multi.damageFactorLow,
-                                    Math.pow(multi.mEUt, multi.damageFactorHigh)));
-                            needsRepair = tCur + mExpectedDamage * 2 >= tMax;
-                        }
-                    } else {
-                        needsRepair = true;
-                    }
+                    needsRepair = true;
                 }
             }
         }

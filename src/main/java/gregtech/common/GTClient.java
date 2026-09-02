@@ -103,7 +103,6 @@ import gregtech.common.render.BaseMetaTileEntityRenderer;
 import gregtech.common.render.FluidDisplayStackRenderer;
 import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.GTRendererCasing;
-import gregtech.common.render.MetaGeneratedToolRenderer;
 import gregtech.common.render.RenderInit;
 import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 import gregtech.crossmod.navigator.PowerfailLayerManager;
@@ -178,18 +177,8 @@ public class GTClient extends GTProxy {
 
         ClientRegistry.bindTileEntitySpecialRenderer(BaseMetaTileEntity.class, new BaseMetaTileEntityRenderer());
 
-        final MetaGeneratedToolRenderer metaToolRenderer = new MetaGeneratedToolRenderer();
-        for (MetaGeneratedTool tItem : MetaGeneratedTool.sInstances.values()) {
-            if (tItem != null) {
-                MinecraftForgeClient.registerItemRenderer(tItem, metaToolRenderer);
-            }
-        }
-
-//        MinecraftForgeClient.registerItemRenderer(ItemList.ToolBox.getItem(), new ToolboxRenderer());
-
         MinecraftForgeClient.registerItemRenderer(ItemList.Display_Fluid.getItem(), new FluidDisplayStackRenderer());
 
-//        metaItemRenderer.registerSpecialRenderer(ItemList.Spray_Color_Infinite, new InfiniteSprayCanRenderer());
         MinecraftForge.EVENT_BUS.register(new NEIGTConfig());
         MinecraftForge.EVENT_BUS.register(new GTMouseEventHandler());
         MinecraftForge.EVENT_BUS.register(new BlockOverlayRenderer());

@@ -1,6 +1,5 @@
 package gregtech.common.covers.redstone;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -15,7 +14,6 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.covers.Base.CoverAdvancedRedstoneTransmitterBase;
 import gregtech.common.covers.Base.CoverPosition;
@@ -103,25 +101,6 @@ public class CoverWirelessMaintenanceDetector extends CoverAdvancedRedstoneTrans
                     case NO_ISSUE -> signal = ideal == real;
                     case ONE_ISSUE, TWO_ISSUES, THREE_ISSUES, FOUR_ISSUES, FIVE_ISSUES -> signal = ideal - real
                         >= mode.ordinal();
-                    case ROTOR_80, ROTOR_100 -> {
-                        ItemStack rotor = multiTE.getRealInventory()[1];
-                        if (CoverNeedMaintainance.isRotor(rotor)) {
-                            long max = MetaGeneratedTool.getToolMaxDamage(rotor);
-                            long current = MetaGeneratedTool.getToolDamage(rotor);
-
-                            if (mode == MaintenanceMode.ROTOR_80) {
-                                signal = current >= max * 8 / 10;
-                            } else {
-                                long expectedDamage = Math.round(
-                                    Math.min(
-                                        (double) multiTE.mEUt / multiTE.damageFactorLow,
-                                        Math.pow(multiTE.mEUt, multiTE.damageFactorHigh)));
-                                signal = current + expectedDamage * 2 >= max;
-                            }
-                        } else {
-                            signal = true;
-                        }
-                    }
                 }
             }
         }

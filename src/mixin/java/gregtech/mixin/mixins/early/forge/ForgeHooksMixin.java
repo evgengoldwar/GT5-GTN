@@ -33,9 +33,9 @@ public class ForgeHooksMixin {
         ItemStack stack = player.getCurrentEquippedItem();
         if (stack != null) {
             final Item item = stack.getItem();
-//            if (item instanceof MetaGeneratedTool tool) {
-//                return tool.getBlockStrength(stack, block, player, world, x, y, z, original);
-//            }
+            // if (item instanceof MetaGeneratedTool tool) {
+            // return tool.getBlockStrength(stack, block, player, world, x, y, z, original);
+            // }
         }
         return original;
     }
