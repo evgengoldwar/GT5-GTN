@@ -5,7 +5,6 @@ import static gregtech.api.enums.GTValues.B;
 import static gregtech.api.enums.Mods.IndustrialCraft2;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -19,37 +18,30 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.interfaces.IDamagableItem;
 import gregtech.api.interfaces.internal.IThaumcraftCompat;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.objects.GTHashSet;
-import gregtech.api.objects.GTItemStack;
 import gregtech.api.threads.RunnableCableUpdate;
 import gregtech.api.threads.RunnableMachineUpdate;
 import gregtech.api.util.GTCreativeTab;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.common.GTDummyWorld;
 import gregtech.common.covers.Base.CoverPosition;
 
 public class GregTechAPI {
 
-    public static final short MAXIMUM_METATILE_IDS = Short.MAX_VALUE - 1;
-
     public static final CreativeTabs TAB_GREGTECH = new GTCreativeTab("Main", "Main");
     public static final CreativeTabs TAB_GREGTECH_MATERIALS = new GTCreativeTab("Materials", "Materials");
 
-    public static final IMetaTileEntity[] METATILEENTITIES = new IMetaTileEntity[MAXIMUM_METATILE_IDS];
+    public static final IMetaTileEntity[] METATILEENTITIES = new IMetaTileEntity[Short.MAX_VALUE - 1];
 
     public static final Map<Block, Integer> sMachineIDs = new ConcurrentHashMap<>();
 
@@ -57,9 +49,6 @@ public class GregTechAPI {
 
     public static final Map<String, Map<String, Map<CoverPosition, Byte>>> sAdvancedWirelessRedstone = new ConcurrentHashMap<>();
 
-    public static final Map<String, ItemStack> sBookList = new ConcurrentHashMap<>();
-
-    public static final GTHashSet sToolList = new GTHashSet();
     public static final GTHashSet sCrowbarList = new GTHashSet();
     public static final GTHashSet sScrewdriverList = new GTHashSet();
     public static final GTHashSet sWrenchList = new GTHashSet();
@@ -145,8 +134,6 @@ public class GregTechAPI {
 
     public static boolean mUseOnlyGoodSolderingMaterials = false;
 
-    private static final String aTextIC2Lower = IndustrialCraft2.ID.toLowerCase(Locale.ENGLISH);
-
     public static boolean sUnificationEntriesRegistered = false;
     public static boolean sPreloadStarted = false;
     public static boolean sPreloadFinished = false;
@@ -201,20 +188,6 @@ public class GregTechAPI {
         sMachineIDs.put(block, meta);
     }
 
-    public static boolean registerMachineBlock(Block block, boolean... meta) {
-        if (block == null || meta == null || meta.length == 0) {
-            return false;
-        }
-        int metaBitMask = 0;
-        for (byte i = 0; i < meta.length && i < 16; i++) {
-            if (meta[i]) {
-                metaBitMask |= B[i];
-            }
-        }
-        sMachineIDs.put(block, metaBitMask);
-        return true;
-    }
-
     public static boolean isMachineBlock(Block block, int meta) {
         if (block != null) {
             Integer id = sMachineIDs.get(block);
@@ -236,69 +209,6 @@ public class GregTechAPI {
             GT_FML_LOGGER.error(e);
             throw new RuntimeException(e);
         }
-    }
-
-    public static boolean registerWrench(ItemStack aTool) {
-        return registerTool(aTool, sWrenchList);
-    }
-
-    public static boolean registerCrowbar(ItemStack aTool) {
-        return registerTool(aTool, sCrowbarList);
-    }
-
-    public static boolean registerScrewdriver(ItemStack aTool) {
-        return registerTool(aTool, sScrewdriverList);
-    }
-
-    public static boolean registerSoftMallet(ItemStack aTool) {
-        return registerTool(aTool, sSoftMalletList);
-    }
-
-    public static boolean registerHardHammer(ItemStack aTool) {
-        return registerTool(aTool, sHardHammerList);
-    }
-
-    public static boolean registerWireCutter(ItemStack aTool) {
-        return registerTool(aTool, sWireCutterList);
-    }
-
-    public static boolean registerSolderingTool(ItemStack aTool) {
-        return registerTool(aTool, sSolderingToolList);
-    }
-
-    public static boolean registerSolderingMetal(ItemStack aTool) {
-        return registerTool(aTool, sSolderingMetalList);
-    }
-
-    public static boolean registerTool(ItemStack tool, Collection<GTItemStack> toolList) {
-        if (tool == null) {
-            return false;
-        }
-
-        if (GTUtility.isStackInList(tool, toolList)) {
-            return false;
-        }
-
-        Item item = tool.getItem();
-
-        if (item == null) {
-            return false;
-        }
-
-        boolean isDamageable = item.isDamageable();
-        boolean isElectric = GTModHandler.isElectricItem(tool);
-        boolean isCustomDamagable = item instanceof IDamagableItem;
-
-        if (!isDamageable && !isElectric && !isCustomDamagable) {
-            return false;
-        }
-
-        ItemStack itemStack = GTUtility.copyAmount(1, tool);
-        GTItemStack wrappedStack = new GTItemStack(itemStack);
-
-        toolList.add(wrappedStack);
-        sToolList.add(wrappedStack);
-        return true;
     }
 
     @SideOnly(Side.CLIENT)

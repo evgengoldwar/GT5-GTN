@@ -1080,17 +1080,6 @@ public class GTUtility {
         return rReturn;
     }
 
-    public static ItemStack getWrittenBook(String aMapping, ItemStack aStackToPutNBT) {
-        if (isStringInvalid(aMapping)) return null;
-        ItemStack rStack = GregTechAPI.sBookList.get(aMapping);
-        if (rStack == null) return aStackToPutNBT;
-        if (aStackToPutNBT != null) {
-            aStackToPutNBT.setTagCompound(rStack.getTagCompound());
-            return aStackToPutNBT;
-        }
-        return copyAmount(1, rStack);
-    }
-
     public static boolean doSoundAtClient(String aSoundName, int aTimeUntilNextSound, float aSoundStrength) {
         if (aSoundName == null) return false;
         return doSoundAtClient(aSoundName, aTimeUntilNextSound, aSoundStrength, GTMod.GT.getThePlayer());
