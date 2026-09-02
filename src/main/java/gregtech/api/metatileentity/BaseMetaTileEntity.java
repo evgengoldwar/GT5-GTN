@@ -1468,8 +1468,8 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
 
                             final int mode = MetaGeneratedTool.getToolMode(tCurrentItem);
                             final boolean shouldEnable = switch (mode) {
-//                                case BehaviourSoftMallet.MODE_ACTIVATE -> true;
-//                                case BehaviourSoftMallet.MODE_DEACTIVATE -> false;
+                                // case BehaviourSoftMallet.MODE_ACTIVATE -> true;
+                                // case BehaviourSoftMallet.MODE_DEACTIVATE -> false;
                                 default -> !mWorks;
                             };
 
