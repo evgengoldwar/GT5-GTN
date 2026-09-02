@@ -2,12 +2,10 @@ package gregtech.api;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.B;
-import static gregtech.api.enums.Mods.IndustrialCraft2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -43,7 +41,7 @@ public class GregTechAPI {
 
     public static final IMetaTileEntity[] METATILEENTITIES = new IMetaTileEntity[Short.MAX_VALUE - 1];
 
-    public static final Map<Block, Integer> sMachineIDs = new ConcurrentHashMap<>();
+    public static final Map<Block, Integer> MACHINE_BLOCKS = new ConcurrentHashMap<>();
 
     public static final Map<Integer, Byte> sWirelessRedstone = new ConcurrentHashMap<>();
 
@@ -185,12 +183,12 @@ public class GregTechAPI {
         if (block == null) {
             return;
         }
-        sMachineIDs.put(block, meta);
+        MACHINE_BLOCKS.put(block, meta);
     }
 
     public static boolean isMachineBlock(Block block, int meta) {
         if (block != null) {
-            Integer id = sMachineIDs.get(block);
+            Integer id = MACHINE_BLOCKS.get(block);
             if (id != null) {
                 if (id == -1) {
                     return true;
