@@ -25,8 +25,8 @@ public class CoverRedstoneReceiverExternal extends CoverRedstoneWirelessBase {
         }
         coverable.setOutputRedstoneSignal(
             coverSide,
-            GregTechAPI.sWirelessRedstone.get(getMapFrequency()) == null ? 0
-                : GregTechAPI.sWirelessRedstone.get(getMapFrequency()));
+            GregTechAPI.WIRELESS_REDSTONE.get(getMapFrequency()) == null ? 0
+                : GregTechAPI.WIRELESS_REDSTONE.get(getMapFrequency()));
     }
 
     @Override

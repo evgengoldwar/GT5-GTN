@@ -17,17 +17,17 @@ public class CoverRedstoneTransmitterExternal extends CoverRedstoneWirelessBase 
 
     @Override
     public void onCoverRemoval() {
-        GregTechAPI.sWirelessRedstone.remove(getMapFrequency());
+        GregTechAPI.WIRELESS_REDSTONE.remove(getMapFrequency());
     }
 
     @Override
     public void onBaseTEDestroyed() {
-        GregTechAPI.sWirelessRedstone.remove(getMapFrequency());
+        GregTechAPI.WIRELESS_REDSTONE.remove(getMapFrequency());
     }
 
     @Override
     public void doCoverThings(byte aInputRedstone, long aTimer) {
-        GregTechAPI.sWirelessRedstone.put(getMapFrequency(), aInputRedstone);
+        GregTechAPI.WIRELESS_REDSTONE.put(getMapFrequency(), aInputRedstone);
     }
 
     @Override

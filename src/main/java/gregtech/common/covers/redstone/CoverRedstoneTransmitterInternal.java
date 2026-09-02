@@ -23,12 +23,12 @@ public class CoverRedstoneTransmitterInternal extends CoverRedstoneWirelessBase 
 
     @Override
     public void onCoverRemoval() {
-        GregTechAPI.sWirelessRedstone.remove(getMapFrequency());
+        GregTechAPI.WIRELESS_REDSTONE.remove(getMapFrequency());
     }
 
     @Override
     public void onBaseTEDestroyed() {
-        GregTechAPI.sWirelessRedstone.remove(getMapFrequency());
+        GregTechAPI.WIRELESS_REDSTONE.remove(getMapFrequency());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CoverRedstoneTransmitterInternal extends CoverRedstoneWirelessBase 
         if (coverable == null) {
             return;
         }
-        GregTechAPI.sWirelessRedstone.put(getMapFrequency(), coverable.getOutputRedstoneSignal(coverSide));
+        GregTechAPI.WIRELESS_REDSTONE.put(getMapFrequency(), coverable.getOutputRedstoneSignal(coverSide));
     }
 
     @Override

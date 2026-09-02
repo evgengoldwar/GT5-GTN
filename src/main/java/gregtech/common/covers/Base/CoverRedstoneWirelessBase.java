@@ -157,7 +157,7 @@ public abstract class CoverRedstoneWirelessBase extends Cover {
 
     protected void processCoverData(int frequency, boolean privateChannel) {
         if (this.frequency != frequency || this.privateChannel != privateChannel) {
-            GregTechAPI.sWirelessRedstone.remove(getMapFrequency());
+            GregTechAPI.WIRELESS_REDSTONE.remove(getMapFrequency());
 
             ICoverable tile = coveredTile.get();
             if (tile == null) {
@@ -165,7 +165,7 @@ public abstract class CoverRedstoneWirelessBase extends Cover {
             }
             this.frequency = frequency;
             this.privateChannel = privateChannel;
-            GregTechAPI.sWirelessRedstone.put(getMapFrequency(), tile.getOutputRedstoneSignal(coverSide));
+            GregTechAPI.WIRELESS_REDSTONE.put(getMapFrequency(), tile.getOutputRedstoneSignal(coverSide));
         }
     }
 

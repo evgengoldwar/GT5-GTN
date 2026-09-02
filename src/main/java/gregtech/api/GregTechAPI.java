@@ -42,9 +42,9 @@ public class GregTechAPI {
 
     public static final Map<Block, Integer> MACHINE_BLOCKS = new ConcurrentHashMap<>();
 
-    public static final Map<Integer, Byte> sWirelessRedstone = new ConcurrentHashMap<>();
+    public static final Map<Integer, Byte> WIRELESS_REDSTONE = new ConcurrentHashMap<>();
 
-    public static final Map<String, Map<String, Map<CoverPosition, Byte>>> sAdvancedWirelessRedstone = new ConcurrentHashMap<>();
+    public static final Map<String, Map<String, Map<CoverPosition, Byte>>> ADVANCED_WIRELESS_REDSTONE = new ConcurrentHashMap<>();
 
     public static final GTHashSet sCrowbarList = new GTHashSet();
     public static final GTHashSet sScrewdriverList = new GTHashSet();

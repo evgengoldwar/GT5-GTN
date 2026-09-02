@@ -61,7 +61,7 @@ public abstract class CoverAdvancedWirelessRedstoneBase extends Cover {
         NBTTagCompound tag = (NBTTagCompound) nbt;
         ICoverable cover = coveredTile.get();
         if (cover != null && cover.getWorld() != null) {
-            GregTechAPI.sAdvancedWirelessRedstone
+            GregTechAPI.ADVANCED_WIRELESS_REDSTONE
                 .computeIfAbsent(uuid == null ? "null" : uuid.toString(), (k) -> new ConcurrentHashMap<>())
                 .computeIfAbsent(frequency, (k) -> new ConcurrentHashMap<>())
                 .remove(getCoverKey(cover, coverSide));
@@ -112,7 +112,7 @@ public abstract class CoverAdvancedWirelessRedstoneBase extends Cover {
     }
 
     public static Byte getSignalAt(UUID uuid, String frequency, CoverAdvancedRedstoneReceiverBase.GateMode mode) {
-        Map<String, Map<CoverPosition, Byte>> frequencies = GregTechAPI.sAdvancedWirelessRedstone
+        Map<String, Map<CoverPosition, Byte>> frequencies = GregTechAPI.ADVANCED_WIRELESS_REDSTONE
             .get(String.valueOf(uuid));
         if (frequencies == null) return 0;
 
@@ -160,7 +160,7 @@ public abstract class CoverAdvancedWirelessRedstoneBase extends Cover {
     }
 
     public static void removeSignalAt(UUID uuid, String frequency, CoverPosition key) {
-        Map<String, Map<CoverPosition, Byte>> frequencies = GregTechAPI.sAdvancedWirelessRedstone
+        Map<String, Map<CoverPosition, Byte>> frequencies = GregTechAPI.ADVANCED_WIRELESS_REDSTONE
             .get(String.valueOf(uuid));
         if (frequencies == null) return;
         frequencies.computeIfPresent(frequency, (freq, coverPositionByteMap) -> {
@@ -170,7 +170,7 @@ public abstract class CoverAdvancedWirelessRedstoneBase extends Cover {
     }
 
     public static void setSignalAt(UUID uuid, String frequency, CoverPosition key, byte value) {
-        Map<String, Map<CoverPosition, Byte>> frequencies = GregTechAPI.sAdvancedWirelessRedstone
+        Map<String, Map<CoverPosition, Byte>> frequencies = GregTechAPI.ADVANCED_WIRELESS_REDSTONE
             .computeIfAbsent(String.valueOf(uuid), k -> new ConcurrentHashMap<>());
         Map<CoverPosition, Byte> signals = frequencies.computeIfAbsent(frequency, k -> new ConcurrentHashMap<>());
         signals.put(key, value);

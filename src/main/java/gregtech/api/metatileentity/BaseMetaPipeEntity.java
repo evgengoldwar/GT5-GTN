@@ -713,7 +713,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
                     return true;
                 }
                 if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sWrenchList)) {
-
                     if (mMetaTileEntity.onWrenchRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
                         mMetaTileEntity.markDirty();
                         GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer);

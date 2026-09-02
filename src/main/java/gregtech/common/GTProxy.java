@@ -499,8 +499,8 @@ public class GTProxy implements IFuelHandler {
     }
 
     public void onServerStopping(FMLServerStoppingEvent event) {
-        GregTechAPI.sWirelessRedstone.clear();
-        GregTechAPI.sAdvancedWirelessRedstone.clear();
+        GregTechAPI.WIRELESS_REDSTONE.clear();
+        GregTechAPI.ADVANCED_WIRELESS_REDSTONE.clear();
     }
 
     public void onServerStopped(FMLServerStoppedEvent event) {
