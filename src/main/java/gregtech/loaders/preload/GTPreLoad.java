@@ -36,7 +36,6 @@ import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
 import gregtech.common.config.OPStuff;
-import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineBase;
 
 public class GTPreLoad {
 
@@ -315,7 +314,6 @@ public class GTPreLoad {
         GTMod.proxy.mMaxEqualEntitiesAtOneSpot = Gregtech.general.maxEqualEntitiesAtOneSpot;
         GTMod.proxy.mItemDespawnTime = Gregtech.general.itemDespawnTime;
         GTLanguageManager.i18nPlaceholder = Gregtech.general.i18nPlaceholder;
-        MTELongDistancePipelineBase.minimalDistancePoints = Gregtech.general.minimalDistancePoints;
         GTValues.mCTMEnabledBlock.addAll(Arrays.asList(Gregtech.general.CTMWhitelist));
         GTValues.mCTMDisabledBlock.addAll(Arrays.asList(Gregtech.general.CTMBlacklist));
         if (Gregtech.general.harderMobSpawner) {

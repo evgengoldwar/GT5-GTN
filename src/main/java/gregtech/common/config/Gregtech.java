@@ -344,11 +344,6 @@ public class Gregtech {
         @Config.RequiresMcRestart
         public boolean harderMobSpawner;
 
-        @Config.Comment("Controls the minimum distance allowed for the long distance pipelines to form.")
-        @Config.DefaultInt(64)
-        @Config.RequiresMcRestart
-        public int minimalDistancePoints;
-
         @Config.Comment("This will set the blacklist of blocks for CTM blocks.")
         @Config.DefaultStringList({ "team.chisel.block.BlockRoadLine" })
         @Config.RequiresMcRestart

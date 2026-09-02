@@ -36,8 +36,6 @@ import gregtech.common.tileentities.machines.MTEBasicHullBronze;
 import gregtech.common.tileentities.machines.MTEBasicHullBronzeBricks;
 import gregtech.common.tileentities.machines.MTEBasicHullSteel;
 import gregtech.common.tileentities.machines.MTEBasicHullSteelBricks;
-import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineFluid;
-import gregtech.common.tileentities.machines.long_distance.MTELongDistancePipelineItem;
 import gregtech.common.tileentities.storage.MTEQuantumChest;
 import gregtech.common.tileentities.storage.MTEQuantumTank;
 import gregtech.common.tileentities.storage.MTESuperChest;
@@ -410,21 +408,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
             .set(new MTESuperChest(SUPER_CHEST_EV.ID, "super.chest.tier.04", "Super Chest IV", 4).getStackForm(1L));
         ItemList.Super_Chest_IV
             .set(new MTESuperChest(SUPER_CHEST_IV.ID, "super.chest.tier.05", "Super Chest V", 5).getStackForm(1L));
-    }
-
-    private static void registerLongDistancePipe() {
-        ItemList.Long_Distance_Pipeline_Fluid.set(
-            new MTELongDistancePipelineFluid(
-                LONG_DISTANCE_PIPELINE_FLUID.ID,
-                "long.distance.pipeline.fluid",
-                "Long Distance Fluid Pipeline",
-                1).getStackForm(1L));
-        ItemList.Long_Distance_Pipeline_Item.set(
-            new MTELongDistancePipelineItem(
-                LONG_DISTANCE_PIPELINE_ITEM.ID,
-                "long.distance.pipeline.item",
-                "Long Distance Item Pipeline",
-                1).getStackForm(1L));
     }
 
     private static void registerAE2Hatches() {
@@ -844,7 +827,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         registerQuantumChest();
         registerSuperTank();
         registerSuperChest();
-        registerLongDistancePipe();
         registerAE2Hatches();
         registerInputBus();
         registerOutputBus();
