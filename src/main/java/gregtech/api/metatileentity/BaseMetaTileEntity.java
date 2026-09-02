@@ -66,7 +66,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
@@ -1465,21 +1464,11 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
 
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sSoftMalletList)) {
                         if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
-
-                            final int mode = MetaGeneratedTool.getToolMode(tCurrentItem);
-                            final boolean shouldEnable = switch (mode) {
-                                // case BehaviourSoftMallet.MODE_ACTIVATE -> true;
-                                // case BehaviourSoftMallet.MODE_DEACTIVATE -> false;
-                                default -> !mWorks;
-                            };
-
-                            if (shouldEnable) {
-                                if (!mWorks) {
-                                    if (isServerSide()) {
-                                        GTMod.proxy.powerfailTracker.removePowerfailEvents(this);
-                                    }
-                                    enableWorking();
+                            if (!mWorks) {
+                                if (isServerSide()) {
+                                    GTMod.proxy.powerfailTracker.removePowerfailEvents(this);
                                 }
+                                enableWorking();
                             } else if (mWorks) {
                                 disableWorking();
                             }
