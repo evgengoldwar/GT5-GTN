@@ -209,8 +209,7 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
 
             if (mInventory[getInputSlot()] != null
                 && aBaseMetaTileEntity.getUniversalEnergyStored() < (maxEUOutput() * 20 + getMinimumStoredEU())
-                && ((GTUtility.getFluidForFilledItem(mInventory[getInputSlot()], true) != null)
-                    || solidFuelOverride(mInventory[getInputSlot()]))) {
+                && ((GTUtility.getFluidForFilledItem(mInventory[getInputSlot()], true) != null))) {
                 long tFuelValue = getFuelValue(mInventory[getInputSlot()]);
                 if (tFuelValue <= 0) tFuelValue = getFuelValue(mInventory[getInputSlot()], true);
 
@@ -227,30 +226,6 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
         if (aBaseMetaTileEntity.isServerSide()) aBaseMetaTileEntity.setActive(
             aBaseMetaTileEntity.isAllowedToWork()
                 && aBaseMetaTileEntity.getUniversalEnergyStored() >= maxEUOutput() + getMinimumStoredEU());
-    }
-
-    /**
-     * @param stack the fuel stack
-     * @return if the stack is a solid fuel
-     */
-    public boolean solidFuelOverride(ItemStack stack) {
-        // this could be used for a coal generator for example aswell...
-        ItemData association = GTOreDictUnificator.getAssociation(stack);
-        // if it is a gregtech Item, make sure its not a VOLUMETRIC_FLASK or any type of cell, else do vanilla checks
-        if (association != null) {
-            return !OrePrefixes.CELL_TYPES.contains(association.mPrefix);
-        } else {
-            return stack != null && // when the stack is null its not a solid
-                stack.getItem() != null && // when the item in the stack is null its not a solid
-                !(stack.getItem() instanceof IFluidContainerItem) && // when the item is a fluid container its not a
-                                                                     // solid...
-                !(stack.getItem() instanceof IFluidHandler) && // when the item is a fluid handler its not a
-                                                               // solid...
-                !stack.getItem()
-                    .getUnlocalizedName()
-                    .contains("bucket"); // since we cant really check for
-                                         // buckets...
-        }
     }
 
     public abstract int getPollution();
