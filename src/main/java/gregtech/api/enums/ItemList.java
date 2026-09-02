@@ -491,7 +491,6 @@ public enum ItemList implements IItemContainer {
     Casing_Precise_Stationary,
     Casing_Ultimately_Static,
 
-    Hull_ULV,
     Hull_LV,
     Hull_MV,
     Hull_HV,
@@ -500,6 +499,11 @@ public enum ItemList implements IItemContainer {
     Hull_LuV,
     Hull_ZPM,
     Hull_UV,
+    Hull_UHV,
+    Hull_UEV,
+    Hull_UIV,
+    Hull_UMV,
+    Hull_UXV,
     Hull_MAX,
 
     CompressedFireclay,
@@ -1116,11 +1120,6 @@ public enum ItemList implements IItemContainer {
     Hatch_Output_UXV,
     Hatch_Output_MAX,
 
-    Hull_UEV,
-    Hull_UIV,
-    Hull_UMV,
-    Hull_UXV,
-    Hull_MAXV,
     Casing_UEV,
     Casing_UIV,
     Casing_UMV,
