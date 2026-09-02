@@ -1,15 +1,10 @@
 package gregtech.api.hazards;
 
-import java.util.Map;
-
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import gregtech.api.enchants.EnchantmentHazmat;
 
 public class HazardProtection {
 
@@ -93,10 +88,10 @@ public class HazardProtection {
     }
 
     public static boolean hasHazmatEnchant(@Nullable ItemStack stack) {
-        if (stack == null) return false;
-        Map<Integer, Integer> tEnchantments = EnchantmentHelper.getEnchantments(stack);
-        Integer level = tEnchantments.get(EnchantmentHazmat.INSTANCE.effectId);
+        if (stack == null) {
+            return false;
+        }
 
-        return level != null && level >= 1;
+        return false;
     }
 }
