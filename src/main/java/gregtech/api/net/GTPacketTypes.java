@@ -20,7 +20,6 @@ public enum GTPacketTypes {
     SEND_COVER_DATA(16, new GTPacketSendCoverData()),
     REQUEST_COVER_DATA(17, new GTPacketRequestCoverData()),
     // ID 20 unused
-    INFINITE_SPRAYCAN(22, new GTPacketInfiniteSpraycan()),
     // ID 28 unused
     NODE_INFO(29, new GTPacketNodeInfo()),
     COIL_STATUS(30, new GTCoilStatus()),

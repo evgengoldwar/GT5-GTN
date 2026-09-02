@@ -73,7 +73,6 @@ import gregtech.api.hazards.HazardProtection;
 import gregtech.api.hazards.HazardProtectionTooltip;
 import gregtech.api.interfaces.IToolStats;
 import gregtech.api.interfaces.IUpdatePlayerMovement;
-import gregtech.api.items.MetaGeneratedItem;
 import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
@@ -109,7 +108,6 @@ import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.GTRendererCasing;
 import gregtech.common.render.MetaGeneratedToolRenderer;
 import gregtech.common.render.RenderInit;
-import gregtech.common.render.items.MetaGeneratedItemRenderer;
 import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 import gregtech.crossmod.navigator.PowerfailLayerManager;
 import gregtech.loaders.ExtraIcons;
@@ -121,7 +119,6 @@ import paulscode.sound.SoundSystemException;
 
 public class GTClient extends GTProxy {
 
-    public final MetaGeneratedItemRenderer metaItemRenderer = new MetaGeneratedItemRenderer();
     public GTPowerfailRenderer powerfailRenderer;
     public KeyBinding shakeLockKey;
     public final boolean fixedBottomFaceUV;
@@ -183,10 +180,6 @@ public class GTClient extends GTProxy {
         RenderingRegistry.registerBlockHandler(new GTRendererCasing());
 
         ClientRegistry.bindTileEntitySpecialRenderer(BaseMetaTileEntity.class, new BaseMetaTileEntityRenderer());
-
-        for (MetaGeneratedItem item : MetaGeneratedItem.sInstances.values()) {
-            metaItemRenderer.registerItem(item);
-        }
 
         final MetaGeneratedToolRenderer metaToolRenderer = new MetaGeneratedToolRenderer();
         for (MetaGeneratedTool tItem : MetaGeneratedTool.sInstances.values()) {

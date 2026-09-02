@@ -13,7 +13,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.fluids.Fluid;
 
-import gregtech.GTMod;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
@@ -1401,9 +1400,6 @@ public enum ItemList implements IItemContainer {
 
     @Override
     public IItemContainer setRender(IItemRenderer aRenderer) {
-        if (GTMod.proxy.isClientSide()) {
-            GTMod.clientProxy().metaItemRenderer.registerSpecialRenderer(this, aRenderer);
-        }
         return this;
     }
 

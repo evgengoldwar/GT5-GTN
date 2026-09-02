@@ -91,7 +91,6 @@ import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IProjectileItem;
 import gregtech.api.interfaces.IToolStats;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.items.MetaGeneratedItem;
 import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.objects.GTChunkManager;
 import gregtech.api.objects.ItemData;
@@ -808,13 +807,6 @@ public class GTProxy implements IFuelHandler {
             return 0;
         }
         int burnTime = 0;
-        if (stack.getItem() instanceof MetaGeneratedItem) {
-            final Short burnValue = ((MetaGeneratedItem) stack.getItem()).mBurnValues
-                .get((short) stack.getItemDamage());
-            if (burnValue != null) {
-                burnTime = Math.max(burnTime, burnValue);
-            }
-        }
         final NBTTagCompound nbtTag = stack.getTagCompound();
         if (nbtTag != null) {
             // See if we have something defined by NBT

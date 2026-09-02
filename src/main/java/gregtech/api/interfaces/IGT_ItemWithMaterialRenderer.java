@@ -6,9 +6,7 @@ import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.common.render.items.GeneratedItemRenderer;
 import gregtech.common.render.items.GeneratedMaterialRenderer;
-import gregtech.common.render.items.MetaGeneratedItemRenderer;
 
 public interface IGT_ItemWithMaterialRenderer {
 
