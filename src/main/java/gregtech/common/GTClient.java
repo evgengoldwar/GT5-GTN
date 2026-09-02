@@ -72,7 +72,6 @@ import gregtech.api.hazards.HazardProtection;
 import gregtech.api.hazards.HazardProtectionTooltip;
 import gregtech.api.interfaces.IToolStats;
 import gregtech.api.interfaces.IUpdatePlayerMovement;
-import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
 import gregtech.api.metatileentity.CommonMetaTileEntity;
@@ -325,8 +324,6 @@ public class GTClient extends GTProxy {
     @SubscribeEvent
     public void onClientTickEvent(ClientTickEvent aEvent) {
         if (aEvent.phase == TickEvent.Phase.END) {
-            mTicksUntilNextCraftSound--;
-
             if (changeDetected > 0) changeDetected--;
             final boolean newHideValue = shouldHeldItemHideThings();
             if (newHideValue != hideThings) {
@@ -383,34 +380,6 @@ public class GTClient extends GTProxy {
 
     private void addHazmatTooltip(ItemTooltipEvent event, String translationKey) {
         event.toolTip.add(EnumChatFormatting.LIGHT_PURPLE + StatCollector.translateToLocal(translationKey));
-    }
-
-    private int mTicksUntilNextCraftSound = 0;
-
-    // Used for tool sounds in the crafting grid
-    @SubscribeEvent
-    public void onPlayerCrafting(PlayerEvent.ItemCraftedEvent event) {
-        if (!MetaGeneratedTool.playSound) return;
-        if (this.mTicksUntilNextCraftSound > 0) return;
-        for (int i = 0; i < event.craftMatrix.getSizeInventory(); i++) {
-            ItemStack stack = event.craftMatrix.getStackInSlot(i);
-            if (stack != null && stack.getItem() instanceof MetaGeneratedTool mgt) {
-                IToolStats tStats = mgt.getToolStats(stack);
-                boolean playBreak = (MetaGeneratedTool.getToolDamage(stack) + tStats.getToolDamagePerContainerCraft())
-                    >= MetaGeneratedTool.getToolMaxDamage(stack);
-                String sound = playBreak ? tStats.getBreakingSound() : tStats.getCraftingSound();
-                GTUtility.doSoundAtClient(sound, 1, 1.0F);
-                this.mTicksUntilNextCraftSound = 10;
-                return;
-            }
-        }
-    }
-
-    public short getSafeRGBValue(short aRBG, int aDelta) {
-        int tmp = aRBG + aDelta;
-        if (tmp > 255) tmp = 255;
-        if (tmp < 0) tmp = 0;
-        return (short) tmp;
     }
 
     public float getAnimationRenderTicks() {
