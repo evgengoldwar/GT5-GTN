@@ -29,7 +29,6 @@ import gregtech.api.metatileentity.Hatch.IDualInputHatch;
 import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
-import gregtech.common.items.behaviors.BehaviourDataOrb;
 import gregtech.common.tileentities.Hatches.outputme.MTEHatchOutputME;
 
 public class GTUtil {
@@ -232,8 +231,6 @@ public class GTUtil {
         // Output hatch config currently cannot be copied, so we omit this part for now
 
         dataOrb.setTagCompound(newTag);
-        BehaviourDataOrb.setDataTitle(dataOrb, "Multiblock Hatch Configuration");
-        BehaviourDataOrb.setDataName(dataOrb, String.format("%s configuration saved", count));
         return true;
     }
 
