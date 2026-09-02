@@ -76,249 +76,271 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         setCreativeTab(GregTechAPI.TAB_GREGTECH);
     }
 
-    public static IMetaTileEntity getMetaTileEntity(ItemStack aStack) {
-        if (GTUtility.isStackInvalid(aStack)) return null;
-        if (!(aStack.getItem() instanceof ItemMachines)) return null;
-        if (aStack.getItemDamage() < 0 || aStack.getItemDamage() > GregTechAPI.METATILEENTITIES.length) return null;
-        return GregTechAPI.METATILEENTITIES[aStack.getItemDamage()];
+    public static IMetaTileEntity getMetaTileEntity(ItemStack itemStack) {
+        if (GTUtility.isStackInvalid(itemStack)) {
+            return null;
+        }
+        if (!(itemStack.getItem() instanceof ItemMachines)) {
+            return null;
+        }
+        if (itemStack.getItemDamage() < 0 || itemStack.getItemDamage() > GregTechAPI.METATILEENTITIES.length) {
+            return null;
+        }
+        return GregTechAPI.METATILEENTITIES[itemStack.getItemDamage()];
     }
 
     @Override
-    public void addInformation(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H) {
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List<String> list, boolean F3_H) {
         try {
-            final int tDamage = getDamage(aStack);
-            if ((tDamage <= 0) || (tDamage >= GregTechAPI.METATILEENTITIES.length)) {
+            final int meta = getDamage(itemStack);
+            if ((meta <= 0) || (meta >= GregTechAPI.METATILEENTITIES.length)) {
                 return;
             }
 
-            if (GregTechAPI.METATILEENTITIES[tDamage] != null) {
-                final IGregTechTileEntity gtTileEntity = GregTechAPI.METATILEENTITIES[tDamage].getBaseMetaTileEntity();
-                final IMetaTileEntity metaTileEntity = gtTileEntity.getMetaTileEntity();
-                if (metaTileEntity instanceof ILocalizedMetaPipeEntity localizedMetaPipeEntity) {
-                    localizedMetaPipeEntity.addMaterialTooltip(aList);
+            if (GregTechAPI.METATILEENTITIES[meta] != null) {
+                final IGregTechTileEntity gte = GregTechAPI.METATILEENTITIES[meta].getBaseMetaTileEntity();
+                final IMetaTileEntity mte = gte.getMetaTileEntity();
+                if (mte instanceof ILocalizedMetaPipeEntity localizedMetaPipeEntity) {
+                    localizedMetaPipeEntity.addMaterialTooltip(list);
                 }
-                addDescription(aList, metaTileEntity, tDamage);
-                metaTileEntity.addAdditionalTooltipInformation(aStack, aList);
-                if (gtTileEntity.getEUCapacity() > 0L) {
-                    if (!(metaTileEntity instanceof IHideTooltipEnergyInfo)) {
-                        if (gtTileEntity.getInputVoltage() > 0L) {
-                            aList.add(
+                addDescription(list, mte, meta);
+                mte.addAdditionalTooltipInformation(itemStack, list);
+                if (gte.getEUCapacity() > 0L) {
+                    if (!(mte instanceof IHideTooltipEnergyInfo)) {
+                        if (gte.getInputVoltage() > 0L) {
+                            list.add(
                                 StatCollector.translateToLocalFormatted(
                                     "gt.tileentity.eup_in",
-                                    TooltipHelper.voltageText(gtTileEntity.getInputVoltage())));
+                                    TooltipHelper.voltageText(gte.getInputVoltage())));
                         }
-                        if (gtTileEntity.getOutputVoltage() > 0L) {
-                            aList.add(
+                        if (gte.getOutputVoltage() > 0L) {
+                            list.add(
                                 StatCollector.translateToLocalFormatted(
                                     "gt.tileentity.eup_out",
-                                    TooltipHelper.voltageText(gtTileEntity.getOutputVoltage())));
+                                    TooltipHelper.voltageText(gte.getOutputVoltage())));
                         }
-                        if (gtTileEntity.getOutputAmperage() > 1L) {
-                            aList.add(
+                        if (gte.getOutputAmperage() > 1L) {
+                            list.add(
                                 StatCollector.translateToLocalFormatted(
                                     "gt.tileentity.amperage",
-                                    TooltipHelper.ampText(gtTileEntity.getOutputAmperage())));
+                                    TooltipHelper.ampText(gte.getOutputAmperage())));
                         }
                     }
                     if (Client.tooltip.showEnergyCapacity) {
-                        aList.add(
+                        list.add(
                             translateToLocalFormatted(
                                 "gt.tileentity.eup_store",
-                                TooltipHelper.euCapacityText(gtTileEntity.getEUCapacity())));
+                                TooltipHelper.euCapacityText(gte.getEUCapacity())));
                     }
                 }
             }
-            final NBTTagCompound aNBT = aStack.getTagCompound();
-            if (aNBT != null) {
-                if (aNBT.getBoolean("mMuffler")) {
-                    aList.add(translateToLocal("gt.tileentity.has_muffler"));
+            final NBTTagCompound nbt = itemStack.getTagCompound();
+            if (nbt != null) {
+                if (nbt.getBoolean("mMuffler")) {
+                    list.add(translateToLocal("gt.tileentity.has_muffler"));
                 }
-                if (aNBT.getBoolean("mSteamConverter")) {
-                    aList.add(translateToLocal("gt.tileentity.has_steam_upgrade"));
+                if (nbt.getBoolean("mSteamConverter")) {
+                    list.add(translateToLocal("gt.tileentity.has_steam_upgrade"));
                 }
 
-                CoverableTileEntity.addInstalledCoversInformation(aNBT, aList);
-                if (aNBT.hasKey("mColor") && aNBT.getByte("mColor") != -1) {
-                    aList.add(
+                CoverableTileEntity.addInstalledCoversInformation(nbt, list);
+                if (nbt.hasKey("mColor") && nbt.getByte("mColor") != -1) {
+                    list.add(
                         translateToLocalFormatted(
                             "gt.tileentity.colored",
-                            Dyes.get(aNBT.getByte("mColor") - 1).formatting,
-                            Dyes.get(aNBT.getByte("mColor") - 1).mName));
+                            Dyes.get(nbt.getByte("mColor") - 1).formatting,
+                            Dyes.get(nbt.getByte("mColor") - 1).mName));
                 }
             }
         } catch (Exception e) {
-            aList.add("§cAn exception was thrown while getting this item's info.§r");
-            aList.add(e.getLocalizedMessage());
+            list.add("§cAn exception was thrown while getting this item's info.§r");
+            list.add(e.getLocalizedMessage());
             GT_FML_LOGGER.error("addInformation", e);
         }
     }
 
-    private void addDescription(List<String> aList, IMetaTileEntity metaTileEntity, int damage) {
-        final String[] aDescription = metaTileEntity.getDescription();
-        if (aDescription == null) return;
-        if (isSkipGenerateDescription(metaTileEntity)) {
-            Collections.addAll(aList, aDescription);
+    private void addDescription(List<String> list, IMetaTileEntity mte, int meta) {
+        final String[] description = mte.getDescription();
+        if (description == null) {
             return;
         }
-        final String tSuffix = (metaTileEntity instanceof ISecondaryDescribable
-            && ((ISecondaryDescribable) metaTileEntity).isDisplaySecondaryDescription()) ? "_secondary" : "";
-        String key = "gt.blockmachines." + metaTileEntity.getMetaName() + ".tooltip" + tSuffix;
-        if (StatCollector.canTranslate(key + "." + damage)) {
-            key = key + "." + damage;
+        if (isSkipGenerateDescription(mte)) {
+            Collections.addAll(list, description);
+            return;
         }
-        final String tTranslated = StatCollector.translateToLocal(key);
-        if (tTranslated.contains("%s")) {
-            final String tDescription = Arrays.stream(aDescription)
+
+        final String suffix;
+
+        if (mte instanceof ISecondaryDescribable secondaryDescribable) {
+            if (secondaryDescribable.isDisplaySecondaryDescription()) {
+                suffix = "_secondary";
+            } else {
+                suffix = "";
+            }
+        } else {
+            suffix = "";
+        }
+
+        String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip" + suffix;
+        if (StatCollector.canTranslate(key + "." + meta)) {
+            key = key + "." + meta;
+        }
+        final String translated = StatCollector.translateToLocal(key);
+        if (translated.contains("%s")) {
+            final String collected = Arrays.stream(description)
                 .filter(GTUtility::isStringValid)
                 .collect(Collectors.joining(""));
             List<String> parameters = new ArrayList<>();
             final Matcher matcher = Pattern.compile("%%%(.*?)%%%")
-                .matcher(tDescription);
-            while (matcher.find()) parameters.add(matcher.group(1));
-            Collections.addAll(aList, GTSplit.splitFormatted(tTranslated, parameters.toArray()));
-        } else {
-            Collections.addAll(aList, GTSplit.split(tTranslated));
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void registerDescription(int aDamage) {
-        if (aDamage >= GregTechAPI.METATILEENTITIES.length) return;
-        if (GregTechAPI.METATILEENTITIES[aDamage] != null) {
-            final IMetaTileEntity tMetaTileEntity = GregTechAPI.METATILEENTITIES[aDamage].getBaseMetaTileEntity()
-                .getMetaTileEntity();
-            if (isSkipGenerateDescription(tMetaTileEntity)) return;
-            String key = "gt.blockmachines." + tMetaTileEntity.getMetaName() + ".tooltip";
-            if (tMetaTileEntity instanceof ISecondaryDescribable) {
-                final String[] tSecondaryDescription = ((ISecondaryDescribable) tMetaTileEntity)
-                    .getSecondaryDescription();
-                registerDescription(tSecondaryDescription, key + "_secondary", aDamage);
+                .matcher(collected);
+            while (matcher.find()) {
+                parameters.add(matcher.group(1));
             }
-            registerDescription(tMetaTileEntity.getDescription(), key, aDamage);
+            Collections.addAll(list, GTSplit.splitFormatted(translated, parameters.toArray()));
+        } else {
+            Collections.addAll(list, GTSplit.split(translated));
         }
     }
 
     @SideOnly(Side.CLIENT)
-    private void registerDescription(@Nullable String[] aDescription, String key, int damage) {
-        if (aDescription == null) return;
-        String tDescription = Arrays.stream(aDescription)
-            .filter(GTUtility::isStringValid)
-            .collect(Collectors.joining(GTSplit.LB));
-        if (tDescription.contains("%%%")) {
-            tDescription = tDescription.replaceAll("%%%.*?%%%", "%s");
-        }
-        if (GTLanguageManager.hasGTLocalizationKey(key)) {
-            GTLanguageManager.addStringLocalization(key + "." + damage, tDescription);
+    public void registerDescription(int meta) {
+        if (meta >= GregTechAPI.METATILEENTITIES.length) {
             return;
         }
-        GTLanguageManager.addStringLocalization(key, tDescription);
+        if (GregTechAPI.METATILEENTITIES[meta] != null) {
+            final IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[meta].getBaseMetaTileEntity().getMetaTileEntity();
+            if (isSkipGenerateDescription(mte)) return;
+            String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip";
+            if (mte instanceof ISecondaryDescribable secondaryDescribable) {
+                final String[] secondaryDescription = secondaryDescribable.getSecondaryDescription();
+                registerDescription(secondaryDescription, key + "_secondary", meta);
+            }
+            registerDescription(mte.getDescription(), key, meta);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void registerDescription(@Nullable String[] description, String key, int meta) {
+        if (description == null) {
+            return;
+        }
+
+        String collected = Arrays.stream(description)
+            .filter(GTUtility::isStringValid)
+            .collect(Collectors.joining(GTSplit.LB));
+        if (collected.contains("%%%")) {
+            collected = collected.replaceAll("%%%.*?%%%", "%s");
+        }
+        if (GTLanguageManager.hasGTLocalizationKey(key)) {
+            GTLanguageManager.addStringLocalization(key + "." + meta, collected);
+            return;
+        }
+        GTLanguageManager.addStringLocalization(key, collected);
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack aStack) {
-        final short tDamage = (short) getDamage(aStack);
-        if ((tDamage < 0) || (tDamage >= GregTechAPI.METATILEENTITIES.length)) {
+    public String getUnlocalizedName(ItemStack itemStack) {
+        final short meta = (short) getDamage(itemStack);
+        if ((meta < 0) || (meta >= GregTechAPI.METATILEENTITIES.length)) {
             return "";
         }
-        if (GregTechAPI.METATILEENTITIES[tDamage] != null) {
-            return getUnlocalizedName() + "." + GregTechAPI.METATILEENTITIES[tDamage].getMetaName();
+        if (GregTechAPI.METATILEENTITIES[meta] != null) {
+            return getUnlocalizedName() + "." + GregTechAPI.METATILEENTITIES[meta].getMetaName();
         }
         return "";
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack aStack) {
-        String aName = super.getItemStackDisplayName(aStack);
-        final short aDamage = (short) getDamage(aStack);
-        final IMetaTileEntity metaTE = GregTechAPI.METATILEENTITIES[aDamage];
-        if (aDamage >= 0 && aDamage < GregTechAPI.METATILEENTITIES.length && metaTE != null) {
-            if (metaTE instanceof ILocalizedMetaPipeEntity localMetaTE) {
+    public String getItemStackDisplayName(ItemStack itemStack) {
+        String displayName = super.getItemStackDisplayName(itemStack);
+        final short meta = (short) getDamage(itemStack);
+        final IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[meta];
+        if (meta < GregTechAPI.METATILEENTITIES.length && mte != null) {
+            if (mte instanceof ILocalizedMetaPipeEntity localMetaTE) {
                 return localMetaTE.getLocalizedName();
             }
         }
-        return aName;
+        return displayName;
     }
 
     @Override
-    public void onCreated(ItemStack aStack, World aWorld, EntityPlayer aPlayer) {
-        super.onCreated(aStack, aWorld, aPlayer);
-        final short tDamage = (short) getDamage(aStack);
-        if ((tDamage < 0)
-            || ((tDamage >= GregTechAPI.METATILEENTITIES.length) && (GregTechAPI.METATILEENTITIES[tDamage] != null))) {
-            GregTechAPI.METATILEENTITIES[tDamage].onCreated(aStack, aWorld, aPlayer);
+    public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
+        super.onCreated(itemStack, world, player);
+        final short meta = (short) getDamage(itemStack);
+        if ((meta < 0) || ((meta >= GregTechAPI.METATILEENTITIES.length) && (GregTechAPI.METATILEENTITIES[meta] != null))) {
+            GregTechAPI.METATILEENTITIES[meta].onCreated(itemStack, world, player);
         }
     }
 
     @Override
-    public boolean placeBlockAt(ItemStack aStack, EntityPlayer aPlayer, World aWorld, int aX, int aY, int aZ,
-        int ordinalSide, float hitX, float hitY, float hitZ, int aMeta) {
+    public boolean placeBlockAt(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z,
+        int ordinalSide, float hitX, float hitY, float hitZ, int unusedMeta) {
         final ForgeDirection side = ForgeDirection.getOrientation(ordinalSide);
-        final short tDamage = (short) getDamage(aStack);
-        if (tDamage > 0) {
-            if (GregTechAPI.METATILEENTITIES[tDamage] == null) {
+        final short meta = (short) getDamage(itemStack);
+        if (meta > 0) {
+            if (GregTechAPI.METATILEENTITIES[meta] == null) {
                 return false;
             }
-            final int tMetaData = GregTechAPI.METATILEENTITIES[tDamage].getTileEntityBaseType();
-            if (!aWorld.setBlock(aX, aY, aZ, this.field_150939_a, tMetaData, 3)) {
+
+            final int newMeta = GregTechAPI.METATILEENTITIES[meta].getTileEntityBaseType();
+            if (!world.setBlock(x, y, z, this.field_150939_a, newMeta, 3)) {
                 return false;
             }
-            if (aWorld.getBlock(aX, aY, aZ) != this.field_150939_a) {
+
+            if (world.getBlock(x, y, z) != this.field_150939_a) {
                 throw new GTItsNotMyFaultException(
                     "Failed to place Block even though World.setBlock returned true. It COULD be MCPC/Bukkit causing that. In case you really have that installed, don't report this Bug to me, I don't know how to fix it.");
             }
-            if (aWorld.getBlockMetadata(aX, aY, aZ) != tMetaData) {
+
+            if (world.getBlockMetadata(x, y, z) != newMeta) {
                 throw new GTItsNotMyFaultException(
                     "Failed to set the MetaValue of the Block even though World.setBlock returned true. It COULD be MCPC/Bukkit causing that. In case you really have that installed, don't report this Bug to me, I don't know how to fix it.");
             }
-            final TileEntity tile = aWorld.getTileEntity(aX, aY, aZ);
-            final IGregTechTileEntity tTileEntity = (IGregTechTileEntity) tile;
-            if (tTileEntity != null) {
-                tTileEntity.setInitialValuesAsNBT(tTileEntity.isServerSide() ? aStack.getTagCompound() : null, tDamage);
-                if (aPlayer != null) {
-                    tTileEntity.setOwnerName(aPlayer.getDisplayName());
-                    tTileEntity.setOwnerUuid(aPlayer.getUniqueID());
+            final TileEntity te = world.getTileEntity(x, y, z);
+            final IGregTechTileEntity gte = (IGregTechTileEntity) te;
+            if (gte != null) {
+                gte.setInitialValuesAsNBT(gte.isServerSide() ? itemStack.getTagCompound() : null, meta);
+
+                if (player != null) {
+                    gte.setOwnerName(player.getDisplayName());
+                    gte.setOwnerUuid(player.getUniqueID());
                 }
-                if (tTileEntity.getMetaTileEntity() instanceof MetaTileEntity mte) {
+
+                if (gte.getMetaTileEntity() instanceof MetaTileEntity mte) {
                     AENetworkProxy proxy = mte.getProxy();
                     if (proxy != null) {
-                        proxy.setOwner(aPlayer);
+                        proxy.setOwner(player);
                     }
                 }
-                tTileEntity.setFrontFacing(
-                    BaseTileEntity.getSideForPlayerPlacing(aPlayer, ForgeDirection.UP, tTileEntity.getValidFacings()));
+                gte.setFrontFacing(BaseTileEntity.getSideForPlayerPlacing(player, ForgeDirection.UP, gte.getValidFacings()));
                 final ForgeDirection oppositeSide = side.getOpposite();
-                if (tTileEntity.getMetaTileEntity() instanceof IConnectable connectable) {
-                    // If we're connectable, try connecting to whatever we're up against
+                if (gte.getMetaTileEntity() instanceof IConnectable connectable) {
                     connectable.connect(oppositeSide);
-                    if (aPlayer != null && Mods.Backhand.isModLoaded() && connectable instanceof MTEFluidPipe pipe) {
-                        pipeDirectionOffhand(aPlayer, pipe, side);
+                    if (player != null && Mods.Backhand.isModLoaded() && connectable instanceof MTEFluidPipe pipe) {
+                        pipeDirectionOffhand(player, pipe, side);
                     }
-                } else if (aPlayer != null && aPlayer.isSneaking()) {
-                    // If we're being placed against something that is connectable, try telling it to connect to us
-                    final IGregTechTileEntity aTileEntity = tTileEntity.getIGregTechTileEntityAtSide(oppositeSide);
-                    if (aTileEntity != null && aTileEntity.getMetaTileEntity() instanceof IConnectable connectable) {
+                } else if (player != null && player.isSneaking()) {
+                    final IGregTechTileEntity newGte = gte.getIGregTechTileEntityAtSide(oppositeSide);
+                    if (newGte != null && newGte.getMetaTileEntity() instanceof IConnectable connectable) {
                         connectable.connect(side);
                     }
                 }
-                tTileEntity.getMetaTileEntity()
-                    .initDefaultModes(aStack.getTagCompound());
-                // Backhand and fast swap fix:
-                // Due to markBlockForUpdate will delay a full tick (50ms), we need to send this packet earlier to
-                // prevent desync.
-                if (aPlayer instanceof EntityPlayerMP player && player.playerNetServerHandler != null) {
-                    player.playerNetServerHandler.sendPacket(new S23PacketBlockChange(aX, aY, aZ, aWorld));
-                    Packet tePacket = tile.getDescriptionPacket();
-                    if (tePacket != null) {
-                        player.playerNetServerHandler.sendPacket(tePacket);
+                gte.getMetaTileEntity().initDefaultModes(itemStack.getTagCompound());
+
+                if (player instanceof EntityPlayerMP playerMP && playerMP.playerNetServerHandler != null) {
+                    playerMP.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+                    Packet packet = te.getDescriptionPacket();
+                    if (packet != null) {
+                        playerMP.playerNetServerHandler.sendPacket(packet);
                     }
                 }
             }
-        } else if (!aWorld.setBlock(aX, aY, aZ, this.field_150939_a, tDamage, 3)) {
+        } else if (!world.setBlock(x, y, z, this.field_150939_a, meta, 3)) {
             return false;
         }
-        if (aWorld.getBlock(aX, aY, aZ) == this.field_150939_a) {
-            this.field_150939_a.onBlockPlacedBy(aWorld, aX, aY, aZ, aPlayer, aStack);
-            this.field_150939_a.onPostBlockPlaced(aWorld, aX, aY, aZ, tDamage);
+        if (world.getBlock(x, y, z) == this.field_150939_a) {
+            this.field_150939_a.onBlockPlacedBy(world, x, y, z, player, itemStack);
+            this.field_150939_a.onPostBlockPlaced(world, x, y, z, meta);
         }
         return true;
     }
@@ -328,10 +350,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         if ((GTUtility.isStackInList(offHand, GregTechAPI.sWrenchList))) {
             ForgeDirection oppositeSide = side.getOpposite();
             if (player.isSneaking()) {
-                TileEntity adjTile = pipe.getBaseMetaTileEntity()
-                    .getTileEntityAtSide(oppositeSide);
-                if (adjTile instanceof IGregTechTileEntity adjGTile
-                    && adjGTile.getMetaTileEntity() instanceof MTEFluidPipe adjPipe) {
+                TileEntity adjTile = pipe.getBaseMetaTileEntity().getTileEntityAtSide(oppositeSide);
+                if (adjTile instanceof IGregTechTileEntity gte && gte.getMetaTileEntity() instanceof MTEFluidPipe adjPipe) {
                     adjPipe.mDisableInput |= (byte) side.flag;
                 }
             } else {
@@ -341,47 +361,14 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         }
     }
 
-    @Override
-    public void onUpdate(ItemStack aStack, World aWorld, Entity aPlayer, int aTimer, boolean aIsInHand) {
-        super.onUpdate(aStack, aWorld, aPlayer, aTimer, aIsInHand);
-        final short tDamage = (short) getDamage(aStack);
-        final EntityLivingBase tPlayer = (EntityPlayer) aPlayer;
-        if (GregTechAPI.METATILEENTITIES[tDamage] instanceof MTESuperChest
-            || GregTechAPI.METATILEENTITIES[tDamage] instanceof MTESuperTank) {
-            final NBTTagCompound tNBT = aStack.stackTagCompound;
-            if (tNBT == null) return;
-            if (tNBT.hasNoTags()) {
-                aStack.setTagCompound(null);
-                return;
-            }
-            if ((tNBT.hasKey("mItemCount") && tNBT.getInteger("mItemCount") > 0) || (tNBT.hasKey("mFluid")
-                && FluidStack.loadFluidStackFromNBT(tNBT.getCompoundTag("mFluid")).amount > 64000)) {
-                final FluidStack tFluid = FluidStack.loadFluidStackFromNBT(tNBT.getCompoundTag("mFluid"));
-                int tEffectDuration = 1200;
-                if (tFluid != null) {
-                    final double tFluidAmount = tFluid.amount;
-                    final double tMiddlePoint = 4096000;
-                    final double tSmoothingCoefficient = 2000000;
-                    final int tMaxDuration = 12000;
-                    final double tmp = (tFluidAmount - tMiddlePoint) / tSmoothingCoefficient;
-                    tEffectDuration = (int) (Math.exp(tmp) / (Math.exp(tmp) + Math.exp(-tmp)) * tMaxDuration);
-                }
-                tPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, tEffectDuration, 1));
-                tPlayer.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, tEffectDuration, 1));
-                tPlayer.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, tEffectDuration, 1));
-                tPlayer.addPotionEffect(new PotionEffect(Potion.weakness.id, tEffectDuration, 1));
-            }
-        }
-    }
-
     @Nullable
     private static IFluidContainerItemMetaTile getFluidContainerItemMeta(@Nonnull ItemStack container) {
-        final int tDamage = container.getItemDamage();
-        if (tDamage < 0 || tDamage >= GregTechAPI.METATILEENTITIES.length) {
+        final int meta = container.getItemDamage();
+        if (meta < 0 || meta >= GregTechAPI.METATILEENTITIES.length) {
             return null;
         }
-        final IMetaTileEntity tMetaTile = GregTechAPI.METATILEENTITIES[tDamage];
-        return tMetaTile instanceof IFluidContainerItemMetaTile fluidMeta ? fluidMeta : null;
+        final IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[meta];
+        return mte instanceof IFluidContainerItemMetaTile fluidMeta ? fluidMeta : null;
     }
 
     @Override
@@ -402,9 +389,11 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     @Override
     public int getCapacity(ItemStack container) {
         if (container != null) {
-            final int tDamage = container.getItemDamage();
-            final IMetaTileEntity tMetaTile = GregTechAPI.METATILEENTITIES[tDamage];
-            if (tMetaTile != null) return tMetaTile.getCapacity();
+            final int meta = container.getItemDamage();
+            final IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[meta];
+            if (mte != null) {
+                return mte.getCapacity();
+            }
         }
         return 0;
     }
@@ -412,7 +401,9 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     @Nullable
     private Fluid getLockedFluid(@Nonnull ItemStack container) {
         final String lockedName = ItemStackNBT.getString(container, "lockedFluidName");
-        if (GTUtility.isStringInvalid(lockedName)) return null;
+        if (GTUtility.isStringInvalid(lockedName)) {
+            return null;
+        }
         return FluidRegistry.getFluid(lockedName);
     }
 
@@ -423,18 +414,27 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
             if (fluidMeta == null) {
                 return 0;
             }
+
             final String fluidKey = fluidMeta.getFluidNbtKey();
             if (container.stackSize > 1) {
                 return 0;
             }
-            if (container.stackTagCompound == null) container.stackTagCompound = new NBTTagCompound();
+
+            if (container.stackTagCompound == null) {
+                container.stackTagCompound = new NBTTagCompound();
+            }
+
             final FluidStack tStoredFluid = getFluid(container);
             final int tCapacity = getCapacity(container);
-            if (tCapacity <= 0) return 0;
+            if (tCapacity <= 0) {
+                return 0;
+            }
+
             final Fluid lockedFluid = getLockedFluid(container);
             if (lockedFluid != null && resource.getFluid() != lockedFluid) {
                 return 0;
             }
+
             if (tStoredFluid != null && tStoredFluid.isFluidEqual(resource)) {
                 final int tAmount = Math.min(tCapacity - tStoredFluid.amount, resource.amount);
                 if (doFill) {
@@ -443,6 +443,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
                 }
                 return tAmount;
             }
+
             if (tStoredFluid == null) {
                 final int tAmount = Math.min(tCapacity, resource.amount);
                 if (doFill) {
@@ -462,20 +463,21 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
             if (fluidMeta == null) {
                 return null;
             }
+
             final String fluidKey = fluidMeta.getFluidNbtKey();
-            final FluidStack tStoredFluid = getFluid(container);
-            if (tStoredFluid != null) {
-                final int tAmount = Math.min(maxDrain, tStoredFluid.amount);
-                final FluidStack tNewFluid = new FluidStack(tStoredFluid, tStoredFluid.amount - tAmount);
-                final FluidStack tOutputFluid = new FluidStack(tStoredFluid, tAmount);
+            final FluidStack fluid = getFluid(container);
+            if (fluid != null) {
+                final int amount = Math.min(maxDrain, fluid.amount);
+                final FluidStack newFluid = new FluidStack(fluid, fluid.amount - amount);
+                final FluidStack outputFluid = new FluidStack(fluid, amount);
                 if (doDrain) {
-                    if (tNewFluid.amount <= 0) {
+                    if (newFluid.amount <= 0) {
                         ItemStackNBT.removeTag(container, fluidKey);
                     } else {
-                        ItemStackNBT.setTag(container, fluidKey, tNewFluid.writeToNBT(new NBTTagCompound()));
+                        ItemStackNBT.setTag(container, fluidKey, newFluid.writeToNBT(new NBTTagCompound()));
                     }
                 }
-                return tOutputFluid;
+                return outputFluid;
             }
         }
         return null;
