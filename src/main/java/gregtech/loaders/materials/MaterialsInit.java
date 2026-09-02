@@ -10,7 +10,6 @@ import gregtech.api.enums.MaterialIconRegistry;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
-import gregtech.api.enums.TCAspects;
 import gregtech.api.enums.TextureSet;
 import gregtech.api.enums.TierEU;
 import gregtech.api.util.CustomGlyphs;
@@ -172,8 +171,6 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_700)
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.VOLATUS, 1)
             .addOreByproduct(() -> Materials_OLD.Bauxite)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -193,8 +190,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(1_449)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
@@ -213,8 +208,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(903)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.AQUA, 1)
             .addOreByproduct(() -> Materials_OLD.Zinc)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
@@ -233,7 +226,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(83)
-            .addAspect(TCAspects.AER, 2)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -251,7 +243,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(1_090)
-            .addAspect(TCAspects.VENENUM, 3)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
@@ -267,7 +258,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(1_000)
-            .addAspect(TCAspects.VINCULUM, 3)
             .constructMaterial();
     }
 
@@ -285,8 +275,6 @@ public class MaterialsInit {
             .addPlasma()
             .addToolHeadItems()
             .setMeltingPoint(1_560)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.LUCRUM, 1)
             .addOreByproduct(() -> Materials_OLD.Emerald)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
@@ -309,8 +297,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(544)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.INSTRUMENTUM, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -325,7 +311,6 @@ public class MaterialsInit {
             .addDustItems()
             .addPlasma()
             .setMeltingPoint(2_349)
-            .addAspect(TCAspects.VITREUS, 3)
             .addSubTag(SubTag.SMELTING_TO_FLUID)
             .constructMaterial();
     }
@@ -342,8 +327,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(301)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
@@ -361,8 +344,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_115)
             .setBlastFurnaceTemp(1_115)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.SANO, 1)
-            .addAspect(TCAspects.TUTAMEN, 1)
             .constructMaterial();
     }
 
@@ -382,8 +363,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(3_800)
-            .addAspect(TCAspects.VITREUS, 1)
-            .addAspect(TCAspects.IGNIS, 1)
             .addSubTag(SubTag.NO_SMELTING)
             .addOrePrefix(OrePrefixes.nanite)
             .removeOrePrefix(OrePrefixes.sheetmetal)
@@ -402,9 +381,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(594)
-            .addAspect(TCAspects.METALLUM, 1)
-            .addAspect(TCAspects.POTENTIA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
@@ -422,8 +398,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_068)
             .setBlastFurnaceTemp(1_068)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -437,8 +411,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(171)
-            .addAspect(TCAspects.AQUA, 2)
-            .addAspect(TCAspects.PANNUS, 1)
             .constructMaterial();
     }
 
@@ -458,8 +430,6 @@ public class MaterialsInit {
             .setMeltingPoint(2_180)
             .setBlastFurnaceTemp(1_700)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MACHINA, 1)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addOreByproduct(() -> Materials_OLD.Magnesium)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
@@ -486,8 +456,6 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_700)
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.INSTRUMENTUM, 1)
             .addOreByproduct(() -> Materials_OLD.Cobaltite)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -514,8 +482,6 @@ public class MaterialsInit {
             .addPlasma()
             .addGearItems()
             .setMeltingPoint(1_357)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.PERMUTATIO, 1)
             .addOreByproduct(() -> Materials_OLD.Cobalt)
             .addOreByproduct(() -> Materials_OLD.Gold)
             .addOreByproduct(() -> Materials_OLD.Nickel)
@@ -548,8 +514,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.ALIENIS, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
@@ -569,7 +533,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_680)
             .setBlastFurnaceTemp(1_680)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -580,7 +543,6 @@ public class MaterialsInit {
             .setElement(Element._NULL)
             .setARGB(0xffffffff)
             .addEmpty()
-            .addAspect(TCAspects.VACUOS, 2)
             .addSubTag(SubTag.TRANSPARENT)
             .removeOrePrefix(OrePrefixes.cell)
             .removeOrePrefix(OrePrefixes.bucket)
@@ -602,8 +564,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_802)
             .setBlastFurnaceTemp(1_802)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -622,8 +582,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_099)
             .setBlastFurnaceTemp(1_099)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
@@ -643,8 +601,6 @@ public class MaterialsInit {
             .addPlasma()
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -659,7 +615,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(53)
-            .addAspect(TCAspects.PERDITIO, 2)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -673,8 +628,6 @@ public class MaterialsInit {
             .setARGB(0x00ff3900)
             .addDustItems()
             .addPlasma()
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -693,8 +646,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_585)
             .setBlastFurnaceTemp(1_585)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -712,8 +663,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(302)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
@@ -740,8 +689,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(1_337)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.LUCRUM, 2)
             .addOreByproduct(() -> Materials_OLD.Copper)
             .addOreByproduct(() -> Materials_OLD.Nickel)
             .addSubTag(SubTag.METAL)
@@ -769,8 +716,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_734)
             .setBlastFurnaceTemp(1_734)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -788,7 +733,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(14)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
@@ -808,7 +752,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(1)
-            .addAspect(TCAspects.AER, 2)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -826,8 +769,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(429)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -850,8 +791,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MACHINA, 1)
             .addOreByproduct(() -> Materials_OLD.Platinum)
             .addOreByproduct(() -> Materials_OLD.Osmium)
             .addSubTag(SubTag.METAL)
@@ -880,7 +819,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(1_811)
-            .addAspect(TCAspects.METALLUM, 3)
             .addOreByproduct(() -> Materials_OLD.Nickel)
             .addOreByproduct(() -> Materials_OLD.Tin)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_TRIPLE)
@@ -907,8 +845,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_193)
             .setBlastFurnaceTemp(1_193)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -929,8 +865,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(600)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.ORDO, 1)
             .addOreByproduct(() -> Materials_OLD.Silver)
             .addOreByproduct(() -> Materials_OLD.Sulfur)
             .addSubTag(SubTag.METAL)
@@ -954,8 +888,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(454)
-            .addAspect(TCAspects.VITREUS, 1)
-            .addAspect(TCAspects.POTENTIA, 2)
             .addOreByproduct(() -> Materials_OLD.Lithium)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
@@ -975,8 +907,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_925)
             .setBlastFurnaceTemp(1_925)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -999,7 +929,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(5_000)
-            .addAspect(TCAspects.PRAECANTATIO, 4)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.UNBURNABLE)
@@ -1019,8 +948,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(923)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.SANO, 1)
             .addOreByproduct(() -> Materials_OLD.Olivine)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -1042,7 +969,6 @@ public class MaterialsInit {
             .addPlasma()
             .addToolHeadItems()
             .setMeltingPoint(1_519)
-            .addAspect(TCAspects.METALLUM, 3)
             .addOreByproduct(() -> Materials_OLD.Chrome)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
@@ -1062,9 +988,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(234)
-            .addAspect(TCAspects.METALLUM, 1)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.SMELTING_TO_GEM)
             .constructMaterial();
@@ -1087,8 +1010,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_811)
             .setBlastFurnaceTemp(1_000)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 1)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addOreByproduct(() -> Materials_OLD.Nickel)
             .addOreByproduct(() -> Materials_OLD.Iridium)
@@ -1114,8 +1035,6 @@ public class MaterialsInit {
             .addPlasma()
             .addToolHeadItems()
             .setMeltingPoint(2_896)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.INSTRUMENTUM, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
@@ -1141,9 +1060,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 3)
-            .addAspect(TCAspects.RADIO, 1)
-            .addAspect(TCAspects.NEBRISUM, 1)
             .addOreByproduct(() -> Materials_OLD.NaquadahEnriched)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -1166,8 +1082,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_297)
             .setBlastFurnaceTemp(1_297)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 2)
             .addOreByproduct(() -> Materials_OLD.Monazite)
             .addOreByproduct(() -> Materials_OLD.RareEarth)
             .addSubTag(SubTag.METAL)
@@ -1194,9 +1108,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 4)
-            .addAspect(TCAspects.VITREUS, 3)
-            .addAspect(TCAspects.ALIENIS, 2)
             .addOreByproduct(() -> Materials_OLD.Neutronium)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -1221,8 +1132,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(1_728)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.IGNIS, 1)
             .addOreByproduct(() -> Materials_OLD.Cobalt)
             .addOreByproduct(() -> Materials_OLD.Platinum)
             .addOreByproduct(() -> Materials_OLD.Iron)
@@ -1248,8 +1157,6 @@ public class MaterialsInit {
             .setMeltingPoint(2_750)
             .setBlastFurnaceTemp(2_750)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1266,7 +1173,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(63)
-            .addAspect(TCAspects.AER, 2)
             .addSubTag(SubTag.TRANSPARENT)
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
@@ -1302,9 +1208,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.LUCRUM, 2)
-            .addAspect(TCAspects.ALIENIS, 1)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
@@ -1327,9 +1230,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MACHINA, 1)
-            .addAspect(TCAspects.NEBRISUM, 1)
             .addOreByproduct(() -> Materials_OLD.Iridium)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -1349,7 +1249,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(54)
-            .addAspect(TCAspects.AER, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
@@ -1376,7 +1275,6 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_828)
             .setBlastFurnaceRequired(true)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1391,8 +1289,6 @@ public class MaterialsInit {
             .addDustItems()
             .addPlasma()
             .setMeltingPoint(317)
-            .addAspect(TCAspects.IGNIS, 2)
-            .addAspect(TCAspects.POTENTIA, 1)
             .addOreByproduct(() -> Materials_OLD.Phosphate)
             .constructMaterial();
     }
@@ -1412,8 +1308,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(2_041)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.NEBRISUM, 1)
             .addOreByproduct(() -> Materials_OLD.Nickel)
             .addOreByproduct(() -> Materials_OLD.Iridium)
             .addSubTag(SubTag.METAL)
@@ -1435,8 +1329,6 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .setMeltingPoint(912)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 2)
             .addOreByproduct(() -> Materials_OLD.Uranium)
             .addOreByproduct(() -> Materials_OLD.Lead)
             .addSubTag(SubTag.METAL)
@@ -1456,8 +1348,6 @@ public class MaterialsInit {
             .addMetalItems()
             .addPlasma()
             .setMeltingPoint(336)
-            .addAspect(TCAspects.VITREUS, 1)
-            .addAspect(TCAspects.POTENTIA, 1)
             .constructMaterial();
     }
 
@@ -1475,8 +1365,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_208)
             .setBlastFurnaceTemp(1_208)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1495,8 +1383,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_315)
             .setBlastFurnaceTemp(1_315)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1511,8 +1397,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(202)
-            .addAspect(TCAspects.AER, 1)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -1530,8 +1414,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(312)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.VITREUS, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
@@ -1552,9 +1434,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_345)
             .setBlastFurnaceTemp(1_345)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
-            .addAspect(TCAspects.MAGNETO, 10)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1573,8 +1452,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_814)
             .setBlastFurnaceTemp(1_814)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
@@ -1595,8 +1472,6 @@ public class MaterialsInit {
             .setMeltingPoint(2_273)
             .setBlastFurnaceTemp(2_273)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.TENEBRAE, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1616,8 +1491,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(1_234)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.LUCRUM, 1)
             .addOreByproduct(() -> Materials_OLD.Lead)
             .addOreByproduct(() -> Materials_OLD.Sulfur)
             .addSubTag(SubTag.METAL)
@@ -1639,8 +1512,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(370)
-            .addAspect(TCAspects.VITREUS, 2)
-            .addAspect(TCAspects.LUX, 1)
             .constructMaterial();
     }
 
@@ -1658,8 +1529,6 @@ public class MaterialsInit {
             .addPlasma()
             .addGearItems()
             .setMeltingPoint(1_050)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.STRONTIO, 1)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
     }
@@ -1676,7 +1545,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(388)
-            .addAspect(TCAspects.IGNIS, 1)
             .addOreByproduct(() -> Materials_OLD.Sulfur)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -1700,8 +1568,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.VINCULUM, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
@@ -1720,8 +1586,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(722)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1739,8 +1603,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_629)
             .setBlastFurnaceTemp(1_629)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1759,8 +1621,6 @@ public class MaterialsInit {
             .addPlasma()
             .addToolHeadItems()
             .setMeltingPoint(2_115)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addOreByproduct(() -> Materials_OLD.Uranium)
             .addOreByproduct(() -> Materials_OLD.Lead)
             .addSubTag(SubTag.METAL)
@@ -1781,8 +1641,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_818)
             .setBlastFurnaceTemp(1_818)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1802,8 +1660,6 @@ public class MaterialsInit {
             .addGearItems()
             .setMeltingPoint(505)
             .setBlastFurnaceTemp(505)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.VITREUS, 1)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addOreByproduct(() -> Materials_OLD.Zinc)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_IRON)
@@ -1833,8 +1689,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.TUTAMEN, 1)
             .addOreByproduct(() -> Materials_OLD.Almandine)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -1860,8 +1714,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.ORDO, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1885,8 +1737,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 3)
-            .addAspect(TCAspects.TUTAMEN, 1)
             .addOreByproduct(() -> Materials_OLD.Manganese)
             .addOreByproduct(() -> Materials_OLD.Molybdenum)
             .addSubTag(SubTag.METAL)
@@ -1908,8 +1758,6 @@ public class MaterialsInit {
             .addPlasma()
             .addToolHeadItems()
             .setMeltingPoint(1_405)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addOreByproduct(() -> Materials_OLD.Lead)
             .addOreByproduct(() -> Materials_OLD.Uranium235)
             .addOreByproduct(() -> Materials_OLD.Thorium)
@@ -1933,8 +1781,6 @@ public class MaterialsInit {
             .setMeltingPoint(2_183)
             .setBlastFurnaceTemp(2_183)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSMUTABLE_NUGGETS)
             .constructMaterial();
@@ -1954,8 +1800,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_097)
             .setBlastFurnaceTemp(1_097)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1974,8 +1818,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_799)
             .setBlastFurnaceTemp(1_799)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -1993,8 +1835,6 @@ public class MaterialsInit {
             .addOreItems()
             .addPlasma()
             .setMeltingPoint(692)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.SANO, 1)
             .addOreByproduct(() -> Materials_OLD.Tin)
             .addOreByproduct(() -> Materials_OLD.Gallium)
             .addSubTag(SubTag.METAL)
@@ -2021,7 +1861,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(14)
-            .addAspect(TCAspects.AQUA, 3)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2035,7 +1874,6 @@ public class MaterialsInit {
             .setARGB(0xf0ffff00)
             .addCell()
             .setMeltingPoint(1)
-            .addAspect(TCAspects.AER, 3)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2056,8 +1894,6 @@ public class MaterialsInit {
             .addPlasma()
             .addToolHeadItems()
             .setMeltingPoint(912)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 3)
             .addSubTag(SubTag.METAL)
             .hasGlowingOre()
             .constructMaterial();
@@ -2073,7 +1909,6 @@ public class MaterialsInit {
             .addCell()
             .addPlasma()
             .setMeltingPoint(14)
-            .addAspect(TCAspects.AQUA, 4)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2093,8 +1928,6 @@ public class MaterialsInit {
             .addPlasma()
             .addToolHeadItems()
             .setMeltingPoint(1_405)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 2)
             .addSubTag(SubTag.METAL)
             .hasGlowingOre()
             .constructMaterial();
@@ -2122,7 +1955,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2137,7 +1969,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2152,7 +1983,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2167,7 +1997,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2182,7 +2011,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2197,7 +2025,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2212,7 +2039,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2227,7 +2053,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2242,7 +2067,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(273)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -2851,8 +2675,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 10)
             .addMaterial(Materials_OLD.Hydrogen, 10)
             .addMaterial(Materials_OLD.Oxygen, 16)
-            .addAspect(TCAspects.VINCULUM, 2)
-            .addAspect(TCAspects.VITREUS, 1)
             .addOreByproduct(() -> Materials_OLD.Amber)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3004,8 +2826,6 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(2)
             .addToolHeadItems()
-            .addAspect(TCAspects.POTENTIA, 1)
-            .addAspect(TCAspects.VITREUS, 1)
             .addOreByproduct(() -> Materials_OLD.Quartzite)
             .addOreByproduct(() -> Materials_OLD.Barite)
             .addSubTag(SubTag.CRYSTAL)
@@ -3027,9 +2847,6 @@ public class MaterialsInit {
             .setTool(32, 1, 5.0f)
             .addOreItems()
             .setOreMultiplier(2)
-            .addAspect(TCAspects.POTENTIA, 1)
-            .addAspect(TCAspects.VITREUS, 1)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .addOreByproduct(() -> Materials_OLD.CertusQuartz)
             .addOreByproduct(() -> Materials_OLD.Quartzite)
             .addOreByproduct(() -> Materials_OLD.Barite)
@@ -3306,8 +3123,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Tin, 2)
             .addMaterial(Materials_OLD.Silver, 2)
             .addMaterial(Materials_OLD.Platinum, 2)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.ALIENIS, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -3336,9 +3151,6 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(1_800)
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addAspect(TCAspects.PRAECANTATIO, 3)
-            .addAspect(TCAspects.IGNIS, 3)
-            .addAspect(TCAspects.CORPUS, 3)
             .addSubTag(SubTag.BURNING)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
@@ -3396,7 +3208,6 @@ public class MaterialsInit {
             .addOreItems()
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.POTENTIA, 5)
             .addOreByproduct(() -> Materials_OLD.Force)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
@@ -3417,7 +3228,6 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addCell()
-            .addAspect(TCAspects.POTENTIA, 2)
             .addOreByproduct(() -> Materials_OLD.Thorium)
             .addOreByproduct(() -> Materials_OLD.Neodymium)
             .addOreByproduct(() -> Materials_OLD.RareEarth)
@@ -3442,7 +3252,6 @@ public class MaterialsInit {
             .addGemItems()
             .addOreItems()
             .addCell()
-            .addAspect(TCAspects.POTENTIA, 2)
             .addOreByproduct(() -> Materials_OLD.Thorium)
             .addOreByproduct(() -> Materials_OLD.Neodymium)
             .addOreByproduct(() -> Materials_OLD.RareEarth)
@@ -3465,8 +3274,6 @@ public class MaterialsInit {
             .addDustItems()
             .setOreMultiplier(5) // No .addOreItems?
             .addCell()
-            .addAspect(TCAspects.LUX, 2)
-            .addAspect(TCAspects.SENSUS, 1)
             .addOreByproduct(() -> Materials_OLD.Redstone)
             .addOreByproduct(() -> Materials_OLD.Gold)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3489,8 +3296,6 @@ public class MaterialsInit {
             .addDustItems()
             .addToolHeadItems()
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.VITREUS, 2)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .constructMaterial();
     }
 
@@ -3506,8 +3311,6 @@ public class MaterialsInit {
             .addCell()
             .addToolHeadItems()
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.VITREUS, 2)
-            .addAspect(TCAspects.IGNIS, 1)
             .addOreByproduct(() -> Materials_OLD.Carbon)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3549,8 +3352,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_811)
             .setBlastFurnaceTemp(1_000)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 1)
-            .addAspect(TCAspects.ORDO, 1)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
@@ -3580,8 +3381,6 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addAspect(TCAspects.AER, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3607,8 +3406,6 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addAspect(TCAspects.VACUOS, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3635,8 +3432,6 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addAspect(TCAspects.TERRA, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3664,8 +3459,6 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addAspect(TCAspects.PERDITIO, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3693,8 +3486,6 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addAspect(TCAspects.IGNIS, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3740,8 +3531,6 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addAspect(TCAspects.ORDO, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3768,8 +3557,6 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addAspect(TCAspects.AURAM, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3796,8 +3583,6 @@ public class MaterialsInit {
             .setOreMultiplier(2)
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.PRAECANTATIO, 1)
-            .addAspect(TCAspects.AQUA, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -3830,8 +3615,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Aluminium, 1)
             .addMaterial(Materials_OLD.Silicon, 2)
             .addMaterial(Materials_OLD.Oxygen, 6)
-            .addAspect(TCAspects.LUCRUM, 6)
-            .addAspect(TCAspects.VITREUS, 3)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
             .removeOrePrefix(OrePrefixes.lens)
@@ -3904,9 +3687,6 @@ public class MaterialsInit {
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.MeteoricIron, 50)
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 1)
-            .addAspect(TCAspects.ORDO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -3951,8 +3731,6 @@ public class MaterialsInit {
             .setMiningLevel(1)
             .addDustItems()
             .addOreItems()
-            .addAspect(TCAspects.VITREUS, 1)
-            .addAspect(TCAspects.ALIENIS, 1)
             .constructMaterial();
     }
 
@@ -3973,8 +3751,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 4)
-            .addAspect(TCAspects.NEBRISUM, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -3997,9 +3773,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 3)
-            .addAspect(TCAspects.RADIO, 2)
-            .addAspect(TCAspects.NEBRISUM, 2)
             .addOreByproduct(() -> Materials_OLD.Naquadah)
             .addOreByproduct(() -> Materials_OLD.Naquadria)
             .addSubTag(SubTag.METAL)
@@ -4025,9 +3798,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.METALLUM, 4)
-            .addAspect(TCAspects.RADIO, 3)
-            .addAspect(TCAspects.NEBRISUM, 3)
             .addOreByproduct(() -> Materials_OLD.Naquadria)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -4048,7 +3818,6 @@ public class MaterialsInit {
             .setARGB(0x00640000)
             .addDustItems()
             .setMaceratingInto(() -> Materials_OLD.Netherrack)
-            .addAspect(TCAspects.IGNIS, 1)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
             .constructMaterial();
@@ -4067,8 +3836,6 @@ public class MaterialsInit {
             .addOreItems()
             .setOreMultiplier(2)
             .addToolHeadItems()
-            .addAspect(TCAspects.POTENTIA, 1)
-            .addAspect(TCAspects.VITREUS, 1)
             .addOreByproduct(() -> Materials_OLD.Netherrack)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.CRYSTALLISABLE)
@@ -4290,8 +4057,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Magnesium, 1)
             .addMaterial(Materials_OLD.Aluminium, 2)
             .addMaterial(Materials_OLD.Oxygen, 4)
-            .addAspect(TCAspects.LUCRUM, 2)
-            .addAspect(TCAspects.VITREUS, 2)
             .addOreByproduct(() -> Materials_OLD.Jasper)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -4307,8 +4072,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeYellow)
             .addDustItems()
             .addOreItems()
-            .addAspect(TCAspects.VITREUS, 1)
-            .addAspect(TCAspects.ALIENIS, 1)
             .constructMaterial();
     }
 
@@ -4375,7 +4138,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setDensity(2, 1)
-            .addAspect(TCAspects.VACUOS, 1)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSPARENT)
@@ -4386,8 +4148,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Voidstone")
             .setDefaultLocalName("Voidstone")
             .setARGB(0xc8ffffff)
-            .addAspect(TCAspects.VITREUS, 1)
-            .addAspect(TCAspects.VACUOS, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -4477,7 +4237,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Primitive")
             .setDefaultLocalName("Primitive")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 1)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4487,7 +4246,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Basic")
             .setDefaultLocalName("Basic")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 2)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4497,7 +4255,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Good")
             .setDefaultLocalName("Good")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 3)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4507,7 +4264,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Advanced")
             .setDefaultLocalName("Advanced")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 4)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4517,7 +4273,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Data")
             .setDefaultLocalName("Data")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 5)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4527,7 +4282,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Elite")
             .setDefaultLocalName("Elite")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 6)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4537,7 +4291,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Master")
             .setDefaultLocalName("Master")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 7)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4547,7 +4300,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Ultimate")
             .setDefaultLocalName("Ultimate")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 8)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4557,7 +4309,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Superconductor")
             .setDefaultLocalName("Superconductor")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.MACHINA, 9)
             .constructMaterial();
     }
 
@@ -4565,7 +4316,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Infinite")
             .setDefaultLocalName("Infinite")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 10)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4575,7 +4325,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Bio")
             .setDefaultLocalName("Bio")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 11)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -4585,7 +4334,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Optical")
             .setDefaultLocalName("Optical")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 12)
             .constructMaterial();
     }
 
@@ -4593,7 +4341,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Exotic")
             .setDefaultLocalName("Exotic")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 13)
             .constructMaterial();
     }
 
@@ -4601,7 +4348,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Cosmic")
             .setDefaultLocalName("Cosmic")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 14)
             .constructMaterial();
     }
 
@@ -4609,7 +4355,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Transcendent")
             .setDefaultLocalName("Transcendent")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 15)
             .constructMaterial();
     }
 
@@ -4627,7 +4372,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Resistor")
             .setDefaultLocalName("Resistor")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .constructMaterial();
     }
 
@@ -4635,7 +4379,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Diode")
             .setDefaultLocalName("Diode")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .constructMaterial();
     }
 
@@ -4643,7 +4386,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Transistor")
             .setDefaultLocalName("Transistor")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .constructMaterial();
     }
 
@@ -4651,7 +4393,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Capacitor")
             .setDefaultLocalName("Capacitor")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .constructMaterial();
     }
 
@@ -4659,7 +4400,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Inductor")
             .setDefaultLocalName("Inductor")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .constructMaterial();
     }
 
@@ -4667,7 +4407,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Nano")
             .setDefaultLocalName("Bio")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 11)
             .constructMaterial();
     }
 
@@ -4675,7 +4414,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Piko")
             .setDefaultLocalName("Bio")
             .setColor(Dyes.dyeLightGray)
-            .addAspect(TCAspects.ELECTRUM, 12)
             .constructMaterial();
     }
 
@@ -4861,8 +4599,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 2)
             .addMaterial(Materials_OLD.Hydrogen, 6)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.VENENUM, 1)
-            .addAspect(TCAspects.AQUA, 1)
             .constructMaterial();
     }
 
@@ -4885,7 +4621,6 @@ public class MaterialsInit {
             .setARGB(0x00ffc400)
             .setFuel(MaterialBuilder.FuelType.SemiFluid, 2)
             .addCell()
-            .addAspect(TCAspects.CORPUS, 2)
             .addSubTag(SubTag.FOOD)
             .constructMaterial();
     }
@@ -4898,8 +4633,6 @@ public class MaterialsInit {
             .setARGB(0x00c8c400)
             .addCell()
             .setHeatDamage(1.0f)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.IGNIS, 1)
             .addSubTag(SubTag.FOOD)
             .constructMaterial();
     }
@@ -4912,7 +4645,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeOrange)
             .setARGB(0x00c8c400)
             .addCell()
-            .addAspect(TCAspects.LIMUS, 2)
             .constructMaterial();
     }
 
@@ -4925,7 +4657,6 @@ public class MaterialsInit {
             .setARGB(0x00ffffb9)
             .addCell()
             .addFluid()
-            .addAspect(TCAspects.LIMUS, 5)
             .constructMaterial();
     }
 
@@ -4936,8 +4667,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeGray)
             .setARGB(0x00808080)
             .addDustItems()
-            .addAspect(TCAspects.PERDITIO, 3)
-            .addAspect(TCAspects.IGNIS, 4)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.EXPLOSIVE)
             .addSubTag(SubTag.NO_SMELTING)
@@ -4975,8 +4704,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeOrange)
             .setARGB(0x00ffc400)
             .addCell()
-            .addAspect(TCAspects.AQUA, 2)
-            .addAspect(TCAspects.MACHINA, 1)
             .constructMaterial();
     }
 
@@ -5014,7 +4741,6 @@ public class MaterialsInit {
             .setARGB(0x00fefefe)
             .addDustItems()
             .addCell()
-            .addAspect(TCAspects.SANO, 2)
             .addSubTag(SubTag.FOOD)
             .removeOrePrefix(OrePrefixes.bucket) // minecraft:milk_bucket
             .removeOrePrefix(OrePrefixes.bucketClay) // IguanaTweaksTConstruct:clayBucketMilk
@@ -5046,7 +4772,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00fafafa)
             .addDustItems()
-            .addAspect(TCAspects.COGNITIO, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -5065,8 +4790,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("Peat")
             .setDefaultLocalName("Peat")
             .setColor(Dyes.dyeBrown)
-            .addAspect(TCAspects.POTENTIA, 2)
-            .addAspect(TCAspects.IGNIS, 2)
             .constructMaterial();
     }
 
@@ -5078,8 +4801,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeGray)
             .setARGB(0x00808064)
             .addDustItems()
-            .addAspect(TCAspects.VITREUS, 1)
-            .addAspect(TCAspects.LUCRUM, 1)
             .constructMaterial();
     }
 
@@ -5117,7 +4838,6 @@ public class MaterialsInit {
             .setARGB(0x00c4ff00)
             .setFuel(MaterialBuilder.FuelType.SemiFluid, 2)
             .addCell()
-            .addAspect(TCAspects.GRANUM, 2)
             .addSubTag(SubTag.FOOD)
             .constructMaterial();
     }
@@ -5129,7 +4849,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeLime)
             .setARGB(0x00c4ff00)
             .addCell()
-            .addAspect(TCAspects.GRANUM, 2)
             .addSubTag(SubTag.FOOD)
             .constructMaterial();
     }
@@ -5141,7 +4860,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeLime)
             .setARGB(0x00c4ff00)
             .addCell()
-            .addAspect(TCAspects.GRANUM, 2)
             .addSubTag(SubTag.FOOD)
             .constructMaterial();
     }
@@ -5156,7 +4874,6 @@ public class MaterialsInit {
             .addDustItems()
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.TERRA, 1)
             .addSubTag(SubTag.NO_RECYCLING)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
@@ -5168,8 +4885,6 @@ public class MaterialsInit {
         return new MaterialBuilder().setName("TNT")
             .setDefaultLocalName("TNT")
             .setColor(Dyes.dyeRed)
-            .addAspect(TCAspects.PERDITIO, 7)
-            .addAspect(TCAspects.IGNIS, 4)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.EXPLOSIVE)
             .addSubTag(SubTag.NO_SMELTING)
@@ -5185,7 +4900,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeWhite)
             .setARGB(0x7fdcdcdc)
             .addDustItems()
-            .addAspect(TCAspects.PERDITIO, 4)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -5195,7 +4909,6 @@ public class MaterialsInit {
             .setDefaultLocalName("Unstable")
             .setColor(Dyes.dyeWhite)
             .setARGB(0x7fffffff)
-            .addAspect(TCAspects.PERDITIO, 4)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -5225,7 +4938,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeYellow)
             .setARGB(0x00ffffc4)
             .addDustItems()
-            .addAspect(TCAspects.MESSIS, 2)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.FOOD)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
@@ -5699,7 +5411,6 @@ public class MaterialsInit {
             .setARGB(0x00969696)
             .addDustItems()
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.PERDITIO, 1)
             .addOreByproduct(() -> Materials_OLD.Carbon)
             .constructMaterial();
     }
@@ -5715,8 +5426,6 @@ public class MaterialsInit {
             .setDensity(2, 1)
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.IGNIS, 1)
-            .addAspect(TCAspects.PERDITIO, 1)
             .addOreByproduct(() -> Materials_OLD.Carbon)
             .constructMaterial();
     }
@@ -5785,8 +5494,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Fluorine, 2)
             .addMaterial(Materials_OLD.Hydrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 6)
-            .addAspect(TCAspects.LUCRUM, 6)
-            .addAspect(TCAspects.VITREUS, 4)
             .addOreByproduct(() -> Materials_OLD.Topaz)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -5803,8 +5510,6 @@ public class MaterialsInit {
             .setARGB(0x00fafafa)
             .addDustItems()
             .addMaterial(Materials_OLD.Calcium, 1)
-            .addAspect(TCAspects.MORTUUS, 2)
-            .addAspect(TCAspects.CORPUS, 1)
             .removeOrePrefix(OrePrefixes.dust) // minecraft:dye:15
             .removeOrePrefix(OrePrefixes.stick)
             .constructMaterial();
@@ -5825,8 +5530,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Zinc, 1)
             .addMaterial(Materials_OLD.Copper, 3)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.INSTRUMENTUM, 1)
             .addOreByproduct(() -> Materials_OLD.Copper)
             .addOreByproduct(() -> Materials_OLD.Zinc)
             .addSubTag(SubTag.METAL)
@@ -5866,8 +5569,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Tin, 1)
             .addMaterial(Materials_OLD.Copper, 3)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.INSTRUMENTUM, 1)
             .addOreByproduct(() -> Materials_OLD.Copper)
             .addOreByproduct(() -> Materials_OLD.Tin)
             .addSubTag(SubTag.METAL)
@@ -6005,8 +5706,6 @@ public class MaterialsInit {
             .addGemItems()
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.POTENTIA, 2)
-            .addAspect(TCAspects.IGNIS, 2)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -6069,8 +5768,6 @@ public class MaterialsInit {
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.Chrome, 1)
             .addMaterial(Materials_OLD.Oxygen, 2)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MACHINA, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -6110,8 +5807,6 @@ public class MaterialsInit {
             .setDensity(2, 1)
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.POTENTIA, 2)
-            .addAspect(TCAspects.IGNIS, 2)
             .addOreByproduct(() -> Materials_OLD.Lignite)
             .addOreByproduct(() -> Materials_OLD.Thorium)
             .addSubTag(SubTag.FLAMMABLE)
@@ -6228,8 +5923,6 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .addMaterial(Materials_OLD.Iron, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 1)
             .addOreByproduct(() -> Materials_OLD.Trinium)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.BLASTFURNACE_CALCITE_TRIPLE)
@@ -6256,8 +5949,6 @@ public class MaterialsInit {
             .setDensity(64, 1)
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.VITREUS, 3)
-            .addAspect(TCAspects.LUCRUM, 4)
             .addOreByproduct(() -> Materials_OLD.Graphite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.FLAMMABLE)
@@ -6323,8 +6014,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Aluminium, 2)
             .addMaterial(Materials_OLD.Silicon, 6)
             .addMaterial(Materials_OLD.Oxygen, 18)
-            .addAspect(TCAspects.VITREUS, 3)
-            .addAspect(TCAspects.LUCRUM, 5)
             .addOreByproduct(() -> Materials_OLD.Beryllium)
             .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
             .addSubTag(SubTag.CRYSTAL)
@@ -6352,7 +6041,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 21)
             .addMaterial(Materials_OLD.Hydrogen, 24)
             .addMaterial(Materials_OLD.Oxygen, 4)
-            .addAspect(TCAspects.MOTUS, 2)
             .constructMaterial();
     }
 
@@ -6392,7 +6080,6 @@ public class MaterialsInit {
             .addCell()
             .addMaterial(Materials_OLD.Hydrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.AQUA, 2)
             .addSubTag(SubTag.FOOD)
             .constructMaterial();
     }
@@ -6468,8 +6155,6 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addMaterial(Materials_OLD.Aluminium, 2)
             .addMaterial(Materials_OLD.Oxygen, 3)
-            .addAspect(TCAspects.LUCRUM, 5)
-            .addAspect(TCAspects.VITREUS, 3)
             .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
             .addOreByproduct(() -> Materials_OLD.Sapphire)
             .addSubTag(SubTag.CRYSTAL)
@@ -6506,8 +6191,6 @@ public class MaterialsInit {
             .addCell()
             .addMaterial(Materials_OLD.Hydrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.AQUA, 2)
-            .addAspect(TCAspects.AURAM, 1)
             .constructMaterial();
     }
 
@@ -6533,7 +6216,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 1)
             .setSmeltingInto(() -> Materials_OLD.Water)
-            .addAspect(TCAspects.GELUM, 2)
             .addSubTag(SubTag.FOOD)
             .addSubTag(SubTag.NO_RECYCLING)
             .addSubTag(SubTag.NO_SMASHING)
@@ -6575,8 +6257,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Iron, 2)
             .addMaterial(Materials_OLD.Nickel, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.GELUM, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .constructMaterial();
@@ -6731,8 +6411,6 @@ public class MaterialsInit {
             .setMiningLevel(2)
             .addMaterial(Materials_OLD.Iron, 3)
             .addMaterial(Materials_OLD.Oxygen, 4)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 1)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addOreByproduct(() -> Materials_OLD.Gold)
             .setDirectSmelting(() -> Materials_OLD.Iron)
@@ -7003,7 +6681,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 11)
             .addMaterial(Materials_OLD.Nitrogen, 1)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
@@ -7038,7 +6715,6 @@ public class MaterialsInit {
             .setMeltingPoint(400)
             .addMaterial(Materials_OLD.Carbon, 1)
             .addMaterial(Materials_OLD.Hydrogen, 2)
-            .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -7060,7 +6736,6 @@ public class MaterialsInit {
             .setMeltingPoint(600)
             .addMaterial(Materials_OLD.Carbon, 2)
             .addMaterial(Materials_OLD.Fluorine, 4)
-            .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MULTI_PLATE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -7237,7 +6912,6 @@ public class MaterialsInit {
             .setMeltingPoint(400)
             .addMaterial(Materials_OLD.Carbon, 5)
             .addMaterial(Materials_OLD.Hydrogen, 8)
-            .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -7255,7 +6929,6 @@ public class MaterialsInit {
             .setMeltingPoint(400)
             .addMaterial(Materials_OLD.Carbon, 5)
             .addMaterial(Materials_OLD.Hydrogen, 8)
-            .addAspect(TCAspects.MOTUS, 2)
             .constructMaterial();
     }
 
@@ -7275,7 +6948,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 6)
             .addMaterial(Materials_OLD.Oxygen, 1)
             .addMaterial(Materials_OLD.Silicon, 1)
-            .addAspect(TCAspects.MOTUS, 2)
             .addSubTag(SubTag.BOUNCY)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -7297,8 +6969,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Chrome, 1)
             .addMaterial(Materials_OLD.Aluminium, 2)
             .addMaterial(Materials_OLD.Oxygen, 3)
-            .addAspect(TCAspects.LUCRUM, 6)
-            .addAspect(TCAspects.VITREUS, 4)
             .addOreByproduct(() -> Materials_OLD.Chrome)
             .addOreByproduct(() -> Materials_OLD.GarnetRed)
             .addSubTag(SubTag.CRYSTAL)
@@ -7377,8 +7047,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addMaterial(Materials_OLD.Aluminium, 2)
             .addMaterial(Materials_OLD.Oxygen, 3)
-            .addAspect(TCAspects.LUCRUM, 5)
-            .addAspect(TCAspects.VITREUS, 3)
             .addOreByproduct(() -> Materials_OLD.Aluminiumoxide)
             .addOreByproduct(() -> Materials_OLD.GreenSapphire)
             .addSubTag(SubTag.CRYSTAL)
@@ -7437,7 +7105,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 1)
             .setSmeltingInto(() -> Materials_OLD.Water)
-            .addAspect(TCAspects.GELUM, 1)
             .addSubTag(SubTag.NO_RECYCLING)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -7543,7 +7210,6 @@ public class MaterialsInit {
             .addCell()
             .addMaterial(Materials_OLD.Hydrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.AQUA, 2)
             .addSubTag(SubTag.FOOD)
             .addSubTag(SubTag.NO_RECYCLING)
             .addSubTag(SubTag.NO_SMASHING)
@@ -7694,8 +7360,6 @@ public class MaterialsInit {
             .addGearItems()
             .addMetalItems()
             .addToolHeadItems()
-            .addAspect(TCAspects.MAGNETO, 2)
-            .addAspect(TCAspects.ELECTRUM, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
@@ -7715,8 +7379,6 @@ public class MaterialsInit {
             .setSmeltingInto(() -> Materials_OLD.TengamPurified)
             .setMaceratingInto(() -> Materials_OLD.TengamPurified)
             .setArcSmeltingInto(() -> Materials_OLD.TengamPurified)
-            .addAspect(TCAspects.MAGNETO, 4)
-            .addAspect(TCAspects.ELECTRUM, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
@@ -7731,8 +7393,6 @@ public class MaterialsInit {
             .setARGB(0x00a0bf60)
             .setMiningLevel(0)
             .addOreItems()
-            .addAspect(TCAspects.MAGNETO, 1)
-            .addAspect(TCAspects.ELECTRUM, 4)
             .addOreByproduct(() -> Materials_OLD.NeodymiumMagnetic)
             .addOreByproduct(() -> Materials_OLD.SamariumMagnetic)
             .constructMaterial()
@@ -9004,8 +8664,6 @@ public class MaterialsInit {
             // ALF3
             .addMaterial(Materials_OLD.Aluminium, 1)
             .addMaterial(Materials_OLD.Fluorine, 3)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.ORDO, 1)
             .constructMaterial();
     }
 
@@ -9023,8 +8681,6 @@ public class MaterialsInit {
             // CaSi2
             .addMaterial(Materials_OLD.Calcium, 1)
             .addMaterial(Materials_OLD.Silicon, 2)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.ORDO, 1)
             .constructMaterial();
     }
 
@@ -9042,8 +8698,6 @@ public class MaterialsInit {
             // CaH2
             .addMaterial(Materials_OLD.Calcium, 1)
             .addMaterial(Materials_OLD.Hydrogen, 2)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.ORDO, 1)
             .constructMaterial();
     }
 
@@ -9061,8 +8715,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Silicon, 1)
             .addMaterial(Materials_OLD.Hydrogen, 2)
             .addMaterial(Materials_OLD.Chlorine, 2)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -9079,7 +8731,6 @@ public class MaterialsInit {
             // SI2CL6
             .addMaterial(Materials_OLD.Silicon, 2)
             .addMaterial(Materials_OLD.Chlorine, 6)
-            .addAspect(TCAspects.AQUA, 1)
             .constructMaterial();
     }
 
@@ -9094,7 +8745,6 @@ public class MaterialsInit {
             // SIH4
             .addMaterial(Materials_OLD.Silicon, 1)
             .addMaterial(Materials_OLD.Hydrogen, 4)
-            .addAspect(TCAspects.AQUA, 1)
             .constructMaterial();
     }
 
@@ -9113,8 +8763,6 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(2_273)
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
-            .addAspect(TCAspects.METALLUM, 4)
-            .addAspect(TCAspects.TENEBRAE, 2)
             .addSubTag(SubTag.MULTI_PLATE)
             .constructMaterial();
     }
@@ -9131,8 +8779,6 @@ public class MaterialsInit {
             // SICL4
             .addMaterial(Materials_OLD.Silicon, 1)
             .addMaterial(Materials_OLD.Chlorine, 4)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
@@ -9148,8 +8794,6 @@ public class MaterialsInit {
             // SIF4
             .addMaterial(Materials_OLD.Silicon, 1)
             .addMaterial(Materials_OLD.Fluorine, 4)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial();
     }
@@ -9166,8 +8810,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 1)
             .addMaterial(Materials_OLD.Silicon, 1)
             .addMaterial(Materials_OLD.Chlorine, 3)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
@@ -9329,8 +8971,6 @@ public class MaterialsInit {
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.Iron, 50)
             .addMaterial(Materials_OLD.Carbon, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.ORDO, 1)
             .addOreByproduct(() -> Materials_OLD.Iron)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
@@ -9386,8 +9026,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Silicon, 3)
             .addMaterial(Materials_OLD.Hydrogen, 1)
             .addMaterial(Materials_OLD.Oxygen, 13)
-            .addAspect(TCAspects.LUCRUM, 5)
-            .addAspect(TCAspects.VITREUS, 3)
             .addOreByproduct(() -> Materials_OLD.Opal)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -9434,8 +9072,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Tin, 1)
             .addMaterial(Materials_OLD.Iron, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.INSTRUMENTUM, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -9456,8 +9092,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Fluorine, 2)
             .addMaterial(Materials_OLD.Hydrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 6)
-            .addAspect(TCAspects.LUCRUM, 6)
-            .addAspect(TCAspects.VITREUS, 4)
             .addOreByproduct(() -> Materials_OLD.BlueTopaz)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -9586,7 +9220,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 1)
             .addMaterial(Materials_OLD.Oxygen, 1)
             .addMaterial(Materials_OLD.Hydrogen, 1)
-            .addAspect(TCAspects.ARBOR, 2)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -9797,7 +9430,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Aluminium, 1)
             .addMaterial(Materials_OLD.Oxygen, 3)
             .addMaterial(Materials_OLD.Hydrogen, 3)
-            .addAspect(TCAspects.GELUM, 2)
             .constructMaterial();
     }
 
@@ -9815,7 +9447,6 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .addMaterial(Materials_OLD.Aluminium, 2)
             .addMaterial(Materials_OLD.Oxygen, 3)
-            .addAspect(TCAspects.GELUM, 2)
             .constructMaterial();
     }
 
@@ -9833,7 +9464,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Zinc, 5)
             .addMaterial(Materials_OLD.Steel, 2)
             .addMaterial(Materials_OLD.Obsidian, 2)
-            .addAspect(TCAspects.STRONTIO, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -9869,8 +9499,6 @@ public class MaterialsInit {
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.SiliconDioxide, 4)
             .addMaterial(Materials_OLD.Iron, 1)
-            .addAspect(TCAspects.LUCRUM, 6)
-            .addAspect(TCAspects.VITREUS, 4)
             .addOreByproduct(() -> Materials_OLD.Amethyst)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -9894,7 +9522,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Calcium, 5)
             .addMaterial(Materials_OLD.Phosphate, 3)
             .addMaterial(Materials_OLD.Chlorine, 1)
-            .addAspect(TCAspects.MESSIS, 2)
             .addOreByproduct(() -> Materials_OLD.TricalciumPhosphate)
             .addOreByproduct(() -> Materials_OLD.Phosphate)
             .addOreByproduct(() -> Materials_OLD.Pyrochlore)
@@ -10080,8 +9707,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.AshDark, 1)
             .addMaterial(Materials_OLD.Sulfur, 1)
             .addMaterial(Materials_OLD.Magic, 1)
-            .addAspect(TCAspects.PRAECANTATIO, 2)
-            .addAspect(TCAspects.IGNIS, 4)
             .addSubTag(SubTag.BURNING)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
@@ -10182,7 +9807,6 @@ public class MaterialsInit {
             .addDustItems()
             .setMeltingPoint(300)
             .addMaterial(Materials_OLD.Stone, 1)
-            .addAspect(TCAspects.TERRA, 1)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.SMELTING_TO_FLUID)
             .addSubTag(SubTag.STONE)
@@ -10302,9 +9926,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Potassium, 4)
             .addMaterial(Materials_OLD.Nitrogen, 5)
             .addMaterial(Materials_OLD.Magic, 6)
-            .addAspect(TCAspects.ALIENIS, 4)
-            .addAspect(TCAspects.ITER, 4)
-            .addAspect(TCAspects.PRAECANTATIO, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -10329,7 +9950,6 @@ public class MaterialsInit {
             .setMeltingPoint(400)
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Epoxid, 1)
-            .addAspect(TCAspects.MOTUS, 2)
             .constructMaterial();
     }
 
@@ -10345,8 +9965,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.SiliconDioxide, 1)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.INSTRUMENTUM, 1)
             .addOreByproduct(() -> Materials_OLD.Obsidian)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -10392,7 +10010,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Pyrope, 3)
             .addMaterial(Materials_OLD.Almandine, 5)
             .addMaterial(Materials_OLD.Spessartine, 8)
-            .addAspect(TCAspects.VITREUS, 3)
             .addOreByproduct(() -> Materials_OLD.Spessartine)
             .addOreByproduct(() -> Materials_OLD.Pyrope)
             .addOreByproduct(() -> Materials_OLD.Almandine)
@@ -10418,7 +10035,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Andradite, 5)
             .addMaterial(Materials_OLD.Grossular, 8)
             .addMaterial(Materials_OLD.Uvarovite, 3)
-            .addAspect(TCAspects.VITREUS, 3)
             .addOreByproduct(() -> Materials_OLD.Andradite)
             .addOreByproduct(() -> Materials_OLD.Grossular)
             .addOreByproduct(() -> Materials_OLD.Uvarovite)
@@ -10442,7 +10058,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_500)
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.SiliconDioxide, 1)
-            .addAspect(TCAspects.VITREUS, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_RECYCLING)
             .addSubTag(SubTag.NO_SMASHING)
@@ -10506,7 +10121,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.SiliconDioxide, 4)
             .addMaterial(Materials_OLD.Biotite, 1)
-            .addAspect(TCAspects.TUTAMEN, 1)
             .addOreByproduct(() -> Materials_OLD.Biotite)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
@@ -10527,8 +10141,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Magnetite, 1)
             .addMaterial(Materials_OLD.GraniteBlack, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 1)
             .addOreByproduct(() -> Materials_OLD.GraniteBlack)
             .addOreByproduct(() -> Materials_OLD.Magnetite)
             .setDirectSmelting(() -> Materials_OLD.Iron)
@@ -10585,8 +10197,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Iron, 1)
             .setSmeltingInto(() -> Materials_OLD.Iron)
             .setMaceratingInto(() -> Materials_OLD.Iron)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .removeOrePrefix(OrePrefixes.cellMolten)
@@ -10606,8 +10216,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.SiliconDioxide, 1)
-            .addAspect(TCAspects.LUCRUM, 4)
-            .addAspect(TCAspects.VITREUS, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -10648,8 +10256,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Steel, 2)
             .addMaterial(Materials_OLD.Magic, 1)
-            .addAspect(TCAspects.LUCRUM, 1)
-            .addAspect(TCAspects.METALLUM, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -10685,7 +10291,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Sodalite, 2)
             .addMaterial(Materials_OLD.Pyrite, 1)
             .addMaterial(Materials_OLD.Calcite, 1)
-            .addAspect(TCAspects.SENSUS, 1)
             .addOreByproduct(() -> Materials_OLD.Lazurite)
             .addOreByproduct(() -> Materials_OLD.Sodalite)
             .addOreByproduct(() -> Materials_OLD.Pyrite)
@@ -10770,9 +10375,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Wood, 3)
             .addMaterial(Materials_OLD.Magic, 1)
-            .addAspect(TCAspects.ARBOR, 2)
-            .addAspect(TCAspects.VICTUS, 2)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
@@ -10825,7 +10427,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Cobalt, 1)
             .addMaterial(Materials_OLD.Ardite, 1)
-            .addAspect(TCAspects.STRONTIO, 2)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -10843,7 +10444,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Magnesium, 1)
             .addMaterial(Materials_OLD.Calcite, 7)
-            .addAspect(TCAspects.PERFODIO, 1)
             .addOreByproduct(() -> Materials_OLD.Calcite)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
@@ -10937,8 +10537,6 @@ public class MaterialsInit {
             .setSmeltingInto(() -> Materials_OLD.Neodymium)
             .setMaceratingInto(() -> Materials_OLD.Neodymium)
             .setArcSmeltingInto(() -> Materials_OLD.Neodymium)
-            .addAspect(TCAspects.METALLUM, 1)
-            .addAspect(TCAspects.MAGNETO, 3)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.cellMolten)
             .constructMaterial();
@@ -11011,8 +10609,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Magnesium, 2)
             .addMaterial(Materials_OLD.Iron, 1)
             .addMaterial(Materials_OLD.SiliconDioxide, 2)
-            .addAspect(TCAspects.LUCRUM, 4)
-            .addAspect(TCAspects.VITREUS, 2)
             .addOreByproduct(() -> Materials_OLD.Pyrope)
             .addOreByproduct(() -> Materials_OLD.Magnesium)
             .addSubTag(SubTag.CRYSTAL)
@@ -11035,8 +10631,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.SiliconDioxide, 1)
-            .addAspect(TCAspects.LUCRUM, 5)
-            .addAspect(TCAspects.VITREUS, 3)
             .addOreByproduct(() -> Materials_OLD.Tanzanite)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -11237,8 +10831,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Pyrite, 5)
             .addMaterial(Materials_OLD.Ruby, 1)
             .addMaterial(Materials_OLD.Mercury, 3)
-            .addAspect(TCAspects.MACHINA, 1)
-            .addAspect(TCAspects.POTENTIA, 2)
             .addOreByproduct(() -> Materials_OLD.Cinnabar)
             .addOreByproduct(() -> Materials_OLD.RareEarth)
             .addOreByproduct(() -> Materials_OLD.Glowstone)
@@ -11294,9 +10886,6 @@ public class MaterialsInit {
             .setSmeltingInto(() -> Materials_OLD.Samarium)
             .setMaceratingInto(() -> Materials_OLD.Samarium)
             .setArcSmeltingInto(() -> Materials_OLD.Samarium)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.RADIO, 1)
-            .addAspect(TCAspects.MAGNETO, 10)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.cellMolten)
             .constructMaterial();
@@ -11394,9 +10983,6 @@ public class MaterialsInit {
             .setSmeltingInto(() -> Materials_OLD.Steel)
             .setMaceratingInto(() -> Materials_OLD.Steel)
             .setArcSmeltingInto(() -> Materials_OLD.Steel)
-            .addAspect(TCAspects.METALLUM, 1)
-            .addAspect(TCAspects.ORDO, 1)
-            .addAspect(TCAspects.MAGNETO, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MORTAR_GRINDABLE)
             .removeOrePrefix(OrePrefixes.cellMolten)
@@ -11420,9 +11006,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Steel, 1)
             .addMaterial(Materials_OLD.Magic, 1)
-            .addAspect(TCAspects.HERBA, 2)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
@@ -11464,9 +11047,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 2)
             .addMaterial(Materials_OLD.Water, 5)
             .addMaterial(Materials_OLD.Oxygen, 25)
-            .addAspect(TCAspects.HERBA, 1)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.AER, 1)
             .addSubTag(SubTag.FOOD)
             .addSubTag(SubTag.SMELTING_TO_FLUID)
             .removeOrePrefix(OrePrefixes.dust) // minecraft:sugar
@@ -11524,8 +11104,6 @@ public class MaterialsInit {
             .setDensity(2, 1)
             .addMaterial(Materials_OLD.Iron, 1)
             .addMaterial(Materials_OLD.Magic, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.MULTI_PLATE)
@@ -11662,8 +11240,6 @@ public class MaterialsInit {
             // Mixture of Fe3O4 and V2O5
             .addMaterial(Materials_OLD.Magnetite, 1)
             .addMaterial(Materials_OLD.Vanadium, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 1)
             .addOreByproduct(() -> Materials_OLD.Magnetite)
             .addOreByproduct(() -> Materials_OLD.Vanadium)
             .addSubTag(SubTag.ELECTROMAGNETIC_SEPERATION_GOLD)
@@ -11733,8 +11309,6 @@ public class MaterialsInit {
             .addGearItems()
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Thaumium, 1)
-            .addAspect(TCAspects.VITREUS, 2)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .addOreByproduct(() -> Materials_OLD.Vinteum)
             .addSubTag(SubTag.METAL)
             .removeOrePrefix(OrePrefixes.lens)
@@ -11750,8 +11324,6 @@ public class MaterialsInit {
             .setFuel(MaterialBuilder.FuelType.Magic, 32)
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Magic, 1)
-            .addAspect(TCAspects.AURAM, 2)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .constructMaterial();
     }
 
@@ -11799,8 +11371,6 @@ public class MaterialsInit {
             .addGearItems()
             .addMaterial(Materials_OLD.Wood, 1)
             .setMaceratingInto(() -> Materials_OLD.Wood)
-            .addAspect(TCAspects.ARBOR, 2)
-            .addAspect(TCAspects.FABRICO, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -11862,7 +11432,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Calcite, 3)
             .addMaterial(Materials_OLD.Flint, 8)
             .addMaterial(Materials_OLD.AshDark, 4)
-            .addAspect(TCAspects.TENEBRAE, 1)
             .addOreByproduct(() -> Materials_OLD.Olivine)
             .addOreByproduct(() -> Materials_OLD.AshDark)
             .addSubTag(SubTag.NO_SMASHING)
@@ -11932,9 +11501,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Lapis, 1)
             .addMaterial(Materials_OLD.Snow, 1)
             .addMaterial(Materials_OLD.Blizz, 1)
-            .addAspect(TCAspects.PRAECANTATIO, 2)
-            .addAspect(TCAspects.SENSUS, 1)
-            .addAspect(TCAspects.GELUM, 1)
             .constructMaterial();
     }
 
@@ -11992,11 +11558,6 @@ public class MaterialsInit {
             .setDensity(2, 1)
             .addMaterial(Materials_OLD.EnderPearl, 1)
             .addMaterial(Materials_OLD.Blaze, 1)
-            .addAspect(TCAspects.SENSUS, 4)
-            .addAspect(TCAspects.ALIENIS, 4)
-            .addAspect(TCAspects.ITER, 4)
-            .addAspect(TCAspects.PRAECANTATIO, 3)
-            .addAspect(TCAspects.IGNIS, 2)
             .addSubTag(SubTag.CRYSTAL)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.NO_SMASHING)
@@ -12104,8 +11665,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Redstone, 1)
             .addMaterial(Materials_OLD.Blaze, 1)
             .addMaterial(Materials_OLD.Sulfur, 1)
-            .addAspect(TCAspects.PRAECANTATIO, 2)
-            .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
@@ -12122,7 +11681,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Aluminium, 2)
             .addMaterial(Materials_OLD.PotassiumFeldspar, 1)
             .addMaterial(Materials_OLD.Oxygen, 3)
-            .addAspect(TCAspects.TUTAMEN, 1)
             .addOreByproduct(() -> Materials_OLD.PotassiumFeldspar)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.STONE)
@@ -12145,7 +11703,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Copper, 1)
             .addMaterial(Materials_OLD.Redstone, 4)
-            .addAspect(TCAspects.MACHINA, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -12219,8 +11776,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Magnetite, 1)
             .addMaterial(Materials_OLD.Basalt, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.MAGNETO, 1)
             .addOreByproduct(() -> Materials_OLD.Basalt)
             .addOreByproduct(() -> Materials_OLD.Magnetite)
             .setDirectSmelting(() -> Materials_OLD.Iron)
@@ -12690,8 +12245,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 20)
             .addMaterial(Materials_OLD.Nitrogen, 4)
             .addMaterial(Materials_OLD.Hydrogen, 12)
-            .addAspect(TCAspects.ORDO, 2)
-            .addAspect(TCAspects.VOLATUS, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.MULTI_PLATE)
             .addSubTag(SubTag.NO_SMASHING)
@@ -12862,8 +12415,6 @@ public class MaterialsInit {
             .addToolHeadItems()
             .addGearItems()
             .setMeltingPoint(2_400)
-            .addAspect(TCAspects.METALLUM, 3)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -12881,7 +12432,6 @@ public class MaterialsInit {
             .setOreMultiplier(5)
             .addMaterial(Materials_OLD.Redstone, 1)
             .addMaterial(Materials_OLD.Electrum, 1)
-            .addAspect(TCAspects.ELECTRUM, 2)
             .addOreByproduct(() -> Materials_OLD.Redstone)
             .addOreByproduct(() -> Materials_OLD.Electrum)
             .addOreByproduct(() -> Materials_OLD.Diamond)
@@ -13157,7 +12707,6 @@ public class MaterialsInit {
             .addCentrifugeRecipe()
             .addMaterial(Materials_OLD.Silver, 1)
             .addMaterial(Materials_OLD.Electrotine, 4)
-            .addAspect(TCAspects.ELECTRUM, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -13204,8 +12753,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.EnderiumBase, 2)
             .addMaterial(Materials_OLD.Thaumium, 1)
             .addMaterial(Materials_OLD.EnderPearl, 1)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.ALIENIS, 1)
             .addSubTag(SubTag.MAGICAL)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
@@ -13499,7 +13046,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Cadmium, 5)
             .addMaterial(Materials_OLD.Magnesium, 1)
             .addMaterial(Materials_OLD.Oxygen, 6)
-            .addAspect(TCAspects.ELECTRUM, 3)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -13522,7 +13068,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Barium, 9)
             .addMaterial(Materials_OLD.Copper, 10)
             .addMaterial(Materials_OLD.Oxygen, 20)
-            .addAspect(TCAspects.ELECTRUM, 6)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -13543,7 +13088,6 @@ public class MaterialsInit {
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.Uranium, 1)
             .addMaterial(Materials_OLD.Platinum, 3)
-            .addAspect(TCAspects.ELECTRUM, 9)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -13564,7 +13108,6 @@ public class MaterialsInit {
             .addElectrolyzerRecipe()
             .addMaterial(Materials_OLD.Vanadium, 1)
             .addMaterial(Materials_OLD.Indium, 3)
-            .addAspect(TCAspects.ELECTRUM, 12)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -13589,7 +13132,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Titanium, 1)
             .addMaterial(Materials_OLD.Copper, 7)
             .addMaterial(Materials_OLD.Oxygen, 14)
-            .addAspect(TCAspects.ELECTRUM, 15)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -13612,7 +13154,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Indium, 2)
             .addMaterial(Materials_OLD.Palladium, 6)
             .addMaterial(Materials_OLD.Osmium, 1)
-            .addAspect(TCAspects.ELECTRUM, 18)
             .addSubTag(SubTag.METAL)
             .constructMaterial();
     }
@@ -13636,7 +13177,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Osmiridium, 3)
             .addMaterial(Materials_OLD.Europium, 1)
             .addMaterial(Materials_OLD.Samarium, 1)
-            .addAspect(TCAspects.ELECTRUM, 21)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_LuV);
@@ -13661,7 +13201,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.CosmicNeutronium, 7)
             .addMaterial(Materials_OLD.Tritanium, 5)
             .addMaterial(Materials_OLD.Americium, 6)
-            .addAspect(TCAspects.ELECTRUM, 24)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_ZPM);
@@ -13681,7 +13220,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.ELECTRUM, 27)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UV);
@@ -13701,7 +13239,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.ELECTRUM, 34)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UHV);
@@ -13722,7 +13259,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.ELECTRUM, 40)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
@@ -13748,7 +13284,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeGray)
             .setARGB(0x00555555)
-            .addAspect(TCAspects.ELECTRUM, 6)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -13760,7 +13295,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeBrown)
             .setARGB(0x00331900)
-            .addAspect(TCAspects.ELECTRUM, 12)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -13772,7 +13306,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeLime)
             .setARGB(0x00008700)
-            .addAspect(TCAspects.ELECTRUM, 18)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -13784,7 +13317,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeMagenta)
             .setARGB(0x00330033)
-            .addAspect(TCAspects.ELECTRUM, 24)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -13796,7 +13328,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeBrown)
             .setARGB(0x00994c00)
-            .addAspect(TCAspects.ELECTRUM, 30)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -13808,7 +13339,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeBlack)
             .setARGB(0x000a0a0a)
-            .addAspect(TCAspects.ELECTRUM, 36)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -13820,7 +13350,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeYellow)
             .setARGB(0x00e0d207)
-            .addAspect(TCAspects.ELECTRUM, 42)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -13832,7 +13361,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x002681bd)
-            .addAspect(TCAspects.ELECTRUM, 48)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .constructMaterial();
@@ -13844,7 +13372,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00ae0808)
-            .addAspect(TCAspects.ELECTRUM, 54)
             .constructMaterial();
     }
 
@@ -13854,7 +13381,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00e558b1)
-            .addAspect(TCAspects.ELECTRUM, 60)
             .constructMaterial();
     }
 
@@ -13864,7 +13390,6 @@ public class MaterialsInit {
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00b526cd)
-            .addAspect(TCAspects.ELECTRUM, 66)
             .constructMaterial();
     }
 
@@ -14014,7 +13539,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Oxygen, 7)
             .addMaterial(Materials_OLD.Silver, 3)
             .addMaterial(Materials_OLD.CallistoIce, 1)
-            .addAspect(TCAspects.HUMANUS, 2)
             .addSubTag(SubTag.SOFT)
             .removeOrePrefix(OrePrefixes.cell) // non molten cell is useless
             .constructMaterial()
@@ -14554,8 +14078,6 @@ public class MaterialsInit {
             .setMeltingPoint(1_500)
             .setBlastFurnaceTemp(1_500)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 3)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .removeOrePrefix(OrePrefixes.ingot) // Botania:manaResource:0
             .removeOrePrefix(OrePrefixes.nugget) // Botania:manaResource:17
             .constructMaterial();
@@ -14575,9 +14097,6 @@ public class MaterialsInit {
             .setMeltingPoint(5_400)
             .setBlastFurnaceTemp(5_400)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 2)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .removeOrePrefix(OrePrefixes.ingot) // Botania:manaResource:4
             .removeOrePrefix(OrePrefixes.nugget) // Botania:manaResource:18
             .constructMaterial();
@@ -14597,9 +14116,6 @@ public class MaterialsInit {
             .setMeltingPoint(7_200)
             .setBlastFurnaceTemp(7_200)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.METALLUM, 3)
-            .addAspect(TCAspects.PRAECANTATIO, 2)
-            .addAspect(TCAspects.AURAM, 1)
             .removeOrePrefix(OrePrefixes.ingot) // Botania:manaResource:7
             .removeOrePrefix(OrePrefixes.nugget) // Botania:manaResource:19
             .constructMaterial();
@@ -14613,8 +14129,6 @@ public class MaterialsInit {
             .addDustItems()
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.TERRA, 2)
-            .addAspect(TCAspects.VICTUS, 2)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
             .addOrePrefix(OrePrefixes.plate)
@@ -14649,8 +14163,6 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.ARBOR, 4)
-            .addAspect(TCAspects.VICTUS, 2)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -14669,9 +14181,6 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.ARBOR, 4)
-            .addAspect(TCAspects.AURAM, 2)
-            .addAspect(TCAspects.PRAECANTATIO, 1)
             .addSubTag(SubTag.FLAMMABLE)
             .addSubTag(SubTag.NO_SMASHING)
             .addSubTag(SubTag.NO_SMELTING)
@@ -14775,8 +14284,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 10)
             .addMaterial(Materials_OLD.Nitrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 2)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
@@ -14792,8 +14299,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 13)
             .addMaterial(Materials_OLD.Hydrogen, 14)
             .addMaterial(Materials_OLD.Nitrogen, 2)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
@@ -14810,8 +14315,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 10)
             .addMaterial(Materials_OLD.Nitrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 2)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
@@ -14826,8 +14329,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 4)
             .addMaterial(Materials_OLD.Hydrogen, 8)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
@@ -14843,8 +14344,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 4)
             .addMaterial(Materials_OLD.Hydrogen, 8)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
@@ -14859,8 +14358,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 4)
             .addMaterial(Materials_OLD.Nickel, 1)
             .addMaterial(Materials_OLD.Oxygen, 4)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.METALLUM, 1)
             .constructMaterial();
     }
 
@@ -14872,8 +14369,6 @@ public class MaterialsInit {
             .setARGB(0x00323232)
             .addDustItems()
             .setMeltingPoint(300)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.LUCRUM, 1)
             .constructMaterial();
     }
 
@@ -14888,8 +14383,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 2)
             .addMaterial(Materials_OLD.Hydrogen, 4)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
@@ -14901,8 +14394,6 @@ public class MaterialsInit {
             .addCell()
             .addFluid()
             .setMeltingPoint(473)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.MACHINA, 1)
             .constructMaterial();
     }
 
@@ -14917,8 +14408,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 2)
             .addMaterial(Materials_OLD.Hydrogen, 6)
             .addMaterial(Materials_OLD.Oxygen, 2)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
@@ -14933,8 +14422,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 2)
             .addMaterial(Materials_OLD.Hydrogen, 4)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.AQUA, 1)
-            .addAspect(TCAspects.IGNIS, 1)
             .constructMaterial();
     }
 
@@ -14948,8 +14435,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 5)
             .addMaterial(Materials_OLD.Hydrogen, 12)
             .addMaterial(Materials_OLD.Oxygen, 4)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.LUCRUM, 1)
             .constructMaterial();
     }
 
@@ -14976,8 +14461,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 9)
             .addMaterial(Materials_OLD.Nitrogen, 1)
             .addMaterial(Materials_OLD.Oxygen, 1)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.VENENUM, 1)
             .constructMaterial();
     }
 
@@ -14993,8 +14476,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 4)
             .addMaterial(Materials_OLD.Chlorine, 2)
             .addMaterial(Materials_OLD.Oxygen, 2)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.VITREUS, 1)
             .constructMaterial();
     }
 
@@ -15025,8 +14506,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Hydrogen, 6)
             .addMaterial(Materials_OLD.Nitrogen, 2)
             .addMaterial(Materials_OLD.Oxygen, 2)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.VITREUS, 1)
             .constructMaterial();
     }
 
@@ -15041,8 +14520,6 @@ public class MaterialsInit {
             .addMaterial(Materials_OLD.Carbon, 6)
             .addMaterial(Materials_OLD.Hydrogen, 8)
             .addMaterial(Materials_OLD.Nitrogen, 2)
-            .addAspect(TCAspects.TERRA, 1)
-            .addAspect(TCAspects.VITREUS, 1)
             .constructMaterial();
     }
 
@@ -15778,7 +15255,6 @@ public class MaterialsInit {
             .addGearItems()
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.TRANSPARENT)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
@@ -15803,7 +15279,6 @@ public class MaterialsInit {
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
             .setDensity(1_000, 1_000)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.BLACK_HOLE)
             .addSubTag(SubTag.TRANSPARENT)
@@ -15830,7 +15305,6 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.NO_RECIPES)
             .addSubTag(SubTag.NO_RECYCLING_RECIPES)
@@ -15941,7 +15415,6 @@ public class MaterialsInit {
             .addMetalItems()
             .addToolHeadItems()
             .addGearItems()
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.METAL)
             .addSubTag(SubTag.TRANSPARENT)
             .addOrePrefix(OrePrefixes.nanite)
@@ -15967,7 +15440,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.METAL)
             .addOrePrefix(OrePrefixes.nanite)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
@@ -16000,7 +15472,6 @@ public class MaterialsInit {
             .addGearItems()
             .setBlastFurnaceTemp(25_000)
             .setBlastFurnaceRequired(true)
-            .addAspect(TCAspects.AQUA, 1)
             .addSubTag(SubTag.METAL)
             .addOrePrefix(OrePrefixes.nanite)
             .removeOrePrefix(OrePrefixes.sheetmetal) // no custom texture set for this. remove when implemented.
@@ -16077,7 +15548,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.ITER, 1)
             .addOrePrefix(OrePrefixes.nanite)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
@@ -16103,7 +15573,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.SENSUS, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
@@ -16126,7 +15595,6 @@ public class MaterialsInit {
             .setBlastFurnaceRequired(true)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.SENSUS, 1)
             .addSubTag(SubTag.METAL)
             .constructMaterial()
             .setProcessingMaterialTierEU(TierEU.RECIPE_UEV);
@@ -16141,7 +15609,6 @@ public class MaterialsInit {
             .setBlastFurnaceTemp(100_000)
             .setAutoGenerateBlastFurnaceRecipes(false)
             .setAutoGeneratedVacuumFreezerRecipe(false)
-            .addAspect(TCAspects.VACUOS, 150)
             .addOrePrefix(OrePrefixes.gem)
             .constructMaterial();
     }

@@ -26,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.TCAspects.TC_AspectStack;
 import gregtech.api.fluid.GTFluidFactory;
 import gregtech.api.interfaces.IColorModulationContainer;
 import gregtech.api.interfaces.IMaterialHandler;
@@ -1153,7 +1152,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
     public GeneratedMaterialRenderer renderer;
     public List<MaterialStack> mMaterialList = new ArrayList<>();
     public List<Materials_OLD> mOreReRegistrations = new ArrayList<>();
-    public List<TCAspects.TC_AspectStack> mAspects = new ArrayList<>();
     public ArrayList<ItemStack> mMaterialItems = new ArrayList<>();
     public LinkedHashSet<SubTag> mSubTags = new LinkedHashSet<>();
     public List<Supplier<Materials_OLD>> mPendingOreByproducts = new ArrayList<>();
@@ -1277,7 +1275,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
         int densityMultiplier, int densityDivider,
         int oreMultiplier,
         List<MaterialStack> materialList,
-        List<TCAspects.TC_AspectStack> aspects,
         List<Supplier<Materials_OLD>> pendingOreByproducts,
         Supplier<Materials_OLD> pendingSmeltingInto,
         Supplier<Materials_OLD> pendingMaceratingInto,
@@ -1405,24 +1402,10 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
             if (tMaterial.mMaterial.mMeltingPoint > 0) {
                 tMeltingPoint += tMaterial.mMaterial.mMeltingPoint * tMaterial.mAmount;
             }
-            if (aspects == null) {
-                for (TC_AspectStack tAspect : tMaterial.mMaterial.mAspects) {
-                    tAspect.addToAspectList(mAspects);
-                }
-            }
         }
 
         if (mMeltingPoint < 0 && numberOfComponents > 1) mMeltingPoint = tMeltingPoint / numberOfComponents;
 
-        numberOfComponents *= densityMultiplier;
-        numberOfComponents /= densityDivider;
-        if (aspects == null) {
-            for (TC_AspectStack tAspect : mAspects) {
-                tAspect.mAmount = Math.max(1, tAspect.mAmount / Math.max(1, numberOfComponents));
-            }
-        } else {
-            mAspects.addAll(aspects);
-        }
         this.hasGlowingOre = hasGlowingOre;
     }
 

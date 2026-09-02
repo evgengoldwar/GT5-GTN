@@ -52,11 +52,9 @@ import forestry.api.arboriculture.IToolGrafter;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.TCAspects.TC_AspectStack;
 import gregtech.api.interfaces.IDamagableItem;
 import gregtech.api.interfaces.IToolStats;
 import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.toolbox.ToolboxUtil;
@@ -226,12 +224,6 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
             mToolStats.put((short) (aID + 1), aToolStats);
             aToolStats.onStatsAddedToTool(this, aID);
             ItemStack rStack = new ItemStack(this, 1, aID);
-            List<TC_AspectStack> tAspects = new ArrayList<>();
-            for (Object tOreDictNameOrAspect : aOreDictNamesAndAspects) {
-                if (tOreDictNameOrAspect instanceof TC_AspectStack)
-                    ((TC_AspectStack) tOreDictNameOrAspect).addToAspectList(tAspects);
-                else GTOreDictUnificator.registerOre(tOreDictNameOrAspect, rStack);
-            }
             return rStack;
         }
         return null;

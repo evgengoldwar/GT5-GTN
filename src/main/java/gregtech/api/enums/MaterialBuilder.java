@@ -80,7 +80,6 @@ public class MaterialBuilder {
     private int densityDivider = 1;
     private int oreMultiplier = 1;
     private final List<MaterialStack> materialList = new ArrayList<>();
-    private final List<TCAspects.TC_AspectStack> aspects = new ArrayList<>();
     private final List<Supplier<Materials_OLD>> pendingOreByproducts = new ArrayList<>();
     private Supplier<Materials_OLD> pendingSmeltingInto;
     private Supplier<Materials_OLD> pendingMaceratingInto;
@@ -133,7 +132,6 @@ public class MaterialBuilder {
             densityMultiplier, densityDivider,
             oreMultiplier,
             materialList,
-            aspects,
             pendingOreByproducts,
             pendingSmeltingInto,
             pendingMaceratingInto,
@@ -500,12 +498,6 @@ public class MaterialBuilder {
 
     public MaterialBuilder addMaterial(Materials_OLD material, int amount) {
         this.materialList.add(new MaterialStack(material, amount));
-        return this;
-    }
-
-    /** Adds the {@link TCAspects} to the material. */
-    public MaterialBuilder addAspect(TCAspects aspect, int amount) {
-        this.aspects.add(new TCAspects.TC_AspectStack(aspect, amount));
         return this;
     }
 

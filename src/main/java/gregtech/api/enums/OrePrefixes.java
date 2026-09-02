@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import com.google.common.collect.ImmutableList;
 
 import gregtech.GTLoggers;
-import gregtech.api.enums.TCAspects.TC_AspectStack;
 import gregtech.api.interfaces.ICondition;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.IOreRecipeRegistrator;
@@ -2471,39 +2470,7 @@ public class OrePrefixes {
         this.defaultStackSize = defaultStackSize;
         this.textureIndex = textureIndex;
 
-        addAspectForName();
-
         VALUES_LIST.add(this);
-    }
-
-    private void addAspectForName() {
-        // spotless:off
-        if      (name.startsWith(     "ore")) addAspect(       TCAspects.TERRA, 1);
-        else if (name.startsWith(    "wire")) addAspect(    TCAspects.ELECTRUM, 1);
-        else if (name.startsWith(   "cable")) addAspect(    TCAspects.ELECTRUM, 1);
-        else if (name.startsWith(    "dust")) addAspect(    TCAspects.PERDITIO, 1);
-        else if (name.startsWith( "crushed")) addAspect(    TCAspects.PERFODIO, 1);
-        else if (name.startsWith(   "ingot")) addAspect(    TCAspects.METALLUM, 1);
-        else if (name.startsWith(  "nugget")) addAspect(    TCAspects.METALLUM, 1);
-        else if (name.startsWith(   "armor")) addAspect(     TCAspects.TUTAMEN, 1);
-        else if (name.startsWith(   "stone")) addAspect(       TCAspects.TERRA, 1);
-        else if (name.startsWith(    "pipe")) addAspect(        TCAspects.ITER, 1);
-        else if (name.startsWith(    "gear")){addAspect(       TCAspects.MOTUS, 1);
-                                              addAspect(     TCAspects.MACHINA, 1);}
-        else if (name.startsWith(   "frame")) addAspect(     TCAspects.FABRICO, 1);
-        else if (name.startsWith(   "plate")) addAspect(     TCAspects.FABRICO, 1);
-        else if (name.startsWith(    "tool")) addAspect(TCAspects.INSTRUMENTUM, 2);
-        else if (name.startsWith(     "gem")) addAspect(     TCAspects.VITREUS, 1);
-        else if (name.startsWith( "crystal")) addAspect(     TCAspects.VITREUS, 1);
-        else if (name.startsWith(    "lens")) addAspect(     TCAspects.VITREUS, 1);
-        else if (name.startsWith( "circuit")) addAspect(    TCAspects.COGNITIO, 1);
-        else if (name.startsWith("computer")) addAspect(    TCAspects.COGNITIO, 4);
-        else if (name.startsWith( "battery")) addAspect(    TCAspects.ELECTRUM, 1);
-        // spotless:on
-    }
-
-    private void addAspect(TCAspects aspect, int amount) {
-        new TC_AspectStack(aspect, amount).addToAspectList(mAspects);
     }
 
     public @NotNull String getDefaultLocalName() {
@@ -2748,8 +2715,6 @@ public class OrePrefixes {
     }
 
     public final ArrayList<ItemStack> mPrefixedItems = new GTArrayList<>(false, 16);
-
-    public final List<TC_AspectStack> mAspects = new ArrayList<>();
     public final Collection<OrePrefixes> mFamiliarPrefixes = new HashSet<>();
 
     public final Collection<Materials_OLD> mDisabledItems = new HashSet<>(), mNotGeneratedItems = new HashSet<>(),

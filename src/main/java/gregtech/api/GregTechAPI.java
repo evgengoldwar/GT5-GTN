@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.interfaces.internal.IThaumcraftCompat;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
@@ -58,8 +57,6 @@ public class GregTechAPI {
     public static final GTHashSet sJackhammerList = new GTHashSet();
 
     public static final Materials_OLD[] S_GENERATED_MATERIALS = new Materials_OLD[1000];
-
-    public static IThaumcraftCompat sThaumcraftCompat;
 
     public static List<Runnable> sBeforeGTPreload = new ArrayList<>();
     public static List<Runnable> sAfterGTPreload = new ArrayList<>();

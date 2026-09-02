@@ -3,7 +3,6 @@ package gregtech.common;
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.debugEntityCramming;
 import static gregtech.api.enums.Mods.IguanaTweaksTinkerConstruct;
-import static gregtech.api.enums.Mods.Thaumcraft;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -315,9 +314,6 @@ public class GTProxy implements IFuelHandler {
         // spotless:off
         GT_FML_LOGGER.debug("GTMod: Preload-Phase started!");
 
-        if (Thaumcraft.isModLoaded()) {
-            GregTechAPI.sThaumcraftCompat = new GTThaumcraftCompat();
-        }
         GregTechAPI.sPreloadStarted = true;
         this.mIgnoreTcon = OPStuff.ignoreTinkerConstruct;
         for (FluidContainerRegistry.FluidContainerData tData : FluidContainerRegistry.getRegisteredFluidContainerData()) {

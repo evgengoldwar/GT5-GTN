@@ -4,7 +4,6 @@ import static gregtech.api.enums.GTValues.D1;
 import static gregtech.api.enums.Mods.AppleCore;
 import static gregtech.api.enums.Mods.GregTech;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
@@ -29,7 +28,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.SubTag;
-import gregtech.api.enums.TCAspects.TC_AspectStack;
 import gregtech.api.interfaces.IFoodStat;
 import gregtech.api.interfaces.IGT_ItemWithMaterialRenderer;
 import gregtech.api.interfaces.IIconContainer;
@@ -128,7 +126,6 @@ public abstract class MetaGeneratedItem extends MetaBaseItem implements IGT_Item
             }
             mEnabledItems.set(aID);
             mVisibleItems.set(aID);
-            List<TC_AspectStack> tAspects = new ArrayList<>();
             // Important Stuff to do first
             for (Object tRandomData : aRandomData) if (tRandomData instanceof SubTag) {
                 if (tRandomData == SubTag.INVISIBLE) {
@@ -161,10 +158,6 @@ public abstract class MetaGeneratedItem extends MetaBaseItem implements IGT_Item
                     tUseOreDict = false;
                 }
                 if (tRandomData instanceof SubTag) {
-                    continue;
-                }
-                if (tRandomData instanceof TC_AspectStack) {
-                    ((TC_AspectStack) tRandomData).addToAspectList(tAspects);
                     continue;
                 }
                 if (tRandomData instanceof ItemData) {
