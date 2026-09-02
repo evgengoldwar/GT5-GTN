@@ -42,7 +42,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import gregtech.GTMaterialSystem.GTMaterials;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enchants.EnchantmentEnderDamage;
 import gregtech.api.enchants.EnchantmentHazmat;
 import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.GTValues;
@@ -272,7 +271,6 @@ public class GTMod {
 
         // Load enchantments
         new EnchantmentHazmat();
-        new EnchantmentEnderDamage();
         new EnchantmentRadioactivity();
 
         Materials_OLD.init();

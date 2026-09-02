@@ -3,7 +3,6 @@ package gregtech.loaders.materials;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.EnumChatFormatting;
 
-import gregtech.api.enchants.EnchantmentEnderDamage;
 import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.Element;
@@ -1061,7 +1060,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00ffdcdc)
             .setFuel(MaterialBuilder.FuelType.Magic, 32)
-            .setToolEnchantment(() -> EnchantmentEnderDamage.INSTANCE, 3)
             .addCell()
             .addPlasma()
             .setMeltingPoint(234)
@@ -1614,7 +1612,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00dcdcff)
             .setTool(64, 2, 10.0f)
-            .setToolEnchantment(() -> EnchantmentEnderDamage.INSTANCE, 2)
             .addDustItems()
             .addMetalItems()
             .addOreItems()
@@ -6303,7 +6300,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeYellow)
             .setARGB(0x00ffff64)
             .setTool(64, 2, 12.0f)
-            .setToolEnchantment(() -> EnchantmentEnderDamage.INSTANCE, 3)
             .addDustItems()
             .addMetalItems()
             .addOreItems()
@@ -11454,7 +11450,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00fadce1)
             .setTool(128, 2, 13.0f)
-            .setToolEnchantment(() -> EnchantmentEnderDamage.INSTANCE, 4)
             .addDustItems()
             .addMetalItems()
             .addToolHeadItems()
@@ -13148,7 +13143,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00e6e6ff)
             .setTool(64, 2, 10.0f)
-            .setToolEnchantment(() -> EnchantmentEnderDamage.INSTANCE, 5)
             .addDustItems()
             .addMetalItems()
             .addToolHeadItems()
