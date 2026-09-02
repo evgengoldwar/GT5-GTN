@@ -42,23 +42,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.GTDummyWorld;
 import gregtech.common.covers.Base.CoverPosition;
 
-/**
- * Please do not include this File in your Mod-download as it ruins compatibility, like with the IC2-API You may just
- * copy those Functions into your Code, or better call them via reflection.
- * <p/>
- * The whole API is the basic construct of my Mod. Everything is dependent on it. I change things quite often so please
- * don't include any File inside your Mod, even if it is an Interface. Since some Authors were stupid enough to break
- * this simple Rule, I added Version checks to enforce it.
- * <p/>
- * In these Folders are many useful Functions. You can use them via reflection if you want. I know not everything is
- * compilable due to APIs of other Mods, but these are easy to fix in your Setup.
- * <p/>
- * You can use this to learn about Modding, but I would recommend simpler Mods. You may even copy-paste Code from these
- * API-Files into your Mod, as I have nothing against that, but you should look exactly at what you are copying.
- *
- * @author Gregorius Techneticies
- */
-@SuppressWarnings("unused") // API class has legitimately unused methods and members
 public class GregTechAPI {
 
     public static final short MAXIMUM_METATILE_IDS = Short.MAX_VALUE - 1;
@@ -321,11 +304,6 @@ public class GregTechAPI {
     @SideOnly(Side.CLIENT)
     public static void setBlockIconRegister(IIconRegister iconRegister) {
         sBlockIcons = iconRegister;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static void setItemIconRegister(IIconRegister iconRegister) {
-        GregTechAPI.sItemIcons = iconRegister;
     }
 
     public static void registerTileEntityConstructor(int meta, IntFunction<TileEntity> constructor) {
