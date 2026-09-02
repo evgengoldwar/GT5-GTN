@@ -344,13 +344,6 @@ public class GTClient extends GTProxy {
     }
 
     @SubscribeEvent
-    public void receiveRenderEvent(net.minecraftforge.client.event.RenderPlayerEvent.Pre aEvent) {
-        if (GTUtility.getFullInvisibility(aEvent.entityPlayer)) {
-            aEvent.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
     public void onClientTickEvent(ClientTickEvent aEvent) {
         if (aEvent.phase == TickEvent.Phase.END) {
             mTicksUntilNextCraftSound--;

@@ -145,7 +145,6 @@ import gregtech.api.interfaces.item.ItemStackSizeCalculator;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.items.GTGenericItem;
-import gregtech.api.items.ItemEnergyArmor;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.net.GTPacketSound;
 import gregtech.api.objects.CollectorUtils;
@@ -262,19 +261,6 @@ public class GTUtility {
                 aObject.getClass()
                     .getName()
                     .lastIndexOf(".") + 1);
-    }
-
-    public static boolean getFullInvisibility(EntityPlayer player) {
-        if (!player.isInvisible()) return false;
-        for (ItemStack stack : player.inventory.armorInventory) {
-            if (stack == null || !(stack.getItem() instanceof ItemEnergyArmor)) continue;
-            if ((((ItemEnergyArmor) stack.getItem()).mSpecials & 512) != 0) {
-                if (GTModHandler.canUseElectricItem(stack, 10000)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**
