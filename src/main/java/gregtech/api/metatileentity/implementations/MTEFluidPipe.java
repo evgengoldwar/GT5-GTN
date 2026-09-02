@@ -50,14 +50,12 @@ import gregtech.api.enums.ParticleFX;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TextureSet;
 import gregtech.api.enums.Textures;
-import gregtech.api.enums.ToolModes;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
-import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTLanguageManager;
@@ -65,7 +63,6 @@ import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder.ParticleEventBuilder;
 import gregtech.common.blocks.ItemMachines;
-import gregtech.common.config.Other;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.CoverFluidRegulator;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -562,91 +559,90 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
         float aX, float aY, float aZ, ItemStack aTool) {
 
-        final int mode = MetaGeneratedTool.getToolMode(aTool);
         IGregTechTileEntity currentPipeBase = getBaseMetaTileEntity();
         MTEFluidPipe currentPipe = (MTEFluidPipe) currentPipeBase.getMetaTileEntity();
         final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
         final byte tMask = (byte) (tSide.flag);
 
-        if (mode == ToolModes.REGULAR.get()) {
-            if (entityPlayer.isSneaking()) {
-                currentPipe.blockPipeOnSide(tSide, entityPlayer, tMask);
-            } else currentPipe.connectPipeOnSide(tSide, entityPlayer);
-            return true;
-        }
-
-        if (mode == ToolModes.WRENCH_LINE.get()) {
-
-            boolean initialState = entityPlayer.isSneaking() ? currentPipe.isInputDisabledAtSide(tSide)
-                : currentPipe.isConnectedAtSide(tSide);
-
-            boolean wasActionPerformed = false;
-
-            int limit = Other.pipeWrenchingChainRange;
-            for (int connected = 0; connected < limit; connected++) {
-
-                TileEntity nextPipeBaseTile = currentPipeBase.getTileEntityAtSide(tSide);
-
-                // if next tile doesn't exist or if next tile is not GT tile
-                if (!(nextPipeBaseTile instanceof IGregTechTileEntity nextPipeBase)) {
-                    return wasActionPerformed;
-                }
-
-                // if next tile is wrong color
-                if (!currentPipe.connectableColor(nextPipeBaseTile)) {
-                    return wasActionPerformed;
-                }
-
-                MTEFluidPipe nextPipe = nextPipeBase.getMetaTileEntity() instanceof MTEFluidPipe
-                    ? (MTEFluidPipe) nextPipeBase.getMetaTileEntity()
-                    : null;
-
-                // if next tile entity is not a pipe
-                if (nextPipe == null) {
-                    return wasActionPerformed;
-                }
-
-                // if pipes are same size
-                if (mPipeAmount != nextPipe.mPipeAmount) {
-                    return wasActionPerformed;
-                }
-
-                // making sure next pipe has same fluid
-                for (int i = 0; i < mPipeAmount; i++) {
-                    if (mFluids[i] != null && nextPipe.mFluids[i] != null) {
-                        if (!mFluids[i].isFluidEqual(nextPipe.mFluids[i])) {
-                            return wasActionPerformed;
-                        }
-                    } else if (mFluids[i] == null || nextPipe.mFluids[i] == null) {
-                        // one pipe is empty, so it doesn't matter if the other has fluid.
-                    } else if (mFluids[i] != nextPipe.mFluids[i]) {
-                        return wasActionPerformed;
-                    }
-                }
-
-                boolean currentState = entityPlayer.isSneaking() ? currentPipe.isInputDisabledAtSide(tSide)
-                    : currentPipe.isConnectedAtSide(tSide);
-
-                /*
-                 * Making sure next pipe will have same action applied to it e.g. Connecting pipe won`t trigger
-                 * disconnect if next pipe is already connected
-                 */
-                if (currentState != initialState) {
-                    return wasActionPerformed;
-                }
-
-                if (entityPlayer.isSneaking()) {
-                    currentPipe.blockPipeOnSide(tSide, entityPlayer, tMask);
-                } else currentPipe.connectPipeOnSide(tSide, entityPlayer);
-
-                wasActionPerformed = true;
-
-                currentPipeBase = nextPipeBase;
-                currentPipe = nextPipe;
-
-            }
-            return wasActionPerformed;
-        }
+        // if (mode == ToolModes.REGULAR.get()) {
+        // if (entityPlayer.isSneaking()) {
+        // currentPipe.blockPipeOnSide(tSide, entityPlayer, tMask);
+        // } else currentPipe.connectPipeOnSide(tSide, entityPlayer);
+        // return true;
+        // }
+        //
+        // if (mode == ToolModes.WRENCH_LINE.get()) {
+        //
+        // boolean initialState = entityPlayer.isSneaking() ? currentPipe.isInputDisabledAtSide(tSide)
+        // : currentPipe.isConnectedAtSide(tSide);
+        //
+        // boolean wasActionPerformed = false;
+        //
+        // int limit = Other.pipeWrenchingChainRange;
+        // for (int connected = 0; connected < limit; connected++) {
+        //
+        // TileEntity nextPipeBaseTile = currentPipeBase.getTileEntityAtSide(tSide);
+        //
+        // // if next tile doesn't exist or if next tile is not GT tile
+        // if (!(nextPipeBaseTile instanceof IGregTechTileEntity nextPipeBase)) {
+        // return wasActionPerformed;
+        // }
+        //
+        // // if next tile is wrong color
+        // if (!currentPipe.connectableColor(nextPipeBaseTile)) {
+        // return wasActionPerformed;
+        // }
+        //
+        // MTEFluidPipe nextPipe = nextPipeBase.getMetaTileEntity() instanceof MTEFluidPipe
+        // ? (MTEFluidPipe) nextPipeBase.getMetaTileEntity()
+        // : null;
+        //
+        // // if next tile entity is not a pipe
+        // if (nextPipe == null) {
+        // return wasActionPerformed;
+        // }
+        //
+        // // if pipes are same size
+        // if (mPipeAmount != nextPipe.mPipeAmount) {
+        // return wasActionPerformed;
+        // }
+        //
+        // // making sure next pipe has same fluid
+        // for (int i = 0; i < mPipeAmount; i++) {
+        // if (mFluids[i] != null && nextPipe.mFluids[i] != null) {
+        // if (!mFluids[i].isFluidEqual(nextPipe.mFluids[i])) {
+        // return wasActionPerformed;
+        // }
+        // } else if (mFluids[i] == null || nextPipe.mFluids[i] == null) {
+        // // one pipe is empty, so it doesn't matter if the other has fluid.
+        // } else if (mFluids[i] != nextPipe.mFluids[i]) {
+        // return wasActionPerformed;
+        // }
+        // }
+        //
+        // boolean currentState = entityPlayer.isSneaking() ? currentPipe.isInputDisabledAtSide(tSide)
+        // : currentPipe.isConnectedAtSide(tSide);
+        //
+        // /*
+        // * Making sure next pipe will have same action applied to it e.g. Connecting pipe won`t trigger
+        // * disconnect if next pipe is already connected
+        // */
+        // if (currentState != initialState) {
+        // return wasActionPerformed;
+        // }
+        //
+        // if (entityPlayer.isSneaking()) {
+        // currentPipe.blockPipeOnSide(tSide, entityPlayer, tMask);
+        // } else currentPipe.connectPipeOnSide(tSide, entityPlayer);
+        //
+        // wasActionPerformed = true;
+        //
+        // currentPipeBase = nextPipeBase;
+        // currentPipe = nextPipe;
+        //
+        // }
+        // return wasActionPerformed;
+        // }
         return false;
     }
 
