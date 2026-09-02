@@ -62,13 +62,8 @@ import gregtech.common.covers.Base.CoverPosition;
 @SuppressWarnings("unused") // API class has legitimately unused methods and members
 public class GregTechAPI {
 
-    /**
-     * The MetaTileEntity-ID-List-Length
-     */
     public static final short MAXIMUM_METATILE_IDS = Short.MAX_VALUE - 1;
-    /**
-     * My Creative Tab
-     */
+
     public static final CreativeTabs TAB_GREGTECH = new GTCreativeTab("Main", "Main"),
         TAB_GREGTECH_MATERIALS = new GTCreativeTab("Materials", "Materials"),
         TAG_GREGTECH_CASINGS = new GTCreativeTab("Casings", "Casings") {
