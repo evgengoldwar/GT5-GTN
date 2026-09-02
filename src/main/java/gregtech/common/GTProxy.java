@@ -102,8 +102,6 @@ import gregtech.api.util.GTClientPreference;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gregtech.api.util.GTShapedRecipe;
-import gregtech.api.util.GTShapelessRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
@@ -336,9 +334,6 @@ public class GTProxy implements IFuelHandler {
         OrePrefixes.cellPlasma.mContainerItem = ItemList.Cell_Empty.get(1L);
         OrePrefixes.cellMolten.mContainerItem = ItemList.Cell_Empty.get(1L);
         OrePrefixes.cell.mContainerItem = ItemList.Cell_Empty.get(1L);
-
-        RecipeSorter.register("gregtech:shaped", GTShapedRecipe.class, RecipeSorter.Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
-        RecipeSorter.register("gregtech:shapeless", GTShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
         // Register chunk manager with Forge
         GTChunkManager.init();
