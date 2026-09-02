@@ -56,8 +56,6 @@ import gregtech.api.interfaces.IDamagableItem;
 import gregtech.api.interfaces.IToolStats;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
-import gregtech.common.items.ItemGTToolbox;
-import gregtech.common.items.toolbox.ToolboxUtil;
 import mods.railcraft.api.core.items.IToolCrowbar;
 import mrtjp.projectred.api.IScrewdriver;
 
@@ -168,11 +166,6 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
     public static byte getToolMode(ItemStack aStack) {
         if (aStack == null) {
             return 0;
-        }
-        if (aStack.getItem() instanceof ItemGTToolbox) {
-            return ToolboxUtil.getSelectedTool(aStack)
-                .map(MetaGeneratedTool::getToolMode)
-                .orElse((byte) 0);
         }
 
         NBTTagCompound aNBT = aStack.getTagCompound();
@@ -635,10 +628,6 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
     }
 
     private IToolStats getToolStatsInternal(ItemStack aStack) {
-        if (aStack.getItem() instanceof ItemGTToolbox) {
-            aStack = ToolboxUtil.getSelectedTool(aStack)
-                .orElse(null);
-        }
         return aStack == null ? null : mToolStats.get((short) aStack.getItemDamage());
     }
 

@@ -111,7 +111,6 @@ import gregtech.common.config.OPStuff;
 import gregtech.common.data.GTPowerfailTracker;
 import gregtech.common.data.WirelessEnergyHatchManager;
 import gregtech.common.handlers.OffhandToolFunctionalityHandler;
-import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.misc.GlobalEnergyWorldSavedData;
 import gregtech.common.misc.WirelessChargerManager;
 import gregtech.common.misc.spaceprojects.SpaceProjectWorldSavedData;
@@ -386,8 +385,7 @@ public class GTProxy implements IFuelHandler {
         NetworkAnalyzerPlayerTracker.init();
         TOOL_MODE_SWITCH_KEYBIND = SyncedKeybind
             .createConfigurable("key.gt.tool_mode_switch", "Gregtech", Keyboard.KEY_PERIOD)
-            .registerGlobalListener(MetaGeneratedTool::switchCurrentToolMode)
-            .registerGlobalListener(ItemGTToolbox::switchToolMode);
+            .registerGlobalListener(MetaGeneratedTool::switchCurrentToolMode);
         CTRL_KEYBIND = SyncedKeybind.create(Keyboard.KEY_LCONTROL);
 
         GregTechAPI.sLoadStarted = true;
@@ -660,8 +658,6 @@ public class GTProxy implements IFuelHandler {
 
             TileEntity tile = event.world.getTileEntity(event.x, event.y, event.z);
             stats.onBreakBlock(player, event.x, event.y, event.z, event.block, event.blockMetadata, tile, event);
-        } else if (item.getItem() instanceof final ItemGTToolbox toolbox) {
-            toolbox.onBlockBreakingEvent(event);
         }
     }
 
@@ -685,9 +681,6 @@ public class GTProxy implements IFuelHandler {
                 aEvent.fortuneLevel,
                 aEvent.isSilkTouching,
                 aEvent);
-        }
-        if (aStack.getItem() instanceof final ItemGTToolbox toolbox) {
-            toolbox.onBlockHarvestingEvent(aEvent);
         }
     }
 

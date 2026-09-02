@@ -143,9 +143,7 @@ import gregtech.api.net.GTPacketSound;
 import gregtech.api.objects.CollectorUtils;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.threads.RunnableSound;
-import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.ItemIntegratedCircuit;
-import gregtech.common.items.toolbox.ToolboxUtil;
 import gregtech.nei.FluidDisplayStackMode;
 import ic2.api.recipe.ICannerBottleRecipeManager;
 import ic2.api.recipe.IRecipeInput;
@@ -1569,13 +1567,7 @@ public class GTUtility {
         if (aStack == null) {
             return false;
         }
-        if (aStack.getItem() instanceof ItemGTToolbox) {
-            return ToolboxUtil.getSelectedTool(aStack)
-                .map(selected -> isStackInList(new GTItemStack(selected), aList))
-                .orElse(false);
-        } else {
-            return isStackInList(new GTItemStack(aStack), aList);
-        }
+        return isStackInList(new GTItemStack(aStack), aList);
     }
 
     public static boolean isStackInList(@Nonnull GTItemStack aStack, @Nonnull Collection<GTItemStack> aList) {
@@ -1954,9 +1946,6 @@ public class GTUtility {
         final ItemStack currentItem = player.getCurrentEquippedItem();
         if (currentItem == null) {
             return;
-        }
-        if (!(currentItem.getItem() instanceof ItemGTToolbox)) {
-            player.destroyCurrentEquippedItem();
         }
     }
 

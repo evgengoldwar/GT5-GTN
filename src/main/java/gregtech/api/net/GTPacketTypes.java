@@ -30,7 +30,6 @@ public enum GTPacketTypes {
     ON_POWERFAIL(37, new GTPacketOnPowerfail()),
     CLEAR_POWERFAIL(38, new GTPacketClearPowerfail()),
     CHAT(39, new GTPacketChat()),
-    TOOLBOX_EVENT(43, new GTPacketToolboxEvent()),
     NETWORK_ANALYZER(44, new GTPacketNetworkAnalyzer()),
     NETWORK_ANALYZER_MODE(45, new GTPacketNetworkAnalyzerMode()),
     SYNC_TILE_RENDER_DATA_TO_CLIENT(46, new GTPacketClientMTERendererData()),

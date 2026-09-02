@@ -5,7 +5,6 @@ import static gregtech.api.enums.Mods.GregTech;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -37,16 +36,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.GTLoggers;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.ToolboxSlot;
 import gregtech.api.interfaces.INetworkUpdatableItem;
 import gregtech.api.items.GTGenericItem;
-import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.modularui2.GTGuiThemes;
 import gregtech.api.modularui2.GTModularScreen;
 import gregtech.api.objects.XSTR;
 import gregtech.api.util.GTConfig;
 import gregtech.common.gui.modularui.item.IntegratedCircuitGui;
-import gregtech.common.items.toolbox.ToolboxUtil;
 import gregtech.crossmod.backhand.Backhand;
 import ic2.core.IC2;
 import ic2.core.IHasGui;
@@ -213,7 +209,6 @@ public class ItemIntegratedCircuit extends GTGenericItem
 
             // Circuit Configurator
 
-
             // Toolbox with Screwdriver inside
             if (potentialStack.getItem() instanceof ItemToolbox toolbox) {
                 IHasGui toolboxInventory = toolbox.getInventory(player, potentialStack);
@@ -238,16 +233,6 @@ public class ItemIntegratedCircuit extends GTGenericItem
                             return potentialStack; // return the toolbox for display
                         }
                     }
-                }
-            } else if (potentialStack.getItem() instanceof ItemGTToolbox) {
-                final Optional<ItemStack> potentialScrewdriver = ToolboxUtil.getItemInside(potentialStack, ToolboxSlot.SCREWDRIVER);
-                if (potentialScrewdriver.isPresent() && potentialScrewdriver.get().getItem() instanceof final MetaGeneratedTool mgTool) {
-                    final ItemStack screwdriver = potentialScrewdriver.get();
-                    if (doDamage && mgTool.doDamageToItem(screwdriver, 1)) {
-                        ToolboxUtil.saveItemInside(potentialStack, screwdriver, ToolboxSlot.SCREWDRIVER);
-                    }
-
-                    return potentialStack;
                 }
             }
 

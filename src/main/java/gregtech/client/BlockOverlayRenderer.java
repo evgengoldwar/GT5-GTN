@@ -47,7 +47,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.BlockFrameBox;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Client;
-import gregtech.common.items.ItemGTToolbox;
 import ic2.api.tile.IWrenchable;
 
 public class BlockOverlayRenderer {
@@ -163,10 +162,6 @@ public class BlockOverlayRenderer {
         if (CoverRegistry.isCover(event.currentItem)) {
             if (!((ICoverable) aTileEntity).hasCoverAtSide(ForgeDirection.getOrientation(event.target.sideHit)))
                 drawGrid(event, true, false, event.player.isSneaking());
-        }
-
-        if (event.currentItem != null && event.currentItem.getItem() instanceof final ItemGTToolbox toolboxItem && toolboxItem.shouldDrawHighlightGrid(event)) {
-            drawGrid(event, true, false, event.player.isSneaking());
         }
     }
 

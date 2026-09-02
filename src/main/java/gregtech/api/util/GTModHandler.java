@@ -54,9 +54,6 @@ import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.interfaces.internal.IGTCraftingRecipe;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.objects.ItemData;
-import gregtech.common.items.ItemGTToolbox;
-import gregtech.common.items.toolbox.ToolboxDelegateInventory;
-import gregtech.common.items.toolbox.ToolboxUtil;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
@@ -1044,13 +1041,6 @@ public class GTModHandler {
     }
 
     public static boolean useSolderingIron(ItemStack aStack, EntityLivingBase aPlayer) {
-        if (aStack != null && aStack.getItem() instanceof ItemGTToolbox) {
-            final ToolboxDelegateInventory delegateInventory = new ToolboxDelegateInventory(aStack);
-            final boolean result = useSolderingIron(aStack, aPlayer, delegateInventory);
-
-            ToolboxUtil.saveToolbox(aStack, delegateInventory.getHandler());
-            return result;
-        }
         return useSolderingIron(aStack, aPlayer, null);
     }
 
