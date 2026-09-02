@@ -1581,20 +1581,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
                 if (getCoverAtSide(side).onCoverRightClick(aPlayer, aX, aY, aZ)) return true;
 
                 if (!getCoverAtSide(side).isGUIClickable()) return false;
-
-                if (isUpgradable() && tCurrentItem != null) {
-                    if (ItemList.Upgrade_Lock.isStackEqual(aPlayer.inventory.getCurrentItem())) {
-                        if (isUpgradable() && !mLockUpgrade) {
-                            mLockUpgrade = true;
-                            scheduleTexturePacket();
-                            setOwnerName(aPlayer.getDisplayName());
-                            setOwnerUuid(aPlayer.getUniqueID());
-                            sendSoundToPlayers(SoundResource.GTCEU_OP_CLICK, 1.0F, 1);
-                            if (!aPlayer.capabilities.isCreativeMode) aPlayer.inventory.getCurrentItem().stackSize--;
-                        }
-                        return true;
-                    }
-                }
             }
         }
 

@@ -307,7 +307,6 @@ public enum ItemList implements IItemContainer {
     ZPM,
     Fuel_Can_Plastic_Empty,
     Fuel_Can_Plastic_Filled,
-    Upgrade_Lock,
     Item_Redstone_Sniffer,
     Cover_Controller,
     Cover_ActivityDetector,
@@ -337,7 +336,6 @@ public enum ItemList implements IItemContainer {
     Tool_Lighter_Platinum_Empty,
     Tool_Lighter_Platinum_Used,
     Tool_Lighter_Platinum_Full,
-    Tool_Scanner,
     Tool_DataOrb,
     Tool_DataStick,
 
