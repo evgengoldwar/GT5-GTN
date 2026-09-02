@@ -16,8 +16,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemBlock;
@@ -25,8 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S23PacketBlockChange;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -63,8 +59,6 @@ import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.config.Client;
-import gregtech.common.tileentities.storage.MTESuperChest;
-import gregtech.common.tileentities.storage.MTESuperTank;
 import gregtech.crossmod.backhand.Backhand;
 
 public class ItemMachines extends ItemBlock implements IFluidContainerItem {
@@ -208,7 +202,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
             return;
         }
         if (GregTechAPI.METATILEENTITIES[meta] != null) {
-            final IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[meta].getBaseMetaTileEntity().getMetaTileEntity();
+            final IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[meta].getBaseMetaTileEntity()
+                .getMetaTileEntity();
             if (isSkipGenerateDescription(mte)) return;
             String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip";
             if (mte instanceof ISecondaryDescribable secondaryDescribable) {
@@ -267,7 +262,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
         super.onCreated(itemStack, world, player);
         final short meta = (short) getDamage(itemStack);
-        if ((meta < 0) || ((meta >= GregTechAPI.METATILEENTITIES.length) && (GregTechAPI.METATILEENTITIES[meta] != null))) {
+        if ((meta < 0)
+            || ((meta >= GregTechAPI.METATILEENTITIES.length) && (GregTechAPI.METATILEENTITIES[meta] != null))) {
             GregTechAPI.METATILEENTITIES[meta].onCreated(itemStack, world, player);
         }
     }
@@ -312,7 +308,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
                         proxy.setOwner(player);
                     }
                 }
-                gte.setFrontFacing(BaseTileEntity.getSideForPlayerPlacing(player, ForgeDirection.UP, gte.getValidFacings()));
+                gte.setFrontFacing(
+                    BaseTileEntity.getSideForPlayerPlacing(player, ForgeDirection.UP, gte.getValidFacings()));
                 final ForgeDirection oppositeSide = side.getOpposite();
                 if (gte.getMetaTileEntity() instanceof IConnectable connectable) {
                     connectable.connect(oppositeSide);
@@ -325,7 +322,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
                         connectable.connect(side);
                     }
                 }
-                gte.getMetaTileEntity().initDefaultModes(itemStack.getTagCompound());
+                gte.getMetaTileEntity()
+                    .initDefaultModes(itemStack.getTagCompound());
 
                 if (player instanceof EntityPlayerMP playerMP && playerMP.playerNetServerHandler != null) {
                     playerMP.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
@@ -350,8 +348,10 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         if ((GTUtility.isStackInList(offHand, GregTechAPI.sWrenchList))) {
             ForgeDirection oppositeSide = side.getOpposite();
             if (player.isSneaking()) {
-                TileEntity adjTile = pipe.getBaseMetaTileEntity().getTileEntityAtSide(oppositeSide);
-                if (adjTile instanceof IGregTechTileEntity gte && gte.getMetaTileEntity() instanceof MTEFluidPipe adjPipe) {
+                TileEntity adjTile = pipe.getBaseMetaTileEntity()
+                    .getTileEntityAtSide(oppositeSide);
+                if (adjTile instanceof IGregTechTileEntity gte
+                    && gte.getMetaTileEntity() instanceof MTEFluidPipe adjPipe) {
                     adjPipe.mDisableInput |= (byte) side.flag;
                 }
             } else {
