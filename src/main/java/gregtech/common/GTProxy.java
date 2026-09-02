@@ -88,9 +88,7 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IProjectileItem;
-import gregtech.api.interfaces.IToolStats;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.objects.GTChunkManager;
 import gregtech.api.objects.ItemData;
 import gregtech.api.threads.RunnableCableUpdate;
@@ -228,7 +226,6 @@ public class GTProxy implements IFuelHandler {
     public GTPowerfailTracker powerfailTracker;
     public WirelessEnergyHatchManager wirelessEnergyHatchManager;
 
-    public SyncedKeybind TOOL_MODE_SWITCH_KEYBIND;
     public SyncedKeybind CTRL_KEYBIND;
 
     static {
@@ -377,9 +374,6 @@ public class GTProxy implements IFuelHandler {
         MinecraftForge.EVENT_BUS.register(PowerGogglesEventHandler.getInstance());
         MinecraftForge.EVENT_BUS.register(new OffhandToolFunctionalityHandler());
         NetworkAnalyzerPlayerTracker.init();
-        TOOL_MODE_SWITCH_KEYBIND = SyncedKeybind
-            .createConfigurable("key.gt.tool_mode_switch", "Gregtech", Keyboard.KEY_PERIOD)
-            .registerGlobalListener(MetaGeneratedTool::switchCurrentToolMode);
         CTRL_KEYBIND = SyncedKeybind.create(Keyboard.KEY_LCONTROL);
 
         GregTechAPI.sLoadStarted = true;
@@ -640,19 +634,23 @@ public class GTProxy implements IFuelHandler {
     @SubscribeEvent
     public void onBlockBreakingEvent(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
 
         ItemStack item = event.getPlayer()
             .getCurrentEquippedItem();
-        if (item == null) return;
-
-        if (item.getItem() instanceof MetaGeneratedTool tool) {
-            IToolStats stats = tool.getToolStats(item);
-            if (stats == null) return;
-
-            TileEntity tile = event.world.getTileEntity(event.x, event.y, event.z);
-            stats.onBreakBlock(player, event.x, event.y, event.z, event.block, event.blockMetadata, tile, event);
+        if (item == null) {
+            return;
         }
+
+        // if (item.getItem() instanceof MetaGeneratedTool tool) {
+        // IToolStats stats = tool.getToolStats(item);
+        // if (stats == null) return;
+        //
+        // TileEntity tile = event.world.getTileEntity(event.x, event.y, event.z);
+        // stats.onBreakBlock(player, event.x, event.y, event.z, event.block, event.blockMetadata, tile, event);
+        // }
     }
 
     @SubscribeEvent
@@ -660,22 +658,24 @@ public class GTProxy implements IFuelHandler {
         if (aEvent.harvester == null) return;
 
         ItemStack aStack = aEvent.harvester.getCurrentEquippedItem();
-        if (aStack == null) return;
-
-        if ((aStack.getItem() instanceof MetaGeneratedTool tool)) {
-            tool.onHarvestBlockEvent(
-                aEvent.drops,
-                aStack,
-                aEvent.harvester,
-                aEvent.block,
-                aEvent.x,
-                aEvent.y,
-                aEvent.z,
-                aEvent.blockMetadata,
-                aEvent.fortuneLevel,
-                aEvent.isSilkTouching,
-                aEvent);
+        if (aStack == null) {
+            return;
         }
+
+        // if ((aStack.getItem() instanceof MetaGeneratedTool tool)) {
+        // tool.onHarvestBlockEvent(
+        // aEvent.drops,
+        // aStack,
+        // aEvent.harvester,
+        // aEvent.block,
+        // aEvent.x,
+        // aEvent.y,
+        // aEvent.z,
+        // aEvent.blockMetadata,
+        // aEvent.fortuneLevel,
+        // aEvent.isSilkTouching,
+        // aEvent);
+        // }
     }
 
     @SubscribeEvent
@@ -842,18 +842,18 @@ public class GTProxy implements IFuelHandler {
     public void onBlockBreakSpeedEvent(PlayerEvent.BreakSpeed aEvent) {
         if (aEvent.entityPlayer != null) {
             ItemStack aStack = aEvent.entityPlayer.getCurrentEquippedItem();
-            if ((aStack != null) && ((aStack.getItem() instanceof MetaGeneratedTool))) {
-                aEvent.newSpeed = ((MetaGeneratedTool) aStack.getItem()).onBlockBreakSpeedEvent(
-                    aEvent.newSpeed,
-                    aStack,
-                    aEvent.entityPlayer,
-                    aEvent.block,
-                    aEvent.x,
-                    aEvent.y,
-                    aEvent.z,
-                    aEvent.metadata,
-                    aEvent);
-            }
+            // if ((aStack != null) && ((aStack.getItem() instanceof MetaGeneratedTool))) {
+            // aEvent.newSpeed = ((MetaGeneratedTool) aStack.getItem()).onBlockBreakSpeedEvent(
+            // aEvent.newSpeed,
+            // aStack,
+            // aEvent.entityPlayer,
+            // aEvent.block,
+            // aEvent.x,
+            // aEvent.y,
+            // aEvent.z,
+            // aEvent.metadata,
+            // aEvent);
+            // }
         }
     }
 
