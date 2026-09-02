@@ -49,7 +49,6 @@ public abstract class BlockCasingsAbstract extends GTGenericBlock
     public BlockCasingsAbstract(Class<? extends ItemBlock> aItemClass, String aName, Material aMaterial) {
         super(aItemClass, aName, aMaterial);
         setStepSound(soundTypeMetal);
-        setCreativeTab(GregTechAPI.TAG_GREGTECH_CASINGS);
         GregTechAPI.registerMachineBlock(this, -1);
     }
 

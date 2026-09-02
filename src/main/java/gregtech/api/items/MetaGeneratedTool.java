@@ -232,8 +232,6 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
                     ((TC_AspectStack) tOreDictNameOrAspect).addToAspectList(tAspects);
                 else GTOreDictUnificator.registerOre(tOreDictNameOrAspect, rStack);
             }
-            if (GregTechAPI.sThaumcraftCompat != null)
-                GregTechAPI.sThaumcraftCompat.registerThaumcraftAspectsToItem(rStack, tAspects, false);
             return rStack;
         }
         return null;

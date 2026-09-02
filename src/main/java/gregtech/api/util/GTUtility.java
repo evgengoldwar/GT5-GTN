@@ -1723,16 +1723,6 @@ public class GTUtility {
                 + (aRoundUp && (aMaterialAmount * aAmountPerUnit) % M > 0 ? 1 : 0));
     }
 
-    /**
-     * This checks if the Dimension is really a Dimension and not another Planet or something. Used for my Teleporter.
-     */
-    public static boolean isRealDimension(int aDimensionID) {
-        if (aDimensionID <= 1 && aDimensionID >= -1 && !GregTechAPI.sDimensionalList.contains(aDimensionID))
-            return true;
-        return !GregTechAPI.sDimensionalList.contains(aDimensionID)
-            && DimensionManager.isDimensionRegistered(aDimensionID);
-    }
-
     private static final Int2ObjectOpenHashMap<String> DIMENSION_NAMES = new Int2ObjectOpenHashMap<>();
 
     public static String getDimensionName(int dimId) {

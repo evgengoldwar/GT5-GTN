@@ -19,13 +19,13 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.IDamagableItem;
 import gregtech.api.interfaces.internal.IThaumcraftCompat;
@@ -38,7 +38,6 @@ import gregtech.api.threads.RunnableCableUpdate;
 import gregtech.api.threads.RunnableMachineUpdate;
 import gregtech.api.util.GTCreativeTab;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.GTDummyWorld;
 import gregtech.common.covers.Base.CoverPosition;
@@ -64,123 +63,115 @@ public class GregTechAPI {
 
     public static final short MAXIMUM_METATILE_IDS = Short.MAX_VALUE - 1;
 
-    public static final CreativeTabs TAB_GREGTECH = new GTCreativeTab("Main", "Main"),
-        TAB_GREGTECH_MATERIALS = new GTCreativeTab("Materials", "Materials"),
-        TAG_GREGTECH_CASINGS = new GTCreativeTab("Casings", "Casings") {
-
-            @Override
-            public ItemStack getIconItemStack() {
-                return ItemList.Casing_RobustTungstenSteel.get(1);
-            }
-        }, TAB_GREGTECH_ORES = new GTCreativeTab("Ores", "Ores");
+    public static final CreativeTabs TAB_GREGTECH = new GTCreativeTab("Main", "Main");
+    public static final CreativeTabs TAB_GREGTECH_MATERIALS = new GTCreativeTab("Materials", "Materials");
 
     public static final IMetaTileEntity[] METATILEENTITIES = new IMetaTileEntity[MAXIMUM_METATILE_IDS];
-    /**
-     * The List of Blocks, which can conduct Machine Block Updates
-     */
+
     public static final Map<Block, Integer> sMachineIDs = new ConcurrentHashMap<>();
-    /**
-     * The Redstone Frequencies
-     */
+
     public static final Map<Integer, Byte> sWirelessRedstone = new ConcurrentHashMap<>();
-    /**
-     * The Advanced Redstone Frequencies
-     */
+
     public static final Map<String, Map<String, Map<CoverPosition, Byte>>> sAdvancedWirelessRedstone = new ConcurrentHashMap<>();
 
-    /**
-     * The IDSU Frequencies
-     */
-    public static final Map<Integer, Integer> sIDSUList = new ConcurrentHashMap<>();
-    /**
-     * A List of all Books, which were created using @GT_Utility.getWrittenBook the original Title is the Key Value
-     */
     public static final Map<String, ItemStack> sBookList = new ConcurrentHashMap<>();
-    /**
-     * The List of Tools, which can be used. Accepts regular damageable Items and Electric Items
-     */
-    public static final GTHashSet sToolList = new GTHashSet(), sCrowbarList = new GTHashSet(),
-        sScrewdriverList = new GTHashSet(), sWrenchList = new GTHashSet(), sSoftMalletList = new GTHashSet(),
-        sHardHammerList = new GTHashSet(), sWireCutterList = new GTHashSet(), sSolderingToolList = new GTHashSet(),
-        sSolderingMetalList = new GTHashSet(), sJackhammerList = new GTHashSet();
 
-    /**
-     * The List of Dimensions, which are Whitelisted for the Teleporter. This list should not contain other Planets.
-     * Mystcraft Dimensions and other Dimensional Things should be allowed. Mystcraft and Twilight Forest are
-     * automatically considered a Dimension, without being in this List.
-     */
-    public static final Collection<Integer> sDimensionalList = new HashSet<>();
-    /**
-     * A List containing all the Materials, which are somehow in use by GT and therefor receive a specific Set of Items.
-     */
+    public static final GTHashSet sToolList = new GTHashSet();
+    public static final GTHashSet sCrowbarList = new GTHashSet();
+    public static final GTHashSet sScrewdriverList = new GTHashSet();
+    public static final GTHashSet sWrenchList = new GTHashSet();
+    public static final GTHashSet sSoftMalletList = new GTHashSet();
+    public static final GTHashSet sHardHammerList = new GTHashSet();
+    public static final GTHashSet sWireCutterList = new GTHashSet();
+    public static final GTHashSet sSolderingToolList = new GTHashSet();
+    public static final GTHashSet sSolderingMetalList = new GTHashSet();
+    public static final GTHashSet sJackhammerList = new GTHashSet();
+
     public static final Materials_OLD[] S_GENERATED_MATERIALS = new Materials_OLD[1000];
-    /**
-     * For the API Version check
-     */
-    public static volatile int VERSION = 509;
 
-    /**
-     * Registers Aspects to Thaumcraft. This Object might be {@code null} if Thaumcraft isn't installed.
-     */
     public static IThaumcraftCompat sThaumcraftCompat;
-    /**
-     * The Lists below are executed at their respective timings. Useful to do things at a particular moment in time. The
-     * Lists are not Threaded - a native Java interface is used for their execution. Add your "commands" in the
-     * constructor or in the static-code-block of your mod's Main class. Implement the method {@code run()}, and
-     * everything should work.
-     */
-    public static List<Runnable> sBeforeGTPreload = new ArrayList<>(), sAfterGTPreload = new ArrayList<>(),
-        sBeforeGTLoad = new ArrayList<>(), sAfterGTLoad = new ArrayList<>(), sBeforeGTPostload = new ArrayList<>(),
-        sAfterGTPostload = new ArrayList<>(), sFirstWorldTick = new ArrayList<>(),
-        sBeforeGTServerstart = new ArrayList<>(), sAfterGTServerstart = new ArrayList<>(),
-        sBeforeGTServerstop = new ArrayList<>(), sAfterGTServerstop = new ArrayList<>(),
-        sGTBlockIconload = new ArrayList<>(), sGTItemIconload = new ArrayList<>(), sGTCompleteLoad = new ArrayList<>();
-    /**
-     * The Icon Registers from Blocks and Items. They will get set right before the corresponding Icon Load Phase as
-     * executed in the Runnable List above.
-     */
-    @SideOnly(Side.CLIENT)
-    public static IIconRegister sBlockIcons, sItemIcons;
 
-    public static int TICKS_FOR_LAG_AVERAGING = 25, MILLISECOND_THRESHOLD_UNTIL_LAG_WARNING = 100;
-    /**
-     * Initialized by the Block creation.
-     */
+    public static List<Runnable> sBeforeGTPreload = new ArrayList<>();
+    public static List<Runnable> sAfterGTPreload = new ArrayList<>();
+    public static List<Runnable> sBeforeGTLoad = new ArrayList<>();
+    public static List<Runnable> sAfterGTLoad = new ArrayList<>();
+    public static List<Runnable> sBeforeGTPostload = new ArrayList<>();
+    public static List<Runnable> sAfterGTPostload = new ArrayList<>();
+    public static List<Runnable> sFirstWorldTick = new ArrayList<>();
+    public static List<Runnable> sBeforeGTServerstart = new ArrayList<>();
+    public static List<Runnable> sAfterGTServerstart = new ArrayList<>();
+    public static List<Runnable> sBeforeGTServerstop = new ArrayList<>();
+    public static List<Runnable> sAfterGTServerstop = new ArrayList<>();
+    public static List<Runnable> sGTBlockIconload = new ArrayList<>();
+    public static List<Runnable> sGTItemIconload = new ArrayList<>();
+    public static List<Runnable> sGTCompleteLoad = new ArrayList<>();
+
+    @SideOnly(Side.CLIENT)
+    public static IIconRegister sBlockIcons;
+
+    @SideOnly(Side.CLIENT)
+    public static IIconRegister sItemIcons;
+
+    public static int TICKS_FOR_LAG_AVERAGING = 25;
+    public static int MILLISECOND_THRESHOLD_UNTIL_LAG_WARNING = 100;
+
     public static Block sBlockMachines;
 
-    public static Block sBlockOres1,
-        /* sBlockGem, */
-        sBlockMetal1, sBlockMetal2, sBlockMetal3, sBlockMetal4, sBlockMetal5, sBlockMetal6, sBlockMetal7, sBlockMetal8,
-        sBlockMetal9, sBlockMetal10, sBlockGem1, sBlockGem2, sBlockGem3, sBlockReinforced, sBlockSheetmetalGT;
-    public static Block sBlockGranites, sBlockConcretes, sBlockStones;
-    public static Block sBlockCasings1, sBlockCasings2, sBlockCasings3, sBlockCasings4, sBlockCasings5, sBlockCasings6,
-        sBlockCasings8, sBlockCasings9, sBlockCasings10, sBlockCasings11, sBlockCasings12, sBlockCasings13,
-        sBlockCasings14, sSolenoidCoilCasings, sBlockCasingsNH, sBlockCasingsFoundry, sBlockCasingsBEC, sBlockCasingsSE,
-        sBlockCasingsSEMotor, sBlockCasingsDyson, sBlockCasingsSiphon;
-    public static Block sBlockLongDistancePipes;
-    public static Block sBlockFenceMetal;
+    public static Block sBlockReinforced;
+    public static Block sBlockSheetmetalGT;
+    public static Block sBlockCasings1;
+    public static Block sBlockCasings2;
+    public static Block sBlockCasings3;
+    public static Block sBlockCasings4;
+    public static Block sBlockCasings5;
+    public static Block sBlockCasings6;
+    public static Block sBlockCasings8;
+    public static Block sBlockCasings9;
+    public static Block sBlockCasings10;
+    public static Block sBlockCasings11;
+    public static Block sBlockCasings12;
+    public static Block sBlockCasings13;
+    public static Block sBlockCasings14;
+    public static Block sSolenoidCoilCasings;
+    public static Block sBlockCasingsNH;
+    public static Block sBlockCasingsFoundry;
+    public static Block sBlockCasingsBEC;
     public static Block sBlockGlass1;
     public static Block sBlockTintedGlass;
-    /**
-     * Getting assigned by the Config
-     */
-    public static boolean sTimber = true, sDrinksAlwaysDrinkable = false, sMultiThreadedSounds = false,
-        sDoShowAllItemsInCreative = false, sColoredGUI = true, sMachineMetalGUI = false, sMachineExplosions = true,
-        sMachineFlammable = true, sMachineNonWrenchExplosions = true, sMachineRainExplosions = true,
-        sMachineThunderExplosions = true, sMachineFireExplosions = true, sMachineWireFire = true, mOutputRF = false,
-        mInputRF = false, mRFExplosions = false, mServerStarted = false;
 
-    public static int mEUtoRF = 360, mRFtoEU = 20;
+    public static boolean sTimber = true;
+    public static boolean sDrinksAlwaysDrinkable = false;
+    public static boolean sMultiThreadedSounds = false;
+    public static boolean sDoShowAllItemsInCreative = false;
+    public static boolean sColoredGUI = true;
+    public static boolean sMachineMetalGUI = false;
+    public static boolean sMachineExplosions = true;
+    public static boolean sMachineFlammable = true;
+    public static boolean sMachineNonWrenchExplosions = true;
+    public static boolean sMachineRainExplosions = true;
+    public static boolean sMachineThunderExplosions = true;
+    public static boolean sMachineFireExplosions = true;
+    public static boolean sMachineWireFire = true;
+    public static boolean mOutputRF = false;
+    public static boolean mInputRF = false;
+    public static boolean mRFExplosions = false;
+    public static boolean mServerStarted = false;
+
+    public static int mEUtoRF = 360;
+    public static int mRFtoEU = 20;
 
     public static boolean mUseOnlyGoodSolderingMaterials = false;
 
     private static final String aTextIC2Lower = IndustrialCraft2.ID.toLowerCase(Locale.ENGLISH);
-    /**
-     * Getting assigned by the Mod loading
-     */
-    public static boolean sUnificationEntriesRegistered = false, sPreloadStarted = false, sPreloadFinished = false,
-        sLoadStarted = false, sLoadFinished = false, sPostloadStarted = false, sPostloadFinished = false,
-        sFullLoadFinished = false;
+
+    public static boolean sUnificationEntriesRegistered = false;
+    public static boolean sPreloadStarted = false;
+    public static boolean sPreloadFinished = false;
+    public static boolean sLoadStarted = false;
+    public static boolean sLoadFinished = false;
+    public static boolean sPostloadStarted = false;
+    public static boolean sPostloadFinished = false;
+    public static boolean sFullLoadFinished = false;
 
     @SuppressWarnings("unchecked")
     private static final IntFunction<TileEntity>[] teCreators = new IntFunction[16];
@@ -195,62 +186,21 @@ public class GregTechAPI {
         dummyWorlds.add(clazz);
     }
 
-    public static boolean isDummyWorld(@Nonnull World w) {
-        return dummyWorlds.contains(w.getClass());
+    public static boolean isDummyWorld(@Nonnull World world) {
+        return dummyWorlds.contains(world.getClass());
     }
 
-    /**
-     * You want OreDict-Unification for YOUR Mod/Addon, when GregTech is installed? This Function is especially for YOU.
-     * Call this Function after the load-Phase, as I register the most of the Unification at that Phase (Redpowers
-     * Storageblocks are registered at postload). A recommended use of this Function is inside your Recipe-System itself
-     * (if you have one), as the unification then makes 100% sure, that every added non-unificated Output gets
-     * automatically unificated.
-     * <p/>
-     * I will personally make sure, that only common prefixes of Ores get registered at the Unificator, as of now there
-     * are: pulp, dust, dustSmall, ingot, nugget, gem, ore and block If another Mod-Author messes these up, then it's
-     * not my fault, and it's especially not your fault. As these are commonly used prefixes.
-     * <p/>
-     * This Unificator-API-Function uses the same Functions I use, for unificating Items. So if there is something
-     * messed up (very unlikely), then everything is messed up.
-     * <p/>
-     * You shouldn't use this to unificate the Inputs of your Recipes, this is only meant for the Outputs.
-     *
-     * @param aOreStack the Stack you want to get unificated. It is stackSize Sensitive.
-     * @return Either an unificated Stack or the stack you toss in, but it should never be null, unless you throw a
-     *         Null-Pointer into it.
-     */
-    public static ItemStack getUnificatedOreDictStack(ItemStack aOreStack) {
-        if (!GregTechAPI.sPreloadFinished) GT_FML_LOGGER.error(
-            "GregTechAPI ERROR: {}.{} - OreDict Unification Entries are not registered now, please call it in the postload phase.",
-            aOreStack.getItem(),
-            aOreStack.getItemDamage());
-        return GTOreDictUnificator.get(true, aOreStack);
-    }
-
-    /**
-     * Causes a Machineblock Update This update will cause surrounding MultiBlock Machines to update their
-     * Configuration. You should call this Function in @Block.breakBlock and in @Block.onBlockAdded of your Machine.
-     *
-     * @param aWorld is being the World
-     * @param aX     is the X-Coord of the update causing Block
-     * @param aY     is the Y-Coord of the update causing Block
-     * @param aZ     is the Z-Coord of the update causing Block
-     */
-    public static boolean causeMachineUpdate(World aWorld, int aX, int aY, int aZ) {
-        if (aWorld != null && !aWorld.isRemote && !isDummyWorld(aWorld)) { // World might be null during World-gen
-            RunnableMachineUpdate.setMachineUpdateValues(aWorld, aX, aY, aZ);
-            return true;
+    public static void causeMachineUpdate(World world, int x, int y, int z) {
+        if (world != null && !world.isRemote && !isDummyWorld(world)) {
+            RunnableMachineUpdate.setMachineUpdateValues(world, x, y, z);
         }
-        return false;
     }
 
-    @SuppressWarnings("UnusedReturnValue") // Retains API method signature
-    public static boolean causeCableUpdate(World aWorld, int aX, int aY, int aZ) {
-        if (aWorld == null || aWorld.isRemote || isDummyWorld(aWorld)) {
-            return false;
-        } // World might be null during World-gen
-        RunnableCableUpdate.setCableUpdateValues(aWorld, aX, aY, aZ);
-        return true;
+    public static void causeCableUpdate(World world, int x, int y, int z) {
+        if (world == null || world.isRemote || isDummyWorld(world)) {
+            return;
+        }
+        RunnableCableUpdate.setCableUpdateValues(world, x, y, z);
     }
 
     /**
@@ -258,50 +208,43 @@ public class GregTechAPI {
      * in @Block.breakBlock and in {@link Block#onBlockAdded} of your registered Block. You don't need to register
      * TileEntities which implement {@link IMachineBlockUpdateable}
      *
-     * @param aBlock the Block
-     * @param aMeta  the Metadata of the Blocks as Bitmask! -1 or ~0 for all Meta-values
+     * @param block the Block
+     * @param meta  the Metadata of the Blocks as Bitmask! -1 or ~0 for all Meta-values
      */
-    @SuppressWarnings("UnusedReturnValue") // Retains API method signature
-    public static boolean registerMachineBlock(Block aBlock, int aMeta) {
-        if (aBlock == null) return false;
-        if (GregTechAPI.sThaumcraftCompat != null)
-            GregTechAPI.sThaumcraftCompat.registerPortholeBlacklistedBlock(aBlock);
-        sMachineIDs.put(aBlock, aMeta);
+    public static void registerMachineBlock(Block block, int meta) {
+        if (block == null) {
+            return;
+        }
+        sMachineIDs.put(block, meta);
+    }
+
+    public static boolean registerMachineBlock(Block block, boolean... meta) {
+        if (block == null || meta == null || meta.length == 0) {
+            return false;
+        }
+        int metaBitMask = 0;
+        for (byte i = 0; i < meta.length && i < 16; i++) {
+            if (meta[i]) {
+                metaBitMask |= B[i];
+            }
+        }
+        sMachineIDs.put(block, metaBitMask);
         return true;
     }
 
-    /**
-     * Like above but with boolean Parameters instead of a BitMask
-     */
-    public static boolean registerMachineBlock(Block aBlock, boolean... aMeta) {
-        if (aBlock == null || aMeta == null || aMeta.length == 0) return false;
-        if (GregTechAPI.sThaumcraftCompat != null)
-            GregTechAPI.sThaumcraftCompat.registerPortholeBlacklistedBlock(aBlock);
-        int rMeta = 0;
-        for (byte i = 0; i < aMeta.length && i < 16; i++) if (aMeta[i]) rMeta |= B[i];
-        sMachineIDs.put(aBlock, rMeta);
-        return true;
-    }
-
-    /**
-     * if this Block is a Machine Update Conducting Block
-     */
-    public static boolean isMachineBlock(Block aBlock, int aMeta) {
-        if (aBlock != null) {
-            Integer id = sMachineIDs.get(aBlock);
+    public static boolean isMachineBlock(Block block, int meta) {
+        if (block != null) {
+            Integer id = sMachineIDs.get(block);
             if (id != null) {
-                if (id == -1) // for all-meta registrations, also with meta > 32
+                if (id == -1) {
                     return true;
-                return (id & B[aMeta]) != 0;
+                }
+                return (id & B[meta]) != 0;
             }
         }
         return false;
     }
 
-    /**
-     * Provides a new BaseMetaTileEntity. Because some interfaces are not always loaded (Buildcraft, Universal
-     * Electricity) we have to use invocation at the constructor of the BaseMetaTileEntity.
-     */
     public static BaseMetaTileEntity constructBaseMetaTileEntity() {
         try {
             return new BaseMetaTileEntity();
@@ -312,146 +255,102 @@ public class GregTechAPI {
         }
     }
 
-    /**
-     * Register a Wrench to be usable on GregTech Machines. The Wrench MUST have some kind of Durability unlike certain
-     * Buildcraft Wrenches.
-     * <p/>
-     * You need to register Tools in the Load Phase, because otherwise the Auto-detection will assign a Tool Type in
-     * certain Cases during postload (When IToolWrench or similar Interfaces are implemented).
-     * <p/>
-     * -----
-     * <p/>
-     * Returning true at isDamageable was a great Idea, KingLemming. Well played. Since the OmniWrench is just a
-     * Single-Item-Mod, people can choose if they want your infinite durability or not. So that's not really a Problem.
-     * I even have a new Config to auto-disable most infinite BC Wrenches (but that one is turned off).
-     * <p/>
-     * One last Bug for you to fix: My Auto-registration detects Railcraft's Crowbars, Buildcraft's Wrenches and alike,
-     * due to their Interfaces. Guess what now became a Crowbar by accident. Try registering the Wrench at the load
-     * phase to prevent things like that from happening. Yes, I know that "You need to register Tools in the Load
-     * Phase"-Part wasn't there before this. Sorry about that.
-     */
     public static boolean registerWrench(ItemStack aTool) {
         return registerTool(aTool, sWrenchList);
     }
 
-    /**
-     * Register a Crowbar to extract Covers from Machines Crowbars are NOT Wrenches btw.
-     * <p/>
-     * You need to register Tools in the Load Phase, because otherwise the Auto-detection will assign a Tool Type in
-     * certain Cases during postload (When IToolWrench or similar Interfaces are implemented).
-     */
     public static boolean registerCrowbar(ItemStack aTool) {
         return registerTool(aTool, sCrowbarList);
     }
 
-    /**
-     * Register a Screwdriver to interact directly with Machines and Covers Did I mention, that it is intentionally not
-     * possible to make a Multi-tool, which doesn't switch ItemID (like a Mode) all the time?
-     * <p/>
-     * You need to register Tools in the Load Phase, because otherwise the Auto-detection will assign a Tool Type in
-     * certain Cases during postload (When IToolWrench or similar Interfaces are implemented).
-     */
-    @SuppressWarnings("UnusedReturnValue") // Retains API method signature
     public static boolean registerScrewdriver(ItemStack aTool) {
         return registerTool(aTool, sScrewdriverList);
     }
 
-    /**
-     * Register a Soft Hammer to interact with Machines
-     * <p/>
-     * You need to register Tools in the Load Phase, because otherwise the Auto-detection will assign a Tool Type in
-     * certain Cases during postload (When IToolWrench or similar Interfaces are implemented).
-     */
     public static boolean registerSoftMallet(ItemStack aTool) {
         return registerTool(aTool, sSoftMalletList);
     }
 
-    /**
-     * Register a Hard Hammer to interact with Machines
-     * <p/>
-     * You need to register Tools in the Load Phase, because otherwise the Auto-detection will assign a Tool Type in
-     * certain Cases during postload (When IToolWrench or similar Interfaces are implemented).
-     */
     public static boolean registerHardHammer(ItemStack aTool) {
         return registerTool(aTool, sHardHammerList);
     }
 
-    /**
-     * Register a Wire Cutter to interact with Machines
-     * <p/>
-     * You need to register Tools in the Load Phase, because otherwise the Auto-detection will assign a Tool Type in
-     * certain Cases during postload (When IToolWrench or similar Interfaces are implemented).
-     */
     public static boolean registerWireCutter(ItemStack aTool) {
         return registerTool(aTool, sWireCutterList);
     }
 
-    /**
-     * Register a Soldering Tool to interact with Machines
-     * <p/>
-     * You need to register Tools in the Load Phase, because otherwise the Auto-detection will assign a Tool Type in
-     * certain Cases during postload (When IToolWrench or similar Interfaces are implemented).
-     */
-    @SuppressWarnings("UnusedReturnValue") // Retains API method signature
     public static boolean registerSolderingTool(ItemStack aTool) {
         return registerTool(aTool, sSolderingToolList);
     }
 
-    /**
-     * Register a Soldering Tin to interact with Soldering Tools
-     * <p/>
-     * You need to register Tools in the Load Phase, because otherwise the Auto-detection will assign a Tool Type in
-     * certain Cases during postload (When IToolWrench or similar Interfaces are implemented).
-     */
-    @SuppressWarnings("UnusedReturnValue") // Retains API method signature
     public static boolean registerSolderingMetal(ItemStack aTool) {
         return registerTool(aTool, sSolderingMetalList);
     }
 
-    /**
-     * Generic Function to add Tools to the Lists. Contains all sanity Checks for Tools, like preventing one Tool from
-     * being registered for multiple purposes as controls would override each other.
-     */
-    public static boolean registerTool(ItemStack aTool, Collection<GTItemStack> aToolList) {
-        if (aTool == null || GTUtility.isStackInList(aTool, sToolList)
-            || (!aTool.getItem()
-                .isDamageable() && !GTModHandler.isElectricItem(aTool) && !(aTool.getItem() instanceof IDamagableItem)))
+    public static boolean registerTool(ItemStack tool, Collection<GTItemStack> toolList) {
+        if (tool == null) {
             return false;
-        aToolList.add(new GTItemStack(GTUtility.copyAmount(1, aTool)));
-        sToolList.add(new GTItemStack(GTUtility.copyAmount(1, aTool)));
+        }
+
+        if (GTUtility.isStackInList(tool, toolList)) {
+            return false;
+        }
+
+        Item item = tool.getItem();
+
+        if (item == null) {
+            return false;
+        }
+
+        boolean isDamageable = item.isDamageable();
+        boolean isElectric = GTModHandler.isElectricItem(tool);
+        boolean isCustomDamagable = item instanceof IDamagableItem;
+
+        if (!isDamageable && !isElectric && !isCustomDamagable) {
+            return false;
+        }
+
+        ItemStack itemStack = GTUtility.copyAmount(1, tool);
+        GTItemStack wrappedStack = new GTItemStack(itemStack);
+
+        toolList.add(wrappedStack);
+        sToolList.add(wrappedStack);
         return true;
     }
 
-    /**
-     * Sets the {@link IIconRegister} for Block Icons
-     *
-     * @param aIconRegister The {@link IIconRegister} Icon Register
-     */
     @SideOnly(Side.CLIENT)
-    public static void setBlockIconRegister(IIconRegister aIconRegister) {
-        sBlockIcons = aIconRegister;
+    public static void setBlockIconRegister(IIconRegister iconRegister) {
+        sBlockIcons = iconRegister;
     }
 
-    /**
-     * Sets the {@link IIconRegister} for Items Icons
-     *
-     * @param aIconRegister The {@link IIconRegister} Icon Register
-     */
     @SideOnly(Side.CLIENT)
-    public static void setItemIconRegister(IIconRegister aIconRegister) {
-        GregTechAPI.sItemIcons = aIconRegister;
+    public static void setItemIconRegister(IIconRegister iconRegister) {
+        GregTechAPI.sItemIcons = iconRegister;
     }
 
     public static void registerTileEntityConstructor(int meta, IntFunction<TileEntity> constructor) {
-        if (meta < 0 || meta > 15 || constructor == null) throw new IllegalArgumentException();
-        if (teCreators[meta] != null) throw new IllegalStateException(
-            "previous constructor: " + teCreators[meta] + " new constructor: " + constructor + " meta:" + meta);
+        if (meta < 0 || meta > 15) {
+            throw new IllegalArgumentException("Invalid meta: " + meta + " (must be " + 0 + "-" + 15 + ")");
+        }
+
+        if (constructor == null) {
+            throw new IllegalArgumentException("Constructor cannot be null");
+        }
+
+        IntFunction<TileEntity> existing = teCreators[meta];
+
+        if (existing != null) {
+            throw new IllegalStateException("Constructor already registered for meta " + meta);
+        }
+
         teCreators[meta] = constructor;
     }
 
     public static TileEntity createTileEntity(int meta) {
         meta = GTUtility.clamp(meta, 0, 15);
-        if (teCreators[meta] == null) return null;
+        if (teCreators[meta] == null) {
+            return null;
+        }
         return teCreators[meta].apply(meta);
     }
 }

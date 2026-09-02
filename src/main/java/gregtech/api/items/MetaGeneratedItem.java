@@ -176,8 +176,6 @@ public abstract class MetaGeneratedItem extends MetaBaseItem implements IGT_Item
                     GTOreDictUnificator.registerOre(tRandomData, rStack);
                 }
             }
-            if (GregTechAPI.sThaumcraftCompat != null)
-                GregTechAPI.sThaumcraftCompat.registerThaumcraftAspectsToItem(rStack, tAspects, false);
             return rStack;
         }
         return null;
