@@ -3,7 +3,6 @@ package gregtech.loaders.materials;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.EnumChatFormatting;
 
-import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.Element;
 import gregtech.api.enums.MaterialBuilder;
@@ -1431,8 +1430,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeLime)
             .setARGB(0x00f03232)
             .setTool(512, 3, 6.0f)
-            .setToolEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 1)
-            .setArmorEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 1)
             .addDustItems()
             .addMetalItems()
             .addOreItems()
@@ -2053,8 +2050,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeLime)
             .setARGB(0x00fa4646)
             .setTool(512, 3, 6.0f)
-            .setToolEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 3)
-            .setArmorEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 3)
             .addDustItems()
             .addMetalItems()
             .addOreItems()
@@ -2092,8 +2087,6 @@ public class MaterialsInit {
             .setColor(Dyes.dyeGreen)
             .setARGB(0x0046fa46)
             .setTool(512, 3, 6.0f)
-            .setToolEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 2)
-            .setArmorEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 2)
             .addDustItems()
             .addMetalItems()
             .addOreItems()
@@ -3995,8 +3988,6 @@ public class MaterialsInit {
             .setARGB(0x00323232)
             .setMoltenARGB(0x0040ff40)
             .setTool(1_280, 4, 6.0f)
-            .setToolEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 4)
-            .setArmorEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 4)
             .addDustItems()
             .addMetalItems()
             .addOreItems()
@@ -4024,8 +4015,6 @@ public class MaterialsInit {
             .setARGB(0x001e1e1e)
             .setMoltenARGB(0x0080ff80)
             .setTool(512, 4, 1.0f)
-            .setToolEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 5)
-            .setArmorEnchantment(() -> EnchantmentRadioactivity.INSTANCE, 5)
             .addDustItems()
             .addMetalItems()
             .addOreItems()

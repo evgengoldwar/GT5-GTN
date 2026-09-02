@@ -56,7 +56,6 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -132,8 +131,6 @@ import gregtech.GTLoggers;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.damagesources.GTDamageSources;
-import gregtech.api.damagesources.GTDamageSources.DamageSourceHotItem;
-import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials_OLD;
@@ -153,7 +150,6 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.net.GTPacketSound;
 import gregtech.api.objects.CollectorUtils;
 import gregtech.api.objects.GTItemStack;
-import gregtech.api.objects.ItemData;
 import gregtech.api.threads.RunnableSound;
 import gregtech.common.items.ItemGTToolbox;
 import gregtech.common.items.ItemIntegratedCircuit;
@@ -1409,43 +1405,8 @@ public class GTUtility {
         return false;
     }
 
-    public static NBTTagCompound getNBTContainingShort(NBTTagCompound aNBT, Object aTag, short aValue) {
-        if (aNBT == null) aNBT = new NBTTagCompound();
-        aNBT.setShort(aTag.toString(), aValue);
-        return aNBT;
-    }
-
-    public static NBTTagCompound getNBTContainingString(NBTTagCompound aNBT, Object aTag, Object aValue) {
-        if (aNBT == null) aNBT = new NBTTagCompound();
-        if (aValue == null) return aNBT;
-        aNBT.setString(aTag.toString(), aValue.toString());
-        return aNBT;
-    }
-
-    public static float getHeatDamageFromItem(ItemStack aStack) {
-        ItemData tData = GTOreDictUnificator.getItemData(aStack);
-        return tData == null ? 0
-            : (tData.mPrefix == null ? 0 : tData.mPrefix.mHeatDamage)
-                + (tData.hasValidMaterialData() ? tData.mMaterial.mMaterial.mHeatDamage : 0);
-    }
-
-    public static int getRadioactivityLevel(ItemStack aStack) {
-        ItemData tData = GTOreDictUnificator.getItemData(aStack);
-        if (tData != null && tData.hasValidMaterialData()) {
-            if (tData.mMaterial.mMaterial.mArmorEnchantment instanceof EnchantmentRadioactivity)
-                return tData.mMaterial.mMaterial.mArmorEnchantmentLevel;
-            if (tData.mMaterial.mMaterial.mToolEnchantment instanceof EnchantmentRadioactivity)
-                return tData.mMaterial.mMaterial.mToolEnchantmentLevel;
-        }
-        return EnchantmentHelper.getEnchantmentLevel(EnchantmentRadioactivity.INSTANCE.effectId, aStack);
-    }
-
     public static boolean applyHeatDamage(EntityLivingBase entity, float damage) {
         return applyHeatDamage(entity, damage, GTDamageSources.getHeatDamage());
-    }
-
-    public static boolean applyHeatDamageFromItem(EntityLivingBase entity, float damage, ItemStack item) {
-        return applyHeatDamage(entity, damage, new DamageSourceHotItem(item));
     }
 
     private static boolean applyHeatDamage(EntityLivingBase aEntity, float aDamage, DamageSource source) {

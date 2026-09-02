@@ -50,7 +50,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.TCAspects.TC_AspectStack;
@@ -809,8 +808,7 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
                 tLevel == null ? tLevels[i] : tLevel == tLevels[i] ? tLevel + 1 : Math.max(tLevel, tLevels[i]));
         }
         for (Entry<Integer, Integer> tEntry : tMap.entrySet()) {
-            if (tEntry.getKey() == 33 || (tEntry.getKey() == 20 && tEntry.getValue() > 2)
-                || tEntry.getKey() == EnchantmentRadioactivity.INSTANCE.effectId)
+            if (tEntry.getKey() == 33 || (tEntry.getKey() == 20 && tEntry.getValue() > 2))
                 tResult.put(tEntry.getKey(), tEntry.getValue());
             else {
                 switch (Enchantment.enchantmentsList[tEntry.getKey()].type) {
