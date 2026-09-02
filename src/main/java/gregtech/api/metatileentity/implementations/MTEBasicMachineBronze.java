@@ -11,10 +11,8 @@ import static gregtech.api.objects.XSTR.XSTR_INSTANCE;
 
 import java.util.Arrays;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -169,18 +167,6 @@ public abstract class MTEBasicMachineBronze extends MTEBasicMachine {
                 getBaseMetaTileEntity().getOffsetZ(getBaseMetaTileEntity().getFrontFacing(), 1))) {
             sendSound((byte) 9);
             mNeedsSteamVenting = false;
-            for (EntityLivingBase tLiving : getBaseMetaTileEntity().getWorld()
-                .getEntitiesWithinAABB(
-                    EntityLivingBase.class,
-                    AxisAlignedBB.getBoundingBox(
-                        getBaseMetaTileEntity().getOffsetX(getBaseMetaTileEntity().getFrontFacing(), 1),
-                        getBaseMetaTileEntity().getOffsetY(getBaseMetaTileEntity().getFrontFacing(), 1),
-                        getBaseMetaTileEntity().getOffsetZ(getBaseMetaTileEntity().getFrontFacing(), 1),
-                        getBaseMetaTileEntity().getOffsetX(getBaseMetaTileEntity().getFrontFacing(), 1) + 1,
-                        getBaseMetaTileEntity().getOffsetY(getBaseMetaTileEntity().getFrontFacing(), 1) + 1,
-                        getBaseMetaTileEntity().getOffsetZ(getBaseMetaTileEntity().getFrontFacing(), 1) + 1))) {
-                GTUtility.applyHeatDamage(tLiving, getSteamDamage());
-            }
         }
         return !mNeedsSteamVenting;
     }

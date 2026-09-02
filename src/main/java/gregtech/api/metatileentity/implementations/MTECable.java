@@ -174,8 +174,6 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
         final long voltage = powerPath.getVoltage();
 
         if (amperage == 0L) return;
-
-        GTUtility.applyElectricityDamage(livingEntity, voltage, amperage);
     }
 
     @Override

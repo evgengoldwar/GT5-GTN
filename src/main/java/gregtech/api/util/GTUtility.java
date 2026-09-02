@@ -58,8 +58,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -75,12 +73,10 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.play.server.S07PacketRespawn;
 import net.minecraft.network.play.server.S1DPacketEntityEffect;
 import net.minecraft.network.play.server.S1FPacketSetExperience;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
@@ -127,10 +123,8 @@ import cofh.asmhooks.block.BlockWater;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.GTLoggers;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
-import gregtech.api.damagesources.GTDamageSources;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials_OLD;
@@ -138,7 +132,6 @@ import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
 import gregtech.api.enums.Textures;
-import gregtech.api.hazards.HazardProtection;
 import gregtech.api.interfaces.IProjectileItem;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.item.ItemStackSizeCalculator;
@@ -157,7 +150,6 @@ import gregtech.nei.FluidDisplayStackMode;
 import ic2.api.recipe.ICannerBottleRecipeManager;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.RecipeOutput;
-import ic2.core.IC2Potion;
 import ic2.core.init.BlocksItems;
 import ic2.core.init.InternalName;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -1375,96 +1367,6 @@ public class GTUtility {
     public static boolean addTexturePage(byte page) {
         if (Textures.BlockIcons.casingTexturePages[page] == null) {
             Textures.BlockIcons.casingTexturePages[page] = new ITexture[128];
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean applyHeatDamage(EntityLivingBase entity, float damage) {
-        return applyHeatDamage(entity, damage, GTDamageSources.getHeatDamage());
-    }
-
-    private static boolean applyHeatDamage(EntityLivingBase aEntity, float aDamage, DamageSource source) {
-        if (aDamage > 0 && aEntity != null
-            && !aEntity.isImmuneToFire()
-            && !HazardProtection.isWearingFullHeatHazmat(aEntity)) {
-            try {
-                return aEntity.attackEntityFrom(source, aDamage);
-            } catch (Exception t) {
-                GTLoggers.GT_FML_LOGGER.error("Error damaging entity", t);
-            }
-        }
-        return false;
-    }
-
-    public static boolean applyFrostDamage(EntityLivingBase aEntity, float aDamage) {
-        if (aDamage > 0 && aEntity != null && !HazardProtection.isWearingFullFrostHazmat(aEntity)) {
-            return aEntity.attackEntityFrom(GTDamageSources.getFrostDamage(), aDamage);
-        }
-        return false;
-    }
-
-    public static boolean applyElectricityDamage(EntityLivingBase aEntity, long aVoltage, long aAmperage) {
-        long aDamage = getTier(aVoltage) * aAmperage * 4;
-        if (aDamage > 0 && aEntity != null && !HazardProtection.isWearingFullElectroHazmat(aEntity)) {
-            return aEntity.attackEntityFrom(GTDamageSources.getElectricDamage(), aDamage);
-        }
-        return false;
-    }
-
-    public static boolean applyRadioactivity(EntityLivingBase aEntity, int aLevel, int aAmountOfItems) {
-        if (aLevel > 0 && aEntity != null
-            && aEntity.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD
-            && aEntity.getCreatureAttribute() != EnumCreatureAttribute.ARTHROPOD
-            && !HazardProtection.isWearingFullRadioHazmat(aEntity)) {
-            PotionEffect tEffect;
-            aEntity.addPotionEffect(
-                new PotionEffect(
-                    Potion.moveSlowdown.id,
-                    aLevel * 140 * aAmountOfItems + Math.max(
-                        0,
-                        ((tEffect = aEntity.getActivePotionEffect(Potion.moveSlowdown)) == null ? 0
-                            : tEffect.getDuration())),
-                    Math.max(0, (5 * aLevel) / 7)));
-            aEntity.addPotionEffect(
-                new PotionEffect(
-                    Potion.digSlowdown.id,
-                    aLevel * 150 * aAmountOfItems + Math.max(
-                        0,
-                        ((tEffect = aEntity.getActivePotionEffect(Potion.digSlowdown)) == null ? 0
-                            : tEffect.getDuration())),
-                    Math.max(0, (5 * aLevel) / 7)));
-            aEntity.addPotionEffect(
-                new PotionEffect(
-                    Potion.confusion.id,
-                    aLevel * 130 * aAmountOfItems + Math.max(
-                        0,
-                        ((tEffect = aEntity.getActivePotionEffect(Potion.confusion)) == null ? 0
-                            : tEffect.getDuration())),
-                    Math.max(0, (5 * aLevel) / 7)));
-            aEntity.addPotionEffect(
-                new PotionEffect(
-                    Potion.weakness.id,
-                    aLevel * 150 * aAmountOfItems + Math.max(
-                        0,
-                        ((tEffect = aEntity.getActivePotionEffect(Potion.weakness)) == null ? 0
-                            : tEffect.getDuration())),
-                    Math.max(0, (5 * aLevel) / 7)));
-            aEntity.addPotionEffect(
-                new PotionEffect(
-                    Potion.hunger.id,
-                    aLevel * 130 * aAmountOfItems + Math.max(
-                        0,
-                        ((tEffect = aEntity.getActivePotionEffect(Potion.hunger)) == null ? 0 : tEffect.getDuration())),
-                    Math.max(0, (5 * aLevel) / 7)));
-            aEntity.addPotionEffect(
-                new PotionEffect(
-                    IC2Potion.radiation.id,
-                    aLevel * 180 * aAmountOfItems + Math.max(
-                        0,
-                        ((tEffect = aEntity.getActivePotionEffect(IC2Potion.radiation)) == null ? 0
-                            : tEffect.getDuration())),
-                    Math.max(0, (5 * aLevel) / 7)));
             return true;
         }
         return false;

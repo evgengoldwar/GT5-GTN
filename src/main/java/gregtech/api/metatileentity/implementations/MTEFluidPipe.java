@@ -22,20 +22,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -62,7 +58,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.items.MetaGeneratedTool;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTLanguageManager;
@@ -281,28 +276,6 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World aWorld, int aX, int aY, int aZ, Entity aEntity) {
-        if ((((BaseMetaPipeEntity) getBaseMetaTileEntity()).mConnections & -128) == 0
-            && aEntity instanceof EntityLivingBase) {
-            for (FluidStack tFluid : mFluids) {
-                if (tFluid != null) {
-                    final int tTemperature = tFluid.getFluid()
-                        .getTemperature(tFluid);
-                    if (tTemperature > 320
-                        && !isCoverOnSide((BaseMetaPipeEntity) getBaseMetaTileEntity(), (EntityLivingBase) aEntity)) {
-                        GTUtility.applyHeatDamage((EntityLivingBase) aEntity, (tTemperature - 300) / 50.0F);
-                        break;
-                    } else if (tTemperature < 260
-                        && !isCoverOnSide((BaseMetaPipeEntity) getBaseMetaTileEntity(), (EntityLivingBase) aEntity)) {
-                            GTUtility.applyFrostDamage((EntityLivingBase) aEntity, (270 - tTemperature) / 25.0F);
-                            break;
-                        }
-                }
-            }
-        }
-    }
-
-    @Override
     public boolean needsClientTick() {
         return false;
     }
@@ -364,33 +337,6 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
                 .isGaseous(tFluid)) {
                 tFluid.amount -= 5;
                 sendSound((byte) 9);
-                if (tTemperature > 320) {
-                    for (EntityLivingBase tLiving : getBaseMetaTileEntity().getWorld()
-                        .getEntitiesWithinAABB(
-                            EntityLivingBase.class,
-                            AxisAlignedBB.getBoundingBox(
-                                getBaseMetaTileEntity().getXCoord() - 2,
-                                getBaseMetaTileEntity().getYCoord() - 2,
-                                getBaseMetaTileEntity().getZCoord() - 2,
-                                getBaseMetaTileEntity().getXCoord() + 3,
-                                getBaseMetaTileEntity().getYCoord() + 3,
-                                getBaseMetaTileEntity().getZCoord() + 3))) {
-                        GTUtility.applyHeatDamage(tLiving, (tTemperature - 300) / 25.0F);
-                    }
-                } else if (tTemperature < 260) {
-                    for (EntityLivingBase tLiving : getBaseMetaTileEntity().getWorld()
-                        .getEntitiesWithinAABB(
-                            EntityLivingBase.class,
-                            AxisAlignedBB.getBoundingBox(
-                                getBaseMetaTileEntity().getXCoord() - 2,
-                                getBaseMetaTileEntity().getYCoord() - 2,
-                                getBaseMetaTileEntity().getZCoord() - 2,
-                                getBaseMetaTileEntity().getXCoord() + 3,
-                                getBaseMetaTileEntity().getYCoord() + 3,
-                                getBaseMetaTileEntity().getZCoord() + 3))) {
-                        GTUtility.applyFrostDamage(tLiving, (270 - tTemperature) / 12.5F);
-                    }
-                }
             }
             if (tFluid.amount <= 0) mFluids[index] = null;
         }
