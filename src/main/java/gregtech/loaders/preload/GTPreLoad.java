@@ -29,7 +29,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.util.GTConfig;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
@@ -111,18 +110,6 @@ public class GTPreLoad {
                     GTLanguageManager
                         .addStringLocalization(aMaterial.getLocalizedNameKey(), aMaterial.mDefaultLocalName);
                 });
-    }
-
-    public static void getConfiguration(File configDir) {
-        File tFile = new File(new File(configDir, "GregTech"), "IDs.cfg");
-        GTConfig.sConfigFileIDs = new Configuration(tFile);
-        GTConfig.sConfigFileIDs.load();
-        GTConfig.sConfigFileIDs.save();
-
-        tFile = new File(new File(configDir, "GregTech"), "Cleanroom.cfg");
-        GTConfig.cleanroomFile = new Configuration(tFile);
-        GTConfig.cleanroomFile.load();
-        GTConfig.cleanroomFile.save();
     }
 
     public static void runMineTweakerCompat() {

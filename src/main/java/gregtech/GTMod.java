@@ -251,8 +251,6 @@ public class GTMod {
             tRunnable.run();
         }
 
-        GTPreLoad.getConfiguration(event.getModConfigurationDirectory());
-
         PowerGogglesConfigHandler.init(new File(event.getModConfigurationDirectory() + "/GregTech/Goggles.cfg"));
 
         proxy.onPreInitialization(event);
