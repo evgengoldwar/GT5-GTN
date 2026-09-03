@@ -37,17 +37,6 @@ public class GTModHandler {
         return GTUtility.copyAmount(aAmount, sIC2ItemMap.get(aItem), aReplacement);
     }
 
-    public static ItemStack getIC2Item(String aItem, long aAmount, int aMeta, ItemStack aReplacement) {
-        ItemStack rStack = getIC2Item(aItem, aAmount, aReplacement);
-        if (rStack == null) return null;
-        Items.feather.setDamage(rStack, aMeta);
-        return rStack;
-    }
-
-    public static ItemStack getIC2Item(String aItem, long aAmount, int aMeta) {
-        return getIC2Item(aItem, aAmount, aMeta, null);
-    }
-
     public static ItemStack getIC2Item(String aItem, long aAmount) {
         return getIC2Item(aItem, aAmount, null);
     }
@@ -249,20 +238,12 @@ public class GTModHandler {
     }
 
     public static int getCapsuleCellContainerCount(ItemStack aStack) {
-        if (aStack == null) return 0;
+        if (aStack == null) {
+            return 0;
+        }
 
         if (GTUtility.areStacksEqual(GTUtility.getContainerForFilledItem(aStack, true), ItemList.Cell_Empty.get(1))) {
             return 1;
-        }
-
-        if (GTUtility.areStacksEqual(aStack, getIC2Item("waterCell", 1, WILDCARD))) {
-            return 1;
-        }
-
-        for (OrePrefixes cellType : OrePrefixes.CELL_TYPES) {
-            if (cellType.contains(aStack)) {
-                return 1;
-            }
         }
 
         return 0;
