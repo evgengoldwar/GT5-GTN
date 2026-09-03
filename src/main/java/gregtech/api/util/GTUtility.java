@@ -8,7 +8,6 @@ import static gregtech.api.enums.GTValues.M;
 import static gregtech.api.enums.GTValues.NW;
 import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.enums.Materials_OLD.FLUID_MAP;
-import static gregtech.api.enums.Mods.Translocator;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
@@ -114,9 +113,6 @@ import com.gtnewhorizon.structurelib.alignment.enumerable.Flip;
 import com.gtnewhorizon.structurelib.alignment.enumerable.Rotation;
 import com.mojang.authlib.GameProfile;
 
-import buildcraft.api.transport.IPipeTile;
-import codechicken.translocator.TileItemTranslocator;
-import cofh.api.transport.IItemDuct;
 import cofh.asmhooks.block.BlockTickingWater;
 import cofh.asmhooks.block.BlockWater;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -428,14 +424,6 @@ public class GTUtility {
             RF_CHECK = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
             CHECK_ALL = false;
         }
-    }
-
-    public static boolean isConnectableNonInventoryPipe(TileEntity tileEntity, ForgeDirection side) {
-        if (tileEntity == null) return false;
-        checkAvailabilities();
-        if (TE_CHECK && tileEntity instanceof IItemDuct) return true;
-        if (BC_CHECK && tileEntity instanceof IPipeTile pipeTile) return pipeTile.isPipeConnected(side);
-        return Translocator.isModLoaded() && tileEntity instanceof TileItemTranslocator;
     }
 
     public static List<ItemStack> wrapInventory(IInventory inv) {

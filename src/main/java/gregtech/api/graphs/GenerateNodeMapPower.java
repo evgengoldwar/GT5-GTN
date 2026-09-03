@@ -6,12 +6,9 @@ import java.util.HashSet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import cofh.api.energy.IEnergyReceiver;
-import gregtech.api.GregTechAPI;
 import gregtech.api.graphs.consumers.ConsumerNode;
 import gregtech.api.graphs.consumers.EmptyPowerConsumer;
 import gregtech.api.graphs.consumers.NodeEnergyConnected;
-import gregtech.api.graphs.consumers.NodeEnergyReceiver;
 import gregtech.api.graphs.consumers.NodeEnergySink;
 import gregtech.api.graphs.consumers.NodeGCEnergyHandler;
 import gregtech.api.graphs.consumers.NodeGTBaseMetaTile;
@@ -79,10 +76,6 @@ public class GenerateNodeMapPower extends GenerateNodeMap {
                 aConsumers.add(tConsumerNode);
                 return true;
             }
-        } else if (GregTechAPI.mOutputRF && aTileEntity instanceof IEnergyReceiver receiver) {
-            ConsumerNode tConsumerNode = new NodeEnergyReceiver(aNodeValue, receiver, side, aConsumers);
-            aConsumers.add(tConsumerNode);
-            return true;
         }
         return false;
     }

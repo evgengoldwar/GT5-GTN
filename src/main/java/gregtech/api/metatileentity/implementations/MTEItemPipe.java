@@ -427,7 +427,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
         if (tileEntity == null) return false;
 
         final ForgeDirection oppositeSide = side.getOpposite();
-        boolean connectable = GTUtility.isConnectableNonInventoryPipe(tileEntity, oppositeSide);
+        boolean connectable = false;
 
         final IGregTechTileEntity gTileEntity = (tileEntity instanceof IGregTechTileEntity)
             ? (IGregTechTileEntity) tileEntity
