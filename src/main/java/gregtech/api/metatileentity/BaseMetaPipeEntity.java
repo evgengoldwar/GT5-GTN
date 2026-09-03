@@ -838,26 +838,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
         }
     }
 
-    @Override
-    public boolean isDigitalChest() {
-        return false;
-    }
-
-    @Override
-    public ItemStack[] getStoredItemData() {
-        return null;
-    }
-
-    @Override
-    public void setItemCount(int aCount) {
-        //
-    }
-
-    @Override
-    public int getMaxItemCount() {
-        return 0;
-    }
-
     /**
      * Can put aStack into Slot
      */

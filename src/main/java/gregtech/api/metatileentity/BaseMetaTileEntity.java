@@ -1595,29 +1595,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
         }
     }
 
-    @Override
-    public boolean isDigitalChest() {
-        if (canAccessData()) return mMetaTileEntity.isDigitalChest();
-        return false;
-    }
-
-    @Override
-    public ItemStack[] getStoredItemData() {
-        if (canAccessData()) return mMetaTileEntity.getStoredItemData();
-        return null;
-    }
-
-    @Override
-    public void setItemCount(int aCount) {
-        if (canAccessData()) mMetaTileEntity.setItemCount(aCount);
-    }
-
-    @Override
-    public int getMaxItemCount() {
-        if (canAccessData()) return mMetaTileEntity.getMaxItemCount();
-        return 0;
-    }
-
     /**
      * Can put aStack into Slot
      */

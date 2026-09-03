@@ -135,13 +135,7 @@ public class WirelessItemDetectorUIFactory extends AdvancedRedstoneTransmitterBa
     }
 
     private void setMaxThreshold() {
-        final ICoverable tile = getUIBuildContext().getTile();
-        if (!tile.isDead() && tile instanceof IGregTechTileEntity gtTile
-            && gtTile.getMetaTileEntity() instanceof MTEDigitalChestBase) {
-            maxThreshold = gtTile.getMaxItemCount();
-        } else {
-            maxThreshold = maxSlot > 0 ? maxSlot * 64 : Integer.MAX_VALUE;
-        }
+        maxThreshold = maxSlot > 0 ? maxSlot * 64 : Integer.MAX_VALUE;
     }
 
     private ItemStack getTargetItem() {

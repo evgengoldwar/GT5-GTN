@@ -31,8 +31,8 @@ import io.netty.buffer.ByteBuf;
  * It can cause Problems to include this Interface!
  */
 public interface IGregTechTileEntity extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable,
-    IGregTechDeviceInformation, IUpgradableMachine, IDigitalChest, IDescribable, IMachineBlockUpdateable,
-    IGregtechWailaProvider, IGetGUITextureSet, IAddInventorySlots, CapabilityProvider {
+    IGregTechDeviceInformation, IUpgradableMachine, IDescribable, IMachineBlockUpdateable, IGregtechWailaProvider,
+    IGetGUITextureSet, IAddInventorySlots, CapabilityProvider {
 
     /**
      * @return the MetaID of the Block or the MetaTileEntity ID.
