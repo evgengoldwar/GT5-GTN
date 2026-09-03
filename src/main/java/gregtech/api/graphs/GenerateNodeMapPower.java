@@ -9,8 +9,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import gregtech.api.graphs.consumers.ConsumerNode;
 import gregtech.api.graphs.consumers.EmptyPowerConsumer;
 import gregtech.api.graphs.consumers.NodeEnergyConnected;
-import gregtech.api.graphs.consumers.NodeEnergySink;
-import gregtech.api.graphs.consumers.NodeGCEnergyHandler;
 import gregtech.api.graphs.consumers.NodeGTBaseMetaTile;
 import gregtech.api.graphs.paths.NodePath;
 import gregtech.api.graphs.paths.PowerNodePath;
@@ -19,8 +17,6 @@ import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
-import ic2.api.energy.tile.IEnergySink;
-import micdoodle8.mods.galacticraft.api.power.IEnergyHandlerGC;
 
 // node map generator for power distribution
 public class GenerateNodeMapPower extends GenerateNodeMap {
@@ -47,32 +43,6 @@ public class GenerateNodeMapPower extends GenerateNodeMap {
         } else if (aTileEntity instanceof IEnergyConnected tTileEntity) {
             if (tTileEntity.inputEnergyFrom(side, false)) {
                 ConsumerNode tConsumerNode = new NodeEnergyConnected(aNodeValue, tTileEntity, side, aConsumers);
-                aConsumers.add(tConsumerNode);
-                return true;
-            }
-        } else if (aTileEntity instanceof IEnergyHandlerGC handler) {
-            ConsumerNode tConsumerNode = new NodeGCEnergyHandler(aNodeValue, handler, side, aConsumers);
-            aConsumers.add(tConsumerNode);
-            return true;
-        } else if (aTileEntity instanceof IEnergySink sink) {
-            // ic2 wants the tilentity next to it of that side not going to add a bunch of arguments just for ic2
-            // crossborder checks to not load chuncks just to make sure
-            int dX = aTileEntity.xCoord + side.offsetX;
-            int dY = aTileEntity.yCoord + side.offsetY;
-            int dZ = aTileEntity.zCoord + side.offsetZ;
-            boolean crossesChuncks = dX >> 4 != aTileEntity.xCoord >> 4 || dZ >> 4 != aTileEntity.zCoord >> 4;
-            TileEntity tNextTo = null;
-            if (!crossesChuncks || !aTileEntity.getWorldObj()
-                .blockExists(dX, dY, dZ))
-                tNextTo = aTileEntity.getWorldObj()
-                    .getTileEntity(dX, dY, dZ);
-
-            if (sink.acceptsEnergyFrom(tNextTo, side)) {
-                ConsumerNode tConsumerNode = new NodeEnergySink(
-                    aNodeValue,
-                    (IEnergySink) aTileEntity,
-                    side,
-                    aConsumers);
                 aConsumers.add(tConsumerNode);
                 return true;
             }
