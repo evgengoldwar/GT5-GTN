@@ -7,9 +7,7 @@ import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.util.GTRecipeBuilder.PANIC_MODE_NULL;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import net.minecraft.entity.EntityLivingBase;
@@ -17,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fluids.FluidStack;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -36,11 +33,6 @@ public class GTModHandler {
     public static boolean isWater(FluidStack aFluid) {
         if (aFluid == null) return false;
         return aFluid.isFluidEqual(Materials_OLD.Water.getFluid(1));
-    }
-
-    public static boolean isSteam(FluidStack aFluid) {
-        if (aFluid == null) return false;
-        return aFluid.isFluidEqual(Materials_OLD.Steam.getGas(1));
     }
 
     public static ItemStack getIC2Item(String aItem, long aAmount, ItemStack aReplacement) {

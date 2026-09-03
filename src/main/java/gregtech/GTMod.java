@@ -55,7 +55,6 @@ import gregtech.api.recipe.RecipeMapBackend;
 import gregtech.api.util.AssemblyLineServer;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.common.GTClient;

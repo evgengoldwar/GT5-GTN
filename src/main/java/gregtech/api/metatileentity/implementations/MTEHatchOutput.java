@@ -44,7 +44,6 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.hatch.MTEHatchOutputGui;
@@ -285,16 +284,8 @@ public class MTEHatchOutput extends MTEHatch
         return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
     }
 
-    public boolean outputsSteam() {
-        return mMode < 4;
-    }
-
     public boolean outputsLiquids() {
-        return mMode % 2 == 0 || mMode == 9;
-    }
-
-    public boolean outputsItems() {
-        return mMode % 4 < 2 && mMode != 9;
+        return mMode < 4 || mMode % 2 == 0 || mMode == 9;
     }
 
     @Override
@@ -350,9 +341,7 @@ public class MTEHatchOutput extends MTEHatch
             }
             return lockedFluid.equals(fluidStack.getFluid());
         }
-        if (GTModHandler.isSteam(fluidStack)) {
-            return outputsSteam();
-        }
+
         return outputsLiquids();
     }
 

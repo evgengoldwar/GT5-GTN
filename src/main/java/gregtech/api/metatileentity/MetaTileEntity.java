@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +44,6 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTTooltipDataCache;
 import gregtech.api.util.GTUtility;
 import gregtech.common.capability.CleanroomReference;
@@ -549,36 +547,20 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
         markDirty();
     }
 
-    /**
-     * Implement {@link #fill(ForgeDirection, FluidStack, boolean)} instead.
-     */
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval
-    public int fill_default(ForgeDirection side, FluidStack aFluid, boolean doFill) {
-        int filled = fill(aFluid, doFill);
-        if (filled > 0) {
-            markDirty();
-        }
-        return filled;
-    }
-
     @Override
     public int fill(ForgeDirection side, FluidStack aFluid, boolean doFill) {
-        if (getBaseMetaTileEntity().isSteampowered() && GTModHandler.isSteam(aFluid) && aFluid.amount > 1) {
-            int tSteam = (int) Math.min(
-                Integer.MAX_VALUE,
-                Math.min(
-                    aFluid.amount / 2,
-                    getBaseMetaTileEntity().getSteamCapacity() - getBaseMetaTileEntity().getStoredSteam()));
-            if (tSteam > 0) {
-                markDirty();
-                if (doFill) getBaseMetaTileEntity().increaseStoredSteam(tSteam, true);
-                return tSteam * 2;
-            }
-        } else {
-            return fill_default(side, aFluid, doFill);
-        }
+        // if (getBaseMetaTileEntity().isSteampowered() && GTModHandler.isSteam(aFluid) && aFluid.amount > 1) {
+        // int tSteam = (int) Math.min(
+        // Integer.MAX_VALUE,
+        // Math.min(
+        // aFluid.amount / 2,
+        // getBaseMetaTileEntity().getSteamCapacity() - getBaseMetaTileEntity().getStoredSteam()));
+        // if (tSteam > 0) {
+        // markDirty();
+        // if (doFill) getBaseMetaTileEntity().increaseStoredSteam(tSteam, true);
+        // return tSteam * 2;
+        // }
+        // }
         return 0;
     }
 
