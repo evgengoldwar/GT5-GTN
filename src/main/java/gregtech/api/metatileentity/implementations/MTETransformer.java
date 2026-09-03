@@ -1,7 +1,6 @@
 package gregtech.api.metatileentity.implementations;
 
 import static gregtech.api.enums.GTValues.V;
-import static gregtech.api.enums.Mods.EnderIO;
 import static mcp.mobius.waila.api.SpecialChars.BLUE;
 import static mcp.mobius.waila.api.SpecialChars.GOLD;
 import static mcp.mobius.waila.api.SpecialChars.GREEN;
@@ -19,13 +18,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import cofh.api.energy.IEnergyProvider;
-import cofh.api.energy.IEnergyStorage;
-import crazypants.enderio.machine.capbank.TileCapBank;
-import crazypants.enderio.machine.capbank.network.ICapBankNetwork;
-import crazypants.enderio.power.IPowerContainer;
 import gregtech.GTMod;
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -163,59 +156,6 @@ public class MTETransformer extends MTETieredMachineBlock {
 
     public long displayedAmperesIn() {
         return getBaseMetaTileEntity().isAllowedToWork() ? 1 : 4;
-    }
-
-    @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        if (aBaseMetaTileEntity.isServerSide() && GregTechAPI.mInputRF) {
-            aBaseMetaTileEntity.setActive(aBaseMetaTileEntity.isAllowedToWork());
-            for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-                if (aBaseMetaTileEntity.getStoredEU() >= aBaseMetaTileEntity.getEUCapacity()) break;
-                if (!aBaseMetaTileEntity.inputEnergyFrom(side)) continue;
-                final TileEntity tTileEntity = aBaseMetaTileEntity.getTileEntityAtSide(side);
-                if (tTileEntity instanceof IEnergyProvider energyProvider
-                    && energyProvider.extractEnergy(side.getOpposite(), 1, true) == 1) {
-                    long tEU = ((IEnergyProvider) tTileEntity).extractEnergy(
-                        side.getOpposite(),
-                        GTUtility.safeInt(maxEUInput() * 100L / GregTechAPI.mRFtoEU),
-                        false);
-                    tEU = tEU * GregTechAPI.mRFtoEU / 100;
-                    aBaseMetaTileEntity.injectEnergyUnits(ForgeDirection.UNKNOWN, Math.min(tEU, maxEUInput()), 1);
-                } else if (tTileEntity instanceof IEnergyStorage energyStorage
-                    && energyStorage.extractEnergy(1, true) == 1) {
-                        long tEU = ((IEnergyStorage) tTileEntity)
-                            .extractEnergy(GTUtility.safeInt(maxEUInput() * 100L / GregTechAPI.mRFtoEU), false);
-                        tEU = tEU * GregTechAPI.mRFtoEU / 100;
-                        aBaseMetaTileEntity.injectEnergyUnits(ForgeDirection.UNKNOWN, Math.min(tEU, maxEUInput()), 1);
-                    } else if (EnderIO.isModLoaded() && tTileEntity instanceof IPowerContainer powerContainer
-                        && powerContainer.getEnergyStored() > 0) {
-                            final int storedRF = powerContainer.getEnergyStored();
-                            final int extractRF = GTUtility.safeInt(maxEUInput() * 100L / GregTechAPI.mRFtoEU);
-                            long tEU = 0;
-                            if (tTileEntity instanceof TileCapBank capBank) {
-                                ICapBankNetwork network = capBank.getNetwork();
-                                if (network != null && network.getEnergyStoredL() > 0) {
-                                    tEU = Math.min(
-                                        (Math.min(
-                                            Math.min(network.getEnergyStoredL(), storedRF - extractRF),
-                                            network.getMaxOutput())) * (long) GregTechAPI.mRFtoEU / 100L,
-                                        maxEUInput());
-                                    network.addEnergy(GTUtility.safeInt(-(tEU * 100 / GregTechAPI.mRFtoEU)));
-                                }
-                            } else {
-                                if (storedRF > extractRF) {
-                                    powerContainer.setEnergyStored(storedRF - extractRF);
-                                    tEU = maxEUInput();
-                                } else {
-                                    powerContainer.setEnergyStored(0);
-                                    tEU = storedRF * (long) GregTechAPI.mRFtoEU / 100L;
-                                }
-                            }
-                            aBaseMetaTileEntity
-                                .injectEnergyUnits(ForgeDirection.UNKNOWN, Math.min(tEU, maxEUInput()), 1);
-                        }
-            }
-        }
     }
 
     @Override

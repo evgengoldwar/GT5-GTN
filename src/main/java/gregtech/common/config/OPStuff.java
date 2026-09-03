@@ -21,16 +21,6 @@ public class OPStuff {
     @Config.RequiresMcRestart
     public static int howMuchEUWith100RFInInput;
 
-    @Config.Comment("if true, enables RF -> EU conversion.")
-    @Config.DefaultBoolean(false)
-    @Config.RequiresMcRestart
-    public static boolean inputRF;
-
-    @Config.Comment("if true, enables EU -> RF conversion.")
-    @Config.DefaultBoolean(true)
-    @Config.RequiresMcRestart
-    public static boolean outputRF;
-
     @Config.Comment("if true, ignores TinkerConstruct in ore registration.")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

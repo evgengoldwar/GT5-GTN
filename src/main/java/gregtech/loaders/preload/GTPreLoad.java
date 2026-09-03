@@ -320,8 +320,6 @@ public class GTPreLoad {
         loadClientConfig();
 
         // OverpoweredStuff.cfg
-        GregTechAPI.mOutputRF = OPStuff.outputRF;
-        GregTechAPI.mInputRF = OPStuff.inputRF;
         GregTechAPI.mEUtoRF = OPStuff.howMuchRFWith100EUInInput;
         GregTechAPI.mRFtoEU = OPStuff.howMuchEUWith100RFInInput;
     }
