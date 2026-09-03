@@ -147,8 +147,6 @@ import gregtech.nei.FluidDisplayStackMode;
 import ic2.api.recipe.ICannerBottleRecipeManager;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.RecipeOutput;
-import ic2.core.init.BlocksItems;
-import ic2.core.init.InternalName;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenCustomHashMap;
@@ -2929,19 +2927,8 @@ public class GTUtility {
         return Mods.COFHCore.isModLoaded() && (block instanceof BlockWater || block instanceof BlockTickingWater);
     }
 
-    private static boolean isDistilledWater(Block block) {
-        if (DISTILLED_WATER_BLOCK == null) {
-            Block b = BlocksItems.getFluidBlock(InternalName.fluidDistilledWater);
-            if (b != null) {
-                DISTILLED_WATER_BLOCK = b;
-            }
-        }
-        return DISTILLED_WATER_BLOCK != null
-            && Block.getIdFromBlock(block) == Block.getIdFromBlock(DISTILLED_WATER_BLOCK);
-    }
-
     public static boolean isWater(Block block) {
-        return block == Blocks.flowing_water || block == Blocks.water || isDistilledWater(block) || isCOFHWater(block);
+        return block == Blocks.flowing_water || block == Blocks.water || isCOFHWater(block);
     }
 
     public static boolean isFlowingWater(Block block, World world, int x, int y, int z) {
