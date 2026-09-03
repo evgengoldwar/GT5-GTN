@@ -1,13 +1,5 @@
 package gregtech.crossmod.ae2;
 
-import static gregtech.api.enums.Mods.Avaritia;
-import static gregtech.api.enums.Mods.BloodArsenal;
-import static gregtech.api.enums.Mods.BloodMagic;
-import static gregtech.api.enums.Mods.ExtraUtilities;
-import static gregtech.api.enums.Mods.ForbiddenMagic;
-import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
-import static gregtech.api.enums.Mods.TwilightForest;
-import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
 import net.minecraft.item.ItemStack;
