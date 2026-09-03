@@ -1121,11 +1121,6 @@ public class GTUtility {
         return index < 0 || index >= list.size() ? null : list.get(index);
     }
 
-    public static Block getBlockFromStack(ItemStack itemStack) {
-        if (isStackInvalid(itemStack)) return Blocks.air;
-        return getBlockFromItem(itemStack.getItem());
-    }
-
     public static Block getBlockFromItem(Item item) {
         return Block.getBlockFromItem(item);
     }
