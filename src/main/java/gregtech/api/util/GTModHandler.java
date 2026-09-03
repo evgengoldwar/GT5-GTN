@@ -1,39 +1,24 @@
 package gregtech.api.util;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
-import static gregtech.GTLoggers.GT_RECIPE_REMOVAL_LOGGER;
-import static gregtech.GTLoggers.GT_RECIPE_REMOVAL_LOGGER_ENABLED;
 import static gregtech.api.enums.GTValues.B;
 import static gregtech.api.enums.GTValues.D1;
-import static gregtech.api.enums.GTValues.DW;
 import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.util.GTRecipeBuilder.PANIC_MODE_NULL;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicIntegerArray;
-import java.util.stream.Collectors;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
@@ -41,75 +26,13 @@ import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IDamagableItem;
-import gregtech.api.interfaces.internal.IGTCraftingRecipe;
-import gregtech.api.objects.GTItemStack;
 import ic2.api.item.IC2Items;
 import ic2.core.item.ItemToolbox;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenCustomHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
 
 public class GTModHandler {
 
     public static final List<IRecipe> sSingleNonBlockDamagableRecipeList = new ArrayList<>(1000);
     private static final Map<String, ItemStack> sIC2ItemMap = new HashMap<>();
-
-    public static final List<IRecipe> sBufferRecipeList = new ArrayList<>(1000);
-
-    private static final ObjectOpenCustomHashSet<ItemStack> delayedRemovalByOutput = new ObjectOpenCustomHashSet<>(
-        1024,
-        GTItemStack.ITEMSTACK_HASH_STRATEGY2);
-    private static final Object2IntOpenCustomHashMap<ItemStack> delayedRemovalByOutputFlags = new Object2IntOpenCustomHashMap<>(
-        512,
-        GTItemStack.ITEMSTACK_HASH_STRATEGY2);
-    private static final int DELAYED_REMOVAL_KEEP_SHAPELESS = 1;
-    private static final int DELAYED_REMOVAL_ONLY_REMOVE_NATIVE = 2;
-
-    private static final List<InventoryCrafting> delayedRemovalByRecipe = new ArrayList<>();
-    private static final List<Exception> delayedRemovalCallsites = new ArrayList<>();
-
-    public static Collection<String> sNativeRecipeClasses = new HashSet<>();
-    public static Collection<String> sSpecialRecipeClasses = new HashSet<>();
-
-    static {
-        sNativeRecipeClasses.add(ShapedRecipes.class.getName());
-        sNativeRecipeClasses.add(ShapedOreRecipe.class.getName());
-        sNativeRecipeClasses.add(ShapelessRecipes.class.getName());
-        sNativeRecipeClasses.add(ShapelessOreRecipe.class.getName());
-        sNativeRecipeClasses.add(ic2.core.AdvRecipe.class.getName());
-        sNativeRecipeClasses.add(ic2.core.AdvShapelessRecipe.class.getName());
-        sNativeRecipeClasses.add("appeng.recipes.game.ShapedRecipe");
-        sNativeRecipeClasses.add("appeng.recipes.game.ShapelessRecipe");
-        sNativeRecipeClasses.add("forestry.core.utils.ShapedRecipeCustom");
-
-        // Recipe Classes, which should never be removed.
-        sSpecialRecipeClasses.add(net.minecraft.item.crafting.RecipeFireworks.class.getName());
-        sSpecialRecipeClasses.add(net.minecraft.item.crafting.RecipesArmorDyes.class.getName());
-        sSpecialRecipeClasses.add(net.minecraft.item.crafting.RecipeBookCloning.class.getName());
-        sSpecialRecipeClasses.add(net.minecraft.item.crafting.RecipesMapCloning.class.getName());
-        sSpecialRecipeClasses.add(net.minecraft.item.crafting.RecipesMapExtending.class.getName());
-        sSpecialRecipeClasses.add("jds.bibliocraft.BiblioSpecialRecipes");
-        sSpecialRecipeClasses.add("dan200.qcraft.shared.EntangledQBlockRecipe");
-        sSpecialRecipeClasses.add("dan200.qcraft.shared.EntangledQuantumComputerRecipe");
-        sSpecialRecipeClasses.add("dan200.qcraft.shared.QBlockRecipe");
-        sSpecialRecipeClasses.add("appeng.recipes.game.FacadeRecipe");
-        sSpecialRecipeClasses.add("appeng.recipes.game.DisassembleRecipe");
-        sSpecialRecipeClasses.add("mods.railcraft.common.carts.LocomotivePaintingRecipe");
-        sSpecialRecipeClasses.add("mods.railcraft.common.util.crafting.RotorRepairRecipe");
-        sSpecialRecipeClasses.add("mods.railcraft.common.util.crafting.RoutingTableCopyRecipe");
-        sSpecialRecipeClasses.add("mods.railcraft.common.util.crafting.RoutingTicketCopyRecipe");
-        sSpecialRecipeClasses.add("mods.railcraft.common.util.crafting.TankCartFilterRecipe");
-        sSpecialRecipeClasses.add("mods.railcraft.common.emblems.LocomotiveEmblemRecipe");
-        sSpecialRecipeClasses.add("mods.railcraft.common.emblems.EmblemPostColorRecipe");
-        sSpecialRecipeClasses.add("mods.railcraft.common.emblems.EmblemPostEmblemRecipe");
-        sSpecialRecipeClasses.add("mods.immibis.redlogic.interaction.RecipeDyeLumarButton");
-        sSpecialRecipeClasses.add("thaumcraft.common.items.armor.RecipesRobeArmorDyes");
-        sSpecialRecipeClasses.add("thaumcraft.common.items.armor.RecipesVoidRobeArmorDyes");
-        sSpecialRecipeClasses.add("thaumcraft.common.lib.crafting.ShapelessNBTOreRecipe");
-        sSpecialRecipeClasses.add("twilightforest.item.TFMapCloningRecipe");
-        sSpecialRecipeClasses.add("forestry.lepidopterology.MatingRecipe");
-        sSpecialRecipeClasses.add("micdoodle8.mods.galacticraft.planets.asteroids.recipe.CanisterRecipes");
-        sSpecialRecipeClasses.add("shedar.mods.ic2.nuclearcontrol.StorageArrayRecipe");
-    }
 
     public static boolean isWater(FluidStack aFluid) {
         if (aFluid == null) return false;
@@ -202,108 +125,6 @@ public class GTModHandler {
         if (rStack == null) return null;
         Items.feather.setDamage(rStack, aMeta);
         return rStack;
-    }
-
-    public static void stopBufferingCraftingRecipes() {
-        bulkRemoveRecipeByOutput();
-        bulkRemoveByRecipe();
-        sBufferRecipeList.forEach(GameRegistry::addRecipe);
-
-        delayedRemovalByOutput.clear();
-        delayedRemovalByOutputFlags.clear();
-        delayedRemovalByRecipe.clear();
-        delayedRemovalCallsites.clear();
-        sBufferRecipeList.clear();
-    }
-
-    private static void bulkRemoveByRecipe() {
-        ArrayList<IRecipe> allRecipes = (ArrayList<IRecipe>) CraftingManager.getInstance()
-            .getRecipeList();
-        GT_FML_LOGGER
-            .info("BulkRemoveByRecipe: allRecipes: {}; toRemove: {}", allRecipes.size(), delayedRemovalByRecipe.size());
-        long start = System.currentTimeMillis();
-        AtomicIntegerArray matchedDelayedRemovals = GT_RECIPE_REMOVAL_LOGGER_ENABLED
-            ? new AtomicIntegerArray(delayedRemovalByRecipe.size())
-            : null;
-        Set<IRecipe> listToRemove = allRecipes.parallelStream()
-            .filter(recipe -> {
-                if (recipe instanceof IGTCraftingRecipe craftingRecipe && !craftingRecipe.isRemovable()) {
-                    return false;
-                }
-                for (int i = 0; i < delayedRemovalByRecipe.size(); i++) {
-                    if (recipe.matches(delayedRemovalByRecipe.get(i), DW)) {
-                        if (matchedDelayedRemovals != null) matchedDelayedRemovals.set(i, 1);
-                        return true;
-                    }
-                }
-                return false;
-            })
-            .collect(Collectors.toSet());
-
-        allRecipes.removeIf(listToRemove::contains);
-        GT_FML_LOGGER.info("BulkRemoveByRecipe processed in {} ms!", System.currentTimeMillis() - start);
-        if (matchedDelayedRemovals != null) {
-            for (int i = 0; i < matchedDelayedRemovals.length(); i++) {
-                if (matchedDelayedRemovals.get(i) == 0) {
-                    GT_RECIPE_REMOVAL_LOGGER.warn(
-                        "No existing removable crafting recipe matched these queued inputs; removal call site follows",
-                        delayedRemovalCallsites.get(i));
-                }
-            }
-        }
-    }
-
-    private static void bulkRemoveRecipeByOutput() {
-        ArrayList<IRecipe> allRecipes = (ArrayList<IRecipe>) CraftingManager.getInstance()
-            .getRecipeList();
-        ItemStack wildcardItem = new ItemStack((Item) null, 0, WILDCARD);
-
-        GT_FML_LOGGER.info(
-            "BulkRemoveRecipeByOutput: allRecipes: {}; toRemove: {}",
-            allRecipes.size(),
-            delayedRemovalByOutput.size());
-
-        allRecipes.removeIf(recipe -> {
-            if (recipe instanceof IGTCraftingRecipe craftingRecipe && !craftingRecipe.isRemovable()) {
-                return false;
-            }
-
-            ItemStack output = GTOreDictUnificator.get_nocopy(recipe.getRecipeOutput());
-            if (output == null) return false;
-
-            wildcardItem.func_150996_a(output.getItem());
-            if (delayedRemovalByOutput.contains(wildcardItem)) {
-                output = wildcardItem;
-            }
-
-            if (!delayedRemovalByOutput.contains(output)) {
-                return false;
-            }
-
-            final int flags = delayedRemovalByOutputFlags.getOrDefault(output, 0);
-            if ((flags & DELAYED_REMOVAL_KEEP_SHAPELESS) != 0) {
-                if (recipe instanceof ShapelessRecipes || recipe instanceof ShapelessOreRecipe) {
-                    return false;
-                }
-            }
-
-            String recipeClassName = recipe.getClass()
-                .getName();
-            if ((flags & DELAYED_REMOVAL_ONLY_REMOVE_NATIVE) != 0) {
-                return sNativeRecipeClasses.contains(recipeClassName);
-            } else {
-                return !sSpecialRecipeClasses.contains(recipeClassName);
-            }
-        });
-    }
-
-    private static boolean isAllNulls(ItemStack[] aRecipe) {
-        for (ItemStack stack : aRecipe) {
-            if (stack != null) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public static int chargeElectricItem(ItemStack aStack, int aCharge, int aTier, boolean aIgnoreLimit,

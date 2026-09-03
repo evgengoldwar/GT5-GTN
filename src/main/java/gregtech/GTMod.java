@@ -394,7 +394,6 @@ public class GTMod {
         @SuppressWarnings("UnstableApiUsage") // Stable enough for this project
         Stopwatch stopwatch = Stopwatch.createStarted();
         GT_FML_LOGGER.debug("GTMod: Adding buffered Recipes.");
-        GTModHandler.stopBufferingCraftingRecipes();
         // noinspection UnstableApiUsage// Stable enough for this project
         GT_FML_LOGGER.info("Executed delayed Crafting Recipes ({}). Have a Cake.", stopwatch.stop());
 
@@ -443,7 +442,6 @@ public class GTMod {
             @SuppressWarnings("UnstableApiUsage") // Stable enough for this project
             Stopwatch stopwatch = Stopwatch.createStarted();
             GT_FML_LOGGER.debug("GTMod: Adding 2nd pass of buffered Recipes.");
-            GTModHandler.stopBufferingCraftingRecipes();
             // noinspection UnstableApiUsage// Stable enough for this project
             GT_FML_LOGGER
                 .info("Executed 2nd pass of delayed Crafting Recipes ({}). Have another Cake.", stopwatch.stop());

@@ -22,7 +22,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.enums.SubTag;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.objects.ItemData;
 import gregtech.api.objects.MaterialStack;
@@ -287,8 +286,7 @@ public class GTOreDictUnificator {
                 aStack = GTUtility.copyAmount(1, aStack);
             }
             sItemStack2DataMap.put(aStack, aData);
-            if (aData.hasValidMaterialData()) {
-            }
+            if (aData.hasValidMaterialData()) {}
             if (mRunThroughTheList) {
                 if (GregTechAPI.sLoadStarted) {
                     mRunThroughTheList = false;

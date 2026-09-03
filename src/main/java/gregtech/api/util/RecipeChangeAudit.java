@@ -172,20 +172,6 @@ public final class RecipeChangeAudit {
             }
         }
 
-        for (IRecipe recipe : GTModHandler.sBufferRecipeList) {
-            add(
-                snapshot,
-                occurrences,
-                "gt-crafting-buffer",
-                "",
-                recipe,
-                safely(
-                    "gt-crafting-buffer",
-                    null,
-                    recipe.getClass(),
-                    () -> craftingRecipe("gt-crafting-buffer", recipe)));
-        }
-
         return snapshot;
     }
 
