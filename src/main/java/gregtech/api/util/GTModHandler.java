@@ -48,13 +48,6 @@ import ic2.core.item.ItemToolbox;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenCustomHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
 
-/**
- * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
- * <p/>
- * This is the Interface I use for interacting with other Mods.
- * <p/>
- * Due to the many imports, this File can cause compile Problems if not all the APIs are installed
- */
 public class GTModHandler {
 
     public static final List<IRecipe> sSingleNonBlockDamagableRecipeList = new ArrayList<>(1000);
