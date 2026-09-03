@@ -410,7 +410,6 @@ public class GTMod {
 
         new GTPostLoad().run();
 
-        GTRecipe.GTppRecipeHelper = true;
         GT_FML_LOGGER.debug("GTMod: Loading finished, de-allocating temporary Init Variables.");
         GregTechAPI.sBeforeGTPreload = null;
         GregTechAPI.sAfterGTPreload = null;

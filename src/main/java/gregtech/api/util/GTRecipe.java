@@ -377,23 +377,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
     }
 
     /**
-     * Okay, did some code archeology to figure out what's going on here.
-     *
-     * <p>
-     * This variable was added in <a
-     * href=https://github.com/GTNewHorizons/GT5-Unofficial/commit/9959ab7443982a19ad329bca424ab515493432e9>this
-     * commit,</a> in order to fix the issues mentioned in <a
-     * href=https://github.com/GTNewHorizons/GT5-Unofficial/pull/183>the PR</a>.
-     *
-     * <p>
-     * It looks like it controls checking NBT. At this point, since we are still using universal fluid cells which store
-     * their fluids in NBT, it probably will not be safe to disable the NBT checks in the near future. Data sticks may
-     * be another case. Anyway, we probably can't get rid of this without some significant changes to clean up recipe
-     * inputs.
-     */
-    public static boolean GTppRecipeHelper;
-
-    /**
      * Builds the merged-input cache array. Override in subclasses to support alternative input representations (e.g.
      * oredict slots). Called once per recipe, result is cached by {@link #getCachedCombinedItemInputs()}.
      */
@@ -704,14 +687,7 @@ public class GTRecipe implements Comparable<GTRecipe> {
         return currentParallel;
     }
 
-    /**
-     * Please see JavaDoc on {@link #GTppRecipeHelper} for why this is here.
-     */
     private static boolean shouldCheckNBT(ItemStack item) {
-        if (GTppRecipeHelper) {
-            return GTUtility.areStacksEqual(item, ic2FluidCell, true) || GTUtility.areStacksEqual(item, dataStick, true)
-                || GTUtility.areStacksEqual(item, dataOrb, true);
-        }
         return false;
     }
 
