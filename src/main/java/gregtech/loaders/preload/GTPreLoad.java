@@ -278,14 +278,6 @@ public class GTPreLoad {
         GTValues.D1 = Gregtech.debug.D1;
         GTValues.D2 = Gregtech.debug.D2;
         GTValues.allow_broken_recipemap = Gregtech.debug.allowBrokenRecipeMap;
-        GTValues.debugCleanroom = Gregtech.debug.debugCleanroom;
-        GTValues.debugDriller = Gregtech.debug.debugDriller;
-        GTValues.debugWorldGen = Gregtech.debug.debugWorldgen;
-        GTValues.debugOrevein = Gregtech.debug.debugOrevein;
-        GTValues.debugSmallOres = Gregtech.debug.debugSmallOres;
-        GTValues.debugStones = Gregtech.debug.debugStones;
-        GTValues.debugBlockMiner = Gregtech.debug.debugBlockMiner;
-        GTValues.debugBlockPump = Gregtech.debug.debugBlockPump;
         GTValues.debugEntityCramming = Gregtech.debug.debugEntityCramming;
         GTValues.debugWorldData = Gregtech.debug.debugWorldData;
         GTValues.oreveinAttempts = Gregtech.general.oreveinAttempts;

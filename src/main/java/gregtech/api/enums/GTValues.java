@@ -292,42 +292,6 @@ public class GTValues {
      */
     public static boolean D1 = false, D2 = false;
     /**
-     * Debug parameter for cleanroom testing.
-     */
-    public static boolean debugCleanroom = false;
-    /**
-     * Debug parameter for driller testing.
-     */
-    public static boolean debugDriller = false;
-    /**
-     * Debug parameter for world generation. Tracks chunks added/removed from run queue.
-     */
-    public static boolean debugWorldGen = false;
-    /**
-     * Debug parameter for world generation. Measures amount of time taken to generate oreveins, stone, etc.
-     */
-    public static boolean profileWorldGen = false;
-    /**
-     * Debug parameter for orevein generation.
-     */
-    public static boolean debugOrevein = false;
-    /**
-     * Debug parameter for small ore generation.
-     */
-    public static boolean debugSmallOres = false;
-    /**
-     * Debug parameter for stones generation.
-     */
-    public static boolean debugStones = false;
-    /**
-     * Debug parameter for single block pump
-     */
-    public static boolean debugBlockPump = false;
-    /**
-     * Debug parameter for single block miner
-     */
-    public static boolean debugBlockMiner = false;
-    /**
      * Debug parameter for entity cramming reduction
      */
     public static boolean debugEntityCramming = false;

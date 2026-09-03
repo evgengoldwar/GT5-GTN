@@ -42,46 +42,6 @@ public class Gregtech {
         @Config.RequiresMcRestart
         public boolean allowBrokenRecipeMap;
 
-        @Config.Comment("Debug parameters for cleanroom testing.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean debugCleanroom;
-
-        @Config.Comment("Debug parameter for driller testing.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean debugDriller;
-
-        @Config.Comment("Debug parameter for world generation. Tracks chunks added/removed from run queue.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean debugWorldgen;
-
-        @Config.Comment("Debug parameter for orevein generation.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean debugOrevein;
-
-        @Config.Comment("Debug parameter for small ore generation.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean debugSmallOres;
-
-        @Config.Comment("Debug parameter for stones generation.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean debugStones;
-
-        @Config.Comment("Debug parameter for single block miner.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean debugBlockMiner;
-
-        @Config.Comment("Debug parameter for single block pump.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean debugBlockPump;
-
         @Config.Comment("Debug parameter for entity cramming reduction.")
         @Config.DefaultBoolean(false)
         @Config.RequiresMcRestart
