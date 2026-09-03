@@ -94,7 +94,6 @@ public class GregTechAPI {
     public static Block sBlockGlass1;
     public static Block sBlockTintedGlass;
 
-    public static boolean sDrinksAlwaysDrinkable = false;
     public static boolean sMultiThreadedSounds = false;
     public static boolean sDoShowAllItemsInCreative = false;
     public static boolean sColoredGUI = true;

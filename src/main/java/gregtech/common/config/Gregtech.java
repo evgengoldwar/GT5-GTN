@@ -129,11 +129,6 @@ public class Gregtech {
         @Config.RequiresMcRestart
         public int oreveinPlacerOresMultiplier;
 
-        @Config.Comment("If true, all the GT5U potions are always drinkable.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean drinksAlwaysDrinkable;
-
         @Config.Comment("if true, shows all the metaitems in creative and in NEI.")
         @Config.DefaultBoolean(false)
         @Config.RequiresMcRestart
