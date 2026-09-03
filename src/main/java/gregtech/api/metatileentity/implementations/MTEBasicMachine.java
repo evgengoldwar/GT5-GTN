@@ -678,9 +678,6 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                         }
                         if (mFluid != null && mFluid.amount <= 0) mFluid = null;
                         mMaxProgresstime = Math.max(1, mMaxProgresstime);
-                        if (GTUtility.isDebugItem(mInventory[dechargerSlotStartIndex()])) {
-                            mEUt = mMaxProgresstime = 1;
-                        }
                         startProcess();
                     } else {
                         mMaxProgresstime = 0;

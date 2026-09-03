@@ -1170,13 +1170,6 @@ public class GTUtility {
         return aStack == null || aStack.getItem() == null || aStack.stackSize < 0;
     }
 
-    public static boolean isDebugItem(ItemStack aStack) {
-        return /* ItemList.Armor_Cheat.isStackEqual(aStack, T, T) || */ areStacksEqual(
-            GTModHandler.getIC2Item("debug", 1),
-            aStack,
-            true);
-    }
-
     public static ItemStack updateItemStack(ItemStack aStack) {
         if (isStackValid(aStack) && aStack.getItem() instanceof GTGenericItem)
             ((GTGenericItem) aStack.getItem()).isItemStackUsable(aStack);
