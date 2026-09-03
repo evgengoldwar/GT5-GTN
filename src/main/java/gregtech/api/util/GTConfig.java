@@ -11,8 +11,6 @@ import gregtech.api.enums.GTValues;
 
 public class GTConfig implements Runnable {
 
-    public static boolean troll = false;
-
     public static Configuration sConfigFileIDs;
     public static Configuration cleanroomFile;
     public final Configuration mConfig;
@@ -29,18 +27,6 @@ public class GTConfig implements Runnable {
 
     private static boolean shouldSave() {
         return GTValues.lateConfigSave ? GTValues.worldTickHappened : GregTechAPI.sPostloadFinished;
-    }
-
-    public static int addIDConfig(Object aCategory, String aName, int aDefault) {
-        if (GTUtility.isStringInvalid(aName)) return aDefault;
-        Property tProperty = sConfigFileIDs.get(
-            aCategory.toString()
-                .replaceAll("\\|", "."),
-            aName.replaceAll("\\|", "."),
-            aDefault);
-        int rResult = tProperty.getInt(aDefault);
-        sConfigFileIDs.save();
-        return rResult;
     }
 
     public static String getStackConfigName(ItemStack aStack) {
@@ -132,20 +118,6 @@ public class GTConfig implements Runnable {
             aName.replaceAll("\\|", "_"),
             aDefault);
         String[] rResult = tProperty.getStringList();
-        if (!tProperty.wasRead() && GregTechAPI.sPostloadFinished) mConfig.save();
-        return rResult;
-    }
-
-    public String getWithValidValues(Object aCategory, String aName, String[] validValues, String aDefault) {
-        if (GTUtility.isStringInvalid(aName)) return aDefault;
-        Property tProperty = mConfig.get(
-            aCategory.toString()
-                .replaceAll("\\|", "_"),
-            aName.replaceAll("\\|", "_"),
-            aDefault,
-            null,
-            validValues);
-        String rResult = tProperty.getString();
         if (!tProperty.wasRead() && GregTechAPI.sPostloadFinished) mConfig.save();
         return rResult;
     }
