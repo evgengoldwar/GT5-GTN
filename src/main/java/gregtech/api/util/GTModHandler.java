@@ -15,12 +15,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IDamagableItem;
 import ic2.api.item.IC2Items;
@@ -29,11 +27,6 @@ import ic2.core.item.ItemToolbox;
 public class GTModHandler {
 
     private static final Map<String, ItemStack> sIC2ItemMap = new HashMap<>();
-
-    public static boolean isWater(FluidStack aFluid) {
-        if (aFluid == null) return false;
-        return aFluid.isFluidEqual(Materials_OLD.Water.getFluid(1));
-    }
 
     public static ItemStack getIC2Item(String aItem, long aAmount, ItemStack aReplacement) {
         if (GTUtility.isStringInvalid(aItem) || !GregTechAPI.sPreloadStarted) return null;

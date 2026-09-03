@@ -721,7 +721,7 @@ public class GTUtility {
 
         ItemStack bottle = new ItemStack(Items.glass_bottle);
 
-        if (GTModHandler.isWater(fluid) && stack.isItemEqual(bottle)) {
+        if (fluid.isFluidEqual(Materials_OLD.Water.getFluid(1)) && stack.isItemEqual(bottle)) {
             if (fluid.amount >= 1000) {
                 return new ItemStack(Items.potionitem, 1, 0);
             }
