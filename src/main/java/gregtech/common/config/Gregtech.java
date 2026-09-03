@@ -169,11 +169,6 @@ public class Gregtech {
         @Config.RequiresMcRestart
         public int oreveinPlacerOresMultiplier;
 
-        @Config.Comment("If true, enables the timber axe (cuts down whole tree in a single hit).")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean timber;
-
         @Config.Comment("If true, all the GT5U potions are always drinkable.")
         @Config.DefaultBoolean(true)
         @Config.RequiresMcRestart
