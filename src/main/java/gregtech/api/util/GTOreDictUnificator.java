@@ -309,12 +309,6 @@ public class GTOreDictUnificator {
             }
             sItemStack2DataMap.put(aStack, aData);
             if (aData.hasValidMaterialData()) {
-                long tValidMaterialAmount = aData.mMaterial.mMaterial.contains(SubTag.NO_RECYCLING) ? 0
-                    : aData.mMaterial.mAmount >= 0 ? aData.mMaterial.mAmount : M;
-                for (MaterialStack tMaterial : aData.mByProducts)
-                    tValidMaterialAmount += tMaterial.mMaterial.contains(SubTag.NO_RECYCLING) ? 0
-                        : tMaterial.mAmount >= 0 ? tMaterial.mAmount : M;
-                if (tValidMaterialAmount < M) GTModHandler.addToRecyclerBlackList(aStack);
             }
             if (mRunThroughTheList) {
                 if (GregTechAPI.sLoadStarted) {

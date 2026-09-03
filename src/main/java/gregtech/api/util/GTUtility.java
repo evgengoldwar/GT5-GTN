@@ -21,7 +21,6 @@ import static net.minecraftforge.common.util.ForgeDirection.UP;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.AbstractCollection;
 import java.util.AbstractList;
@@ -210,39 +209,6 @@ public class GTUtility {
         return null;
     }
 
-    public static Object callMethod(Object aObject, String aMethod, boolean aPrivate, boolean aUseUpperCasedDataTypes,
-        boolean aLogErrors, Object... aParameters) {
-        try {
-            Class<?>[] tParameterTypes = new Class<?>[aParameters.length];
-            for (byte i = 0; i < aParameters.length; i++) {
-                if (aParameters[i] instanceof Class) {
-                    tParameterTypes[i] = (Class<?>) aParameters[i];
-                    aParameters[i] = null;
-                } else {
-                    tParameterTypes[i] = aParameters[i].getClass();
-                }
-                if (!aUseUpperCasedDataTypes) {
-                    if (tParameterTypes[i] == Boolean.class) tParameterTypes[i] = boolean.class;
-                    else if (tParameterTypes[i] == Byte.class) tParameterTypes[i] = byte.class;
-                    else if (tParameterTypes[i] == Short.class) tParameterTypes[i] = short.class;
-                    else if (tParameterTypes[i] == Integer.class) tParameterTypes[i] = int.class;
-                    else if (tParameterTypes[i] == Long.class) tParameterTypes[i] = long.class;
-                    else if (tParameterTypes[i] == Float.class) tParameterTypes[i] = float.class;
-                    else if (tParameterTypes[i] == Double.class) tParameterTypes[i] = double.class;
-                }
-            }
-
-            Method tMethod = (aObject instanceof Class) ? ((Class<?>) aObject).getMethod(aMethod, tParameterTypes)
-                : aObject.getClass()
-                    .getMethod(aMethod, tParameterTypes);
-            if (aPrivate) tMethod.setAccessible(true);
-            return tMethod.invoke(aObject, aParameters);
-        } catch (Exception e) {
-            if (aLogErrors) GT_FML_LOGGER.error(e);
-        }
-        return null;
-    }
-
     public static String getClassName(Object aObject) {
         if (aObject == null) return "null";
         return aObject.getClass()
@@ -312,18 +278,6 @@ public class GTUtility {
         return translateToLocalFormatted(
             "GT5U.gui.text.tier_name_with_parentheses",
             color + GTValues.VN[tier] + EnumChatFormatting.RESET);
-    }
-
-    public static String getForgeDirectionNameKey(ForgeDirection side) {
-        return switch (side) {
-            case DOWN -> "GT5U.waila.facing.down";
-            case UP -> "GT5U.waila.facing.up";
-            case NORTH -> "GT5U.waila.facing.north";
-            case SOUTH -> "GT5U.waila.facing.south";
-            case WEST -> "GT5U.waila.facing.west";
-            case EAST -> "GT5U.waila.facing.east";
-            case UNKNOWN -> "GT5U.waila.facing.unknown";
-        };
     }
 
     /**
@@ -461,14 +415,6 @@ public class GTUtility {
         return out.toString();
     }
 
-    public static void addSeparatorIfNeeded(List<String> tooltip) {
-        if (!tooltip.isEmpty() && !tooltip.get(tooltip.size() - 1)
-            .trim()
-            .isEmpty()) {
-            tooltip.add("");
-        }
-    }
-
     public static final String[] COVER_DIRECTION_NAMES = new String[] { "GT5U.interface.coverTabs.down",
         "GT5U.interface.coverTabs.up", "GT5U.interface.coverTabs.north", "GT5U.interface.coverTabs.south",
         "GT5U.interface.coverTabs.west", "GT5U.interface.coverTabs.east" };
@@ -516,10 +462,6 @@ public class GTUtility {
                 return sizeInventory;
             }
         };
-    }
-
-    public static void compactInventory(IMetaTileEntity imte) {
-        compactInventory(imte, 0, imte.getSizeInventory());
     }
 
     public static boolean compactInventory(IMetaTileEntity imte, int start, int end) {
@@ -673,38 +615,6 @@ public class GTUtility {
     }
 
     /**
-     * Drops the item to the world.
-     * <p>
-     * NOTE: the stack is directly passed to the entity, so you should not continue using it.
-     *
-     * @param world    the world to spawn the item
-     * @param x        the x coord to spawn the item
-     * @param y        the y coord to spawn the item
-     * @param z        the z coord to spawn the item
-     * @param stack    the stack to spawn
-     * @param noMotion {@code true} to remove the initial motion when spawned to the world
-     */
-    public static void dropItem(World world, double x, double y, double z, @Nullable ItemStack stack,
-        boolean noMotion) {
-        if (isStackInvalid(stack)) return;
-        EntityItem entity = new EntityItem(world, x, y, z, stack);
-        if (noMotion) {
-            // remove initial motion
-            entity.motionX = 0;
-            entity.motionY = 0;
-            entity.motionZ = 0;
-        }
-        world.spawnEntityInWorld(entity);
-    }
-
-    /**
-     * @see #dropItem(World, double, double, double, ItemStack, boolean)
-     */
-    public static void dropItem(World world, double x, double y, double z, @Nullable ItemStack stack) {
-        dropItem(world, x, y, z, stack, false);
-    }
-
-    /**
      * Move up to maxAmount amount of fluid from source to dest, with optional filtering via allowMove. note that this
      * filter cannot bypass filtering done by IFluidHandlers themselves.
      * <p>
@@ -774,15 +684,6 @@ public class GTUtility {
         return (stack1 == null && stack2 == null) || GTUtility.areStacksEqual(stack1, stack2);
     }
 
-    private static boolean areStacksEqualExtended(ItemStack lhs, ItemStack rhs, boolean ignoreStackSize,
-        boolean ignoreNBT) {
-        if (lhs == null) return rhs == null;
-        if (rhs == null) return false;
-        return lhs.getItem() == rhs.getItem()
-            && (ignoreNBT || Objects.equals(lhs.stackTagCompound, rhs.stackTagCompound))
-            && (ignoreStackSize || lhs.stackSize == rhs.stackSize);
-    }
-
     public static boolean areUnificationsEqual(ItemStack aStack1, ItemStack aStack2, boolean aIgnoreNBT) {
         return areStacksEqual(
             GTOreDictUnificator.get_nocopy(aStack1),
@@ -846,11 +747,6 @@ public class GTUtility {
             fluid.amount -= FluidContainerRegistry.getContainerCapacity(fullContainer);
         }
         return fullContainer;
-    }
-
-    public static int calculateRecipeEU(Materials_OLD aMaterial, int defaultRecipeEUPerTick) {
-        return aMaterial.getProcessingMaterialTierEU() == 0 ? defaultRecipeEUPerTick
-            : aMaterial.getProcessingMaterialTierEU();
     }
 
     public static ItemStack getFluidDisplayStack(FluidStack fluid, FluidDisplayStackMode stackMode) {
@@ -969,14 +865,6 @@ public class GTUtility {
         if (tCapsuleCount > 0) return ItemList.Cell_Empty.get(tCapsuleCount);
 
         return null;
-    }
-
-    public static FluidStack getFluidFromContainerOrFluidDisplay(ItemStack stack) {
-        FluidStack fluidStack = GTUtility.getFluidForFilledItem(stack, true);
-        if (fluidStack == null) {
-            fluidStack = GTUtility.getFluidFromDisplayStack(stack);
-        }
-        return fluidStack;
     }
 
     public static Object2LongOpenHashMap<ItemId> getItemStackHistogram(Iterable<ItemStack> stacks) {

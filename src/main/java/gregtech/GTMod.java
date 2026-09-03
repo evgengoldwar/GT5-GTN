@@ -399,7 +399,6 @@ public class GTMod {
         GT_FML_LOGGER.info("Executed delayed Crafting Recipes ({}). Have a Cake.", stopwatch.stop());
 
         GT_FML_LOGGER.debug("restarting recipe removal buffering for NHCore...");
-        GTModHandler.restartBufferingCraftingRecipe();
 
         GT_FML_LOGGER.debug("GTMod: Saving Lang File.");
         new MachineTooltipsLoader().run();

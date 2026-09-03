@@ -41,7 +41,6 @@ import gregtech.api.items.GTGenericItem;
 import gregtech.api.modularui2.GTGuiThemes;
 import gregtech.api.modularui2.GTModularScreen;
 import gregtech.api.objects.XSTR;
-import gregtech.api.util.GTConfig;
 import gregtech.common.gui.modularui.item.IntegratedCircuitGui;
 import gregtech.crossmod.backhand.Backhand;
 import ic2.core.IC2;
@@ -115,8 +114,7 @@ public class ItemIntegratedCircuit extends GTGenericItem
     public void registerIcons(IIconRegister aIconRegister) {
         super.registerIcons(aIconRegister);
         for (int i = 0; i < mIconDamage.length; i++) {
-            mIconDamage[i] = aIconRegister
-                .registerIcon(GregTech.getResourcePath(GTConfig.troll ? "troll" : getUnlocalizedName() + "/" + i));
+            mIconDamage[i] = aIconRegister.registerIcon(GregTech.getResourcePath(getUnlocalizedName() + "/" + i));
         }
         if (GregTechAPI.sPostloadFinished) {
             GT_FML_LOGGER.debug("GTMod: Starting Item Icon Load Phase");

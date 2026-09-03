@@ -27,7 +27,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IProjectileItem;
-import gregtech.api.util.GTConfig;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
@@ -77,7 +76,7 @@ public class GTGenericItem extends Item implements IProjectileItem {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister aIconRegister) {
-        mIcon = aIconRegister.registerIcon(GregTech.getResourcePath(GTConfig.troll ? "troll" : mName));
+        mIcon = aIconRegister.registerIcon(mName);
     }
 
     @Override
