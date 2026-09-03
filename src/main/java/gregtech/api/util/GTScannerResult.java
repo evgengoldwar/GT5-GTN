@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import gregtech.api.interfaces.IGTScannerHandler;
 
 public class GTScannerResult {
+
     public int eut;
     public int duration;
     public int inputConsume;

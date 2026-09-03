@@ -6,8 +6,6 @@ import static gregtech.api.enums.GTValues.D2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 
 import net.minecraft.item.ItemStack;
@@ -27,9 +25,6 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.metatileentity.implementations.MTEHatchInput;
-import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
-import gregtech.api.metatileentity.implementations.MTEHatchMultiInput;
 import gregtech.api.objects.ItemData;
 import gregtech.api.recipe.RecipeCategory;
 import gregtech.api.recipe.RecipeLookupValidator;
@@ -38,13 +33,9 @@ import gregtech.api.recipe.RecipeMetadataKey;
 import gregtech.api.recipe.metadata.EmptyRecipeMetadataStorage;
 import gregtech.api.recipe.metadata.IRecipeMetadataStorage;
 import gregtech.api.util.extensions.ArrayExt;
-import gregtech.common.tileentities.Hatches.MTEHatchInputBusME;
-import gregtech.common.tileentities.Hatches.MTEHatchInputME;
-import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.Reference2LongArrayMap;
 import it.unimi.dsi.fastutil.objects.Reference2LongMap;
-import it.unimi.dsi.fastutil.objects.Reference2LongOpenHashMap;
 
 public class GTRecipe implements Comparable<GTRecipe> {
 
