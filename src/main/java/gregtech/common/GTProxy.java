@@ -2,7 +2,6 @@ package gregtech.common;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.debugEntityCramming;
-import static gregtech.api.enums.Mods.IguanaTweaksTinkerConstruct;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -339,34 +338,6 @@ public class GTProxy implements IFuelHandler {
 
     public void onInitialization(FMLInitializationEvent event) {
         GT_FML_LOGGER.debug("GTMod: Beginning Load-Phase.");
-
-        // Clay buckets, which don't get registered until Iguana Tweaks pre-init
-        if (IguanaTweaksTinkerConstruct.isModLoaded()) {
-            OrePrefixes.bucketClay.mContainerItem = GTModHandler
-                .getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketFired", 1L, 0);
-            GTOreDictUnificator.set(
-                OrePrefixes.bucketClay,
-                Materials_OLD.Empty,
-                GTModHandler.getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketFired", 1L, 0));
-            GTOreDictUnificator.set(
-                OrePrefixes.bucketClay,
-                Materials_OLD.Water,
-                GTModHandler.getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketWater", 1L, 0));
-            GTOreDictUnificator.set(
-                OrePrefixes.bucketClay,
-                Materials_OLD.Lava,
-                GTModHandler.getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketLava", 1L, 0));
-            GTOreDictUnificator.set(
-                OrePrefixes.bucketClay,
-                Materials_OLD.Milk,
-                GTModHandler.getModItem(IguanaTweaksTinkerConstruct.ID, "clayBucketMilk", 1L, 0));
-
-            FluidContainerRegistry.registerFluidContainer(
-                new FluidContainerRegistry.FluidContainerData(
-                    Materials_OLD.Milk.getFluid(1_000),
-                    GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials_OLD.Milk, 1L),
-                    GTOreDictUnificator.get(OrePrefixes.bucketClay, Materials_OLD.Empty, 1L)));
-        }
 
         MinecraftForge.EVENT_BUS.register(new SpaceProjectWorldSavedData());
         MinecraftForge.EVENT_BUS.register(new GlobalEnergyWorldSavedData(""));

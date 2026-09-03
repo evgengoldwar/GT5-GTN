@@ -93,41 +93,41 @@ public final class AE2Compat {
         registry.register(ItemList.Circuit_Integrated.getItem());
         // GT lenses are registered by ProcessingLens
 
-//        if (NewHorizonsCoreMod.isModLoaded()) {
-//            registry.register(getModItem(NewHorizonsCoreMod.ID, "ReinforcedGlassLense"));
-//            registry.register(getModItem(NewHorizonsCoreMod.ID, "MysteriousCrystalLens"));
-//            registry.register(getModItem(NewHorizonsCoreMod.ID, "RadoxPolymerLens"));
-//            registry.register(getModItem(NewHorizonsCoreMod.ID, "ChromaticLens"));
-//        }
-//
-//        if (BloodMagic.isModLoaded()) {
-//            registry.register(getModItem(BloodMagic.ID, "weakBloodOrb"));
-//            registry.register(getModItem(BloodMagic.ID, "apprenticeBloodOrb"));
-//            registry.register(getModItem(BloodMagic.ID, "magicianBloodOrb"));
-//            registry.register(getModItem(BloodMagic.ID, "masterBloodOrb"));
-//            registry.register(getModItem(BloodMagic.ID, "archmageBloodOrb"));
-//            registry.register(getModItem(BloodMagic.ID, "transcendentBloodOrb"));
-//        }
-//
-//        if (BloodArsenal.isModLoaded()) {
-//            registry.register(getModItem(BloodArsenal.ID, "transparent_orb"));
-//        }
-//
-//        if (ForbiddenMagic.isModLoaded()) {
-//            registry.register(getModItem(ForbiddenMagic.ID, "EldritchOrb"));
-//        }
-//
-//        if (Avaritia.isModLoaded()) {
-//            registry.register(getModItem(Avaritia.ID, "Orb_Armok"));
-//        }
-//
-//        if (TwilightForest.isModLoaded()) {
-//            registry.register(getModItem(TwilightForest.ID, "item.trophy", 1, WILDCARD));
-//        }
-//
-//        if (ExtraUtilities.isModLoaded()) {
-//            registry.register(getModItem(ExtraUtilities.ID, "divisionSigil"));
-//        }
+        // if (NewHorizonsCoreMod.isModLoaded()) {
+        // registry.register(getModItem(NewHorizonsCoreMod.ID, "ReinforcedGlassLense"));
+        // registry.register(getModItem(NewHorizonsCoreMod.ID, "MysteriousCrystalLens"));
+        // registry.register(getModItem(NewHorizonsCoreMod.ID, "RadoxPolymerLens"));
+        // registry.register(getModItem(NewHorizonsCoreMod.ID, "ChromaticLens"));
+        // }
+        //
+        // if (BloodMagic.isModLoaded()) {
+        // registry.register(getModItem(BloodMagic.ID, "weakBloodOrb"));
+        // registry.register(getModItem(BloodMagic.ID, "apprenticeBloodOrb"));
+        // registry.register(getModItem(BloodMagic.ID, "magicianBloodOrb"));
+        // registry.register(getModItem(BloodMagic.ID, "masterBloodOrb"));
+        // registry.register(getModItem(BloodMagic.ID, "archmageBloodOrb"));
+        // registry.register(getModItem(BloodMagic.ID, "transcendentBloodOrb"));
+        // }
+        //
+        // if (BloodArsenal.isModLoaded()) {
+        // registry.register(getModItem(BloodArsenal.ID, "transparent_orb"));
+        // }
+        //
+        // if (ForbiddenMagic.isModLoaded()) {
+        // registry.register(getModItem(ForbiddenMagic.ID, "EldritchOrb"));
+        // }
+        //
+        // if (Avaritia.isModLoaded()) {
+        // registry.register(getModItem(Avaritia.ID, "Orb_Armok"));
+        // }
+        //
+        // if (TwilightForest.isModLoaded()) {
+        // registry.register(getModItem(TwilightForest.ID, "item.trophy", 1, WILDCARD));
+        // }
+        //
+        // if (ExtraUtilities.isModLoaded()) {
+        // registry.register(getModItem(ExtraUtilities.ID, "divisionSigil"));
+        // }
 
     }
 }

@@ -4,7 +4,6 @@ import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.B;
 import static gregtech.api.enums.GTValues.D1;
 import static gregtech.api.enums.GTValues.V;
-import static gregtech.api.util.GTRecipeBuilder.PANIC_MODE_NULL;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.OrePrefixes;
@@ -46,69 +44,12 @@ public class GTModHandler {
         return rStack;
     }
 
-    /**
-     * Gets an Item from IndustrialCraft, but the Damage Value can be specified
-     */
     public static ItemStack getIC2Item(String aItem, long aAmount, int aMeta) {
         return getIC2Item(aItem, aAmount, aMeta, null);
     }
 
     public static ItemStack getIC2Item(String aItem, long aAmount) {
         return getIC2Item(aItem, aAmount, null);
-    }
-
-    public static ItemStack getModItem(String aModID, String aItem) {
-        return getModItem(aModID, aItem, 1, null);
-    }
-
-    public static ItemStack getModItem(String aModID, String aItem, long aAmount) {
-        return getModItem(aModID, aItem, aAmount, null);
-    }
-
-    public static ItemStack getModItem(String aModID, String aItem, long aAmount, ItemStack aReplacement) {
-        ItemStack result;
-        if (GTUtility.isStringInvalid(aItem) || !GregTechAPI.sPreloadStarted) {
-            result = null;
-        } else {
-            result = GTUtility
-                .copyAmount(aAmount, GameRegistry.findItemStack(aModID, aItem, (int) aAmount), aReplacement);
-        }
-
-        if (result == null) {
-            String reason;
-            if (GTUtility.isStringInvalid(aItem)) {
-                reason = "the name of the item is an invalid string";
-            } else if (!GregTechAPI.sPreloadStarted) {
-                reason = "the GT5U preloading phase has not yet started";
-            } else {
-                reason = "the item was not found in the game registry";
-            }
-            String log_message = "getModItem call: object \"" + aItem
-                + "\" with mod id \""
-                + aModID
-                + "\" has returned null because "
-                + reason;
-            if (PANIC_MODE_NULL) {
-                GT_FML_LOGGER.fatal(log_message, new Exception());
-            } else {
-                GT_FML_LOGGER.info(log_message, new Exception());
-            }
-        }
-        return result;
-    }
-
-    public static ItemStack getModItem(String aModID, String aItem, long aAmount, int aMeta) {
-        ItemStack rStack = getModItem(aModID, aItem, aAmount);
-        if (rStack == null) return null;
-        Items.feather.setDamage(rStack, aMeta);
-        return rStack;
-    }
-
-    public static ItemStack getModItem(String aModID, String aItem, long aAmount, int aMeta, ItemStack aReplacement) {
-        ItemStack rStack = getModItem(aModID, aItem, aAmount, aReplacement);
-        if (rStack == null) return null;
-        Items.feather.setDamage(rStack, aMeta);
-        return rStack;
     }
 
     public static int chargeElectricItem(ItemStack aStack, int aCharge, int aTier, boolean aIgnoreLimit,

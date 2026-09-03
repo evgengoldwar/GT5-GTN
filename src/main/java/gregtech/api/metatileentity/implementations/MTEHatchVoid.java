@@ -91,11 +91,6 @@ public class MTEHatchVoid extends MTEHatchOutput implements IOutputHatch {
         ItemStack aTool) {}
 
     @Override
-    public boolean outputsItems() {
-        return false;
-    }
-
-    @Override
     public int fill(FluidStack aFluid, boolean doFill) {
         return aFluid.amount;
     }
