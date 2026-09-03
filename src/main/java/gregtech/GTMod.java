@@ -372,14 +372,6 @@ public class GTMod {
         GT_FML_LOGGER.info(
             "If your Log stops here, you were too impatient. Wait a bit more next time, before killing Minecraft with the Task Manager.");
 
-        if (GTValues.D1) {
-            GTModHandler.sSingleNonBlockDamagableRecipeList.forEach(
-                iRecipe -> GT_FML_LOGGER.debug(
-                    "=> {}",
-                    iRecipe.getRecipeOutput()
-                        .getDisplayName()));
-        }
-
         AE2Compat.onPostInit();
 
         // Register postea transformers

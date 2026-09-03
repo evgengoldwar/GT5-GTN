@@ -31,7 +31,6 @@ import ic2.core.item.ItemToolbox;
 
 public class GTModHandler {
 
-    public static final List<IRecipe> sSingleNonBlockDamagableRecipeList = new ArrayList<>(1000);
     private static final Map<String, ItemStack> sIC2ItemMap = new HashMap<>();
 
     public static boolean isWater(FluidStack aFluid) {
