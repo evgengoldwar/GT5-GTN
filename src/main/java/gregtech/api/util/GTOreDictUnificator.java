@@ -133,10 +133,6 @@ public class GTOreDictUnificator {
         return rStacks;
     }
 
-    public static ItemStack setStack(ItemStack aStack) {
-        return setStack(true, aStack);
-    }
-
     public static ItemStack setStack(boolean aUseBlackList, ItemStack aStack) {
         if (GTUtility.isStackInvalid(aStack)) return aStack;
         ItemStack tStack = get(aUseBlackList, aStack);
@@ -277,23 +273,6 @@ public class GTOreDictUnificator {
 
     public static void addItemData(ItemStack aStack, ItemData aData) {
         if (GTUtility.isStackValid(aStack) && getItemData(aStack) == null && aData != null) setItemData(aStack, aData);
-    }
-
-    public static void addItemDataFromInputs(ItemStack output, Object... inputs) {
-        int length = inputs.length;
-        ItemData[] tData = new ItemData[length];
-        for (int i = 0; i < length; i++) {
-            if (inputs[i] instanceof ItemStack) {
-                tData[i] = GTOreDictUnificator.getItemData((ItemStack) inputs[i]);
-            } else if (inputs[i] instanceof ItemData) {
-                tData[i] = (ItemData) inputs[i];
-            } else {
-                throw new IllegalArgumentException("Illegal item data: " + inputs[i]);
-            }
-        }
-        if (GTUtility.arrayContainsNonNull(tData)) {
-            GTOreDictUnificator.addItemData(output, new ItemData(tData));
-        }
     }
 
     public static void setItemData(ItemStack aStack, ItemData aData) {
