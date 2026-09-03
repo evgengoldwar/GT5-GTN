@@ -38,10 +38,6 @@ public class NodeEnergyReceiver extends ConsumerNode {
             mRestRF -= consumed;
             return ampsUsed;
         }
-        if (GregTechAPI.mRFExplosions && GregTechAPI.sMachineExplosions
-            && ((IEnergyReceiver) mTileEntity).getMaxEnergyStored(tDirection) < rfOut * 600L) {
-            explode(rfOut);
-        }
         return 0;
     }
 

@@ -31,11 +31,6 @@ public class OPStuff {
     @Config.RequiresMcRestart
     public static boolean outputRF;
 
-    @Config.Comment("If true, machines will explode if RFs injected to a GT machine are above 600 * the max energy they can store.")
-    @Config.DefaultBoolean(false)
-    @Config.RequiresMcRestart
-    public static boolean RFExplosions;
-
     @Config.Comment("if true, ignores TinkerConstruct in ore registration.")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

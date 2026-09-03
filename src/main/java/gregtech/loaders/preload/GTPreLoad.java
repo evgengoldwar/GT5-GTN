@@ -324,7 +324,6 @@ public class GTPreLoad {
         GregTechAPI.mInputRF = OPStuff.inputRF;
         GregTechAPI.mEUtoRF = OPStuff.howMuchRFWith100EUInInput;
         GregTechAPI.mRFtoEU = OPStuff.howMuchEUWith100RFInInput;
-        GregTechAPI.mRFExplosions = OPStuff.RFExplosions;
     }
 
     public static void loadClientConfig() {

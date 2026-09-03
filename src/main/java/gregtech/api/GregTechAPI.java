@@ -107,7 +107,6 @@ public class GregTechAPI {
     public static boolean sMachineWireFire = true;
     public static boolean mOutputRF = false;
     public static boolean mInputRF = false;
-    public static boolean mRFExplosions = false;
     public static boolean mServerStarted = false;
 
     public static int mEUtoRF = 360;
