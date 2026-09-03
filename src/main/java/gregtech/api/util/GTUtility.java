@@ -417,15 +417,6 @@ public class GTUtility {
         return GTUtility.COVER_DIRECTION_NAMES[side.ordinal()];
     }
 
-    public static void checkAvailabilities() {
-        if (CHECK_ALL) {
-            TE_CHECK = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|transport");
-            BC_CHECK = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|transport");
-            RF_CHECK = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
-            CHECK_ALL = false;
-        }
-    }
-
     public static List<ItemStack> wrapInventory(IInventory inv) {
         int sizeInventory = inv.getSizeInventory();
 

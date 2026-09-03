@@ -374,14 +374,6 @@ public class GTMod {
         GT_FML_LOGGER.debug("GTMod: PostLoad-Phase finished!");
         GT_ORE_DICT_LOGGER.info("GTMod: PostLoad-Phase finished!");
 
-        if (GregTechAPI.mOutputRF || GregTechAPI.mInputRF) {
-            GTUtility.checkAvailabilities();
-            if (!GTUtility.RF_CHECK) {
-                GregTechAPI.mOutputRF = false;
-                GregTechAPI.mInputRF = false;
-            }
-        }
-
         new GTPostLoad().run();
 
         GT_FML_LOGGER.debug("GTMod: Loading finished, de-allocating temporary Init Variables.");
