@@ -58,20 +58,8 @@ public class GregTechAPI {
 
     public static final Materials_OLD[] S_GENERATED_MATERIALS = new Materials_OLD[1000];
 
-    public static List<Runnable> sBeforeGTPreload = new ArrayList<>();
-    public static List<Runnable> sAfterGTPreload = new ArrayList<>();
-    public static List<Runnable> sBeforeGTLoad = new ArrayList<>();
-    public static List<Runnable> sAfterGTLoad = new ArrayList<>();
-    public static List<Runnable> sBeforeGTPostload = new ArrayList<>();
-    public static List<Runnable> sAfterGTPostload = new ArrayList<>();
-    public static List<Runnable> sFirstWorldTick = new ArrayList<>();
-    public static List<Runnable> sBeforeGTServerstart = new ArrayList<>();
-    public static List<Runnable> sAfterGTServerstart = new ArrayList<>();
-    public static List<Runnable> sBeforeGTServerstop = new ArrayList<>();
-    public static List<Runnable> sAfterGTServerstop = new ArrayList<>();
     public static List<Runnable> sGTBlockIconload = new ArrayList<>();
     public static List<Runnable> sGTItemIconload = new ArrayList<>();
-    public static List<Runnable> sGTCompleteLoad = new ArrayList<>();
 
     @SideOnly(Side.CLIENT)
     public static IIconRegister sBlockIcons;

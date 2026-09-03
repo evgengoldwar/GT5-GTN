@@ -679,7 +679,6 @@ public class GTProxy implements IFuelHandler {
     public void onWorldTickEvent(TickEvent.WorldTickEvent aEvent) {
         if (!aEvent.side.isServer()) return;
         if (isFirstWorldTick) {
-            for (Runnable runnable : GregTechAPI.sFirstWorldTick) runnable.run();
             isFirstWorldTick = false;
             GTValues.worldTickHappened = true;
         }

@@ -247,10 +247,6 @@ public class GTMod {
             return;
         }
 
-        for (Runnable tRunnable : GregTechAPI.sBeforeGTPreload) {
-            tRunnable.run();
-        }
-
         PowerGogglesConfigHandler.init(new File(event.getModConfigurationDirectory() + "/GregTech/Goggles.cfg"));
 
         proxy.onPreInitialization(event);
@@ -292,10 +288,6 @@ public class GTMod {
 
         GTUIInfos.init();
 
-        for (Runnable tRunnable : GregTechAPI.sAfterGTPreload) {
-            tRunnable.run();
-        }
-
         if (FMLCommonHandler.instance()
             .getEffectiveSide()
             .isServer()) AssemblyLineServer.fillMap(event);
@@ -319,10 +311,6 @@ public class GTMod {
             return;
         }
 
-        for (Runnable tRunnable : GregTechAPI.sBeforeGTLoad) {
-            tRunnable.run();
-        }
-
         proxy.onInitialization(event);
 
         if (Mods.Waila.isModLoaded()) {
@@ -335,21 +323,12 @@ public class GTMod {
         GTStructureChannels.register();
 
         GregTechAPI.sLoadFinished = true;
-
-        for (Runnable tRunnable : GregTechAPI.sAfterGTLoad) {
-            tRunnable.run();
-        }
     }
 
     @Mod.EventHandler
     public void onPostInitialization(FMLPostInitializationEvent event) {
         if (GregTechAPI.sPostloadStarted) {
             return;
-        }
-
-        // Seems only used by GGFab so far
-        for (Runnable tRunnable : GregTechAPI.sBeforeGTPostload) {
-            tRunnable.run();
         }
 
         proxy.onPostInitialization(event);
@@ -394,9 +373,6 @@ public class GTMod {
         GregTechAPI.sPostloadFinished = true;
         GT_FML_LOGGER.debug("GTMod: PostLoad-Phase finished!");
         GT_ORE_DICT_LOGGER.info("GTMod: PostLoad-Phase finished!");
-        for (Runnable tRunnable : GregTechAPI.sAfterGTPostload) {
-            tRunnable.run();
-        }
 
         if (GregTechAPI.mOutputRF || GregTechAPI.mInputRF) {
             GTUtility.checkAvailabilities();
@@ -409,21 +385,12 @@ public class GTMod {
         new GTPostLoad().run();
 
         GT_FML_LOGGER.debug("GTMod: Loading finished, de-allocating temporary Init Variables.");
-        GregTechAPI.sBeforeGTPreload = null;
-        GregTechAPI.sAfterGTPreload = null;
-        GregTechAPI.sBeforeGTLoad = null;
-        GregTechAPI.sAfterGTLoad = null;
-        GregTechAPI.sBeforeGTPostload = null;
-        GregTechAPI.sAfterGTPostload = null;
     }
 
     @Mod.EventHandler
     public void onLoadComplete(FMLLoadCompleteEvent event) {
         ItemFluidDisplay.setupFluids();
         proxy.onLoadComplete(event);
-        for (Runnable tRunnable : GregTechAPI.sGTCompleteLoad) {
-            tRunnable.run();
-        }
 
         if (!NewHorizonsCoreMod.isModLoaded()) {
             GT_FML_LOGGER.debug("stopping second buffering pass, likely a dev env.");
@@ -434,7 +401,6 @@ public class GTMod {
             GT_FML_LOGGER
                 .info("Executed 2nd pass of delayed Crafting Recipes ({}). Have another Cake.", stopwatch.stop());
         }
-        GregTechAPI.sGTCompleteLoad = null;
         GregTechAPI.sFullLoadFinished = true;
     }
 
@@ -445,17 +411,8 @@ public class GTMod {
 
     @Mod.EventHandler
     public void onServerStarting(FMLServerStartingEvent event) {
-
-        for (Runnable tRunnable : GregTechAPI.sBeforeGTServerstart) {
-            tRunnable.run();
-        }
-
         proxy.onServerStarting(event);
         GregTechAPI.mServerStarted = true;
-
-        for (Runnable tRunnable : GregTechAPI.sAfterGTServerstart) {
-            tRunnable.run();
-        }
 
         event.registerServerCommand(new GTMiscCommand());
         event.registerServerCommand(new SPCommand());
@@ -494,13 +451,7 @@ public class GTMod {
 
     @Mod.EventHandler
     public void onServerStopping(FMLServerStoppingEvent event) {
-        for (Runnable tRunnable : GregTechAPI.sBeforeGTServerstop) {
-            tRunnable.run();
-        }
         proxy.onServerStopping(event);
-        for (Runnable tRunnable : GregTechAPI.sAfterGTServerstop) {
-            tRunnable.run();
-        }
     }
 
     @Mod.EventHandler
