@@ -30,12 +30,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.recipe.RecipeCategory;
 import gregtech.api.recipe.RecipeMap;
-import gregtech.nei.dumper.BatchModeSupportDumper;
-import gregtech.nei.dumper.InputSeparationSupportDumper;
-import gregtech.nei.dumper.MaterialDumper;
-import gregtech.nei.dumper.MetaTileEntityDumper;
-import gregtech.nei.dumper.RecipeLockingSupportDumper;
-import gregtech.nei.dumper.VoidProtectionSupportDumper;
 import gregtech.nei.searchprovider.ChemicalFormulaFilter;
 
 public class NEIGTConfig implements IConfigureNEI {
@@ -103,12 +97,6 @@ public class NEIGTConfig implements IConfigureNEI {
     private void registerItemEntries() {}
 
     private void registerDumpers() {
-        API.addOption(new MetaTileEntityDumper());
-        API.addOption(new MaterialDumper());
-        API.addOption(new VoidProtectionSupportDumper());
-        API.addOption(new InputSeparationSupportDumper());
-        API.addOption(new BatchModeSupportDumper());
-        API.addOption(new RecipeLockingSupportDumper());
     }
 
     private void registerFilters() {
