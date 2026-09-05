@@ -332,21 +332,6 @@ public class GTMod {
 
         proxy.onPostInitialization(event);
 
-        if (DEBUG) {
-            // Prints all the used MTE id and their associated TE name, turned on with -Dgt.debug=true in jvm args
-            final int bound = GregTechAPI.METATILEENTITIES.length;
-            for (int i1 = 1; i1 < bound; i1++) {
-                if (GregTechAPI.METATILEENTITIES[i1] != null) {
-                    GT_FML_LOGGER.debug("META {} {}", i1, GregTechAPI.METATILEENTITIES[i1].getMetaName());
-                }
-            }
-        }
-
-        GT_FML_LOGGER.debug(
-            "GTMod: Activating OreDictionary Handler, this can take some time, as it scans the whole OreDictionary");
-        GT_FML_LOGGER.info(
-            "If your Log stops here, you were too impatient. Wait a bit more next time, before killing Minecraft with the Task Manager.");
-
         AE2Compat.onPostInit();
 
         // Register postea transformers
