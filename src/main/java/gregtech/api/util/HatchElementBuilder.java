@@ -446,7 +446,7 @@ public class HatchElementBuilder<T> {
 
     public HatchElementBuilder<T> hatchId(int aId) {
         mDescriptionNames = () -> {
-            IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[aId];
+            IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[aId];
             if (mte != null) {
                 return Collections.singletonList("gt.blockmachines." + mte.getMetaName() + ".name");
             }
@@ -469,7 +469,7 @@ public class HatchElementBuilder<T> {
         mDescriptionNames = () -> {
             List<String> names = new ArrayList<>(sortedIds.length);
             for (int id : sortedIds) {
-                IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[id];
+                IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id];
                 if (mte != null) {
                     names.add("gt.blockmachines." + mte.getMetaName() + ".name");
                 }

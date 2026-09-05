@@ -135,7 +135,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         // Pipes don't register a translation key for their name, and cloned instances
         // may lack fields needed for dynamic name construction (e.g. mPrefixKey).
         // Use the prototype from the registry which is always fully initialized.
-        IMetaTileEntity prototype = GregTechAPI.METATILEENTITIES[getBaseMetaTileEntity().getMetaTileID()];
+        IMetaTileEntity prototype = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity().getMetaTileID()];
         if (prototype != null) {
             return prototype.getLocalName();
         }

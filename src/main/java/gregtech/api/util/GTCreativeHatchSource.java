@@ -43,8 +43,8 @@ public class GTCreativeHatchSource implements IItemSource {
         addHatchById(DebugDataAccessHatch.ID);
         addHatchById(Hatch_Input_Debug_Steam.ID);
 
-        for (int i = 1; i < GregTechAPI.METATILEENTITIES.length; i++) {
-            if (GregTechAPI.METATILEENTITIES[i] != null) {
+        for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
+            if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] != null) {
                 addHatchById(i);
             }
         }

@@ -117,7 +117,7 @@ public class GTPowerfailTracker {
         }
 
         public @Nullable IMetaTileEntity getMTE() {
-            return GTDataUtils.getIndexSafe(GregTechAPI.METATILEENTITIES, mteId);
+            return GTDataUtils.getIndexSafe(GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES, mteId);
         }
 
         public String getMTEName() {

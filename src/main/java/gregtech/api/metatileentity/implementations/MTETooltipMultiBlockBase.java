@@ -20,7 +20,7 @@ import gregtech.api.util.MultiblockTooltipBuilder;
 public abstract class MTETooltipMultiBlockBase extends MTEMultiBlockBase implements ISecondaryDescribable {
 
     private static final AtomicReferenceArray<MultiblockTooltipBuilder> tooltips = new AtomicReferenceArray<>(
-        GregTechAPI.METATILEENTITIES.length);
+        GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length);
 
     static {
         if (GTUtility.isClient()) {

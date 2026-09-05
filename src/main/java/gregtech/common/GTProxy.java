@@ -377,12 +377,12 @@ public class GTProxy implements IFuelHandler {
             }
         }
         GT_FML_LOGGER.debug("GTMod: Adding Configs specific for MetaTileEntities");
-        for (int i = 1; i < GregTechAPI.METATILEENTITIES.length; i++) {
-            if (GregTechAPI.METATILEENTITIES[i] != null) {
+        for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
+            if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] != null) {
                 try {
-                    GregTechAPI.METATILEENTITIES[i].onConfigLoad();
+                    GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i].onConfigLoad();
                 } catch (Exception e) {
-                    GT_FML_LOGGER.error("Could not load config for MTE {}", GregTechAPI.METATILEENTITIES[i], e);
+                    GT_FML_LOGGER.error("Could not load config for MTE {}", GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i], e);
                 }
             }
         }

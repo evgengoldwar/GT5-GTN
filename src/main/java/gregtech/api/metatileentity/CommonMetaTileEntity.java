@@ -85,10 +85,10 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     protected CommonMetaTileEntity(int id, String basicName, int invSlotCount) {
         if (GregTechAPI.sPostloadStarted || !GregTechAPI.sPreloadStarted)
             throw new IllegalAccessError("This Constructor has to be called in the load Phase");
-        if (GregTechAPI.METATILEENTITIES[id] == null) {
-            GregTechAPI.METATILEENTITIES[id] = this;
+        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id] == null) {
+            GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id] = this;
         } else {
-            var existing = GregTechAPI.METATILEENTITIES[id];
+            var existing = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id];
             throw new IllegalArgumentException(
                 "MetaTileEntity id " + id
                     + " is already occupied! Existing MTE is "
@@ -399,8 +399,8 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
 
     @Override
     public String getInventoryName() {
-        if (GregTechAPI.METATILEENTITIES[getBaseMetaTileEntity().getMetaTileID()] != null) {
-            return GregTechAPI.METATILEENTITIES[getBaseMetaTileEntity().getMetaTileID()].getLocalNameKey();
+        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity().getMetaTileID()] != null) {
+            return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity().getMetaTileID()].getLocalNameKey();
         }
         return "";
     }

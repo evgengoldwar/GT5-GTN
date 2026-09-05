@@ -173,8 +173,8 @@ public class NEIGTConfig implements IConfigureNEI {
         ImmutableListMultimap.Builder<RecipeCategory, RecipeMapWorkable> builder = new ImmutableListMultimap.Builder<>();
         builder
             .orderValuesBy(Comparator.comparing(recipeMapWorkable -> -recipeMapWorkable.getRecipeCatalystPriority()));
-        for (int i = 1; i < GregTechAPI.METATILEENTITIES.length; i++) {
-            IMetaTileEntity mte = GregTechAPI.METATILEENTITIES[i];
+        for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
+            IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i];
             if (!(mte instanceof RecipeMapWorkable recipeMapWorkable)) continue;
             for (RecipeMap<?> recipeMap : recipeMapWorkable.getAvailableRecipeMaps()) {
                 for (RecipeCategory recipeCategory : recipeMap.getAssociatedCategories()) {

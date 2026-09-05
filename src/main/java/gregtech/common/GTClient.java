@@ -307,8 +307,8 @@ public class GTClient extends GTProxy {
             final boolean renderIndicatorsOnHatch = GTMod.proxy.mRenderIndicatorsOnHatch;
             GTPreLoad.loadClientConfig();
             if (renderIndicatorsOnHatch != GTMod.proxy.mRenderIndicatorsOnHatch) {
-                for (int i = 1; i < GregTechAPI.METATILEENTITIES.length; i++) {
-                    if (GregTechAPI.METATILEENTITIES[i] instanceof CommonMetaTileEntity metaTileEntity) {
+                for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
+                    if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] instanceof CommonMetaTileEntity metaTileEntity) {
                         metaTileEntity.clearInventoryTextureCache();
                     }
                 }
@@ -482,7 +482,7 @@ public class GTClient extends GTProxy {
             || GTUtility.isStackInList(stack, GregTechAPI.sCrowbarList)
             || CoverRegistry.isCover(stack)
             || (stack.getItem() instanceof ItemMachines
-                && GregTechAPI.METATILEENTITIES[stack.getItemDamage()] instanceof MetaPipeEntity
+                && GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[stack.getItemDamage()] instanceof MetaPipeEntity
                 && player.isSneaking());
     }
 

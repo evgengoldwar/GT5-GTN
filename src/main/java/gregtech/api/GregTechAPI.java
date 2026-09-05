@@ -38,7 +38,7 @@ public class GregTechAPI {
     public static final CreativeTabs TAB_GREGTECH = new GTCreativeTab("Main", "Main");
     public static final CreativeTabs TAB_GREGTECH_MATERIALS = new GTCreativeTab("Materials", "Materials");
 
-    public static final IMetaTileEntity[] METATILEENTITIES = new IMetaTileEntity[Short.MAX_VALUE - 1];
+    public static final IMetaTileEntity[] MULTIBLOCK_HATCH_META_TILE_ENTITIES = new IMetaTileEntity[Short.MAX_VALUE - 1];
 
     public static final Map<Block, Integer> MACHINE_BLOCKS = new ConcurrentHashMap<>();
 

@@ -197,7 +197,7 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
     private IMetaTileEntity getMTE(Block block, int meta) {
         if (!(block instanceof BlockMachines)) return null;
 
-        return GTUtility.getIndexSafe(GregTechAPI.METATILEENTITIES, meta);
+        return GTUtility.getIndexSafe(GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES, meta);
     }
 
     @Override

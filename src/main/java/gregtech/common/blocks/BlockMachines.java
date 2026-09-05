@@ -356,9 +356,9 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
 
         GT_FML_LOGGER.debug("GTMod: Registering MetaTileEntity specific Textures");
         try {
-            for (int i = 1; i < GregTechAPI.METATILEENTITIES.length; i++) {
-                if (GregTechAPI.METATILEENTITIES[i] != null) {
-                    GregTechAPI.METATILEENTITIES[i].registerIcons(aIconRegister);
+            for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
+                if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] != null) {
+                    GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i].registerIcons(aIconRegister);
                 }
             }
         } catch (Exception e) {
@@ -683,8 +683,8 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item item, CreativeTabs aCreativeTab, List<ItemStack> outputSubBlocks) {
-        for (int i = 1; i < GregTechAPI.METATILEENTITIES.length; i++) {
-            if (GregTechAPI.METATILEENTITIES[i] != null) {
+        for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
+            if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] != null) {
                 outputSubBlocks.add(new ItemStack(item, 1, i));
             }
         }
