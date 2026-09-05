@@ -73,7 +73,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.VoidingMode;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
-import gregtech.api.metatileentity.implementations.gui.ItemDisplayKey;
+import gregtech.api.implementation.items.ItemDisplayKey;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTWidgetThemes;
 import gregtech.api.modularui2.common.CommonButtons;

@@ -1,4 +1,4 @@
-package gregtech.api.metatileentity.implementations.gui;
+package gregtech.api.implementation.items;
 
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
