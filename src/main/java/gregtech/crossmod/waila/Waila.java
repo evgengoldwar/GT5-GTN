@@ -4,7 +4,6 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import gregtech.api.enums.Mods;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
-import gregtech.common.blocks.BlockCasings5;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 
