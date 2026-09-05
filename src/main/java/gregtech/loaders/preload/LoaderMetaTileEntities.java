@@ -18,7 +18,6 @@ import gregtech.api.metatileentity.implementations.MTEHatchMuffler;
 import gregtech.api.metatileentity.implementations.MTEHatchMultiInput;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.metatileentity.implementations.MTEHatchOutputBus;
-import gregtech.api.metatileentity.implementations.MTEHatchQuadrupleHumongous;
 import gregtech.api.metatileentity.implementations.MTEHatchVoid;
 import gregtech.api.metatileentity.implementations.MTEHatchVoidBus;
 import gregtech.api.metatileentity.implementations.MTETransformer;
@@ -285,13 +284,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "hatch.multi.input.tier.10",
                 "Quadruple Input Hatch (UXV)",
                 13).getStackForm(1L));
-
-        ItemList.Hatch_Input_Multi_2x2_Humongous.set(
-            new MTEHatchQuadrupleHumongous(
-                QUADRUPLE_INPUT_HATCHES_MAX.ID,
-                4,
-                "hatch.multi.input.tier.11",
-                "Humongous Quadruple Input Hatch").getStackForm(1L));
     }
 
     private static void registerOutputHatch() {

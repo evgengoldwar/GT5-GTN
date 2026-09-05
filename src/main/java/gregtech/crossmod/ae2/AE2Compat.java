@@ -12,7 +12,6 @@ import gregtech.api.covers.CoverPlacer;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.ItemList;
 import gregtech.api.objects.AE2DigitalChestHandler;
-import gregtech.api.objects.AE2NonconsumableHatchHandler;
 import gregtech.common.covers.CoverFacadeAE;
 import gregtech.common.tileentities.Hatches.MTEHatchCraftingInputME;
 
@@ -56,7 +55,6 @@ public final class AE2Compat {
             .registries()
             .externalStorage();
         registry.addExternalStorageInterface(new AE2DigitalChestHandler());
-        registry.addExternalStorageInterface(new AE2NonconsumableHatchHandler());
     }
 
     private static void registerBlockingModeIgnoreItems() {
