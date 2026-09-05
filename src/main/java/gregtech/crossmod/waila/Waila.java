@@ -21,10 +21,6 @@ public class Waila {
 
         register.registerTailProvider(multiBlockProvider, BaseMetaTileEntity.class);
         register.registerTailProvider(multiBlockProvider, BaseMetaPipeEntity.class);
-
-        final IWailaDataProvider blockProvider = new GregtechBlockWailaDataProvider();
-
-        register.registerStackProvider(blockProvider, BlockCasings5.class);
     }
 
     public static void init() {
