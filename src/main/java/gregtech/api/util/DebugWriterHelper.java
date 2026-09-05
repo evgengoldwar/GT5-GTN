@@ -28,7 +28,6 @@ import gregtech.api.casing.Casings;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.common.blocks.BlockFrameBox;
 import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 
 public class DebugWriterHelper {
@@ -71,24 +70,6 @@ public class DebugWriterHelper {
                             + "', Casings."
                             + casing.name()
                             + ".asElement()";
-                    }
-                } catch (Exception ignored) {}
-            }
-            return null;
-        });
-
-        // Frames
-        registerBlockAssociation((block, meta, symbol) -> {
-            if (block instanceof BlockFrameBox) {
-                try {
-                    Materials_OLD material = BlockFrameBox.getMaterial(meta);
-                    if (material != null) {
-                        return symbol + "-> "
-                            + "addElement('"
-                            + symbol
-                            + "', ofFrame(Materials."
-                            + material.getName()
-                            + ")";
                     }
                 } catch (Exception ignored) {}
             }

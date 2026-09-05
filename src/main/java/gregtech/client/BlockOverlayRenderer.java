@@ -44,7 +44,6 @@ import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.metatileentity.implementations.MTEBuffer;
 import gregtech.api.util.GTUtility;
-import gregtech.common.blocks.BlockFrameBox;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Client;
 import ic2.api.tile.IWrenchable;
@@ -108,16 +107,8 @@ public class BlockOverlayRenderer {
         if (GTUtility.isStackInList(event.currentItem, GregTechAPI.sWrenchList)) {
             if (aTileEntity instanceof ITurnable || ROTATABLE_VANILLA_BLOCKS.contains(aBlock)
                 || aTileEntity instanceof IWrenchable
-                || (aTileEntity instanceof IOrientable orientable && orientable.canBeRotated())
-                || (aBlock instanceof BlockFrameBox)) drawGrid(event, false, true, event.player.isSneaking());
-            return;
-        }
-
-        // If there is no tile entity and the block is a frame box block, still draw the grid if a cover is held
-        if (aTileEntity == null && aBlock instanceof BlockFrameBox) {
-            if (CoverRegistry.isCover(event.currentItem)) {
-                drawGrid(event, true, false, event.player.isSneaking());
-            }
+                || (aTileEntity instanceof IOrientable orientable && orientable.canBeRotated()))
+                drawGrid(event, false, true, event.player.isSneaking());
             return;
         }
 

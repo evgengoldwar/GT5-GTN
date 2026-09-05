@@ -16,7 +16,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
-import gregtech.api.metatileentity.implementations.MTEFrame;
 import gregtech.common.config.Gregtech;
 import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
@@ -191,7 +190,7 @@ public class RunnableMachineUpdate implements Runnable {
             metaTile = baseMetaPipe.getMetaTileEntity();
             isMetaPipe = metaTile instanceof MetaPipeEntity;
             metaPipe = isMetaPipe ? (MetaPipeEntity) metaTile : null;
-            isPotentialStructureBlock = metaPipe instanceof MTEFrame;
+            isPotentialStructureBlock = false;
         }
     }
 }
