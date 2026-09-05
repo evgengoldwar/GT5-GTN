@@ -21,13 +21,6 @@ public interface IStructureProvider<MTE> {
         return getDefinition();
     }
 
-    /**
-     * Compiles a structure definition. Usually configures a {@link StructureWrapper}, then calls
-     * {@link StructureWrapper#buildStructure(String[][])}.
-     *
-     * @param definition The return value of {@link #getDefinition()}
-     * @return A valid structure definition
-     */
     IStructureDefinition<MTE> compile(String[][] definition);
 
     /**
