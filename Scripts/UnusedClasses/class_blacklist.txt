@@ -1,0 +1,6 @@
+# Blacklist for Java classes
+# Add one class name per line
+# Lines starting with '#' are ignored
+# Example:
+# Main
+# Application

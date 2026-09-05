@@ -7,7 +7,6 @@ import net.minecraft.client.gui.GuiScreen;
 import com.gtnewhorizon.gtnhlib.config.ConfigException;
 import com.gtnewhorizon.gtnhlib.config.SimpleGuiConfig;
 
-import gregtech.api.util.scanner.ScannerConfig;
 import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
 import gregtech.common.config.MachineStats;
@@ -24,7 +23,6 @@ public class GTGUIClientConfig extends SimpleGuiConfig {
             Client.class,
             Gregtech.class,
             MachineStats.class,
-            ScannerConfig.class,
             Worldgen.class);
     }
 }

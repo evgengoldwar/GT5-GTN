@@ -5,12 +5,10 @@ import java.util.Map;
 import java.util.Set;
 
 import com.gtnewhorizon.gtnhlib.config.ConfigException;
-import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import gregtech.api.util.scanner.ScannerConfig;
 import gregtech.mixin.Mixin;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
@@ -19,9 +17,7 @@ import gregtech.mixin.Mixin;
 public class GTCorePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     static {
-        try {
-            ConfigurationManager.registerConfig(ScannerConfig.class);
-        } catch (ConfigException e) {
+        try {} catch (ConfigException e) {
             throw new RuntimeException(e);
         }
     }

@@ -1,0 +1,56 @@
+Java Class Usage Statistics
+============================================================
+Project: /home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare
+Total classes: 1563
+Blacklist: 0
+Used classes: 1517
+Unused classes: 46
+
+============================================================
+Unused Classes Details:
+  - AdvancedModelLoader (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/run/client/.mixin.out/java/net/minecraftforge/client/model/AdvancedModelLoader.java)
+  - BoundedTextureCache (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/render/BoundedTextureCache.java)
+  - CommandHelp (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/run/client/.mixin.out/java/net/minecraft/command/CommandHelp.java)
+  - CommandTeleport (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/run/client/.mixin.out/java/net/minecraft/command/server/CommandTeleport.java)
+  - ExactNBTTypeAdapter (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/NBTPersist.java)
+  - GTCapesClientHandler (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/client/GTCapesClientHandler.java)
+  - GTCoilTrackerAccess (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/net/GTCoilTrackerAccess.java)
+  - GTCorePlugin (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/asm/GTCorePlugin.java)
+  - GTGCCompat (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/GTGCCompat.java)
+  - GTMathUtils (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/GTMathUtils.java)
+  - GTNHMod (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/GTNHMod.java)
+  - GTToolHarvestHelper (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/GTToolHarvestHelper.java)
+  - GTTooltipHandler (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/client/GTTooltipHandler.java)
+  - GTUtilityClient (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/GTUtilityClient.java)
+  - GlassTooltipHandler (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/GlassTier.java)
+  - GregtechBlockWailaDataProvider (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/crossmod/waila/GregtechBlockWailaDataProvider.java)
+  - GuiEvents (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/run/client/.mixin.out/java/baubles/client/gui/GuiEvents.java)
+  - HEEChunkProviderAccessor (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/mixin/interfaces/accessors/HEEChunkProviderAccessor.java)
+  - IDrillingLogicDelegateOwner (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/common/misc/IDrillingLogicDelegateOwner.java)
+  - IFoodStat (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/interfaces/IFoodStat.java)
+  - IGTCraftingRecipe (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/interfaces/internal/IGTCraftingRecipe.java)
+  - IHasIndexedTexture (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/interfaces/IHasIndexedTexture.java)
+  - IHeatingCoil (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/interfaces/IHeatingCoil.java)
+  - IMetricsExporter (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/interfaces/metatileentity/IMetricsExporter.java)
+  - INEIPreviewModifier (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/interfaces/INEIPreviewModifier.java)
+  - IRedstoneCircuitBlock (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/interfaces/IRedstoneCircuitBlock.java)
+  - ItemNBT (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/GTUtility.java)
+  - IteratorExt (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/extensions/IteratorExt.java)
+  - LateMixinPlugin (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/mixin/LateMixinPlugin.java)
+  - MapGenIslandAccessor (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/mixin/interfaces/accessors/MapGenIslandAccessor.java)
+  - NBTPersist (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/NBTPersist.java)
+  - OCMethod (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/interfaces/OCMethod.java)
+  - OreDictNames (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/enums/OreDictNames.java)
+  - OverlayTesr (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/run/client/.mixin.out/java/ic2/core/block/OverlayTesr.java)
+  - PCBFactoryManager (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/PCBFactoryManager.java)
+  - PlayerDetectionMode (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/common/covers/modes/PlayerDetectionMode.java)
+  - RandomPositionGenerator (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/run/client/.mixin.out/java/net/minecraft/entity/ai/RandomPositionGenerator.java)
+  - RegisterGlassTiers (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/GlassTier.java)
+  - RenderLiquidCell (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/run/client/.mixin.out/java/ic2/core/item/RenderLiquidCell.java)
+  - ScannerHandlerRegistry (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/recipe/ScannerHandlerRegistry.java)
+  - ScannerHelper (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/scanner/ScannerHelper.java)
+  - SoundManagerInnerMixin (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/mixin/java/gregtech/mixin/mixins/early/minecraft/SoundManagerInnerMixin.java)
+  - TabRegistry (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/run/client/.mixin.out/java/tconstruct/client/tabs/TabRegistry.java)
+  - ValidationType (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/api/util/ValidationType.java)
+  - VisualProspectingDatabase (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/crossmod/visualprospecting/VisualProspectingDatabase.java)
+  - WirelessEnergyHatchGuiHelper (/home/evgenwargold/IdeaProjects/GT5-Unofficial-GregTechNightmare/src/main/java/gregtech/common/gui/modularui/util/WirelessEnergyHatchGuiHelper.java)

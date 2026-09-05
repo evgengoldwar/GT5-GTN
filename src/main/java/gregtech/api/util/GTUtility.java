@@ -53,7 +53,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.item.EntityItem;
@@ -67,7 +66,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.play.server.S07PacketRespawn;
 import net.minecraft.network.play.server.S1DPacketEntityEffect;
 import net.minecraft.network.play.server.S1FPacketSetExperience;
@@ -107,7 +105,6 @@ import org.joml.Vector3f;
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
-import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 import com.gtnewhorizon.structurelib.alignment.enumerable.Flip;
 import com.gtnewhorizon.structurelib.alignment.enumerable.Rotation;
@@ -1798,225 +1795,6 @@ public class GTUtility {
         final ItemStack currentItem = player.getCurrentEquippedItem();
         if (currentItem == null) {
             return;
-        }
-    }
-
-    public static class ItemNBT {
-
-        /**
-         * Deprecated, use methods from {@link ItemStackNBT}
-         */
-        @Deprecated
-        public static NBTTagCompound getNBT(ItemStack aStack) {
-            NBTTagCompound rNBT = aStack.getTagCompound();
-            return rNBT == null ? new NBTTagCompound() : rNBT;
-        }
-
-        public static String getPunchCardData(ItemStack aStack) {
-            return ItemStackNBT.getString(aStack, "GT.PunchCardData");
-        }
-
-        public static void setLighterFuel(ItemStack aStack, long aFuel) {
-            ItemStackNBT.setLong(aStack, "GT.LighterFuel", aFuel);
-        }
-
-        public static long getLighterFuel(ItemStack aStack) {
-            return ItemStackNBT.getLong(aStack, "GT.LighterFuel");
-        }
-
-        public static short getMapID(ItemStack aStack) {
-            if (ItemStackNBT.hasKey(aStack, "map_id")) {
-                return ItemStackNBT.getShort(aStack, "map_id");
-            }
-            return -1;
-        }
-
-        public static void setBookTitle(ItemStack aStack, String aTitle) {
-            ItemStackNBT.setString(aStack, "title", aTitle);
-        }
-
-        public static String getBookTitle(ItemStack aStack) {
-            return ItemStackNBT.getString(aStack, "title");
-        }
-
-        public static String getBookAuthor(ItemStack aStack) {
-            return ItemStackNBT.getString(aStack, "author");
-        }
-
-        @Deprecated
-        public static void setProspectionData(ItemStack aStack, int aX, int aY, int aZ, int aDim, FluidStack aFluid,
-            String... aOres) {
-            NBTTagCompound tNBT = ItemStackNBT.get(aStack);
-            StringBuilder tData = new StringBuilder(aX + "," + aY + "," + aZ + "," + aDim + ",");
-            if (aFluid != null) tData.append(aFluid.amount)
-                .append(",")
-                .append(aFluid.getLocalizedName())
-                .append(",");
-            for (String tString : aOres) {
-                tData.append(tString)
-                    .append(",");
-            }
-            tNBT.setString("prospection", tData.toString());
-        }
-
-        public static void convertProspectionData(ItemStack aStack) {
-            NBTTagCompound tNBT = ItemStackNBT.get(aStack);
-            byte tTier = tNBT.getByte("prospection_tier");
-
-            if (tTier == 0) { // basic prospection data
-                String tData = tNBT.getString("prospection");
-                String[] tDataArray = tData.split(",");
-                if (tDataArray.length > 6) {
-                    tNBT.setString(
-                        "author",
-                        getProspectionBookTitle(tDataArray[3], tDataArray[0], tDataArray[1], tDataArray[2]));
-                    NBTTagList tNBTList = new NBTTagList();
-                    StringBuilder tOres = new StringBuilder(" Prospected Ores: ");
-                    for (int i = 6; tDataArray.length > i; i++) {
-                        tOres.append(tDataArray[i])
-                            .append(" ");
-                    }
-                    tNBTList.appendTag(
-                        new NBTTagString(
-                            "Tier " + tTier
-                                + " Prospecting Data From: X"
-                                + tDataArray[0]
-                                + " Z:"
-                                + tDataArray[2]
-                                + " Dim:"
-                                + tDataArray[3]
-                                + " Produces "
-                                + tDataArray[4]
-                                + "L "
-                                + tDataArray[5]
-                                + " "
-                                + tOres));
-                    tNBT.setTag("pages", tNBTList);
-                }
-            } else { // advanced prospection data
-                String tPos = tNBT.getString("prospection_pos");
-                String tRadius = tNBT.getString("prospection_radius");
-
-                String tOresStr = tNBT.getString("prospection_ores");
-                String tOilsStr = tNBT.getString("prospection_oils");
-                String tOilsPosStr = tNBT.getString("prospection_oils_pos");
-
-                String[] tOres = tOresStr.isEmpty() ? null : tOresStr.split("\\|");
-                String[] tOils = tOilsStr.isEmpty() ? null : tOilsStr.split("\\|");
-
-                NBTTagList tNBTList = new NBTTagList();
-
-                String tPageText = getProspectionFrontPage(
-                    tPos,
-                    tOils == null ? "0" : formatNumber(tOils.length),
-                    tRadius);
-                tNBTList.appendTag(new NBTTagString(tPageText));
-
-                if (tOres != null) fillBookWithList(tNBTList, "Ores Found %s\n\n", "\n", 7, tOres);
-
-                if (tOils != null) fillBookWithList(tNBTList, "Oils%s\n\n", "\n", 9, tOils);
-
-                tNBTList.appendTag(new NBTTagString(getProspectionGridPage()));
-                tNBTList.appendTag(new NBTTagString(getProspectionOilLocationPage(tOilsPosStr)));
-
-                tNBT.setString("author", tPos);
-                tNBT.setTag("pages", tNBTList);
-            }
-        }
-
-        public static String getProspectionFrontPage(String aPos, String aFieldCount, String aRadius) {
-            return String.format("""
-                Prospector report
-                %s
-
-                Oils: %s
-
-                Ores within %s blocks
-
-                Location is center of orevein
-                Check NEI to confirm orevein type""", aPos, aFieldCount, aRadius);
-        }
-
-        public static String getProspectionOilLocationPage(String aOilsPos) {
-            return "Corners of [5] are \n" + aOilsPos + "\n" + "P - Prospector in 8x8 field";
-        }
-
-        public static String getProspectionGridPage() {
-            return """
-                Oil notes
-
-                Prospects from NW to SE 576 chunks(9 8x8 oilfields)
-                 around and gives min-max amount
-
-                [1][2][3]
-                [4][5][6]
-                [7][8][9]
-
-                [5] - Prospector in this 8x8 area""";
-        }
-
-        public static String getRawProspectionDataName() {
-            // should probably stat collector this, but stuff already relies on this being unlocalized sooo
-            // don't break what ain't broke
-            return "Raw Prospection Data";
-        }
-
-        public static String getProspectionBookTitle(int aDim, int aX, int aY, int aZ) {
-            return getProspectionBookTitle(formatNumber(aDim), formatNumber(aX), formatNumber(aY), formatNumber(aZ));
-        }
-
-        public static String getProspectionBookTitle(String aDim, String aX, String aY, String aZ) {
-            return "Dim: " + aDim + "\nX: " + aX + " Y: " + aY + " Z: " + aZ;
-        }
-
-        public static void fillBookWithList(NBTTagList aBook, String aPageHeader, String aListDelimiter,
-            int aItemsPerPage, String[] list) {
-            String aPageFormatter = " %d/%d";
-            int tTotalPages = list.length / aItemsPerPage + (list.length % aItemsPerPage > 0 ? 1 : 0);
-            int tPage = 0;
-            StringBuilder tPageText;
-            do {
-                tPageText = new StringBuilder();
-                for (int i = tPage * aItemsPerPage; i < (tPage + 1) * aItemsPerPage && i < list.length; i += 1)
-                    tPageText.append((tPageText.isEmpty()) ? "" : aListDelimiter)
-                        .append(list[i]);
-
-                if (!tPageText.isEmpty()) {
-                    String tPageCounter = tTotalPages > 1 ? String.format(aPageFormatter, tPage + 1, tTotalPages) : "";
-                    NBTTagString tPageTag = new NBTTagString(String.format(aPageHeader, tPageCounter) + tPageText);
-                    aBook.appendTag(tPageTag);
-                }
-
-                ++tPage;
-            } while (!tPageText.isEmpty());
-        }
-
-        /**
-         * Adds an enchantment to the item stack or replaces the level of an existing enchantment
-         */
-        public static void addEnchantment(ItemStack aStack, Enchantment aEnchantment, int aLevel) {
-            if (!aStack.hasTagCompound()) {
-                aStack.setTagCompound(new NBTTagCompound());
-            }
-            NBTTagCompound tNBT = aStack.getTagCompound();
-            NBTTagCompound tEnchantmentTag;
-            if (!tNBT.hasKey("ench", NBT.TAG_LIST)) {
-                tNBT.setTag("ench", new NBTTagList());
-            }
-            NBTTagList nbttaglist = tNBT.getTagList("ench", NBT.TAG_COMPOUND);
-
-            for (int i = 0; i < nbttaglist.tagCount(); i++) {
-                tEnchantmentTag = nbttaglist.getCompoundTagAt(i);
-                if (tEnchantmentTag.getShort("id") == aEnchantment.effectId) {
-                    tEnchantmentTag.setShort("lvl", (byte) aLevel);
-                    return;
-                }
-            }
-
-            tEnchantmentTag = new NBTTagCompound();
-            tEnchantmentTag.setShort("id", (short) aEnchantment.effectId);
-            tEnchantmentTag.setShort("lvl", (byte) aLevel);
-            nbttaglist.appendTag(tEnchantmentTag);
         }
     }
 
