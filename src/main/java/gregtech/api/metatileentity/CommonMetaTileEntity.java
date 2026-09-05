@@ -400,7 +400,8 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     @Override
     public String getInventoryName() {
         if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity().getMetaTileID()] != null) {
-            return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity().getMetaTileID()].getLocalNameKey();
+            return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity().getMetaTileID()]
+                .getLocalNameKey();
         }
         return "";
     }

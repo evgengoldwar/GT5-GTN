@@ -77,7 +77,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         if (!(itemStack.getItem() instanceof ItemMachines)) {
             return null;
         }
-        if (itemStack.getItemDamage() < 0 || itemStack.getItemDamage() > GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length) {
+        if (itemStack.getItemDamage() < 0
+            || itemStack.getItemDamage() > GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length) {
             return null;
         }
         return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[itemStack.getItemDamage()];
@@ -92,7 +93,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
             }
 
             if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null) {
-                final IGregTechTileEntity gte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getBaseMetaTileEntity();
+                final IGregTechTileEntity gte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta]
+                    .getBaseMetaTileEntity();
                 final IMetaTileEntity mte = gte.getMetaTileEntity();
                 if (mte instanceof ILocalizedMetaPipeEntity localizedMetaPipeEntity) {
                     localizedMetaPipeEntity.addMaterialTooltip(list);
@@ -262,8 +264,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
         super.onCreated(itemStack, world, player);
         final short meta = (short) getDamage(itemStack);
-        if ((meta < 0)
-            || ((meta >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length) && (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null))) {
+        if ((meta < 0) || ((meta >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length)
+            && (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null))) {
             GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].onCreated(itemStack, world, player);
         }
     }

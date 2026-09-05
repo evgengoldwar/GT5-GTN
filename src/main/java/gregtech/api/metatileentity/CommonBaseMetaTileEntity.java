@@ -79,7 +79,8 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity
     private int mLagWarningCount = 0;
 
     protected boolean createNewMetatileEntity(short aID) {
-        if (aID <= 0 || aID >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length || GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[aID] == null) {
+        if (aID <= 0 || aID >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length
+            || GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[aID] == null) {
             GT_FML_LOGGER.error("MetaID {} not loadable => locking TileEntity!", aID);
         } else {
             if (hasValidMetaTileEntity()) getMetaTileEntity().setBaseMetaTileEntity(null);

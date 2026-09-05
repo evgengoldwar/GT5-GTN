@@ -392,7 +392,8 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     @Override
     public String getInventoryName() {
         if (canAccessData()) return mMetaTileEntity.getInventoryName();
-        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[mID] != null) return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[mID].getInventoryName();
+        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[mID] != null)
+            return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[mID].getInventoryName();
         return "";
     }
 

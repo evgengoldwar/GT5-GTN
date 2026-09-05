@@ -382,7 +382,10 @@ public class GTProxy implements IFuelHandler {
                 try {
                     GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i].onConfigLoad();
                 } catch (Exception e) {
-                    GT_FML_LOGGER.error("Could not load config for MTE {}", GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i], e);
+                    GT_FML_LOGGER.error(
+                        "Could not load config for MTE {}",
+                        GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i],
+                        e);
                 }
             }
         }

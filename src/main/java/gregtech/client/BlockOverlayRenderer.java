@@ -126,7 +126,8 @@ public class BlockOverlayRenderer {
         if (event.player.isSneaking() && aTileEntity instanceof IGregTechTileEntity gtEntity
             && gtEntity.getMetaTileEntity() instanceof MetaPipeEntity) {
             if (event.currentItem != null && event.currentItem.getItem() instanceof ItemMachines
-                && GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[event.currentItem.getItemDamage()] instanceof MetaPipeEntity) {
+                && GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[event.currentItem
+                    .getItemDamage()] instanceof MetaPipeEntity) {
                 drawGrid(event, false, false, false);
             }
         }
