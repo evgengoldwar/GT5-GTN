@@ -114,11 +114,6 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
     void setItemNBT(NBTTagCompound aNBT);
 
     /**
-     * Called in the registered MetaTileEntity when the Server starts, to reset static variables
-     */
-    void onServerStart();
-
-    /**
      * Called to set Configuration values for this MetaTileEntity. Use aConfig.get(ConfigCategories.machineconfig,
      * "MetaTileEntityName.Ability", DEFAULT_VALUE); to set the Values.
      */

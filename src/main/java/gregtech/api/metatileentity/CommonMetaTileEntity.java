@@ -140,9 +140,6 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     }
 
     @Override
-    public void onServerStart() {}
-
-    @Override
     public void onConfigLoad() {}
 
     @Override

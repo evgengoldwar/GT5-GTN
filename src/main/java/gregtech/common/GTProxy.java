@@ -421,15 +421,6 @@ public class GTProxy implements IFuelHandler {
                 break;
             }
         }
-        for (int i = 1; i < GregTechAPI.METATILEENTITIES.length; i++) {
-            if (GregTechAPI.METATILEENTITIES[i] != null) {
-                try {
-                    GregTechAPI.METATILEENTITIES[i].onServerStart();
-                } catch (Exception e) {
-                    throw new RuntimeException("Could not call onServerStart MTE " + GregTechAPI.METATILEENTITIES[i], e);
-                }
-            }
-        }
     }
 
     public void onServerStarted(FMLServerStartedEvent event) {
