@@ -96,8 +96,7 @@ public class NEIGTConfig implements IConfigureNEI {
 
     private void registerItemEntries() {}
 
-    private void registerDumpers() {
-    }
+    private void registerDumpers() {}
 
     private void registerFilters() {
         API.addSearchProvider(
