@@ -90,7 +90,6 @@ import com.gtnewhorizons.modularui.common.widget.textfield.NumericWidget;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.GTMod;
-import gregtech.api.enums.HarvestTool;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.VoidingMode;
 import gregtech.api.gui.modularui.GTUITextures;
@@ -491,11 +490,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         }
         openGui(aPlayer);
         return true;
-    }
-
-    @Override
-    public byte getTileEntityBaseType() {
-        return HarvestTool.WrenchLevel2.toTileEntityBaseType();
     }
 
     /**

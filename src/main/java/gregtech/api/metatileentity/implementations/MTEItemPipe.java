@@ -27,7 +27,6 @@ import com.gtnewhorizon.gtnhlib.util.ItemUtil;
 
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.HarvestTool;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IOreMaterial;
@@ -85,21 +84,6 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
         mMaterial = aMaterial;
         mStepSize = aStepSize;
         mTickTime = aTickTime;
-    }
-
-    @Override
-    public byte getTileEntityBaseType() {
-        final int level = (mMaterial == null) ? 0 : GTUtility.clamp(mMaterial.mToolQuality, 0, 3);
-
-        HarvestTool tool = switch (level) {
-            case 0 -> HarvestTool.WrenchPipeLevel0;
-            case 1 -> HarvestTool.WrenchPipeLevel1;
-            case 2 -> HarvestTool.WrenchPipeLevel2;
-            case 3 -> HarvestTool.WrenchPipeLevel3;
-            default -> throw new IllegalStateException("Unexpected tool quality level: " + level);
-        };
-
-        return tool.toTileEntityBaseType();
     }
 
     @Override

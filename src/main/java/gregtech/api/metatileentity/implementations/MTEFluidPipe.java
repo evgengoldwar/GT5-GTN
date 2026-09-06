@@ -42,7 +42,6 @@ import org.apache.commons.lang3.tuple.MutableTriple;
 import cpw.mods.fml.common.Optional;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.HarvestTool;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
@@ -146,21 +145,6 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         mHeatResistance = aHeatResistance;
         mPipeAmount = aFluidTypes;
         mFluids = new FluidStack[mPipeAmount];
-    }
-
-    @Override
-    public byte getTileEntityBaseType() {
-        final int level = (mMaterial == null) ? 0 : GTUtility.clamp(mMaterial.mToolQuality, 0, 3);
-
-        HarvestTool tool = switch (level) {
-            case 0 -> HarvestTool.WrenchPipeLevel0;
-            case 1 -> HarvestTool.WrenchPipeLevel1;
-            case 2 -> HarvestTool.WrenchPipeLevel2;
-            case 3 -> HarvestTool.WrenchPipeLevel3;
-            default -> throw new IllegalStateException("Unexpected tool quality level: " + level);
-        };
-
-        return tool.toTileEntityBaseType();
     }
 
     @Override

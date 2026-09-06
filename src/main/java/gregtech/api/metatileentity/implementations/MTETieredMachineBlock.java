@@ -12,7 +12,6 @@ import com.gtnewhorizons.modularui.common.widget.SlotWidget;
 
 import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.HarvestTool;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -63,18 +62,6 @@ public abstract class MTETieredMachineBlock extends MetaTileEntity {
         mTier = (byte) aTier;
         mDescriptionArray = aDescription == null ? GTValues.emptyStringArray : aDescription;
         mTextures = aTextures;
-    }
-
-    @Override
-    public byte getTileEntityBaseType() {
-        if (mTier <= 0) return HarvestTool.WrenchLevel0.toTileEntityBaseType();
-
-        // Require better wrench every 4 tiers.
-        return switch (1 + (mTier - 1) / 4) {
-            case 1 -> HarvestTool.WrenchLevel1.toTileEntityBaseType();
-            case 2 -> HarvestTool.WrenchLevel2.toTileEntityBaseType();
-            default -> HarvestTool.WrenchLevel3.toTileEntityBaseType();
-        };
     }
 
     @Override

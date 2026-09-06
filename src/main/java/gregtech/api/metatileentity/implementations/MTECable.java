@@ -18,7 +18,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import appeng.tile.powersink.IC2;
 import gregtech.api.enums.Dyes;
-import gregtech.api.enums.HarvestTool;
 import gregtech.api.enums.MaterialIconRegistry;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Textures;
@@ -82,12 +81,6 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
         mInsulated = aInsulated;
         mCanShock = aCanShock;
         mCableLossPerMeter = aCableLossPerMeter;
-    }
-
-    @Override
-    public byte getTileEntityBaseType() {
-        if (mInsulated) return HarvestTool.CutterLevel1.toTileEntityBaseType();
-        return HarvestTool.CutterLevel0.toTileEntityBaseType();
     }
 
     @Override

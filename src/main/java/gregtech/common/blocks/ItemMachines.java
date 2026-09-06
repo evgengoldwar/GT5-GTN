@@ -280,20 +280,11 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
                 return false;
             }
 
-            final int newMeta = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getTileEntityBaseType();
-            if (!world.setBlock(x, y, z, this.field_150939_a, newMeta, 3)) {
-                return false;
-            }
-
             if (world.getBlock(x, y, z) != this.field_150939_a) {
                 throw new GTItsNotMyFaultException(
                     "Failed to place Block even though World.setBlock returned true. It COULD be MCPC/Bukkit causing that. In case you really have that installed, don't report this Bug to me, I don't know how to fix it.");
             }
 
-            if (world.getBlockMetadata(x, y, z) != newMeta) {
-                throw new GTItsNotMyFaultException(
-                    "Failed to set the MetaValue of the Block even though World.setBlock returned true. It COULD be MCPC/Bukkit causing that. In case you really have that installed, don't report this Bug to me, I don't know how to fix it.");
-            }
             final TileEntity te = world.getTileEntity(x, y, z);
             final IGregTechTileEntity gte = (IGregTechTileEntity) te;
             if (gte != null) {

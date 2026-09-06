@@ -51,27 +51,6 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
     IGregtechWailaProvider, IGetGUITextureSet, IGregTechDeviceInformation, CapabilityProvider, IGuiHolder<PosGuiData> {
 
     /**
-     * This determines the BaseMetaTileEntity belonging to this MetaTileEntity by using the Meta ID of the Block itself.
-     * <p/>
-     * // spotless:off
-     * 0 = BaseMetaTileEntity, Wrench lvl 0 to dismantle
-     * 1 = BaseMetaTileEntity, Wrench lvl 1 to dismantle
-     * 2 = BaseMetaTileEntity, Wrench lvl 2 to dismantle
-     * 3 = BaseMetaTileEntity, Wrench lvl 3 to dismantle
-     * 4 = BaseMetaPipeEntity, Wrench lvl 0 to dismantle
-     * 5 = BaseMetaPipeEntity, Wrench lvl 1 to dismantle
-     * 6 = BaseMetaPipeEntity, Wrench lvl 2 to dismantle
-     * 7 = BaseMetaPipeEntity, Wrench lvl 3 to dismantle
-     * 8 = BaseMetaPipeEntity, Cutter lvl 0 to dismantle
-     * 9 = BaseMetaPipeEntity, Cutter lvl 1 to dismantle
-     * 10 = BaseMetaPipeEntity, Cutter lvl 2 to dismantle
-     * 11 = BaseMetaPipeEntity, Cutter lvl 3 to dismantle
-     * 12 = GT++ 13 = GT++ 14 = GT++ 15 = GT++
-     * // spotless:on
-     */
-    byte getTileEntityBaseType();
-
-    /**
      * @param aTileEntity is just because the internal Variable "mBaseMetaTileEntity" is set after this Call.
      * @return a newly created and ready MetaTileEntity
      */
@@ -218,8 +197,6 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
      */
     boolean isValidSlot(int aIndex);
 
-    /// Checks if the slot is an I/O slot that contributes to [GTItemSink#getStoredItemsInSink(ItemStackPredicate)].
-    /// Also controls which slots block AE pattern pushes for blocking mode.
     default boolean isIOSlot(int slot) {
         return true;
     }
