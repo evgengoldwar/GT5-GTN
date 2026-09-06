@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -41,422 +40,153 @@ import gregtech.api.render.ISBRInventoryContext;
 import gregtech.api.render.ISBRWorldContext;
 import io.netty.buffer.ByteBuf;
 
-/**
- * Warning, this Interface has just been made to be able to add multiple kinds of MetaTileEntities (Cables, Pipes,
- * Transformers, but not the regular Blocks)
- * <p/>
- * Don't implement this yourself and expect it to work. Extend @MetaTileEntity itself.
- */
 public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHandler, IMachineBlockUpdateable,
     IGregtechWailaProvider, IGetGUITextureSet, IGregTechDeviceInformation, CapabilityProvider, IGuiHolder<PosGuiData> {
 
-    /**
-     * @param aTileEntity is just because the internal Variable "mBaseMetaTileEntity" is set after this Call.
-     * @return a newly created and ready MetaTileEntity
-     */
     IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity);
 
-    /**
-     * @return an ItemStack representing this MetaTileEntity.
-     */
     ItemStack getStackForm(long aAmount);
 
-    /**
-     * new getter for the BaseMetaTileEntity, which restricts usage to certain Functions.
-     */
     IGregTechTileEntity getBaseMetaTileEntity();
 
-    /**
-     * Sets the BaseMetaTileEntity of this
-     */
     void setBaseMetaTileEntity(IGregTechTileEntity aBaseMetaTileEntity);
 
-    /**
-     * when placing a Machine in World, to initialize default Modes. aNBT can be null!
-     */
     void initDefaultModes(NBTTagCompound aNBT);
 
-    /**
-     * ^= writeToNBT
-     */
     void saveNBTData(NBTTagCompound aNBT);
 
-    /**
-     * ^= readFromNBT
-     */
     void loadNBTData(NBTTagCompound aNBT);
 
-    /**
-     * Adds the NBT-Information to the ItemStack, when being dismantled properly Used to store Machine specific Upgrade
-     * Data.
-     */
     void setItemNBT(NBTTagCompound aNBT);
 
-    /**
-     * Called to set Configuration values for this MetaTileEntity. Use aConfig.get(ConfigCategories.machineconfig,
-     * "MetaTileEntityName.Ability", DEFAULT_VALUE); to set the Values.
-     */
     void onConfigLoad();
 
-    /**
-     * If a Cover of that Type can be placed on this Side. Also Called when the Facing of the Block Changes and a Cover
-     * is on said Side.
-     */
     boolean allowCoverOnSide(ForgeDirection side, ItemStack coverItem);
 
-    /**
-     * When a Player right-clicks the Facing with a Screwdriver.
-     */
     void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
         ItemStack aTool);
 
-    /**
-     * When a Player right-clicks the Facing with a Wrench.
-     */
     boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer, float aX,
         float aY, float aZ, ItemStack aTool);
 
-    /**
-     * When a Player right-clicks the Facing with a wire cutter.
-     */
     boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
         float aX, float aY, float aZ, ItemStack aTool);
 
-    /**
-     * When a Player right-clicks the Facing with a soldering iron.
-     */
     boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
         float aX, float aY, float aZ, ItemStack aTool);
 
-    /**
-     * Called right before this Machine explodes
-     */
     void onExplosion();
 
-    /**
-     * The First processed Tick which was passed to this MetaTileEntity
-     */
     void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity);
 
-    /**
-     * The Tick before all the generic handling happens, what gives a slightly faster reaction speed. Don't use this if
-     * you really don't need to. @onPostTick is better suited for ticks. This happens still after the Cover handling.
-     */
     void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick);
 
-    /**
-     * The Tick after all the generic handling happened. Recommended to use this like updateEntity.
-     */
     void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick);
 
-    /**
-     * Whether {@link #onPreTick} and {@link #onPostTick} run on the client.
-     */
     boolean needsClientTick();
 
-    /**
-     * Client only. Called after any state sounds depending on have changed.
-     */
     void onClientSoundStateChanged();
 
-    /**
-     * Called when this MetaTileEntity gets (intentionally) disconnected from the BaseMetaTileEntity. Doesn't get called
-     * when this thing is moved by Frames or similar hacks.
-     */
     void inValidate();
 
-    /**
-     * Called when the BaseMetaTileEntity gets invalidated, what happens right before the @inValidate above gets called
-     */
     void onRemoval();
 
-    /**
-     * Called when the BaseMetaTileEntity gets unloaded (chunk or world)
-     */
     default void onUnload() {}
 
-    /**
-     * @param facing the facing direction to check
-     * @return if aFacing would be a valid Facing for this Device. Used for wrenching.
-     */
     boolean isFacingValid(ForgeDirection facing);
 
-    /**
-     * From new ISidedInventory
-     */
     boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side, ItemStack aStack);
 
-    /**
-     * From new ISidedInventory
-     */
     boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side, ItemStack aStack);
 
-    /**
-     * @return if aIndex is a valid Slot. false for things like HoloSlots. Is used for determining if an Item is dropped
-     *         upon Block destruction and for Inventory Access Management
-     */
     boolean isValidSlot(int aIndex);
 
     default boolean isIOSlot(int slot) {
         return true;
     }
 
-    /**
-     * Gets the max stack size limit for a slot and a stack.
-     *
-     * @param slot  The slot, or -1 for a general 'lowest slot' query.
-     * @param stack The stack, or null for a general 'any standard stack' query (getMaxStackSize() == 64).
-     */
     default int getStackSizeLimit(int slot, @Nullable ItemStack stack) {
         return Math.min(getSlotLimit(slot), stack == null ? 64 : stack.getMaxStackSize());
     }
 
-    /**
-     * Gets the max stack size limit for a slot. This should be prioritised over
-     * {@link IMetaTileEntity#getStackSizeLimit(int, ItemStack)}in cases where the limit is independent of the item
-     * stack.
-     *
-     * @param slot The slot index, or -1 for a general 'lowest slot' query.
-     */
     default int getSlotLimit(int slot) {
         return getInventoryStackLimit();
     }
 
-    /**
-     * Check if the item at the specified index should be dropped
-     *
-     * @param index Index that will be checked
-     * @return True if the item at the index should be dropped, else false
-     */
     boolean shouldDropItemAt(int index);
 
-    /**
-     * Override to change which items are dropped when block is broken.
-     */
     ArrayList<ItemStack> getDroppedItem();
 
-    /**
-     * @return if aIndex can be set to Zero stackSize, when being removed.
-     */
     boolean setStackToZeroInsteadOfNull(int aIndex);
 
-    /**
-     * If this Side can connect to inputting pipes
-     */
     boolean isLiquidInput(ForgeDirection side);
 
-    /**
-     * If this Side can connect to outputting pipes
-     */
     boolean isLiquidOutput(ForgeDirection side);
 
-    /**
-     * Just an Accessor for the Name variable.
-     */
     String getMetaName();
 
-    /**
-     * @return true if the Machine can be accessed
-     */
     boolean isAccessAllowed(EntityPlayer aPlayer);
 
-    /**
-     * a Player right-clicks the Machine Sneaky right clicks are not getting passed to this!
-     *
-     * @return mostly {@code false}. Probably is left for compatibility.
-     */
     boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, ForgeDirection side, float aX,
         float aY, float aZ);
 
-    /**
-     * a Player leftclicks the Machine Sneaky leftclicks are getting passed to this unlike with the rightclicks.
-     */
     void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer);
 
-    /**
-     * Called Clientside with the Data got from @getUpdateData
-     */
     void onValueUpdate(byte aValue);
 
-    /**
-     * return a small bit of Data, like a secondary Facing for example with this Function, for the Client. The
-     * BaseMetaTileEntity detects changes to this Value and will then send an Update. This is only for Information,
-     * which is visible as Texture to the outside.
-     * <p/>
-     * If you just want to have an Active/Redstone State then set the Active State inside the BaseMetaTileEntity
-     * instead.
-     */
     byte getUpdateData();
 
-    /**
-     * For the rare case you need this Function
-     */
     void receiveClientEvent(byte aEventID, byte aValue);
 
-    /**
-     * Called to actually play the sound on client side. Client/Server check is already done.
-     */
     void doSound(byte aIndex, double aX, double aY, double aZ);
 
     void startSoundLoop(byte aIndex, double aX, double aY, double aZ);
 
     void stopSoundLoop(byte aValue, double aX, double aY, double aZ);
 
-    /**
-     * Sends the Event for the Sound Triggers, only usable Server Side!
-     */
     void sendSound(byte aIndex);
 
-    /**
-     * Sends the Event for the Sound Triggers, only usable Server Side!
-     */
     void sendLoopStart(byte aIndex);
 
-    /**
-     * Sends the Event for the Sound Triggers, only usable Server Side!
-     */
     void sendLoopEnd(byte aIndex);
 
-    /**
-     * Called when the Machine explodes. Override the Explosion code here.
-     *
-     * @param aExplosionPower explosion power
-     */
     void doExplosion(long aExplosionPower);
 
-    /**
-     * If there should be a Lag Warning if something laggy happens during this Tick.
-     * <p/>
-     * The Advanced Pump uses this to not cause the Lag Message, while it scans for all close Fluids. The Item Pipes and
-     * Retrievers neither send this Message, when scanning for Pipes.
-     */
     boolean doTickProfilingMessageDuringThisTick();
 
-    /**
-     * returns the DebugLog
-     */
     ArrayList<String> getSpecialDebugInfo(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, int aLogLevel,
         ArrayList<String> aList);
 
-    /**
-     * Get the description for the TileEntity.
-     * <p>
-     * The behavior of this method depends on whether the class is annotated with {@link SkipGenerateDescription}:
-     * </p>
-     * <ul>
-     * <li>When the class is annotated with {@link SkipGenerateDescription}, the returned value is displayed directly in
-     * the game.</li>
-     * <li>When the class is not annotated with {@link SkipGenerateDescription}, the returned value is automatically
-     * added to <code>GregTech.lang</code>, and display the value from <code>GregTech.lang</code> in the game</li>
-     * </ul>
-     * <p>
-     * Additional notes when the class is not annotated with {@link SkipGenerateDescription}:
-     * </p>
-     * <ul>
-     * <li>To use the %s format specifier, you can use the {@link #addFormattedString(String)}</li>
-     * <li>Only static text is supported(because of <code>GregTech.lang</code>); dynamic text (e.g. display different
-     * random text each time) should also use the {@link #addFormattedString(String)}</li>
-     * </ul>
-     *
-     * @return the description, will display in the tooltips
-     * @see SkipGenerateDescription
-     * @see #addFormattedString(String)
-     */
     String[] getDescription();
 
-    /**
-     * Add a formatting marker for automatic parameter substitution.
-     * <p>
-     * This can also be used to display raw text.
-     *
-     * @param formattedStr the String to be formatted with parameter substitution markers.
-     * @return the special formatting markers for automatic parsing.
-     * @apiNote This method should NOT be used when the class is annotated with {@link SkipGenerateDescription},
-     *          otherwise the game will display the format used for marking.<br>
-     *          When use this method, please replace all "(number)%" with "(number)%%".
-     * @see #getDescription()
-     */
     default String addFormattedString(String formattedStr) {
         return "%%%" + formattedStr + "%%%";
     }
 
-    /**
-     * Annotation to mark classes that should skip generating tooltips through the GregTech.lang system.
-     * <p>
-     *
-     * When a class is annotated with {@link SkipGenerateDescription}:
-     * </p>
-     * <ul>
-     * <li>The returned value of {@link #getDescription()} is displayed directly in the game</li>
-     * <li>Automatic addition to <code>GregTech.lang</code> is skipped</li>
-     * </ul>
-     * <p>
-     * When a class is not annotated with {@link SkipGenerateDescription}:
-     * </p>
-     * <ul>
-     * <li>The returned value of {@link #getDescription()} is automatically added to <code>GregTech.lang</code></li>
-     *
-     * @apiNote please ensure the return of {@link #getDescription()} is not Hardcoded if this annotation is present.
-     *          This annotation is only effective when annotated to subclasses of {@link IMetaTileEntity}.
-     * @see #getDescription()
-     */
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface SkipGenerateDescription {}
 
-    /**
-     * In case the Output Voltage varies.
-     */
     String getSpecialVoltageToolTip();
 
-    /**
-     * Icon of the Texture.
-     *
-     * @param side          is the Side of the Block
-     * @param facing        is the direction the Block is facing
-     * @param colorIndex    The Minecraft Color the Block is having
-     * @param active        if the Machine is currently active (use this instead of calling
-     *                      {@code mBaseMetaTileEntity.mActive)}. Note: In case of Pipes this means if this Side is
-     *                      connected to something or not.
-     * @param redstoneLevel if the Machine is currently outputting a RedstoneSignal (use this instead of calling
-     *                      {@code mBaseMetaTileEntity.mRedstone} !!!)
-     */
     ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection side, ForgeDirection facing,
         int colorIndex, boolean active, boolean redstoneLevel);
 
-    /**
-     * Register Icons here. This gets called when the Icons get initialized by the Base Block Best is you put your Icons
-     * in a static Array for quick and easy access without relying on the MetaTileList.
-     *
-     * @param aBlockIconRegister The Block Icon Register
-     */
     @SideOnly(Side.CLIENT)
     void registerIcons(IIconRegister aBlockIconRegister);
 
-    /**
-     * @return true if you override the Rendering.
-     */
     @SideOnly(Side.CLIENT)
     boolean renderInInventory(ISBRInventoryContext ctx);
 
-    /**
-     * Returns a stable, read-only inventory texture model, or {@code null} when textures must be resolved per render.
-     */
     @Nullable
     @SideOnly(Side.CLIENT)
     default ITexture[][] getInventoryTextures() {
         return null;
     }
 
-    /**
-     * @return true if you override the Rendering.
-     */
     @SideOnly(Side.CLIENT)
     boolean renderInWorld(ISBRWorldContext ctx);
 
-    /**
-     * Gets the Output for the comparator on the given Side
-     */
     byte getComparatorValue(ForgeDirection side);
 
     float getExplosionResistance(ForgeDirection side);
@@ -467,39 +197,12 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     void onColorChangeServer(byte aColor);
 
-    default void onColorChangeClient(byte aColor) {
-        // Seems no code need this, keep around for compat just in case
-    }
+    default void onColorChangeClient(byte aColor) {}
 
-    /**
-     * Ideally, you should only sync data that affects block appearance or sound here.
-     * <ul>
-     * <li>GUI data should be synced inside MUI2</li>
-     * <li>Waila data should be synced by the respective waila overrides.</li>
-     * </ul>
-     * <p>
-     * Make sure to call super method and always read the same amount of bytes in {@link #readFromStream(ByteBuf)}.
-     * <p>
-     * If you are writing an array, you should encode the length before the array to allow reading on the other side.
-     * Optional field can be either be encoded by an extra special value or an extra boolean.
-     *
-     * @param buffer write to this buffer
-     */
     default void writeToStream(ByteBuf buffer) {}
 
-    /**
-     * See {@link #writeToStream(ByteBuf)} for more details.
-     * Make sure to call super method and always write the same amount of bytes on the other side.
-     * <p>
-     * You do not need to issue texture update, it will always be issued by the base TE on sync.
-     *
-     * @param buffer read from this buffer
-     */
     default void readFromStream(ByteBuf buffer) {}
 
-    /**
-     * @return Actual color shown on GUI
-     */
     default int getGUIColorization() {
         if (getBaseMetaTileEntity() != null) {
             return getBaseMetaTileEntity().getGUIColorization();
@@ -519,36 +222,21 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     void onEntityCollidedWithBlock(World aWorld, int aX, int aY, int aZ, Entity collider);
 
-    /**
-     * The onCreated Function of the Item Class redirects here
-     */
     void onCreated(ItemStack aStack, World aWorld, EntityPlayer aPlayer);
 
     boolean hasAlternativeModeText();
 
     String getAlternativeModeText();
 
-    /**
-     * just return in should recurse since we are already in meta tile...
-     */
     @Override
     default boolean isMachineBlockUpdateRecursive() {
         return true;
     }
 
-    default void onAdjacentBlockChange(int x, int y, int z) {
-        /* do nothing */
-    }
+    default void onAdjacentBlockChange(int x, int y, int z) {}
 
-    /**
-     * A randomly called display update to be able to add particles or other items for display
-     *
-     * @param aBaseMetaTileEntity The entity that will handle the {@see Block#randomDisplayTick}
-     */
     @SideOnly(Side.CLIENT)
-    default void onRandomDisplayTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        /* do nothing */
-    }
+    default void onRandomDisplayTick(IGregTechTileEntity aBaseMetaTileEntity) {}
 
     default int getGUIWidth() {
         return 176;
@@ -558,9 +246,6 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
         return 166;
     }
 
-    /*
-     * ModularUI Support
-     */
     default IItemHandlerModifiable getInventoryHandler() {
         return null;
     }
@@ -569,11 +254,6 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
         return "GT5U.gui.title.unknown";
     }
 
-    /**
-     * You should override {@link #getLocalNameKey()} instead of this one.
-     *
-     * @return localized name
-     */
     default String getLocalName() {
         return StatCollector.translateToLocal(getLocalNameKey());
     }
@@ -586,33 +266,15 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
         return defaultColor;
     }
 
-    /**
-     * Called before block is destroyed. This is before inventory dropping code has executed.
-     */
     default void onBlockDestroyed() {}
 
-    /**
-     * Allows to add additional data to the tooltip, which is specific to an instance of the machine
-     *
-     * @param stack   Item stack of this MTE
-     * @param tooltip Tooltip to which can be added
-     */
     default void addAdditionalTooltipInformation(ItemStack stack, List<String> tooltip) {}
 
-    /**
-     * Gets items to be displayed for HoloInventory mod.
-     *
-     * @return null if default implementation should be used, i.e. {@link IInventory#getStackInSlot}. Otherwise, a list
-     *         of items to be displayed. Null element may be contained.
-     */
     @Nullable
     default List<ItemStack> getItemsForHoloGlasses() {
         return null;
     }
 
-    /**
-     * Returns GUI ID used for resource packs as a distinguishable id to customize UI elements in MUI2.
-     */
     String getGuiId();
 
     default void onTextureUpdate() {}
