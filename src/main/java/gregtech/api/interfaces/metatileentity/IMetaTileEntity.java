@@ -226,11 +226,6 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     String getAlternativeModeText();
 
-    @Override
-    default boolean isMachineBlockUpdateRecursive() {
-        return true;
-    }
-
     default void onAdjacentBlockChange(int x, int y, int z) {}
 
     @SideOnly(Side.CLIENT)
