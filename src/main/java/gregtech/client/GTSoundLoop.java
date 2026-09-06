@@ -46,9 +46,9 @@ public class GTSoundLoop extends MovingSound {
         super(soundResource);
         this.whileActive = stopWhenActive;
         this.whileInactive = stopWhenInactive;
-        tileX = base.getXCoord();
-        tileY = base.getYCoord();
-        tileZ = base.getZCoord();
+        tileX = base.getXCord();
+        tileY = base.getYCord();
+        tileZ = base.getZCord();
         xPosF = soundX;
         yPosF = soundY;
         zPosF = soundZ;
@@ -64,9 +64,9 @@ public class GTSoundLoop extends MovingSound {
             base,
             stopWhenActive,
             stopWhenInactive,
-            base.getXCoord(),
-            base.getYCoord(),
-            base.getZCoord());
+            base.getXCord(),
+            base.getYCord(),
+            base.getZCord());
         this.targetVolume = volumeRamp;
         volume = volumeRamp;
     }
@@ -88,9 +88,9 @@ public class GTSoundLoop extends MovingSound {
             tileEntity,
             stopWhenActive,
             stopWhenInactive,
-            tileEntity.getXCoord() + .5f,
-            tileEntity.getYCoord() + .5f,
-            tileEntity.getZCoord() + .5f);
+            tileEntity.getXCord() + .5f,
+            tileEntity.getYCord() + .5f,
+            tileEntity.getZCord() + .5f);
     }
 
     @Override

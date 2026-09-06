@@ -126,7 +126,7 @@ public abstract class GTChunkAssociatedData<T extends GTChunkAssociatedData.IDat
      * Get a reference to data of the chunk that tile entity is in. The returned reference should be mutable.
      */
     public final T get(IGTE tileEntity) {
-        return get(tileEntity.getWorld(), tileEntity.getXCoord() >> 4, tileEntity.getZCoord() >> 4);
+        return get(tileEntity.getWorld(), tileEntity.getXCord() >> 4, tileEntity.getZCord() >> 4);
     }
 
     public final T get(Chunk chunk) {

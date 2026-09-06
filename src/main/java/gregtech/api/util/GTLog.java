@@ -159,9 +159,9 @@ public class GTLog {
         if (baseTileEntity != null) {
             writeExplosionLog(
                 baseTileEntity.getWorld().provider.getDimensionName(),
-                baseTileEntity.getXCoord(),
-                baseTileEntity.getYCoord(),
-                baseTileEntity.getZCoord(),
+                baseTileEntity.getXCord(),
+                baseTileEntity.getYCord(),
+                baseTileEntity.getZCord(),
                 name,
                 baseTileEntity.getOwnerName(),
                 details);

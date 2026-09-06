@@ -1054,9 +1054,9 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     public DimensionalCoord getLocation() {
         return new DimensionalCoord(
             getGTE().getWorld(),
-            getGTE().getXCoord(),
-            getGTE().getYCoord(),
-            getGTE().getZCoord());
+            getGTE().getXCord(),
+            getGTE().getYCord(),
+            getGTE().getZCord());
     }
 
     private IStackWatcher watcher;

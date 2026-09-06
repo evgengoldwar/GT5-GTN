@@ -59,13 +59,13 @@ public class CircularSound implements ISoundPosition {
         // spotless:off
 
         double dist2 = ISoundPosition.lengthSquared(
-            player.posX - igte.getXCoord(),
-            player.posY - igte.getYCoord(),
-            player.posZ - igte.getZCoord());
+            player.posX - igte.getXCord(),
+            player.posY - igte.getYCord(),
+            player.posZ - igte.getZCord());
 
         if (dist2 > maxRange) return null;
 
-        var machine = new Vector3f(igte.getXCoord(), igte.getYCoord(), igte.getZCoord());
+        var machine = new Vector3f(igte.getXCord(), igte.getYCord(), igte.getZCord());
 
         // Transform the center and normal into world coordinates
         Vector3f center = ISoundPosition.toVector(multi.getExtendedFacing().getWorldOffset(this.center)).add(machine);

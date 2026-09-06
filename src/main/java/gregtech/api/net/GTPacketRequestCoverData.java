@@ -36,9 +36,9 @@ public class GTPacketRequestCoverData extends GTPacket {
 
     public GTPacketRequestCoverData(Cover cover, ICoverable tile) {
         super();
-        this.mX = tile.getXCoord();
-        this.mY = tile.getYCoord();
-        this.mZ = tile.getZCoord();
+        this.mX = tile.getXCord();
+        this.mY = tile.getYCord();
+        this.mZ = tile.getZCord();
 
         this.side = cover.getSide();
         this.coverID = cover.getCoverID();

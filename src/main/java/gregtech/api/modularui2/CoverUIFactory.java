@@ -43,9 +43,9 @@ public class CoverUIFactory extends AbstractUIFactory<CoverGuiData> {
         CoverGuiData guiData = new CoverGuiData(
             player,
             coverID,
-            tile.getXCoord(),
-            tile.getYCoord(),
-            tile.getZCoord(),
+            tile.getXCord(),
+            tile.getYCord(),
+            tile.getZCord(),
             side,
             false);
         GuiManager.open(this, guiData, player);

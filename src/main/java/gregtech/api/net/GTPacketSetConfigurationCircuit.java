@@ -36,11 +36,11 @@ public class GTPacketSetConfigurationCircuit extends GTPacket {
     }
 
     public GTPacketSetConfigurationCircuit(IGTE tile, ItemStack circuit) {
-        this(tile.getXCoord(), tile.getYCoord(), tile.getZCoord(), circuit);
+        this(tile.getXCord(), tile.getYCord(), tile.getZCord(), circuit);
     }
 
     public GTPacketSetConfigurationCircuit(BaseTileEntity tile, ItemStack circuit) {
-        this(tile.getXCoord(), tile.getYCoord(), tile.getZCoord(), circuit);
+        this(tile.getXCord(), tile.getYCord(), tile.getZCord(), circuit);
     }
 
     public GTPacketSetConfigurationCircuit(int x, short y, int z, ItemStack circuit) {

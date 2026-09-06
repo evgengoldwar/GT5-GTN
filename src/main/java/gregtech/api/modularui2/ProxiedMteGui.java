@@ -58,7 +58,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
     public ModularPanel buildUI(ProxiedMteGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
         IGTE base = mte.getGTE();
         ModularPanel panel = mte.buildUI(
-            new PosGuiData(data.getPlayer(), base.getXCoord(), base.getYCoord(), base.getZCoord()),
+            new PosGuiData(data.getPlayer(), base.getXCord(), base.getYCord(), base.getZCord()),
             syncManager,
             uiSettings);
 
@@ -78,9 +78,9 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
             this.serverMTE = serverMTE;
             IGTE base = serverMTE.getGTE();
             this.mid = base.getMetaTileID();
-            this.x = base.getXCoord();
-            this.y = base.getYCoord();
-            this.z = base.getZCoord();
+            this.x = base.getXCord();
+            this.y = base.getYCord();
+            this.z = base.getZCord();
         }
 
         public ProxiedMteGuiData(EntityPlayer player, int mid, int x, int y, int z) {

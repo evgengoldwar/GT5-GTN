@@ -1112,9 +1112,9 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     public DimensionalCoord getLocation() {
         return new DimensionalCoord(
             getGTE().getWorld(),
-            getGTE().getXCoord(),
-            getGTE().getYCoord(),
-            getGTE().getZCoord());
+            getGTE().getXCord(),
+            getGTE().getYCord(),
+            getGTE().getZCord());
     }
 
     private IStackWatcher watcher;

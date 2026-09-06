@@ -58,13 +58,13 @@ public class LinearSound implements ISoundPosition {
         // spotless:off
 
         double dist2 = ISoundPosition.lengthSquared(
-            player.posX - igte.getXCoord(),
-            player.posY - igte.getYCoord(),
-            player.posZ - igte.getZCoord());
+            player.posX - igte.getXCord(),
+            player.posY - igte.getYCord(),
+            player.posZ - igte.getZCord());
 
         if (dist2 > maxRange) return null;
 
-        Vector3f machine = new Vector3f(igte.getXCoord(), igte.getYCoord(), igte.getZCoord());
+        Vector3f machine = new Vector3f(igte.getXCord(), igte.getYCord(), igte.getZCord());
 
         Vector3f start = ISoundPosition.toVector(multi.getExtendedFacing().getWorldOffset(this.start)).add(machine);
         Vector3f end = ISoundPosition.toVector(multi.getExtendedFacing().getWorldOffset(this.end)).add(machine);

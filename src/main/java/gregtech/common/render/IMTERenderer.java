@@ -47,9 +47,9 @@ public interface IMTERenderer {
         if (tile.isClientSide()) return;
 
         double maxDistSq = getMaxRenderDistanceSquared();
-        int x = tile.getXCoord();
-        int y = tile.getYCoord();
-        int z = tile.getZCoord();
+        int x = tile.getXCord();
+        int y = tile.getYCord();
+        int z = tile.getZCord();
 
         tile.getWorld().playerEntities.stream()
             .filter(player -> player.getDistanceSq(x + 0.5, y + 0.5, z + 0.5) <= maxDistSq)

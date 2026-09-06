@@ -84,7 +84,7 @@ public class GTTextBuilder {
     }
 
     public GTTextBuilder addCoord(IWorldAccessor machine) {
-        addCoord(machine.getXCoord(), machine.getYCoord(), machine.getZCoord());
+        addCoord(machine.getXCord(), machine.getYCord(), machine.getZCord());
         return this;
     }
 

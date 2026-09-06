@@ -669,7 +669,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     @Override
     public void doExplosion(long explosionPower) {
         float tStrength = GTValues.getExplosionPowerForVoltage(explosionPower);
-        int tX = getGTE().getXCoord(), tY = getGTE().getYCoord(), tZ = getGTE().getZCoord();
+        int tX = getGTE().getXCord(), tY = getGTE().getYCord(), tZ = getGTE().getZCord();
         World tWorld = getGTE().getWorld();
         tWorld.setBlock(tX, tY, tZ, Blocks.air);
         if (GregTechAPI.sMachineExplosions) {

@@ -305,13 +305,13 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                     EntityItem entityItem = new EntityItem(
                         world,
                         parentMTE.getGTE()
-                            .getXCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
+                            .getXCord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
                         parentMTE.getGTE()
-                            .getYCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
+                            .getYCord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
                         parentMTE.getGTE()
-                            .getZCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
+                            .getZCord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
                         GTUtility.copy(itemStack));
                     entityItem.motionX = XSTR_INSTANCE.nextGaussian() * 0.05;
@@ -345,13 +345,13 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                     EntityItem entityItem = new EntityItem(
                         world,
                         parentMTE.getGTE()
-                            .getXCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
+                            .getXCord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
                         parentMTE.getGTE()
-                            .getYCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
+                            .getYCord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
                         parentMTE.getGTE()
-                            .getZCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
+                            .getZCord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
                         fluidPacketItemStack);
                     entityItem.motionX = XSTR_INSTANCE.nextGaussian() * 0.05;
@@ -626,9 +626,9 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                 AppEng.instance(),
                 GuiBridge.GUI_RENAMER.ordinal() << 5 | (side.ordinal()),
                 te.getWorld(),
-                te.getXCoord(),
-                te.getYCoord(),
-                te.getZCoord());
+                te.getXCord(),
+                te.getYCord(),
+                te.getZCord());
             return true;
         }
 
@@ -665,9 +665,9 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     public DimensionalCoord getLocation() {
         return new DimensionalCoord(
             getGTE().getWorld(),
-            getGTE().getXCoord(),
-            getGTE().getYCoord(),
-            getGTE().getZCoord());
+            getGTE().getXCord(),
+            getGTE().getYCord(),
+            getGTE().getZCord());
     }
 
     @Override
@@ -1230,7 +1230,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
             if (details == null) {
                 GTLoggers.GT_FML_LOGGER.warn(
                     "Found an invalid pattern at {} in dim {}",
-                    getGTE().getCoords(),
+                    getGTE().getCords(),
                     getGTE().getWorld().provider.dimensionId);
                 continue;
             }
@@ -1328,14 +1328,14 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
         IGTE aBaseMetaTileEntity = getGTE();
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("type", "CraftingInputBuffer");
-        tag.setInteger("x", aBaseMetaTileEntity.getXCoord());
-        tag.setInteger("y", aBaseMetaTileEntity.getYCoord());
-        tag.setInteger("z", aBaseMetaTileEntity.getZCoord());
+        tag.setInteger("x", aBaseMetaTileEntity.getXCord());
+        tag.setInteger("y", aBaseMetaTileEntity.getYCord());
+        tag.setInteger("z", aBaseMetaTileEntity.getZCord());
 
         dataStick.stackTagCompound = tag;
         dataStick.setStackDisplayName(
             "Crafting Input Buffer Link Data Stick (" + aBaseMetaTileEntity
-                .getXCoord() + ", " + aBaseMetaTileEntity.getYCoord() + ", " + aBaseMetaTileEntity.getZCoord() + ")");
+                .getXCord() + ", " + aBaseMetaTileEntity.getYCord() + ", " + aBaseMetaTileEntity.getZCord() + ")");
         aPlayer.addChatMessage(new ChatComponentText("Saved Link Data to Data Stick"));
     }
 
@@ -1350,9 +1350,9 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                 AppEng.instance(),
                 GuiBridge.GUI_RENAMER.ordinal() << 5 | (side.ordinal()),
                 te.getWorld(),
-                te.getXCoord(),
-                te.getYCoord(),
-                te.getZCoord());
+                te.getXCord(),
+                te.getYCord(),
+                te.getZCord());
             return true;
         }
         return super.onRightClick(gte, player, side, x, y, z);

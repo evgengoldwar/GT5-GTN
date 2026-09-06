@@ -120,22 +120,22 @@ public abstract class BaseTileEntity extends TileEntity implements IWorldAccesso
     }
 
     @Override
-    public final int getXCoord() {
+    public final int getXCord() {
         return xCoord;
     }
 
     @Override
-    public final short getYCoord() {
+    public final short getYCord() {
         return (short) yCoord;
     }
 
     @Override
-    public final int getZCoord() {
+    public final int getZCord() {
         return zCoord;
     }
 
     @Override
-    public final ChunkCoordinates getCoords() {
+    public final ChunkCoordinates getCords() {
         mReturnedCoordinates.posX = xCoord;
         mReturnedCoordinates.posY = yCoord;
         mReturnedCoordinates.posZ = zCoord;
@@ -183,9 +183,9 @@ public abstract class BaseTileEntity extends TileEntity implements IWorldAccesso
     }
 
     @Override
-    public final int getRandomNumber(int aRange) {
+    public final int getRandomNumber(int range) {
         return ThreadLocalRandom.current()
-            .nextInt(aRange);
+            .nextInt(range);
     }
 
     @Override

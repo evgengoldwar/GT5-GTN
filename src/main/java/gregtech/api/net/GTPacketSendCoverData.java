@@ -36,9 +36,9 @@ public class GTPacketSendCoverData extends GTPacket {
 
     public GTPacketSendCoverData(Cover cover, ICoverable tile, ForgeDirection side) {
         super();
-        this.mX = tile.getXCoord();
-        this.mY = tile.getYCoord();
-        this.mZ = tile.getZCoord();
+        this.mX = tile.getXCord();
+        this.mY = tile.getYCord();
+        this.mZ = tile.getZCord();
         this.coverID = cover.getCoverID();
 
         this.side = side;

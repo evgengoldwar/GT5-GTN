@@ -380,9 +380,9 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
                         new ParticleEventBuilder().setMotion(0.0D, 0.0D, 0.0D)
                             .setIdentifier(ParticleFX.SMOKE)
                             .setPosition(
-                                gte.getXCoord() + 0.8F - XSTR_INSTANCE.nextFloat() * 0.6F,
-                                gte.getYCoord() + 0.9F + XSTR_INSTANCE.nextFloat() * 0.2F,
-                                gte.getZCoord() + 0.8F - XSTR_INSTANCE.nextFloat() * 0.6F)
+                                gte.getXCord() + 0.8F - XSTR_INSTANCE.nextFloat() * 0.6F,
+                                gte.getYCord() + 0.9F + XSTR_INSTANCE.nextFloat() * 0.2F,
+                                gte.getZCord() + 0.8F - XSTR_INSTANCE.nextFloat() * 0.6F)
                             .setWorld(gte.getWorld())
                             .run();
                     }
@@ -413,9 +413,9 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
                         && !gte.hasCoverAtSide(mainFacing)
                         && !gte.getOpacityAtSide(mainFacing)) {
 
-                        final double oX = gte.getXCoord();
-                        final double oY = gte.getYCoord();
-                        final double oZ = gte.getZCoord();
+                        final double oX = gte.getXCord();
+                        final double oY = gte.getYCord();
+                        final double oZ = gte.getZCord();
                         final double offset = 0.02D;
                         final double horizontal = 0.5D + XSTR_INSTANCE.nextFloat() * 8D / 16D - 4D / 16D;
 

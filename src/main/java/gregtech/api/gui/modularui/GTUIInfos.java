@@ -95,9 +95,9 @@ public class GTUIInfos {
         GTTileEntityDefaultUI.open(
             aPlayer,
             aTileEntity.getWorld(),
-            aTileEntity.getXCoord(),
-            aTileEntity.getYCoord(),
-            aTileEntity.getZCoord());
+            aTileEntity.getXCord(),
+            aTileEntity.getYCord(),
+            aTileEntity.getZCord());
     }
 
     /**
@@ -113,9 +113,9 @@ public class GTUIInfos {
             .open(
                 player,
                 tileEntity.getWorld(),
-                tileEntity.getXCoord(),
-                tileEntity.getYCoord(),
-                tileEntity.getZCoord());
+                tileEntity.getXCord(),
+                tileEntity.getYCord(),
+                tileEntity.getZCord());
     }
 
     /**

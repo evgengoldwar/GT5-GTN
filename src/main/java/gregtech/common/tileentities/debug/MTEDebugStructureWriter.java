@@ -151,17 +151,17 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
             abc[2] = -numbers[2] - 0.5;
             writerFacing.getWorldOffset(abc, xyz);
             boundingBox.pos1 = new Vec3Impl(
-                gte.getXCoord() + (int) (xyz[0] + 0.5),
-                gte.getYCoord() + (int) (xyz[1] + 0.5),
-                gte.getZCoord() + (int) (xyz[2] + 0.5));
+                gte.getXCord() + (int) (xyz[0] + 0.5),
+                gte.getYCord() + (int) (xyz[1] + 0.5),
+                gte.getZCord() + (int) (xyz[2] + 0.5));
             abc[0] = -numbers[0] + numbers[3] - 0.5;
             abc[1] = -numbers[1] + numbers[4] - 0.5;
             abc[2] = -numbers[2] + numbers[5] - 0.5;
             writerFacing.getWorldOffset(abc, xyz);
             boundingBox.pos2 = new Vec3Impl(
-                gte.getXCoord() + (int) (xyz[0] + 0.5),
-                gte.getYCoord() + (int) (xyz[1] + 0.5),
-                gte.getZCoord() + (int) (xyz[2] + 0.5));
+                gte.getXCord() + (int) (xyz[0] + 0.5),
+                gte.getYCord() + (int) (xyz[1] + 0.5),
+                gte.getZCord() + (int) (xyz[2] + 0.5));
         }
     }
 
@@ -180,9 +180,9 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
         return DebugWriterHelper.getPseudoJavaCode(
             aBaseMetaTileEntity.getWorld(),
             ExtendedFacing.of(aBaseMetaTileEntity.getFrontFacing()),
-            aBaseMetaTileEntity.getXCoord(),
-            aBaseMetaTileEntity.getYCoord(),
-            aBaseMetaTileEntity.getZCoord(),
+            aBaseMetaTileEntity.getXCord(),
+            aBaseMetaTileEntity.getYCord(),
+            aBaseMetaTileEntity.getZCord(),
             numbers[0],
             numbers[1],
             numbers[2],

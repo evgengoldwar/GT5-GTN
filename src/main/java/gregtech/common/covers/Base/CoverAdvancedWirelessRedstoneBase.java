@@ -178,7 +178,7 @@ public abstract class CoverAdvancedWirelessRedstoneBase extends Cover {
 
     public static CoverPosition getCoverKey(@NotNull ICoverable tile, ForgeDirection side) {
         return new CoverPosition(
-            tile.getCoords(),
+            tile.getCords(),
             tile.getWorld().provider.getDimensionName(),
             tile.getWorld().provider.dimensionId,
             side.ordinal());

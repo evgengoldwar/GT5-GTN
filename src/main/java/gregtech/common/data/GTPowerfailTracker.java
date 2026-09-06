@@ -107,9 +107,9 @@ public class GTPowerfailTracker {
 
         public void update(IGTE igte) {
             this.dim = igte.getWorld().provider.dimensionId;
-            this.x = igte.getXCoord();
-            this.y = igte.getYCoord();
-            this.z = igte.getZCoord();
+            this.x = igte.getXCord();
+            this.y = igte.getYCord();
+            this.z = igte.getZCord();
             this.mteId = igte.getMetaTileID();
             this.count++;
             this.lastOccurrence = new Date();
@@ -189,7 +189,7 @@ public class GTPowerfailTracker {
         var dimensionInfo = data.byWorld
             .computeIfAbsent(igte.getWorld().provider.dimensionId, _ -> new PowerfailData.DimensionInfo());
 
-        long coord = CoordinatePacker.pack(igte.getXCoord(), igte.getYCoord(), igte.getZCoord());
+        long coord = CoordinatePacker.pack(igte.getXCord(), igte.getYCord(), igte.getZCord());
 
         Powerfail powerfail = dimensionInfo.byCoord.computeIfAbsent(coord, _ -> new Powerfail());
 
@@ -213,9 +213,9 @@ public class GTPowerfailTracker {
         removePowerfailEvents(
             igte,
             igte.getWorld().provider.dimensionId,
-            igte.getXCoord(),
-            igte.getYCoord(),
-            igte.getZCoord());
+            igte.getXCord(),
+            igte.getYCord(),
+            igte.getZCord());
     }
 
     public void removePowerfailEvents(IGTE igte, int worldId, int x, int y, int z) {

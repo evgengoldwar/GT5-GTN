@@ -113,9 +113,9 @@ public class MTEHatchMuffler extends MTEHatch {
 
         final IGTE aMuffler = this.getGTE();
         final ForgeDirection aDir = aMuffler.getFrontFacing();
-        final float xPos = aDir.offsetX * 0.76F + aMuffler.getXCoord() + 0.25F;
-        final float yPos = aDir.offsetY * 0.76F + aMuffler.getYCoord() + 0.25F;
-        final float zPos = aDir.offsetZ * 0.76F + aMuffler.getZCoord() + 0.25F;
+        final float xPos = aDir.offsetX * 0.76F + aMuffler.getXCord() + 0.25F;
+        final float yPos = aDir.offsetY * 0.76F + aMuffler.getYCord() + 0.25F;
+        final float zPos = aDir.offsetZ * 0.76F + aMuffler.getZCord() + 0.25F;
 
         final float ySpd = aDir.offsetY * 0.1F + 0.2F + 0.1F * XSTR_INSTANCE.nextFloat();
         final float xSpd;

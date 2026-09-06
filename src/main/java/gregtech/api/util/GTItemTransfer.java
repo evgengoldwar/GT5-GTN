@@ -36,9 +36,9 @@ public class GTItemTransfer extends ItemTransfer {
         dropItems(
             tile.getWorld(),
             new BlockPos(
-                tile.getXCoord() + output.offsetX,
-                tile.getYCoord() + output.offsetY,
-                tile.getZCoord() + output.offsetZ));
+                tile.getXCord() + output.offsetX,
+                tile.getYCord() + output.offsetY,
+                tile.getZCord() + output.offsetZ));
     }
 
     public void dropItems(MTEBasicMachine machine) {

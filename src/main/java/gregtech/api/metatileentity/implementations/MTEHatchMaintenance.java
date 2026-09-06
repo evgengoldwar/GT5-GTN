@@ -248,9 +248,9 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
             mMaintenanceSound,
             mMaintenanceSoundStrength,
             mMaintenanceSoundModulation,
-            tMte.getXCoord() + .5,
-            tMte.getYCoord() + .5,
-            tMte.getZCoord() + .5);
+            tMte.getXCord() + .5,
+            tMte.getYCord() + .5,
+            tMte.getZCord() + .5);
 
         setMaintenanceSound((String) null, 1.0F, 1.0F);
     }
@@ -482,9 +482,9 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
                     (IAlignmentProvider) base,
                     new NetworkRegistry.TargetPoint(
                         base.getWorld().provider.dimensionId,
-                        base.getXCoord(),
-                        base.getYCoord(),
-                        base.getZCoord(),
+                        base.getXCord(),
+                        base.getYCord(),
+                        base.getZCord(),
                         512));
             } else {
                 base.issueTextureUpdate();

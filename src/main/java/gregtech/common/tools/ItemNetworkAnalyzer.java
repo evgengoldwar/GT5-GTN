@@ -181,9 +181,9 @@ public class ItemNetworkAnalyzer extends ItemTool {
             final ForgeDirection facing = hatchBase.getFrontFacing();
             final TileEntity neighbor = hatchBase.getWorld()
                 .getTileEntity(
-                    hatchBase.getXCoord() + facing.offsetX,
-                    hatchBase.getYCoord() + facing.offsetY,
-                    hatchBase.getZCoord() + facing.offsetZ);
+                    hatchBase.getXCord() + facing.offsetX,
+                    hatchBase.getYCord() + facing.offsetY,
+                    hatchBase.getZCord() + facing.offsetZ);
             if (neighbor instanceof BaseMetaPipeEntity pipe && pipe.getNode() instanceof PowerNode tNode) {
                 builder.addNetwork(tNode);
             }

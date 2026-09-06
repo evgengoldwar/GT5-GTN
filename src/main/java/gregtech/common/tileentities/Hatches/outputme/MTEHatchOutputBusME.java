@@ -588,7 +588,7 @@ public class MTEHatchOutputBusME extends MTEHatchOutputBus implements IPowerChan
     @Override
     public DimensionalCoord getLocation() {
         IGTE gtm = this.getGTE();
-        return new DimensionalCoord(gtm.getWorld(), gtm.getXCoord(), gtm.getYCoord(), gtm.getZCoord());
+        return new DimensionalCoord(gtm.getWorld(), gtm.getXCord(), gtm.getYCord(), gtm.getZCord());
     }
 
     @Override

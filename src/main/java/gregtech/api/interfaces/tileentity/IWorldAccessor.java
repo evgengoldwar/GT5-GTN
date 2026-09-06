@@ -28,25 +28,21 @@ public interface IWorldAccessor {
 
     World getWorld();
 
-    int getXCoord();
+    int getXCord();
 
-    short getYCoord();
+    short getYCord();
 
-    int getZCoord();
+    int getZCord();
 
-    default ChunkCoordinates getCoords() {
-        return new ChunkCoordinates(getXCoord(), getYCoord(), getZCoord());
-    }
-
-    default BlockPos getBlockPos() {
-        return new BlockPos(getXCoord(), getYCoord(), getZCoord());
+    default ChunkCoordinates getCords() {
+        return new ChunkCoordinates(getXCord(), getYCord(), getZCord());
     }
 
     boolean isServerSide();
 
     boolean isClientSide();
 
-    int getRandomNumber(int aRange);
+    int getRandomNumber(int range);
 
     TileEntity getTileEntity(int aX, int aY, int aZ);
 
@@ -65,51 +61,51 @@ public interface IWorldAccessor {
         return (MTE) mte;
     }
 
-    TileEntity getTileEntityOffset(int aX, int aY, int aZ);
+    TileEntity getTileEntityOffset(int x, int y, int z);
 
     TileEntity getTileEntityAtSide(ForgeDirection side);
 
-    TileEntity getTileEntityAtSideAndDistance(ForgeDirection side, int aDistance);
+    TileEntity getTileEntityAtSideAndDistance(ForgeDirection side, int distance);
 
-    IInventory getIInventory(int aX, int aY, int aZ);
+    IInventory getIInventory(int x, int y, int z);
 
-    IInventory getIInventoryOffset(int aX, int aY, int aZ);
+    IInventory getIInventoryOffset(int x, int y, int z);
 
     IInventory getIInventoryAtSide(ForgeDirection side);
 
-    IInventory getIInventoryAtSideAndDistance(ForgeDirection side, int aDistance);
+    IInventory getIInventoryAtSideAndDistance(ForgeDirection side, int distance);
 
-    IFluidHandler getITankContainer(int aX, int aY, int aZ);
+    IFluidHandler getITankContainer(int x, int y, int z);
 
-    IFluidHandler getITankContainerOffset(int aX, int aY, int aZ);
+    IFluidHandler getITankContainerOffset(int x, int y, int z);
 
     IFluidHandler getITankContainerAtSide(ForgeDirection side);
 
-    IFluidHandler getITankContainerAtSideAndDistance(ForgeDirection side, int aDistance);
+    IFluidHandler getITankContainerAtSideAndDistance(ForgeDirection side, int distance);
 
-    IGTE getIGregTechTileEntity(int aX, int aY, int aZ);
+    IGTE getIGregTechTileEntity(int x, int y, int z);
 
-    IGTE getIGregTechTileEntityOffset(int aX, int aY, int aZ);
+    IGTE getIGregTechTileEntityOffset(int x, int y, int z);
 
     IGTE getIGregTechTileEntityAtSide(ForgeDirection side);
 
-    IGTE getIGregTechTileEntityAtSideAndDistance(ForgeDirection side, int aDistance);
+    IGTE getIGregTechTileEntityAtSideAndDistance(ForgeDirection side, int distance);
 
-    Block getBlock(int aX, int aY, int aZ);
+    Block getBlock(int x, int y, int z);
 
-    Block getBlockOffset(int aX, int aY, int aZ);
+    Block getBlockOffset(int x, int y, int z);
 
     Block getBlockAtSide(ForgeDirection side);
 
-    Block getBlockAtSideAndDistance(ForgeDirection side, int aDistance);
+    Block getBlockAtSideAndDistance(ForgeDirection side, int distance);
 
-    int getMetaID(int aX, int aY, int aZ);
+    int getMetaID(int x, int y, int z);
 
     int getMetaIDOffset(int aX, int aY, int aZ);
 
     int getMetaIDAtSide(ForgeDirection side);
 
-    int getMetaIDAtSideAndDistance(ForgeDirection side, int aDistance);
+    int getMetaIDAtSideAndDistance(ForgeDirection side, int distance);
 
     byte getLightLevel(int aX, int aY, int aZ);
 
@@ -117,7 +113,7 @@ public interface IWorldAccessor {
 
     byte getLightLevelAtSide(ForgeDirection side);
 
-    byte getLightLevelAtSideAndDistance(ForgeDirection side, int aDistance);
+    byte getLightLevelAtSideAndDistance(ForgeDirection side, int distance);
 
     boolean getOpacity(int aX, int aY, int aZ);
 
@@ -125,7 +121,7 @@ public interface IWorldAccessor {
 
     boolean getOpacityAtSide(ForgeDirection side);
 
-    boolean getOpacityAtSideAndDistance(ForgeDirection side, int aDistance);
+    boolean getOpacityAtSideAndDistance(ForgeDirection side, int distance);
 
     boolean getSky(int aX, int aY, int aZ);
 
@@ -133,7 +129,7 @@ public interface IWorldAccessor {
 
     boolean getSkyAtSide(ForgeDirection side);
 
-    boolean getSkyAtSideAndDistance(ForgeDirection side, int aDistance);
+    boolean getSkyAtSideAndDistance(ForgeDirection side, int distance);
 
     boolean getAir(int aX, int aY, int aZ);
 
@@ -141,7 +137,7 @@ public interface IWorldAccessor {
 
     boolean getAirAtSide(ForgeDirection side);
 
-    boolean getAirAtSideAndDistance(ForgeDirection side, int aDistance);
+    boolean getAirAtSideAndDistance(ForgeDirection side, int distance);
 
     BiomeGenBase getBiome();
 

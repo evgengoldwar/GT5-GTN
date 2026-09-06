@@ -582,7 +582,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     @Override
     public void onColorChangeServer(byte color) {
         final IGTE meta = getGTE();
-        final int aX = meta.getXCoord(), aY = meta.getYCoord(), aZ = meta.getZCoord();
+        final int aX = meta.getXCord(), aY = meta.getYCord(), aZ = meta.getZCord();
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             // Flag surrounding pipes/cables to revaluate their connection with us if we got painted
             final TileEntity tTileEntity = meta.getTileEntityAtSide(side);
@@ -597,9 +597,9 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     @Override
     public void doExplosion(long explosionPower) {
         float tStrength = GTValues.getExplosionPowerForVoltage(explosionPower);
-        final int tX = getGTE().getXCoord();
-        final int tY = getGTE().getYCoord();
-        final int tZ = getGTE().getZCoord();
+        final int tX = getGTE().getXCord();
+        final int tY = getGTE().getYCord();
+        final int tZ = getGTE().getZCord();
         final World tWorld = getGTE().getWorld();
         GTUtility.sendSoundToPlayers(
             tWorld,

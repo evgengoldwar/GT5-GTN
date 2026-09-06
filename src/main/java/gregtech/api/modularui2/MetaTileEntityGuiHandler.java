@@ -39,7 +39,7 @@ public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData
         if (player instanceof FakePlayer) {
             return;
         }
-        PosGuiData data = new PosGuiData(player, baseTE.getXCoord(), baseTE.getYCoord(), baseTE.getZCoord());
+        PosGuiData data = new PosGuiData(player, baseTE.getXCord(), baseTE.getYCord(), baseTE.getZCord());
         GuiManager.open(INSTANCE, data, playerMP);
     }
 

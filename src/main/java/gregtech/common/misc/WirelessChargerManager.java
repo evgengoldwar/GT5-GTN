@@ -45,12 +45,12 @@ public class WirelessChargerManager {
     public void addCharger(@NotNull IWirelessCharger charger, int range) {
         final IGTE te = charger.getChargerTE();
         CHARGER_MAP
-            .put(charger, te.getWorld().provider.dimensionId, te.getXCoord(), te.getYCoord(), te.getZCoord(), range);
+            .put(charger, te.getWorld().provider.dimensionId, te.getXCord(), te.getYCord(), te.getZCord(), range);
     }
 
     public void removeCharger(@NotNull IWirelessCharger charger) {
         final IGTE te = charger.getChargerTE();
-        CHARGER_MAP.remove(te.getWorld().provider.dimensionId, te.getXCoord(), te.getYCoord(), te.getZCoord());
+        CHARGER_MAP.remove(te.getWorld().provider.dimensionId, te.getXCord(), te.getYCord(), te.getZCord());
     }
 
     private static ItemStack[] getBaublesItems(@NotNull EntityPlayer player) {
