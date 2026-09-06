@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IHasWorldObjectAndCoords;
+import gregtech.api.interfaces.tileentity.IWorldAccessor;
 import gregtech.api.net.GTPacketSendCoverData;
 import gregtech.common.covers.Base.Cover;
 
@@ -90,7 +90,7 @@ public class GTUIInfos {
      */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
-    public static void openGTTileEntityUI(IHasWorldObjectAndCoords aTileEntity, EntityPlayer aPlayer) {
+    public static void openGTTileEntityUI(IWorldAccessor aTileEntity, EntityPlayer aPlayer) {
         if (aTileEntity.isClientSide() || aPlayer instanceof FakePlayer) return;
         GTTileEntityDefaultUI.open(
             aPlayer,

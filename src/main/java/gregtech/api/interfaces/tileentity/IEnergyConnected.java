@@ -58,7 +58,7 @@ public interface IEnergyConnected extends IColoredTileEntity {
          */
         public static long emitEnergyToNetwork(long voltage, long amperage, IEnergyConnected emitter) {
             long usedAmperes = 0;
-            if (!(emitter instanceof IHasWorldObjectAndCoords emitterTile)) {
+            if (!(emitter instanceof IWorldAccessor emitterTile)) {
                 return 0;
             }
 

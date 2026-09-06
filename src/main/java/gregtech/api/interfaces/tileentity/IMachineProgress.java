@@ -8,7 +8,7 @@ import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 /**
  * For Machines which have Progress
  */
-public interface IMachineProgress extends IHasWorldObjectAndCoords {
+public interface IMachineProgress extends IWorldAccessor {
 
     /**
      * returns the Progress this Machine has made. Warning, this can also be negative!

@@ -7,16 +7,16 @@ import com.gtnewhorizon.gtnhlib.item.ItemTransfer;
 
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.interfaces.tileentity.IHasWorldObjectAndCoords;
+import gregtech.api.interfaces.tileentity.IWorldAccessor;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 
 public class GTItemTransfer extends ItemTransfer {
 
-    public void push(IHasWorldObjectAndCoords self, ForgeDirection side) {
+    public void push(IWorldAccessor self, ForgeDirection side) {
         push(self, side, self.getTileEntityAtSide(side));
     }
 
-    public void pull(IHasWorldObjectAndCoords self, ForgeDirection side) {
+    public void pull(IWorldAccessor self, ForgeDirection side) {
         pull(self, side, self.getTileEntityAtSide(side));
     }
 
@@ -32,7 +32,7 @@ public class GTItemTransfer extends ItemTransfer {
             side.getOpposite());
     }
 
-    public void dropItems(IHasWorldObjectAndCoords tile, ForgeDirection output) {
+    public void dropItems(IWorldAccessor tile, ForgeDirection output) {
         dropItems(
             tile.getWorld(),
             new BlockPos(

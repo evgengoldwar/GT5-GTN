@@ -13,7 +13,7 @@ import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.interfaces.tileentity.IHasInventory;
+import gregtech.api.interfaces.tileentity.IInventory;
 import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.util.GTByteBuffer;
 import gregtech.api.util.GTUtility;
@@ -105,6 +105,6 @@ public class GTPacketSetConfigurationCircuit extends GTPacket {
             .stream()
             .filter(stack -> GTUtility.areStacksEqual(stack, circuit))
             .findFirst()
-            .ifPresent(stack -> ((IHasInventory) tile).setInventorySlotContents(machine.getCircuitSlot(), stack));
+            .ifPresent(stack -> ((IInventory) tile).setInventorySlotContents(machine.getCircuitSlot(), stack));
     }
 }

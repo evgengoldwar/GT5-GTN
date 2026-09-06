@@ -24,7 +24,7 @@ import gregtech.api.metatileentity.MetaTileEntity;
  * Note: It doesn't have to be a TileEntity in certain cases! And only certain cases, such as the Recipe checking of the
  * findRecipe Function.
  */
-public interface IHasWorldObjectAndCoords {
+public interface IWorldAccessor {
 
     World getWorld();
 

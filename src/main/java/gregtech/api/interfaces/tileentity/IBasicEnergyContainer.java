@@ -5,7 +5,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 /**
  * Interface for internal Code, which is mainly used for independent Energy conversion.
  */
-public interface IBasicEnergyContainer extends IEnergyConnected, IHasWorldObjectAndCoords {
+public interface IBasicEnergyContainer extends IEnergyConnected, IWorldAccessor {
 
     /**
      * Gets if that Amount of Energy is stored inside the Machine. It is used for checking the contained Energy before

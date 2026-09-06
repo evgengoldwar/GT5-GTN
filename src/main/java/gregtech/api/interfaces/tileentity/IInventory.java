@@ -3,7 +3,7 @@ package gregtech.api.interfaces.tileentity;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 
-public interface IHasInventory extends ISidedInventory, IHasWorldObjectAndCoords {
+public interface IInventory extends ISidedInventory, IWorldAccessor {
 
     default void markInventoryBeenModified() {}
 

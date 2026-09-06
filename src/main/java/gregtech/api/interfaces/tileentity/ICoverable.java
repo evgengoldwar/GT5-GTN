@@ -10,7 +10,7 @@ import com.google.common.io.ByteArrayDataInput;
 
 import gregtech.common.covers.Base.Cover;
 
-public interface ICoverable extends IRedstoneTileEntity, IHasInventory, IBasicEnergyContainer {
+public interface ICoverable extends IRedstoneTileEntity, IInventory, IBasicEnergyContainer {
 
     /**
      * Remove the cover from the coverable and spawn the result of {@link #detachCover(ForgeDirection)} in the world on

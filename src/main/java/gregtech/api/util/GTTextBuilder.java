@@ -10,14 +10,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.enums.ChatMessage;
-import gregtech.api.interfaces.tileentity.IHasWorldObjectAndCoords;
+import gregtech.api.interfaces.tileentity.IWorldAccessor;
 import gregtech.api.net.GTPacketChat;
 
 /**
  * A text builder meant for use with complex localization formats. All formatting is handled by this text builder, so
  * localization keys should just include the text. All values are converted to strings when localized. Localization is
  * deferred as long as possible, and may be deferred to the client if {@link #toLocalized()} is used.
- * 
+ *
  * @see gregtech.api.enums.ChatMessage
  * @see GTPacketChat
  * @see Localized
@@ -83,7 +83,7 @@ public class GTTextBuilder {
         return this;
     }
 
-    public GTTextBuilder addCoord(IHasWorldObjectAndCoords machine) {
+    public GTTextBuilder addCoord(IWorldAccessor machine) {
         addCoord(machine.getXCoord(), machine.getYCoord(), machine.getZCoord());
         return this;
     }

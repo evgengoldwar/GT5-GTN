@@ -55,7 +55,7 @@ import gregtech.api.interfaces.modularui.IAddInventorySlots;
 import gregtech.api.interfaces.modularui.IGetGUITextureSet;
 import gregtech.api.interfaces.tileentity.IGTEnet;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.interfaces.tileentity.IHasWorldObjectAndCoords;
+import gregtech.api.interfaces.tileentity.IWorldAccessor;
 import gregtech.api.net.GTPacketSetConfigurationCircuit;
 import gregtech.api.util.GTTooltipDataCache;
 import gregtech.api.util.GTUtility;
@@ -67,7 +67,7 @@ import gregtech.common.gui.modularui.base.ItemSelectBaseGui;
  * <p/>
  * Basically everything a TileEntity should have.
  */
-public abstract class BaseTileEntity extends TileEntity implements IHasWorldObjectAndCoords, IGTEnet,
+public abstract class BaseTileEntity extends TileEntity implements IWorldAccessor, IGTEnet,
     ITileWithModularUI, IAddGregtechLogo, IGetGUITextureSet, IAddInventorySlots {
 
     /**

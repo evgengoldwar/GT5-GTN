@@ -5,7 +5,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 /**
  * This File has just internal Information about the Redstone State of a TileEntity
  */
-public interface IRedstoneReceiver extends IHasWorldObjectAndCoords {
+public interface IRedstoneReceiver extends IWorldAccessor {
 
     /**
      * gets the Redstone Level of the TileEntity to the given Input Side

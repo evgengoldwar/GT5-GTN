@@ -1,5 +1,6 @@
 package gregtech.api.interfaces;
 
+import gregtech.api.interfaces.tileentity.IInventory;
 import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.OutputBusType;
@@ -22,7 +23,7 @@ public interface IOutputBus {
 
     /**
      * Attempt to store as many items as possible into the internal inventory of this output bus. If you need atomicity
-     * you should use {@link gregtech.api.interfaces.tileentity.IHasInventory#addStackToSlot(int, ItemStack)}
+     * you should use {@link IInventory#addStackToSlot(int, ItemStack)}
      *
      * @param stack    The stack to insert. Will be modified by this method (will contain whatever items could not be
      *                 inserted; stackSize will be 0 when everything was inserted).
