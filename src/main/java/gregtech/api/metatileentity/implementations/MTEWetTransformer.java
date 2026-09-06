@@ -27,7 +27,7 @@ public class MTEWetTransformer extends MTETransformer {
     }
 
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEWetTransformer(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -76,47 +76,47 @@ public class MTEWetTransformer extends MTETransformer {
     @Override
     public long maxAmperesOut() {
         if (mHalfMode) {
-            return getBaseMetaTileEntity().isAllowedToWork() ? 32 : 8;
+            return getGTE().isAllowedToWork() ? 32 : 8;
         }
-        return getBaseMetaTileEntity().isAllowedToWork() ? 64 : 16;
+        return getGTE().isAllowedToWork() ? 64 : 16;
     }
 
     @Override
     public long maxAmperesIn() {
         if (mHalfMode) {
-            return getBaseMetaTileEntity().isAllowedToWork() ? 10 : 40;
+            return getGTE().isAllowedToWork() ? 10 : 40;
         }
-        return getBaseMetaTileEntity().isAllowedToWork() ? 20 : 80;
+        return getGTE().isAllowedToWork() ? 20 : 80;
     }
 
     @Override
     public long displayedAmperesIn() {
         if (mHalfMode) {
-            return getBaseMetaTileEntity().isAllowedToWork() ? 8 : 32;
+            return getGTE().isAllowedToWork() ? 8 : 32;
         }
-        return getBaseMetaTileEntity().isAllowedToWork() ? 16 : 64;
+        return getGTE().isAllowedToWork() ? 16 : 64;
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setBoolean("mHalfMode", mHalfMode);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setBoolean("mHalfMode", mHalfMode);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        mHalfMode = aNBT.getBoolean("mHalfMode");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        mHalfMode = nbt.getBoolean("mHalfMode");
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
         this.mHalfMode = !mHalfMode;
         if (this.mHalfMode) {
-            GTUtility.sendChatTrans(aPlayer, "GT5U.chat.wet_transformer.half_mode.enable");
+            GTUtility.sendChatTrans(player, "GT5U.chat.wet_transformer.half_mode.enable");
         } else {
-            GTUtility.sendChatTrans(aPlayer, "GT5U.chat.wet_transformer.half_mode.disable");
+            GTUtility.sendChatTrans(player, "GT5U.chat.wet_transformer.half_mode.disable");
         }
     }
 }

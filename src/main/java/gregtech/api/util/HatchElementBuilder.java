@@ -576,7 +576,7 @@ public class HatchElementBuilder<T> {
             public boolean placeBlock(T t, World world, int x, int y, int z, ItemStack trigger) {
                 IGregTechTileEntity base = null;
                 if (t instanceof IMetaTileEntity mte) {
-                    base = mte.getBaseMetaTileEntity();
+                    base = mte.getGTE();
                 }
                 if (base == null) return false;
 

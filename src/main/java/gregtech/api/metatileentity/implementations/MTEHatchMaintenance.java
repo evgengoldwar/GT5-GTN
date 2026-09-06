@@ -146,8 +146,8 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     @Override
-    public void initDefaultModes(NBTTagCompound aNBT) {
-        getBaseMetaTileEntity().setActive(true);
+    public void initDefaultModes(NBTTagCompound nbt) {
+        getGTE().setActive(true);
     }
 
     @Override
@@ -156,42 +156,42 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return mAuto;
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        if (aTileEntity.getMetaTileID() == 111)
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+        if (gte.getMetaTileID() == 111)
             return new MTEHatchMaintenance(mName, mTier, mDescriptionArray, mTextures, true);
         return new MTEHatchMaintenance(mName, mTier, mDescriptionArray, mTextures, false);
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, ForgeDirection side,
-        float aX, float aY, float aZ) {
-        if (side == aBaseMetaTileEntity.getFrontFacing()) {
-            if (aBaseMetaTileEntity.isClientSide()) return true;
+    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
+        float z) {
+        if (side == gte.getFrontFacing()) {
+            if (gte.isClientSide()) return true;
             // only allow OC robot & dynamism tablet fake player
-            if (aPlayer instanceof FakePlayer) {
-                if (!(aPlayer instanceof TabletFakePlayer) && !aPlayer.getGameProfile()
+            if (player instanceof FakePlayer) {
+                if (!(player instanceof TabletFakePlayer) && !player.getGameProfile()
                     .getName()
                     .endsWith(".robot")) {
                     return false;
                 }
             }
-            ItemStack tStack = aPlayer.getCurrentEquippedItem();
+            ItemStack tStack = player.getCurrentEquippedItem();
             if (tStack != null) {
                 if (tStack.getItem() instanceof ItemToolbox) {
-                    applyToolbox(tStack, aPlayer);
+                    applyToolbox(tStack, player);
                 } else if (GTOreDictUnificator.isItemStackInstanceOf(tStack, "craftingDuctTape")) {
                     applyDuctTape();
                     if (--tStack.stackSize == 0) {
-                        aPlayer.inventory.mainInventory[aPlayer.inventory.currentItem] = null;
+                        player.inventory.mainInventory[player.inventory.currentItem] = null;
                     }
-                } else openGui(aPlayer);
+                } else openGui(player);
             } else {
-                openGui(aPlayer);
+                openGui(player);
             }
             return true;
         }
@@ -217,26 +217,25 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isServerSide() && mAuto && aTick % 100L == 0L) {
-            aBaseMetaTileEntity.setActive(!isRecipeInputEqual(false));
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isServerSide() && mAuto && tick % 100L == 0L) {
+            gte.setActive(!isRecipeInputEqual(false));
         }
     }
 
     @Override
-    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        if (wrenchingSide == getBaseMetaTileEntity().getFrontFacing() && !entityPlayer.isSneaking()
-            && isRotationChangeAllowed()) {
+    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool) {
+        if (wrenchingSide == getGTE().getFrontFacing() && !player.isSneaking() && isRotationChangeAllowed()) {
             toolSetRotation(null);
             return true;
         }
-        return super.onWrenchRightClick(side, wrenchingSide, entityPlayer, aX, aY, aZ, aTool);
+        return super.onWrenchRightClick(side, wrenchingSide, player, x, y, z, tool);
     }
 
     public void onMaintenancePerformed(MTEMultiBlockBase aMaintenanceTarget) {
-        IGregTechTileEntity tMte = getBaseMetaTileEntity();
+        IGregTechTileEntity tMte = getGTE();
 
         if (tMte == null || tMte.isMuffled()) return;
 
@@ -421,7 +420,7 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     private void applyDuctTape() {
         mWrench = mScrewdriver = mSoftMallet = mHardHammer = mCrowbar = mSolderingTool = true;
         setMaintenanceSound(SoundResource.GT_MAINTENANCE_DUCT_TAPE, 1.0F, 1.0F);
-        getBaseMetaTileEntity().setActive(false);
+        getGTE().setActive(false);
     }
 
     public boolean IsAutoMaintenanceInput(ItemStack aStack) {
@@ -433,44 +432,42 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return mAuto;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (mAuto) {
             for (int i = 0; i < getSizeInventory(); i++) if (GTUtility.areStacksEqual(
-                GTOreDictUnificator.get(false, aStack),
-                GTOreDictUnificator.get(false, getStackInSlot(i)))) return i == aIndex;
-            return IsAutoMaintenanceInput(aStack);
+                GTOreDictUnificator.get(false, itemStack),
+                GTOreDictUnificator.get(false, getStackInSlot(i)))) return i == index;
+            return IsAutoMaintenanceInput(itemStack);
         }
         return false;
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setByte("mRotation", (byte) rotation.getIndex());
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setByte("mRotation", (byte) rotation.getIndex());
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        rotation = Rotation.byIndex(aNBT.getByte("mRotation"));
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        rotation = Rotation.byIndex(nbt.getByte("mRotation"));
+        super.loadNBTData(nbt);
     }
 
     @Override
     public ExtendedFacing getExtendedFacing() {
-        return ExtendedFacing.of(getBaseMetaTileEntity().getFrontFacing(), rotation, Flip.NONE);
+        return ExtendedFacing.of(getGTE().getFrontFacing(), rotation, Flip.NONE);
     }
 
     @Override
     public void setExtendedFacing(ExtendedFacing alignment) {
         boolean changed = false;
-        final IGregTechTileEntity base = getBaseMetaTileEntity();
+        final IGregTechTileEntity base = getGTE();
         if (base.getFrontFacing() != alignment.getDirection()) {
             base.setFrontFacing(alignment.getDirection());
             changed = true;

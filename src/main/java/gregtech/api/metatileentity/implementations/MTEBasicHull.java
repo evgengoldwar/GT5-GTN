@@ -23,7 +23,7 @@ public class MTEBasicHull extends MTEBasicTank {
     }
 
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEBasicHull(mName, mTier, mInventory.length, mDescriptionArray, mTextures);
     }
 
@@ -44,7 +44,7 @@ public class MTEBasicHull extends MTEBasicTank {
 
     @Override
     public boolean isOutputFacing(ForgeDirection side) {
-        return side == getBaseMetaTileEntity().getFrontFacing();
+        return side == getGTE().getFrontFacing();
     }
 
     @Override
@@ -68,25 +68,23 @@ public class MTEBasicHull extends MTEBasicTank {
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return true;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
-        int colorIndex, boolean aConnected, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
+        boolean aConnected, boolean redstoneLevel) {
         return mTextures[Math.min(2, side.ordinal()) + (side == aFacing ? 3 : 0)][colorIndex + 1];
     }
 

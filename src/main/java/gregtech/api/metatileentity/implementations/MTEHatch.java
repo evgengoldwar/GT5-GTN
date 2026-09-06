@@ -96,7 +96,7 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
      * call this from {@code onPostTick}.
      */
     protected void detectInventoryChange() {
-        IGregTechTileEntity base = getBaseMetaTileEntity();
+        IGregTechTileEntity base = getGTE();
         if (base != null && base.hasInventoryBeenModified()) {
             notifyWatchers();
         }
@@ -124,8 +124,8 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
     public abstract ITexture[] getTexturesInactive(ITexture aBaseTexture);
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
-        int colorIndex, boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
+        boolean aActive, boolean redstoneLevel) {
 
         try {
             ITexture background = getCasingTexture();
@@ -162,17 +162,17 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setInteger("texturePage", texturePage);
-        aNBT.setInteger("textureIndex", textureIndex);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setInteger("texturePage", texturePage);
+        nbt.setInteger("textureIndex", textureIndex);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        texturePage = aNBT.getInteger("texturePage");
-        textureIndex = aNBT.getInteger("textureIndex");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        texturePage = nbt.getInteger("texturePage");
+        textureIndex = nbt.getInteger("textureIndex");
 
         updateTexture(texturePage << 7 | textureIndex);
     }
@@ -190,7 +190,7 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
         textureIndex = newTextureIndex;
         clearInventoryTextureCache();
 
-        IGregTechTileEntity base = getBaseMetaTileEntity();
+        IGregTechTileEntity base = getGTE();
 
         if (base.isServerSide()) {
             base.issueTileUpdate();

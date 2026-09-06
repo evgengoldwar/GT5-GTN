@@ -100,7 +100,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchOutputME(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -120,8 +120,8 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void onFirstTick(IGregTechTileEntity gte) {
+        super.onFirstTick(gte);
         getProxy().onReady();
         provider.updateState();
     }
@@ -204,12 +204,12 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public void onColorChangeServer(byte aColor) {
+    public void onColorChangeServer(byte color) {
         provider.updateAE2ProxyColor();
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return true;
     }
 
@@ -219,15 +219,15 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
-        provider.onScrewdriverRightClick(side, aPlayer, aX, aY, aZ, aTool);
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
+        provider.onScrewdriverRightClick(side, player, x, y, z, tool);
     }
 
     @Override
-    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        return provider.onWireCutterRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, aTool);
+    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
+        return provider.onWireCutterRightClick(side, wrenchingSide, player, x, y, z, tool);
     }
 
     @Override
@@ -256,9 +256,9 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        provider.onPostTick(aBaseMetaTileEntity, aTick);
-        super.onPostTick(aBaseMetaTileEntity, aTick);
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        provider.onPostTick(gte, tick);
+        super.onPostTick(gte, tick);
     }
 
     @Override
@@ -308,23 +308,23 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public void setItemNBT(NBTTagCompound aNBT) {
-        super.setItemNBT(aNBT);
-        provider.setItemNBT(aNBT);
+    public void setItemNBT(NBTTagCompound nbt) {
+        super.setItemNBT(nbt);
+        provider.setItemNBT(nbt);
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        provider.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        provider.saveNBTData(nbt);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        provider.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        provider.loadNBTData(nbt);
 
-        NBTBase t = aNBT.getTag("cachedFluids");
+        NBTBase t = nbt.getTag("cachedFluids");
         if (t instanceof NBTTagList l) {
             for (int i = 0; i < l.tagCount(); ++i) {
                 NBTTagCompound tag = l.getCompoundTagAt(i);
@@ -473,7 +473,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
 
     @Override
     public DimensionalCoord getLocation() {
-        IGregTechTileEntity gtm = this.getBaseMetaTileEntity();
+        IGregTechTileEntity gtm = this.getGTE();
         return new DimensionalCoord(gtm.getWorld(), gtm.getXCoord(), gtm.getYCoord(), gtm.getZCoord());
     }
 

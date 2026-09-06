@@ -74,18 +74,18 @@ public class MTEWirelessEnergy extends MTEHatchEnergy {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEWirelessEnergy(mName, mTier, new String[] { "" }, mTextures);
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void onFirstTick(IGregTechTileEntity gte) {
+        super.onFirstTick(gte);
 
-        if (!aBaseMetaTileEntity.isServerSide()) return;
+        if (!gte.isServerSide()) return;
 
         // UUID of the owner.
-        owner_uuid = aBaseMetaTileEntity.getOwnerUuid();
+        owner_uuid = gte.getOwnerUuid();
 
         SpaceProjectManager.checkOrCreateTeam(owner_uuid);
 
@@ -95,13 +95,13 @@ public class MTEWirelessEnergy extends MTEHatchEnergy {
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+    public void onPreTick(IGregTechTileEntity gte, long tick) {
 
-        super.onPreTick(aBaseMetaTileEntity, aTick);
+        super.onPreTick(gte, tick);
 
-        if (aBaseMetaTileEntity.isServerSide()) {
-            if (aTick % 20 == 0L) {
-                aBaseMetaTileEntity.tryDisableTicking();
+        if (gte.isServerSide()) {
+            if (tick % 20 == 0L) {
+                gte.tryDisableTicking();
             }
         }
     }
@@ -115,7 +115,7 @@ public class MTEWirelessEnergy extends MTEHatchEnergy {
     }
 
     public final void tryFetchingEnergy() {
-        long currentEU = getBaseMetaTileEntity().getStoredEU();
+        long currentEU = getGTE().getStoredEU();
         long maxEU = maxEUStore();
         long euToTransfer = min(maxEU - currentEU, eu_transferred_per_operation_long);
         if (euToTransfer <= 0) return; // nothing to transfer

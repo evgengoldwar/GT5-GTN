@@ -94,12 +94,12 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return true;
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchOutputBus(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -127,18 +127,18 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (!acceptsItemLock() || !(aPlayer instanceof EntityPlayerMP)) {
+    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+        if (!acceptsItemLock() || !(player instanceof EntityPlayerMP)) {
             return;
         }
-        final ItemStack dataStick = aPlayer.inventory.getCurrentItem();
+        final ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
         // return;
         // }
 
-        dataStick.stackTagCompound = getCopiedData(aPlayer);
+        dataStick.stackTagCompound = getCopiedData(player);
         setDataStickName(dataStick);
-        aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.saved"));
+        player.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.saved"));
     }
 
     protected void setDataStickName(ItemStack dataStick) {
@@ -216,14 +216,12 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return side == aBaseMetaTileEntity.getFrontFacing();
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return side == gte.getFrontFacing();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -232,15 +230,13 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isServerSide() && aBaseMetaTileEntity.isAllowedToWork()
-            && (aTick & 0x7) == 0
-            && pushOutputInventory()) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isServerSide() && gte.isAllowedToWork() && (tick & 0x7) == 0 && pushOutputInventory()) {
 
             GTItemTransfer transfer = new GTItemTransfer();
 
-            transfer.push(aBaseMetaTileEntity, aBaseMetaTileEntity.getFrontFacing());
+            transfer.push(gte, gte.getFrontFacing());
 
             transfer.setStacksToTransfer(getStackTransferAmount());
             transfer.setMaxItemsPerTransfer(getStackSizeLimit(-1, null));
@@ -252,24 +248,24 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
         // A drained output bus frees up space, which can unblock a recipe that failed with ITEM_OUTPUT_FULL. This must
         // run AFTER the auto-eject above: that eject marks the inventory dirty within this same tick, and the dirty
         // flag is cleared at the end of the tick, so a self-eject that frees space would otherwise never push a check.
-        if (aBaseMetaTileEntity.isServerSide()) {
+        if (gte.isServerSide()) {
             detectInventoryChange();
         }
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
         if (lockedItem != null) {
-            aNBT.setTag(LOCKED_ITEM_NBT_KEY, lockedItem.writeToNBT(new NBTTagCompound()));
+            nbt.setTag(LOCKED_ITEM_NBT_KEY, lockedItem.writeToNBT(new NBTTagCompound()));
         }
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        if (aNBT.hasKey(LOCKED_ITEM_NBT_KEY)) {
-            lockedItem = ItemStack.loadItemStackFromNBT(aNBT.getCompoundTag(LOCKED_ITEM_NBT_KEY));
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        if (nbt.hasKey(LOCKED_ITEM_NBT_KEY)) {
+            lockedItem = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(LOCKED_ITEM_NBT_KEY));
         }
     }
 
@@ -338,12 +334,12 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     /**
      * Gets the max stack size limit for a slot and a stack.
      *
-     * @param slot  The slot, or -1 for a general 'lowest slot' query.
-     * @param stack The stack, or null for a general 'any standard stack' query (getMaxStackSize() == 64).
+     * @param slot      The slot, or -1 for a general 'lowest slot' query.
+     * @param itemStack The stack, or null for a general 'any standard stack' query (getMaxStackSize() == 64).
      */
     @Override
-    public int getStackSizeLimit(int slot, @Nullable ItemStack stack) {
-        return Math.min(getInventoryStackLimit(), stack == null ? 64 : stack.getMaxStackSize());
+    public int getStackSizeLimit(int slot, @Nullable ItemStack itemStack) {
+        return Math.min(getInventoryStackLimit(), itemStack == null ? 64 : itemStack.getMaxStackSize());
     }
 
     class StandardOutputBusTransaction implements IOutputBusTransaction {

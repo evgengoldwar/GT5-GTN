@@ -78,13 +78,13 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEDebugStructureWriter(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection,
-        ForgeDirection facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+        int colorIndex, boolean active, boolean redstoneLevel) {
         return new ITexture[] {
             Textures.BlockIcons.MACHINE_CASINGS[mTier][colorIndex + 1], sideDirection != facingDirection
                 ? TextureFactory.of(
@@ -105,65 +105,63 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity iGregTechTileEntity, int i, ForgeDirection b,
-        ItemStack itemStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection b, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity iGregTechTileEntity, int i, ForgeDirection b,
-        ItemStack itemStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection b, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
+    public void saveNBTData(NBTTagCompound nbt) {
         for (int i = 0; i < numbers.length; i++) {
-            aNBT.setShort("eData" + i, numbers[i]);
+            nbt.setShort("eData" + i, numbers[i]);
         }
-        aNBT.setBoolean("Transpose", transpose);
-        aNBT.setBoolean("HighlightBox", showHighlightBox);
+        nbt.setBoolean("Transpose", transpose);
+        nbt.setBoolean("HighlightBox", showHighlightBox);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
+    public void loadNBTData(NBTTagCompound nbt) {
         for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = aNBT.getShort("eData" + i);
+            numbers[i] = nbt.getShort("eData" + i);
         }
-        transpose = aNBT.getBoolean("Transpose");
-        showHighlightBox = aNBT.getBoolean("HighlightBox");
+        transpose = nbt.getBoolean("Transpose");
+        showHighlightBox = nbt.getBoolean("HighlightBox");
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void onFirstTick(IGregTechTileEntity gte) {
+        super.onFirstTick(gte);
         bondingBoxes.put(this, boundingBox);
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        if (aBaseMetaTileEntity.isServerSide()) {
-            ExtendedFacing writerFacing = ExtendedFacing.of(aBaseMetaTileEntity.getFrontFacing());
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isServerSide()) {
+            ExtendedFacing writerFacing = ExtendedFacing.of(gte.getFrontFacing());
             double[] abc = new double[3];
             double[] xyz = new double[3];
-            boundingBox.dim = aBaseMetaTileEntity.getWorld().provider.dimensionId;
+            boundingBox.dim = gte.getWorld().provider.dimensionId;
             boundingBox.showHighlightBox = showHighlightBox;
             abc[0] = -numbers[0] - 0.5;
             abc[1] = -numbers[1] - 0.5;
             abc[2] = -numbers[2] - 0.5;
             writerFacing.getWorldOffset(abc, xyz);
             boundingBox.pos1 = new Vec3Impl(
-                aBaseMetaTileEntity.getXCoord() + (int) (xyz[0] + 0.5),
-                aBaseMetaTileEntity.getYCoord() + (int) (xyz[1] + 0.5),
-                aBaseMetaTileEntity.getZCoord() + (int) (xyz[2] + 0.5));
+                gte.getXCoord() + (int) (xyz[0] + 0.5),
+                gte.getYCoord() + (int) (xyz[1] + 0.5),
+                gte.getZCoord() + (int) (xyz[2] + 0.5));
             abc[0] = -numbers[0] + numbers[3] - 0.5;
             abc[1] = -numbers[1] + numbers[4] - 0.5;
             abc[2] = -numbers[2] + numbers[5] - 0.5;
             writerFacing.getWorldOffset(abc, xyz);
             boundingBox.pos2 = new Vec3Impl(
-                aBaseMetaTileEntity.getXCoord() + (int) (xyz[0] + 0.5),
-                aBaseMetaTileEntity.getYCoord() + (int) (xyz[1] + 0.5),
-                aBaseMetaTileEntity.getZCoord() + (int) (xyz[2] + 0.5));
+                gte.getXCoord() + (int) (xyz[0] + 0.5),
+                gte.getYCoord() + (int) (xyz[1] + 0.5),
+                gte.getZCoord() + (int) (xyz[2] + 0.5));
         }
     }
 
@@ -173,7 +171,7 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     }
 
     public String getPseudoJavaCode() {
-        IGregTechTileEntity aBaseMetaTileEntity = getBaseMetaTileEntity();
+        IGregTechTileEntity aBaseMetaTileEntity = getGTE();
 
         if (aBaseMetaTileEntity == null) {
             return "";

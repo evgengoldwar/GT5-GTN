@@ -52,24 +52,24 @@ public class MTEHatchEnergyDebug extends MTEHatchEnergy {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchEnergyDebug(mName, mTier, new String[] { "" }, mTextures);
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setInteger("debugAmperage", amperage);
-        aNBT.setInteger("debugVTier", voltageTier);
-        aNBT.setInteger("refillInterval", refillInterval);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setInteger("debugAmperage", amperage);
+        nbt.setInteger("debugVTier", voltageTier);
+        nbt.setInteger("refillInterval", refillInterval);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        amperage = aNBT.getInteger("debugAmperage");
-        voltageTier = aNBT.getInteger("debugVTier");
-        refillInterval = aNBT.getInteger("refillInterval");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        amperage = nbt.getInteger("debugAmperage");
+        voltageTier = nbt.getInteger("debugVTier");
+        refillInterval = nbt.getInteger("refillInterval");
     }
 
     @Override
@@ -136,22 +136,22 @@ public class MTEHatchEnergyDebug extends MTEHatchEnergy {
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity baseMetaTileEntity) {
-        if (baseMetaTileEntity.isServerSide()) fetchEnergy();
+    public void onFirstTick(IGregTechTileEntity gte) {
+        if (gte.isServerSide()) fetchEnergy();
     }
 
     @Override
-    public void doExplosion(long aExplosionPower) {
+    public void doExplosion(long explosionPower) {
         return;
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPreTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isServerSide()) {
+    public void onPreTick(IGregTechTileEntity gte, long tick) {
+        super.onPreTick(gte, tick);
+        if (gte.isServerSide()) {
             // refill entirely every [refillInterval] ticks, default is 600/30 seconds
             // minimum value of 1, to avoid div by 0
-            if (aTick % ((long) Math.max(1, refillInterval)) == 0L) {
+            if (tick % ((long) Math.max(1, refillInterval)) == 0L) {
                 fetchEnergy();
             }
         }

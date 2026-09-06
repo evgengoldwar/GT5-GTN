@@ -208,30 +208,30 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public final void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
+    public final void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
         mVoidOverflow = !mVoidOverflow;
         GTUtility.sendChatTrans(
-            aPlayer,
+            player,
             mVoidOverflow ? "GT5U.machines.digitalchest.voidoverflow.enabled"
                 : "GT5U.machines.digitalchest.voidoverflow.disabled");
     }
 
     @Override
-    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
         mDisableFilter = !mDisableFilter;
         GTUtility.sendChatTrans(
-            aPlayer,
+            player,
             mDisableFilter ? "GT5U.machines.digitalchest.inputfilter.disabled"
                 : "GT5U.machines.digitalchest.inputfilter.enabled");
         return true;
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
 
-        if (getBaseMetaTileEntity().isServerSide()) {
+        if (getGTE().isServerSide()) {
             if ((getItemCount() <= 0)) {
                 setItemStack(null);
                 setItemCount(0);
@@ -283,7 +283,7 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
             // notifyListeners has a null check on the stack arg
             meInventoryHandler.notifyListeners(count + extraCount - lastTrueCount, stack);
             lastTrueCount = count + extraCount;
-            if (count != savedCount) getBaseMetaTileEntity().markDirty();
+            if (count != savedCount) getGTE().markDirty();
         }
     }
 
@@ -299,8 +299,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
-        return aIndex != 2;
+    public boolean isValidSlot(int index) {
+        return index != 2;
     }
 
     @Override
@@ -351,20 +351,20 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     protected abstract String localizedChestName();
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        aNBT.setInteger("mItemCount", getItemCount());
-        if (getItemStack() != null) aNBT.setTag("mItemStack", getItemStack().writeToNBT(new NBTTagCompound()));
-        aNBT.setBoolean("mVoidOverflow", mVoidOverflow);
-        aNBT.setBoolean("mDisableFilter", mDisableFilter);
+    public void saveNBTData(NBTTagCompound nbt) {
+        nbt.setInteger("mItemCount", getItemCount());
+        if (getItemStack() != null) nbt.setTag("mItemStack", getItemStack().writeToNBT(new NBTTagCompound()));
+        nbt.setBoolean("mVoidOverflow", mVoidOverflow);
+        nbt.setBoolean("mDisableFilter", mDisableFilter);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        if (aNBT.hasKey("mItemCount")) setItemCount(aNBT.getInteger("mItemCount"));
-        if (aNBT.hasKey("mItemStack"))
-            setItemStack(ItemStack.loadItemStackFromNBT((NBTTagCompound) aNBT.getTag("mItemStack")));
-        mVoidOverflow = aNBT.getBoolean("mVoidOverflow");
-        mDisableFilter = aNBT.getBoolean("mDisableFilter");
+    public void loadNBTData(NBTTagCompound nbt) {
+        if (nbt.hasKey("mItemCount")) setItemCount(nbt.getInteger("mItemCount"));
+        if (nbt.hasKey("mItemStack"))
+            setItemStack(ItemStack.loadItemStackFromNBT((NBTTagCompound) nbt.getTag("mItemStack")));
+        mVoidOverflow = nbt.getBoolean("mVoidOverflow");
+        mDisableFilter = nbt.getBoolean("mDisableFilter");
         lastTrueCount = getItemCount();
         if (GTUtility.areStacksEqual(getItemStack(), mInventory[1])) {
             lastTrueCount += mInventory[1].stackSize;
@@ -372,21 +372,19 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (GTValues.disableDigitalChestsExternalAccess && meInventoryHandler.hasActiveMEConnection()) return false;
-        return aIndex == 1;
+        return index == 1;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (GTValues.disableDigitalChestsExternalAccess && meInventoryHandler.hasActiveMEConnection()) return false;
-        if (aIndex != 0) return false;
-        if ((mInventory[0] != null && !GTUtility.areStacksEqual(mInventory[0], aStack))) return false;
+        if (index != 0) return false;
+        if ((mInventory[0] != null && !GTUtility.areStacksEqual(mInventory[0], itemStack))) return false;
         if (mDisableFilter) return true;
-        if (getItemStack() == null) return mInventory[1] == null || GTUtility.areStacksEqual(mInventory[1], aStack);
-        return GTUtility.areStacksEqual(getItemStack(), aStack);
+        if (getItemStack() == null) return mInventory[1] == null || GTUtility.areStacksEqual(mInventory[1], itemStack);
+        return GTUtility.areStacksEqual(getItemStack(), itemStack);
     }
 
     @Override
@@ -405,8 +403,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
-        int colorIndex, boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
+        boolean aActive, boolean redstoneLevel) {
         if (side != aFacing) return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1] };
         return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1], TextureFactory.of(OVERLAY_SCHEST),
             TextureFactory.builder()

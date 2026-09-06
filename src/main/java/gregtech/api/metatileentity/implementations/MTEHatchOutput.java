@@ -107,7 +107,7 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchOutput(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -118,43 +118,37 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isServerSide() && aBaseMetaTileEntity.isAllowedToWork() && mFluid != null) {
-            IFluidHandler tTileEntity = aBaseMetaTileEntity
-                .getITankContainerAtSide(aBaseMetaTileEntity.getFrontFacing());
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isServerSide() && gte.isAllowedToWork() && mFluid != null) {
+            IFluidHandler tTileEntity = gte.getITankContainerAtSide(gte.getFrontFacing());
             if (tTileEntity != null) {
-                GTUtility.moveFluid(
-                    aBaseMetaTileEntity,
-                    tTileEntity,
-                    aBaseMetaTileEntity.getFrontFacing(),
-                    Math.max(1, mFluid.amount),
-                    null);
+                GTUtility.moveFluid(gte, tTileEntity, gte.getFrontFacing(), Math.max(1, mFluid.amount), null);
             }
         }
         // A drained output hatch frees up space, which can unblock a recipe that failed with FLUID_OUTPUT_FULL. This
         // must run AFTER the auto-eject above: that eject marks the tank dirty within this same tick, and the dirty
         // flag is cleared at the end of the tick, so a self-eject that frees space would otherwise never push a check.
-        if (aBaseMetaTileEntity.isServerSide()) {
+        if (gte.isServerSide()) {
             detectInventoryChange();
         }
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
 
-        aNBT.setByte("mMode", mMode);
-        if (lockedFluid != null) aNBT.setString("lockedFluidName", lockedFluid.getName());
-        else aNBT.removeTag("lockedFluidName");
+        nbt.setByte("mMode", mMode);
+        if (lockedFluid != null) nbt.setString("lockedFluidName", lockedFluid.getName());
+        else nbt.removeTag("lockedFluidName");
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
 
-        mMode = aNBT.getByte("mMode");
-        if (aNBT.hasKey("lockedFluidName")) setLockedFluid(FluidRegistry.getFluid(aNBT.getString("lockedFluidName")));
+        mMode = nbt.getByte("mMode");
+        if (nbt.hasKey("lockedFluidName")) setLockedFluid(FluidRegistry.getFluid(nbt.getString("lockedFluidName")));
     }
 
     @Override
@@ -177,21 +171,19 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         // Because getStackDisplaySlot() only allow return one int, this place I only can manually set.
-        return aIndex != getStackDisplaySlot() && aIndex != getLockedDisplaySlot();
+        return index != getStackDisplaySlot() && index != getLockedDisplaySlot();
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return side == aBaseMetaTileEntity.getFrontFacing() && aIndex == 1;
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return side == gte.getFrontFacing() && index == 1;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return side == aBaseMetaTileEntity.getFrontFacing() && aIndex == 0;
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return side == gte.getFrontFacing() && index == 0;
     }
 
     @Override
@@ -200,11 +192,11 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
-        if (!getBaseMetaTileEntity().getCoverAtSide(side)
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
+        if (!getGTE().getCoverAtSide(side)
             .isGUIClickable()) return;
-        if (aPlayer.isSneaking()) {
+        if (player.isSneaking()) {
             mMode = (byte) ((mMode + 9) % 10);
         } else {
             mMode = (byte) ((mMode + 1) % 10);
@@ -212,11 +204,11 @@ public class MTEHatchOutput extends MTEHatch
         final IChatComponent inBrackets;
         switch (mMode) {
             case 0, 1, 2, 3, 4, 5, 6, 7 -> {
-                GTUtility.sendChatTrans(aPlayer, MTEHatchOutput.getLangKeyForMode(mMode));
+                GTUtility.sendChatTrans(player, MTEHatchOutput.getLangKeyForMode(mMode));
                 lockedFluid = null;
             }
             case 8, 9 -> {
-                playerThatLockedfluid = new WeakReference<>(aPlayer);
+                playerThatLockedfluid = new WeakReference<>(player);
                 if (mFluid == null) {
                     lockedFluid = null;
                     inBrackets = new ChatComponentTranslation("GT5U.chat.hatch.output.in_brackets.none");
@@ -226,7 +218,7 @@ public class MTEHatchOutput extends MTEHatch
                             .getFluid());
                     inBrackets = new ChatComponentFluidName(this.getDrainableStack());
                 }
-                GTUtility.sendChatTrans(aPlayer, MTEHatchOutput.getLangKeyForMode(mMode), inBrackets);
+                GTUtility.sendChatTrans(player, MTEHatchOutput.getLangKeyForMode(mMode), inBrackets);
             }
         }
     }
@@ -248,7 +240,7 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     private boolean tryToLockHatch(EntityPlayer aPlayer, ForgeDirection side) {
-        if (!getBaseMetaTileEntity().getCoverAtSide(side)
+        if (!getGTE().getCoverAtSide(side)
             .isGUIClickable()) return false;
         if (!isFluidLocked()) return false;
         final ItemStack tCurrentItem = aPlayer.inventory.getCurrentItem();
@@ -278,10 +270,10 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, ForgeDirection side,
-        float aX, float aY, float aZ) {
-        if (tryToLockHatch(aPlayer, side)) return true;
-        return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
+    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
+        float z) {
+        if (tryToLockHatch(player, side)) return true;
+        return super.onRightClick(gte, player, side, x, y, z);
     }
 
     public boolean outputsLiquids() {

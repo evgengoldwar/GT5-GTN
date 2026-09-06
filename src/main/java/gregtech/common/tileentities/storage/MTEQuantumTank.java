@@ -19,7 +19,7 @@ public class MTEQuantumTank extends MTEDigitalTankBase {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEQuantumTank(mName, mTier, mDescriptionArray, mTextures);
     }
 

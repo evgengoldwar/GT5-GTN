@@ -166,7 +166,7 @@ public class MTEHatchInputBusMEGui extends MTEHatchBaseGui<MTEHatchInputBusME> {
             widget.getSlot()
                 .changeListener((newItem, onlyAmountChanged, client, init) -> {
                     if (newItem != null && !client) {
-                        IGregTechTileEntity base = machine.getBaseMetaTileEntity();
+                        IGregTechTileEntity base = machine.getGTE();
                         if (base != null) {
                             base.enableTicking();
                             machine.onContentsChanged(machine.getCircuitSlot());
@@ -182,7 +182,7 @@ public class MTEHatchInputBusMEGui extends MTEHatchBaseGui<MTEHatchInputBusME> {
                 new ModularSlot(machine.inventoryHandler, machine.getManualSlot()).slotGroup("item_inv")
                     .changeListener((newItem, onlyAmountChanged, client, init) -> {
                         if (newItem != null && !client) {
-                            IGregTechTileEntity base = machine.getBaseMetaTileEntity();
+                            IGregTechTileEntity base = machine.getGTE();
                             if (base != null) {
                                 base.enableTicking();
                                 machine.onContentsChanged(machine.getManualSlot());

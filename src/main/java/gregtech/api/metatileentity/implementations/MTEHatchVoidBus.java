@@ -53,7 +53,7 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return false;
     }
 
@@ -63,7 +63,7 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchVoidBus(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -120,16 +120,15 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     // TODO remove this in 2.10
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        NBTTagList lockedItemList = aNBT.getTagList(LOCKED_ITEMS_NBT_KEY, Constants.NBT.TAG_COMPOUND);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        NBTTagList lockedItemList = nbt.getTagList(LOCKED_ITEMS_NBT_KEY, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < lockedItemList.tagCount(); i++) {
             NBTTagCompound itemTag = lockedItemList.getCompoundTagAt(i);
             int slot = itemTag.getByte("Slot");

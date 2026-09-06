@@ -148,7 +148,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEFluidPipe(mName, mThickNess, mMaterial, mCapacity, mHeatResistance, mGasProof, mPipeAmount);
     }
 
@@ -209,8 +209,8 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public void onValueUpdate(byte aValue) {
-        mDisableInput = aValue;
+    public void onValueUpdate(byte value) {
+        mDisableInput = value;
     }
 
     @Override
@@ -219,7 +219,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return false;
     }
 
@@ -239,21 +239,21 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
+    public void saveNBTData(NBTTagCompound nbt) {
         for (int i = 0; i < mPipeAmount; i++) if (mFluids[i] != null)
-            aNBT.setTag("mFluid" + (i == 0 ? "" : i), mFluids[i].writeToNBT(new NBTTagCompound()));
-        aNBT.setByte("mLastReceivedFrom", mLastReceivedFrom);
-        aNBT.setByte("mConnections", mConnections);
-        aNBT.setByte("mDisableInput", mDisableInput);
+            nbt.setTag("mFluid" + (i == 0 ? "" : i), mFluids[i].writeToNBT(new NBTTagCompound()));
+        nbt.setByte("mLastReceivedFrom", mLastReceivedFrom);
+        nbt.setByte("mConnections", mConnections);
+        nbt.setByte("mDisableInput", mDisableInput);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
+    public void loadNBTData(NBTTagCompound nbt) {
         for (int i = 0; i < mPipeAmount; i++)
-            mFluids[i] = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("mFluid" + (i == 0 ? "" : i)));
-        mLastReceivedFrom = aNBT.getByte("mLastReceivedFrom");
-        mConnections = aNBT.getByte("mConnections");
-        mDisableInput = aNBT.getByte("mDisableInput");
+            mFluids[i] = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("mFluid" + (i == 0 ? "" : i)));
+        mLastReceivedFrom = nbt.getByte("mLastReceivedFrom");
+        mConnections = nbt.getByte("mConnections");
+        mDisableInput = nbt.getByte("mDisableInput");
     }
 
     @Override
@@ -262,9 +262,9 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isServerSide() && aTick % 5 == 0) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isServerSide() && tick % 5 == 0) {
             mLastReceivedFrom &= 63;
             if (mLastReceivedFrom == 63) {
                 mLastReceivedFrom = 0;
@@ -275,15 +275,15 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
             }
 
             final boolean shouldDistribute = (oLastReceivedFrom == mLastReceivedFrom);
-            for (int i = 0, j = aBaseMetaTileEntity.getRandomNumber(mPipeAmount); i < mPipeAmount; i++) {
+            for (int i = 0, j = gte.getRandomNumber(mPipeAmount); i < mPipeAmount; i++) {
                 final int index = (i + j) % mPipeAmount;
                 if (mFluids[index] != null && mFluids[index].amount <= 0) mFluids[index] = null;
                 if (mFluids[index] == null) continue;
 
-                if (checkEnvironment(index, aBaseMetaTileEntity)) return;
+                if (checkEnvironment(index, gte)) return;
 
                 if (shouldDistribute) {
-                    distributeFluid(index, aBaseMetaTileEntity);
+                    distributeFluid(index, gte);
                     mLastReceivedFrom = 0;
                 }
             }
@@ -331,7 +331,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         // Tank, From, Amount to receive
         final List<MutableTriple<IFluidHandler, ForgeDirection, Integer>> tTanks = new ArrayList<>();
         final int amount = tFluid.amount;
-        final byte tOffset = (byte) getBaseMetaTileEntity().getRandomNumber(6);
+        final byte tOffset = (byte) getGTE().getRandomNumber(6);
         for (final byte i : ALL_VALID_SIDES) {
             // Get a list of tanks accepting fluids, and what side they're on
             final ForgeDirection side = ForgeDirection.getOrientation((i + tOffset) % 6);
@@ -341,7 +341,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
 
             if (isConnectedAtSide(side) && tTank != null
                 && (mLastReceivedFrom & side.flag) == 0
-                && getBaseMetaTileEntity().getCoverAtSide(side)
+                && getGTE().getCoverAtSide(side)
                     .letsFluidOut(tFluid.getFluid())
                 && (gTank == null || gTank.getCoverAtSide(oppositeSide)
                     .letsFluidIn(tFluid.getFluid()))) {
@@ -405,14 +405,14 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
         // Only trigger if the player is sneaking
-        if (!aPlayer.isSneaking()) {
+        if (!player.isSneaking()) {
             return;
         }
 
         // Retrieve the item's MetaTileEntity
-        final ItemStack handItem = aPlayer.inventory.getCurrentItem();
+        final ItemStack handItem = player.inventory.getCurrentItem();
         if (handItem == null) return;
 
         IMetaTileEntity meta = ItemMachines.getMetaTileEntity(handItem);
@@ -420,10 +420,10 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
 
         // Preserve old connections and meta ID
         byte oldConnections = this.mConnections;
-        short oldMetaID = (short) aBaseMetaTileEntity.getMetaTileID();
+        short oldMetaID = (short) gte.getMetaTileID();
 
         // Create the new fluid pipe
-        MTEFluidPipe newPipe = (MTEFluidPipe) handFluid.newMetaEntity(aBaseMetaTileEntity);
+        MTEFluidPipe newPipe = (MTEFluidPipe) handFluid.newMTE(gte);
         if (newPipe == null) return;
 
         // Preserve old connections
@@ -446,8 +446,8 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         }
 
         // Update to the new pipe
-        aBaseMetaTileEntity.setMetaTileID((short) handItem.getItemDamage());
-        newPipe.setBaseMetaTileEntity(aBaseMetaTileEntity);
+        gte.setMetaTileID((short) handItem.getItemDamage());
+        newPipe.setGTE(gte);
 
         // Construct a change message if needed
         IChatComponent message = new ChatComponentText("");
@@ -494,25 +494,25 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
 
         // Send a chat message if anything changed. Only send server-side, since this method also runs
         // client-side for responsive placement and would otherwise send the message twice.
-        if (hasContent && aBaseMetaTileEntity.isServerSide()) {
-            GTUtility.sendChatTrans(aPlayer, "GT5U.item.pipe.swap.s", message);
+        if (hasContent && gte.isServerSide()) {
+            GTUtility.sendChatTrans(player, "GT5U.item.pipe.swap.s", message);
         }
 
         // Force updates to sync changes
-        aBaseMetaTileEntity.markDirty();
-        aBaseMetaTileEntity.issueTextureUpdate();
-        aBaseMetaTileEntity.issueBlockUpdate();
-        aBaseMetaTileEntity.issueTileUpdate();
+        gte.markDirty();
+        gte.issueTextureUpdate();
+        gte.issueBlockUpdate();
+        gte.issueTileUpdate();
 
         // Handle inventory operations unless in creative mode
-        if (!aPlayer.capabilities.isCreativeMode) {
+        if (!player.capabilities.isCreativeMode) {
             ItemStack oldPipe = new ItemStack(handItem.getItem(), 1, oldMetaID);
             boolean addedToInventory = false;
 
             // Attempt to stack with existing items
             if (oldPipe != null) {
-                for (int i = 0; i < aPlayer.inventory.mainInventory.length; i++) {
-                    ItemStack slot = aPlayer.inventory.mainInventory[i];
+                for (int i = 0; i < player.inventory.mainInventory.length; i++) {
+                    ItemStack slot = player.inventory.mainInventory[i];
                     if (slot != null && slot.getItem() == oldPipe.getItem()
                         && slot.getItemDamage() == oldPipe.getItemDamage()
                         && slot.stackSize < slot.getMaxStackSize()) {
@@ -523,29 +523,29 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
                 }
                 // Add new stack if stacking failed
                 if (!addedToInventory) {
-                    addedToInventory = aPlayer.inventory.addItemStackToInventory(oldPipe);
+                    addedToInventory = player.inventory.addItemStackToInventory(oldPipe);
                 }
                 // If still unsuccessful, drop the item
                 if (!addedToInventory) {
-                    aPlayer.dropPlayerItemWithRandomChoice(oldPipe, false);
+                    player.dropPlayerItemWithRandomChoice(oldPipe, false);
                 }
             }
 
             // Decrement the placed pipe from the player's hand
             handItem.stackSize--;
             if (handItem.stackSize <= 0) {
-                aPlayer.inventory.setInventorySlotContents(aPlayer.inventory.currentItem, null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
         }
     }
 
     @Override
-    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool) {
 
-        IGregTechTileEntity currentPipeBase = getBaseMetaTileEntity();
+        IGregTechTileEntity currentPipeBase = getGTE();
         MTEFluidPipe currentPipe = (MTEFluidPipe) currentPipeBase.getMetaTileEntity();
-        final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
+        final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, x, y, z);
         final byte tMask = (byte) (tSide.flag);
 
         // if (mode == ToolModes.REGULAR.get()) {
@@ -645,7 +645,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         if (tileEntity == null) return false;
 
         final ForgeDirection oppositeSide = side.getOpposite();
-        final IGregTechTileEntity baseMetaTile = getBaseMetaTileEntity();
+        final IGregTechTileEntity baseMetaTile = getGTE();
         if (baseMetaTile == null) return false;
 
         final IGregTechTileEntity gTileEntity = (tileEntity instanceof IGregTechTileEntity)
@@ -679,13 +679,13 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public void doSound(byte aIndex, double aX, double aY, double aZ) {
-        super.doSound(aIndex, aX, aY, aZ);
-        if (aIndex == 9) {
-            GTUtility.doSoundAtClient(SoundResource.RANDOM_FIZZ, 5, 1.0F, aX, aY, aZ);
+    public void doSound(byte index, double aX, double y, double z) {
+        super.doSound(index, aX, y, z);
+        if (index == 9) {
+            GTUtility.doSoundAtClient(SoundResource.RANDOM_FIZZ, 5, 1.0F, aX, y, z);
 
             new ParticleEventBuilder().setIdentifier(ParticleFX.CLOUD)
-                .setWorld(getBaseMetaTileEntity().getWorld())
+                .setWorld(getGTE().getWorld())
                 .<ParticleEventBuilder>times(
                     6,
                     (x, i) -> x
@@ -695,8 +695,8 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
                             ForgeDirection.getOrientation(i).offsetZ / 5.0)
                         .setPosition(
                             aX - 0.5 + XSTR_INSTANCE.nextFloat(),
-                            aY - 0.5 + XSTR_INSTANCE.nextFloat(),
-                            aZ - 0.5 + XSTR_INSTANCE.nextFloat())
+                            y - 0.5 + XSTR_INSTANCE.nextFloat(),
+                            z - 0.5 + XSTR_INSTANCE.nextFloat())
                         .run());
         }
     }
@@ -716,21 +716,19 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection side) {
-        if (getCapacity() <= 0 && !getBaseMetaTileEntity().isSteampowered()) return GTValues.emptyFluidTankInfo;
+        if (getCapacity() <= 0 && !getGTE().isSteampowered()) return GTValues.emptyFluidTankInfo;
         ArrayList<FluidTankInfo> tList = new ArrayList<>();
         for (FluidStack tFluid : mFluids) tList.add(new FluidTankInfo(tFluid, mCapacity * 20));
         return tList.toArray(new FluidTankInfo[mPipeAmount]);
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 

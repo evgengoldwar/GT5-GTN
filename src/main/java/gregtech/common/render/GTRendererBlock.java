@@ -242,7 +242,7 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
             return;
         }
 
-        final IGregTechTileEntity igte = imte.getBaseMetaTileEntity();
+        final IGregTechTileEntity igte = imte.getGTE();
         ctx.renderNegativeYFacing(imte.getTexture(igte, DOWN, WEST, -1, true, false));
         ctx.renderPositiveYFacing(imte.getTexture(igte, UP, WEST, -1, true, false));
         ctx.renderNegativeZFacing(imte.getTexture(igte, NORTH, WEST, -1, true, false));

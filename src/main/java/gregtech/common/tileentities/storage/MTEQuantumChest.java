@@ -30,12 +30,12 @@ public class MTEQuantumChest extends MTEDigitalChestBase {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEQuantumChest(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public void setItemNBT(NBTTagCompound aNBT) {
+    public void setItemNBT(NBTTagCompound nbt) {
         mInvData = new NBTTagList();
         boolean hasInvData = false;
         for (int i = 0; i < 3; i++) {
@@ -52,12 +52,12 @@ public class MTEQuantumChest extends MTEDigitalChestBase {
                 hasInvData = true;
             }
         }
-        if (mItemStack != null) aNBT.setTag("mItemStack", getItemStack().writeToNBT(new NBTTagCompound()));
-        if (hasInvData) aNBT.setTag("Inventory", mInvData);
-        if (getItemCount() > 0) aNBT.setInteger("mItemCount", getItemCount());
-        if (mVoidOverflow) aNBT.setBoolean("mVoidOverflow", true);
+        if (mItemStack != null) nbt.setTag("mItemStack", getItemStack().writeToNBT(new NBTTagCompound()));
+        if (hasInvData) nbt.setTag("Inventory", mInvData);
+        if (getItemCount() > 0) nbt.setInteger("mItemCount", getItemCount());
+        if (mVoidOverflow) nbt.setBoolean("mVoidOverflow", true);
 
-        super.setItemNBT(aNBT);
+        super.setItemNBT(nbt);
     }
 
     @Override

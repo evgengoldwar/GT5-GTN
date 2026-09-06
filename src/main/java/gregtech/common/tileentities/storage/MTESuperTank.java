@@ -19,7 +19,7 @@ public class MTESuperTank extends MTEDigitalTankBase {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTESuperTank(mName, mTier, mDescriptionArray, mTextures);
     }
 

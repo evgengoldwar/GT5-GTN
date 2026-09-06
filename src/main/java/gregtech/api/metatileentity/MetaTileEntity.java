@@ -110,8 +110,8 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
      */
     public MetaTileEntity(int aID, String aBasicName, String aRegionalName, int aInvSlotCount) {
         super(aID, aBasicName, aInvSlotCount);
-        setBaseMetaTileEntity(GregTechAPI.constructBaseMetaTileEntity());
-        getBaseMetaTileEntity().setMetaTileID((short) aID);
+        setGTE(GregTechAPI.constructBaseMetaTileEntity());
+        getGTE().setMetaTileID((short) aID);
 
         GTLanguageManager.addStringLocalization("gt.blockmachines." + mName + ".name", aRegionalName);
 
@@ -130,30 +130,29 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     @Nullable
     @Override
     // making this method final allows it to be inlined by the JIT compiler
-    public final IGregTechTileEntity getBaseMetaTileEntity() {
+    public final IGregTechTileEntity getGTE() {
         return mBaseMetaTileEntity;
     }
 
     @Override
-    public final void setBaseMetaTileEntity(IGregTechTileEntity aBaseMetaTileEntity) {
+    public final void setGTE(IGregTechTileEntity gte) {
         final IGregTechTileEntity oldBase = mBaseMetaTileEntity;
-        if (mBaseMetaTileEntity != null && aBaseMetaTileEntity == null) {
+        if (mBaseMetaTileEntity != null && gte == null) {
             mBaseMetaTileEntity.getMetaTileEntity()
                 .inValidate();
             mBaseMetaTileEntity.setMetaTileEntity(null);
         }
-        mBaseMetaTileEntity = aBaseMetaTileEntity;
+        mBaseMetaTileEntity = gte;
         if (mBaseMetaTileEntity != null) {
             mBaseMetaTileEntity.setMetaTileEntity(this);
         }
-        if (oldBase != aBaseMetaTileEntity && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
+        if (oldBase != gte && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
             oldMeta.refreshMetaTileEntityValidity();
         }
     }
 
     public boolean isValid() {
-        return getBaseMetaTileEntity() != null && getBaseMetaTileEntity().getMetaTileEntity() == this
-            && !getBaseMetaTileEntity().isDead();
+        return getGTE() != null && getGTE().getMetaTileEntity() == this && !getGTE().isDead();
     }
 
     /**
@@ -177,7 +176,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
 
     @Override
     public ItemStack getStackForm(long aAmount) {
-        return new ItemStack(GregTechAPI.sBlockMachines, (int) aAmount, getBaseMetaTileEntity().getMetaTileID());
+        return new ItemStack(GregTechAPI.sBlockMachines, (int) aAmount, getGTE().getMetaTileID());
     }
 
     @Override
@@ -186,13 +185,13 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {}
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {}
 
     @Override
-    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        final IGregTechTileEntity meta = getBaseMetaTileEntity();
+    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool) {
+        final IGregTechTileEntity meta = getGTE();
         if (!meta.isValidFacing(wrenchingSide)) return false;
         meta.setFrontFacing(wrenchingSide);
 
@@ -203,33 +202,33 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     }
 
     @Override
-    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
 
-        if (!aPlayer.isSneaking()) return false;
+        if (!player.isSneaking()) return false;
         final ForgeDirection oppositeSide = wrenchingSide.getOpposite();
-        final TileEntity tTileEntity = getBaseMetaTileEntity().getTileEntityAtSide(wrenchingSide);
+        final TileEntity tTileEntity = getGTE().getTileEntityAtSide(wrenchingSide);
         if ((tTileEntity instanceof IGregTechTileEntity gtTE) && (gtTE.getMetaTileEntity() instanceof MTECable)) {
 
             // The tile entity we're facing is a cable, let's try to connect to it
             return gtTE.getMetaTileEntity()
-                .onWireCutterRightClick(wrenchingSide, oppositeSide, aPlayer, aX, aY, aZ, aTool);
+                .onWireCutterRightClick(wrenchingSide, oppositeSide, player, x, y, z, tool);
         }
         return false;
     }
 
     @Override
-    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
 
-        if (!aPlayer.isSneaking()) return false;
+        if (!player.isSneaking()) return false;
         final ForgeDirection oppositeSide = wrenchingSide.getOpposite();
-        TileEntity tTileEntity = getBaseMetaTileEntity().getTileEntityAtSide(wrenchingSide);
+        TileEntity tTileEntity = getGTE().getTileEntityAtSide(wrenchingSide);
         if ((tTileEntity instanceof IGregTechTileEntity gtTE) && (gtTE.getMetaTileEntity() instanceof MTECable)) {
 
             // The tile entity we're facing is a cable, let's try to connect to it
             return gtTE.getMetaTileEntity()
-                .onSolderingToolRightClick(wrenchingSide, oppositeSide, aPlayer, aX, aY, aZ, aTool);
+                .onSolderingToolRightClick(wrenchingSide, oppositeSide, player, x, y, z, tool);
         }
         return false;
     }
@@ -247,15 +246,15 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, ForgeDirection side,
-        float aX, float aY, float aZ) {
-        if (aBaseMetaTileEntity.isServerSide()) {
-            if (aPlayer instanceof EntityPlayerMPAccessor) {
-                playerLang = ((EntityPlayerMPAccessor) aPlayer).gt5u$getTranslator();
+    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
+        float z) {
+        if (gte.isServerSide()) {
+            if (player instanceof EntityPlayerMPAccessor) {
+                playerLang = ((EntityPlayerMPAccessor) player).gt5u$getTranslator();
             }
         }
 
-        return onRightclick(aBaseMetaTileEntity, aPlayer);
+        return onRightclick(gte, player);
     }
 
     protected String translate(String key) {
@@ -436,14 +435,14 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
      * Determines the Tier of the Machine, used for de-charging Tools.
      */
     public long getInputTier() {
-        return GTUtility.getTier(getBaseMetaTileEntity().getInputVoltage());
+        return GTUtility.getTier(getGTE().getInputVoltage());
     }
 
     /**
      * Determines the Tier of the Machine, used for charging Tools.
      */
     public long getOutputTier() {
-        return GTUtility.getTier(getBaseMetaTileEntity().getOutputVoltage());
+        return GTUtility.getTier(getGTE().getOutputVoltage());
     }
 
     /**
@@ -510,8 +509,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
      * if the IC2 Teleporter can drain from this.
      */
     public boolean isTeleporterCompatible() {
-        return isEnetOutput() && getBaseMetaTileEntity().getOutputVoltage() >= 128
-            && getBaseMetaTileEntity().getUniversalEnergyCapacity() >= 500000;
+        return isEnetOutput() && getGTE().getOutputVoltage() >= 128 && getGTE().getUniversalEnergyCapacity() >= 500000;
     }
 
     /**
@@ -578,12 +576,12 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
 
     @Override
     public void onBlockDestroyed() {
-        final IGregTechTileEntity meta = getBaseMetaTileEntity();
+        final IGregTechTileEntity meta = getGTE();
     }
 
     @Override
-    public void onColorChangeServer(byte aColor) {
-        final IGregTechTileEntity meta = getBaseMetaTileEntity();
+    public void onColorChangeServer(byte color) {
+        final IGregTechTileEntity meta = getGTE();
         final int aX = meta.getXCoord(), aY = meta.getYCoord(), aZ = meta.getZCoord();
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             // Flag surrounding pipes/cables to revaluate their connection with us if we got painted
@@ -597,12 +595,12 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     }
 
     @Override
-    public void doExplosion(long aExplosionPower) {
-        float tStrength = GTValues.getExplosionPowerForVoltage(aExplosionPower);
-        final int tX = getBaseMetaTileEntity().getXCoord();
-        final int tY = getBaseMetaTileEntity().getYCoord();
-        final int tZ = getBaseMetaTileEntity().getZCoord();
-        final World tWorld = getBaseMetaTileEntity().getWorld();
+    public void doExplosion(long explosionPower) {
+        float tStrength = GTValues.getExplosionPowerForVoltage(explosionPower);
+        final int tX = getGTE().getXCoord();
+        final int tY = getGTE().getYCoord();
+        final int tZ = getGTE().getZCoord();
+        final World tWorld = getGTE().getWorld();
         GTUtility.sendSoundToPlayers(
             tWorld,
             SoundResource.IC2_MACHINES_MACHINE_OVERLOAD,
@@ -617,7 +615,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
 
     @Override
     public int getLightOpacity() {
-        return ((BaseMetaTileEntity) getBaseMetaTileEntity()).getLightValue() > 0 ? 0 : 255;
+        return ((BaseMetaTileEntity) getGTE()).getLightValue() > 0 ? 0 : 255;
     }
 
     public boolean shouldTriggerBlockUpdate() {
@@ -719,15 +717,15 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     public int getGUIColorization() {
         Dyes dye = Dyes.dyeWhite;
         if (this.colorOverride.sLoaded()) {
-            if (this.colorOverride.sGuiTintingEnabled() && getBaseMetaTileEntity() != null) {
-                dye = Dyes.getOrDefault(getBaseMetaTileEntity().getColorization(), Dyes.GUI_METAL);
+            if (this.colorOverride.sGuiTintingEnabled() && getGTE() != null) {
+                dye = Dyes.getOrDefault(getGTE().getColorization(), Dyes.GUI_METAL);
                 return this.colorOverride.getGuiTintOrDefault(dye.mName, dye.toInt());
             }
         } else if (GregTechAPI.sColoredGUI) {
             if (GregTechAPI.sMachineMetalGUI) {
                 dye = Dyes.GUI_METAL;
-            } else if (getBaseMetaTileEntity() != null) {
-                dye = Dyes.getOrDefault(getBaseMetaTileEntity().getColorization(), Dyes.GUI_METAL);
+            } else if (getGTE() != null) {
+                dye = Dyes.getOrDefault(getGTE().getColorization(), Dyes.GUI_METAL);
             }
         }
         return dye.toInt();
@@ -739,7 +737,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     }
 
     final public byte getColor() {
-        IGregTechTileEntity baseMetaTileEntity = getBaseMetaTileEntity();
+        IGregTechTileEntity baseMetaTileEntity = getGTE();
         if (baseMetaTileEntity == null) return UNCOLOURED;
         return baseMetaTileEntity.getColorization();
     }

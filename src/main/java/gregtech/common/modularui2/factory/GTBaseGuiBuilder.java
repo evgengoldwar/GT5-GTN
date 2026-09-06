@@ -169,7 +169,7 @@ public final class GTBaseGuiBuilder {
             .top(1)
             .childPadding(2);
         for (int i = 0; i < 6; i++) {
-            column.child(getCoverTabButton(mte.getBaseMetaTileEntity(), ForgeDirection.getOrientation(i)));
+            column.child(getCoverTabButton(mte.getGTE(), ForgeDirection.getOrientation(i)));
         }
         uiSettings.getRecipeViewerSettings()
             .addExclusionArea(column);

@@ -94,8 +94,8 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
 
     public MetaPipeEntity(int aID, String aBasicName, int aInvSlotCount, boolean aAddInfo) {
         super(aID, aBasicName, aInvSlotCount);
-        setBaseMetaTileEntity(new BaseMetaPipeEntity());
-        getBaseMetaTileEntity().setMetaTileID((short) aID);
+        setGTE(new BaseMetaPipeEntity());
+        getGTE().setMetaTileID((short) aID);
 
         if (aAddInfo && GTMod.GT.isClientSide()) {
             addInfo(aID);
@@ -135,8 +135,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         // Pipes don't register a translation key for their name, and cloned instances
         // may lack fields needed for dynamic name construction (e.g. mPrefixKey).
         // Use the prototype from the registry which is always fully initialized.
-        IMetaTileEntity prototype = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity()
-            .getMetaTileID()];
+        IMetaTileEntity prototype = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getGTE().getMetaTileID()];
         if (prototype != null) {
             return prototype.getLocalName();
         }
@@ -154,7 +153,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
 
         ITexture[][] textures = inventoryTextureCache;
         if (textures == null) {
-            final IGregTechTileEntity mte = getBaseMetaTileEntity();
+            final IGregTechTileEntity mte = getGTE();
             textures = new ITexture[][] { getTexture(mte, DOWN, (CONNECTED_WEST | CONNECTED_EAST), -1, false, false),
                 getTexture(mte, WEST, (CONNECTED_WEST | CONNECTED_EAST), -1, true, false) };
             inventoryTextureCache = textures;
@@ -174,7 +173,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     @Override
     @SideOnly(Side.CLIENT)
     public boolean renderInWorld(ISBRWorldContext ctx) {
-        BaseMetaPipeEntity rte = (BaseMetaPipeEntity) getBaseMetaTileEntity();
+        BaseMetaPipeEntity rte = (BaseMetaPipeEntity) getGTE();
         if (rte == null) return false;
 
         final byte aConnections = rte.getConnections();
@@ -512,8 +511,8 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     public abstract boolean renderInside(ForgeDirection side);
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection side, ForgeDirection facing,
-        int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         return Textures.BlockIcons.ERROR_RENDERING;
     }
 
@@ -524,44 +523,44 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
 
     @Override
     // making this method final allows it to be inlined by the JIT compiler
-    public final IGregTechTileEntity getBaseMetaTileEntity() {
+    public final IGregTechTileEntity getGTE() {
         return mBaseMetaTileEntity;
     }
 
     @Override
-    public final void setBaseMetaTileEntity(IGregTechTileEntity aBaseMetaTileEntity) {
+    public final void setGTE(IGregTechTileEntity gte) {
         final IGregTechTileEntity oldBase = mBaseMetaTileEntity;
-        if (mBaseMetaTileEntity != null && aBaseMetaTileEntity == null) {
+        if (mBaseMetaTileEntity != null && gte == null) {
             mBaseMetaTileEntity.getMetaTileEntity()
                 .inValidate();
             mBaseMetaTileEntity.setMetaTileEntity(null);
         }
-        mBaseMetaTileEntity = aBaseMetaTileEntity;
+        mBaseMetaTileEntity = gte;
         if (mBaseMetaTileEntity != null) {
             mBaseMetaTileEntity.setMetaTileEntity(this);
         }
-        if (oldBase != aBaseMetaTileEntity && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
+        if (oldBase != gte && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
             oldMeta.refreshMetaTileEntityValidity();
         }
     }
 
     @Override
-    public void receiveClientEvent(byte eventID, byte value) {
-        super.receiveClientEvent(eventID, value);
-        if (eventID == GregTechTileClientEvents.CHANGE_COMMON_DATA) {
+    public void receiveClientEvent(byte eventId, byte value) {
+        super.receiveClientEvent(eventId, value);
+        if (eventId == GregTechTileClientEvents.CHANGE_COMMON_DATA) {
             mConnections = value;
         }
     }
 
     @Override
     public ItemStack getStackForm(long aAmount) {
-        return new ItemStack(GregTechAPI.sBlockMachines, (int) aAmount, getBaseMetaTileEntity().getMetaTileID());
+        return new ItemStack(GregTechAPI.sBlockMachines, (int) aAmount, getGTE().getMetaTileID());
     }
 
     @Override
     public void initDefaultModes(NBTTagCompound nbt) {
         super.initDefaultModes(nbt);
-        if (getBaseMetaTileEntity() instanceof BaseMetaPipeEntity pipe) {
+        if (getGTE() instanceof BaseMetaPipeEntity pipe) {
             pipe.updateConnections();
         }
     }
@@ -599,24 +598,24 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {}
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {}
 
     @Override
-    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer, float aX,
-        float aY, float aZ, ItemStack aTool) {
+    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool) {
         return false;
     }
 
     @Override
-    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
         return false;
     }
 
     @Override
-    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
         return false;
     }
 
@@ -655,7 +654,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     }
 
     @Override
-    public void onColorChangeServer(byte aColor) {
+    public void onColorChangeServer(byte color) {
         setCheckConnections();
     }
 
@@ -668,11 +667,10 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     }
 
     @Override
-    public void doExplosion(long aExplosionPower) {
-        float tStrength = GTValues.getExplosionPowerForVoltage(aExplosionPower);
-        int tX = getBaseMetaTileEntity().getXCoord(), tY = getBaseMetaTileEntity().getYCoord(),
-            tZ = getBaseMetaTileEntity().getZCoord();
-        World tWorld = getBaseMetaTileEntity().getWorld();
+    public void doExplosion(long explosionPower) {
+        float tStrength = GTValues.getExplosionPowerForVoltage(explosionPower);
+        int tX = getGTE().getXCoord(), tY = getGTE().getYCoord(), tZ = getGTE().getZCoord();
+        World tWorld = getGTE().getWorld();
         tWorld.setBlock(tX, tY, tZ, Blocks.air);
         if (GregTechAPI.sMachineExplosions) {
             new WorldSpawnedEventBuilder.ExplosionEffectEventBuilder().setStrength(tStrength)
@@ -693,9 +691,9 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         // Uncolored can connect to anything
         // If both are colored they must be the same color to connect.
         if (tTileEntity instanceof IColoredTileEntity) {
-            if (getBaseMetaTileEntity().getColorization() >= 0) {
+            if (getGTE().getColorization() >= 0) {
                 final byte tColor = ((IColoredTileEntity) tTileEntity).getColorization();
-                return tColor < 0 || tColor == getBaseMetaTileEntity().getColorization();
+                return tColor < 0 || tColor == getGTE().getColorization();
             }
         }
 
@@ -707,7 +705,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         if (side == ForgeDirection.UNKNOWN) return 0;
 
         final ForgeDirection oppositeSide = side.getOpposite();
-        final IGregTechTileEntity baseMetaTile = getBaseMetaTileEntity();
+        final IGregTechTileEntity baseMetaTile = getGTE();
         if (baseMetaTile == null) return 0;
 
         final Cover cover = baseMetaTile.getCoverAtSide(side);
@@ -762,7 +760,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
 
     private void connectAtSide(ForgeDirection side) {
         mConnections |= side.flag;
-        if (getBaseMetaTileEntity() instanceof BaseMetaPipeEntity pipe && pipe.isClientSide()) {
+        if (getGTE() instanceof BaseMetaPipeEntity pipe && pipe.isClientSide()) {
             pipe.mConnections = mConnections;
         }
     }
@@ -772,7 +770,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         if (side == ForgeDirection.UNKNOWN) return;
         mConnections &= ~side.flag;
         final ForgeDirection oppositeSide = side.getOpposite();
-        IGregTechTileEntity tTileEntity = getBaseMetaTileEntity().getIGregTechTileEntityAtSide(side);
+        IGregTechTileEntity tTileEntity = getGTE().getIGregTechTileEntityAtSide(side);
         IMetaTileEntity tPipe = tTileEntity == null ? null : tTileEntity.getMetaTileEntity();
         if ((this.getClass()
             .isInstance(tPipe)
@@ -828,7 +826,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         float zEnd = 1f - space;
         float xStart = space;
         float xEnd = 1f - space;
-        final BaseMetaPipeEntity baseTE = (BaseMetaPipeEntity) getBaseMetaTileEntity();
+        final BaseMetaPipeEntity baseTE = (BaseMetaPipeEntity) getGTE();
 
         if (baseTE.hasCoverAtSide(ForgeDirection.DOWN)) {
             yStart = zStart = xStart = 0;
@@ -904,8 +902,8 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         if (GregTechAPI.sColoredGUI) {
             if (GregTechAPI.sMachineMetalGUI) {
                 dye = Dyes.GUI_METAL;
-            } else if (getBaseMetaTileEntity() != null) {
-                dye = Dyes.getOrDefault(getBaseMetaTileEntity().getColorization(), Dyes.GUI_METAL);
+            } else if (getGTE() != null) {
+                dye = Dyes.getOrDefault(getGTE().getColorization(), Dyes.GUI_METAL);
             }
         }
         return dye.toInt();

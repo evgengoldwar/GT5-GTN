@@ -56,7 +56,7 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntityPipe {
             aStep += aMetaTileEntity.getStepSize();
             if (aIgnoreCapacity || aMetaTileEntity.pipeCapacityCheck())
                 if (aMap.get(aMetaTileEntity) == null || aMap.get(aMetaTileEntity) > aStep) {
-                    final IGregTechTileEntity aBaseMetaTileEntity = aMetaTileEntity.getBaseMetaTileEntity();
+                    final IGregTechTileEntity aBaseMetaTileEntity = aMetaTileEntity.getGTE();
                     aMap.put(aMetaTileEntity, aStep);
                     for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                         if (aMetaTileEntity instanceof IConnectable

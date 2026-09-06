@@ -159,7 +159,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     public void updateEntityProfiled() {
         if (!hasValidMetaTileEntity()) {
             if (mMetaTileEntity == null) return;
-            mMetaTileEntity.setBaseMetaTileEntity(this);
+            mMetaTileEntity.setGTE(this);
         }
         final boolean isServerSide = isServerSide();
         if (hasValidMetaTileEntity()) {
@@ -432,7 +432,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
         tileEntityInvalid = false;
         if (hasValidMetaTileEntity()) {
             mMetaTileEntity.onRemoval();
-            mMetaTileEntity.setBaseMetaTileEntity(null);
+            mMetaTileEntity.setGTE(null);
         }
         super.invalidate();
     }
@@ -665,7 +665,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
 
     @Override
     void refreshMetaTileEntityValidity() {
-        mMetaTileEntityValid = mMetaTileEntity != null && mMetaTileEntity.getBaseMetaTileEntity() == this;
+        mMetaTileEntityValid = mMetaTileEntity != null && mMetaTileEntity.getGTE() == this;
         mNeedsClientTick = mMetaTileEntity == null || mMetaTileEntity.needsClientTick();
     }
 
@@ -819,7 +819,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
         if (!getCoverAtSide(side).isGUIClickable()) return false;
         try {
             if (!aPlayer.isSneaking() && hasValidMetaTileEntity()) {
-                boolean value = mMetaTileEntity.onRightclick(this, aPlayer, side, aX, aY, aZ);
+                boolean value = mMetaTileEntity.onRightClick(this, aPlayer, side, aX, aY, aZ);
                 mMetaTileEntity.markDirty();
                 return value;
             }
@@ -833,7 +833,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     @Override
     public void onLeftclick(EntityPlayer aPlayer) {
         try {
-            if (aPlayer != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftclick(this, aPlayer);
+            if (aPlayer != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftClick(this, aPlayer);
         } catch (Exception e) {
             GT_FML_LOGGER.error("Encountered Exception while left clicking TileEntity", e);
         }

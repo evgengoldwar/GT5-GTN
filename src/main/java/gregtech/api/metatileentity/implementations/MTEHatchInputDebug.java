@@ -42,24 +42,24 @@ public class MTEHatchInputDebug extends MTEHatchInput {
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
         if (fluidList != null) {
             for (int i = 0; i < fluidList.length; i++) {
-                if (aNBT.hasKey("debugFluid" + i)) {
-                    fluidList[i] = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("debugFluid" + i));
+                if (nbt.hasKey("debugFluid" + i)) {
+                    fluidList[i] = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("debugFluid" + i));
                 }
             }
         }
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
         if (fluidList != null) {
             for (int i = 0; i < fluidList.length; i++) {
                 if (fluidList[i] != null) {
-                    aNBT.setTag("debugFluid" + i, fluidList[i].writeToNBT(new NBTTagCompound()));
+                    nbt.setTag("debugFluid" + i, fluidList[i].writeToNBT(new NBTTagCompound()));
                 }
             }
         }
@@ -91,14 +91,12 @@ public class MTEHatchInputDebug extends MTEHatchInput {
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -129,7 +127,7 @@ public class MTEHatchInputDebug extends MTEHatchInput {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchInputDebug(mName, mTier, mDescriptionArray, mTextures);
     }
 

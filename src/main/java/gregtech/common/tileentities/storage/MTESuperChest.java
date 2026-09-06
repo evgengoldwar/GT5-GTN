@@ -22,7 +22,7 @@ public class MTESuperChest extends MTEQuantumChest {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTESuperChest(mName, mTier, mDescriptionArray, mTextures);
     }
 }

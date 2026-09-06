@@ -35,23 +35,21 @@ public abstract class MTESpecialFilter extends MTEFilterBase {
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setBoolean("bNBTAllowed", this.allowNbt);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setBoolean("bNBTAllowed", this.allowNbt);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        this.allowNbt = aNBT.getBoolean("bNBTAllowed");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        this.allowNbt = nbt.getBoolean("bNBTAllowed");
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return (super.allowPutStack(aBaseMetaTileEntity, aIndex, side, aStack))
-            && ((this.allowNbt) || (!aStack.hasTagCompound()))
-            && (this.isStackAllowed(aStack) != this.invertFilter);
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return (super.allowPutStack(gte, index, side, itemStack)) && ((this.allowNbt) || (!itemStack.hasTagCompound()))
+            && (this.isStackAllowed(itemStack) != this.invertFilter);
     }
 
     protected abstract boolean isStackAllowed(ItemStack aStack);

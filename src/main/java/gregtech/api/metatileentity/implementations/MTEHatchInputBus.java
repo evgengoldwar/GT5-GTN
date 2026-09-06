@@ -86,7 +86,7 @@ public class MTEHatchInputBus extends MTEHatch
 
     @Override
     public ITexture[] getTexturesActive(ITexture aBaseTexture) {
-        byte color = getBaseMetaTileEntity().getColorization();
+        byte color = getGTE().getColorization();
         ITexture coloredPipeOverlay = TextureFactory.of(OVERLAY_PIPE_COLORS[color + 1]);
         return GTMod.proxy.mRenderIndicatorsOnHatch
             ? new ITexture[] { aBaseTexture, TextureFactory.of(OVERLAY_PIPE_IN), coloredPipeOverlay,
@@ -96,7 +96,7 @@ public class MTEHatchInputBus extends MTEHatch
 
     @Override
     public ITexture[] getTexturesInactive(ITexture aBaseTexture) {
-        byte color = getBaseMetaTileEntity().getColorization();
+        byte color = getGTE().getColorization();
         ITexture coloredPipeOverlay = TextureFactory.of(OVERLAY_PIPE_COLORS[color + 1]);
         return GTMod.proxy.mRenderIndicatorsOnHatch
             ? new ITexture[] { aBaseTexture, TextureFactory.of(OVERLAY_PIPE_IN), coloredPipeOverlay,
@@ -110,12 +110,12 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
-        return aIndex != getCircuitSlot();
+    public boolean isValidSlot(int index) {
+        return index != getCircuitSlot();
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchInputBus(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -129,7 +129,7 @@ public class MTEHatchInputBus extends MTEHatch
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
-        tag.setByte("color", (byte) (getBaseMetaTileEntity().getColorization() + 1));
+        tag.setByte("color", (byte) (getGTE().getColorization() + 1));
     }
 
     @Override
@@ -142,16 +142,16 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public void initDefaultModes(NBTTagCompound aNBT) {
-        if (!getBaseMetaTileEntity().getWorld().isRemote) {
-            GTClientPreference tPreference = GTMod.proxy.getClientPreference(getBaseMetaTileEntity().getOwnerUuid());
+    public void initDefaultModes(NBTTagCompound nbt) {
+        if (!getGTE().getWorld().isRemote) {
+            GTClientPreference tPreference = GTMod.proxy.getClientPreference(getGTE().getOwnerUuid());
             if (tPreference != null) disableFilter = !tPreference.isInputBusInitialFilterEnabled();
         }
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        if (aBaseMetaTileEntity.isServerSide()) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isServerSide()) {
             detectInventoryChange();
             updateSlots();
         }
@@ -171,30 +171,30 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setBoolean("disableSort", disableSort);
-        aNBT.setBoolean("disableFilter", disableFilter);
-        aNBT.setBoolean("disableLimited", disableLimited);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setBoolean("disableSort", disableSort);
+        nbt.setBoolean("disableFilter", disableFilter);
+        nbt.setBoolean("disableLimited", disableLimited);
         if (mRecipeMap != null) {
-            aNBT.setString("recipeMap", mRecipeMap.unlocalizedName);
+            nbt.setString("recipeMap", mRecipeMap.unlocalizedName);
         }
-        aNBT.setBoolean("migrationCircuitSlot", true);
+        nbt.setBoolean("migrationCircuitSlot", true);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        disableSort = aNBT.getBoolean("disableSort");
-        disableFilter = aNBT.getBoolean("disableFilter");
-        if (aNBT.hasKey("disableLimited")) {
-            disableLimited = aNBT.getBoolean("disableLimited");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        disableSort = nbt.getBoolean("disableSort");
+        disableFilter = nbt.getBoolean("disableFilter");
+        if (nbt.hasKey("disableLimited")) {
+            disableLimited = nbt.getBoolean("disableLimited");
         }
-        mRecipeMap = RecipeMap.getFromOldIdentifier(aNBT.getString("recipeMap"));
+        mRecipeMap = RecipeMap.getFromOldIdentifier(nbt.getString("recipeMap"));
 
         // TODO Delete this code after one update. Also, don't forget to delete the NbtTag - "migrationCircuitSlot".
         if (allowSelectCircuit()) {
-            if (!aNBT.hasKey("migrationCircuitSlot")) {
+            if (!nbt.hasKey("migrationCircuitSlot")) {
                 int newCircuitSlot = getSlots(mTier);
                 int oldCircuitSlot = mTier < 1 ? 1 : mTier == 1 ? 4 : mTier == 2 ? 9 : 16;
                 ItemStack oldCircuit = getStackInSlot(oldCircuitSlot);
@@ -208,11 +208,11 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
-        if (!getBaseMetaTileEntity().getCoverAtSide(side)
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
+        if (!getGTE().getCoverAtSide(side)
             .isGUIClickable()) return;
-        if (aPlayer.isSneaking()) {
+        if (player.isSneaking()) {
             if (disableSort) {
                 disableSort = false;
             } else {
@@ -224,28 +224,26 @@ public class MTEHatchInputBus extends MTEHatch
                 }
             }
             GTUtility.sendChatComp(
-                aPlayer,
+                player,
                 new ChatComponentTranslation("GT5U.hatch.disableSort." + disableSort).appendText("   ")
                     .appendSibling(new ChatComponentTranslation("GT5U.hatch.disableLimited." + disableLimited)));
         } else {
             disableFilter = !disableFilter;
-            GTUtility.sendChatTrans(aPlayer, "GT5U.hatch.disableFilter." + disableFilter);
+            GTUtility.sendChatTrans(player, "GT5U.hatch.disableFilter." + disableFilter);
         }
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        if (aIndex == getCircuitSlot()) return false;
-        return side == getBaseMetaTileEntity().getFrontFacing();
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        if (index == getCircuitSlot()) return false;
+        return side == getGTE().getFrontFacing();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return side == getBaseMetaTileEntity().getFrontFacing() && aIndex != getCircuitSlot()
-            && (mRecipeMap == null || disableFilter || mRecipeMap.containsInput(aStack))
-            && (disableLimited || limitedAllowPutStack(aIndex, aStack));
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return side == getGTE().getFrontFacing() && index != getCircuitSlot()
+            && (mRecipeMap == null || disableFilter || mRecipeMap.containsInput(itemStack))
+            && (disableLimited || limitedAllowPutStack(index, itemStack));
     }
 
     protected boolean limitedAllowPutStack(int aIndex, ItemStack aStack) {
@@ -347,7 +345,7 @@ public class MTEHatchInputBus extends MTEHatch
      * @return ItemStack of removed items, or null if nothing was removed.
      */
     public ItemStack removeResource(ItemStack[] targets, int amount) {
-        if (targets == null || targets.length == 0 || amount <= 0 || getBaseMetaTileEntity() == null) {
+        if (targets == null || targets.length == 0 || amount <= 0 || getGTE() == null) {
             return null;
         }
 
@@ -363,7 +361,7 @@ public class MTEHatchInputBus extends MTEHatch
                 if (target != null && GTUtility.areStacksEqual(slotStack, target)) {
                     if (result == null || GTUtility.areStacksEqual(result, slotStack)) {
                         int toRemove = Math.min(remaining, slotStack.stackSize);
-                        ItemStack removed = getBaseMetaTileEntity().decrStackSize(i, toRemove);
+                        ItemStack removed = getGTE().decrStackSize(i, toRemove);
                         if (removed != null) {
                             if (result == null) {
                                 result = removed.copy();
@@ -387,7 +385,7 @@ public class MTEHatchInputBus extends MTEHatch
      * @return ItemStack with the total quantity of removed items, or null if nothing was removed.
      */
     public ItemStack removeAllResource(ItemStack[] targets) {
-        if (targets == null || targets.length == 0 || getBaseMetaTileEntity() == null) {
+        if (targets == null || targets.length == 0 || getGTE() == null) {
             return null;
         }
 
@@ -402,7 +400,7 @@ public class MTEHatchInputBus extends MTEHatch
             for (ItemStack target : targets) {
                 if (target != null && GTUtility.areStacksEqual(slotStack, target)) {
                     if (result == null || GTUtility.areStacksEqual(result, slotStack)) {
-                        ItemStack removed = getBaseMetaTileEntity().decrStackSize(i, slotStack.stackSize);
+                        ItemStack removed = getGTE().decrStackSize(i, slotStack.stackSize);
                         if (removed != null) {
                             if (result == null) {
                                 result = removed.copy();

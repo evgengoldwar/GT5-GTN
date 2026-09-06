@@ -51,7 +51,7 @@ public class LinearSound implements ISoundPosition {
     public Vector3f getPosition() {
         EntityPlayer player = GTMod.proxy.getThePlayer();
 
-        IGregTechTileEntity igte = multi.getBaseMetaTileEntity();
+        IGregTechTileEntity igte = multi.getGTE();
 
         if (igte == null) return null;
 

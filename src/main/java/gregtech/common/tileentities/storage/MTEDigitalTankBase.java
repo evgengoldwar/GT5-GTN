@@ -128,47 +128,47 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public void setItemNBT(NBTTagCompound aNBT) {
+    public void setItemNBT(NBTTagCompound nbt) {
         if (mFluid != null && mFluid.amount >= 0) {
-            aNBT.setTag("mFluid", mFluid.writeToNBT(new NBTTagCompound()));
+            nbt.setTag("mFluid", mFluid.writeToNBT(new NBTTagCompound()));
         }
-        if (mOutputFluid) aNBT.setBoolean("mOutputFluid", true);
-        if (mVoidFluidPart) aNBT.setBoolean("mVoidOverflow", true);
-        if (mVoidFluidFull) aNBT.setBoolean("mVoidFluidFull", true);
-        if (mLockFluid) aNBT.setBoolean("mLockFluid", true);
-        if (mLockFluid && lockedFluid != null) aNBT.setString("lockedFluidName", lockedFluid.getName());
-        if (this.mAllowInputFromOutputSide) aNBT.setBoolean("mAllowInputFromOutputSide", true);
+        if (mOutputFluid) nbt.setBoolean("mOutputFluid", true);
+        if (mVoidFluidPart) nbt.setBoolean("mVoidOverflow", true);
+        if (mVoidFluidFull) nbt.setBoolean("mVoidFluidFull", true);
+        if (mLockFluid) nbt.setBoolean("mLockFluid", true);
+        if (mLockFluid && lockedFluid != null) nbt.setString("lockedFluidName", lockedFluid.getName());
+        if (this.mAllowInputFromOutputSide) nbt.setBoolean("mAllowInputFromOutputSide", true);
 
-        super.setItemNBT(aNBT);
+        super.setItemNBT(nbt);
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setBoolean("mOutputFluid", this.mOutputFluid);
-        aNBT.setBoolean("mVoidOverflow", this.mVoidFluidPart);
-        aNBT.setBoolean("mVoidFluidFull", this.mVoidFluidFull);
-        aNBT.setBoolean("mLockFluid", mLockFluid);
-        if (mLockFluid && lockedFluid != null) aNBT.setString("lockedFluidName", lockedFluid.getName());
-        else aNBT.removeTag("lockedFluidName");
-        aNBT.setBoolean("mAllowInputFromOutputSide", this.mAllowInputFromOutputSide);
-        aNBT.setBoolean("mDisableFilter", this.mDisableFilter);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setBoolean("mOutputFluid", this.mOutputFluid);
+        nbt.setBoolean("mVoidOverflow", this.mVoidFluidPart);
+        nbt.setBoolean("mVoidFluidFull", this.mVoidFluidFull);
+        nbt.setBoolean("mLockFluid", mLockFluid);
+        if (mLockFluid && lockedFluid != null) nbt.setString("lockedFluidName", lockedFluid.getName());
+        else nbt.removeTag("lockedFluidName");
+        nbt.setBoolean("mAllowInputFromOutputSide", this.mAllowInputFromOutputSide);
+        nbt.setBoolean("mDisableFilter", this.mDisableFilter);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        mOutputFluid = aNBT.getBoolean("mOutputFluid");
-        mVoidFluidPart = aNBT.getBoolean("mVoidOverflow");
-        mVoidFluidFull = aNBT.getBoolean("mVoidFluidFull");
-        mLockFluid = aNBT.getBoolean("mLockFluid");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        mOutputFluid = nbt.getBoolean("mOutputFluid");
+        mVoidFluidPart = nbt.getBoolean("mVoidOverflow");
+        mVoidFluidFull = nbt.getBoolean("mVoidFluidFull");
+        mLockFluid = nbt.getBoolean("mLockFluid");
         if (mLockFluid) {
-            setLockedFluid(FluidRegistry.getFluid(aNBT.getString("lockedFluidName")));
+            setLockedFluid(FluidRegistry.getFluid(nbt.getString("lockedFluidName")));
         } else {
             setLockedFluid(null);
         }
-        mAllowInputFromOutputSide = aNBT.getBoolean("mAllowInputFromOutputSide");
-        mDisableFilter = !aNBT.hasKey("mDisableFilter") || aNBT.getBoolean("mDisableFilter");
+        mAllowInputFromOutputSide = nbt.getBoolean("mAllowInputFromOutputSide");
+        mDisableFilter = !nbt.hasKey("mDisableFilter") || nbt.getBoolean("mDisableFilter");
     }
 
     @Override
@@ -311,10 +311,10 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection,
-        ForgeDirection facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+        int colorIndex, boolean active, boolean redstoneLevel) {
         if (sideDirection != ForgeDirection.UP) {
-            if (sideDirection == baseMetaTileEntity.getFrontFacing()) {
+            if (sideDirection == gte.getFrontFacing()) {
                 return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1], TextureFactory.of(OVERLAY_PIPE) };
             } else return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1] };
         }
@@ -332,16 +332,16 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public final void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
-        if (side != getBaseMetaTileEntity().getFrontFacing()) return;
-        if (aPlayer.isSneaking()) {
+    public final void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
+        if (side != getGTE().getFrontFacing()) return;
+        if (player.isSneaking()) {
             mDisableFilter = !mDisableFilter;
-            GTUtility.sendChatTrans(aPlayer, "GT5U.hatch.disableFilter." + mDisableFilter);
+            GTUtility.sendChatTrans(player, "GT5U.hatch.disableFilter." + mDisableFilter);
         } else {
             mAllowInputFromOutputSide = !mAllowInputFromOutputSide;
             GTUtility.sendChatTrans(
-                aPlayer,
+                player,
                 mAllowInputFromOutputSide ? "gt.interact.desc.input_from_output_on"
                     : "gt.interact.desc.input_from_output_off");
         }
@@ -366,8 +366,8 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        if (!aBaseMetaTileEntity.isServerSide()) return;
+    public void onPreTick(IGregTechTileEntity gte, long tick) {
+        if (!gte.isServerSide()) return;
 
         if (isFluidChangingAllowed() && getFillableStack() != null && getFillableStack().amount <= 0) {
             setFillableStack(null);
@@ -385,26 +385,26 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
                 if (getFillableStack() == null) {
                     if ((tFluid.amount <= getRealCapacity()) || mVoidFluidPart) {
                         tFluid = tFluid.copy();
-                        if (aBaseMetaTileEntity.addStackToSlot(
+                        if (gte.addStackToSlot(
                             getOutputSlot(),
                             GTUtility.getContainerForFilledItem(mInventory[getInputSlot()], true),
                             1)) {
                             setFillableStack(tFluid);
                             this.onEmptyingContainerWhenEmpty();
-                            aBaseMetaTileEntity.decrStackSize(getInputSlot(), 1);
+                            gte.decrStackSize(getInputSlot(), 1);
                         }
                     }
                 } else if (tFluid.isFluidEqual(getFillableStack())) {
                     if ((((long) tFluid.amount + getFillableStack().amount) <= (long) getRealCapacity())
                         || mVoidFluidPart
                         || mVoidFluidFull) {
-                        if (aBaseMetaTileEntity.addStackToSlot(
+                        if (gte.addStackToSlot(
                             getOutputSlot(),
                             GTUtility.getContainerForFilledItem(mInventory[getInputSlot()], true),
                             1)) {
                             getFillableStack().amount += Math
                                 .min(tFluid.amount, getRealCapacity() - getFillableStack().amount);
-                            aBaseMetaTileEntity.decrStackSize(getInputSlot(), 1);
+                            gte.decrStackSize(getInputSlot(), 1);
                         }
                     }
                 }
@@ -414,9 +414,9 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
         if (doesFillContainers()) {
             ItemStack tOutput = GTUtility
                 .fillFluidContainer(getDrainableStack(), mInventory[getInputSlot()], false, true);
-            if (tOutput != null && aBaseMetaTileEntity.addStackToSlot(getOutputSlot(), tOutput, 1)) {
+            if (tOutput != null && gte.addStackToSlot(getOutputSlot(), tOutput, 1)) {
                 FluidStack tFluid = GTUtility.getFluidForFilledItem(tOutput, true);
-                aBaseMetaTileEntity.decrStackSize(getInputSlot(), 1);
+                gte.decrStackSize(getInputSlot(), 1);
                 if (tFluid != null) getDrainableStack().amount -= tFluid.amount;
                 if (getDrainableStack().amount <= 0 && isFluidChangingAllowed()) setDrainableStack(null);
             }
@@ -444,27 +444,27 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
             if (this.mLockFluid && this.lockedFluid == null) {
                 setLockedFluid(aFluid.getFluid());
             }
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
         }
         return (mVoidFluidPart || mVoidFluidFull) ? aFluid.amount : amount;
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
 
-        if (!aBaseMetaTileEntity.isServerSide()) return;
+        if (!gte.isServerSide()) return;
 
-        if (mOutputFluid && getDrainableStack() != null && (aTick % 20 == 0)) {
-            IFluidHandler tTank = aBaseMetaTileEntity.getITankContainerAtSide(aBaseMetaTileEntity.getFrontFacing());
+        if (mOutputFluid && getDrainableStack() != null && (tick % 20 == 0)) {
+            IFluidHandler tTank = gte.getITankContainerAtSide(gte.getFrontFacing());
             if (tTank == null) return;
 
             FluidStack tDrained = drain(20 * (1 << (3 + 2 * tierPump(mTier))), false);
             if (tDrained == null) return;
 
-            int tFilledAmount = tTank.fill(aBaseMetaTileEntity.getBackFacing(), tDrained, false);
+            int tFilledAmount = tTank.fill(gte.getBackFacing(), tDrained, false);
             if (tFilledAmount > 0) {
-                tTank.fill(aBaseMetaTileEntity.getBackFacing(), drain(tFilledAmount, true), true);
+                tTank.fill(gte.getBackFacing(), drain(tFilledAmount, true), true);
             }
         }
     }
@@ -481,15 +481,14 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
 
     @Override
     public boolean isLiquidInput(ForgeDirection side) {
-        return mAllowInputFromOutputSide || side != getBaseMetaTileEntity().getFrontFacing();
+        return mAllowInputFromOutputSide || side != getGTE().getFrontFacing();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        if (!super.allowPutStack(aBaseMetaTileEntity, aIndex, side, aStack)) return false;
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        if (!super.allowPutStack(gte, index, side, itemStack)) return false;
         if (mDisableFilter) return true;
-        FluidStack tFluid = GTUtility.getFluidForFilledItem(aStack, true);
+        FluidStack tFluid = GTUtility.getFluidForFilledItem(itemStack, true);
         return tFluid == null || isFluidInputAllowed(tFluid);
     }
 

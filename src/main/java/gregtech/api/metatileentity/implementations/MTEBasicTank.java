@@ -72,18 +72,18 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
-        return aIndex != getStackDisplaySlot();
+    public boolean isValidSlot(int index) {
+        return index != getStackDisplaySlot();
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        if (mFluid != null) aNBT.setTag("mFluid", mFluid.writeToNBT(new NBTTagCompound()));
+    public void saveNBTData(NBTTagCompound nbt) {
+        if (mFluid != null) nbt.setTag("mFluid", mFluid.writeToNBT(new NBTTagCompound()));
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        mFluid = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("mFluid"));
+    public void loadNBTData(NBTTagCompound nbt) {
+        mFluid = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("mFluid"));
     }
 
     public abstract boolean doesFillContainers();
@@ -146,8 +146,8 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        if (aBaseMetaTileEntity.isServerSide()) {
+    public void onPreTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isServerSide()) {
             if (isFluidChangingAllowed() && getFillableStack() != null && getFillableStack().amount <= 0) {
                 setFillableStack(null);
             }
@@ -159,24 +159,24 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
                 if (tFluid != null && isFluidInputAllowed(tFluid)) {
                     if (getFillableStack() == null) {
                         if (isFluidInputAllowed(tFluid) && tFluid.amount <= getCapacity()) {
-                            if (aBaseMetaTileEntity.addStackToSlot(
+                            if (gte.addStackToSlot(
                                 getOutputSlot(),
                                 GTUtility.getContainerForFilledItem(mInventory[inputSlot], true),
                                 1)) {
                                 setFillableStack(tFluid.copy());
                                 this.onEmptyingContainerWhenEmpty();
-                                aBaseMetaTileEntity.decrStackSize(inputSlot, 1);
+                                gte.decrStackSize(inputSlot, 1);
                             }
                         }
                     } else {
                         if (tFluid.isFluidEqual(getFillableStack())
                             && ((long) tFluid.amount + getFillableStack().amount) <= (long) getCapacity()) {
-                            if (aBaseMetaTileEntity.addStackToSlot(
+                            if (gte.addStackToSlot(
                                 getOutputSlot(),
                                 GTUtility.getContainerForFilledItem(mInventory[inputSlot], true),
                                 1)) {
                                 getFillableStack().amount += tFluid.amount;
-                                aBaseMetaTileEntity.decrStackSize(inputSlot, 1);
+                                gte.decrStackSize(inputSlot, 1);
                             }
                         }
                     }
@@ -186,9 +186,9 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
             if (doesFillContainers()) {
                 ItemStack tOutput = GTUtility
                     .fillFluidContainer(getDrainableStack(), mInventory[inputSlot], false, true);
-                if (tOutput != null && aBaseMetaTileEntity.addStackToSlot(getOutputSlot(), tOutput, 1)) {
+                if (tOutput != null && gte.addStackToSlot(getOutputSlot(), tOutput, 1)) {
                     FluidStack tFluid = GTUtility.getFluidForFilledItem(tOutput, true);
-                    aBaseMetaTileEntity.decrStackSize(inputSlot, 1);
+                    gte.decrStackSize(inputSlot, 1);
                     if (tFluid != null) getDrainableStack().amount -= tFluid.amount;
                     if (getDrainableStack().amount <= 0 && isFluidChangingAllowed()) setDrainableStack(null);
                 }
@@ -216,14 +216,14 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
             if (aFluid.amount <= getCapacity()) {
                 if (doFill) {
                     setFillableStack(aFluid.copy());
-                    getBaseMetaTileEntity().markDirty();
+                    getGTE().markDirty();
                 }
                 return aFluid.amount;
             }
             if (doFill) {
                 setFillableStack(aFluid.copy());
                 getFillableStack().amount = getCapacity();
-                getBaseMetaTileEntity().markDirty();
+                getGTE().markDirty();
             }
             return getCapacity();
         }
@@ -234,7 +234,7 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
         if (aFluid.amount <= space) {
             if (doFill) {
                 getFillableStack().amount += aFluid.amount;
-                getBaseMetaTileEntity().markDirty();
+                getGTE().markDirty();
             }
             return aFluid.amount;
         }
@@ -247,7 +247,7 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
         if (getDrainableStack() == null || !canTankBeEmptied()) return null;
         if (getDrainableStack().amount <= 0 && isFluidChangingAllowed()) {
             setDrainableStack(null);
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
             return null;
         }
 
@@ -256,7 +256,7 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
 
         if (doDrain) {
             getDrainableStack().amount -= used;
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
         }
 
         FluidStack drained = getDrainableStack().copy();
@@ -264,7 +264,7 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
 
         if (getDrainableStack().amount <= 0 && isFluidChangingAllowed()) {
             setDrainableStack(null);
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
         }
 
         return drained;
@@ -282,15 +282,13 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return aIndex == getOutputSlot();
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return index == getOutputSlot();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return aIndex == getInputSlot();
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return index == getInputSlot();
     }
 
     protected void onEmptyingContainerWhenEmpty() {
@@ -332,13 +330,13 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
 
     protected Widget createMuffleButton() {
         return new ButtonWidget().setOnClick((clickData, widget) -> {
-            if (getBaseMetaTileEntity().isClientSide()) return;
-            getBaseMetaTileEntity().setMuffler(!getBaseMetaTileEntity().isMuffled());
+            if (getGTE().isClientSide()) return;
+            getGTE().setMuffler(!getGTE().isMuffled());
         })
             .setPlayClickSound(true)
             .setBackground(() -> {
                 List<UITexture> ret = new ArrayList<>();
-                if (getBaseMetaTileEntity().isMuffled()) {
+                if (getGTE().isMuffled()) {
                     ret.add(GTUITextures.OVERLAY_BUTTON_MUFFLE_ON);
                 } else {
                     ret.add(GTUITextures.OVERLAY_BUTTON_MUFFLE_OFF);

@@ -73,13 +73,13 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
-        int colorIndex, boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
+        boolean aActive, boolean redstoneLevel) {
         return mTextures[side == aFacing ? 1 : 0][colorIndex + 1];
     }
 
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEBasicBatteryBuffer(mName, mTier, mDescriptionArray, mTextures, mInventory.length);
     }
 
@@ -100,12 +100,12 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
 
     @Override
     public boolean isInputFacing(ForgeDirection side) {
-        return side != getBaseMetaTileEntity().getFrontFacing();
+        return side != getGTE().getFrontFacing();
     }
 
     @Override
     public boolean isOutputFacing(ForgeDirection side) {
-        return side == getBaseMetaTileEntity().getFrontFacing();
+        return side == getGTE().getFrontFacing();
     }
 
     @Override
@@ -155,21 +155,21 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
 
     @Override
     public int getProgresstime() {
-        return (int) getBaseMetaTileEntity().getUniversalEnergyStored();
+        return (int) getGTE().getUniversalEnergyStored();
     }
 
     @Override
     public int maxProgresstime() {
-        return (int) getBaseMetaTileEntity().getUniversalEnergyCapacity();
+        return (int) getGTE().getUniversalEnergyCapacity();
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
+    public void saveNBTData(NBTTagCompound nbt) {
         //
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
+    public void loadNBTData(NBTTagCompound nbt) {
         //
     }
 
@@ -184,10 +184,10 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        if (aBaseMetaTileEntity.isServerSide()) {
-            mCharge = aBaseMetaTileEntity.getStoredEU() / 2 > aBaseMetaTileEntity.getEUCapacity() / 3 || forceCharge();
-            mDecharge = aBaseMetaTileEntity.getStoredEU() < aBaseMetaTileEntity.getEUCapacity() / 3 && !forceCharge();
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isServerSide()) {
+            mCharge = gte.getStoredEU() / 2 > gte.getEUCapacity() / 3 || forceCharge();
+            mDecharge = gte.getStoredEU() < gte.getEUCapacity() / 3 && !forceCharge();
             mBatteryCount = 0;
             mChargeableCount = 0;
             for (ItemStack tStack : mInventory) if (GTModHandler.isElectricItem(tStack, mTier)) {
@@ -199,29 +199,27 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        if (GTModHandler.isElectricItem(aStack) && aStack.getUnlocalizedName()
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        if (GTModHandler.isElectricItem(itemStack) && itemStack.getUnlocalizedName()
             .startsWith("gt.metaitem.01.")) {
-            String name = aStack.getUnlocalizedName();
+            String name = itemStack.getUnlocalizedName();
             if (name.equals("gt.metaitem.01.32510") || name.equals("gt.metaitem.01.32511")
                 || name.equals("gt.metaitem.01.32520")
                 || name.equals("gt.metaitem.01.32521")
                 || name.equals("gt.metaitem.01.32530")
                 || name.equals("gt.metaitem.01.32531")) {
-                return ic2.api.item.ElectricItem.manager.getCharge(aStack) == 0;
+                return ic2.api.item.ElectricItem.manager.getCharge(itemStack) == 0;
             }
         }
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        if (!GTUtility.isStackValid(aStack)) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        if (!GTUtility.isStackValid(itemStack)) {
             return false;
         }
-        return mInventory[aIndex] == null && GTModHandler.isElectricItem(aStack, this.mTier);
+        return mInventory[index] == null && GTModHandler.isElectricItem(itemStack, this.mTier);
     }
 
     @Override
@@ -232,8 +230,8 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     public long[] getStoredEnergy() {
         boolean scaleOverflow = false;
         boolean storedOverflow = false;
-        long tScale = getBaseMetaTileEntity().getEUCapacity();
-        long tStored = getBaseMetaTileEntity().getStoredEU();
+        long tScale = getGTE().getEUCapacity();
+        long tStored = getGTE().getStoredEU();
         long tStep = 0;
         if (mInventory != null) {
             for (ItemStack aStack : mInventory) {
@@ -277,12 +275,11 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
                 "GT5U.infodata.battery_buffer.stored_items",
                 EnumChatFormatting.GREEN + formatNumber(mStored) + EnumChatFormatting.RESET,
                 EnumChatFormatting.YELLOW + formatNumber(mMax) + EnumChatFormatting.RESET),
-            IGregTechDeviceInformation.encode(
-                "GT5U.infodata.battery_buffer.average_input",
-                formatNumber(getBaseMetaTileEntity().getAverageElectricInput())),
+            IGregTechDeviceInformation
+                .encode("GT5U.infodata.battery_buffer.average_input", formatNumber(getGTE().getAverageElectricInput())),
             IGregTechDeviceInformation.encode(
                 "GT5U.infodata.battery_buffer.average_output",
-                formatNumber(getBaseMetaTileEntity().getAverageElectricOutput())) };
+                formatNumber(getGTE().getAverageElectricOutput())) };
     }
 
     private void updateStorageInfo() {
@@ -327,8 +324,8 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
         tag.setLong("mStored", mStored);
         tag.setLong("mMax", mMax);
-        tag.setLong("AvgIn", getBaseMetaTileEntity().getAverageElectricInput());
-        tag.setLong("AvgOut", getBaseMetaTileEntity().getAverageElectricOutput());
+        tag.setLong("AvgIn", getGTE().getAverageElectricInput());
+        tag.setLong("AvgOut", getGTE().getAverageElectricOutput());
     }
 
     @Override

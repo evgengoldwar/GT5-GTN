@@ -102,7 +102,7 @@ public class MEItemInventoryHandler<T extends IMetaTileEntity & IMEAwareItemInve
 
     @Override
     public IAEItemStack injectItems(IAEItemStack input, Actionable mode, BaseActionSource src) {
-        if (machine.getBaseMetaTileEntity() == null) return input;
+        if (machine.getGTE() == null) return input;
 
         final ItemStack inputStack = input.getItemStack();
         final int maxCapacity = machine.getItemCapacity();
@@ -130,7 +130,7 @@ public class MEItemInventoryHandler<T extends IMetaTileEntity & IMEAwareItemInve
                 machine.setItemStack(inputStack.copy());
             }
             machine.setItemCount(newCount);
-            machine.getBaseMetaTileEntity()
+            machine.getGTE()
                 .markDirty();
         }
 
@@ -144,12 +144,12 @@ public class MEItemInventoryHandler<T extends IMetaTileEntity & IMEAwareItemInve
 
     @Override
     public IAEItemStack extractItems(IAEItemStack request, Actionable mode, BaseActionSource src) {
-        if (machine.getBaseMetaTileEntity() == null) return null;
+        if (machine.getGTE() == null) return null;
 
         if (request.isSameType(machine.getItemStack())) {
             // Internal inv content is queried
             if (mode != Actionable.SIMULATE) {
-                machine.getBaseMetaTileEntity()
+                machine.getGTE()
                     .markDirty();
             }
             final ItemStack storedItemStack = machine.getItemStack();
@@ -192,7 +192,7 @@ public class MEItemInventoryHandler<T extends IMetaTileEntity & IMEAwareItemInve
             // Requested specifically for extra inv
             ItemStack extraItemStack = machine.getExtraItemStack();
             if (mode != Actionable.SIMULATE) {
-                machine.getBaseMetaTileEntity()
+                machine.getGTE()
                     .markDirty();
             }
             if (request.getStackSize() >= extraItemStack.stackSize) {

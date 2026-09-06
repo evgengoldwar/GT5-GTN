@@ -57,24 +57,22 @@ public class MTEHatchMuffler extends MTEHatch {
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return false;
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchMuffler(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -84,17 +82,17 @@ public class MTEHatchMuffler extends MTEHatch {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isClientSide() && this.getBaseMetaTileEntity()
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isClientSide() && this.getGTE()
             .isActive()) {
             pollutionParticles(
-                this.getBaseMetaTileEntity()
+                this.getGTE()
                     .getWorld(),
                 ParticleFX.LARGE_SMOKE.toString());
         }
-        if (aBaseMetaTileEntity.isServerSide() && aTick % 100 == 0) {
-            aBaseMetaTileEntity.tryDisableTicking();
+        if (gte.isServerSide() && tick % 100 == 0) {
+            gte.tryDisableTicking();
         }
     }
 
@@ -113,7 +111,7 @@ public class MTEHatchMuffler extends MTEHatch {
         ran2 = ran3 = 0.0F;
         chk2 = chk3 = false;
 
-        final IGregTechTileEntity aMuffler = this.getBaseMetaTileEntity();
+        final IGregTechTileEntity aMuffler = this.getGTE();
         final ForgeDirection aDir = aMuffler.getFrontFacing();
         final float xPos = aDir.offsetX * 0.76F + aMuffler.getXCoord() + 0.25F;
         final float yPos = aDir.offsetY * 0.76F + aMuffler.getYCoord() + 0.25F;

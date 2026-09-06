@@ -198,7 +198,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     /**
-     * For {@link #newMetaEntity}.
+     * For {@link #newMTE}.
      */
     public MTEBasicMachine(String aName, int aTier, int aAmperage, String[] aDescription, ITexture[][][] aTextures,
         int aInputSlotCount, int aOutputSlotCount) {
@@ -240,8 +240,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     public boolean setMainFacing(ForgeDirection side) {
         if (!isValidMainFacing(side)) return false;
         mMainFacing = side;
-        if (getBaseMetaTileEntity().getFrontFacing() == mMainFacing) {
-            getBaseMetaTileEntity().setFrontFacing(side.getOpposite());
+        if (getGTE().getFrontFacing() == mMainFacing) {
+            getGTE().setFrontFacing(side.getOpposite());
         }
         onFacingChange();
         onMachineBlockUpdate();
@@ -278,8 +278,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection,
-        ForgeDirection facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+        int colorIndex, boolean active, boolean redstoneLevel) {
         final int textureIndex;
         if ((mMainFacing.flag & (UP.flag | DOWN.flag)) != 0) { // UP or DOWN
             if (sideDirection == facingDirection) {
@@ -314,10 +314,10 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
-        return aIndex > 0 && super.isValidSlot(aIndex)
-            && aIndex != getCircuitSlot()
-            && aIndex != OTHER_SLOT_COUNT + mInputSlotCount + mOutputItems.length;
+    public boolean isValidSlot(int index) {
+        return index > 0 && super.isValidSlot(index)
+            && index != getCircuitSlot()
+            && index != OTHER_SLOT_COUNT + mInputSlotCount + mOutputItems.length;
     }
 
     @Override
@@ -350,7 +350,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
 
     @Override
     public boolean isLiquidInput(ForgeDirection side) {
-        return side != mMainFacing && (mAllowInputFromOutputSide || side != getBaseMetaTileEntity().getFrontFacing());
+        return side != mMainFacing && (mAllowInputFromOutputSide || side != getGTE().getFrontFacing());
     }
 
     @Override
@@ -499,17 +499,16 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public void initDefaultModes(NBTTagCompound aNBT) {
-        ForgeDirection facing = getBaseMetaTileEntity().getFrontFacing();
+    public void initDefaultModes(NBTTagCompound nbt) {
+        ForgeDirection facing = getGTE().getFrontFacing();
         if (isValidMainFacing(facing)) {
             setMainFacing(facing);
         } else {
             // Just in case someone set the facing wrongly, we still initialize main facing.
             setMainFacing(ForgeDirection.WEST);
         }
-        if (!getBaseMetaTileEntity().getWorld().isRemote) {
-            final GTClientPreference tPreference = GTMod.proxy
-                .getClientPreference(getBaseMetaTileEntity().getOwnerUuid());
+        if (!getGTE().getWorld().isRemote) {
+            final GTClientPreference tPreference = GTMod.proxy.getClientPreference(getGTE().getOwnerUuid());
             if (tPreference != null) {
                 mDisableFilter = !tPreference.isSingleBlockInitialFilterEnabled();
                 mDisableMultiStack = !tPreference.isSingleBlockInitialMultiStackEnabled();
@@ -518,40 +517,40 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setBoolean("mFluidTransfer", mFluidTransfer);
-        aNBT.setBoolean("mItemTransfer", mItemTransfer);
-        aNBT.setBoolean("mAllowInputFromOutputSide", mAllowInputFromOutputSide);
-        aNBT.setBoolean("mDisableFilter", mDisableFilter);
-        aNBT.setBoolean("mDisableMultiStack", mDisableMultiStack);
-        aNBT.setInteger("mEUt", mEUt);
-        aNBT.setInteger("mMainFacing", mMainFacing.ordinal());
-        aNBT.setInteger("mProgresstime", mProgresstime);
-        aNBT.setInteger("mMaxProgresstime", mMaxProgresstime);
-        if (mOutputFluid != null) aNBT.setTag("mOutputFluid", mOutputFluid.writeToNBT(new NBTTagCompound()));
-        if (mFluidOut != null) aNBT.setTag("mFluidOut", mFluidOut.writeToNBT(new NBTTagCompound()));
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setBoolean("mFluidTransfer", mFluidTransfer);
+        nbt.setBoolean("mItemTransfer", mItemTransfer);
+        nbt.setBoolean("mAllowInputFromOutputSide", mAllowInputFromOutputSide);
+        nbt.setBoolean("mDisableFilter", mDisableFilter);
+        nbt.setBoolean("mDisableMultiStack", mDisableMultiStack);
+        nbt.setInteger("mEUt", mEUt);
+        nbt.setInteger("mMainFacing", mMainFacing.ordinal());
+        nbt.setInteger("mProgresstime", mProgresstime);
+        nbt.setInteger("mMaxProgresstime", mMaxProgresstime);
+        if (mOutputFluid != null) nbt.setTag("mOutputFluid", mOutputFluid.writeToNBT(new NBTTagCompound()));
+        if (mFluidOut != null) nbt.setTag("mFluidOut", mFluidOut.writeToNBT(new NBTTagCompound()));
 
         for (int i = 0; i < mOutputItems.length; i++)
-            if (mOutputItems[i] != null) GTUtility.saveItem(aNBT, "mOutputItem" + i, mOutputItems[i]);
+            if (mOutputItems[i] != null) GTUtility.saveItem(nbt, "mOutputItem" + i, mOutputItems[i]);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        mFluidTransfer = aNBT.getBoolean("mFluidTransfer");
-        mItemTransfer = aNBT.getBoolean("mItemTransfer");
-        mAllowInputFromOutputSide = aNBT.getBoolean("mAllowInputFromOutputSide");
-        mDisableFilter = aNBT.getBoolean("mDisableFilter");
-        mDisableMultiStack = aNBT.getBoolean("mDisableMultiStack");
-        mEUt = aNBT.getInteger("mEUt");
-        mMainFacing = ForgeDirection.getOrientation(aNBT.getInteger("mMainFacing"));
-        mProgresstime = aNBT.getInteger("mProgresstime");
-        mMaxProgresstime = aNBT.getInteger("mMaxProgresstime");
-        mOutputFluid = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("mOutputFluid"));
-        mFluidOut = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("mFluidOut"));
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        mFluidTransfer = nbt.getBoolean("mFluidTransfer");
+        mItemTransfer = nbt.getBoolean("mItemTransfer");
+        mAllowInputFromOutputSide = nbt.getBoolean("mAllowInputFromOutputSide");
+        mDisableFilter = nbt.getBoolean("mDisableFilter");
+        mDisableMultiStack = nbt.getBoolean("mDisableMultiStack");
+        mEUt = nbt.getInteger("mEUt");
+        mMainFacing = ForgeDirection.getOrientation(nbt.getInteger("mMainFacing"));
+        mProgresstime = nbt.getInteger("mProgresstime");
+        mMaxProgresstime = nbt.getInteger("mMaxProgresstime");
+        mOutputFluid = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("mOutputFluid"));
+        mFluidOut = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("mFluidOut"));
 
-        for (int i = 0; i < mOutputItems.length; i++) mOutputItems[i] = GTUtility.loadItem(aNBT, "mOutputItem" + i);
+        for (int i = 0; i < mOutputItems.length; i++) mOutputItems[i] = GTUtility.loadItem(nbt, "mOutputItem" + i);
     }
 
     /**
@@ -577,24 +576,23 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
 
-        if (aBaseMetaTileEntity.isServerSide()) {
-            mCharge = aBaseMetaTileEntity.getStoredEU() / 2 > aBaseMetaTileEntity.getEUCapacity() / 3;
-            mDecharge = aBaseMetaTileEntity.getStoredEU() < aBaseMetaTileEntity.getEUCapacity() / 3;
+        if (gte.isServerSide()) {
+            mCharge = gte.getStoredEU() / 2 > gte.getEUCapacity() / 3;
+            mDecharge = gte.getStoredEU() < gte.getEUCapacity() / 3;
 
             boolean tSucceeded = false;
             boolean isActive = mMaxProgresstime > 0;
 
-            if (isActive && (mProgresstime >= 0 || aBaseMetaTileEntity.isAllowedToWork())) {
+            if (isActive && (mProgresstime >= 0 || gte.isAllowedToWork())) {
                 markDirty();
                 if (mProgresstime < 0 || drainEnergyForProcess(mEUt)) {
-                    aBaseMetaTileEntity.setActive(mProgresstime >= 0);
+                    gte.setActive(mProgresstime >= 0);
                     if (++mProgresstime >= mMaxProgresstime) {
-                        for (int i = 0; i < mOutputItems.length; i++)
-                            for (int j = 0; j < mOutputItems.length; j++) if (aBaseMetaTileEntity
-                                .addStackToSlot(getOutputSlot() + ((j + i) % mOutputItems.length), mOutputItems[i]))
+                        for (int i = 0; i < mOutputItems.length; i++) for (int j = 0; j < mOutputItems.length; j++)
+                            if (gte.addStackToSlot(getOutputSlot() + ((j + i) % mOutputItems.length), mOutputItems[i]))
                                 break;
                         if (mOutputFluid != null)
                             if (getDrainableStack() == null) setDrainableStack(mOutputFluid.copy());
@@ -618,34 +616,31 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                     }
                 }
             } else {
-                aBaseMetaTileEntity.setActive(false);
+                gte.setActive(false);
             }
 
             boolean tRemovedOutputFluid = false;
 
             if (doesAutoOutputFluids() && getDrainableStack() != null
-                && aBaseMetaTileEntity.getFrontFacing() != mMainFacing
-                && (tSucceeded || aTick % 20 == 0)) {
-                IFluidHandler tTank = aBaseMetaTileEntity.getITankContainerAtSide(aBaseMetaTileEntity.getFrontFacing());
+                && gte.getFrontFacing() != mMainFacing
+                && (tSucceeded || tick % 20 == 0)) {
+                IFluidHandler tTank = gte.getITankContainerAtSide(gte.getFrontFacing());
                 if (tTank != null) {
                     FluidStack tDrained = drain(1000, false);
                     if (tDrained != null) {
-                        final int tFilledAmount = tTank.fill(aBaseMetaTileEntity.getBackFacing(), tDrained, false);
-                        if (tFilledAmount > 0)
-                            tTank.fill(aBaseMetaTileEntity.getBackFacing(), drain(tFilledAmount, true), true);
+                        final int tFilledAmount = tTank.fill(gte.getBackFacing(), tDrained, false);
+                        if (tFilledAmount > 0) tTank.fill(gte.getBackFacing(), drain(tFilledAmount, true), true);
                     }
                 }
                 if (getDrainableStack() == null) tRemovedOutputFluid = true;
             }
 
             if (doesAutoOutput() && !isOutputEmpty()
-                && aBaseMetaTileEntity.getFrontFacing() != mMainFacing
-                && (tSucceeded || mOutputBlocked % 300 == 1
-                    || aBaseMetaTileEntity.hasInventoryBeenModified()
-                    || aTick % 600 == 0)) {
+                && gte.getFrontFacing() != mMainFacing
+                && (tSucceeded || mOutputBlocked % 300 == 1 || gte.hasInventoryBeenModified() || tick % 600 == 0)) {
                 GTItemTransfer transfer = new GTItemTransfer();
 
-                transfer.outOfMachine(this, aBaseMetaTileEntity.getFrontFacing());
+                transfer.outOfMachine(this, gte.getFrontFacing());
                 transfer.dropItems(this);
 
                 transfer.setStacksToTransfer(mOutputItems.length);
@@ -657,11 +652,11 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             else mOutputBlocked++;
 
             if (allowToCheckRecipe()) {
-                if (mMaxProgresstime <= 0 && aBaseMetaTileEntity.isAllowedToWork()
+                if (mMaxProgresstime <= 0 && gte.isAllowedToWork()
                     && (tRemovedOutputFluid || tSucceeded
-                        || aBaseMetaTileEntity.hasInventoryBeenModified()
-                        || aTick % 600 == 0
-                        || aBaseMetaTileEntity.hasWorkJustBeenEnabled())
+                        || gte.hasInventoryBeenModified()
+                        || tick % 600 == 0
+                        || gte.hasWorkJustBeenEnabled())
                     && hasEnoughEnergyToCheckRecipe()) {
                     if (checkRecipe() == FOUND_AND_SUCCESSFULLY_USED_RECIPE) {
                         if (getSpecialSlot() != null && getSpecialSlot().stackSize <= 0)
@@ -686,7 +681,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             } else {
                 if (!mStuttering) {
                     stutterProcess();
-                    aBaseMetaTileEntity.setActive(false);
+                    gte.setActive(false);
                     mStuttering = true;
                 }
             }
@@ -701,11 +696,11 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     protected boolean hasEnoughEnergyToCheckRecipe() {
-        return getBaseMetaTileEntity().isUniversalEnergyStored(getMinimumStoredEU() / 2);
+        return getGTE().isUniversalEnergyStored(getMinimumStoredEU() / 2);
     }
 
     protected boolean drainEnergyForProcess(long aEUt) {
-        return getBaseMetaTileEntity().decreaseStoredEnergyUnits(aEUt, false);
+        return getGTE().decreaseStoredEnergyUnits(aEUt, false);
     }
 
     /**
@@ -794,8 +789,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public void onValueUpdate(byte aValue) {
-        mMainFacing = ForgeDirection.getOrientation(aValue);
+    public void onValueUpdate(byte value) {
+        mMainFacing = ForgeDirection.getOrientation(value);
     }
 
     @Override
@@ -804,9 +799,9 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public void doSound(byte aIndex, double aX, double aY, double aZ) {
-        super.doSound(aIndex, aX, aY, aZ);
-        if (aIndex == 8) GTUtility.doSoundAtClient(SoundResource.IC2_MACHINES_INTERRUPT_ONE, 100, 1.0F, aX, aY, aZ);
+    public void doSound(byte index, double x, double y, double z) {
+        super.doSound(index, x, y, z);
+        if (index == 8) GTUtility.doSoundAtClient(SoundResource.IC2_MACHINES_INTERRUPT_ONE, 100, 1.0F, x, y, z);
     }
 
     public boolean doesAutoOutput() {
@@ -869,13 +864,9 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     protected void updateSounds(SoundResource activitySound) {
         if (activitySound == null) return;
 
-        if (getBaseMetaTileEntity().isActive() && !getBaseMetaTileEntity().isMuffled()) {
+        if (getGTE().isActive() && !getGTE().isMuffled()) {
             if (activitySoundLoop == null) {
-                activitySoundLoop = new GTSoundLoop(
-                    activitySound.resourceLocation,
-                    getBaseMetaTileEntity(),
-                    false,
-                    true);
+                activitySoundLoop = new GTSoundLoop(activitySound.resourceLocation, getGTE(), false, true);
                 Minecraft.getMinecraft()
                     .getSoundHandler()
                     .playSound(activitySoundLoop);
@@ -916,10 +907,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                 EnumChatFormatting.YELLOW + formatNumber(mMaxProgresstime / 20) + EnumChatFormatting.RESET),
             IGregTechDeviceInformation.encode(
                 "GT5U.infodata.energy",
-                EnumChatFormatting.GREEN + formatNumber(getBaseMetaTileEntity().getStoredEU())
-                    + EnumChatFormatting.RESET,
-                EnumChatFormatting.YELLOW + formatNumber(getBaseMetaTileEntity().getEUCapacity())
-                    + EnumChatFormatting.RESET),
+                EnumChatFormatting.GREEN + formatNumber(getGTE().getStoredEU()) + EnumChatFormatting.RESET,
+                EnumChatFormatting.YELLOW + formatNumber(getGTE().getEUCapacity()) + EnumChatFormatting.RESET),
             IGregTechDeviceInformation.encode(
                 "GT5U.infodata.currently_uses",
                 EnumChatFormatting.RED + formatNumber(mEUt) + EnumChatFormatting.RESET,
@@ -932,16 +921,16 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
-        if (side == getBaseMetaTileEntity().getFrontFacing() || side == mMainFacing) {
-            if (aPlayer.isSneaking()) {
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
+        if (side == getGTE().getFrontFacing() || side == mMainFacing) {
+            if (player.isSneaking()) {
                 mDisableFilter = !mDisableFilter;
-                GTUtility.sendChatTrans(aPlayer, "GT5U.hatch.disableFilter." + mDisableFilter);
+                GTUtility.sendChatTrans(player, "GT5U.hatch.disableFilter." + mDisableFilter);
             } else {
                 mAllowInputFromOutputSide = !mAllowInputFromOutputSide;
                 GTUtility.sendChatTrans(
-                    aPlayer,
+                    player,
                     mAllowInputFromOutputSide ? "gt.interact.desc.input_from_output_on"
                         : "gt.interact.desc.input_from_output_off");
             }
@@ -949,12 +938,12 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide,
-        EntityPlayer entityPlayer, float aX, float aY, float aZ, ItemStack aTool) {
-        if (!entityPlayer.isSneaking() || wrenchingSide != mMainFacing)
-            return super.onSolderingToolRightClick(side, wrenchingSide, entityPlayer, aX, aY, aZ, aTool);
+    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
+        if (!player.isSneaking() || wrenchingSide != mMainFacing)
+            return super.onSolderingToolRightClick(side, wrenchingSide, player, x, y, z, tool);
         mDisableMultiStack = !mDisableMultiStack;
-        GTUtility.sendChatTrans(entityPlayer, "GT5U.hatch.disableMultiStack." + mDisableMultiStack);
+        GTUtility.sendChatTrans(player, "GT5U.hatch.disableMultiStack." + mDisableMultiStack);
         return true;
     }
 
@@ -966,26 +955,24 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return side != mMainFacing && aIndex >= getOutputSlot() && aIndex < getOutputSlot() + mOutputItems.length;
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return side != mMainFacing && index >= getOutputSlot() && index < getOutputSlot() + mOutputItems.length;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (side == mMainFacing) return false;
-        if (aIndex < getInputSlot()) return false;
-        if (aIndex >= getInputSlot() + mInputSlotCount) return false;
-        if (!mAllowInputFromOutputSide && side == aBaseMetaTileEntity.getFrontFacing()) return false;
+        if (index < getInputSlot()) return false;
+        if (index >= getInputSlot() + mInputSlotCount) return false;
+        if (!mAllowInputFromOutputSide && side == gte.getFrontFacing()) return false;
 
         for (int i = getInputSlot(), j = i + mInputSlotCount; i < j; i++) {
-            if (GTUtility.areStacksEqual(GTOreDictUnificator.get(aStack), mInventory[i]) && mDisableMultiStack) {
-                return i == aIndex;
+            if (GTUtility.areStacksEqual(GTOreDictUnificator.get(itemStack), mInventory[i]) && mDisableMultiStack) {
+                return i == index;
             }
         }
 
-        return mDisableFilter || allowPutStackValidated(aBaseMetaTileEntity, aIndex, side, aStack);
+        return mDisableFilter || allowPutStackValidated(gte, index, side, itemStack);
     }
 
     /**
@@ -1087,12 +1074,12 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         if (tRecipe == null) {
             return DID_NOT_FIND_RECIPE;
         }
-        if (tRecipe.getMetadataOrDefault(EXPLODE, false) && getBaseMetaTileEntity() != null) {
-            getBaseMetaTileEntity().doExplosion(V[mTier] * 4);
+        if (tRecipe.getMetadataOrDefault(EXPLODE, false) && getGTE() != null) {
+            getGTE().doExplosion(V[mTier] * 4);
             return DID_NOT_FIND_RECIPE;
         }
-        if (tRecipe.getMetadataOrDefault(ON_FIRE, false) && getBaseMetaTileEntity() != null) {
-            getBaseMetaTileEntity().setOnFire();
+        if (tRecipe.getMetadataOrDefault(ON_FIRE, false) && getGTE() != null) {
+            getGTE().setOnFire();
             return DID_NOT_FIND_RECIPE;
         }
         if (tRecipe.mCanBeBuffered) mLastRecipe = tRecipe;
@@ -1108,16 +1095,15 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         }
         if (!tRecipe.isRecipeInputEqual(true, new FluidStack[] { getFillableStack() }, getAllInputs()))
             return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS;
-        for (int i = 0; i < mOutputItems.length; i++) mOutputItems[i] = tRecipe.rollOutput(getBaseMetaTileEntity(), i);
+        for (int i = 0; i < mOutputItems.length; i++) mOutputItems[i] = tRecipe.rollOutput(getGTE(), i);
         if (tRecipe.mSpecialValue == -200 || tRecipe.mSpecialValue == -300) {
             assert cleanroom != null;
-            for (int i = 0; i < mOutputItems.length; i++) if (mOutputItems[i] != null
-                && getBaseMetaTileEntity().getRandomNumber(10000) > cleanroom.getCleanness()) {
+            for (int i = 0; i < mOutputItems.length; i++)
+                if (mOutputItems[i] != null && getGTE().getRandomNumber(10000) > cleanroom.getCleanness()) {
                     mOutputItems[i] = null;
                 }
         }
-        if (getBaseMetaTileEntity().getRandomNumber(10000) < tRecipe.getFluidOutputChance(0))
-            mOutputFluid = tRecipe.getFluidOutput(0);
+        if (getGTE().getRandomNumber(10000) < tRecipe.getFluidOutputChance(0)) mOutputFluid = tRecipe.getFluidOutput(0);
         if (!skipOC) {
             calculateCustomOverclock(tRecipe);
             // In case recipe is too OP for that machine
@@ -1187,7 +1173,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         final NBTTagCompound tag = accessor.getNBTData();
-        final IGregTechTileEntity gte = getBaseMetaTileEntity();
+        final IGregTechTileEntity gte = getGTE();
         long eu = tag.getLong("Eu");
         long maxEu = tag.getLong("MaxEu");
         int euT = tag.getInteger("eut");
@@ -1334,7 +1320,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
-        final IGregTechTileEntity gte = getBaseMetaTileEntity();
+        final IGregTechTileEntity gte = getGTE();
         ItemStack[] inputs = getAllInputs();
         ItemStack[] outputs = getAllOutputs();
 

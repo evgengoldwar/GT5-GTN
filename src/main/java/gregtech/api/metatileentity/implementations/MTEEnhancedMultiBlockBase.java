@@ -87,12 +87,11 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
         if (mExtendedFacing != newExtendedFacing) {
             if (mMachine && isAllowedToWork()) stopMachine(ShutDownReasonRegistry.STRUCTURE_INCOMPLETE);
             mExtendedFacing = newExtendedFacing;
-            final IGregTechTileEntity base = getBaseMetaTileEntity();
+            final IGregTechTileEntity base = getGTE();
             mMachine = false;
             mUpdated = false;
             mUpdate = 50;
-            if (getBaseMetaTileEntity().isServerSide()
-                && !GregTechAPI.isDummyWorld(getBaseMetaTileEntity().getWorld())) {
+            if (getGTE().isServerSide() && !GregTechAPI.isDummyWorld(getGTE().getWorld())) {
                 StructureLibAPI.sendAlignment(
                     (IAlignmentProvider) base,
                     new NetworkRegistry.TargetPoint(
@@ -113,11 +112,11 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
     }
 
     @Override
-    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        if (wrenchingSide != getBaseMetaTileEntity().getFrontFacing())
-            return super.onWrenchRightClick(side, wrenchingSide, entityPlayer, aX, aY, aZ, aTool);
-        if (entityPlayer.isSneaking()) {
+    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool) {
+        if (wrenchingSide != getGTE().getFrontFacing())
+            return super.onWrenchRightClick(side, wrenchingSide, player, x, y, z, tool);
+        if (player.isSneaking()) {
             if (isFlipChangeAllowed()) {
                 toolSetFlip(getFlip().isHorizontallyFlipped() ? Flip.NONE : Flip.HORIZONTAL);
             } else {
@@ -135,7 +134,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
 
     @Override
     public void onFacingChange() {
-        toolSetDirection(getBaseMetaTileEntity().getFrontFacing());
+        toolSetDirection(getGTE().getFrontFacing());
     }
 
     @Override
@@ -165,25 +164,25 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setByte(
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setByte(
             "eRotation",
             (byte) mExtendedFacing.getRotation()
                 .getIndex());
-        aNBT.setByte(
+        nbt.setByte(
             "eFlip",
             (byte) mExtendedFacing.getFlip()
                 .getIndex());
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
         mExtendedFacing = ExtendedFacing.of(
-            getBaseMetaTileEntity().getFrontFacing(),
-            Rotation.byIndex(aNBT.getByte("eRotation")),
-            Flip.byIndex(aNBT.getByte("eFlip")));
+            getGTE().getFrontFacing(),
+            Rotation.byIndex(nbt.getByte("eRotation")),
+            Flip.byIndex(nbt.getByte("eFlip")));
         if (!getAlignmentLimits().isNewExtendedFacingValid(mExtendedFacing)) {
             mExtendedFacing = getCorrectedAlignment(mExtendedFacing);
         }
@@ -286,7 +285,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
     @Deprecated
     @ApiStatus.ScheduledForRemoval
     protected final boolean checkPiece(String piece, int horizontalOffset, int verticalOffset, int depthOffset) {
-        final IGregTechTileEntity tTile = getBaseMetaTileEntity();
+        final IGregTechTileEntity tTile = getGTE();
         structureStatus = StructureStatus.OK;
         IStructureWalker<MTEEnhancedMultiBlockBase<T>> checkWalker = mMachine
             ? IStructureWalker.skipBlockUnloaded(errorWalker)
@@ -336,7 +335,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
      */
     public final boolean checkPiece(String piece, int horizontalOffset, int verticalOffset, int depthOffset,
         @Nullable List<StructureError> errors) {
-        final IGregTechTileEntity tTile = getBaseMetaTileEntity();
+        final IGregTechTileEntity tTile = getGTE();
         StructureChecker<MTEEnhancedMultiBlockBase<T>> checker = new StructureChecker<>(this, !mMachine, errors);
         getCastedStructureDefinition().iterate(
             piece,
@@ -369,7 +368,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
 
     protected final boolean buildPiece(String piece, ItemStack trigger, boolean hintOnly, int horizontalOffset,
         int verticalOffset, int depthOffset) {
-        final IGregTechTileEntity tTile = getBaseMetaTileEntity();
+        final IGregTechTileEntity tTile = getGTE();
         return getCastedStructureDefinition().buildOrHints(
             this,
             trigger,
@@ -388,7 +387,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
     @Deprecated
     protected final int survivalBuildPiece(String piece, ItemStack trigger, int horizontalOffset, int verticalOffset,
         int depthOffset, int elementsBudget, IItemSource source, EntityPlayerMP actor, boolean check) {
-        final IGregTechTileEntity tTile = getBaseMetaTileEntity();
+        final IGregTechTileEntity tTile = getGTE();
         return getCastedStructureDefinition().survivalBuild(
             this,
             trigger,
@@ -409,7 +408,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
 
     protected final int survivalBuildPiece(String piece, ItemStack trigger, int horizontalOffset, int verticalOffset,
         int depthOffset, int elementsBudget, ISurvivalBuildEnvironment env, boolean check) {
-        final IGregTechTileEntity tTile = getBaseMetaTileEntity();
+        final IGregTechTileEntity tTile = getGTE();
         return getCastedStructureDefinition().survivalBuild(
             this,
             trigger,
@@ -441,7 +440,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
             source,
             actor,
             check);
-        if (checkIfPlaced && built > 0) checkStructure(true, getBaseMetaTileEntity());
+        if (checkIfPlaced && built > 0) checkStructure(true, getGTE());
         return built;
     }
 
@@ -456,7 +455,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
             elementsBudget,
             env,
             check);
-        if (checkIfPlaced && built > 0) checkStructure(true, getBaseMetaTileEntity());
+        if (checkIfPlaced && built > 0) checkStructure(true, getGTE());
         return built;
     }
 

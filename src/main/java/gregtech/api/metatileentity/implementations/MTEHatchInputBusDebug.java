@@ -43,23 +43,23 @@ public class MTEHatchInputBusDebug extends MTEHatchInputBus {
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
         if (phantomHolder != null) {
-            aNBT.setTag("phantomInventory", phantomHolder.serializeNBT());
+            nbt.setTag("phantomInventory", phantomHolder.serializeNBT());
         }
-        aNBT.setBoolean("finiteMode", finiteMode);
-        aNBT.setInteger("stackSizeParseAs", stackSizeParseAs);
+        nbt.setBoolean("finiteMode", finiteMode);
+        nbt.setInteger("stackSizeParseAs", stackSizeParseAs);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
         if (phantomHolder != null) {
-            phantomHolder.deserializeNBT(aNBT.getCompoundTag("phantomInventory"));
+            phantomHolder.deserializeNBT(nbt.getCompoundTag("phantomInventory"));
         }
-        finiteMode = aNBT.getBoolean("finiteMode");
-        stackSizeParseAs = aNBT.getInteger("stackSizeParseAs");
+        finiteMode = nbt.getBoolean("finiteMode");
+        stackSizeParseAs = nbt.getInteger("stackSizeParseAs");
     }
 
     @Override
@@ -73,7 +73,7 @@ public class MTEHatchInputBusDebug extends MTEHatchInputBus {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchInputBusDebug(mName, mTier, new String[0], mTextures);
     }
 

@@ -204,11 +204,11 @@ public class PowerNetworkBuilder {
                     final ForgeDirection dir = ForgeDirection.VALID_DIRECTIONS[side];
                     if (currentCable != null && currentCable.isConnectedAtSide(dir)) {
                         final MTECable metaCable = getMTECable(
-                            currentCable.getBaseMetaTileEntity()
+                            currentCable.getGTE()
                                 .getTileEntityAtSide(dir));
                         if (metaCable != null) {
-                            this.deadEndCandidates.add(
-                                new DeadEndEntry(currNode.mTileEntity, (TileEntity) metaCable.getBaseMetaTileEntity()));
+                            this.deadEndCandidates
+                                .add(new DeadEndEntry(currNode.mTileEntity, (TileEntity) metaCable.getGTE()));
                         }
                     }
                     continue;
@@ -244,7 +244,7 @@ public class PowerNetworkBuilder {
                     hasTerminalNeighbour = true;
                 } else if (currentCable != null && currNode.mNodePaths[side] instanceof PowerNodePath path
                     && path.getPipes().length > 0) {
-                        final TileEntity firstPipe = (TileEntity) path.getPipes()[0].getBaseMetaTileEntity();
+                        final TileEntity firstPipe = (TileEntity) path.getPipes()[0].getGTE();
                         if (firstPipe != null) {
                             this.deadEndCandidates.add(new DeadEndEntry(currNode.mTileEntity, firstPipe));
                         }
@@ -268,7 +268,7 @@ public class PowerNetworkBuilder {
         TileEntity toTile = toGraph.tile;
 
         if (pipes.length > 0) {
-            final TileEntity firstPipeTile = (TileEntity) pipes[0].getBaseMetaTileEntity();
+            final TileEntity firstPipeTile = (TileEntity) pipes[0].getGTE();
             if (firstPipeTile == null) return;
             final boolean reversed = Math.abs(fromTile.xCoord - firstPipeTile.xCoord)
                 + Math.abs(fromTile.yCoord - firstPipeTile.yCoord)
@@ -283,7 +283,7 @@ public class PowerNetworkBuilder {
             this.visited.add(fromTile);
 
             for (MetaPipeEntity pipe : pipes) {
-                final TileEntity tile = (TileEntity) pipe.getBaseMetaTileEntity();
+                final TileEntity tile = (TileEntity) pipe.getGTE();
                 if (tile == null) return;
                 edge.path.add(tile);
                 this.visited.add(tile);
@@ -685,7 +685,7 @@ public class PowerNetworkBuilder {
         if (cable != null) {
             for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                 if (node.mNeighbourNodes[side.ordinal()] == null && cable.isConnectedAtSide(side)) {
-                    final TileEntity sideEntity = cable.getBaseMetaTileEntity()
+                    final TileEntity sideEntity = cable.getGTE()
                         .getTileEntityAtSide(side);
 
                     if (sideEntity != null && !(sideEntity instanceof BaseMetaPipeEntity)) {

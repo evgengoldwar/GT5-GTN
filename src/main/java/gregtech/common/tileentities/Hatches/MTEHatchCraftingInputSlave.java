@@ -69,7 +69,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchCraftingInputSlave(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -84,42 +84,42 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        super.onPostTick(aBaseMetaTileEntity, aTimer);
-        if (aBaseMetaTileEntity.isServerSide() && aTimer % 100 == 0) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isServerSide() && tick % 100 == 0) {
             if (getMaster() != null || !masterSet) {
-                aBaseMetaTileEntity.tryDisableTicking();
+                gte.tryDisableTicking();
             } else if (trySetMasterFromCoord(masterX, masterY, masterZ) != null) {
-                aBaseMetaTileEntity.tryDisableTicking();
+                gte.tryDisableTicking();
             }
         }
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
 
-        if (aNBT.hasKey("master")) {
-            NBTTagCompound masterNBT = aNBT.getCompoundTag("master");
+        if (nbt.hasKey("master")) {
+            NBTTagCompound masterNBT = nbt.getCompoundTag("master");
             masterX = masterNBT.getInteger("x");
             masterY = masterNBT.getInteger("y");
             masterZ = masterNBT.getInteger("z");
             masterSet = true;
         }
-        reverseRecipes = aNBT.getBoolean("reverseRecipes");
+        reverseRecipes = nbt.getBoolean("reverseRecipes");
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
         if (masterSet) {
             NBTTagCompound masterNBT = new NBTTagCompound();
             masterNBT.setInteger("x", masterX);
             masterNBT.setInteger("y", masterY);
             masterNBT.setInteger("z", masterZ);
-            aNBT.setTag("master", masterNBT);
+            nbt.setTag("master", masterNBT);
         }
-        aNBT.setBoolean("reverseRecipes", reverseRecipes);
+        nbt.setBoolean("reverseRecipes", reverseRecipes);
     }
 
     @Override
@@ -144,9 +144,9 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
 
     public MTEHatchCraftingInputME getMaster() {
         if (master == null) return null;
-        if (master.getBaseMetaTileEntity() == null) { // master disappeared
+        if (master.getGTE() == null) { // master disappeared
             master = null;
-            getBaseMetaTileEntity().enableTicking();
+            getGTE().enableTicking();
         }
         return master;
     }
@@ -157,14 +157,12 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -206,7 +204,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     public MTEHatchCraftingInputME trySetMasterFromCoord(int x, int y, int z) {
-        var tileEntity = getBaseMetaTileEntity().getWorld()
+        var tileEntity = getGTE().getWorld()
             .getTileEntity(x, y, z);
         if (tileEntity == null) return null;
         if (!(tileEntity instanceof IGregTechTileEntity GTTE)) return null;
@@ -265,18 +263,18 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (!(aPlayer instanceof EntityPlayerMP)) return;
+    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+        if (!(player instanceof EntityPlayerMP)) return;
 
-        ItemStack dataStick = aPlayer.inventory.getCurrentItem();
+        ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
         var master = getMaster();
         if (master == null) {
-            aPlayer.addChatMessage(new ChatComponentText("Can't copy an unlinked proxy!"));
+            player.addChatMessage(new ChatComponentText("Can't copy an unlinked proxy!"));
             return;
         }
 
-        master.saveToDataStick(aPlayer, dataStick);
+        master.saveToDataStick(player, dataStick);
     }
 
     @Override
@@ -372,11 +370,11 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
-        if (getBaseMetaTileEntity().isServerSide()) {
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
+        if (getGTE().isServerSide()) {
             toggleReverseRecipes();
-            GTUtility.sendChatTrans(aPlayer, "chat.proxy.reverse." + reverseRecipes);
+            GTUtility.sendChatTrans(player, "chat.proxy.reverse." + reverseRecipes);
         }
         // not calling super.onScrewdriverRightClick, because input filter is irrelevant for a proxy hatch
     }

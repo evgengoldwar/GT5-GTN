@@ -147,7 +147,7 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister blockIconRegister) {}
+    public void registerIcons(IIconRegister iconRegister) {}
 
     @Override
     public boolean allowCoverOnSide(ForgeDirection side, ItemStack coverItem) {
@@ -155,7 +155,7 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity baseMetaTileEntity) {}
+    public void onFirstTick(IGregTechTileEntity gte) {}
 
     @Override
     public boolean needsClientTick() {
@@ -166,10 +166,10 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     public void onClientSoundStateChanged() {}
 
     @Override
-    public void onPreTick(IGregTechTileEntity baseMetaTileEntity, long tick) {}
+    public void onPreTick(IGregTechTileEntity gte, long tick) {}
 
     @Override
-    public void onPostTick(IGregTechTileEntity baseMetaTileEntity, long tick) {}
+    public void onPostTick(IGregTechTileEntity gte, long tick) {}
 
     public void onTickFail(IGregTechTileEntity baseMetaTileEntity, long tick) {}
 
@@ -192,13 +192,13 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
      * Called when a player right-clicks this block. Shift-right-clicks will not get passed to this!
      */
     @Override
-    public boolean onRightclick(IGregTechTileEntity baseMetaTileEntity, EntityPlayer player, ForgeDirection side,
-        float x, float y, float z) {
+    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
+        float z) {
         return false;
     }
 
     @Override
-    public void onLeftclick(IGregTechTileEntity baseMetaTileEntity, EntityPlayer player) {}
+    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {}
 
     @Override
     public void onValueUpdate(byte value) {}
@@ -215,27 +215,27 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     public void startSoundLoop(byte index, double x, double y, double z) {}
 
     @Override
-    public void stopSoundLoop(byte value, double x, double y, double z) {}
+    public void stopSoundLoop(byte index, double x, double y, double z) {}
 
     @Override
-    public final void sendSound(byte aIndex) {
-        if (!getBaseMetaTileEntity().isMuffled()) {
-            getBaseMetaTileEntity().sendBlockEvent(GregTechTileClientEvents.DO_SOUND, aIndex);
+    public final void sendSound(byte index) {
+        if (!getGTE().isMuffled()) {
+            getGTE().sendBlockEvent(GregTechTileClientEvents.DO_SOUND, index);
         }
     }
 
     @Override
-    public final void sendLoopStart(byte aIndex) {
-        if (!getBaseMetaTileEntity().isMuffled()) {
-            getBaseMetaTileEntity().sendBlockEvent(GregTechTileClientEvents.START_SOUND_LOOP, aIndex);
+    public final void sendLoopStart(byte index) {
+        if (!getGTE().isMuffled()) {
+            getGTE().sendBlockEvent(GregTechTileClientEvents.START_SOUND_LOOP, index);
         }
         mSoundRequests++;
     }
 
     @Override
-    public final void sendLoopEnd(byte aIndex) {
-        if (!getBaseMetaTileEntity().isMuffled()) {
-            getBaseMetaTileEntity().sendBlockEvent(GregTechTileClientEvents.STOP_SOUND_LOOP, aIndex);
+    public final void sendLoopEnd(byte index) {
+        if (!getGTE().isMuffled()) {
+            getGTE().sendBlockEvent(GregTechTileClientEvents.STOP_SOUND_LOOP, index);
         }
     }
 
@@ -265,8 +265,8 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     }
 
     @Override
-    public ArrayList<String> getSpecialDebugInfo(IGregTechTileEntity baseMetaTileEntity, EntityPlayer player,
-        int logLevel, ArrayList<String> list) {
+    public ArrayList<String> getSpecialDebugInfo(IGregTechTileEntity gte, EntityPlayer player, int logLevel,
+        ArrayList<String> list) {
         return list;
     }
 
@@ -332,7 +332,7 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     public void onMachineBlockUpdate() {}
 
     @Override
-    public void receiveClientEvent(byte eventID, byte value) {}
+    public void receiveClientEvent(byte eventId, byte value) {}
 
     /**
      * Gets the output for the comparator on the given side
@@ -399,9 +399,8 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
 
     @Override
     public String getInventoryName() {
-        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity().getMetaTileID()] != null) {
-            return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getBaseMetaTileEntity().getMetaTileID()]
-                .getLocalNameKey();
+        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getGTE().getMetaTileID()] != null) {
+            return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getGTE().getMetaTileID()].getLocalNameKey();
         }
         return "";
     }
@@ -413,7 +412,7 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
-        return getBaseMetaTileEntity().isValidSlot(index);
+        return getGTE().isValidSlot(index);
     }
 
     @Override
@@ -437,7 +436,7 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     @Override
     public int[] getAccessibleSlotsFromSide(int ordinalSide) {
         final TIntList tList = new TIntArrayList();
-        final IGregTechTileEntity tTileEntity = getBaseMetaTileEntity();
+        final IGregTechTileEntity tTileEntity = getGTE();
         if (tTileEntity == null || tTileEntity.isDead()) return GTValues.emptyIntArray;
         final Cover tileCover = tTileEntity.getCoverAtSide(ForgeDirection.getOrientation(ordinalSide));
         final boolean tSkip = tileCover.letsItemsIn(-2) || tileCover.letsItemsOut(-2);
@@ -454,14 +453,14 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
         return isValidSlot(index) && itemStack != null
             && index < mInventory.length
             && (mInventory[index] == null || GTUtility.areStacksEqual(itemStack, mInventory[index]))
-            && allowPutStack(getBaseMetaTileEntity(), index, ForgeDirection.getOrientation(ordinalSide), itemStack);
+            && allowPutStack(getGTE(), index, ForgeDirection.getOrientation(ordinalSide), itemStack);
     }
 
     @Override
     public boolean canExtractItem(int index, ItemStack itemStack, int ordinalSide) {
         return isValidSlot(index) && itemStack != null
             && index < mInventory.length
-            && allowPullStack(getBaseMetaTileEntity(), index, ForgeDirection.getOrientation(ordinalSide), itemStack);
+            && allowPullStack(getGTE(), index, ForgeDirection.getOrientation(ordinalSide), itemStack);
     }
 
     @Override
@@ -476,7 +475,7 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection side) {
-        if (getCapacity() <= 0 && !getBaseMetaTileEntity().isSteampowered()) {
+        if (getCapacity() <= 0 && !getGTE().isSteampowered()) {
             return GTValues.emptyFluidTankInfo;
         }
         return new FluidTankInfo[] { getInfo() };
@@ -564,7 +563,7 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
     protected final ITexture[][] getOrCreateInventoryTextures() {
         ITexture[][] textures = inventoryTextureCache;
         if (textures == null) {
-            final IGregTechTileEntity base = getBaseMetaTileEntity();
+            final IGregTechTileEntity base = getGTE();
             textures = new ITexture[][] { getTexture(base, ForgeDirection.DOWN, ForgeDirection.WEST, -1, true, false),
                 getTexture(base, ForgeDirection.UP, ForgeDirection.WEST, -1, true, false),
                 getTexture(base, ForgeDirection.NORTH, ForgeDirection.WEST, -1, true, false),
@@ -631,7 +630,7 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
                 MetaTileEntityGuiHandler.open(player, this);
             }
         } else {
-            GTUIInfos.openGTTileEntityUI(getBaseMetaTileEntity(), player);
+            GTUIInfos.openGTTileEntityUI(getGTE(), player);
         }
 
         onGuiOpened(player);

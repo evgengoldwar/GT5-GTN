@@ -132,7 +132,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchInputME(mName, autoPullAvailable, mTier, mDescriptionArray, mTextures);
     }
 
@@ -147,9 +147,9 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        if (aBaseMetaTileEntity.isServerSide()) {
-            if (aTimer % autoPullRefreshTime == 0 && autoPullFluidList) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isServerSide()) {
+            if (tick % autoPullRefreshTime == 0 && autoPullFluidList) {
                 refreshFluidList();
                 if (justHadNewFluids) {
                     // Advanced hatch auto pull always have immediate check, to not break automations
@@ -157,20 +157,20 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
                     justHadNewFluids = false;
                 }
             }
-            if (aTimer % 20 == 0) {
-                aBaseMetaTileEntity.setActive(isActive());
+            if (tick % 20 == 0) {
+                gte.setActive(isActive());
                 if (!autoPullAvailable) {
-                    aBaseMetaTileEntity.tryDisableTicking();
+                    gte.tryDisableTicking();
                 }
             }
         }
-        super.onPostTick(aBaseMetaTileEntity, aTimer);
+        super.onPostTick(gte, tick);
     }
 
     public boolean isAllowedToWork() {
         if (processingRecipe) return cachedActivity;
 
-        IGregTechTileEntity igte = getBaseMetaTileEntity();
+        IGregTechTileEntity igte = getGTE();
 
         if (igte == null || !igte.isAllowedToWork()) return false;
 
@@ -197,7 +197,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public void onColorChangeServer(byte aColor) {
+    public void onColorChangeServer(byte color) {
         updateAE2ProxyColor();
     }
 
@@ -487,8 +487,8 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void onFirstTick(IGregTechTileEntity gte) {
+        super.onFirstTick(gte);
         getProxy().onReady();
     }
 
@@ -501,7 +501,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
         if (additionalConnection) {
             getProxy().setValidSides(EnumSet.complementOf(EnumSet.of(ForgeDirection.UNKNOWN)));
         } else {
-            getProxy().setValidSides(EnumSet.of(getBaseMetaTileEntity().getFrontFacing()));
+            getProxy().setValidSides(EnumSet.of(getGTE().getFrontFacing()));
         }
     }
 
@@ -511,11 +511,11 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
         additionalConnection = !additionalConnection;
         updateValidGridProxySides();
-        aPlayer.addChatComponentMessage(
+        player.addChatComponentMessage(
             new ChatComponentTranslation("GT5U.hatch.additionalConnection." + additionalConnection));
         return true;
     }
@@ -534,7 +534,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     @Override
     public @NotNull AENetworkProxy getProxy() {
         if (gridProxy == null) {
-            var base = getBaseMetaTileEntity();
+            var base = getGTE();
             if (base instanceof IGridProxyable) {
                 gridProxy = new AENetworkProxy(
                     this,
@@ -550,15 +550,15 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
 
     @MENetworkEventSubscribe
     public void powerChangeME(MENetworkPowerStatusChange c) {
-        if (getBaseMetaTileEntity() != null) {
-            getBaseMetaTileEntity().setActive(isActive());
+        if (getGTE() != null) {
+            getGTE().setActive(isActive());
         }
     }
 
     @MENetworkEventSubscribe
     public void bootChangeME(MENetworkBootingStatusChange c) {
-        if (getBaseMetaTileEntity() != null) {
-            getBaseMetaTileEntity().setActive(isActive());
+        if (getGTE() != null) {
+            getGTE().setActive(isActive());
         }
     }
 
@@ -598,7 +598,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
         }
 
         // check isServerSide to avoid refreshing twice
-        if (autoPullFluidList != pullFluidList && getBaseMetaTileEntity().isServerSide()) {
+        if (autoPullFluidList != pullFluidList && getGTE().isServerSide()) {
             autoPullFluidList = pullFluidList;
 
             clearSlotConfigs();
@@ -670,7 +670,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     private BaseActionSource getRequestSource() {
-        if (requestSource == null) requestSource = new MachineSource((IActionHost) getBaseMetaTileEntity());
+        if (requestSource == null) requestSource = new MachineSource((IActionHost) getGTE());
         return requestSource;
     }
 
@@ -752,23 +752,23 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return false;
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
 
-        aNBT.setInteger("version", 1);
-        aNBT.setBoolean("autoPull", autoPullFluidList);
-        aNBT.setInteger("minAmount", minAutoPullAmount);
-        aNBT.setBoolean("additionalConnection", additionalConnection);
-        aNBT.setInteger("refreshTime", autoPullRefreshTime);
-        getProxy().writeToNBT(aNBT);
+        nbt.setInteger("version", 1);
+        nbt.setBoolean("autoPull", autoPullFluidList);
+        nbt.setInteger("minAmount", minAutoPullAmount);
+        nbt.setBoolean("additionalConnection", additionalConnection);
+        nbt.setInteger("refreshTime", autoPullRefreshTime);
+        getProxy().writeToNBT(nbt);
 
         NBTTagList slotList = new NBTTagList();
-        aNBT.setTag("slots", slotList);
+        nbt.setTag("slots", slotList);
 
         for (int i = 0; i < slots.length; i++) {
             Slot slot = slots[i];
@@ -784,21 +784,21 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        minAutoPullAmount = aNBT.getInteger("minAmount");
-        autoPullFluidList = aNBT.getBoolean("autoPull");
-        additionalConnection = aNBT.getBoolean("additionalConnection");
-        if (aNBT.hasKey("refreshTime")) {
-            autoPullRefreshTime = aNBT.getInteger("refreshTime");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        minAutoPullAmount = nbt.getInteger("minAmount");
+        autoPullFluidList = nbt.getBoolean("autoPull");
+        additionalConnection = nbt.getBoolean("additionalConnection");
+        if (nbt.hasKey("refreshTime")) {
+            autoPullRefreshTime = nbt.getInteger("refreshTime");
         }
-        if (aNBT.hasKey("proxy")) getProxy().readFromNBT(aNBT);
+        if (nbt.hasKey("proxy")) getProxy().readFromNBT(nbt);
         updateAE2ProxyColor();
 
-        switch (aNBT.getInteger("version")) {
+        switch (nbt.getInteger("version")) {
             case 0 -> {
-                if (aNBT.hasKey("storedFluids")) {
-                    NBTTagList nbtTagList = aNBT.getTagList("storedFluids", 10);
+                if (nbt.hasKey("storedFluids")) {
+                    NBTTagList nbtTagList = nbt.getTagList("storedFluids", 10);
                     int c = Math.min(nbtTagList.tagCount(), SLOT_COUNT);
                     for (int i = 0; i < c; i++) {
                         NBTTagCompound nbtTagCompound = nbtTagList.getCompoundTagAt(i);
@@ -817,7 +817,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
                 }
             }
             case 1 -> {
-                NBTTagList slotList = aNBT.getTagList("slots", Constants.NBT.TAG_COMPOUND);
+                NBTTagList slotList = nbt.getTagList("slots", Constants.NBT.TAG_COMPOUND);
 
                 // noinspection unchecked
                 for (NBTTagCompound tag : (List<NBTTagCompound>) slotList.tagList) {
@@ -830,14 +830,14 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
         if (!autoPullAvailable) {
             return;
         }
 
         setAutoPullFluidList(!autoPullFluidList);
-        aPlayer.addChatMessage(
+        player.addChatMessage(
             new ChatComponentTranslation(
                 "GT5U.machines.stocking_hatch.auto_pull_toggle." + (autoPullFluidList ? "enabled" : "disabled")));
     }
@@ -873,7 +873,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
 
         updateValidGridProxySides();
         byte color = nbt.getByte("color");
-        this.getBaseMetaTileEntity()
+        this.getGTE()
             .setColorization(color);
 
         updateAllInformationSlots();
@@ -906,29 +906,28 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, ForgeDirection side,
-        float aX, float aY, float aZ) {
-        if (!(aPlayer instanceof EntityPlayerMP))
-            return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
-        ItemStack dataStick = aPlayer.inventory.getCurrentItem();
+    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
+        float z) {
+        if (!(player instanceof EntityPlayerMP)) return super.onRightClick(gte, player, side, x, y, z);
+        ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true))
         // return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
 
-        if (!pasteCopiedData(aPlayer, dataStick.stackTagCompound)) return false;
+        if (!pasteCopiedData(player, dataStick.stackTagCompound)) return false;
 
-        aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.stocking_bus.loaded"));
+        player.addChatMessage(new ChatComponentTranslation("GT5U.machines.stocking_bus.loaded"));
         return true;
     }
 
     @Override
-    public void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (!(aPlayer instanceof EntityPlayerMP)) return;
-        ItemStack dataStick = aPlayer.inventory.getCurrentItem();
+    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+        if (!(player instanceof EntityPlayerMP)) return;
+        ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
 
-        dataStick.stackTagCompound = getCopiedData(aPlayer);
+        dataStick.stackTagCompound = getCopiedData(player);
         dataStick.setStackDisplayName("Stocking Input Hatch Configuration");
-        aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.stocking_bus.saved"));
+        player.addChatMessage(new ChatComponentTranslation("GT5U.machines.stocking_bus.saved"));
     }
 
     @Override
@@ -1054,10 +1053,10 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     @Override
     public DimensionalCoord getLocation() {
         return new DimensionalCoord(
-            getBaseMetaTileEntity().getWorld(),
-            getBaseMetaTileEntity().getXCoord(),
-            getBaseMetaTileEntity().getYCoord(),
-            getBaseMetaTileEntity().getZCoord());
+            getGTE().getWorld(),
+            getGTE().getXCoord(),
+            getGTE().getYCoord(),
+            getGTE().getZCoord());
     }
 
     private IStackWatcher watcher;

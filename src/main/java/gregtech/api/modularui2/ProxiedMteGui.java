@@ -56,7 +56,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
     }
 
     public ModularPanel buildUI(ProxiedMteGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
-        IGregTechTileEntity base = mte.getBaseMetaTileEntity();
+        IGregTechTileEntity base = mte.getGTE();
         ModularPanel panel = mte.buildUI(
             new PosGuiData(data.getPlayer(), base.getXCoord(), base.getYCoord(), base.getZCoord()),
             syncManager,
@@ -76,7 +76,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
         public ProxiedMteGuiData(EntityPlayer player, MetaTileEntity serverMTE) {
             super(player);
             this.serverMTE = serverMTE;
-            IGregTechTileEntity base = serverMTE.getBaseMetaTileEntity();
+            IGregTechTileEntity base = serverMTE.getGTE();
             this.mid = base.getMetaTileID();
             this.x = base.getXCoord();
             this.y = base.getYCoord();
@@ -143,7 +143,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
             // Note: seems only called server side and accessing the server only mte is safe, and we can assume it is
             // never null
             assert mte != null;
-            IGregTechTileEntity base = mte.getBaseMetaTileEntity();
+            IGregTechTileEntity base = mte.getGTE();
             return super.canInteractWith(player, guiData) && base != null && base.canAccessData();
         }
 

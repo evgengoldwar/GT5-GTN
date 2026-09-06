@@ -21,14 +21,14 @@ public class NodePath {
 
     protected void processPipes() {
         for (MetaPipeEntity tPipe : mPipes) {
-            BaseMetaPipeEntity basePipe = (BaseMetaPipeEntity) tPipe.getBaseMetaTileEntity();
+            BaseMetaPipeEntity basePipe = (BaseMetaPipeEntity) tPipe.getGTE();
             basePipe.setNodePath(this);
         }
     }
 
     public void clearPath() {
         for (MetaPipeEntity mPipe : mPipes) {
-            BaseMetaPipeEntity tBasePipe = (BaseMetaPipeEntity) mPipe.getBaseMetaTileEntity();
+            BaseMetaPipeEntity tBasePipe = (BaseMetaPipeEntity) mPipe.getGTE();
             if (tBasePipe != null) {
                 tBasePipe.setNodePath(null);
             }
@@ -37,7 +37,7 @@ public class NodePath {
 
     public void reloadLocks() {
         for (MetaPipeEntity pipe : mPipes) {
-            BaseMetaPipeEntity basePipe = (BaseMetaPipeEntity) pipe.getBaseMetaTileEntity();
+            BaseMetaPipeEntity basePipe = (BaseMetaPipeEntity) pipe.getGTE();
             if (basePipe != null) {
                 basePipe.reloadLocks();
             }

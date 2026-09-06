@@ -176,7 +176,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
 
     private static void collectHatchNetworks(Iterable<? extends MTEHatch> hatches, PowerNetworkBuilder builder) {
         for (MTEHatch hatch : hatches) {
-            final IGregTechTileEntity hatchBase = hatch.getBaseMetaTileEntity();
+            final IGregTechTileEntity hatchBase = hatch.getGTE();
             if (hatchBase == null) continue;
             final ForgeDirection facing = hatchBase.getFrontFacing();
             final TileEntity neighbor = hatchBase.getWorld()

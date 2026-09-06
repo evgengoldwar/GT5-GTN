@@ -70,33 +70,32 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     }
 
     private void markDirtyFromGui() {
-        IGregTechTileEntity base = getBaseMetaTileEntity();
+        IGregTechTileEntity base = getGTE();
         if (base != null) base.markDirty();
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchMultiInput(mName, getMaxType(), mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
         if (mStoredFluid != null) {
             for (int i = 0; i < mStoredFluid.length; i++) {
-                if (mStoredFluid[i] != null)
-                    aNBT.setTag("mFluid" + i, mStoredFluid[i].writeToNBT(new NBTTagCompound()));
+                if (mStoredFluid[i] != null) nbt.setTag("mFluid" + i, mStoredFluid[i].writeToNBT(new NBTTagCompound()));
             }
         }
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
         if (mStoredFluid != null) {
             for (int i = 0; i < mStoredFluid.length; i++) {
-                if (aNBT.hasKey("mFluid" + i)) {
-                    mStoredFluid[i] = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("mFluid" + i));
+                if (nbt.hasKey("mFluid" + i)) {
+                    mStoredFluid[i] = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("mFluid" + i));
                 }
             }
         }
@@ -112,14 +111,14 @@ public class MTEHatchMultiInput extends MTEHatchInput {
 
     @Override
     public ITexture[] getTexturesActive(ITexture aBaseTexture) {
-        byte color = getBaseMetaTileEntity().getColorization();
+        byte color = getGTE().getColorization();
         ITexture coloredPipeOverlay = TextureFactory.of(OVERLAY_INPUT_HATCH_2x2_COLORS[color + 1]);
         return new ITexture[] { aBaseTexture, TextureFactory.of(OVERLAY_INPUT_HATCH_2x2), coloredPipeOverlay };
     }
 
     @Override
     public ITexture[] getTexturesInactive(ITexture aBaseTexture) {
-        byte color = getBaseMetaTileEntity().getColorization();
+        byte color = getGTE().getColorization();
         ITexture coloredPipeOverlay = TextureFactory.of(OVERLAY_INPUT_HATCH_2x2_COLORS[color + 1]);
         return new ITexture[] { aBaseTexture, TextureFactory.of(OVERLAY_INPUT_HATCH_2x2), coloredPipeOverlay };
     }
@@ -197,11 +196,11 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        if (aBaseMetaTileEntity.isServerSide()) {
+    public void onPreTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isServerSide()) {
             mFluid = getFluid();
         }
-        super.onPreTick(aBaseMetaTileEntity, aTick);
+        super.onPreTick(gte, tick);
     }
 
     @Override
@@ -214,7 +213,7 @@ public class MTEHatchMultiInput extends MTEHatchInput {
                 FluidStack tFluid = aFluid.copy();
                 tFluid.amount = tFilled;
                 addFluid(tFluid, getFirstEmptySlot());
-                getBaseMetaTileEntity().markDirty();
+                getGTE().markDirty();
             }
             return tFilled;
         }
@@ -225,7 +224,7 @@ public class MTEHatchMultiInput extends MTEHatchInput {
                 FluidStack tFluid = aFluid.copy();
                 tFluid.amount = tFilled;
                 addFluid(tFluid, getFluidSlot(tFluid));
-                getBaseMetaTileEntity().markDirty();
+                getGTE().markDirty();
             }
             return tFilled;
         }
@@ -237,18 +236,18 @@ public class MTEHatchMultiInput extends MTEHatchInput {
         if (getFluid() == null || !canTankBeEmptied()) return null;
         if (getFluid().amount <= 0 && isFluidChangingAllowed()) {
             setFluid(null, getFluidSlot(getFluid()));
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
             return null;
         }
         FluidStack tRemove = getFluid().copy();
         tRemove.amount = Math.min(maxDrain, tRemove.amount);
         if (doDrain) {
             getFluid().amount -= tRemove.amount;
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
         }
         if (getFluid() == null || getFluid().amount <= 0 && isFluidChangingAllowed()) {
             setFluid(null, getFluidSlot(getFluid()));
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
         }
         return tRemove;
     }
@@ -269,18 +268,18 @@ public class MTEHatchMultiInput extends MTEHatchInput {
         FluidStack tStored = mStoredFluid[getFluidSlot(aFluid)];
         if (tStored.amount <= 0 && isFluidChangingAllowed()) {
             setFluid(null, getFluidSlot(tStored));
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
             return null;
         }
         FluidStack tRemove = tStored.copy();
         tRemove.amount = Math.min(amount, tRemove.amount);
         if (doDrain) {
             tStored.amount -= tRemove.amount;
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
         }
         if (tStored.amount <= 0 && isFluidChangingAllowed()) {
             setFluid(null, getFluidSlot(tStored));
-            getBaseMetaTileEntity().markDirty();
+            getGTE().markDirty();
         }
         return tRemove;
     }
@@ -295,20 +294,20 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        if (aBaseMetaTileEntity.isServerSide() && mStoredFluid != null) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isServerSide() && mStoredFluid != null) {
             for (int i = 0; i < getMaxType(); i++) {
                 if (mStoredFluid[i] != null && mStoredFluid[i].amount <= 0) {
                     mStoredFluid[i] = null;
                 }
             }
         }
-        super.onPostTick(aBaseMetaTileEntity, aTick);
+        super.onPostTick(gte, tick);
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
-        return aIndex >= 4;
+    public boolean isValidSlot(int index) {
+        return index >= 4;
     }
 
     @Override

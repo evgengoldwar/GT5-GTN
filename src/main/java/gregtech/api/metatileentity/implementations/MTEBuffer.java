@@ -149,8 +149,8 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection,
-        ForgeDirection facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+        int colorIndex, boolean active, boolean redstoneLevel) {
         colorIndex = colorIndex + 1;
         if (sideDirection == facingDirection) return mTextures[FRONT_INDEX][colorIndex];
         if (sideDirection.getOpposite() == facingDirection) return mTextures[OUTPUT_INDEX][colorIndex];
@@ -217,8 +217,8 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
-        return aIndex < mInventory.length - 1;
+    public boolean isValidSlot(int index) {
+        return index < mInventory.length - 1;
     }
 
     @Override
@@ -243,7 +243,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
 
     @Override
     public boolean isOutputFacing(ForgeDirection side) {
-        return getBaseMetaTileEntity().getBackFacing() == side;
+        return getGTE().getBackFacing() == side;
     }
 
     @Override
@@ -269,7 +269,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     @Override
     public long maxEUOutput() {
         // Return full value if we're an item and don't exist in the world for tooltip purposes
-        return getBaseMetaTileEntity().getWorld() == null || bOutput ? V[mTier] : 0L;
+        return getGTE().getWorld() == null || bOutput ? V[mTier] : 0L;
     }
 
     @Override
@@ -291,13 +291,13 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        aNBT.setBoolean("bInvert", bInvert);
-        aNBT.setBoolean("bOutput", bOutput);
-        aNBT.setBoolean("bRedstoneIfFull", bRedstoneIfFull);
-        aNBT.setBoolean("bStockingMode", bStockingMode);
-        aNBT.setInteger("mTargetStackSize", mTargetStackSize);
-        aNBT.setBoolean("bSortStacks", bSortStacks);
+    public void saveNBTData(NBTTagCompound nbt) {
+        nbt.setBoolean("bInvert", bInvert);
+        nbt.setBoolean("bOutput", bOutput);
+        nbt.setBoolean("bRedstoneIfFull", bRedstoneIfFull);
+        nbt.setBoolean("bStockingMode", bStockingMode);
+        nbt.setInteger("mTargetStackSize", mTargetStackSize);
+        nbt.setBoolean("bSortStacks", bSortStacks);
     }
 
     @Override
@@ -308,19 +308,19 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        bInvert = aNBT.getBoolean("bInvert");
-        bOutput = aNBT.getBoolean("bOutput");
-        bRedstoneIfFull = aNBT.getBoolean("bRedstoneIfFull");
-        bSortStacks = aNBT.getBoolean("bSortStacks");
-        bStockingMode = aNBT.getBoolean("bStockingMode");
-        mTargetStackSize = aNBT.getInteger("mTargetStackSize");
+    public void loadNBTData(NBTTagCompound nbt) {
+        bInvert = nbt.getBoolean("bInvert");
+        bOutput = nbt.getBoolean("bOutput");
+        bRedstoneIfFull = nbt.getBoolean("bRedstoneIfFull");
+        bSortStacks = nbt.getBoolean("bSortStacks");
+        bStockingMode = nbt.getBoolean("bStockingMode");
+        mTargetStackSize = nbt.getInteger("mTargetStackSize");
     }
 
     @Override
-    public void setItemNBT(NBTTagCompound aNBT) {
-        super.setItemNBT(aNBT);
-        if (mTargetStackSize > 0) aNBT.setInteger("mTargetStackSize", mTargetStackSize);
+    public void setItemNBT(NBTTagCompound nbt) {
+        super.setItemNBT(nbt);
+        if (mTargetStackSize > 0) nbt.setInteger("mTargetStackSize", mTargetStackSize);
     }
 
     @Override
@@ -353,15 +353,15 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
-        ForgeDirection wrenchingSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
-        onScrewdriverRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, aTool);
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
+        ForgeDirection wrenchingSide = GTUtility.determineWrenchingSide(side, x, y, z);
+        onScrewdriverRightClick(side, wrenchingSide, player, x, y, z, tool);
     }
 
     public void onScrewdriverRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
         float aX, float aY, float aZ, ItemStack aTool) {
-        if (wrenchingSide == getBaseMetaTileEntity().getBackFacing()) {
+        if (wrenchingSide == getGTE().getBackFacing()) {
 
             mTargetStackSize = (byte) ((mTargetStackSize + (aPlayer.isSneaking() ? -1 : 1)) % 65);
             if (mTargetStackSize < 0) {
@@ -377,14 +377,14 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool) {
         wrenchingSide = wrenchingSide.getOpposite();
-        if (getBaseMetaTileEntity().isValidFacing(wrenchingSide)) {
-            getBaseMetaTileEntity().setFrontFacing(wrenchingSide);
+        if (getGTE().isValidFacing(wrenchingSide)) {
+            getGTE().setFrontFacing(wrenchingSide);
             return true;
         }
-        return super.onWrenchRightClick(side, wrenchingSide, entityPlayer, aX, aY, aZ, aTool);
+        return super.onWrenchRightClick(side, wrenchingSide, player, x, y, z, tool);
     }
 
     protected void handleRedstoneOutput(IGregTechTileEntity aBaseMetaTileEntity) {
@@ -408,14 +408,12 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        if (aBaseMetaTileEntity.isAllowedToWork() && aBaseMetaTileEntity.isServerSide()
-            && (aBaseMetaTileEntity.hasWorkJustBeenEnabled() || aBaseMetaTileEntity.hasInventoryBeenModified()
-                || aTimer % 200 == 0
-                || mSuccess > 0)) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isAllowedToWork() && gte.isServerSide()
+            && (gte.hasWorkJustBeenEnabled() || gte.hasInventoryBeenModified() || tick % 200 == 0 || mSuccess > 0)) {
             mSuccess--;
-            moveItems(aBaseMetaTileEntity, aTimer);
-            handleRedstoneOutput(aBaseMetaTileEntity);
+            moveItems(gte, tick);
+            handleRedstoneOutput(gte);
         }
     }
 
@@ -486,15 +484,13 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return side != aBaseMetaTileEntity.getBackFacing();
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return side != gte.getBackFacing();
     }
 
     @Override
@@ -503,17 +499,17 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide,
-        EntityPlayer entityPlayer, float aX, float aY, float aZ, ItemStack aTool) {
-        if (entityPlayer.isSneaking()) {
+    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
+        if (player.isSneaking()) {
             // I was so proud of all this but I literally just copied code from OutputBus
             bSortStacks = !bSortStacks;
             GTUtility.sendChatTrans(
-                entityPlayer,
+                player,
                 bSortStacks ? "GT5U.chat.buffer.sort_mode.enable" : "GT5U.chat.buffer.sort_mode.disable");
             return true;
         }
-        return super.onSolderingToolRightClick(side, wrenchingSide, entityPlayer, aX, aY, aZ, aTool);
+        return super.onSolderingToolRightClick(side, wrenchingSide, player, x, y, z, tool);
     }
 
     @Override

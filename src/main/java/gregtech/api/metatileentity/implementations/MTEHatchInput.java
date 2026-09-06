@@ -73,7 +73,7 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
 
     @Override
     public ITexture[] getTexturesActive(ITexture aBaseTexture) {
-        byte color = getBaseMetaTileEntity().getColorization();
+        byte color = getGTE().getColorization();
         ITexture coloredPipeOverlay = TextureFactory.of(OVERLAY_PIPE_COLORS[color + 1]);
         return GTMod.proxy.mRenderIndicatorsOnHatch
             ? new ITexture[] { aBaseTexture, TextureFactory.of(OVERLAY_PIPE_IN), coloredPipeOverlay,
@@ -83,7 +83,7 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
 
     @Override
     public ITexture[] getTexturesInactive(ITexture aBaseTexture) {
-        byte color = getBaseMetaTileEntity().getColorization();
+        byte color = getGTE().getColorization();
         ITexture coloredPipeOverlay = TextureFactory.of(OVERLAY_PIPE_COLORS[color + 1]);
         return GTMod.proxy.mRenderIndicatorsOnHatch
             ? new ITexture[] { aBaseTexture, TextureFactory.of(OVERLAY_PIPE_IN), coloredPipeOverlay,
@@ -97,30 +97,30 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchInput(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setBoolean("disableFilter", disableFilter);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setBoolean("disableFilter", disableFilter);
         if (mRecipeMap != null) {
-            aNBT.setString("recipeMap", mRecipeMap.unlocalizedName);
+            nbt.setString("recipeMap", mRecipeMap.unlocalizedName);
         }
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        disableFilter = aNBT.getBoolean("disableFilter");
-        mRecipeMap = RecipeMap.getFromOldIdentifier(aNBT.getString("recipeMap"));
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        disableFilter = nbt.getBoolean("disableFilter");
+        mRecipeMap = RecipeMap.getFromOldIdentifier(nbt.getString("recipeMap"));
     }
 
     @Override
-    public void initDefaultModes(NBTTagCompound aNBT) {
-        if (!getBaseMetaTileEntity().getWorld().isRemote) {
-            GTClientPreference preference = GTMod.proxy.getClientPreference(getBaseMetaTileEntity().getOwnerUuid());
+    public void initDefaultModes(NBTTagCompound nbt) {
+        if (!getGTE().getWorld().isRemote) {
+            GTClientPreference preference = GTMod.proxy.getClientPreference(getGTE().getOwnerUuid());
             if (preference != null) {
                 disableFilter = !preference.isInputHatchInitialFilterEnabled();
             }
@@ -137,7 +137,7 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
-        tag.setByte("color", (byte) (getBaseMetaTileEntity().getColorization() + 1));
+        tag.setByte("color", (byte) (getGTE().getColorization() + 1));
     }
 
     @Override
@@ -165,9 +165,9 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        super.onPostTick(aBaseMetaTileEntity, aTimer);
-        if (aBaseMetaTileEntity.isServerSide()) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isServerSide()) {
             detectInventoryChange();
         }
     }
@@ -183,18 +183,16 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return side == aBaseMetaTileEntity.getFrontFacing() && aIndex == 1;
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return side == gte.getFrontFacing() && index == 1;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return side == aBaseMetaTileEntity.getFrontFacing() && aIndex == 0
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return side == gte.getFrontFacing() && index == 0
             && (mRecipeMap == null || disableFilter
-                || mRecipeMap.containsInput(aStack)
-                || mRecipeMap.containsInput(GTUtility.getFluidForFilledItem(aStack, true)));
+                || mRecipeMap.containsInput(itemStack)
+                || mRecipeMap.containsInput(GTUtility.getFluidForFilledItem(itemStack, true)));
     }
 
     @Override
@@ -203,12 +201,12 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
-        if (!getBaseMetaTileEntity().getCoverAtSide(side)
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
+        if (!getGTE().getCoverAtSide(side)
             .isGUIClickable()) return;
         disableFilter = !disableFilter;
-        GTUtility.sendChatTrans(aPlayer, "GT5U.hatch.disableFilter." + disableFilter);
+        GTUtility.sendChatTrans(player, "GT5U.hatch.disableFilter." + disableFilter);
     }
 
     @Override

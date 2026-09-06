@@ -84,7 +84,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTECable(
             mName,
             mThickNess,
@@ -149,11 +149,11 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World aWorld, int aX, int aY, int aZ, Entity aEntity) {
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity aEntity) {
 
         if (!mCanShock) return;
 
-        final BaseMetaPipeEntity baseEntity = (BaseMetaPipeEntity) getBaseMetaTileEntity();
+        final BaseMetaPipeEntity baseEntity = (BaseMetaPipeEntity) getGTE();
 
         if (!(aEntity instanceof EntityLivingBase livingEntity)) return;
         if (!(baseEntity.getNodePath() instanceof PowerNodePath powerPath)) return;
@@ -172,7 +172,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return true;
     }
 
@@ -194,7 +194,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     @Override
     public long injectEnergyUnits(ForgeDirection side, long voltage, long amperage) {
         if (!isConnectedAtSide(side) && side != ForgeDirection.UNKNOWN) return 0;
-        if (!getBaseMetaTileEntity().getCoverAtSide(side)
+        if (!getGTE().getCoverAtSide(side)
             .letsEnergyIn()) return 0;
         return transferElectricity(side, voltage, amperage, null);
     }
@@ -202,9 +202,9 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     @Override
     public long transferElectricity(ForgeDirection side, long voltage, long amperage,
         HashSet<TileEntity> alreadyPassedSet) {
-        if (amperage <= 0 || !getBaseMetaTileEntity().isServerSide()
-            || (!isConnectedAtSide(side) && side != ForgeDirection.UNKNOWN)) return 0;
-        final BaseMetaPipeEntity tBase = (BaseMetaPipeEntity) getBaseMetaTileEntity();
+        if (amperage <= 0 || !getGTE().isServerSide() || (!isConnectedAtSide(side) && side != ForgeDirection.UNKNOWN))
+            return 0;
+        final BaseMetaPipeEntity tBase = (BaseMetaPipeEntity) getGTE();
         if (!(tBase.getNode() instanceof PowerNode tNode)) return 0;
         int tPlace = 0;
         final Node[] tToPower = new Node[tNode.mConsumers.size()];
@@ -227,9 +227,9 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
-        if (aTick % 20 == 0 && aBaseMetaTileEntity.isServerSide() && (mCheckConnections)) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (tick % 20 == 0 && gte.isServerSide() && (mCheckConnections)) {
             checkConnections();
         }
     }
@@ -245,14 +245,14 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        if (consumeDurabilityForConnection(aPlayer)) {
+    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
+        if (consumeDurabilityForConnection(player)) {
             if (isConnectedAtSide(wrenchingSide)) {
                 disconnect(wrenchingSide);
-                GTUtility.sendChatTrans(aPlayer, "GT5U.chat.disconnected");
+                GTUtility.sendChatTrans(player, "GT5U.chat.disconnected");
             } else if (connect(wrenchingSide) > 0) {
-                GTUtility.sendChatTrans(aPlayer, "GT5U.chat.connected");
+                GTUtility.sendChatTrans(player, "GT5U.chat.connected");
             }
             return true;
         }
@@ -272,7 +272,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
      * @return A connectable tile or null.
      */
     public IMetaTileEntity getConnectableMTE(ForgeDirection side) {
-        IGregTechTileEntity thisBMTE = this.getBaseMetaTileEntity();
+        IGregTechTileEntity thisBMTE = this.getGTE();
         if (thisBMTE.getTileEntityAtSide(side) instanceof IGregTechTileEntity otherBMTE) {
             IMetaTileEntity otherMTE = otherBMTE.getMetaTileEntity();
             if (otherMTE instanceof MTECable cable) {
@@ -295,14 +295,14 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        if (GTModHandler.damageOrDechargeItem(aPlayer.inventory.getCurrentItem(), 1, 500, aPlayer)) {
+    public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
+        if (GTModHandler.damageOrDechargeItem(player.inventory.getCurrentItem(), 1, 500, player)) {
             if (isConnectedAtSide(wrenchingSide)) {
                 disconnect(wrenchingSide);
-                GTUtility.sendChatTrans(aPlayer, "GT5U.chat.disconnected");
+                GTUtility.sendChatTrans(player, "GT5U.chat.disconnected");
             } else if (connect(wrenchingSide) > 0) {
-                GTUtility.sendChatTrans(aPlayer, "GT5U.chat.connected");
+                GTUtility.sendChatTrans(player, "GT5U.chat.connected");
             }
             return true;
         }
@@ -321,7 +321,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
 
     @Override
     public boolean canConnect(ForgeDirection side, TileEntity tileEntity) {
-        final IGregTechTileEntity baseMetaTile = getBaseMetaTileEntity();
+        final IGregTechTileEntity baseMetaTile = getGTE();
         final ForgeDirection oppositeSide = side.getOpposite();
 
         // GT Machine handling
@@ -335,14 +335,12 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -361,13 +359,13 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        aNBT.setByte("mConnections", mConnections);
+    public void saveNBTData(NBTTagCompound nbt) {
+        nbt.setByte("mConnections", mConnections);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        mConnections = aNBT.getByte("mConnections");
+    public void loadNBTData(NBTTagCompound nbt) {
+        mConnections = nbt.getByte("mConnections");
     }
 
     @Override
@@ -377,7 +375,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
 
     @Override
     public String[] getInfoData() {
-        final BaseMetaPipeEntity base = (BaseMetaPipeEntity) getBaseMetaTileEntity();
+        final BaseMetaPipeEntity base = (BaseMetaPipeEntity) getGTE();
         final PowerNodePath path = (PowerNodePath) base.getNodePath();
 
         if (path == null) return new String[] { "GT5U.infodata.cable.failed" };
@@ -411,7 +409,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
 
     @Override
     public void reloadLocks() {
-        final BaseMetaPipeEntity pipe = (BaseMetaPipeEntity) getBaseMetaTileEntity();
+        final BaseMetaPipeEntity pipe = (BaseMetaPipeEntity) getGTE();
         if (pipe.getNode() != null) {
             for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                 if (isConnectedAtSide(side)) {

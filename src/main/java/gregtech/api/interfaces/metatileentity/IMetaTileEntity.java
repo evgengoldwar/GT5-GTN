@@ -43,45 +43,44 @@ import io.netty.buffer.ByteBuf;
 public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHandler, IMachineBlockUpdateable,
     IGregtechWailaProvider, IGetGUITextureSet, IGregTechDeviceInformation, CapabilityProvider, IGuiHolder<PosGuiData> {
 
-    IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity);
+    IMetaTileEntity newMTE(IGregTechTileEntity gte);
 
     ItemStack getStackForm(long aAmount);
 
-    IGregTechTileEntity getBaseMetaTileEntity();
+    IGregTechTileEntity getGTE();
 
-    void setBaseMetaTileEntity(IGregTechTileEntity aBaseMetaTileEntity);
+    void setGTE(IGregTechTileEntity gte);
 
-    void initDefaultModes(NBTTagCompound aNBT);
+    void initDefaultModes(NBTTagCompound nbt);
 
-    void saveNBTData(NBTTagCompound aNBT);
+    void saveNBTData(NBTTagCompound nbt);
 
-    void loadNBTData(NBTTagCompound aNBT);
+    void loadNBTData(NBTTagCompound nbt);
 
-    void setItemNBT(NBTTagCompound aNBT);
+    void setItemNBT(NBTTagCompound nbt);
 
     void onConfigLoad();
 
     boolean allowCoverOnSide(ForgeDirection side, ItemStack coverItem);
 
-    void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool);
+    void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z, ItemStack tool);
 
-    boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer, float aX,
-        float aY, float aZ, ItemStack aTool);
+    boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x, float y,
+        float z, ItemStack tool);
 
-    boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
-        float aX, float aY, float aZ, ItemStack aTool);
+    boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool);
 
-    boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
-        float aX, float aY, float aZ, ItemStack aTool);
+    boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool);
 
     void onExplosion();
 
-    void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity);
+    void onFirstTick(IGregTechTileEntity gte);
 
-    void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick);
+    void onPreTick(IGregTechTileEntity gte, long tick);
 
-    void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick);
+    void onPostTick(IGregTechTileEntity gte, long tick);
 
     boolean needsClientTick();
 
@@ -95,18 +94,18 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     boolean isFacingValid(ForgeDirection facing);
 
-    boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side, ItemStack aStack);
+    boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack);
 
-    boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side, ItemStack aStack);
+    boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack);
 
-    boolean isValidSlot(int aIndex);
+    boolean isValidSlot(int index);
 
     default boolean isIOSlot(int slot) {
         return true;
     }
 
-    default int getStackSizeLimit(int slot, @Nullable ItemStack stack) {
-        return Math.min(getSlotLimit(slot), stack == null ? 64 : stack.getMaxStackSize());
+    default int getStackSizeLimit(int slot, @Nullable ItemStack itemStack) {
+        return Math.min(getSlotLimit(slot), itemStack == null ? 64 : itemStack.getMaxStackSize());
     }
 
     default int getSlotLimit(int slot) {
@@ -117,7 +116,7 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     ArrayList<ItemStack> getDroppedItem();
 
-    boolean setStackToZeroInsteadOfNull(int aIndex);
+    boolean setStackToZeroInsteadOfNull(int index);
 
     boolean isLiquidInput(ForgeDirection side);
 
@@ -125,36 +124,35 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     String getMetaName();
 
-    boolean isAccessAllowed(EntityPlayer aPlayer);
+    boolean isAccessAllowed(EntityPlayer player);
 
-    boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, ForgeDirection side, float aX,
-        float aY, float aZ);
+    boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y, float z);
 
-    void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer);
+    void onLeftClick(IGregTechTileEntity gte, EntityPlayer player);
 
-    void onValueUpdate(byte aValue);
+    void onValueUpdate(byte value);
 
     byte getUpdateData();
 
-    void receiveClientEvent(byte aEventID, byte aValue);
+    void receiveClientEvent(byte eventId, byte value);
 
-    void doSound(byte aIndex, double aX, double aY, double aZ);
+    void doSound(byte index, double x, double y, double z);
 
-    void startSoundLoop(byte aIndex, double aX, double aY, double aZ);
+    void startSoundLoop(byte index, double x, double y, double z);
 
-    void stopSoundLoop(byte aValue, double aX, double aY, double aZ);
+    void stopSoundLoop(byte index, double x, double y, double z);
 
-    void sendSound(byte aIndex);
+    void sendSound(byte index);
 
-    void sendLoopStart(byte aIndex);
+    void sendLoopStart(byte index);
 
-    void sendLoopEnd(byte aIndex);
+    void sendLoopEnd(byte index);
 
-    void doExplosion(long aExplosionPower);
+    void doExplosion(long explosionPower);
 
     boolean doTickProfilingMessageDuringThisTick();
 
-    ArrayList<String> getSpecialDebugInfo(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, int aLogLevel,
+    ArrayList<String> getSpecialDebugInfo(IGregTechTileEntity gte, EntityPlayer player, int logLevel,
         ArrayList<String> aList);
 
     String[] getDescription();
@@ -169,11 +167,11 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     String getSpecialVoltageToolTip();
 
-    ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection side, ForgeDirection facing,
-        int colorIndex, boolean active, boolean redstoneLevel);
+    ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
+        boolean active, boolean redstoneLevel);
 
     @SideOnly(Side.CLIENT)
-    void registerIcons(IIconRegister aBlockIconRegister);
+    void registerIcons(IIconRegister iconRegister);
 
     @SideOnly(Side.CLIENT)
     boolean renderInInventory(ISBRInventoryContext ctx);
@@ -195,17 +193,17 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     boolean connectsToItemPipe(ForgeDirection side);
 
-    void onColorChangeServer(byte aColor);
+    void onColorChangeServer(byte color);
 
-    default void onColorChangeClient(byte aColor) {}
+    default void onColorChangeClient(byte color) {}
 
     default void writeToStream(ByteBuf buffer) {}
 
     default void readFromStream(ByteBuf buffer) {}
 
     default int getGUIColorization() {
-        if (getBaseMetaTileEntity() != null) {
-            return getBaseMetaTileEntity().getGUIColorization();
+        if (getGTE() != null) {
+            return getGTE().getGUIColorization();
         } else {
             return Dyes.GUI_METAL.toInt();
         }
@@ -215,14 +213,14 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     boolean allowGeneralRedstoneOutput();
 
-    void addCollisionBoxesToList(World aWorld, int aX, int aY, int aZ, AxisAlignedBB inputAABB,
+    void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB inputAABB,
         List<AxisAlignedBB> outputAABB, Entity collider);
 
-    AxisAlignedBB getCollisionBoundingBoxFromPool(World aWorld, int aX, int aY, int aZ);
+    AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z);
 
-    void onEntityCollidedWithBlock(World aWorld, int aX, int aY, int aZ, Entity collider);
+    void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity collider);
 
-    void onCreated(ItemStack aStack, World aWorld, EntityPlayer aPlayer);
+    void onCreated(ItemStack itemStack, World world, EntityPlayer player);
 
     boolean hasAlternativeModeText();
 
@@ -236,7 +234,7 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
     default void onAdjacentBlockChange(int x, int y, int z) {}
 
     @SideOnly(Side.CLIENT)
-    default void onRandomDisplayTick(IGregTechTileEntity aBaseMetaTileEntity) {}
+    default void onRandomDisplayTick(IGregTechTileEntity gte) {}
 
     default int getGUIWidth() {
         return 176;
@@ -268,7 +266,7 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
 
     default void onBlockDestroyed() {}
 
-    default void addAdditionalTooltipInformation(ItemStack stack, List<String> tooltip) {}
+    default void addAdditionalTooltipInformation(ItemStack itemStack, List<String> tooltip) {}
 
     @Nullable
     default List<ItemStack> getItemsForHoloGlasses() {

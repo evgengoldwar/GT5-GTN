@@ -27,7 +27,7 @@ public class GTItemTransfer extends ItemTransfer {
     public void outOfMachine(IMetaTileEntity imte, ForgeDirection side) {
         source(imte, side);
         sink(
-            imte.getBaseMetaTileEntity()
+            imte.getGTE()
                 .getTileEntityAtSide(side),
             side.getOpposite());
     }
@@ -43,8 +43,8 @@ public class GTItemTransfer extends ItemTransfer {
 
     public void dropItems(MTEBasicMachine machine) {
         dropItems(
-            machine.getBaseMetaTileEntity(),
-            machine.getBaseMetaTileEntity()
+            machine.getGTE(),
+            machine.getGTE()
                 .getFrontFacing());
     }
 }

@@ -53,7 +53,7 @@ public abstract class MTETooltipMultiBlockBase extends MTEMultiBlockBase impleme
     protected abstract MultiblockTooltipBuilder createTooltip();
 
     protected final MultiblockTooltipBuilder getTooltip() {
-        int tId = getBaseMetaTileEntity().getMetaTileID();
+        int tId = getGTE().getMetaTileID();
         MultiblockTooltipBuilder tooltip = tooltips.get(tId);
         if (tooltip == null) {
             tooltip = createTooltip();

@@ -93,8 +93,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
             }
 
             if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null) {
-                final IGregTechTileEntity gte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta]
-                    .getBaseMetaTileEntity();
+                final IGregTechTileEntity gte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE();
                 final IMetaTileEntity mte = gte.getMetaTileEntity();
                 if (mte instanceof ILocalizedMetaPipeEntity localizedMetaPipeEntity) {
                     localizedMetaPipeEntity.addMaterialTooltip(list);
@@ -204,7 +203,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
             return;
         }
         if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null) {
-            final IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getBaseMetaTileEntity()
+            final IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE()
                 .getMetaTileEntity();
             if (isSkipGenerateDescription(mte)) return;
             String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip";
@@ -280,9 +279,20 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
                 return false;
             }
 
+            final int newMeta = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE()
+                .getMetaTileID();
+            if (!world.setBlock(x, y, z, this.field_150939_a, newMeta, 3)) {
+                return false;
+            }
+
             if (world.getBlock(x, y, z) != this.field_150939_a) {
                 throw new GTItsNotMyFaultException(
                     "Failed to place Block even though World.setBlock returned true. It COULD be MCPC/Bukkit causing that. In case you really have that installed, don't report this Bug to me, I don't know how to fix it.");
+            }
+
+            if (world.getBlockMetadata(x, y, z) != newMeta) {
+                throw new GTItsNotMyFaultException(
+                    "Failed to set the MetaValue of the Block even though World.setBlock returned true. It COULD be MCPC/Bukkit causing that. In case you really have that installed, don't report this Bug to me, I don't know how to fix it.");
             }
 
             final TileEntity te = world.getTileEntity(x, y, z);
@@ -341,7 +351,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         if ((GTUtility.isStackInList(offHand, GregTechAPI.sWrenchList))) {
             ForgeDirection oppositeSide = side.getOpposite();
             if (player.isSneaking()) {
-                TileEntity adjTile = pipe.getBaseMetaTileEntity()
+                TileEntity adjTile = pipe.getGTE()
                     .getTileEntityAtSide(oppositeSide);
                 if (adjTile instanceof IGregTechTileEntity gte
                     && gte.getMetaTileEntity() instanceof MTEFluidPipe adjPipe) {

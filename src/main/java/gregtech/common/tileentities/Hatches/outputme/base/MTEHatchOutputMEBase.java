@@ -82,7 +82,7 @@ public abstract class MTEHatchOutputMEBase<T extends IAEStack<T>> {
     public interface Environment<T extends IAEStack<T>> {
 
         @Nullable
-        IGregTechTileEntity getBaseMetaTileEntity();
+        IGregTechTileEntity getGTE();
 
         IGridProxyable getIGridProxyable();
 
@@ -219,7 +219,7 @@ public abstract class MTEHatchOutputMEBase<T extends IAEStack<T>> {
         } else {
             getProxy().setValidSides(
                 EnumSet.of(
-                    env.getBaseMetaTileEntity()
+                    env.getGTE()
                         .getFrontFacing()));
         }
     }
@@ -683,7 +683,7 @@ public abstract class MTEHatchOutputMEBase<T extends IAEStack<T>> {
             .equals(nbt.getString("type"))) return false;
         setAdditionalConnection(nbt.getBoolean("additionalConnection"));
         byte color = nbt.getByte("color");
-        env.getBaseMetaTileEntity()
+        env.getGTE()
             .setColorization(color);
         setCacheMode(nbt.getBoolean("cacheMode"));
         setCheckMode(nbt.getBoolean("checkMode"));

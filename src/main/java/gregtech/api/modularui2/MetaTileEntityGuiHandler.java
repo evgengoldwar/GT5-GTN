@@ -26,7 +26,7 @@ public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData
     }
 
     public static void open(EntityPlayer player, IMetaTileEntity mte) {
-        IGregTechTileEntity baseTE = mte.getBaseMetaTileEntity();
+        IGregTechTileEntity baseTE = mte.getGTE();
         if (baseTE == null || !baseTE.canAccessData()) {
             throw new IllegalArgumentException("Can't open invalid MetaTileEntity GUI!");
         }

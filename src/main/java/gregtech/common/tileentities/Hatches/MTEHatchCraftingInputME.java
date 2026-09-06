@@ -159,7 +159,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
             this.parentMTE = parent;
             this.patternDetails = ((ICraftingPatternItem) Objects.requireNonNull(pattern.getItem())).getPatternForItem(
                 pattern,
-                parent.getBaseMetaTileEntity()
+                parent.getGTE()
                     .getWorld());
             this.itemInventory = new ArrayList<>();
             this.fluidInventory = new ArrayList<>();
@@ -300,17 +300,17 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                 itemStack.stackSize = rest != null && rest.getStackSize() > 0 ? (int) rest.getStackSize() : 0;
 
                 if (Gregtech.machines.allowCribDropItems && shouldDrop && itemStack.stackSize > 0) {
-                    World world = parentMTE.getBaseMetaTileEntity()
+                    World world = parentMTE.getGTE()
                         .getWorld();
                     EntityItem entityItem = new EntityItem(
                         world,
-                        parentMTE.getBaseMetaTileEntity()
+                        parentMTE.getGTE()
                             .getXCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
-                        parentMTE.getBaseMetaTileEntity()
+                        parentMTE.getGTE()
                             .getYCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
-                        parentMTE.getBaseMetaTileEntity()
+                        parentMTE.getGTE()
                             .getZCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
                         GTUtility.copy(itemStack));
@@ -336,7 +336,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                 fluidStack.amount = rest != null && rest.getStackSize() > 0 ? (int) rest.getStackSize() : 0;
 
                 if (Gregtech.machines.allowCribDropItems && shouldDrop && fluidStack.amount > 0) {
-                    World world = parentMTE.getBaseMetaTileEntity()
+                    World world = parentMTE.getGTE()
                         .getWorld();
 
                     ItemStack fluidPacketItemStack = ItemFluidPacket.newStack(fluidStack);
@@ -344,13 +344,13 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
 
                     EntityItem entityItem = new EntityItem(
                         world,
-                        parentMTE.getBaseMetaTileEntity()
+                        parentMTE.getGTE()
                             .getXCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
-                        parentMTE.getBaseMetaTileEntity()
+                        parentMTE.getGTE()
                             .getYCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
-                        parentMTE.getBaseMetaTileEntity()
+                        parentMTE.getGTE()
                             .getZCoord() + XSTR_INSTANCE.nextFloat() * 0.8F
                             + 0.1F,
                         fluidPacketItemStack);
@@ -505,7 +505,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchCraftingInputME(mName, mTier, mDescriptionArray, mTextures, supportFluids);
     }
 
@@ -521,15 +521,15 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        super.onPostTick(aBaseMetaTileEntity, aTimer);
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
 
-        if (getBaseMetaTileEntity().isServerSide()) {
-            if (needPatternSync && aTimer % 10 == 0) {
+        if (getGTE().isServerSide()) {
+            if (needPatternSync && tick % 10 == 0) {
                 needPatternSync = !postMEPatternChange();
             }
-            if (aTimer % 20 == 0) {
-                getBaseMetaTileEntity().setActive(isActive());
+            if (tick % 20 == 0) {
+                getGTE().setActive(isActive());
             }
             if (justHadNewItems) {
                 for (IHatchWatcher watcher : watchers) {
@@ -544,8 +544,8 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void onFirstTick(IGregTechTileEntity gte) {
+        super.onFirstTick(gte);
         getProxy().onReady();
     }
 
@@ -555,7 +555,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void onColorChangeServer(byte aColor) {
+    public void onColorChangeServer(byte color) {
         updateAE2ProxyColor();
     }
 
@@ -575,10 +575,9 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     private long lastProxyHatchValidationTime = -1;
 
     private void validateProxyHatchList() {
-        long currentTime = getBaseMetaTileEntity().getTimer();
+        long currentTime = getGTE().getTimer();
         if (currentTime != lastProxyHatchValidationTime) {
-            proxyHatches
-                .removeIf(hatch -> hatch == null || hatch.getBaseMetaTileEntity() == null || hatch.getMaster() != this);
+            proxyHatches.removeIf(hatch -> hatch == null || hatch.getGTE() == null || hatch.getMaster() != this);
             lastProxyHatchValidationTime = currentTime;
         }
     }
@@ -606,7 +605,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
         if (additionalConnection) {
             getProxy().setValidSides(EnumSet.complementOf(EnumSet.of(ForgeDirection.UNKNOWN)));
         } else {
-            getProxy().setValidSides(EnumSet.of(getBaseMetaTileEntity().getFrontFacing()));
+            getProxy().setValidSides(EnumSet.of(getGTE().getFrontFacing()));
         }
     }
 
@@ -619,11 +618,11 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     public void securityBreak() {}
 
     @Override
-    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        if (aPlayer.isSneaking()) {
-            IGregTechTileEntity te = getBaseMetaTileEntity();
-            aPlayer.openGui(
+    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
+        if (player.isSneaking()) {
+            IGregTechTileEntity te = getGTE();
+            player.openGui(
                 AppEng.instance(),
                 GuiBridge.GUI_RENAMER.ordinal() << 5 | (side.ordinal()),
                 te.getWorld(),
@@ -635,7 +634,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
 
         additionalConnection = !additionalConnection;
         updateValidGridProxySides();
-        aPlayer.addChatComponentMessage(
+        player.addChatComponentMessage(
             new ChatComponentTranslation("GT5U.hatch.additionalConnection." + additionalConnection));
         return true;
     }
@@ -665,10 +664,10 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     @Override
     public DimensionalCoord getLocation() {
         return new DimensionalCoord(
-            getBaseMetaTileEntity().getWorld(),
-            getBaseMetaTileEntity().getXCoord(),
-            getBaseMetaTileEntity().getYCoord(),
-            getBaseMetaTileEntity().getZCoord());
+            getGTE().getWorld(),
+            getGTE().getXCoord(),
+            getGTE().getYCoord(),
+            getGTE().getZCoord());
     }
 
     @Override
@@ -721,7 +720,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
 
         StringBuilder suffix = new StringBuilder();
 
-        IGregTechTileEntity base = getBaseMetaTileEntity();
+        IGregTechTileEntity base = getGTE();
         if (base instanceof IInterfaceNameProvider nameProvider) {
             String circuitSuffix = nameProvider.getInterfaceNameSuffix();
             if (circuitSuffix != null) suffix.append(circuitSuffix);
@@ -744,7 +743,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
 
     @Override
     public TileEntity getTileEntity() {
-        return (TileEntity) getBaseMetaTileEntity();
+        return (TileEntity) getGTE();
     }
 
     @Override
@@ -786,8 +785,8 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
 
         // save internalInventory
         NBTTagList internalInventoryNBT = new NBTTagList();
@@ -800,19 +799,19 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                 internalInventoryNBT.appendTag(internalInventorySlotNBT);
             }
         }
-        aNBT.setTag("internalInventory", internalInventoryNBT);
-        if (customName != null) aNBT.setString("customName", customName);
-        aNBT.setBoolean("additionalConnection", additionalConnection);
-        aNBT.setBoolean("disablePatternOptimization", disablePatternOptimization);
-        aNBT.setBoolean("showPattern", showPattern);
-        getProxy().writeToNBT(aNBT);
+        nbt.setTag("internalInventory", internalInventoryNBT);
+        if (customName != null) nbt.setString("customName", customName);
+        nbt.setBoolean("additionalConnection", additionalConnection);
+        nbt.setBoolean("disablePatternOptimization", disablePatternOptimization);
+        nbt.setBoolean("showPattern", showPattern);
+        getProxy().writeToNBT(nbt);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
         // load internalInventory
-        NBTTagList internalInventoryNBT = aNBT.getTagList("internalInventory", Constants.NBT.TAG_COMPOUND);
+        NBTTagList internalInventoryNBT = nbt.getTagList("internalInventory", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < internalInventoryNBT.tagCount(); i++) {
             NBTTagCompound internalInventorySlotNBT = internalInventoryNBT.getCompoundTagAt(i);
             int patternSlot = internalInventorySlotNBT.getInteger("patternSlot");
@@ -848,12 +847,12 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
             }
         }
 
-        if (aNBT.hasKey("customName")) customName = aNBT.getString("customName");
-        additionalConnection = aNBT.getBoolean("additionalConnection");
-        disablePatternOptimization = aNBT.getBoolean("disablePatternOptimization");
-        if (aNBT.hasKey("showPattern")) showPattern = aNBT.getBoolean("showPattern");
+        if (nbt.hasKey("customName")) customName = nbt.getString("customName");
+        additionalConnection = nbt.getBoolean("additionalConnection");
+        disablePatternOptimization = nbt.getBoolean("disablePatternOptimization");
+        if (nbt.hasKey("showPattern")) showPattern = nbt.getBoolean("showPattern");
 
-        if (aNBT.hasKey("proxy")) getProxy().readFromNBT(aNBT);
+        if (nbt.hasKey("proxy")) getProxy().readFromNBT(nbt);
         updateAE2ProxyColor();
 
         // Sync inventories to ensure that the real inventory matches what AE2 is seeing.
@@ -924,14 +923,12 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -951,7 +948,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
+    public boolean isValidSlot(int index) {
         return true;
     }
 
@@ -1071,14 +1068,14 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     private BaseActionSource getRequest() {
-        if (requestSource == null) requestSource = new MachineSource((IActionHost) getBaseMetaTileEntity());
+        if (requestSource == null) requestSource = new MachineSource((IActionHost) getGTE());
         return requestSource;
     }
 
     public void onPatternChange(int index, ItemStack newItem) {
-        if (!getBaseMetaTileEntity().isServerSide()) return;
+        if (!getGTE().isServerSide()) return;
 
-        World world = getBaseMetaTileEntity().getWorld();
+        World world = getGTE().getWorld();
 
         // remove old if applicable
         PatternSlot<MTEHatchCraftingInputME> originalPattern = internalInventory[index];
@@ -1233,8 +1230,8 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
             if (details == null) {
                 GTLoggers.GT_FML_LOGGER.warn(
                     "Found an invalid pattern at {} in dim {}",
-                    getBaseMetaTileEntity().getCoords(),
-                    getBaseMetaTileEntity().getWorld().provider.dimensionId);
+                    getGTE().getCoords(),
+                    getGTE().getWorld().provider.dimensionId);
                 continue;
             }
             craftingTracker.addCraftingOption(this, details);
@@ -1244,7 +1241,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     @Override
     public boolean pushPattern(ICraftingPatternDetails patternDetails, InventoryCrafting table) {
         if (!isActive()) return false;
-        if (!getBaseMetaTileEntity().isAllowedToWork()) return false;
+        if (!getGTE().isAllowedToWork()) return false;
         if (!(table instanceof MEInventoryCrafting meic)) return false;
 
         for (int i = 0; i < table.getSizeInventory(); ++i) {
@@ -1318,17 +1315,17 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (!(aPlayer instanceof EntityPlayerMP)) return;
+    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+        if (!(player instanceof EntityPlayerMP)) return;
 
-        ItemStack dataStick = aPlayer.inventory.getCurrentItem();
+        ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
 
-        this.saveToDataStick(aPlayer, dataStick);
+        this.saveToDataStick(player, dataStick);
     }
 
     public void saveToDataStick(EntityPlayer aPlayer, ItemStack dataStick) {
-        IGregTechTileEntity aBaseMetaTileEntity = getBaseMetaTileEntity();
+        IGregTechTileEntity aBaseMetaTileEntity = getGTE();
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("type", "CraftingInputBuffer");
         tag.setInteger("x", aBaseMetaTileEntity.getXCoord());
@@ -1343,13 +1340,13 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, ForgeDirection side,
-        float aX, float aY, float aZ) {
-        final ItemStack is = aPlayer.inventory.getCurrentItem();
+    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
+        float z) {
+        final ItemStack is = player.inventory.getCurrentItem();
         if (is != null && is.getItem() instanceof ToolQuartzCuttingKnife) {
-            if (ForgeEventFactory.onItemUseStart(aPlayer, is, 1) <= 0) return false;
-            IGregTechTileEntity te = getBaseMetaTileEntity();
-            aPlayer.openGui(
+            if (ForgeEventFactory.onItemUseStart(player, is, 1) <= 0) return false;
+            IGregTechTileEntity te = getGTE();
+            player.openGui(
                 AppEng.instance(),
                 GuiBridge.GUI_RENAMER.ordinal() << 5 | (side.ordinal()),
                 te.getWorld(),
@@ -1358,7 +1355,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                 te.getZCoord());
             return true;
         }
-        return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
+        return super.onRightClick(gte, player, side, x, y, z);
     }
 
     @Override

@@ -102,7 +102,7 @@ public class MTEMultiBlockBaseGui<T extends MTEMultiBlockBase> {
 
     public MTEMultiBlockBaseGui(T multiblock) {
         this.multiblock = multiblock;
-        this.baseMetaTileEntity = multiblock.getBaseMetaTileEntity();
+        this.baseMetaTileEntity = multiblock.getGTE();
         initCustomIcons();
         initShutdownMaps();
     }

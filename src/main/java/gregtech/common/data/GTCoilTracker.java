@@ -234,7 +234,7 @@ public class GTCoilTracker {
      *         {@link #deactivate(MultiCoilLease)}
      */
     public static MultiCoilLease activate(MTEMultiBlockBase multi, LongList coils) {
-        IGregTechTileEntity base = multi.getBaseMetaTileEntity();
+        IGregTechTileEntity base = multi.getGTE();
 
         if (base == null || base.isDead()) return null;
 

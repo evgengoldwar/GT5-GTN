@@ -34,8 +34,8 @@ public abstract class MTEFilterBase extends MTEBuffer {
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
-        return aIndex < NUM_INVENTORY_SLOTS;
+    public boolean isValidSlot(int index) {
+        return index < NUM_INVENTORY_SLOTS;
     }
 
     @Override
@@ -44,15 +44,15 @@ public abstract class MTEFilterBase extends MTEBuffer {
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setBoolean("bInvertFilter", this.invertFilter);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setBoolean("bInvertFilter", this.invertFilter);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        this.invertFilter = aNBT.getBoolean("bInvertFilter");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        this.invertFilter = nbt.getBoolean("bInvertFilter");
     }
 
     @Override

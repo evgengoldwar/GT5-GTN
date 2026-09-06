@@ -52,7 +52,7 @@ public enum HarvestTool {
             case 13 -> PickaxeLevel1;
             case 14 -> PickaxeLevel2;
             case 15 -> PickaxeLevel3;
-            default -> throw new IllegalArgumentException("Unknown tool meta: " + meta);
+            default -> WrenchLevel0;
             // spotless:on
         };
     }

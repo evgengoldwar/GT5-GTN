@@ -19,7 +19,7 @@ public class GTItemSink extends InventoryItemSink {
     private final IMetaTileEntity imte;
 
     public GTItemSink(IMetaTileEntity imte, ForgeDirection side) {
-        super(imte.getBaseMetaTileEntity(), side);
+        super(imte.getGTE(), side);
         this.imte = imte;
     }
 

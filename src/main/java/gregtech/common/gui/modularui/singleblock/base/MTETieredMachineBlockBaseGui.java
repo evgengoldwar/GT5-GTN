@@ -57,7 +57,7 @@ public class MTETieredMachineBlockBaseGui<T extends MTETieredMachineBlock> {
 
     public MTETieredMachineBlockBaseGui(T machine) {
         this.machine = machine;
-        this.baseMetaTileEntity = machine.getBaseMetaTileEntity();
+        this.baseMetaTileEntity = machine.getGTE();
     }
 
     private final int borderRadius = 4;

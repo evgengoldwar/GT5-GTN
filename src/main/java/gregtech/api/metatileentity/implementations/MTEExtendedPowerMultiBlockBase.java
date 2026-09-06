@@ -36,16 +36,16 @@ public abstract class MTEExtendedPowerMultiBlockBase<T extends MTEEnhancedMultiB
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
         // NBT can be loaded as any primitive type, so we can load it as long.
-        this.lEUt = aNBT.getLong("mEUt");
+        this.lEUt = nbt.getLong("mEUt");
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setLong("mEUt", this.lEUt);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setLong("mEUt", this.lEUt);
     }
 
     @Override
@@ -88,7 +88,7 @@ public abstract class MTEExtendedPowerMultiBlockBase<T extends MTEEnhancedMultiB
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
-        final IGregTechTileEntity tileEntity = getBaseMetaTileEntity();
+        final IGregTechTileEntity tileEntity = getGTE();
         if (tileEntity != null) {
             if (tileEntity.isActive()) {
                 if (lEUt < 0) tag.setLong("energyUsage", getActualEnergyUsage());

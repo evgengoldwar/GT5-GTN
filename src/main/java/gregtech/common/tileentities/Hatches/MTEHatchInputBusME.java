@@ -125,7 +125,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEHatchInputBusME(mName, autoPullAvailable, mTier, mDescriptionArray, mTextures);
     }
 
@@ -140,9 +140,9 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        if (aBaseMetaTileEntity.isServerSide()) {
-            if (aTimer % autoPullRefreshTime == 0 && autoPullItemList) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        if (gte.isServerSide()) {
+            if (tick % autoPullRefreshTime == 0 && autoPullItemList) {
                 refreshItemList();
                 if (justHadNewItems) {
                     // Advanced hatch auto pull always have immediate check, to not break automations
@@ -150,20 +150,20 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
                     justHadNewItems = false;
                 }
             }
-            if (aTimer % 20 == 0) {
-                aBaseMetaTileEntity.setActive(isActive());
+            if (tick % 20 == 0) {
+                gte.setActive(isActive());
                 if (!autoPullAvailable) {
-                    aBaseMetaTileEntity.tryDisableTicking();
+                    gte.tryDisableTicking();
                 }
             }
         }
-        super.onPostTick(aBaseMetaTileEntity, aTimer);
+        super.onPostTick(gte, tick);
     }
 
     public boolean isAllowedToWork() {
         if (processingRecipe) return cachedActivity;
 
-        IGregTechTileEntity igte = getBaseMetaTileEntity();
+        IGregTechTileEntity igte = getGTE();
 
         if (igte == null || !igte.isAllowedToWork()) return false;
 
@@ -191,7 +191,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void onColorChangeServer(byte aColor) {
+    public void onColorChangeServer(byte color) {
         updateAE2ProxyColor();
     }
 
@@ -210,8 +210,8 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void onFirstTick(IGregTechTileEntity gte) {
+        super.onFirstTick(gte);
         getProxy().onReady();
     }
 
@@ -224,7 +224,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
         if (additionalConnection) {
             getProxy().setValidSides(EnumSet.complementOf(EnumSet.of(ForgeDirection.UNKNOWN)));
         } else {
-            getProxy().setValidSides(EnumSet.of(getBaseMetaTileEntity().getFrontFacing()));
+            getProxy().setValidSides(EnumSet.of(getGTE().getFrontFacing()));
         }
     }
 
@@ -234,11 +234,11 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
+    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
+        float x, float y, float z, ItemStack tool) {
         additionalConnection = !additionalConnection;
         updateValidGridProxySides();
-        aPlayer.addChatComponentMessage(
+        player.addChatComponentMessage(
             new ChatComponentTranslation("GT5U.hatch.additionalConnection." + additionalConnection));
         return true;
     }
@@ -257,7 +257,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     @Override
     public @NotNull AENetworkProxy getProxy() {
         if (gridProxy == null) {
-            var base = getBaseMetaTileEntity();
+            var base = getGTE();
             if (base instanceof IGridProxyable) {
                 gridProxy = new AENetworkProxy(
                     this,
@@ -274,15 +274,15 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
 
     @MENetworkEventSubscribe
     public void powerChangeME(MENetworkPowerStatusChange c) {
-        if (getBaseMetaTileEntity() != null) {
-            getBaseMetaTileEntity().setActive(isActive());
+        if (getGTE() != null) {
+            getGTE().setActive(isActive());
         }
     }
 
     @MENetworkEventSubscribe
     public void bootChangeME(MENetworkBootingStatusChange c) {
-        if (getBaseMetaTileEntity() != null) {
-            getBaseMetaTileEntity().setActive(isActive());
+        if (getGTE() != null) {
+            getGTE().setActive(isActive());
         }
     }
 
@@ -297,18 +297,18 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
 
-        aNBT.setInteger("version", 1);
-        aNBT.setBoolean("autoStock", autoPullItemList);
-        aNBT.setInteger("minAutoPullStackSize", minAutoPullStackSize);
-        aNBT.setBoolean("additionalConnection", additionalConnection);
-        aNBT.setInteger("refreshTime", autoPullRefreshTime);
-        getProxy().writeToNBT(aNBT);
+        nbt.setInteger("version", 1);
+        nbt.setBoolean("autoStock", autoPullItemList);
+        nbt.setInteger("minAutoPullStackSize", minAutoPullStackSize);
+        nbt.setBoolean("additionalConnection", additionalConnection);
+        nbt.setInteger("refreshTime", autoPullRefreshTime);
+        getProxy().writeToNBT(nbt);
 
         NBTTagList slotList = new NBTTagList();
-        aNBT.setTag("slots", slotList);
+        nbt.setTag("slots", slotList);
 
         for (int i = 0; i < slots.length; i++) {
             Slot slot = slots[i];
@@ -349,7 +349,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
         }
 
         // check isServerSide to avoid refreshing twice
-        if (autoPullItemList != pullItemList && getBaseMetaTileEntity().isServerSide()) {
+        if (autoPullItemList != pullItemList && getGTE().isServerSide()) {
             autoPullItemList = pullItemList;
 
             clearSlotConfigs();
@@ -363,25 +363,25 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
 
-        autoPullItemList = aNBT.getBoolean("autoStock");
-        minAutoPullStackSize = aNBT.getInteger("minAutoPullStackSize");
-        additionalConnection = aNBT.getBoolean("additionalConnection");
-        if (aNBT.hasKey("refreshTime")) {
-            autoPullRefreshTime = aNBT.getInteger("refreshTime");
+        autoPullItemList = nbt.getBoolean("autoStock");
+        minAutoPullStackSize = nbt.getInteger("minAutoPullStackSize");
+        additionalConnection = nbt.getBoolean("additionalConnection");
+        if (nbt.hasKey("refreshTime")) {
+            autoPullRefreshTime = nbt.getInteger("refreshTime");
         }
-        if (aNBT.hasKey("proxy")) getProxy().readFromNBT(aNBT);
+        if (nbt.hasKey("proxy")) getProxy().readFromNBT(nbt);
         updateAE2ProxyColor();
 
         clearSlotConfigs();
 
-        switch (aNBT.getInteger("version")) {
+        switch (nbt.getInteger("version")) {
             case 0 -> {
-                int[] sizes = aNBT.hasKey("sizes") ? aNBT.getIntArray("sizes") : new int[0];
+                int[] sizes = nbt.hasKey("sizes") ? nbt.getIntArray("sizes") : new int[0];
 
-                final NBTTagList inventory = aNBT.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
+                final NBTTagList inventory = nbt.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
 
                 ItemStack[] oldInventory = new ItemStack[SLOT_COUNT * 2 + 2];
 
@@ -411,7 +411,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
                 }
             }
             case 1 -> {
-                NBTTagList slotList = aNBT.getTagList("slots", Constants.NBT.TAG_COMPOUND);
+                NBTTagList slotList = nbt.getTagList("slots", Constants.NBT.TAG_COMPOUND);
 
                 // noinspection unchecked
                 for (NBTTagCompound tag : (List<NBTTagCompound>) slotList.tagList) {
@@ -438,31 +438,29 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return aIndex == getManualSlot();
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return index == getManualSlot();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return aIndex == getManualSlot();
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return index == getManualSlot();
     }
 
     @Override
-    public boolean isValidSlot(int aIndex) {
-        return aIndex == getManualSlot();
+    public boolean isValidSlot(int index) {
+        return index == getManualSlot();
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
-        ItemStack aTool) {
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer player, float x, float y, float z,
+        ItemStack tool) {
         if (!autoPullAvailable) {
             return;
         }
 
         setAutoPullItemList(!autoPullItemList);
-        aPlayer.addChatMessage(
+        player.addChatMessage(
             new ChatComponentTranslation(
                 "GT5U.machines.stocking_bus.auto_pull_toggle." + (autoPullItemList ? "enabled" : "disabled")));
     }
@@ -474,30 +472,29 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, ForgeDirection side,
-        float aX, float aY, float aZ) {
-        if (!(aPlayer instanceof EntityPlayerMP))
-            return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
-        ItemStack dataStick = aPlayer.inventory.getCurrentItem();
+    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
+        float z) {
+        if (!(player instanceof EntityPlayerMP)) return super.onRightClick(gte, player, side, x, y, z);
+        ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true))
         // return super.onRightclick(aBaseMetaTileEntity, aPlayer, side, aX, aY, aZ);
 
-        if (!pasteCopiedData(aPlayer, dataStick.stackTagCompound)) return false;
+        if (!pasteCopiedData(player, dataStick.stackTagCompound)) return false;
 
-        aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.stocking_bus.loaded"));
+        player.addChatMessage(new ChatComponentTranslation("GT5U.machines.stocking_bus.loaded"));
         return true;
     }
 
     @Override
-    public void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (!(aPlayer instanceof EntityPlayerMP)) return;
+    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+        if (!(player instanceof EntityPlayerMP)) return;
 
-        ItemStack dataStick = aPlayer.inventory.getCurrentItem();
+        ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;
 
-        dataStick.stackTagCompound = getCopiedData(aPlayer);
+        dataStick.stackTagCompound = getCopiedData(player);
         dataStick.setStackDisplayName("Stocking Input Bus Configuration");
-        aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.stocking_bus.saved"));
+        player.addChatMessage(new ChatComponentTranslation("GT5U.machines.stocking_bus.saved"));
     }
 
     @Override
@@ -539,7 +536,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
 
         updateValidGridProxySides();
         byte color = nbt.getByte("color");
-        this.getBaseMetaTileEntity()
+        this.getGTE()
             .setColorization(color);
 
         updateAllInformationSlots();
@@ -616,11 +613,11 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public boolean setStackToZeroInsteadOfNull(int aIndex) {
+    public boolean setStackToZeroInsteadOfNull(int index) {
         if (processingRecipe) {
             return true;
         }
-        return aIndex != getManualSlot();
+        return index != getManualSlot();
     }
 
     @Override
@@ -680,7 +677,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     protected BaseActionSource getRequestSource() {
-        if (requestSource == null) requestSource = new MachineSource((IActionHost) getBaseMetaTileEntity());
+        if (requestSource == null) requestSource = new MachineSource((IActionHost) getGTE());
         return requestSource;
     }
 
@@ -1008,7 +1005,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
 
     @Override
     public ItemStack removeResource(ItemStack[] targets, int amount) {
-        if (targets == null || targets.length == 0 || amount <= 0 || getBaseMetaTileEntity() == null) {
+        if (targets == null || targets.length == 0 || amount <= 0 || getGTE() == null) {
             return null;
         }
 
@@ -1032,7 +1029,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
 
     @Override
     public ItemStack removeAllResource(ItemStack[] targets) {
-        if (targets == null || targets.length == 0 || getBaseMetaTileEntity() == null) {
+        if (targets == null || targets.length == 0 || getGTE() == null) {
             return null;
         }
 
@@ -1114,10 +1111,10 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     @Override
     public DimensionalCoord getLocation() {
         return new DimensionalCoord(
-            getBaseMetaTileEntity().getWorld(),
-            getBaseMetaTileEntity().getXCoord(),
-            getBaseMetaTileEntity().getYCoord(),
-            getBaseMetaTileEntity().getZCoord());
+            getGTE().getWorld(),
+            getGTE().getXCoord(),
+            getGTE().getYCoord(),
+            getGTE().getZCoord());
     }
 
     private IStackWatcher watcher;

@@ -36,25 +36,24 @@ public class MTEDebugTank extends MTEQuantumTank {
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEDebugTank(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isServerSide()) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isServerSide()) {
             FluidStack drainableStack = getDrainableStack();
             if (drainableStack == null) return;
             drainableStack.amount = Integer.MAX_VALUE;
-            if (mOutputFluid && (aTick % 20 == 0)) {
-                IFluidHandler tTank = aBaseMetaTileEntity.getITankContainerAtSide(aBaseMetaTileEntity.getFrontFacing());
+            if (mOutputFluid && (tick % 20 == 0)) {
+                IFluidHandler tTank = gte.getITankContainerAtSide(gte.getFrontFacing());
                 if (tTank != null) {
                     FluidStack tDrained = drain(Integer.MAX_VALUE, false);
                     if (tDrained != null) {
-                        int tFilledAmount = tTank.fill(aBaseMetaTileEntity.getBackFacing(), tDrained, false);
-                        if (tFilledAmount > 0)
-                            tTank.fill(aBaseMetaTileEntity.getBackFacing(), drain(tFilledAmount, true), true);
+                        int tFilledAmount = tTank.fill(gte.getBackFacing(), tDrained, false);
+                        if (tFilledAmount > 0) tTank.fill(gte.getBackFacing(), drain(tFilledAmount, true), true);
                     }
                 }
             }
@@ -62,10 +61,10 @@ public class MTEDebugTank extends MTEQuantumTank {
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection,
-        ForgeDirection facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+        int colorIndex, boolean active, boolean redstoneLevel) {
         if (sideDirection != ForgeDirection.UP) {
-            if (sideDirection == baseMetaTileEntity.getFrontFacing()) {
+            if (sideDirection == gte.getFrontFacing()) {
                 return new ITexture[] { MACHINE_CASINGS[14][colorIndex + 1], TextureFactory.of(OVERLAY_PIPE) };
             } else return new ITexture[] { MACHINE_CASINGS[14][colorIndex + 1] };
         }

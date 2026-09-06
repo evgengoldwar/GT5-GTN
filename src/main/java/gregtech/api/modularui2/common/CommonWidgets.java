@@ -61,7 +61,7 @@ public final class CommonWidgets {
 
             int borderRadius = 5;
 
-            byte colorization = mte.getBaseMetaTileEntity()
+            byte colorization = mte.getGTE()
                 .getColorization();
             boolean showSwatch = GregTechAPI.sColoredGUI && !GregTechAPI.sMachineMetalGUI
                 && colorization != IColoredTileEntity.UNCOLOURED;

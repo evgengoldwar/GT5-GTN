@@ -43,7 +43,7 @@ public interface IMTERenderer {
      * @param mte
      */
     default void sendRenderDataToClient(IMetaTileEntity mte) {
-        IGregTechTileEntity tile = mte.getBaseMetaTileEntity();
+        IGregTechTileEntity tile = mte.getGTE();
         if (tile.isClientSide()) return;
 
         double maxDistSq = getMaxRenderDistanceSquared();

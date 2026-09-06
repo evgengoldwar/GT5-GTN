@@ -147,7 +147,7 @@ public class GTLog {
             GT_EXPLOSION_LOGGER.info(details);
             return;
         }
-        IGregTechTileEntity baseTileEntity = tileEntity.getBaseMetaTileEntity();
+        IGregTechTileEntity baseTileEntity = tileEntity.getGTE();
         if (baseTileEntity == null) {
             GT_EXPLOSION_LOGGER.info(details);
             return;

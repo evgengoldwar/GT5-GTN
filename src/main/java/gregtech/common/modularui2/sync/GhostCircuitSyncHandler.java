@@ -77,7 +77,7 @@ public class GhostCircuitSyncHandler extends PhantomItemSlotSH {
             indexSync.setChangeListener(() -> {
                 if (indexSync.getSyncManager()
                     .isClient()) return;
-                mte.getBaseMetaTileEntity()
+                mte.getGTE()
                     .markInventoryBeenModified();
             });
         }

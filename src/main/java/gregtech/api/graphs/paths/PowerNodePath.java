@@ -50,7 +50,7 @@ public class PowerNodePath extends NodePath {
             lock.addTileEntity(null);
             for (MetaPipeEntity tCable : mPipes) {
                 if (((MTECable) tCable).mVoltage < this.mVoltage) {
-                    BaseMetaPipeEntity tBaseCable = (BaseMetaPipeEntity) tCable.getBaseMetaTileEntity();
+                    BaseMetaPipeEntity tBaseCable = (BaseMetaPipeEntity) tCable.getGTE();
                     if (tBaseCable != null) {
                         tBaseCable.setToFire();
                     }
@@ -76,7 +76,7 @@ public class PowerNodePath extends NodePath {
             lock.addTileEntity(null);
             for (MetaPipeEntity tCable : mPipes) {
                 if (((MTECable) tCable).mAmperage * 40 < this.mAmps) {
-                    BaseMetaPipeEntity tBaseCable = (BaseMetaPipeEntity) tCable.getBaseMetaTileEntity();
+                    BaseMetaPipeEntity tBaseCable = (BaseMetaPipeEntity) tCable.getGTE();
                     if (tBaseCable != null) {
                         tBaseCable.setToFire();
                     }

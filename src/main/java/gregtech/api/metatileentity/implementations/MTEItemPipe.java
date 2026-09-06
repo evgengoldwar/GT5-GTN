@@ -87,7 +87,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     }
 
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEItemPipe(mName, mThickNess, mMaterial, mInventory.length, mStepSize, mIsRestrictive, mTickTime);
     }
 
@@ -160,7 +160,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     }
 
     @Override
-    public boolean isValidSlot(int ignoredSlotIndex) {
+    public boolean isValidSlot(int index) {
         return true;
     }
 
@@ -180,15 +180,15 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        aNBT.setByte("mLastReceivedFrom", (byte) mLastReceivedFrom.ordinal());
-        aNBT.setByte("mConnections", mConnections);
+    public void saveNBTData(NBTTagCompound nbt) {
+        nbt.setByte("mLastReceivedFrom", (byte) mLastReceivedFrom.ordinal());
+        nbt.setByte("mConnections", mConnections);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        mLastReceivedFrom = ForgeDirection.getOrientation(aNBT.getByte("mLastReceivedFrom"));
-        mConnections = aNBT.getByte("mConnections");
+    public void loadNBTData(NBTTagCompound nbt) {
+        mLastReceivedFrom = ForgeDirection.getOrientation(nbt.getByte("mLastReceivedFrom"));
+        mConnections = nbt.getByte("mConnections");
     }
 
     @Override
@@ -197,10 +197,10 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isServerSide() && (aTick - mCurrentTransferStartTick) % 10 == 0) {
-            if ((aTick - mCurrentTransferStartTick) % mTickTime == 0) {
+    public void onPostTick(IGregTechTileEntity gte, long tick) {
+        super.onPostTick(gte, tick);
+        if (gte.isServerSide() && (tick - mCurrentTransferStartTick) % 10 == 0) {
+            if ((tick - mCurrentTransferStartTick) % mTickTime == 0) {
                 mTransferredItems = 0;
                 mCurrentTransferStartTick = 0;
             }
@@ -224,7 +224,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
                         .keySet()) {
                         if (temp) break;
                         tPipeList.add(tTileEntity);
-                        while (!temp && !isInventoryEmpty() && tTileEntity.sendItemStack(aBaseMetaTileEntity))
+                        while (!temp && !isInventoryEmpty() && tTileEntity.sendItemStack(gte))
                             for (IMetaTileEntityItemPipe tPipe : tPipeList)
                                 if (!tPipe.incrementTransferCounter(1)) temp = true;
                     }
@@ -237,27 +237,27 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     }
 
     @Override
-    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer entityPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
+    public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
+        float y, float z, ItemStack tool) {
+        final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, x, y, z);
         if (isConnectedAtSide(tSide)) {
             disconnect(tSide);
-            GTUtility.sendChatTrans(entityPlayer, "GT5U.chat.disconnected");
+            GTUtility.sendChatTrans(player, "GT5U.chat.disconnected");
         } else {
-            if (connect(tSide) > 0) GTUtility.sendChatTrans(entityPlayer, "GT5U.chat.connected");
+            if (connect(tSide) > 0) GTUtility.sendChatTrans(player, "GT5U.chat.connected");
         }
         return true;
     }
 
     @Override
-    public void onLeftclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
         // Only trigger if the player is sneaking
-        if (!aPlayer.isSneaking()) {
+        if (!player.isSneaking()) {
             return;
         }
 
         // Retrieve the item's MetaTileEntity
-        final ItemStack handItem = aPlayer.inventory.getCurrentItem();
+        final ItemStack handItem = player.inventory.getCurrentItem();
         if (handItem == null) return;
 
         IMetaTileEntity meta = ItemMachines.getMetaTileEntity(handItem);
@@ -265,13 +265,13 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
 
         // Preserve old connections and meta ID
         byte oldConnections = this.mConnections;
-        short oldMetaID = (short) aBaseMetaTileEntity.getMetaTileID();
+        short oldMetaID = (short) gte.getMetaTileID();
 
         // Nothing to do if the pipe in hand is the very same type
         if (oldMetaID == (short) handItem.getItemDamage()) return;
 
         // Create the new item pipe
-        MTEItemPipe newPipe = (MTEItemPipe) handPipe.newMetaEntity(aBaseMetaTileEntity);
+        MTEItemPipe newPipe = (MTEItemPipe) handPipe.newMTE(gte);
         if (newPipe == null) return;
 
         // Preserve old connections
@@ -296,13 +296,13 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
         }
         for (int i = copyCount; i < this.mInventory.length; i++) {
             if (this.mInventory[i] != null) {
-                aPlayer.dropPlayerItemWithRandomChoice(this.mInventory[i], false);
+                player.dropPlayerItemWithRandomChoice(this.mInventory[i], false);
             }
         }
 
         // Update to the new pipe
-        aBaseMetaTileEntity.setMetaTileID((short) handItem.getItemDamage());
-        newPipe.setBaseMetaTileEntity(aBaseMetaTileEntity);
+        gte.setMetaTileID((short) handItem.getItemDamage());
+        newPipe.setGTE(gte);
 
         // Construct a change message if needed
         IChatComponent message = new ChatComponentText("");
@@ -353,24 +353,24 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
 
         // Send a chat message if anything changed. Only send server-side, since this method also runs
         // client-side for responsive placement and would otherwise send the message twice.
-        if (hasContent && aBaseMetaTileEntity.isServerSide()) {
-            GTUtility.sendChatTrans(aPlayer, "GT5U.item.pipe.swap.s", message);
+        if (hasContent && gte.isServerSide()) {
+            GTUtility.sendChatTrans(player, "GT5U.item.pipe.swap.s", message);
         }
 
         // Force updates to sync changes
-        aBaseMetaTileEntity.markDirty();
-        aBaseMetaTileEntity.issueTextureUpdate();
-        aBaseMetaTileEntity.issueBlockUpdate();
-        aBaseMetaTileEntity.issueTileUpdate();
+        gte.markDirty();
+        gte.issueTextureUpdate();
+        gte.issueBlockUpdate();
+        gte.issueTileUpdate();
 
         // Handle inventory operations unless in creative mode
-        if (!aPlayer.capabilities.isCreativeMode) {
+        if (!player.capabilities.isCreativeMode) {
             ItemStack oldPipe = new ItemStack(handItem.getItem(), 1, oldMetaID);
             boolean addedToInventory = false;
 
             // Attempt to stack with existing items
-            for (int i = 0; i < aPlayer.inventory.mainInventory.length; i++) {
-                ItemStack slot = aPlayer.inventory.mainInventory[i];
+            for (int i = 0; i < player.inventory.mainInventory.length; i++) {
+                ItemStack slot = player.inventory.mainInventory[i];
                 if (slot != null && slot.getItem() == oldPipe.getItem()
                     && slot.getItemDamage() == oldPipe.getItemDamage()
                     && slot.stackSize < slot.getMaxStackSize()) {
@@ -381,17 +381,17 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
             }
             // Add new stack if stacking failed
             if (!addedToInventory) {
-                addedToInventory = aPlayer.inventory.addItemStackToInventory(oldPipe);
+                addedToInventory = player.inventory.addItemStackToInventory(oldPipe);
             }
             // If still unsuccessful, drop the item
             if (!addedToInventory) {
-                aPlayer.dropPlayerItemWithRandomChoice(oldPipe, false);
+                player.dropPlayerItemWithRandomChoice(oldPipe, false);
             }
 
             // Decrement the placed pipe from the player's hand
             handItem.stackSize--;
             if (handItem.stackSize <= 0) {
-                aPlayer.inventory.setInventorySlotContents(aPlayer.inventory.currentItem, null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
         }
     }
@@ -432,7 +432,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
 
     @Override
     public boolean incrementTransferCounter(int aIncrement) {
-        if (mTransferredItems == 0) mCurrentTransferStartTick = getBaseMetaTileEntity().getTimer();
+        if (mTransferredItems == 0) mCurrentTransferStartTick = getGTE().getTimer();
         mTransferredItems += aIncrement;
         return pipeCapacityCheck();
     }
@@ -440,11 +440,11 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     @Override
     public boolean sendItemStack(Object aSender) {
         if (pipeCapacityCheck()) {
-            final byte tOffset = (byte) getBaseMetaTileEntity().getRandomNumber(6);
+            final byte tOffset = (byte) getGTE().getRandomNumber(6);
             for (final byte i : ALL_VALID_SIDES) {
                 final ForgeDirection tSide = ForgeDirection.getOrientation((i + tOffset) % 6);
                 if (isConnectedAtSide(tSide)
-                    && (isInventoryEmpty() || (tSide != mLastReceivedFrom || aSender != getBaseMetaTileEntity()))) {
+                    && (isInventoryEmpty() || (tSide != mLastReceivedFrom || aSender != getGTE()))) {
                     if (insertItemStackIntoTileEntity(aSender, tSide)) return true;
                 }
             }
@@ -455,13 +455,13 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
 
     @Override
     public boolean insertItemStackIntoTileEntity(Object aSender, ForgeDirection side) {
-        if (!getBaseMetaTileEntity().getCoverAtSide(side)
+        if (!getGTE().getCoverAtSide(side)
             .letsItemsOut(-1)) return false;
 
-        final TileEntity neighbour = getBaseMetaTileEntity().getTileEntityAtSide(side);
+        final TileEntity neighbour = getGTE().getTileEntityAtSide(side);
 
         if (neighbour instanceof TileEntityHopper || neighbour instanceof TileEntityDispenser) {
-            if (getBaseMetaTileEntity().getMetaIDAtSide(side) == side.getOpposite()
+            if (getGTE().getMetaIDAtSide(side) == side.getOpposite()
                 .ordinal()) return false;
         }
 
@@ -516,7 +516,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
 
     @Override
     public int[] getAccessibleSlotsFromSide(int ordinalSide) {
-        final IGregTechTileEntity tTileEntity = getBaseMetaTileEntity();
+        final IGregTechTileEntity tTileEntity = getGTE();
         final Cover cover = tTileEntity.getCoverAtSide(ForgeDirection.getOrientation(ordinalSide));
         final boolean tAllow = cover.letsItemsIn(-2) || cover.letsItemsOut(-2);
         if (tAllow) {
@@ -528,18 +528,16 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side == ForgeDirection.UNKNOWN || isConnectedAtSide(side);
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (side == ForgeDirection.UNKNOWN) return true;
         if (!isConnectedAtSide(side)) return false;
         if (isInventoryEmpty()) mLastReceivedFrom = side;
-        return mLastReceivedFrom == side && mInventory[aIndex] == null;
+        return mLastReceivedFrom == side && mInventory[index] == null;
     }
 
     @Override

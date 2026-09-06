@@ -27,10 +27,10 @@ public class ExoticEnergyInputHelper {
         for (MTEHatch tHatch : hatches) {
             if (!tHatch.isValid()) continue;
             long tDrain = Math.min(
-                tHatch.getBaseMetaTileEntity()
+                tHatch.getGTE()
                     .getStoredEU(),
                 aEU);
-            tHatch.getBaseMetaTileEntity()
+            tHatch.getGTE()
                 .decreaseStoredEnergyUnits(tDrain, false);
             aEU -= tDrain;
         }
@@ -50,7 +50,7 @@ public class ExoticEnergyInputHelper {
             rEU = GTUtility.addSafe(
                 rEU,
                 GTUtility.mulSafe(
-                    tHatch.getBaseMetaTileEntity()
+                    tHatch.getGTE()
                         .getInputVoltage(),
                     tHatch.maxWorkingAmperesIn()));
         }
@@ -60,7 +60,7 @@ public class ExoticEnergyInputHelper {
     public static long getMaxInputVoltageMulti(Collection<? extends MTEHatch> hatches) {
         long rVoltage = 0;
         for (MTEHatch tHatch : validMTEList(hatches)) {
-            rVoltage += tHatch.getBaseMetaTileEntity()
+            rVoltage += tHatch.getGTE()
                 .getInputVoltage();
         }
         return rVoltage;
@@ -69,7 +69,7 @@ public class ExoticEnergyInputHelper {
     public static long getAverageInputVoltageMulti(Collection<? extends MTEHatch> hatches) {
         long rVoltage = 0;
         for (MTEHatch tHatch : validMTEList(hatches)) {
-            rVoltage += tHatch.getBaseMetaTileEntity()
+            rVoltage += tHatch.getGTE()
                 .getInputVoltage();
         }
         if (hatches.isEmpty()) {
@@ -81,7 +81,7 @@ public class ExoticEnergyInputHelper {
     public static long getMaxInputAmpsMulti(Collection<? extends MTEHatch> hatches) {
         long rAmp = 0;
         for (MTEHatch tHatch : validMTEList(hatches)) {
-            rAmp += tHatch.getBaseMetaTileEntity()
+            rAmp += tHatch.getGTE()
                 .getInputAmperage();
         }
         return rAmp;

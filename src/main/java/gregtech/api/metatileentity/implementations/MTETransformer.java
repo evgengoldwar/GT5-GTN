@@ -77,14 +77,14 @@ public class MTETransformer extends MTETieredMachineBlock {
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection side,
-        ForgeDirection facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facingDirection,
+        int colorIndex, boolean active, boolean redstoneLevel) {
         return mTextures[Math.min(2, side.ordinal()) + (side == facingDirection ? 3 : 0)
-            + (baseMetaTileEntity.isAllowedToWork() ? 0 : 6)][colorIndex + 1];
+            + (gte.isAllowedToWork() ? 0 : 6)][colorIndex + 1];
     }
 
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTETransformer(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -105,9 +105,9 @@ public class MTETransformer extends MTETieredMachineBlock {
 
     @Override
     public boolean isInputFacing(ForgeDirection side) {
-        ForgeDirection blockFrontFacing = getBaseMetaTileEntity().getFrontFacing();
+        ForgeDirection blockFrontFacing = getGTE().getFrontFacing();
 
-        if (getBaseMetaTileEntity().isAllowedToWork()) {
+        if (getGTE().isAllowedToWork()) {
             return side == blockFrontFacing;
         } else {
             return side != blockFrontFacing;
@@ -136,47 +136,45 @@ public class MTETransformer extends MTETieredMachineBlock {
 
     @Override
     public long maxEUInput() {
-        return V[getBaseMetaTileEntity().isAllowedToWork() ? mTier + 1 : mTier];
+        return V[getGTE().isAllowedToWork() ? mTier + 1 : mTier];
     }
 
     @Override
     public long maxEUOutput() {
-        return V[getBaseMetaTileEntity().isAllowedToWork() ? mTier : mTier + 1];
+        return V[getGTE().isAllowedToWork() ? mTier : mTier + 1];
     }
 
     @Override
     public long maxAmperesOut() {
-        return getBaseMetaTileEntity().isAllowedToWork() ? 4 : 1;
+        return getGTE().isAllowedToWork() ? 4 : 1;
     }
 
     @Override
     public long maxAmperesIn() {
-        return getBaseMetaTileEntity().isAllowedToWork() ? 2 : 5;
+        return getGTE().isAllowedToWork() ? 2 : 5;
     }
 
     public long displayedAmperesIn() {
-        return getBaseMetaTileEntity().isAllowedToWork() ? 1 : 4;
+        return getGTE().isAllowedToWork() ? 1 : 4;
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
+    public void saveNBTData(NBTTagCompound nbt) {
         //
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
+    public void loadNBTData(NBTTagCompound nbt) {
         //
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -187,7 +185,7 @@ public class MTETransformer extends MTETieredMachineBlock {
 
     @Override
     public String getAlternativeModeText() {
-        return (getBaseMetaTileEntity().isAllowedToWork() ? GTUtility.trans("145", "Step Down, In: ")
+        return (getGTE().isAllowedToWork() ? GTUtility.trans("145", "Step Down, In: ")
             : GTUtility.trans("146", "Step Up, In: ")) + maxEUInput()
             + GTUtility.trans("148", "V ")
             + maxAmperesIn()
@@ -201,7 +199,7 @@ public class MTETransformer extends MTETieredMachineBlock {
     @Override
     public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        final ForgeDirection facing = getBaseMetaTileEntity().getFrontFacing();
+        final ForgeDirection facing = getGTE().getFrontFacing();
         final NBTTagCompound tag = accessor.getNBTData();
         final ForgeDirection side = accessor.getSide();
         final boolean allowedToWork = tag.getBoolean("isAllowedToWork");
@@ -244,7 +242,7 @@ public class MTETransformer extends MTETieredMachineBlock {
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
-        tag.setBoolean("isAllowedToWork", getBaseMetaTileEntity().isAllowedToWork());
+        tag.setBoolean("isAllowedToWork", getGTE().isAllowedToWork());
         tag.setLong("maxEUInput", maxEUInput());
         tag.setLong("maxAmperesIn", maxAmperesIn());
         tag.setLong("displayedAmperesIn", displayedAmperesIn());

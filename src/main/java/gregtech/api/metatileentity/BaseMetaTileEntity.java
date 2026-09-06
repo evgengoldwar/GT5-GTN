@@ -262,7 +262,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
     public final void updateEntityProfiled() {
         if (!hasValidMetaTileEntity()) {
             if (mMetaTileEntity == null) return;
-            mMetaTileEntity.setBaseMetaTileEntity(this);
+            mMetaTileEntity.setGTE(this);
         }
         mRunningThroughTick = true;
         if (hasValidMetaTileEntity()) {
@@ -891,7 +891,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
         if (canAccessData()) {
             invalidateAE();
             mMetaTileEntity.onRemoval();
-            mMetaTileEntity.setBaseMetaTileEntity(null);
+            mMetaTileEntity.setGTE(null);
         }
         super.invalidate();
     }
@@ -1232,7 +1232,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
 
     @Override
     void refreshMetaTileEntityValidity() {
-        mMetaTileEntityValid = mMetaTileEntity != null && mMetaTileEntity.getBaseMetaTileEntity() == this;
+        mMetaTileEntityValid = mMetaTileEntity != null && mMetaTileEntity.getGTE() == this;
         mNeedsClientTick = mMetaTileEntity == null || mMetaTileEntity.needsClientTick();
     }
 
@@ -1574,7 +1574,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
 
         try {
             if (!aPlayer.isSneaking() && hasValidMetaTileEntity())
-                return mMetaTileEntity.onRightclick(this, aPlayer, side, aX, aY, aZ);
+                return mMetaTileEntity.onRightClick(this, aPlayer, side, aX, aY, aZ);
         } catch (Exception e) {
             GT_FML_LOGGER.error(
                 "Encountered Exception while rightclicking TileEntity, the Game should've crashed now, but I prevented that. Please report immediately to GregTech Intergalactical!!!");
@@ -1588,7 +1588,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
     @Override
     public void onLeftclick(EntityPlayer aPlayer) {
         try {
-            if (aPlayer != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftclick(this, aPlayer);
+            if (aPlayer != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftClick(this, aPlayer);
         } catch (Exception e) {
             GT_FML_LOGGER.error(
                 "Encountered Exception while leftclicking TileEntity, the Game should've crashed now, but I prevented that. Please report immediately to GregTech Intergalactical!!!");

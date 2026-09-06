@@ -100,7 +100,7 @@ public class GTStructureUtility {
         int i = 1;
         for (TMTE mte : tiers) {
             tierMap.put(
-                mte.getBaseMetaTileEntity()
+                mte.getGTE()
                     .getMetaTileID(),
                 i++);
         }
@@ -130,7 +130,7 @@ public class GTStructureUtility {
                 if (mte == null) return false;
 
                 int tier = tierMap.getOrDefault(
-                    mte.getBaseMetaTileEntity()
+                    mte.getGTE()
                         .getMetaTileID(),
                     -1);
 
@@ -147,7 +147,7 @@ public class GTStructureUtility {
                 if (actual == null) return false;
 
                 int tier = tierMap.getOrDefault(
-                    actual.getBaseMetaTileEntity()
+                    actual.getGTE()
                         .getMetaTileID(),
                     -1);
 

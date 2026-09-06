@@ -246,7 +246,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     }
 
     /**
-     * For {@link #newMetaEntity}.
+     * For {@link #newMTE}.
      */
     public MTEBasicMachineWithRecipe(String aName, int aTier, String[] aDescription, RecipeMap<?> aRecipes,
         int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot, int aTankCapacity,
@@ -261,7 +261,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     }
 
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
         return new MTEBasicMachineWithRecipe(
             this.mName,
             this.mTier,
@@ -335,7 +335,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
                                 .find() != null)));
             }
             default -> {
-                int tID = this.getBaseMetaTileEntity()
+                int tID = this.getGTE()
                     .getMetaTileID();
                 if (tID >= ASSEMBLER_LV.ID && tID <= ASSEMBLER_IV.ID
                     || tID >= CIRCUIT_ASSEMBLER_LV.ID && tID <= CIRCUIT_ASSEMBLER_UV.ID
@@ -369,22 +369,21 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPreTick(aBaseMetaTileEntity, aTick);
-        if (aBaseMetaTileEntity.isClientSide() && aBaseMetaTileEntity.isActive()) {
+    public void onPreTick(IGregTechTileEntity gte, long tick) {
+        super.onPreTick(gte, tick);
+        if (gte.isClientSide() && gte.isActive()) {
             // noinspection SwitchStatementWithTooFewBranches
             switch (this.mSpecialEffect) {
                 case TOP_SMOKE -> {
-                    if (aBaseMetaTileEntity.getFrontFacing() != UP && !aBaseMetaTileEntity.hasCoverAtSide(UP)
-                        && !aBaseMetaTileEntity.getOpacityAtSide(UP)) {
+                    if (gte.getFrontFacing() != UP && !gte.hasCoverAtSide(UP) && !gte.getOpacityAtSide(UP)) {
 
                         new ParticleEventBuilder().setMotion(0.0D, 0.0D, 0.0D)
                             .setIdentifier(ParticleFX.SMOKE)
                             .setPosition(
-                                aBaseMetaTileEntity.getXCoord() + 0.8F - XSTR_INSTANCE.nextFloat() * 0.6F,
-                                aBaseMetaTileEntity.getYCoord() + 0.9F + XSTR_INSTANCE.nextFloat() * 0.2F,
-                                aBaseMetaTileEntity.getZCoord() + 0.8F - XSTR_INSTANCE.nextFloat() * 0.6F)
-                            .setWorld(aBaseMetaTileEntity.getWorld())
+                                gte.getXCoord() + 0.8F - XSTR_INSTANCE.nextFloat() * 0.6F,
+                                gte.getYCoord() + 0.9F + XSTR_INSTANCE.nextFloat() * 0.2F,
+                                gte.getZCoord() + 0.8F - XSTR_INSTANCE.nextFloat() * 0.6F)
+                            .setWorld(gte.getWorld())
                             .run();
                     }
                 }
@@ -396,27 +395,27 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     /**
      * Handles {@link Block#randomDisplayTick} driven Special Effects
      *
-     * @param aBaseMetaTileEntity The entity that will handle the {@see Block#randomDisplayTick}
+     * @param gte The entity that will handle the {@see Block#randomDisplayTick}
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void onRandomDisplayTick(IGregTechTileEntity aBaseMetaTileEntity) {
+    public void onRandomDisplayTick(IGregTechTileEntity gte) {
 
         // noinspection SwitchStatementWithTooFewBranches
         switch (this.mSpecialEffect) {
             case MAIN_RANDOM_SPARKS -> {
                 // Random Sparkles at main face
-                if (aBaseMetaTileEntity.isActive() && XSTR_INSTANCE.nextInt(3) == 0) {
+                if (gte.isActive() && XSTR_INSTANCE.nextInt(3) == 0) {
 
                     final ForgeDirection mainFacing = this.mMainFacing;
 
                     if ((mainFacing.flag & (ForgeDirection.UP.flag | ForgeDirection.DOWN.flag)) == 0
-                        && !aBaseMetaTileEntity.hasCoverAtSide(mainFacing)
-                        && !aBaseMetaTileEntity.getOpacityAtSide(mainFacing)) {
+                        && !gte.hasCoverAtSide(mainFacing)
+                        && !gte.getOpacityAtSide(mainFacing)) {
 
-                        final double oX = aBaseMetaTileEntity.getXCoord();
-                        final double oY = aBaseMetaTileEntity.getYCoord();
-                        final double oZ = aBaseMetaTileEntity.getZCoord();
+                        final double oX = gte.getXCoord();
+                        final double oY = gte.getYCoord();
+                        final double oZ = gte.getZCoord();
                         final double offset = 0.02D;
                         final double horizontal = 0.5D + XSTR_INSTANCE.nextFloat() * 8D / 16D - 4D / 16D;
 
@@ -449,7 +448,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
 
                         ParticleEventBuilder particleEventBuilder = (new ParticleEventBuilder()).setMotion(mX, 0, mZ)
                             .setPosition(x, y, z)
-                            .setWorld(getBaseMetaTileEntity().getWorld());
+                            .setWorld(getGTE().getWorld());
                         particleEventBuilder.setIdentifier(ParticleFX.LAVA)
                             .run();
                     }
