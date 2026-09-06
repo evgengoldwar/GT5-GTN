@@ -30,7 +30,7 @@ import io.netty.buffer.ByteBuf;
  * <p/>
  * It can cause Problems to include this Interface!
  */
-public interface IGregTechTileEntity extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable,
+public interface IGTE extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable,
     IGregTechDeviceInformation, IUpgradableMachine, IDescribable, IMachineBlockUpdateable, IGregtechWailaProvider,
     IGetGUITextureSet, IAddInventorySlots, CapabilityProvider {
 

@@ -43,7 +43,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ChatMessage;
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.net.GTPacket;
 import gregtech.api.net.GTPacketClearPowerfail;
 import gregtech.api.net.GTPacketOnPowerfail;
@@ -105,7 +105,7 @@ public class GTPowerfailTracker {
             return lastOccurrence == null ? 0 : (new Date().getTime() - lastOccurrence.getTime()) / 1000f;
         }
 
-        public void update(IGregTechTileEntity igte) {
+        public void update(IGTE igte) {
             this.dim = igte.getWorld().provider.dimensionId;
             this.x = igte.getXCoord();
             this.y = igte.getYCoord();
@@ -174,11 +174,11 @@ public class GTPowerfailTracker {
         }
     }
 
-    private static Team getMachineOwner(IGregTechTileEntity igte) {
+    private static Team getMachineOwner(IGTE igte) {
         return TeamManager.getOrCreateTeam(igte.getOwnerName(), igte.getOwnerUuid());
     }
 
-    public void createPowerfailEvent(IGregTechTileEntity igte) {
+    public void createPowerfailEvent(IGTE igte) {
         if (!Gregtech.machines.enablePowerfailNotifications) return;
 
         Team owner = getMachineOwner(igte);
@@ -205,11 +205,11 @@ public class GTPowerfailTracker {
         World world = DimensionManager.getWorld(worldId);
         if (world == null) return;
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (!(tile instanceof IGregTechTileEntity igte)) return;
+        if (!(tile instanceof IGTE igte)) return;
         removePowerfailEvents(igte, worldId, x, y, z);
     }
 
-    public void removePowerfailEvents(IGregTechTileEntity igte) {
+    public void removePowerfailEvents(IGTE igte) {
         removePowerfailEvents(
             igte,
             igte.getWorld().provider.dimensionId,
@@ -218,7 +218,7 @@ public class GTPowerfailTracker {
             igte.getZCoord());
     }
 
-    public void removePowerfailEvents(IGregTechTileEntity igte, int worldId, int x, int y, int z) {
+    public void removePowerfailEvents(IGTE igte, int worldId, int x, int y, int z) {
         Team owner = getMachineOwner(igte);
 
         PowerfailData data = (PowerfailData) owner.getData(GTPowerfailTracker.DATA_NAME);

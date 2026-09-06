@@ -17,7 +17,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTSplit;
@@ -70,12 +70,12 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     }
 
     private void markDirtyFromGui() {
-        IGregTechTileEntity base = getGTE();
+        IGTE base = getGTE();
         if (base != null) base.markDirty();
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchMultiInput(mName, getMaxType(), mTier, mDescriptionArray, mTextures);
     }
 
@@ -196,7 +196,7 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity gte, long tick) {
+    public void onPreTick(IGTE gte, long tick) {
         if (gte.isServerSide()) {
             mFluid = getFluid();
         }
@@ -294,7 +294,7 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isServerSide() && mStoredFluid != null) {
             for (int i = 0; i < getMaxType(); i++) {
                 if (mStoredFluid[i] != null && mStoredFluid[i].amount <= 0) {

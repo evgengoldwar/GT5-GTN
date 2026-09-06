@@ -16,7 +16,7 @@ import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.common.covers.redstone.CoverWirelessItemDetector;
 import gregtech.common.gui.modularui.cover.base.CoverAdvancedRedstoneTransmitterBaseGui;
@@ -35,7 +35,7 @@ public class CoverWirelessItemDetectorGui extends CoverAdvancedRedstoneTransmitt
         IntSyncValue slotSyncer = new IntSyncValue(cover::getSlot, cover::setSlot).allowC2S();
         final ICoverable tile = data.getCoverable();
         IItemHandler inventoryHandler;
-        if (!tile.isDead() && tile instanceof IGregTechTileEntity gtTile
+        if (!tile.isDead() && tile instanceof IGTE gtTile
             && gtTile.getMetaTileEntity() != null
             && tile.getSizeInventory() > 0) {
             inventoryHandler = new InvWrapper(gtTile.getMetaTileEntity());

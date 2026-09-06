@@ -13,7 +13,7 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.covers.Base.CoverAdvancedRedstoneTransmitterBase;
 import gregtech.common.covers.Base.CoverPosition;
@@ -91,8 +91,8 @@ public class CoverWirelessMaintenanceDetector extends CoverAdvancedRedstoneTrans
     private byte computeSignalBasedOnMaintenance(ICoverable tileEntity) {
         boolean signal = false;
 
-        if (tileEntity instanceof IGregTechTileEntity) {
-            IMTE metaTE = ((IGregTechTileEntity) tileEntity).getMetaTileEntity();
+        if (tileEntity instanceof IGTE) {
+            IMTE metaTE = ((IGTE) tileEntity).getMetaTileEntity();
             if (metaTE instanceof MTEMultiBlockBase multiTE) {
                 int ideal = multiTE.getIdealStatus();
                 int real = multiTE.getRepairStatus();

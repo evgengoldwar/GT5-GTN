@@ -14,7 +14,7 @@ import com.cleanroommc.modularui.value.sync.BooleanSyncValue;
 import com.cleanroommc.modularui.widgets.ButtonWidget;
 import com.cleanroommc.modularui.widgets.ToggleButton;
 
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modularui2.GTGuiTextures;
 
 /**
@@ -62,7 +62,7 @@ public final class CommonButtons {
      * @return synced power button
      */
     public static ToggleButton createPowerSwitchButton(BooleanSyncValue syncValue, boolean isPowerSwitchDisabled,
-        IGregTechTileEntity baseMetaTileEntity) {
+        IGTE baseMetaTileEntity) {
         return new ToggleButton().value(syncValue)
             .tooltip(tooltip -> tooltip.add(StatCollector.translateToLocal("GT5U.gui.button.power_switch")))
             .overlay(new DynamicDrawable(() -> {
@@ -81,7 +81,7 @@ public final class CommonButtons {
      * @return synced power button
      */
     public static ToggleButton createPowerSwitchButton(String syncKey, boolean isPowerSwitchDisabled,
-        IGregTechTileEntity baseMetaTileEntity) {
+        IGTE baseMetaTileEntity) {
         return new ToggleButton().syncHandler(syncKey)
             .tooltip(tooltip -> tooltip.add(StatCollector.translateToLocal("GT5U.gui.button.power_switch")))
             .overlay(new DynamicDrawable(() -> {

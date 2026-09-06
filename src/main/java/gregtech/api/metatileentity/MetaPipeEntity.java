@@ -40,7 +40,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IColoredTileEntity;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.render.ISBRInventoryContext;
 import gregtech.api.render.ISBRWorldContext;
@@ -69,7 +69,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     /**
      * accessibility to this Field is no longer given, see below
      */
-    private IGregTechTileEntity mBaseMetaTileEntity;
+    private IGTE mBaseMetaTileEntity;
 
     /**
      * This registers your Machine at the List. Use only ID's larger than 2048 - the ones lower are reserved by GT. See
@@ -153,7 +153,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
 
         ITexture[][] textures = inventoryTextureCache;
         if (textures == null) {
-            final IGregTechTileEntity mte = getGTE();
+            final IGTE mte = getGTE();
             textures = new ITexture[][] { getTexture(mte, DOWN, (CONNECTED_WEST | CONNECTED_EAST), -1, false, false),
                 getTexture(mte, WEST, (CONNECTED_WEST | CONNECTED_EAST), -1, true, false) };
             inventoryTextureCache = textures;
@@ -511,25 +511,25 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
     public abstract boolean renderInside(ForgeDirection side);
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
-        boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
+                                 boolean active, boolean redstoneLevel) {
         return Textures.BlockIcons.ERROR_RENDERING;
     }
 
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection, int connections,
-        int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection, int connections,
+                                 int colorIndex, boolean active, boolean redstoneLevel) {
         return Textures.BlockIcons.ERROR_RENDERING;
     }
 
     @Override
     // making this method final allows it to be inlined by the JIT compiler
-    public final IGregTechTileEntity getGTE() {
+    public final IGTE getGTE() {
         return mBaseMetaTileEntity;
     }
 
     @Override
-    public final void setGTE(IGregTechTileEntity gte) {
-        final IGregTechTileEntity oldBase = mBaseMetaTileEntity;
+    public final void setGTE(IGTE gte) {
+        final IGTE oldBase = mBaseMetaTileEntity;
         if (mBaseMetaTileEntity != null && gte == null) {
             mBaseMetaTileEntity.getMetaTileEntity()
                 .inValidate();
@@ -705,7 +705,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         if (side == ForgeDirection.UNKNOWN) return 0;
 
         final ForgeDirection oppositeSide = side.getOpposite();
-        final IGregTechTileEntity baseMetaTile = getGTE();
+        final IGTE baseMetaTile = getGTE();
         if (baseMetaTile == null) return 0;
 
         final Cover cover = baseMetaTile.getCoverAtSide(side);
@@ -720,8 +720,8 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
 
         if ((alwaysLookConnected || letsIn || letsOut)) {
             // Are we trying to connect to a pipe? let's do it!
-            final IMTE tPipe = tTileEntity instanceof IGregTechTileEntity
-                ? ((IGregTechTileEntity) tTileEntity).getMetaTileEntity()
+            final IMTE tPipe = tTileEntity instanceof IGTE
+                ? ((IGTE) tTileEntity).getMetaTileEntity()
                 : null;
             if (getClass().isInstance(tPipe) || (tPipe != null && tPipe.getClass()
                 .isInstance(this))) {
@@ -770,7 +770,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         if (side == ForgeDirection.UNKNOWN) return;
         mConnections &= ~side.flag;
         final ForgeDirection oppositeSide = side.getOpposite();
-        IGregTechTileEntity tTileEntity = getGTE().getIGregTechTileEntityAtSide(side);
+        IGTE tTileEntity = getGTE().getIGregTechTileEntityAtSide(side);
         IMTE tPipe = tTileEntity == null ? null : tTileEntity.getMetaTileEntity();
         if ((this.getClass()
             .isInstance(tPipe)

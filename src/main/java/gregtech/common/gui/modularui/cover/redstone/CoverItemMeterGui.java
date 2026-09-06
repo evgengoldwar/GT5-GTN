@@ -22,7 +22,7 @@ import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.common.covers.redstone.CoverItemMeter;
@@ -112,7 +112,7 @@ public class CoverItemMeterGui extends CoverBaseGui<CoverItemMeter> {
         if (tile.isDead()) {
             return null;
         }
-        if (!(tile instanceof IGregTechTileEntity gtTile)) {
+        if (!(tile instanceof IGTE gtTile)) {
             return null;
         }
         if (gtTile.getMetaTileEntity() == null) {

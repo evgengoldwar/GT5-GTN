@@ -4,7 +4,7 @@ import java.util.Map;
 
 import net.minecraftforge.common.util.ForgeDirection;
 
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 
 public interface IMTEItemPipe extends IMTEPipe {
@@ -56,7 +56,7 @@ public interface IMTEItemPipe extends IMTEPipe {
             aStep += aMetaTileEntity.getStepSize();
             if (aIgnoreCapacity || aMetaTileEntity.pipeCapacityCheck())
                 if (aMap.get(aMetaTileEntity) == null || aMap.get(aMetaTileEntity) > aStep) {
-                    final IGregTechTileEntity aBaseMetaTileEntity = aMetaTileEntity.getGTE();
+                    final IGTE aBaseMetaTileEntity = aMetaTileEntity.getGTE();
                     aMap.put(aMetaTileEntity, aStep);
                     for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                         if (aMetaTileEntity instanceof IConnectable
@@ -65,7 +65,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                         if (aSuckItems) {
                             if (aBaseMetaTileEntity.getCoverAtSide(side)
                                 .letsItemsIn(-2)) {
-                                final IGregTechTileEntity tItemPipe = aBaseMetaTileEntity
+                                final IGTE tItemPipe = aBaseMetaTileEntity
                                     .getIGregTechTileEntityAtSide(side);
                                 if (aBaseMetaTileEntity.getColorization() >= 0) {
                                     final byte tColor = tItemPipe.getColorization();
@@ -90,7 +90,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                         } else {
                             if (aBaseMetaTileEntity.getCoverAtSide(side)
                                 .letsItemsOut(-2)) {
-                                final IGregTechTileEntity tItemPipe = aBaseMetaTileEntity
+                                final IGTE tItemPipe = aBaseMetaTileEntity
                                     .getIGregTechTileEntityAtSide(side);
                                 if (tItemPipe != null) {
                                     if (aBaseMetaTileEntity.getColorization() >= 0) {

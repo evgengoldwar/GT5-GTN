@@ -33,7 +33,7 @@ import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
@@ -87,13 +87,13 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     }
 
     @Override
-    public IMTE newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGTE gte) {
         return new MTEItemPipe(mName, mThickNess, mMaterial, mInventory.length, mStepSize, mIsRestrictive, mTickTime);
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, int aConnections,
-        int aColorIndex, boolean aConnected, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE aBaseMetaTileEntity, ForgeDirection side, int aConnections,
+                                 int aColorIndex, boolean aConnected, boolean redstoneLevel) {
         if (mIsRestrictive) {
             if (aConnected) {
                 float tThickNess = getThickness();
@@ -197,7 +197,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isServerSide() && (tick - mCurrentTransferStartTick) % 10 == 0) {
             if ((tick - mCurrentTransferStartTick) % mTickTime == 0) {
@@ -250,7 +250,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+    public void onLeftClick(IGTE gte, EntityPlayer player) {
         // Only trigger if the player is sneaking
         if (!player.isSneaking()) {
             return;
@@ -413,8 +413,8 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
         final ForgeDirection oppositeSide = side.getOpposite();
         boolean connectable = false;
 
-        final IGregTechTileEntity gTileEntity = (tileEntity instanceof IGregTechTileEntity)
-            ? (IGregTechTileEntity) tileEntity
+        final IGTE gTileEntity = (tileEntity instanceof IGTE)
+            ? (IGTE) tileEntity
             : null;
         if (gTileEntity != null) {
             if (gTileEntity.getMetaTileEntity() == null) return false;
@@ -516,7 +516,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
 
     @Override
     public int[] getAccessibleSlotsFromSide(int ordinalSide) {
-        final IGregTechTileEntity tTileEntity = getGTE();
+        final IGTE tTileEntity = getGTE();
         final Cover cover = tTileEntity.getCoverAtSide(ForgeDirection.getOrientation(ordinalSide));
         final boolean tAllow = cover.letsItemsIn(-2) || cover.letsItemsOut(-2);
         if (tAllow) {
@@ -528,12 +528,12 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side == ForgeDirection.UNKNOWN || isConnectedAtSide(side);
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (side == ForgeDirection.UNKNOWN) return true;
         if (!isConnectedAtSide(side)) return false;
         if (isInventoryEmpty()) mLastReceivedFrom = side;

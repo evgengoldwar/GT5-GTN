@@ -24,7 +24,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import gregtech.GTMod;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipe.RecipeMap;
@@ -97,7 +97,7 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchInput(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -128,7 +128,7 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }
@@ -165,7 +165,7 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isServerSide()) {
             detectInventoryChange();
@@ -183,12 +183,12 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side == gte.getFrontFacing() && index == 1;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side == gte.getFrontFacing() && index == 0
             && (mRecipeMap == null || disableFilter
                 || mRecipeMap.containsInput(itemStack)

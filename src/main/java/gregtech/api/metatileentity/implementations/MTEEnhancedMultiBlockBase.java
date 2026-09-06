@@ -37,7 +37,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.HatchElement;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.structure.StructureChecker;
 import gregtech.api.structure.error.ErrorType;
 import gregtech.api.structure.error.StructureError;
@@ -87,7 +87,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
         if (mExtendedFacing != newExtendedFacing) {
             if (mMachine && isAllowedToWork()) stopMachine(ShutDownReasonRegistry.STRUCTURE_INCOMPLETE);
             mExtendedFacing = newExtendedFacing;
-            final IGregTechTileEntity base = getGTE();
+            final IGTE base = getGTE();
             mMachine = false;
             mUpdated = false;
             mUpdate = 50;
@@ -223,7 +223,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
     }
 
     @Override
-    protected void onStructureCheckFinished(IGregTechTileEntity igte) {
+    protected void onStructureCheckFinished(IGTE igte) {
         super.onStructureCheckFinished(igte);
 
         StructureSize size = centerWalker.finish();
@@ -285,7 +285,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
     @Deprecated
     @ApiStatus.ScheduledForRemoval
     protected final boolean checkPiece(String piece, int horizontalOffset, int verticalOffset, int depthOffset) {
-        final IGregTechTileEntity tTile = getGTE();
+        final IGTE tTile = getGTE();
         structureStatus = StructureStatus.OK;
         IStructureWalker<MTEEnhancedMultiBlockBase<T>> checkWalker = mMachine
             ? IStructureWalker.skipBlockUnloaded(errorWalker)
@@ -335,7 +335,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
      */
     public final boolean checkPiece(String piece, int horizontalOffset, int verticalOffset, int depthOffset,
         @Nullable List<StructureError> errors) {
-        final IGregTechTileEntity tTile = getGTE();
+        final IGTE tTile = getGTE();
         StructureChecker<MTEEnhancedMultiBlockBase<T>> checker = new StructureChecker<>(this, !mMachine, errors);
         getCastedStructureDefinition().iterate(
             piece,
@@ -368,7 +368,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
 
     protected final boolean buildPiece(String piece, ItemStack trigger, boolean hintOnly, int horizontalOffset,
         int verticalOffset, int depthOffset) {
-        final IGregTechTileEntity tTile = getGTE();
+        final IGTE tTile = getGTE();
         return getCastedStructureDefinition().buildOrHints(
             this,
             trigger,
@@ -387,7 +387,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
     @Deprecated
     protected final int survivalBuildPiece(String piece, ItemStack trigger, int horizontalOffset, int verticalOffset,
         int depthOffset, int elementsBudget, IItemSource source, EntityPlayerMP actor, boolean check) {
-        final IGregTechTileEntity tTile = getGTE();
+        final IGTE tTile = getGTE();
         return getCastedStructureDefinition().survivalBuild(
             this,
             trigger,
@@ -408,7 +408,7 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
 
     protected final int survivalBuildPiece(String piece, ItemStack trigger, int horizontalOffset, int verticalOffset,
         int depthOffset, int elementsBudget, ISurvivalBuildEnvironment env, boolean check) {
-        final IGregTechTileEntity tTile = getGTE();
+        final IGTE tTile = getGTE();
         return getCastedStructureDefinition().survivalBuild(
             this,
             trigger,

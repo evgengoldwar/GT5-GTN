@@ -50,7 +50,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
@@ -229,7 +229,7 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
 
         if (getGTE().isServerSide()) {
             if ((getItemCount() <= 0)) {
@@ -288,7 +288,7 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }
@@ -372,13 +372,13 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (GTValues.disableDigitalChestsExternalAccess && meInventoryHandler.hasActiveMEConnection()) return false;
         return index == 1;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (GTValues.disableDigitalChestsExternalAccess && meInventoryHandler.hasActiveMEConnection()) return false;
         if (index != 0) return false;
         if ((mInventory[0] != null && !GTUtility.areStacksEqual(mInventory[0], itemStack))) return false;
@@ -403,8 +403,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
-        boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
+                                 boolean aActive, boolean redstoneLevel) {
         if (side != aFacing) return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1] };
         return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1], TextureFactory.of(OVERLAY_SCHEST),
             TextureFactory.builder()

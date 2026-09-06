@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.google.common.collect.Iterables;
 
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.util.ExoticEnergyInputHelper;
@@ -88,7 +88,7 @@ public abstract class MTEExtendedPowerMultiBlockBase<T extends MTEEnhancedMultiB
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
-        final IGregTechTileEntity tileEntity = getGTE();
+        final IGTE tileEntity = getGTE();
         if (tileEntity != null) {
             if (tileEntity.isActive()) {
                 if (lEUt < 0) tag.setLong("energyUsage", getActualEnergyUsage());

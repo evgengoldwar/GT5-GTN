@@ -3,7 +3,7 @@ package gregtech.api.interfaces.metatileentity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 
 public interface IMTEPipe extends IMTE {
 
@@ -19,6 +19,6 @@ public interface IMTEPipe extends IMTE {
      * @param redstoneLevel if the Machine is currently outputting a RedstoneSignal (use this instead of calling
      *                      mBaseMetaTileEntity.mRedstone!!!)
      */
-    ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection side, int facingBitMask,
-        int colorIndex, boolean active, boolean redstoneLevel);
+    ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection side, int facingBitMask,
+                          int colorIndex, boolean active, boolean redstoneLevel);
 }

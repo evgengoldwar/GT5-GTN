@@ -102,7 +102,7 @@ import gregtech.api.interfaces.modularui.IAddGregtechLogo;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.modularui.IBindPlayerInventoryUI;
 import gregtech.api.interfaces.modularui.IControllerWithOptionalFeatures;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.Hatch.IDualInputHatch;
 import gregtech.api.metatileentity.Hatch.IDualInputInventory;
@@ -467,7 +467,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+    public void onLeftClick(IGTE gte, EntityPlayer player) {
         if (gte.isServerSide() && GTUtil.saveMultiblockInputConfiguration(this, player)) {
             player.addChatComponentMessage(new ChatComponentTranslation("GT5U.MULTI_MACHINE_CONFIG.SAVE"));
             return;
@@ -476,7 +476,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         if (GTUtil.hasMultiblockInputConfiguration(aPlayer.getHeldItem())) {
             if (aBaseMetaTileEntity.isServerSide()) {
                 if (GTUtil.loadMultiblockInputConfiguration(this, aPlayer)) {
@@ -534,7 +534,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         debugEnergyPresent = false;
     }
 
-    public boolean checkStructure(boolean aForceReset, IGregTechTileEntity aBaseMetaTileEntity) {
+    public boolean checkStructure(boolean aForceReset, IGTE aBaseMetaTileEntity) {
         if (!aBaseMetaTileEntity.isServerSide()) return mMachine;
         // Only trigger an update if forced (from onPostTick, generally), or if the structure has changed
         if ((mStructureChanged || aForceReset)) {
@@ -557,13 +557,13 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
      * The error list will be cleared upon calling.
      * If you want to trigger a structure check, use {@link #checkStructure}
      */
-    protected final boolean checkMachine_TT(IGregTechTileEntity aBaseMetaTileEntity) {
+    protected final boolean checkMachine_TT(IGTE aBaseMetaTileEntity) {
         structureErrors.clear();
         checkMachine(aBaseMetaTileEntity, mInventory[1], structureErrors);
         return structureErrors.isEmpty();
     }
 
-    protected void onStructureCheckFinished(IGregTechTileEntity aBaseMetaTileEntity) {}
+    protected void onStructureCheckFinished(IGTE aBaseMetaTileEntity) {}
 
     /**
      * Controls whether the error message widget is shown. If you have any new structure status fields, make sure to
@@ -588,7 +588,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isServerSide()) {
             // Time Counter
             mTotalRunTime++;
@@ -649,7 +649,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public void onTickFail(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+    public void onTickFail(IGTE aBaseMetaTileEntity, long aTick) {
         super.onTickFail(aBaseMetaTileEntity, aTick);
         if (aBaseMetaTileEntity.isServerSide()) {
             aBaseMetaTileEntity.disableWorking();
@@ -769,7 +769,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     @Override
     public void onEnableWorking() {}
 
-    protected void runMachine(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+    protected void runMachine(IGTE aBaseMetaTileEntity, long aTick) {
         if (mMaxProgresstime > 0 && doRandomMaintenanceDamage()) {
             if (onRunningTick(mInventory[1])) {
                 markDirty();
@@ -1205,7 +1205,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
      */
     @Deprecated
     @ApiStatus.ScheduledForRemoval
-    public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    public boolean checkMachine(IGTE aBaseMetaTileEntity, ItemStack aStack) {
         return false;
     }
 
@@ -1213,7 +1213,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
      * Checks the Machine. You have to assign the MetaTileEntities for the Hatches here.
      * Any error must be added to the error list.
      */
-    public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
+    public void checkMachine(IGTE aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
         if (!checkMachine(aBaseMetaTileEntity, aStack) && errors.isEmpty()) {
             // Only add this if we do not emit any diagnostics.
             errors.add(StructureErrorRegistry.UNKNOWN_STRUCTURE_ERROR);
@@ -1276,7 +1276,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         mProgresstime = 0;
         mMaxProgresstime = 0;
         mEfficiencyIncrease = 0;
-        IGregTechTileEntity igte = getGTE();
+        IGTE igte = getGTE();
         if (igte != null) {
             igte.setShutDownReason(reason);
             igte.setShutdownStatus(true);
@@ -1489,7 +1489,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     public long getMaxInputPower() {
         long eut = 0;
         for (MTEHatchEnergy tHatch : validMTEList(mEnergyHatches)) {
-            IGregTechTileEntity baseTile = tHatch.getGTE();
+            IGTE baseTile = tHatch.getGTE();
             eut += baseTile.getInputVoltage() * baseTile.getInputAmperage();
         }
         return eut;
@@ -1700,7 +1700,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         if (aLiquid != null) return depleteInput(aLiquid, simulate);
         for (MTEHatchInput tHatch : validMTEList(mInputHatches)) {
             setHatchRecipeMap(tHatch);
-            final IGregTechTileEntity baseMetaTileEntity = tHatch.getGTE();
+            final IGTE baseMetaTileEntity = tHatch.getGTE();
             ItemStack stackInFirstSlot = baseMetaTileEntity.getStackInSlot(0);
             if (GTUtility.areStacksEqual(aStack, stackInFirstSlot)) {
                 if (stackInFirstSlot.stackSize >= aStack.stackSize) {
@@ -1712,7 +1712,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         }
         for (MTEHatchInputBus tHatch : validMTEList(mInputBusses)) {
             tHatch.mRecipeMap = getRecipeMap();
-            final IGregTechTileEntity baseMetaTileEntity = tHatch.getGTE();
+            final IGTE baseMetaTileEntity = tHatch.getGTE();
             for (int i = baseMetaTileEntity.getSizeInventory() - 1; i >= 0; i--) {
                 ItemStack stackInSlot = baseMetaTileEntity.getStackInSlot(i);
                 if (GTUtility.areStacksEqual(aStack, stackInSlot)) {
@@ -1831,7 +1831,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
             byte busColor = tHatch.getColor();
             if (color.isPresent() && busColor != -1 && busColor != color.get()) continue;
             tHatch.mRecipeMap = getRecipeMap();
-            IGregTechTileEntity tileEntity = tHatch.getGTE();
+            IGTE tileEntity = tHatch.getGTE();
             boolean isMEBus = tHatch instanceof MTEHatchInputBusME;
             for (int i = tileEntity.getSizeInventory() - 1; i >= 0; i--) {
                 ItemStack itemStack = tileEntity.getStackInSlot(i);
@@ -1875,7 +1875,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                 continue;
             }
             tHatch.mRecipeMap = getRecipeMap();
-            IGregTechTileEntity tileEntity = tHatch.getGTE();
+            IGTE tileEntity = tHatch.getGTE();
             boolean isMEBus = tHatch instanceof MTEHatchInputBusME;
             for (int i = tileEntity.getSizeInventory() - 1; i >= 0; i--) {
                 ItemStack itemStack = tileEntity.getStackInSlot(i);
@@ -1992,7 +1992,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         }
     }
 
-    public boolean addToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
@@ -2039,7 +2039,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addMaintenanceToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addMaintenanceToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
@@ -2052,7 +2052,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addEnergyInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addEnergyInputToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) {
             return false;
         }
@@ -2069,7 +2069,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addExoticEnergyInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addExoticEnergyInputToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
@@ -2081,7 +2081,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addDynamoToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addDynamoToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
@@ -2093,7 +2093,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addMufflerToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addMufflerToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
@@ -2105,17 +2105,17 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addInputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addInputToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         return addInputBusToMachineList(aTileEntity, aBaseCasingIndex)
             || addInputHatchToMachineList(aTileEntity, aBaseCasingIndex);
     }
 
-    public boolean addOutputToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addOutputToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         return addOutputBusToMachineList(aTileEntity, aBaseCasingIndex)
             || addOutputHatchToMachineList(aTileEntity, aBaseCasingIndex);
     }
 
-    public boolean addInputBusToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addInputBusToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
@@ -2135,7 +2135,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addOutputBusToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addOutputBusToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         switch (aMetaTileEntity) {
@@ -2154,7 +2154,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addInputHatchToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addInputHatchToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
@@ -2177,7 +2177,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         return false;
     }
 
-    public boolean addOutputHatchToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+    public boolean addOutputHatchToMachineList(IGTE aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMTE aMetaTileEntity = aTileEntity.getMetaTileEntity();
         if (aMetaTileEntity == null) return false;
@@ -2231,7 +2231,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                 : "GT5U.multiblock.scanner.totalRunTicks";
 
         for (MTEHatch tHatch : getExoticAndNormalEnergyHatchList()) {
-            final IGregTechTileEntity te = tHatch.getGTE();
+            final IGTE te = tHatch.getGTE();
             if (te != null) {
                 storedEnergy += te.getStoredEU();
                 maxEnergy += te.getEUCapacity();
@@ -2240,7 +2240,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         }
 
         if (getGTE() != null) {
-            IGregTechTileEntity te = getGTE();
+            IGTE te = getGTE();
 
             info.add(StatCollector.translateToLocalFormatted("GT5U.multiblock.scanner.owned_by", te.getOwnerName()));
 
@@ -2336,7 +2336,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         long energy = 0, maxEnergy = 0, maxEnergyUsage = 0, minEnergyTier = Long.MAX_VALUE;
 
         for (MTEHatchEnergy tHatch : validMTEList(mEnergyHatches)) {
-            IGregTechTileEntity energyHatch = tHatch.getGTE();
+            IGTE energyHatch = tHatch.getGTE();
             energy += energyHatch.getStoredEU();
             maxEnergy += energyHatch.getEUCapacity();
             maxEnergyUsage += energyHatch.getInputAmperage() * energyHatch.getInputVoltage();
@@ -2360,12 +2360,12 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return supportsSlotAutomation(index);
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return supportsSlotAutomation(index);
     }
 
@@ -2583,7 +2583,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
             if (index != 0) tag.setInteger("outputFluidLength", index);
         }
 
-        final IGregTechTileEntity tileEntity = getGTE();
+        final IGTE tileEntity = getGTE();
         if (tileEntity != null) {
             tag.setBoolean("isActive", tileEntity.isActive());
             tag.setBoolean("isAllowedToWork", tileEntity.isAllowedToWork());
@@ -2629,7 +2629,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         final int size = mMufflerHatches.size();
         for (int i = 0; i < size; i++) {
             final MTEHatchMuffler muffler = mMufflerHatches.get(i);
-            final IGregTechTileEntity tile = muffler.getGTE();
+            final IGTE tile = muffler.getGTE();
             if (tile == null || tile.isDead()) continue;
             tile.setActive(state);
         }
@@ -2645,7 +2645,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     protected void onGuiOpened(EntityPlayer player) {
         super.onGuiOpened(player);
 
-        IGregTechTileEntity igte = getGTE();
+        IGTE igte = getGTE();
 
         if (igte != null && igte.isServerSide()) {
             GTMod.proxy.powerfailTracker.removePowerfailEvents(igte);
@@ -2658,7 +2658,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         // Deactivate mufflers and cleanup
         clearHatches();
 
-        IGregTechTileEntity igte = getGTE();
+        IGTE igte = getGTE();
 
         if (igte != null && igte.isServerSide()) {
             GTMod.proxy.powerfailTracker.removePowerfailEvents(igte);
@@ -2767,13 +2767,13 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
     @Override
     public boolean isAllowedToWork() {
-        final IGregTechTileEntity baseMetaTileEntity = getGTE();
+        final IGTE baseMetaTileEntity = getGTE();
         return baseMetaTileEntity != null && baseMetaTileEntity.isAllowedToWork();
     }
 
     @Override
     public void disableWorking() {
-        final IGregTechTileEntity baseMetaTileEntity = getGTE();
+        final IGTE baseMetaTileEntity = getGTE();
         if (baseMetaTileEntity != null) {
             baseMetaTileEntity.disableWorking();
         }
@@ -2781,7 +2781,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
     @Override
     public void enableWorking() {
-        final IGregTechTileEntity baseMetaTileEntity = getGTE();
+        final IGTE baseMetaTileEntity = getGTE();
         if (baseMetaTileEntity != null) {
             baseMetaTileEntity.enableWorking();
         }
@@ -2789,7 +2789,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
     @Override
     public boolean isMuffled() {
-        final IGregTechTileEntity baseMetaTileEntity = getGTE();
+        final IGTE baseMetaTileEntity = getGTE();
         if (baseMetaTileEntity != null) {
             return baseMetaTileEntity.isMuffled();
         }
@@ -2798,7 +2798,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
     @Override
     public void setMuffled(boolean value) {
-        final IGregTechTileEntity baseMetaTileEntity = getGTE();
+        final IGTE baseMetaTileEntity = getGTE();
         if (baseMetaTileEntity != null) {
             baseMetaTileEntity.setMuffler(value);
         }

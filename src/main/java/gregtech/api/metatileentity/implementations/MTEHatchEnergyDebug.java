@@ -14,7 +14,7 @@ import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTSplit;
@@ -52,7 +52,7 @@ public class MTEHatchEnergyDebug extends MTEHatchEnergy {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchEnergyDebug(mName, mTier, new String[] { "" }, mTextures);
     }
 
@@ -136,7 +136,7 @@ public class MTEHatchEnergyDebug extends MTEHatchEnergy {
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity gte) {
+    public void onFirstTick(IGTE gte) {
         if (gte.isServerSide()) fetchEnergy();
     }
 
@@ -146,7 +146,7 @@ public class MTEHatchEnergyDebug extends MTEHatchEnergy {
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity gte, long tick) {
+    public void onPreTick(IGTE gte, long tick) {
         super.onPreTick(gte, tick);
         if (gte.isServerSide()) {
             // refill entirely every [refillInterval] ticks, default is 600/30 seconds
@@ -162,7 +162,7 @@ public class MTEHatchEnergyDebug extends MTEHatchEnergy {
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }

@@ -24,7 +24,7 @@ import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.MetaBaseItem;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
@@ -73,13 +73,13 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
-        boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
+                                 boolean aActive, boolean redstoneLevel) {
         return mTextures[side == aFacing ? 1 : 0][colorIndex + 1];
     }
 
     @Override
-    public IMTE newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGTE gte) {
         return new MTEBasicBatteryBuffer(mName, mTier, mDescriptionArray, mTextures, mInventory.length);
     }
 
@@ -174,7 +174,7 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }
@@ -184,7 +184,7 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isServerSide()) {
             mCharge = gte.getStoredEU() / 2 > gte.getEUCapacity() / 3 || forceCharge();
             mDecharge = gte.getStoredEU() < gte.getEUCapacity() / 3 && !forceCharge();
@@ -199,7 +199,7 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (GTModHandler.isElectricItem(itemStack) && itemStack.getUnlocalizedName()
             .startsWith("gt.metaitem.01.")) {
             String name = itemStack.getUnlocalizedName();
@@ -215,7 +215,7 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (!GTUtility.isStackValid(itemStack)) {
             return false;
         }

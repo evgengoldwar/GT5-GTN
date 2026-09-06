@@ -16,7 +16,7 @@ import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTSplit;
@@ -73,7 +73,7 @@ public class MTEHatchInputBusDebug extends MTEHatchInputBus {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchInputBusDebug(mName, mTier, new String[0], mTextures);
     }
 

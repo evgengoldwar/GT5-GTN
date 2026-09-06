@@ -10,7 +10,7 @@ import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuiTextures;
@@ -47,7 +47,7 @@ public class CoverWirelessMaintenenceDetectorGui
         final ICoverable tile = data.getCoverable();
         boolean usesTurbines = false;
 
-        if (!tile.isDead() && tile instanceof IGregTechTileEntity gTE && gTE.getMetaTileEntity() != null) {
+        if (!tile.isDead() && tile instanceof IGTE gTE && gTE.getMetaTileEntity() != null) {
             IMTE metaTE = (gTE.getMetaTileEntity());
             if (metaTE instanceof MTEMultiBlockBase multiTE) {
                 usesTurbines = multiTE.usesTurbines();

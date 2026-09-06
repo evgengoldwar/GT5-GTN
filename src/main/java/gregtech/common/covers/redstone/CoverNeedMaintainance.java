@@ -16,7 +16,7 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.conditions.MaintenanceAlertCondition;
@@ -64,7 +64,7 @@ public class CoverNeedMaintainance extends CoverLegacyData {
             return;
         }
         boolean needsRepair = false;
-        if (coverable instanceof IGregTechTileEntity tTileEntity) {
+        if (coverable instanceof IGTE tTileEntity) {
             final IMTE mTileEntity = tTileEntity.getMetaTileEntity();
             if (mTileEntity instanceof MTEMultiBlockBase multi) {
                 final int ideal = multi.getIdealStatus();

@@ -14,7 +14,7 @@ import com.cleanroommc.modularui.factory.GuiManager;
 import com.cleanroommc.modularui.factory.PosGuiData;
 
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 
 public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData> {
 
@@ -26,7 +26,7 @@ public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData
     }
 
     public static void open(EntityPlayer player, IMTE mte) {
-        IGregTechTileEntity baseTE = mte.getGTE();
+        IGTE baseTE = mte.getGTE();
         if (baseTE == null || !baseTE.canAccessData()) {
             throw new IllegalArgumentException("Can't open invalid MetaTileEntity GUI!");
         }
@@ -47,7 +47,7 @@ public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData
     @Override
     public IGuiHolder<PosGuiData> getGuiHolder(PosGuiData data) {
         TileEntity te = data.getTileEntity();
-        if (te instanceof IGregTechTileEntity baseTE) {
+        if (te instanceof IGTE baseTE) {
             IGuiHolder<PosGuiData> guiHolder = castGuiHolder(baseTE.getMetaTileEntity());
             if (guiHolder != null) {
                 return guiHolder;
@@ -63,7 +63,7 @@ public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData
 
     @Override
     public boolean canInteractWith(EntityPlayer player, PosGuiData guiData) {
-        return super.canInteractWith(player, guiData) && guiData.getTileEntity() instanceof IGregTechTileEntity baseTE
+        return super.canInteractWith(player, guiData) && guiData.getTileEntity() instanceof IGTE baseTE
             && baseTE.canAccessData()
             && guiData.getSquaredDistance(player) <= MAX_INTERACTION_DISTANCE;
     }

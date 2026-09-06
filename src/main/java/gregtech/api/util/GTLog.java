@@ -20,7 +20,7 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.common.config.Gregtech;
 
 /** GregTech's dedicated logger configuration and explosion logging helpers. */
@@ -147,7 +147,7 @@ public class GTLog {
             GT_EXPLOSION_LOGGER.info(details);
             return;
         }
-        IGregTechTileEntity baseTileEntity = tileEntity.getGTE();
+        IGTE baseTileEntity = tileEntity.getGTE();
         if (baseTileEntity == null) {
             GT_EXPLOSION_LOGGER.info(details);
             return;
@@ -155,7 +155,7 @@ public class GTLog {
         writeExplosionLog(baseTileEntity, tileEntity.getLocalName(), details);
     }
 
-    public static void writeExplosionLog(IGregTechTileEntity baseTileEntity, String name, String details) {
+    public static void writeExplosionLog(IGTE baseTileEntity, String name, String details) {
         if (baseTileEntity != null) {
             writeExplosionLog(
                 baseTileEntity.getWorld().provider.getDimensionName(),

@@ -23,7 +23,7 @@ import gregtech.GTMod;
 import gregtech.api.interfaces.IColorModulationContainer;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.render.ISBRContext;
 import gregtech.api.render.ISBRInventoryContext;
 import gregtech.api.render.ISBRWorldContext;
@@ -517,8 +517,8 @@ public class GTRenderedTexture extends GTTextureBase implements IColorModulation
 
         IAlignment alignment = null;
 
-        if (te instanceof IGregTechTileEntity) {
-            final IMTE meta = ((IGregTechTileEntity) te).getMetaTileEntity();
+        if (te instanceof IGTE) {
+            final IMTE meta = ((IGTE) te).getMetaTileEntity();
 
             if (meta instanceof IAlignmentProvider) {
                 alignment = ((IAlignmentProvider) meta).getAlignment();

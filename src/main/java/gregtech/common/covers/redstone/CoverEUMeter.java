@@ -19,7 +19,7 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEBasicBatteryBuffer;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
@@ -273,16 +273,16 @@ public class CoverEUMeter extends Cover implements Invertable {
             ICoverable::getAverageElectricOutput, (te) -> te.getOutputVoltage() * te.getOutputAmperage()),
         ELECTRICITY_STORAGE_INCLUDING_BATTERIES(translateToLocal("gt.interact.desc.Energy_Detector.eu_stored"),
             translateToLocal("gt.interact.desc.Energy_Detector.eu_stored.tooltip"), (te) -> {
-                if (te instanceof IGregTechTileEntity) {
-                    IMTE mte = ((IGregTechTileEntity) te).getMetaTileEntity();
+                if (te instanceof IGTE) {
+                    IMTE mte = ((IGTE) te).getMetaTileEntity();
                     if (mte instanceof MTEBasicBatteryBuffer buffer) {
                         return buffer.getStoredEnergy()[0];
                     }
                 }
                 return te.getStoredEU();
             }, (te) -> {
-                if (te instanceof IGregTechTileEntity) {
-                    IMTE mte = ((IGregTechTileEntity) te).getMetaTileEntity();
+                if (te instanceof IGTE) {
+                    IMTE mte = ((IGTE) te).getMetaTileEntity();
                     if (mte instanceof MTEBasicBatteryBuffer buffer) {
                         return buffer.getStoredEnergy()[1];
                     }

@@ -33,7 +33,7 @@ import gregtech.api.enums.Dyes;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.modularui.IGetGUITextureSet;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IGregtechWailaProvider;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.render.ISBRInventoryContext;
@@ -43,13 +43,13 @@ import io.netty.buffer.ByteBuf;
 public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachineBlockUpdateable,
     IGregtechWailaProvider, IGetGUITextureSet, IGregTechDeviceInformation, CapabilityProvider, IGuiHolder<PosGuiData> {
 
-    IMTE newMTE(IGregTechTileEntity gte);
+    IMTE newMTE(IGTE gte);
 
     ItemStack getStackForm(long aAmount);
 
-    IGregTechTileEntity getGTE();
+    IGTE getGTE();
 
-    void setGTE(IGregTechTileEntity gte);
+    void setGTE(IGTE gte);
 
     void initDefaultModes(NBTTagCompound nbt);
 
@@ -76,11 +76,11 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
 
     void onExplosion();
 
-    void onFirstTick(IGregTechTileEntity gte);
+    void onFirstTick(IGTE gte);
 
-    void onPreTick(IGregTechTileEntity gte, long tick);
+    void onPreTick(IGTE gte, long tick);
 
-    void onPostTick(IGregTechTileEntity gte, long tick);
+    void onPostTick(IGTE gte, long tick);
 
     boolean needsClientTick();
 
@@ -94,9 +94,9 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
 
     boolean isFacingValid(ForgeDirection facing);
 
-    boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack);
+    boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack);
 
-    boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack);
+    boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack);
 
     boolean isValidSlot(int index);
 
@@ -126,9 +126,9 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
 
     boolean isAccessAllowed(EntityPlayer player);
 
-    boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y, float z);
+    boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z);
 
-    void onLeftClick(IGregTechTileEntity gte, EntityPlayer player);
+    void onLeftClick(IGTE gte, EntityPlayer player);
 
     void onValueUpdate(byte value);
 
@@ -152,8 +152,8 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
 
     boolean doTickProfilingMessageDuringThisTick();
 
-    ArrayList<String> getSpecialDebugInfo(IGregTechTileEntity gte, EntityPlayer player, int logLevel,
-        ArrayList<String> aList);
+    ArrayList<String> getSpecialDebugInfo(IGTE gte, EntityPlayer player, int logLevel,
+                                          ArrayList<String> aList);
 
     String[] getDescription();
 
@@ -167,8 +167,8 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
 
     String getSpecialVoltageToolTip();
 
-    ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
-        boolean active, boolean redstoneLevel);
+    ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
+                          boolean active, boolean redstoneLevel);
 
     @SideOnly(Side.CLIENT)
     void registerIcons(IIconRegister iconRegister);
@@ -229,7 +229,7 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
     default void onAdjacentBlockChange(int x, int y, int z) {}
 
     @SideOnly(Side.CLIENT)
-    default void onRandomDisplayTick(IGregTechTileEntity gte) {}
+    default void onRandomDisplayTick(IGTE gte) {}
 
     default int getGUIWidth() {
         return 176;

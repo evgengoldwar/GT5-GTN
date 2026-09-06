@@ -12,7 +12,7 @@ import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IHasInventory;
 import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.util.GTByteBuffer;
@@ -35,7 +35,7 @@ public class GTPacketSetConfigurationCircuit extends GTPacket {
         super();
     }
 
-    public GTPacketSetConfigurationCircuit(IGregTechTileEntity tile, ItemStack circuit) {
+    public GTPacketSetConfigurationCircuit(IGTE tile, ItemStack circuit) {
         this(tile.getXCoord(), tile.getYCoord(), tile.getZCoord(), circuit);
     }
 

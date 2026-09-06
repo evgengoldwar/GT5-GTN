@@ -40,7 +40,7 @@ import gregtech.api.interfaces.fluid.IFluidStore;
 import gregtech.api.interfaces.metatileentity.IFluidLockableMui2;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
@@ -107,18 +107,18 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchOutput(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isServerSide() && gte.isAllowedToWork() && mFluid != null) {
             IFluidHandler tTileEntity = gte.getITankContainerAtSide(gte.getFrontFacing());
@@ -177,12 +177,12 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side == gte.getFrontFacing() && index == 1;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side == gte.getFrontFacing() && index == 0;
     }
 
@@ -270,8 +270,8 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
-        float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
+                                float z) {
         if (tryToLockHatch(player, side)) return true;
         return super.onRightClick(gte, player, side, x, y, z);
     }

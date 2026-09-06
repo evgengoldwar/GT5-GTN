@@ -55,7 +55,7 @@ public interface IHasWorldObjectAndCoords {
     }
 
     default <MTE extends MetaTileEntity> MTE getMetaTileEntity(BlockPos pos, Class<MTE> clazz) {
-        if (!(getTileEntity(pos) instanceof IGregTechTileEntity igte)) return null;
+        if (!(getTileEntity(pos) instanceof IGTE igte)) return null;
 
         IMTE mte = igte.getMetaTileEntity();
 
@@ -87,13 +87,13 @@ public interface IHasWorldObjectAndCoords {
 
     IFluidHandler getITankContainerAtSideAndDistance(ForgeDirection side, int aDistance);
 
-    IGregTechTileEntity getIGregTechTileEntity(int aX, int aY, int aZ);
+    IGTE getIGregTechTileEntity(int aX, int aY, int aZ);
 
-    IGregTechTileEntity getIGregTechTileEntityOffset(int aX, int aY, int aZ);
+    IGTE getIGregTechTileEntityOffset(int aX, int aY, int aZ);
 
-    IGregTechTileEntity getIGregTechTileEntityAtSide(ForgeDirection side);
+    IGTE getIGregTechTileEntityAtSide(ForgeDirection side);
 
-    IGregTechTileEntity getIGregTechTileEntityAtSideAndDistance(ForgeDirection side, int aDistance);
+    IGTE getIGregTechTileEntityAtSideAndDistance(ForgeDirection side, int aDistance);
 
     Block getBlock(int aX, int aY, int aZ);
 

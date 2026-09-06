@@ -40,7 +40,7 @@ import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.interfaces.ICleanroomReceiver;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
@@ -87,7 +87,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     /**
      * accessibility to this Field is no longer given, see below
      */
-    private IGregTechTileEntity mBaseMetaTileEntity;
+    private IGTE mBaseMetaTileEntity;
 
     private String playerLang;
 
@@ -130,13 +130,13 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     @Nullable
     @Override
     // making this method final allows it to be inlined by the JIT compiler
-    public final IGregTechTileEntity getGTE() {
+    public final IGTE getGTE() {
         return mBaseMetaTileEntity;
     }
 
     @Override
-    public final void setGTE(IGregTechTileEntity gte) {
-        final IGregTechTileEntity oldBase = mBaseMetaTileEntity;
+    public final void setGTE(IGTE gte) {
+        final IGTE oldBase = mBaseMetaTileEntity;
         if (mBaseMetaTileEntity != null && gte == null) {
             mBaseMetaTileEntity.getMetaTileEntity()
                 .inValidate();
@@ -191,12 +191,12 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     @Override
     public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
         float y, float z, ItemStack tool) {
-        final IGregTechTileEntity meta = getGTE();
+        final IGTE meta = getGTE();
         if (!meta.isValidFacing(wrenchingSide)) return false;
         meta.setFrontFacing(wrenchingSide);
 
         for (final ForgeDirection s : ForgeDirection.VALID_DIRECTIONS) {
-            final IGregTechTileEntity iGregTechTileEntity = meta.getIGregTechTileEntityAtSide(s);
+            final IGTE gte = meta.getIGregTechTileEntityAtSide(s);
         }
         return true;
     }
@@ -208,7 +208,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
         if (!player.isSneaking()) return false;
         final ForgeDirection oppositeSide = wrenchingSide.getOpposite();
         final TileEntity tTileEntity = getGTE().getTileEntityAtSide(wrenchingSide);
-        if ((tTileEntity instanceof IGregTechTileEntity gtTE) && (gtTE.getMetaTileEntity() instanceof MTECable)) {
+        if ((tTileEntity instanceof IGTE gtTE) && (gtTE.getMetaTileEntity() instanceof MTECable)) {
 
             // The tile entity we're facing is a cable, let's try to connect to it
             return gtTE.getMetaTileEntity()
@@ -224,7 +224,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
         if (!player.isSneaking()) return false;
         final ForgeDirection oppositeSide = wrenchingSide.getOpposite();
         TileEntity tTileEntity = getGTE().getTileEntityAtSide(wrenchingSide);
-        if ((tTileEntity instanceof IGregTechTileEntity gtTE) && (gtTE.getMetaTileEntity() instanceof MTECable)) {
+        if ((tTileEntity instanceof IGTE gtTE) && (gtTE.getMetaTileEntity() instanceof MTECable)) {
 
             // The tile entity we're facing is a cable, let's try to connect to it
             return gtTE.getMetaTileEntity()
@@ -241,13 +241,13 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     /**
      * a Player rightclicks the Machine Sneaky rightclicks are not getting passed to this!
      */
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         return false;
     }
 
     @Override
-    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
-        float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
+                                float z) {
         if (gte.isServerSide()) {
             if (player instanceof EntityPlayerMPAccessor) {
                 playerLang = ((EntityPlayerMPAccessor) player).gt5u$getTranslator();
@@ -538,7 +538,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
      * Called when a slot is changed. Note: {@link #setInventorySlotContents} is not called when the player interacts
      * with a {@link gregtech.api.interfaces.modularui.IAddInventorySlots} slot, nor when items are inserted/extracted
      * through {@link #getInventoryHandler()} (the path used by the GUI and AE). Marking the tile dirty here makes
-     * {@link IGregTechTileEntity#hasInventoryBeenModified()} reliable across all of those paths, which input hatches
+     * {@link IGTE#hasInventoryBeenModified()} reliable across all of those paths, which input hatches
      * rely on to trigger instant recipe checks.
      */
     public void onContentsChanged(int slot) {
@@ -576,12 +576,12 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
 
     @Override
     public void onBlockDestroyed() {
-        final IGregTechTileEntity meta = getGTE();
+        final IGTE meta = getGTE();
     }
 
     @Override
     public void onColorChangeServer(byte color) {
-        final IGregTechTileEntity meta = getGTE();
+        final IGTE meta = getGTE();
         final int aX = meta.getXCoord(), aY = meta.getYCoord(), aZ = meta.getZCoord();
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             // Flag surrounding pipes/cables to revaluate their connection with us if we got painted
@@ -590,7 +590,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
                 pipe.onNeighborBlockChange(aX, aY, aZ);
             }
 
-            final IGregTechTileEntity iGregTechTileEntity = meta.getIGregTechTileEntityAtSide(side);
+            final IGTE gte = meta.getIGregTechTileEntityAtSide(side);
         }
     }
 
@@ -737,7 +737,7 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     }
 
     final public byte getColor() {
-        IGregTechTileEntity baseMetaTileEntity = getGTE();
+        IGTE baseMetaTileEntity = getGTE();
         if (baseMetaTileEntity == null) return UNCOLOURED;
         return baseMetaTileEntity.getColorization();
     }

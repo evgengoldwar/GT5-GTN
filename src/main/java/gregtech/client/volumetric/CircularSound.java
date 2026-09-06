@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 
 import gregtech.GTMod;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEEnhancedMultiBlockBase;
 
 public class CircularSound implements ISoundPosition {
@@ -52,7 +52,7 @@ public class CircularSound implements ISoundPosition {
     public Vector3f getPosition() {
         EntityPlayer player = GTMod.proxy.getThePlayer();
 
-        IGregTechTileEntity igte = multi.getGTE();
+        IGTE igte = multi.getGTE();
 
         if (igte == null) return null;
 

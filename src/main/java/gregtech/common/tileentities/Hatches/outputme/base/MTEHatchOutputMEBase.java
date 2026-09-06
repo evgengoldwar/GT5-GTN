@@ -71,7 +71,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Dyes;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTUtility;
 import gregtech.common.tileentities.Hatches.outputme.util.AECacheCounter;
 import io.netty.buffer.ByteBuf;
@@ -82,7 +82,7 @@ public abstract class MTEHatchOutputMEBase<T extends IAEStack<T>> {
     public interface Environment<T extends IAEStack<T>> {
 
         @Nullable
-        IGregTechTileEntity getGTE();
+        IGTE getGTE();
 
         IGridProxyable getIGridProxyable();
 
@@ -465,7 +465,7 @@ public abstract class MTEHatchOutputMEBase<T extends IAEStack<T>> {
         return cacheCapacity;
     }
 
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+    public void onPostTick(IGTE aBaseMetaTileEntity, long aTick) {
         if (aBaseMetaTileEntity.isServerSide()) {
             tickCounter = aTick;
             if (tickCounter > (lastOutputTick + 40)) flushCachedStack();

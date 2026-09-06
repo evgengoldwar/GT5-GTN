@@ -10,7 +10,7 @@ import org.joml.Vector3f;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.client.volumetric.ISoundPosition;
 
 @SideOnly(Side.CLIENT)
@@ -40,8 +40,8 @@ public class GTSoundLoop extends MovingSound {
      * @param soundY           positional sound Y coordinate
      * @param soundZ           positional sound Z coordinate
      */
-    public GTSoundLoop(ResourceLocation soundResource, IGregTechTileEntity base, boolean stopWhenActive,
-        boolean stopWhenInactive, float soundX, float soundY, float soundZ) {
+    public GTSoundLoop(ResourceLocation soundResource, IGTE base, boolean stopWhenActive,
+                       boolean stopWhenInactive, float soundX, float soundY, float soundZ) {
 
         super(soundResource);
         this.whileActive = stopWhenActive;
@@ -57,8 +57,8 @@ public class GTSoundLoop extends MovingSound {
         volume = VOLUME_RAMP;
     }
 
-    public GTSoundLoop(ResourceLocation soundResource, IGregTechTileEntity base, boolean stopWhenActive,
-        boolean stopWhenInactive, float volumeRamp) {
+    public GTSoundLoop(ResourceLocation soundResource, IGTE base, boolean stopWhenActive,
+                       boolean stopWhenInactive, float volumeRamp) {
         this(
             soundResource,
             base,
@@ -81,8 +81,8 @@ public class GTSoundLoop extends MovingSound {
      *
      * @implNote positional sound coordinates centred on tile
      */
-    public GTSoundLoop(ResourceLocation soundResource, IGregTechTileEntity tileEntity, boolean stopWhenActive,
-        boolean stopWhenInactive) {
+    public GTSoundLoop(ResourceLocation soundResource, IGTE tileEntity, boolean stopWhenActive,
+                       boolean stopWhenInactive) {
         this(
             soundResource,
             tileEntity,
@@ -130,7 +130,7 @@ public class GTSoundLoop extends MovingSound {
 
         TileEntity tile = world.getTileEntity(tileX, tileY, tileZ);
 
-        if (!(tile instanceof IGregTechTileEntity igte)) {
+        if (!(tile instanceof IGTE igte)) {
             stop();
             return;
         }

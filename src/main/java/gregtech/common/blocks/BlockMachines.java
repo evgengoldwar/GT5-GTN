@@ -49,7 +49,7 @@ import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
 import gregtech.api.interfaces.tileentity.IColoredTileEntity;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.GTGenericBlock;
 import gregtech.api.items.MetaBaseItem;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
@@ -67,7 +67,7 @@ import gregtech.common.tileentities.storage.MTEQuantumChest;
 @Optional.Interface(iface = "com.cricketcraft.chisel.api.IFacade", modid = Mods.ModIDs.CHISEL_API)
 public class BlockMachines extends GTGenericBlock implements IDebugableBlock, ITileEntityProvider, IFacade {
 
-    private static final ThreadLocal<IGregTechTileEntity> mTemporaryTileEntity = new ThreadLocal<>();
+    private static final ThreadLocal<IGTE> mTemporaryTileEntity = new ThreadLocal<>();
     private boolean renderAsNormalBlock;
 
     public BlockMachines() {
@@ -285,7 +285,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     public void addCollisionBoxesToList(World aWorld, int aX, int aY, int aZ, AxisAlignedBB inputAABB,
         List<AxisAlignedBB> outputAABB, Entity collider) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
+        if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
             gtTE.getMetaTileEntity()
                 .addCollisionBoxesToList(aWorld, aX, aY, aZ, inputAABB, outputAABB, collider);
             return;
@@ -296,7 +296,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
+        if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
             return gtTE.getMetaTileEntity()
                 .getCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ);
         }
@@ -307,7 +307,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
+        if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
             return gtTE.getMetaTileEntity()
                 .getCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ);
         }
@@ -317,7 +317,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @Override // THIS
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = blockAccess.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
+        if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
             final AxisAlignedBB bbb = gtTE.getMetaTileEntity()
                 .getCollisionBoundingBoxFromPool(gtTE.getWorld(), 0, 0, 0);
             minX = bbb.minX; // This essentially sets block bounds
@@ -339,7 +339,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @Override
     public void onEntityCollidedWithBlock(World aWorld, int aX, int aY, int aZ, Entity collider) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
+        if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
             gtTE.getMetaTileEntity()
                 .onEntityCollidedWithBlock(aWorld, aX, aY, aZ, collider);
             return;
@@ -417,7 +417,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
             }
         }
 
-        if (tTileEntity instanceof IGregTechTileEntity gtTE) {
+        if (tTileEntity instanceof IGTE gtTE) {
             if (gtTE.getTimer() < 1L) {
                 return false;
             }
@@ -432,7 +432,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @Override
     public void onBlockClicked(World aWorld, int aX, int aY, int aZ, EntityPlayer aPlayer) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE) {
+        if (tTileEntity instanceof IGTE gtTE) {
             gtTE.onLeftclick(aPlayer);
         }
     }
@@ -440,7 +440,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @Override
     public int getDamageValue(World aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE) {
+        if (tTileEntity instanceof IGTE gtTE) {
             return gtTE.getMetaTileID();
         }
         return 0;
@@ -460,7 +460,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     public void breakBlock(World aWorld, int aX, int aY, int aZ, Block aBlock, int aMetadata) {
         GregTechAPI.causeMachineUpdate(aWorld, aX, aY, aZ);
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
+        if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
             IMTE mte = gtTE.getMetaTileEntity();
             mte.onBlockDestroyed();
             mTemporaryTileEntity.set(gtTE);
@@ -497,14 +497,14 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @Override
     public ArrayList<ItemStack> getDrops(World aWorld, int aX, int aY, int aZ, int aMeta, int aFortune) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE) {
+        if (tTileEntity instanceof IGTE gtTE) {
             IMTE gtMTE = gtTE.getMetaTileEntity();
             if (gtMTE != null && gtMTE.getDroppedItem() != null) {
                 return gtMTE.getDroppedItem();
             }
             return gtTE.getDrops();
         }
-        final IGregTechTileEntity tGregTechTileEntity = mTemporaryTileEntity.get();
+        final IGTE tGregTechTileEntity = mTemporaryTileEntity.get();
         final ArrayList<ItemStack> tDrops;
         if (tGregTechTileEntity == null) {
             tDrops = new ArrayList<>();
@@ -532,7 +532,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
                 baseTE.setColorization((byte) -1);
             }
 
-            if (tTileEntity instanceof IGregTechTileEntity gtTE
+            if (tTileEntity instanceof IGTE gtTE
                 && gtTE.getMetaTileEntity() instanceof MTEDigitalTankBase tankMTE) {
                 tankMTE.resetFluidLockOnShiftBreak();
             }
@@ -550,7 +550,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @Override
     public int getComparatorInputOverride(World aWorld, int aX, int aY, int aZ, int ordinalSide) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE) {
+        if (tTileEntity instanceof IGTE gtTE) {
             return gtTE.getComparatorValue(ForgeDirection.getOrientation(ordinalSide));
         }
         return 0;
@@ -562,7 +562,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
             return 0;
         }
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE) {
+        if (tTileEntity instanceof IGTE gtTE) {
             return gtTE.getOutputRedstoneSignal(
                 ForgeDirection.getOrientation(ordinalSide)
                     .getOpposite());
@@ -576,7 +576,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
             return 0;
         }
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE) {
+        if (tTileEntity instanceof IGTE gtTE) {
             return gtTE.getStrongOutputRedstoneSignal(
                 ForgeDirection.getOrientation(ordinalSide)
                     .getOpposite());
@@ -640,7 +640,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World aWorld, int aX, int aY, int aZ, Random aRandom) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
+        if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
             gtTE.getMetaTileEntity()
                 .onRandomDisplayTick(gtTE);
         }
@@ -649,8 +649,8 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @Override
     public int getLightOpacity(IBlockAccess aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IGregTechTileEntity) {
-            return ((IGregTechTileEntity) tTileEntity).getLightOpacity();
+        if (tTileEntity instanceof IGTE) {
+            return ((IGTE) tTileEntity).getLightOpacity();
         }
         return aWorld.getBlockMetadata(aX, aY, aZ) == 0 ? 255 : 0;
     }

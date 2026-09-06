@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 
 public abstract class MTESpecialFilter extends MTEFilterBase {
 
@@ -47,7 +47,7 @@ public abstract class MTESpecialFilter extends MTEFilterBase {
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return (super.allowPutStack(gte, index, side, itemStack)) && ((this.allowNbt) || (!itemStack.hasTagCompound()))
             && (this.isStackAllowed(itemStack) != this.invertFilter);
     }

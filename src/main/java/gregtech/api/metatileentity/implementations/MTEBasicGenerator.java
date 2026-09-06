@@ -15,7 +15,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
@@ -56,8 +56,8 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facingDirection,
-        int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facingDirection,
+                                 int colorIndex, boolean active, boolean redstoneLevel) {
         return mTextures[(active ? 5 : 0) + (side == facingDirection ? 0
             : side == facingDirection.getOpposite() ? 1
                 : side == ForgeDirection.DOWN ? 2 : side == ForgeDirection.UP ? 3 : 4)][colorIndex + 1];
@@ -79,7 +79,7 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }
@@ -187,7 +187,7 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isServerSide() && gte.isAllowedToWork() && tick % 10 == 0) {
             if (mFluid != null) {
                 long tFuelValue = getFuelValue(mFluid), tConsumed = consumedFluidPerOperation(mFluid);
@@ -263,7 +263,7 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return super.allowPutStack(gte, index, side, itemStack) && (getFuelValue(itemStack, true) > 0
             || getFuelValue(GTUtility.getFluidForFilledItem(itemStack, true), true) > 0);
     }

@@ -24,7 +24,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.graphs.Node;
 import gregtech.api.graphs.PowerNode;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.ItemTool;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
@@ -176,7 +176,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
 
     private static void collectHatchNetworks(Iterable<? extends MTEHatch> hatches, PowerNetworkBuilder builder) {
         for (MTEHatch hatch : hatches) {
-            final IGregTechTileEntity hatchBase = hatch.getGTE();
+            final IGTE hatchBase = hatch.getGTE();
             if (hatchBase == null) continue;
             final ForgeDirection facing = hatchBase.getFrontFacing();
             final TileEntity neighbor = hatchBase.getWorld()

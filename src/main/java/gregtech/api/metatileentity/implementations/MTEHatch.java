@@ -19,7 +19,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.tooltip.TooltipHelper;
@@ -89,14 +89,14 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
 
     /**
      * Notifies watchers when this hatch's inventory or tank changed this tick. Relies on
-     * {@link IGregTechTileEntity#hasInventoryBeenModified()}, which every relevant insertion path sets (item slots via
+     * {@link IGTE#hasInventoryBeenModified()}, which every relevant insertion path sets (item slots via
      * {@code setInventorySlotContents}/{@code decrStackSize}, the GUI/AE handler via
      * {@link MetaTileEntity#onContentsChanged(int)}, and fluids via {@code fill}). Consuming ingredients also sets the
      * flag, but that only ever costs a single redundant idle check at the tail of a run. Input hatches/busses should
      * call this from {@code onPostTick}.
      */
     protected void detectInventoryChange() {
-        IGregTechTileEntity base = getGTE();
+        IGTE base = getGTE();
         if (base != null && base.hasInventoryBeenModified()) {
             notifyWatchers();
         }
@@ -124,8 +124,8 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
     public abstract ITexture[] getTexturesInactive(ITexture aBaseTexture);
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
-        boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
+                                 boolean aActive, boolean redstoneLevel) {
 
         try {
             ITexture background = getCasingTexture();
@@ -190,7 +190,7 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
         textureIndex = newTextureIndex;
         clearInventoryTextureCache();
 
-        IGregTechTileEntity base = getGTE();
+        IGTE base = getGTE();
 
         if (base.isServerSide()) {
             base.issueTileUpdate();

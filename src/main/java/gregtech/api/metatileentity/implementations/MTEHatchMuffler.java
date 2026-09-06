@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.ParticleFX;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTSplit;
@@ -62,17 +62,17 @@ public class MTEHatchMuffler extends MTEHatch {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchMuffler(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -82,7 +82,7 @@ public class MTEHatchMuffler extends MTEHatch {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isClientSide() && this.getGTE()
             .isActive()) {
@@ -111,7 +111,7 @@ public class MTEHatchMuffler extends MTEHatch {
         ran2 = ran3 = 0.0F;
         chk2 = chk3 = false;
 
-        final IGregTechTileEntity aMuffler = this.getGTE();
+        final IGTE aMuffler = this.getGTE();
         final ForgeDirection aDir = aMuffler.getFrontFacing();
         final float xPos = aDir.offsetX * 0.76F + aMuffler.getXCoord() + 0.25F;
         final float yPos = aDir.offsetY * 0.76F + aMuffler.getYCoord() + 0.25F;

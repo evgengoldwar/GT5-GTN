@@ -33,7 +33,7 @@ import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTECable;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
@@ -84,7 +84,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     }
 
     @Override
-    public IMTE newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGTE gte) {
         return new MTECable(
             mName,
             mThickNess,
@@ -97,8 +97,8 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection,
-        int facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection,
+                                 int facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
         if (!mInsulated) return new ITexture[] { TextureFactory.of(
             mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()],
             Dyes.getModulation(colorIndex, mMaterial.mRGBa)) };
@@ -227,7 +227,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (tick % 20 == 0 && gte.isServerSide() && (mCheckConnections)) {
             checkConnections();
@@ -272,8 +272,8 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
      * @return A connectable tile or null.
      */
     public IMTE getConnectableMTE(ForgeDirection side) {
-        IGregTechTileEntity thisBMTE = this.getGTE();
-        if (thisBMTE.getTileEntityAtSide(side) instanceof IGregTechTileEntity otherBMTE) {
+        IGTE thisBMTE = this.getGTE();
+        if (thisBMTE.getTileEntityAtSide(side) instanceof IGTE otherBMTE) {
             IMTE otherMTE = otherBMTE.getMetaTileEntity();
             if (otherMTE instanceof MTECable cable) {
                 return (cable.mMaterial == this.mMaterial && cable.mInsulated == this.mInsulated
@@ -321,7 +321,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
 
     @Override
     public boolean canConnect(ForgeDirection side, TileEntity tileEntity) {
-        final IGregTechTileEntity baseMetaTile = getGTE();
+        final IGTE baseMetaTile = getGTE();
         final ForgeDirection oppositeSide = side.getOpposite();
 
         // GT Machine handling
@@ -335,12 +335,12 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 

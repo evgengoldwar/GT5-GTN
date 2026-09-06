@@ -43,7 +43,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.misc.GTStructureChannels;
@@ -56,7 +56,7 @@ public class HatchElementBuilder<T> {
     private IGTHatchAdder<? super T> mAdder;
     private int mCasingIndex = -1;
     private int mHint = -1;
-    private BiPredicate<? super T, ? super IGregTechTileEntity> mShouldSkip;
+    private BiPredicate<? super T, ? super IGTE> mShouldSkip;
     private BiFunction<? super T, ItemStack, ? extends Predicate<ItemStack>> mHatchItemFilter;
     private Supplier<String> mHatchItemType;
     private Predicate<? super T> mReject;
@@ -99,8 +99,8 @@ public class HatchElementBuilder<T> {
                                 .contains(tile.getClass()) && e.matchesHatch(tile));
                 })
                     .shouldSkip(
-                        (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c,
-                            t) -> t != null && Arrays.stream(elements)
+                        (BiPredicate<? super T, ? super IGTE> & Builtin) (c,
+                                                                          t) -> t != null && Arrays.stream(elements)
                                 .anyMatch(e -> e.matchesHatch(t.getMetaTileEntity())))
                     .cacheHint(
                         () -> Arrays.stream(elements)
@@ -195,8 +195,8 @@ public class HatchElementBuilder<T> {
                                     >= e.getValue()
                                         .longValue()))
                     .shouldSkip(
-                        (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c,
-                            t) -> t != null && elements.keySet()
+                        (BiPredicate<? super T, ? super IGTE> & Builtin) (c,
+                                                                          t) -> t != null && elements.keySet()
                                 .stream()
                                 .anyMatch(e -> e.matchesHatch(t.getMetaTileEntity())))
                     .cacheHint(
@@ -244,7 +244,7 @@ public class HatchElementBuilder<T> {
         return this;
     }
 
-    public HatchElementBuilder<T> shouldSkip(BiPredicate<? super T, ? super IGregTechTileEntity> aShouldSkip) {
+    public HatchElementBuilder<T> shouldSkip(BiPredicate<? super T, ? super IGTE> aShouldSkip) {
         if (!(aShouldSkip instanceof Builtin) || mShouldSkip != null) {
             if (!(mShouldSkip instanceof Builtin) && mShouldSkip != null) throw new IllegalStateException();
             if (aShouldSkip == null) throw new IllegalArgumentException();
@@ -412,7 +412,7 @@ public class HatchElementBuilder<T> {
             .cacheHint(
                 () -> StatCollector.translateToLocalFormatted("gt.hatch_element_of_class", clazz.getSimpleName()))
             .shouldSkip(
-                (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c, t) -> clazz
+                (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> clazz
                     .isInstance(t.getMetaTileEntity()));
     }
 
@@ -440,7 +440,7 @@ public class HatchElementBuilder<T> {
                         StatCollector.translateToLocal("gt.hatch_element_of_class"),
                         "")))
             .shouldSkip(
-                (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c, t) -> t != null && list.stream()
+                (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && list.stream()
                     .anyMatch(clazz -> clazz.isInstance(t.getMetaTileEntity())));
     }
 
@@ -456,7 +456,7 @@ public class HatchElementBuilder<T> {
             c -> is -> GTUtility.isStackValid(is) && is.getItem() instanceof ItemMachines && is.getItemDamage() == aId)
                 .cacheHint(() -> StatCollector.translateToLocalFormatted("gt.hatch_element_of_id", aId))
                 .shouldSkip(
-                    (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c, t) -> t != null
+                    (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null
                         && t.getMetaTileID() == aId);
     }
 
@@ -488,7 +488,7 @@ public class HatchElementBuilder<T> {
                                 StatCollector.translateToLocal("gt.hatch_element_of_id"),
                                 "")))
                     .shouldSkip(
-                        (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c, t) -> t != null
+                        (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null
                             && coll.contains(t.getMetaTileID()));
     }
 
@@ -521,15 +521,15 @@ public class HatchElementBuilder<T> {
                 @Override
                 public boolean check(T t, World world, int x, int y, int z) {
                     TileEntity tileEntity = world.getTileEntity(x, y, z);
-                    return tileEntity instanceof IGregTechTileEntity
-                        && mAdder.apply(t, (IGregTechTileEntity) tileEntity, (short) mCasingIndex);
+                    return tileEntity instanceof IGTE
+                        && mAdder.apply(t, (IGTE) tileEntity, (short) mCasingIndex);
                 }
 
                 @Override
                 public boolean couldBeValid(T t, World world, int x, int y, int z, ItemStack trigger) {
                     // without modifying state, the best we can do is verify that this is a GT TE.
                     TileEntity tileEntity = world.getTileEntity(x, y, z);
-                    return tileEntity instanceof IGregTechTileEntity;
+                    return tileEntity instanceof IGTE;
                 }
 
                 @Override
@@ -544,8 +544,8 @@ public class HatchElementBuilder<T> {
             @Override
             public boolean check(T t, World world, int x, int y, int z) {
                 TileEntity tileEntity = world.getTileEntity(x, y, z);
-                return tileEntity instanceof IGregTechTileEntity
-                    && mAdder.apply(t, (IGregTechTileEntity) tileEntity, (short) mCasingIndex);
+                return tileEntity instanceof IGTE
+                    && mAdder.apply(t, (IGTE) tileEntity, (short) mCasingIndex);
             }
 
             private String getHint() {
@@ -555,7 +555,7 @@ public class HatchElementBuilder<T> {
             @Override
             public boolean couldBeValid(T t, World world, int x, int y, int z, ItemStack trigger) {
                 TileEntity tileEntity = world.getTileEntity(x, y, z);
-                if (tileEntity instanceof IGregTechTileEntity gtTileEntity) {
+                if (tileEntity instanceof IGTE gtTileEntity) {
                     // verify that the block matches the item hatch filter
                     ItemStack blockItem = gtTileEntity.getMetaTileEntity()
                         .getStackForm(0);
@@ -574,7 +574,7 @@ public class HatchElementBuilder<T> {
 
             @Override
             public boolean placeBlock(T t, World world, int x, int y, int z, ItemStack trigger) {
-                IGregTechTileEntity base = null;
+                IGTE base = null;
                 if (t instanceof IMTE mte) {
                     base = mte.getGTE();
                 }
@@ -626,8 +626,8 @@ public class HatchElementBuilder<T> {
                 AutoPlaceEnvironment env) {
                 if (mShouldSkip != null) {
                     TileEntity tileEntity = world.getTileEntity(x, y, z);
-                    if (tileEntity instanceof IGregTechTileEntity
-                        && mShouldSkip.test(t, (IGregTechTileEntity) tileEntity)) return PlaceResult.SKIP;
+                    if (tileEntity instanceof IGTE
+                        && mShouldSkip.test(t, (IGTE) tileEntity)) return PlaceResult.SKIP;
                 }
                 if (!StructureLibAPI.isBlockTriviallyReplaceable(world, x, y, z, env.getActor()))
                     return PlaceResult.REJECT;
@@ -683,7 +683,7 @@ public class HatchElementBuilder<T> {
                 }
                 if (!allowed.isEmpty()) {
                     TileEntity tileEntity = world.getTileEntity(x, y, z);
-                    if (tileEntity instanceof IGregTechTileEntity) {
+                    if (tileEntity instanceof IGTE) {
                         ForgeDirection result = null;
                         // find the first facing available, but prefer a facing that isn't up/down
                         for (ForgeDirection facing : allowed) {
@@ -691,7 +691,7 @@ public class HatchElementBuilder<T> {
                             if ((facing.flag & (ForgeDirection.UP.flag | ForgeDirection.DOWN.flag)) == 0) break; // Horizontal
                         }
                         assert result != null;
-                        ((IGregTechTileEntity) tileEntity).setFrontFacing(result);
+                        ((IGTE) tileEntity).setFrontFacing(result);
                     }
                 }
                 return mNoStop ? PlaceResult.ACCEPT : PlaceResult.ACCEPT_STOP;

@@ -35,7 +35,7 @@ import gregtech.api.interfaces.IBlockWithTextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IAllSidedTexturedTileEntity;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ITexturedTileEntity;
 import gregtech.api.objects.XSTR;
 import gregtech.api.render.ISBRInventoryContext;
@@ -242,7 +242,7 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
             return;
         }
 
-        final IGregTechTileEntity igte = imte.getGTE();
+        final IGTE igte = imte.getGTE();
         ctx.renderNegativeYFacing(imte.getTexture(igte, DOWN, WEST, -1, true, false));
         ctx.renderPositiveYFacing(imte.getTexture(igte, UP, WEST, -1, true, false));
         ctx.renderNegativeZFacing(imte.getTexture(igte, NORTH, WEST, -1, true, false));
@@ -282,9 +282,9 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
 
         if (tileEntity == null) return false;
 
-        if (tileEntity instanceof IGregTechTileEntity) {
+        if (tileEntity instanceof IGTE) {
             final IMTE metaTileEntity;
-            if ((metaTileEntity = ((IGregTechTileEntity) tileEntity).getMetaTileEntity()) != null
+            if ((metaTileEntity = ((IGTE) tileEntity).getMetaTileEntity()) != null
                 && metaTileEntity.renderInWorld(ctx)) {
                 return tessAccess.gt5u$hasVertices();
             }

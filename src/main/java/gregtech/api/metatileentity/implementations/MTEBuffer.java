@@ -35,7 +35,7 @@ import com.gtnewhorizon.gtnhlib.capability.item.ItemSink;
 import com.gtnewhorizon.gtnhlib.chat.customcomponents.ChatComponentNumber;
 
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTItemTransfer;
 import gregtech.api.util.GTUtility;
@@ -149,8 +149,8 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-        int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+                                 int colorIndex, boolean active, boolean redstoneLevel) {
         colorIndex = colorIndex + 1;
         if (sideDirection == facingDirection) return mTextures[FRONT_INDEX][colorIndex];
         if (sideDirection.getOpposite() == facingDirection) return mTextures[OUTPUT_INDEX][colorIndex];
@@ -285,7 +285,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     public abstract ITexture getOverlayIcon();
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }
@@ -387,7 +387,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
         return super.onWrenchRightClick(side, wrenchingSide, player, x, y, z, tool);
     }
 
-    protected void handleRedstoneOutput(IGregTechTileEntity aBaseMetaTileEntity) {
+    protected void handleRedstoneOutput(IGTE aBaseMetaTileEntity) {
         int redstoneOutput = getRedstoneOutput();
         Arrays.stream(ForgeDirection.VALID_DIRECTIONS)
             .forEach(side -> aBaseMetaTileEntity.setInternalOutputRedstoneSignal(side, (byte) redstoneOutput));
@@ -408,7 +408,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isAllowedToWork() && gte.isServerSide()
             && (gte.hasWorkJustBeenEnabled() || gte.hasInventoryBeenModified() || tick % 200 == 0 || mSuccess > 0)) {
             mSuccess--;
@@ -417,11 +417,11 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
         }
     }
 
-    protected void moveItems(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
+    protected void moveItems(IGTE aBaseMetaTileEntity, long aTimer) {
         moveItems(aBaseMetaTileEntity, aTimer, 1);
     }
 
-    protected void moveItems(IGregTechTileEntity igte, long ignoredTimer, int stacks) {
+    protected void moveItems(IGTE igte, long ignoredTimer, int stacks) {
         GTItemTransfer transfer = new GTItemTransfer();
 
         transfer.source(igte, ForgeDirection.UNKNOWN);
@@ -461,7 +461,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
         }
     }
 
-    private boolean hasTargetRoomForTransfer(IGregTechTileEntity igte) {
+    private boolean hasTargetRoomForTransfer(IGTE igte) {
         var target = igte.getTileEntityAtSide(igte.getBackFacing());
         if (!(target instanceof IInventory targetInv)) return true;
 
@@ -484,12 +484,12 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side != gte.getBackFacing();
     }
 

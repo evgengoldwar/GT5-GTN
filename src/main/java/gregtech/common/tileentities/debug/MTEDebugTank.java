@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.common.tileentities.storage.MTEQuantumTank;
@@ -36,12 +36,12 @@ public class MTEDebugTank extends MTEQuantumTank {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEDebugTank(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isServerSide()) {
             FluidStack drainableStack = getDrainableStack();
@@ -61,8 +61,8 @@ public class MTEDebugTank extends MTEQuantumTank {
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-        int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+                                 int colorIndex, boolean active, boolean redstoneLevel) {
         if (sideDirection != ForgeDirection.UP) {
             if (sideDirection == gte.getFrontFacing()) {
                 return new ITexture[] { MACHINE_CASINGS[14][colorIndex + 1], TextureFactory.of(OVERLAY_PIPE) };

@@ -33,7 +33,7 @@ import gregtech.api.enums.Textures;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.objects.overclockdescriber.EUOverclockDescriber;
 import gregtech.api.recipe.BasicUIProperties;
 import gregtech.api.recipe.RecipeMap;
@@ -261,7 +261,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     }
 
     @Override
-    public IMTE newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGTE gte) {
         return new MTEBasicMachineWithRecipe(
             this.mName,
             this.mTier,
@@ -294,8 +294,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     }
 
     @Override
-    protected boolean allowPutStackValidated(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    protected boolean allowPutStackValidated(IGTE aBaseMetaTileEntity, int aIndex, ForgeDirection side,
+                                             ItemStack aStack) {
         if (!super.allowPutStackValidated(aBaseMetaTileEntity, aIndex, side, aStack)) return false;
         switch (this.mInputSlotCount) {
             case 0 -> {
@@ -369,7 +369,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity gte, long tick) {
+    public void onPreTick(IGTE gte, long tick) {
         super.onPreTick(gte, tick);
         if (gte.isClientSide() && gte.isActive()) {
             // noinspection SwitchStatementWithTooFewBranches
@@ -399,7 +399,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void onRandomDisplayTick(IGregTechTileEntity gte) {
+    public void onRandomDisplayTick(IGTE gte) {
 
         // noinspection SwitchStatementWithTooFewBranches
         switch (this.mSpecialEffect) {

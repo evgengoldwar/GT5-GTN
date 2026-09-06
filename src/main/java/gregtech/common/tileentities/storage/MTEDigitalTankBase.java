@@ -36,7 +36,7 @@ import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IFluidContainerItemMetaTile;
 import gregtech.api.interfaces.metatileentity.IFluidLockableMui2;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEBasicTank;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
@@ -311,8 +311,8 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-        int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+                                 int colorIndex, boolean active, boolean redstoneLevel) {
         if (sideDirection != ForgeDirection.UP) {
             if (sideDirection == gte.getFrontFacing()) {
                 return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1], TextureFactory.of(OVERLAY_PIPE) };
@@ -326,7 +326,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }
@@ -366,7 +366,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity gte, long tick) {
+    public void onPreTick(IGTE gte, long tick) {
         if (!gte.isServerSide()) return;
 
         if (isFluidChangingAllowed() && getFillableStack() != null && getFillableStack().amount <= 0) {
@@ -450,7 +450,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
 
         if (!gte.isServerSide()) return;
@@ -485,7 +485,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (!super.allowPutStack(gte, index, side, itemStack)) return false;
         if (mDisableFilter) return true;
         FluidStack tFluid = GTUtility.getFluidForFilledItem(itemStack, true);

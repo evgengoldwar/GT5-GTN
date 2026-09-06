@@ -13,7 +13,7 @@ import com.google.common.io.ByteArrayDataInput;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.Base.CoverAdvancedWirelessRedstoneBase;
@@ -72,7 +72,7 @@ public class CoverWirelessController extends Cover.CoverAdvancedRedstoneReceiver
     }
 
     private UUID getTileOwnerUuid() {
-        if (coveredTile.get() instanceof IGregTechTileEntity tile) {
+        if (coveredTile.get() instanceof IGTE tile) {
             UUID ownerUuid = tile.getOwnerUuid();
             if (ownerUuid != null) return ownerUuid;
         }

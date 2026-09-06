@@ -15,7 +15,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import gregtech.api.enums.GTValues;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.api.net.GTCoilStatus;
 import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
@@ -234,7 +234,7 @@ public class GTCoilTracker {
      *         {@link #deactivate(MultiCoilLease)}
      */
     public static MultiCoilLease activate(MTEMultiBlockBase multi, LongList coils) {
-        IGregTechTileEntity base = multi.getGTE();
+        IGTE base = multi.getGTE();
 
         if (base == null || base.isDead()) return null;
 

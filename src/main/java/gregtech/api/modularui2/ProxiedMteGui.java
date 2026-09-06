@@ -22,7 +22,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.util.FieldsAreNonnullByDefault;
@@ -56,7 +56,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
     }
 
     public ModularPanel buildUI(ProxiedMteGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
-        IGregTechTileEntity base = mte.getGTE();
+        IGTE base = mte.getGTE();
         ModularPanel panel = mte.buildUI(
             new PosGuiData(data.getPlayer(), base.getXCoord(), base.getYCoord(), base.getZCoord()),
             syncManager,
@@ -76,7 +76,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
         public ProxiedMteGuiData(EntityPlayer player, MetaTileEntity serverMTE) {
             super(player);
             this.serverMTE = serverMTE;
-            IGregTechTileEntity base = serverMTE.getGTE();
+            IGTE base = serverMTE.getGTE();
             this.mid = base.getMetaTileID();
             this.x = base.getXCoord();
             this.y = base.getYCoord();
@@ -143,7 +143,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
             // Note: seems only called server side and accessing the server only mte is safe, and we can assume it is
             // never null
             assert mte != null;
-            IGregTechTileEntity base = mte.getGTE();
+            IGTE base = mte.getGTE();
             return super.canInteractWith(player, guiData) && base != null && base.canAccessData();
         }
 

@@ -36,7 +36,7 @@ import gregtech.api.interfaces.INonConsumedItemDisplay;
 import gregtech.api.interfaces.IPhysicalCircuitDisplay;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.recipe.RecipeMap;
@@ -115,12 +115,12 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchInputBus(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }
@@ -150,7 +150,7 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isServerSide()) {
             detectInventoryChange();
             updateSlots();
@@ -234,13 +234,13 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (index == getCircuitSlot()) return false;
         return side == getGTE().getFrontFacing();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side == getGTE().getFrontFacing() && index != getCircuitSlot()
             && (mRecipeMap == null || disableFilter || mRecipeMap.containsInput(itemStack))
             && (disableLimited || limitedAllowPutStack(index, itemStack));

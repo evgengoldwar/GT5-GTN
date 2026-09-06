@@ -29,7 +29,7 @@ import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.IDualInputHatchWithPattern;
 import gregtech.api.metatileentity.Hatch.IDualInputInventory;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
@@ -69,7 +69,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchCraftingInputSlave(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -84,7 +84,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isServerSide() && tick % 100 == 0) {
             if (getMaster() != null || !masterSet) {
@@ -157,12 +157,12 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -207,7 +207,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
         var tileEntity = getGTE().getWorld()
             .getTileEntity(x, y, z);
         if (tileEntity == null) return null;
-        if (!(tileEntity instanceof IGregTechTileEntity GTTE)) return null;
+        if (!(tileEntity instanceof IGTE GTTE)) return null;
         if (!(GTTE.getMetaTileEntity() instanceof MTEHatchCraftingInputME newMaster)) return null;
         if (master != newMaster) {
             if (master != null) master.removeProxyHatch(this);
@@ -245,7 +245,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         if (!(aPlayer instanceof EntityPlayerMP player)) {
             return true;
         }
@@ -263,7 +263,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+    public void onLeftClick(IGTE gte, EntityPlayer player) {
         if (!(player instanceof EntityPlayerMP)) return;
 
         ItemStack dataStick = player.inventory.getCurrentItem();

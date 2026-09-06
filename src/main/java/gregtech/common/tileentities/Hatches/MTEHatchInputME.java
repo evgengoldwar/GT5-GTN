@@ -68,7 +68,7 @@ import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.IMEConnectable;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
 import gregtech.api.metatileentity.Hatch.IRecipeProcessingAwareHatch;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
@@ -132,7 +132,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchInputME(mName, autoPullAvailable, mTier, mDescriptionArray, mTextures);
     }
 
@@ -147,7 +147,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isServerSide()) {
             if (tick % autoPullRefreshTime == 0 && autoPullFluidList) {
                 refreshFluidList();
@@ -170,7 +170,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     public boolean isAllowedToWork() {
         if (processingRecipe) return cachedActivity;
 
-        IGregTechTileEntity igte = getGTE();
+        IGTE igte = getGTE();
 
         if (igte == null || !igte.isAllowedToWork()) return false;
 
@@ -487,7 +487,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity gte) {
+    public void onFirstTick(IGTE gte) {
         super.onFirstTick(gte);
         getProxy().onReady();
     }
@@ -906,8 +906,8 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
-        float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
+                                float z) {
         if (!(player instanceof EntityPlayerMP)) return super.onRightClick(gte, player, side, x, y, z);
         ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true))
@@ -920,7 +920,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+    public void onLeftClick(IGTE gte, EntityPlayer player) {
         if (!(player instanceof EntityPlayerMP)) return;
         ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) return;

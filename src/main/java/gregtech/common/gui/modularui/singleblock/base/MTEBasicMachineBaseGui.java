@@ -38,7 +38,7 @@ import com.cleanroommc.modularui.widgets.slot.ItemSlot;
 import com.gtnewhorizons.modularui.api.widget.Interactable;
 
 import gregtech.api.enums.TieredVariant;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.modularui2.GTGuiTextures;
@@ -235,7 +235,7 @@ public class MTEBasicMachineBaseGui<T extends MTEBasicMachine> extends MTETiered
     private IWidget createSideSelectionButton(ModularPanel panel, ForgeDirection direction, IDrawable texture) {
         InteractionSyncHandler sideSelectionHandler = new InteractionSyncHandler().setOnMousePressed(mouseButton -> {
             // This is copied 1:1 from MetaTileEntity code because i didn't want to hook into onWrenchRightClick
-            final IGregTechTileEntity meta = this.machine.getGTE();
+            final IGTE meta = this.machine.getGTE();
             if (!meta.isValidFacing(direction)) {
                 return;
             }

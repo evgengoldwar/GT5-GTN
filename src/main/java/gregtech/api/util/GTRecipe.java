@@ -24,7 +24,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.objects.ItemData;
 import gregtech.api.recipe.RecipeCategory;
 import gregtech.api.recipe.RecipeLookupValidator;
@@ -295,7 +295,7 @@ public class GTRecipe implements Comparable<GTRecipe> {
         return mOutputChances[aIndex];
     }
 
-    public ItemStack rollOutput(IGregTechTileEntity te, int aIndex) {
+    public ItemStack rollOutput(IGTE te, int aIndex) {
         if (te == null) return null;
         return rollOutput(te.getRandomNumber(10000), aIndex);
     }

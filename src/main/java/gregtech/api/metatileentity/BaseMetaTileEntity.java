@@ -65,7 +65,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
@@ -1100,7 +1100,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
                 .getTickCounter();
             for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                 if (outputsEnergyTo(side, false) || inputEnergyFrom(side, false)) {
-                    final IGregTechTileEntity TE = getIGregTechTileEntityAtSide(side);
+                    final IGTE TE = getIGregTechTileEntityAtSide(side);
                     if (TE instanceof BaseMetaPipeEntity pipe
                         && (pipe.getConnections() & side.getOpposite().flag) != 0) {
                         final Node node = pipe.getNode();

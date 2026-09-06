@@ -15,7 +15,7 @@ import com.gtnewhorizons.modularui.common.widget.TextWidget;
 
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.redstone.CoverWirelessItemDetector;
 import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
@@ -126,7 +126,7 @@ public class WirelessItemDetectorUIFactory extends AdvancedRedstoneTransmitterBa
 
     private void setMaxSlot() {
         final ICoverable tile = getUIBuildContext().getTile();
-        if (!tile.isDead() && tile instanceof IGregTechTileEntity gtTile
+        if (!tile.isDead() && tile instanceof IGTE gtTile
             && !(gtTile.getMetaTileEntity() instanceof MTEDigitalChestBase)) {
             maxSlot = tile.getSizeInventory() - 1;
         } else {

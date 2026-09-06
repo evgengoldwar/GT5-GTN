@@ -41,7 +41,7 @@ import gregtech.api.implementation.items.GTItemSink;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modularui2.GTGuiTheme;
 import gregtech.api.modularui2.GTGuiThemes;
 import gregtech.api.modularui2.GTGuis;
@@ -155,7 +155,7 @@ public abstract class CommonMetaTileEntity implements IMTE {
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity gte) {}
+    public void onFirstTick(IGTE gte) {}
 
     @Override
     public boolean needsClientTick() {
@@ -166,12 +166,12 @@ public abstract class CommonMetaTileEntity implements IMTE {
     public void onClientSoundStateChanged() {}
 
     @Override
-    public void onPreTick(IGregTechTileEntity gte, long tick) {}
+    public void onPreTick(IGTE gte, long tick) {}
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {}
+    public void onPostTick(IGTE gte, long tick) {}
 
-    public void onTickFail(IGregTechTileEntity baseMetaTileEntity, long tick) {}
+    public void onTickFail(IGTE baseMetaTileEntity, long tick) {}
 
     public void onSetActive(boolean active) {}
 
@@ -192,13 +192,13 @@ public abstract class CommonMetaTileEntity implements IMTE {
      * Called when a player right-clicks this block. Shift-right-clicks will not get passed to this!
      */
     @Override
-    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
-        float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
+                                float z) {
         return false;
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {}
+    public void onLeftClick(IGTE gte, EntityPlayer player) {}
 
     @Override
     public void onValueUpdate(byte value) {}
@@ -265,8 +265,8 @@ public abstract class CommonMetaTileEntity implements IMTE {
     }
 
     @Override
-    public ArrayList<String> getSpecialDebugInfo(IGregTechTileEntity gte, EntityPlayer player, int logLevel,
-        ArrayList<String> list) {
+    public ArrayList<String> getSpecialDebugInfo(IGTE gte, EntityPlayer player, int logLevel,
+                                                 ArrayList<String> list) {
         return list;
     }
 
@@ -436,7 +436,7 @@ public abstract class CommonMetaTileEntity implements IMTE {
     @Override
     public int[] getAccessibleSlotsFromSide(int ordinalSide) {
         final TIntList tList = new TIntArrayList();
-        final IGregTechTileEntity tTileEntity = getGTE();
+        final IGTE tTileEntity = getGTE();
         if (tTileEntity == null || tTileEntity.isDead()) return GTValues.emptyIntArray;
         final Cover tileCover = tTileEntity.getCoverAtSide(ForgeDirection.getOrientation(ordinalSide));
         final boolean tSkip = tileCover.letsItemsIn(-2) || tileCover.letsItemsOut(-2);
@@ -563,7 +563,7 @@ public abstract class CommonMetaTileEntity implements IMTE {
     protected final ITexture[][] getOrCreateInventoryTextures() {
         ITexture[][] textures = inventoryTextureCache;
         if (textures == null) {
-            final IGregTechTileEntity base = getGTE();
+            final IGTE base = getGTE();
             textures = new ITexture[][] { getTexture(base, ForgeDirection.DOWN, ForgeDirection.WEST, -1, true, false),
                 getTexture(base, ForgeDirection.UP, ForgeDirection.WEST, -1, true, false),
                 getTexture(base, ForgeDirection.NORTH, ForgeDirection.WEST, -1, true, false),

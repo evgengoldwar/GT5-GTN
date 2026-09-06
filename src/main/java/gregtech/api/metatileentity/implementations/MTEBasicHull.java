@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTSplit;
 
 @IMTE.SkipGenerateDescription
@@ -23,7 +23,7 @@ public class MTEBasicHull extends MTEBasicTank {
     }
 
     @Override
-    public IMTE newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGTE gte) {
         return new MTEBasicHull(mName, mTier, mInventory.length, mDescriptionArray, mTextures);
     }
 
@@ -73,18 +73,18 @@ public class MTEBasicHull extends MTEBasicTank {
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
-        boolean aConnected, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
+                                 boolean aConnected, boolean redstoneLevel) {
         return mTextures[Math.min(2, side.ordinal()) + (side == aFacing ? 3 : 0)][colorIndex + 1];
     }
 

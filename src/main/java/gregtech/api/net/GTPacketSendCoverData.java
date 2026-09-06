@@ -11,7 +11,7 @@ import com.google.common.io.ByteArrayDataInput;
 import appeng.api.util.WorldCoord;
 import gregtech.GTMod;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.CoverableTileEntity;
 import gregtech.api.objects.blockupdate.BlockUpdateHandler;
 import gregtech.common.covers.Base.Cover;
@@ -75,7 +75,7 @@ public class GTPacketSendCoverData extends GTPacket {
         final TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof CoverableTileEntity coverable && !coverable.isDead()) {
             coverable.updateAttachedCover(data);
-            if (coverable instanceof IGregTechTileEntity base) {
+            if (coverable instanceof IGTE base) {
                 base.issueTextureUpdate();
             } else {
                 EntityPlayer player = GTMod.GT.getThePlayer();

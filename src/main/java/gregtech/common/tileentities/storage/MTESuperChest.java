@@ -3,7 +3,7 @@ package gregtech.common.tileentities.storage;
 import net.minecraft.util.StatCollector;
 
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 
 public class MTESuperChest extends MTEQuantumChest {
@@ -22,7 +22,7 @@ public class MTESuperChest extends MTEQuantumChest {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTESuperChest(mName, mTier, mDescriptionArray, mTextures);
     }
 }

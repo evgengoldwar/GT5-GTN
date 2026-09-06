@@ -27,7 +27,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.casing.Casings;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 
 public class DebugWriterHelper {
@@ -95,7 +95,7 @@ public class DebugWriterHelper {
 
         // DebugStructureWriter
         registerSymbolOverride(((world, x, y, z, block, tileEntity) -> {
-            if (tileEntity instanceof IGregTechTileEntity gte) {
+            if (tileEntity instanceof IGTE gte) {
                 IMTE mte = gte.getMetaTileEntity();
 
                 if (mte instanceof MTEDebugStructureWriter) {

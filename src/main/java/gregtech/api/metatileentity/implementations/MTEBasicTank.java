@@ -31,7 +31,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.singleblock.base.MTEBasicTankBaseGui;
 
@@ -146,7 +146,7 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity gte, long tick) {
+    public void onPreTick(IGTE gte, long tick) {
         if (gte.isServerSide()) {
             if (isFluidChangingAllowed() && getFillableStack() != null && getFillableStack().amount <= 0) {
                 setFillableStack(null);
@@ -282,12 +282,12 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return index == getOutputSlot();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return index == getInputSlot();
     }
 

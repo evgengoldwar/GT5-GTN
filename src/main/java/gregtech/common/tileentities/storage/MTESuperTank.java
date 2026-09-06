@@ -5,7 +5,7 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import net.minecraft.util.EnumChatFormatting;
 
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 
 public class MTESuperTank extends MTEDigitalTankBase {
@@ -19,7 +19,7 @@ public class MTESuperTank extends MTEDigitalTankBase {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTESuperTank(mName, mTier, mDescriptionArray, mTextures);
     }
 

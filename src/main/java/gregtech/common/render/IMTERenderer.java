@@ -7,7 +7,7 @@ import com.google.common.io.ByteArrayDataInput;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.net.GTPacketClientMTERendererData;
 import io.netty.buffer.ByteBuf;
 
@@ -43,7 +43,7 @@ public interface IMTERenderer {
      * @param mte
      */
     default void sendRenderDataToClient(IMTE mte) {
-        IGregTechTileEntity tile = mte.getGTE();
+        IGTE tile = mte.getGTE();
         if (tile.isClientSide()) return;
 
         double maxDistSq = getMaxRenderDistanceSquared();

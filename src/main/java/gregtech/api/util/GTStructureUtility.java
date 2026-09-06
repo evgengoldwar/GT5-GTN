@@ -31,7 +31,7 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ITurnable;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.blocks.ItemMachines;
@@ -108,7 +108,7 @@ public class GTStructureUtility {
         return new IStructureElement<>() {
 
             private TMTE getMTE(World world, int x, int y, int z) {
-                if (!(world.getTileEntity(x, y, z) instanceof IGregTechTileEntity igte)) return null;
+                if (!(world.getTileEntity(x, y, z) instanceof IGTE igte)) return null;
 
                 IMTE imte = igte.getMetaTileEntity();
 

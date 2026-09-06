@@ -53,7 +53,7 @@ import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.render.TextureFactory;
@@ -148,13 +148,13 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public IMTE newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGTE gte) {
         return new MTEFluidPipe(mName, mThickNess, mMaterial, mCapacity, mHeatResistance, mGasProof, mPipeAmount);
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity base, ForgeDirection side, int connections, int colorIndex,
-        boolean connected, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE base, ForgeDirection side, int connections, int colorIndex,
+                                 boolean connected, boolean redstoneLevel) {
         List<ITexture> textures = new ArrayList<>();
 
         textures.add(getBaseTexture(connected, colorIndex));
@@ -262,7 +262,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isServerSide() && tick % 5 == 0) {
             mLastReceivedFrom &= 63;
@@ -292,7 +292,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         }
     }
 
-    private boolean checkEnvironment(int index, IGregTechTileEntity aBaseMetaTileEntity) {
+    private boolean checkEnvironment(int index, IGTE aBaseMetaTileEntity) {
         // Check for hot liquids that melt the pipe or gasses that escape and burn/freeze people
         final FluidStack tFluid = mFluids[index];
 
@@ -324,7 +324,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         return false;
     }
 
-    private void distributeFluid(int index, IGregTechTileEntity aBaseMetaTileEntity) {
+    private void distributeFluid(int index, IGTE aBaseMetaTileEntity) {
         final FluidStack tFluid = mFluids[index];
         if (tFluid == null) return;
 
@@ -337,7 +337,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
             final ForgeDirection side = ForgeDirection.getOrientation((i + tOffset) % 6);
             final ForgeDirection oppositeSide = side.getOpposite();
             final IFluidHandler tTank = aBaseMetaTileEntity.getITankContainerAtSide(side);
-            final IGregTechTileEntity gTank = tTank instanceof IGregTechTileEntity ? (IGregTechTileEntity) tTank : null;
+            final IGTE gTank = tTank instanceof IGTE ? (IGTE) tTank : null;
 
             if (isConnectedAtSide(side) && tTank != null
                 && (mLastReceivedFrom & side.flag) == 0
@@ -405,7 +405,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+    public void onLeftClick(IGTE gte, EntityPlayer player) {
         // Only trigger if the player is sneaking
         if (!player.isSneaking()) {
             return;
@@ -543,7 +543,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
         float y, float z, ItemStack tool) {
 
-        IGregTechTileEntity currentPipeBase = getGTE();
+        IGTE currentPipeBase = getGTE();
         MTEFluidPipe currentPipe = (MTEFluidPipe) currentPipeBase.getMetaTileEntity();
         final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, x, y, z);
         final byte tMask = (byte) (tSide.flag);
@@ -645,11 +645,11 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         if (tileEntity == null) return false;
 
         final ForgeDirection oppositeSide = side.getOpposite();
-        final IGregTechTileEntity baseMetaTile = getGTE();
+        final IGTE baseMetaTile = getGTE();
         if (baseMetaTile == null) return false;
 
-        final IGregTechTileEntity gTileEntity = (tileEntity instanceof IGregTechTileEntity)
-            ? (IGregTechTileEntity) tileEntity
+        final IGTE gTileEntity = (tileEntity instanceof IGTE)
+            ? (IGTE) tileEntity
             : null;
 
         if (TinkerConstruct.isModLoaded() && isTConstructFaucet(tileEntity)) return true;
@@ -723,12 +723,12 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 

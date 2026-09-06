@@ -61,7 +61,7 @@ import gregtech.api.interfaces.IOutputHatch;
 import gregtech.api.interfaces.IOutputHatchTransaction;
 import gregtech.api.interfaces.IOutputTransaction;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.render.TextureFactory;
@@ -100,7 +100,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchOutputME(mName, mTier, mDescriptionArray, mTextures);
     }
 
@@ -120,7 +120,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity gte) {
+    public void onFirstTick(IGTE gte) {
         super.onFirstTick(gte);
         getProxy().onReady();
         provider.updateState();
@@ -195,7 +195,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     EntityPlayer lastClickedPlayer = null;
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         lastClickedPlayer = aPlayer;
 
         openGui(aPlayer);
@@ -256,7 +256,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         provider.onPostTick(gte, tick);
         super.onPostTick(gte, tick);
     }
@@ -473,7 +473,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
 
     @Override
     public DimensionalCoord getLocation() {
-        IGregTechTileEntity gtm = this.getGTE();
+        IGTE gtm = this.getGTE();
         return new DimensionalCoord(gtm.getWorld(), gtm.getXCoord(), gtm.getYCoord(), gtm.getZCoord());
     }
 

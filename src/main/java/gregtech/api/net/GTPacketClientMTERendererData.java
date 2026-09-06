@@ -5,7 +5,7 @@ import net.minecraft.world.IBlockAccess;
 
 import com.google.common.io.ByteArrayDataInput;
 
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.common.render.IMTERenderer;
 import io.netty.buffer.ByteBuf;
 
@@ -53,7 +53,7 @@ public class GTPacketClientMTERendererData extends GTPacket {
     @Override
     public void process(IBlockAccess world) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (readBuffer != null && te instanceof IGregTechTileEntity gtTe
+        if (readBuffer != null && te instanceof IGTE gtTe
             && gtTe.getMetaTileEntity() instanceof IMTERenderer mteRenderer) {
             mteRenderer.decodeRenderData(readBuffer);
         }

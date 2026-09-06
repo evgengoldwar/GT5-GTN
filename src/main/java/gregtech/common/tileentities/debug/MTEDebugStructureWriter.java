@@ -29,7 +29,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
 import gregtech.api.render.TextureFactory;
@@ -78,13 +78,13 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEDebugStructureWriter(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-        int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+                                 int colorIndex, boolean active, boolean redstoneLevel) {
         return new ITexture[] {
             Textures.BlockIcons.MACHINE_CASINGS[mTier][colorIndex + 1], sideDirection != facingDirection
                 ? TextureFactory.of(
@@ -105,12 +105,12 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection b, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection b, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection b, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection b, ItemStack itemStack) {
         return false;
     }
 
@@ -133,13 +133,13 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity gte) {
+    public void onFirstTick(IGTE gte) {
         super.onFirstTick(gte);
         bondingBoxes.put(this, boundingBox);
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isServerSide()) {
             ExtendedFacing writerFacing = ExtendedFacing.of(gte.getFrontFacing());
             double[] abc = new double[3];
@@ -171,7 +171,7 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     }
 
     public String getPseudoJavaCode() {
-        IGregTechTileEntity aBaseMetaTileEntity = getGTE();
+        IGTE aBaseMetaTileEntity = getGTE();
 
         if (aBaseMetaTileEntity == null) {
             return "";
@@ -204,7 +204,7 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         openGui(aPlayer);
         return true;
     }

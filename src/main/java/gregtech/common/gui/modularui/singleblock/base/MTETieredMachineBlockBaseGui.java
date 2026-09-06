@@ -29,7 +29,7 @@ import com.cleanroommc.modularui.widgets.slot.ItemSlot;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTWidgetThemes;
@@ -53,7 +53,7 @@ public class MTETieredMachineBlockBaseGui<T extends MTETieredMachineBlock> {
     public static final int SLOT_SIZE = 18;
 
     protected final T machine;
-    protected final IGregTechTileEntity baseMetaTileEntity;
+    protected final IGTE baseMetaTileEntity;
 
     public MTETieredMachineBlockBaseGui(T machine) {
         this.machine = machine;

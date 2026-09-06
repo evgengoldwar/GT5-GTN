@@ -22,7 +22,7 @@ import com.google.common.collect.ListMultimap;
 import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.IChunkLoader;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 
 /**
  * Handles re-initialization of chunks after a server restart.
@@ -68,14 +68,14 @@ public class GTChunkManager implements OrderedLoadingCallback, PlayerOrderedLoad
                     .getInteger("OwnerZ");
                 if (y > 0) {
                     TileEntity tile = world.getTileEntity(x, y, z);
-                    if (tile instanceof IGregTechTileEntity && ((IGregTechTileEntity) tile).isAllowedToWork()) {
+                    if (tile instanceof IGTE && ((IGTE) tile).isAllowedToWork()) {
                         ForgeChunkManager.forceChunk(ticket, new ChunkCoordIntPair(x >> 4, z >> 4));
                         if (!registeredTickets.containsKey(tile)) {
                             registeredTickets.put(tile, ticket);
-                            if (((IGregTechTileEntity) tile).getMetaTileEntity() instanceof IChunkLoader)
+                            if (((IGTE) tile).getMetaTileEntity() instanceof IChunkLoader)
                                 ForgeChunkManager.forceChunk(
                                     ticket,
-                                    ((IChunkLoader) ((IGregTechTileEntity) tile).getMetaTileEntity()).getActiveChunk());
+                                    ((IChunkLoader) ((IGTE) tile).getMetaTileEntity()).getActiveChunk());
                             validTickets.add(ticket);
                         }
                     }

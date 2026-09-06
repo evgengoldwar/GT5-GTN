@@ -114,7 +114,7 @@ import gregtech.api.interfaces.IMEConnectable;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
 import gregtech.api.metatileentity.Hatch.IDualInputHatch;
 import gregtech.api.metatileentity.Hatch.IDualInputHatchWithPattern;
@@ -505,7 +505,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchCraftingInputME(mName, mTier, mDescriptionArray, mTextures, supportFluids);
     }
 
@@ -521,7 +521,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
 
         if (getGTE().isServerSide()) {
@@ -544,7 +544,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity gte) {
+    public void onFirstTick(IGTE gte) {
         super.onFirstTick(gte);
         getProxy().onReady();
     }
@@ -621,7 +621,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
         float x, float y, float z, ItemStack tool) {
         if (player.isSneaking()) {
-            IGregTechTileEntity te = getGTE();
+            IGTE te = getGTE();
             player.openGui(
                 AppEng.instance(),
                 GuiBridge.GUI_RENAMER.ordinal() << 5 | (side.ordinal()),
@@ -720,7 +720,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
 
         StringBuilder suffix = new StringBuilder();
 
-        IGregTechTileEntity base = getGTE();
+        IGTE base = getGTE();
         if (base instanceof IInterfaceNameProvider nameProvider) {
             String circuitSuffix = nameProvider.getInterfaceNameSuffix();
             if (circuitSuffix != null) suffix.append(circuitSuffix);
@@ -923,12 +923,12 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -1315,7 +1315,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+    public void onLeftClick(IGTE gte, EntityPlayer player) {
         if (!(player instanceof EntityPlayerMP)) return;
 
         ItemStack dataStick = player.inventory.getCurrentItem();
@@ -1325,7 +1325,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     public void saveToDataStick(EntityPlayer aPlayer, ItemStack dataStick) {
-        IGregTechTileEntity aBaseMetaTileEntity = getGTE();
+        IGTE aBaseMetaTileEntity = getGTE();
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("type", "CraftingInputBuffer");
         tag.setInteger("x", aBaseMetaTileEntity.getXCoord());
@@ -1340,12 +1340,12 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
-        float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
+                                float z) {
         final ItemStack is = player.inventory.getCurrentItem();
         if (is != null && is.getItem() instanceof ToolQuartzCuttingKnife) {
             if (ForgeEventFactory.onItemUseStart(player, is, 1) <= 0) return false;
-            IGregTechTileEntity te = getGTE();
+            IGTE te = getGTE();
             player.openGui(
                 AppEng.instance(),
                 GuiBridge.GUI_RENAMER.ordinal() << 5 | (side.ordinal()),

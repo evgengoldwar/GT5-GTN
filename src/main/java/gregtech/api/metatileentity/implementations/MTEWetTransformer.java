@@ -10,7 +10,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTUtility;
 
 @IMTE.SkipGenerateDescription
@@ -27,7 +27,7 @@ public class MTEWetTransformer extends MTETransformer {
     }
 
     @Override
-    public IMTE newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGTE gte) {
         return new MTEWetTransformer(mName, mTier, mDescriptionArray, mTextures);
     }
 

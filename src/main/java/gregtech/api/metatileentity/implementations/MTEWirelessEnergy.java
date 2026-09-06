@@ -14,7 +14,7 @@ import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.util.GTSplit;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
@@ -74,12 +74,12 @@ public class MTEWirelessEnergy extends MTEHatchEnergy {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEWirelessEnergy(mName, mTier, new String[] { "" }, mTextures);
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity gte) {
+    public void onFirstTick(IGTE gte) {
         super.onFirstTick(gte);
 
         if (!gte.isServerSide()) return;
@@ -95,7 +95,7 @@ public class MTEWirelessEnergy extends MTEHatchEnergy {
     }
 
     @Override
-    public void onPreTick(IGregTechTileEntity gte, long tick) {
+    public void onPreTick(IGTE gte, long tick) {
 
         super.onPreTick(gte, tick);
 

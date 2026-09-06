@@ -78,7 +78,7 @@ import gregtech.api.interfaces.IPhysicalCircuitDisplay;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.modularui.IAddGregtechLogo;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IOverclockDescriptionProvider;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.objects.overclockdescriber.EUOverclockDescriber;
@@ -278,8 +278,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-        int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
+                                 int colorIndex, boolean active, boolean redstoneLevel) {
         final int textureIndex;
         if ((mMainFacing.flag & (UP.flag | DOWN.flag)) != 0) { // UP or DOWN
             if (sideDirection == facingDirection) {
@@ -489,7 +489,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         if (aBaseMetaTileEntity.isClientSide()) {
             return true;
         }
@@ -576,7 +576,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
 
         if (gte.isServerSide()) {
@@ -955,12 +955,12 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side != mMainFacing && index >= getOutputSlot() && index < getOutputSlot() + mOutputItems.length;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (side == mMainFacing) return false;
         if (index < getInputSlot()) return false;
         if (index >= getInputSlot() + mInputSlotCount) return false;
@@ -980,8 +980,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
      * method it is ensured there is no such kind of item inside any input slots already. Otherwise, you don't need to
      * check for it anyway.
      */
-    protected boolean allowPutStackValidated(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
+    protected boolean allowPutStackValidated(IGTE aBaseMetaTileEntity, int aIndex, ForgeDirection side,
+                                             ItemStack aStack) {
         return !mDisableMultiStack || mInventory[aIndex] == null;
     }
 
@@ -1173,7 +1173,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         final NBTTagCompound tag = accessor.getNBTData();
-        final IGregTechTileEntity gte = getGTE();
+        final IGTE gte = getGTE();
         long eu = tag.getLong("Eu");
         long maxEu = tag.getLong("MaxEu");
         int euT = tag.getInteger("eut");
@@ -1320,7 +1320,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
-        final IGregTechTileEntity gte = getGTE();
+        final IGTE gte = getGTE();
         ItemStack[] inputs = getAllInputs();
         ItemStack[] outputs = getAllOutputs();
 

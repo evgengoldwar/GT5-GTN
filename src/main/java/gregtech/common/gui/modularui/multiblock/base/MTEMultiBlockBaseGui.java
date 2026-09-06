@@ -72,7 +72,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.VoidingMode;
 import gregtech.api.implementation.items.ItemDisplayKey;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTWidgetThemes;
@@ -92,7 +92,7 @@ import gregtech.common.modularui2.sync.Predicates;
 public class MTEMultiBlockBaseGui<T extends MTEMultiBlockBase> {
 
     protected final T multiblock;
-    protected final IGregTechTileEntity baseMetaTileEntity;
+    protected final IGTE baseMetaTileEntity;
     protected List<UITexture> machineModeIcons = new ArrayList<>();
     protected Map<String, UITexture> customIcons = new HashMap<>();
     private static final int borderRadius = 4;

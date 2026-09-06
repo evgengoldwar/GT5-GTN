@@ -41,7 +41,7 @@ import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
@@ -161,15 +161,15 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         if (gte.getMetaTileID() == 111)
             return new MTEHatchMaintenance(mName, mTier, mDescriptionArray, mTextures, true);
         return new MTEHatchMaintenance(mName, mTier, mDescriptionArray, mTextures, false);
     }
 
     @Override
-    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
-        float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
+                                float z) {
         if (side == gte.getFrontFacing()) {
             if (gte.isClientSide()) return true;
             // only allow OC robot & dynamism tablet fake player
@@ -217,7 +217,7 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isServerSide() && mAuto && tick % 100L == 0L) {
             gte.setActive(!isRecipeInputEqual(false));
@@ -235,7 +235,7 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     public void onMaintenancePerformed(MTEMultiBlockBase aMaintenanceTarget) {
-        IGregTechTileEntity tMte = getGTE();
+        IGTE tMte = getGTE();
 
         if (tMte == null || tMte.isMuffled()) return;
 
@@ -432,12 +432,12 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return mAuto;
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (mAuto) {
             for (int i = 0; i < getSizeInventory(); i++) if (GTUtility.areStacksEqual(
                 GTOreDictUnificator.get(false, itemStack),
@@ -467,7 +467,7 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     @Override
     public void setExtendedFacing(ExtendedFacing alignment) {
         boolean changed = false;
-        final IGregTechTileEntity base = getGTE();
+        final IGTE base = getGTE();
         if (base.getFrontFacing() != alignment.getDirection()) {
             base.setFrontFacing(alignment.getDirection());
             changed = true;

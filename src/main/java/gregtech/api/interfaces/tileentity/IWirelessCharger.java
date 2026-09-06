@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 
 public interface IWirelessCharger {
 
-    IGregTechTileEntity getChargerTE();
+    IGTE getChargerTE();
 
     boolean canChargePlayerItems(EntityPlayer player);
 

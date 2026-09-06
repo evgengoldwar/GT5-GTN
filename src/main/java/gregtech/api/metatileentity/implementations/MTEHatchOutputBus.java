@@ -31,7 +31,7 @@ import gregtech.api.interfaces.IOutputBusTransaction;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IItemLockable;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
@@ -99,12 +99,12 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchOutputBus(mName, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
         if (!acceptsItemLock() || !(aPlayer instanceof EntityPlayerMP)) {
             openGui(aPlayer);
             return true;
@@ -127,7 +127,7 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+    public void onLeftClick(IGTE gte, EntityPlayer player) {
         if (!acceptsItemLock() || !(player instanceof EntityPlayerMP)) {
             return;
         }
@@ -216,12 +216,12 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return side == gte.getFrontFacing();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return false;
     }
 
@@ -230,7 +230,7 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
         if (gte.isServerSide() && gte.isAllowedToWork() && (tick & 0x7) == 0 && pushOutputInventory()) {
 

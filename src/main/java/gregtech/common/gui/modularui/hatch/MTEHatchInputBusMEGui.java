@@ -35,7 +35,7 @@ import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 
 import appeng.core.localization.WailaText;
 import appeng.me.GridAccessException;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTWidgetThemes;
 import gregtech.api.util.GTDataUtils;
@@ -166,7 +166,7 @@ public class MTEHatchInputBusMEGui extends MTEHatchBaseGui<MTEHatchInputBusME> {
             widget.getSlot()
                 .changeListener((newItem, onlyAmountChanged, client, init) -> {
                     if (newItem != null && !client) {
-                        IGregTechTileEntity base = machine.getGTE();
+                        IGTE base = machine.getGTE();
                         if (base != null) {
                             base.enableTicking();
                             machine.onContentsChanged(machine.getCircuitSlot());
@@ -182,7 +182,7 @@ public class MTEHatchInputBusMEGui extends MTEHatchBaseGui<MTEHatchInputBusME> {
                 new ModularSlot(machine.inventoryHandler, machine.getManualSlot()).slotGroup("item_inv")
                     .changeListener((newItem, onlyAmountChanged, client, init) -> {
                         if (newItem != null && !client) {
-                            IGregTechTileEntity base = machine.getGTE();
+                            IGTE base = machine.getGTE();
                             if (base != null) {
                                 base.enableTicking();
                                 machine.onContentsChanged(machine.getManualSlot());

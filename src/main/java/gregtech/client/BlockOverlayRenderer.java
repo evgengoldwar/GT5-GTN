@@ -36,7 +36,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ITurnable;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
@@ -114,7 +114,7 @@ public class BlockOverlayRenderer {
 
         if (!(aTileEntity instanceof ICoverable)) return;
 
-        if (event.player.isSneaking() && aTileEntity instanceof IGregTechTileEntity gtEntity
+        if (event.player.isSneaking() && aTileEntity instanceof IGTE gtEntity
             && gtEntity.getMetaTileEntity() instanceof MetaPipeEntity) {
             if (event.currentItem != null && event.currentItem.getItem() instanceof ItemMachines
                 && GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[event.currentItem
@@ -132,7 +132,7 @@ public class BlockOverlayRenderer {
         }
 
         if (GTUtility.isStackInList(event.currentItem, GregTechAPI.sScrewdriverList)
-            && aTileEntity instanceof IGregTechTileEntity gtEntity
+            && aTileEntity instanceof IGTE gtEntity
             && gtEntity.getMetaTileEntity() instanceof MTEBuffer) {
             drawGrid(event, false, false, event.player.isSneaking());
             return;

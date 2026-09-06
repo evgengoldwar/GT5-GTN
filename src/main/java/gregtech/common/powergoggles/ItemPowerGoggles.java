@@ -21,7 +21,7 @@ import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import gregtech.api.interfaces.INetworkUpdatableItem;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.net.GTPacketUpdateItem;
 import gregtech.common.powergoggles.handlers.PowerGogglesEventHandler;
@@ -64,7 +64,7 @@ public class ItemPowerGoggles extends GTGenericItem implements IBauble, INetwork
         tag.setInteger("y", y);
         tag.setInteger("z", z);
         tag.setInteger("dim", player.dimension);
-        tag.setString("dimName", ((IGregTechTileEntity) tileEntity).getWorld().provider.getDimensionName());
+        tag.setString("dimName", ((IGTE) tileEntity).getWorld().provider.getDimensionName());
         stack.setTagCompound(tag);
         setEnchantmentData(oldStack, stack);
         NW.sendToServer(new GTPacketUpdateItem(tag));

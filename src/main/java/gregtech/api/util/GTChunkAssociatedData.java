@@ -43,7 +43,7 @@ import org.apache.commons.io.FileUtils;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.api.enums.GTValues;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 
 /**
  * A utility to save all kinds of data that is a function of any chunk.
@@ -125,7 +125,7 @@ public abstract class GTChunkAssociatedData<T extends GTChunkAssociatedData.IDat
     /**
      * Get a reference to data of the chunk that tile entity is in. The returned reference should be mutable.
      */
-    public final T get(IGregTechTileEntity tileEntity) {
+    public final T get(IGTE tileEntity) {
         return get(tileEntity.getWorld(), tileEntity.getXCoord() >> 4, tileEntity.getZCoord() >> 4);
     }
 

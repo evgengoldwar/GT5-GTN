@@ -127,7 +127,7 @@ import gregtech.api.interfaces.IProjectileItem;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.item.ItemStackSizeCalculator;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.net.GTPacketSound;
@@ -1685,7 +1685,7 @@ public class GTUtility {
         return ItemIntegratedCircuit.NON_ZERO_VARIANTS;
     }
 
-    public static FakePlayer getFakePlayer(IGregTechTileEntity aBaseMetaTileEntity) {
+    public static FakePlayer getFakePlayer(IGTE aBaseMetaTileEntity) {
         if (aBaseMetaTileEntity.getWorld() instanceof WorldServer) {
             return FakePlayerFactory.get(
                 (WorldServer) aBaseMetaTileEntity.getWorld(),
@@ -1776,7 +1776,7 @@ public class GTUtility {
 
     @Nullable
     public static IMTE getMetaTileEntity(TileEntity tileEntity) {
-        if (tileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
+        if (tileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
             return gtTE.getMetaTileEntity();
         }
         return null;

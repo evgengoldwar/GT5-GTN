@@ -54,7 +54,7 @@ import gregtech.api.interfaces.modularui.IAddGregtechLogo;
 import gregtech.api.interfaces.modularui.IAddInventorySlots;
 import gregtech.api.interfaces.modularui.IGetGUITextureSet;
 import gregtech.api.interfaces.tileentity.IGTEnet;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IHasWorldObjectAndCoords;
 import gregtech.api.net.GTPacketSetConfigurationCircuit;
 import gregtech.api.util.GTTooltipDataCache;
@@ -356,30 +356,30 @@ public abstract class BaseTileEntity extends TileEntity implements IHasWorldObje
     }
 
     @Override
-    public final IGregTechTileEntity getIGregTechTileEntity(int x, int y, int z) {
+    public final IGTE getIGregTechTileEntity(int x, int y, int z) {
         final TileEntity tTileEntity = getTileEntity(x, y, z);
-        if (tTileEntity instanceof IGregTechTileEntity) return (IGregTechTileEntity) tTileEntity;
+        if (tTileEntity instanceof IGTE) return (IGTE) tTileEntity;
         return null;
     }
 
     @Override
-    public final IGregTechTileEntity getIGregTechTileEntityOffset(int x, int y, int z) {
+    public final IGTE getIGregTechTileEntityOffset(int x, int y, int z) {
         final TileEntity tTileEntity = getTileEntityOffset(x, y, z);
-        if (tTileEntity instanceof IGregTechTileEntity) return (IGregTechTileEntity) tTileEntity;
+        if (tTileEntity instanceof IGTE) return (IGTE) tTileEntity;
         return null;
     }
 
     @Override
-    public final IGregTechTileEntity getIGregTechTileEntityAtSide(ForgeDirection side) {
+    public final IGTE getIGregTechTileEntityAtSide(ForgeDirection side) {
         final TileEntity tTileEntity = getTileEntityAtSide(side);
-        if (tTileEntity instanceof IGregTechTileEntity) return (IGregTechTileEntity) tTileEntity;
+        if (tTileEntity instanceof IGTE) return (IGTE) tTileEntity;
         return null;
     }
 
     @Override
-    public final IGregTechTileEntity getIGregTechTileEntityAtSideAndDistance(ForgeDirection side, int distance) {
+    public final IGTE getIGregTechTileEntityAtSideAndDistance(ForgeDirection side, int distance) {
         final TileEntity tTileEntity = getTileEntityAtSideAndDistance(side, distance);
-        if (tTileEntity instanceof IGregTechTileEntity) return (IGregTechTileEntity) tTileEntity;
+        if (tTileEntity instanceof IGTE) return (IGTE) tTileEntity;
         return null;
     }
 

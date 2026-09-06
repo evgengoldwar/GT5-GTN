@@ -16,7 +16,7 @@ import com.google.common.collect.ImmutableList;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.IGTHatchAdder;
@@ -135,7 +135,7 @@ public interface IHatchElement<T> {
     }
 
     default <T2 extends T> IStructureElement<T2> newAny(int aCasingIndex, int aHintNumber,
-        BiPredicate<? super T2, ? super IGregTechTileEntity> aShouldSkip) {
+        BiPredicate<? super T2, ? super IGTE> aShouldSkip) {
         if (aCasingIndex < 0 || aHintNumber < 0 || aShouldSkip == null) throw new IllegalArgumentException();
         return GTStructureUtility.<T2>buildHatchAdder()
             .anyOf(this)

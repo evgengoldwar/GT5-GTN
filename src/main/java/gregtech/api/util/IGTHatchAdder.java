@@ -1,17 +1,17 @@
 package gregtech.api.util;
 
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 
 public interface IGTHatchAdder<T> {
 
     /**
      * Callback to add hatch, needs to check if hatch is valid (and add it)
      *
-     * @param iGregTechTileEntity hatch
+     * @param gte hatch
      * @param aShort              requested texture index, or null if not...
      * @return managed to add hatch (structure still valid)
      */
-    boolean apply(T t, IGregTechTileEntity iGregTechTileEntity, Short aShort);
+    boolean apply(T t, IGTE gte, Short aShort);
 
     /**
      * hack to work around java generic issues.

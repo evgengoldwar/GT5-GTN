@@ -15,7 +15,7 @@ import baubles.api.BaublesApi;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IWirelessCharger;
 
 public class WirelessChargerManager {
@@ -43,13 +43,13 @@ public class WirelessChargerManager {
     }
 
     public void addCharger(@NotNull IWirelessCharger charger, int range) {
-        final IGregTechTileEntity te = charger.getChargerTE();
+        final IGTE te = charger.getChargerTE();
         CHARGER_MAP
             .put(charger, te.getWorld().provider.dimensionId, te.getXCoord(), te.getYCoord(), te.getZCoord(), range);
     }
 
     public void removeCharger(@NotNull IWirelessCharger charger) {
-        final IGregTechTileEntity te = charger.getChargerTE();
+        final IGTE te = charger.getChargerTE();
         CHARGER_MAP.remove(te.getWorld().provider.dimensionId, te.getXCoord(), te.getYCoord(), te.getZCoord());
     }
 

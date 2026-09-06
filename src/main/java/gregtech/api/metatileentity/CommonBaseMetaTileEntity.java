@@ -40,7 +40,7 @@ import gregtech.api.interfaces.modularui.IAddGregtechLogo;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.modularui.IBindPlayerInventoryUI;
 import gregtech.api.interfaces.modularui.IGetTitleColor;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.objects.blockupdate.BlockUpdateHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Gregtech;
@@ -49,7 +49,7 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 
 public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity
-    implements IGregTechTileEntity, IInterfaceNameProvider {
+    implements IGTE, IInterfaceNameProvider {
 
     // mNeedsUpdate: Client only, mark the block for rerender
     // mNeedsTileUpdate: Server only, mark the block for sync using `S35PacketUpdateTileEntity`

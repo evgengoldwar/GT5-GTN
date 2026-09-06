@@ -6,7 +6,7 @@ import static gregtech.common.misc.GlobalVariableStorage.GlobalEnergy;
 import java.math.BigInteger;
 import java.util.UUID;
 
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
 
 public class WirelessNetworkManager {
@@ -95,7 +95,7 @@ public class WirelessNetworkManager {
         GlobalEnergy.clear();
     }
 
-    public static UUID processInitialSettings(final IGregTechTileEntity machine) {
+    public static UUID processInitialSettings(final IGTE machine) {
 
         // UUID and username of the owner.
         final UUID UUID = machine.getOwnerUuid();

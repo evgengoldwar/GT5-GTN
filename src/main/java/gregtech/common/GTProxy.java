@@ -87,7 +87,7 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IProjectileItem;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.objects.GTChunkManager;
 import gregtech.api.objects.ItemData;
 import gregtech.api.threads.RunnableCableUpdate;
@@ -738,7 +738,7 @@ public class GTProxy implements IFuelHandler {
     @SubscribeEvent
     public void onWorldUnload(WorldEvent.Unload event) {
         for (TileEntity tileEntity : event.world.loadedTileEntityList) {
-            if (tileEntity instanceof IGregTechTileEntity) {
+            if (tileEntity instanceof IGTE) {
                 tileEntity.onChunkUnload();
             }
         }

@@ -69,7 +69,7 @@ import gregtech.api.interfaces.IPhysicalCircuitDisplay;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
 import gregtech.api.metatileentity.Hatch.IRecipeProcessingAwareHatch;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
@@ -125,7 +125,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public MetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public MetaTileEntity newMTE(IGTE gte) {
         return new MTEHatchInputBusME(mName, autoPullAvailable, mTier, mDescriptionArray, mTextures);
     }
 
@@ -140,7 +140,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity gte, long tick) {
+    public void onPostTick(IGTE gte, long tick) {
         if (gte.isServerSide()) {
             if (tick % autoPullRefreshTime == 0 && autoPullItemList) {
                 refreshItemList();
@@ -163,7 +163,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     public boolean isAllowedToWork() {
         if (processingRecipe) return cachedActivity;
 
-        IGregTechTileEntity igte = getGTE();
+        IGTE igte = getGTE();
 
         if (igte == null || !igte.isAllowedToWork()) return false;
 
@@ -210,7 +210,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity gte) {
+    public void onFirstTick(IGTE gte) {
         super.onFirstTick(gte);
         getProxy().onReady();
     }
@@ -438,12 +438,12 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public boolean allowPullStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return index == getManualSlot();
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity gte, int index, ForgeDirection side, ItemStack itemStack) {
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         return index == getManualSlot();
     }
 
@@ -472,8 +472,8 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public boolean onRightClick(IGregTechTileEntity gte, EntityPlayer player, ForgeDirection side, float x, float y,
-        float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
+                                float z) {
         if (!(player instanceof EntityPlayerMP)) return super.onRightClick(gte, player, side, x, y, z);
         ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true))
@@ -486,7 +486,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void onLeftClick(IGregTechTileEntity gte, EntityPlayer player) {
+    public void onLeftClick(IGTE gte, EntityPlayer player) {
         if (!(player instanceof EntityPlayerMP)) return;
 
         ItemStack dataStick = player.inventory.getCurrentItem();

@@ -16,7 +16,7 @@ import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
@@ -103,7 +103,7 @@ public class CoverItemMeter extends Cover {
         int ordinalSide) {
         long max = 0;
         long used = 0;
-        final IMTE mte = ((IGregTechTileEntity) tileEntity).getMetaTileEntity();
+        final IMTE mte = ((IGTE) tileEntity).getMetaTileEntity();
         if (mte instanceof MTEDigitalChestBase dc) {
             max = dc.getMaxItemCount();
             used = dc.getProgresstime();
