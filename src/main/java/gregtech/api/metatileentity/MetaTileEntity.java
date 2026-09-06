@@ -63,7 +63,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
  * "GT_E_Furnace", "Automatic E-Furnace");"
  */
 @SuppressWarnings("unused")
-public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICraftingIconProvider {
+public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconProvider {
 
     /**
      * Inventory wrapper for ModularUI

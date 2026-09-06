@@ -10,7 +10,7 @@ import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.metatileentity.CommonMetaTileEntity;
+import gregtech.api.metatileentity.CommonMTE;
 import gregtech.common.modularui2.factory.GTBaseGuiBuilder;
 import gregtech.common.modularui2.panel.GTPopUpPanel;
 
@@ -23,7 +23,7 @@ public final class GTGuis {
      * Specifies whether MUI2 should be used at all. This exists because migration to MUI2 is still WIP and lacks cover
      * panel support. Even when this is set to true, individual GUI could still use MUI1.
      *
-     * @see CommonMetaTileEntity#useMui2
+     * @see CommonMTE#useMui2
      */
     public static boolean GLOBAL_SWITCH_MUI2 = true;
 

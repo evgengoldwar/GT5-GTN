@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import gregtech.api.metatileentity.CommonMTE;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -86,7 +87,7 @@ public class GTUIInfos {
     }
 
     /**
-     * @deprecated Use {@link gregtech.api.metatileentity.CommonMetaTileEntity#openGui}
+     * @deprecated Use {@link CommonMTE#openGui}
      */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated

@@ -72,7 +72,7 @@ import gregtech.api.hazards.HazardProtectionTooltip;
 import gregtech.api.interfaces.IUpdatePlayerMovement;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
-import gregtech.api.metatileentity.CommonMetaTileEntity;
+import gregtech.api.metatileentity.CommonMTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.net.GTPacketClientPreference;
 import gregtech.api.render.RenderOverlay;
@@ -308,7 +308,7 @@ public class GTClient extends GTProxy {
             GTPreLoad.loadClientConfig();
             if (renderIndicatorsOnHatch != GTMod.proxy.mRenderIndicatorsOnHatch) {
                 for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
-                    if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] instanceof CommonMetaTileEntity metaTileEntity) {
+                    if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] instanceof CommonMTE metaTileEntity) {
                         metaTileEntity.clearInventoryTextureCache();
                     }
                 }

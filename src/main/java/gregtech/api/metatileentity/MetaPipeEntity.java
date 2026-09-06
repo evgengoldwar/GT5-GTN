@@ -56,7 +56,7 @@ import gregtech.common.covers.Base.Cover;
  * Call the Constructor like the following example inside the Load Phase, to register it. "new MTEFurnace(54,
  * "GT_E_Furnace", "Automatic E-Furnace");"
  */
-public abstract class MetaPipeEntity extends CommonMetaTileEntity implements IConnectable {
+public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     private volatile ITexture[][] inventoryTextureCache;
 

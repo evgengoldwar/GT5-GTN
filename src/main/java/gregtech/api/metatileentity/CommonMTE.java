@@ -56,7 +56,7 @@ import gregtech.common.covers.Base.Cover;
  * {@link IMTE} implementation combining both machine-like ({@link MetaTileEntity}) and pipe-like
  * ({@link MetaPipeEntity}).
  */
-public abstract class CommonMetaTileEntity implements IMTE {
+public abstract class CommonMTE implements IMTE {
 
     private volatile ITexture[][] inventoryTextureCache;
 
@@ -82,7 +82,7 @@ public abstract class CommonMetaTileEntity implements IMTE {
      */
     public long mSoundRequests = 0;
 
-    protected CommonMetaTileEntity(int id, String basicName, int invSlotCount) {
+    protected CommonMTE(int id, String basicName, int invSlotCount) {
         if (GregTechAPI.sPostloadStarted || !GregTechAPI.sPreloadStarted)
             throw new IllegalAccessError("This Constructor has to be called in the load Phase");
         if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id] == null) {
@@ -103,7 +103,7 @@ public abstract class CommonMetaTileEntity implements IMTE {
             .toLowerCase(Locale.ENGLISH);
     }
 
-    protected CommonMetaTileEntity(String name, int invSlotCount) {
+    protected CommonMTE(String name, int invSlotCount) {
         mInventory = new ItemStack[invSlotCount];
         mName = name;
     }

@@ -8,6 +8,7 @@ import static gregtech.api.util.GTUtility.isStackValid;
 
 import java.util.BitSet;
 
+import gregtech.api.enums.ItemList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -111,10 +112,10 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
         }
 
         final ItemStack dataStick = aPlayer.inventory.getCurrentItem();
-        // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
-        // openGui(aPlayer);
-        // return true;
-        // }
+         if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
+         openGui(aPlayer);
+         return true;
+         }
 
         if (!pasteCopiedData(aPlayer, dataStick.stackTagCompound)) {
             aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.invalid"));
