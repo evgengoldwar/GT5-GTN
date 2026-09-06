@@ -11,14 +11,14 @@ import com.gtnewhorizon.gtnhlib.item.FastImmutableItemStack;
 import com.gtnewhorizon.gtnhlib.item.InventoryItemSink;
 import com.gtnewhorizon.gtnhlib.item.ItemStackPredicate;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.util.GTUtility;
 
 public class GTItemSink extends InventoryItemSink {
 
-    private final IMetaTileEntity imte;
+    private final IMTE imte;
 
-    public GTItemSink(IMetaTileEntity imte, ForgeDirection side) {
+    public GTItemSink(IMTE imte, ForgeDirection side) {
         super(imte.getGTE(), side);
         this.imte = imte;
     }

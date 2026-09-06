@@ -21,7 +21,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -139,7 +139,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
 
         @Override
         public boolean canInteractWith(EntityPlayer player, ProxiedMteGuiData guiData) {
-            IMetaTileEntity mte = guiData.getServerMTE();
+            IMTE mte = guiData.getServerMTE();
             // Note: seems only called server side and accessing the server only mte is safe, and we can assume it is
             // never null
             assert mte != null;

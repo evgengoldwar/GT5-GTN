@@ -54,7 +54,7 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TieredVariant;
 import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.GTUITextures;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IOverclockDescriptionProvider;
 import gregtech.api.objects.ItemData;
 import gregtech.api.objects.overclockdescriber.EUNoOverclockDescriber;
@@ -326,7 +326,7 @@ public class GTNEIDefaultHandler extends TemplateRecipeHandler {
             ItemStack candidate = (ItemStack) ingredients[0];
             GTNEIDefaultHandler handler = (GTNEIDefaultHandler) newInstance();
             if (RecipeCatalysts.containsCatalyst(handler, candidate)) {
-                IMetaTileEntity metaTile = ItemMachines.getMetaTileEntity(candidate);
+                IMTE metaTile = ItemMachines.getMetaTileEntity(candidate);
                 OverclockDescriber overclockDescriber;
                 if (metaTile instanceof IOverclockDescriptionProvider provider) {
                     overclockDescriber = provider.getOverclockDescriber();

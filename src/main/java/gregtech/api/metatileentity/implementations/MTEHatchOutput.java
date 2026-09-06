@@ -38,7 +38,7 @@ import gregtech.api.interfaces.IOutputHatchTransaction;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.fluid.IFluidStore;
 import gregtech.api.interfaces.metatileentity.IFluidLockableMui2;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
@@ -48,7 +48,7 @@ import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.hatch.MTEHatchOutputGui;
 
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEHatchOutput extends MTEHatch
     implements IFluidStore, IFluidLockableMui2, IOutputHatch, ISmartInputHatch {
 

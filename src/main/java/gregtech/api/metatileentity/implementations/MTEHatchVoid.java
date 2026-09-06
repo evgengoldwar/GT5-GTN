@@ -20,7 +20,7 @@ import gregtech.api.enums.OutputHatchType;
 import gregtech.api.interfaces.IOutputHatch;
 import gregtech.api.interfaces.IOutputHatchTransaction;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
@@ -28,7 +28,7 @@ import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.hatch.MTEHatchVoidGui;
 
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEHatchVoid extends MTEHatchOutput implements IOutputHatch {
 
     public MTEHatchVoid(int aID, String aName, String aNameRegional) {

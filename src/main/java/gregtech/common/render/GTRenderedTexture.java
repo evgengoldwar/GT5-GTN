@@ -22,7 +22,7 @@ import com.prupe.mcpatcher.ctm.CTMUtils;
 import gregtech.GTMod;
 import gregtech.api.interfaces.IColorModulationContainer;
 import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.render.ISBRContext;
 import gregtech.api.render.ISBRInventoryContext;
@@ -518,7 +518,7 @@ public class GTRenderedTexture extends GTTextureBase implements IColorModulation
         IAlignment alignment = null;
 
         if (te instanceof IGregTechTileEntity) {
-            final IMetaTileEntity meta = ((IGregTechTileEntity) te).getMetaTileEntity();
+            final IMTE meta = ((IGregTechTileEntity) te).getMetaTileEntity();
 
             if (meta instanceof IAlignmentProvider) {
                 alignment = ((IAlignmentProvider) meta).getAlignment();

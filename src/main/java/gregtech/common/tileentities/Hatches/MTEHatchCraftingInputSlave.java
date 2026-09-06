@@ -27,7 +27,7 @@ import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.Hatch.IDualInputHatchWithPattern;
@@ -42,7 +42,7 @@ import gregtech.api.util.GTUtility;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     implements IDualInputHatchWithPattern, IDataCopyable {
 

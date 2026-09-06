@@ -42,7 +42,7 @@ import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ChatMessage;
 import gregtech.api.enums.GTValues;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.net.GTPacket;
 import gregtech.api.net.GTPacketClearPowerfail;
@@ -116,12 +116,12 @@ public class GTPowerfailTracker {
             this.ownerId = igte.getOwnerUuid();
         }
 
-        public @Nullable IMetaTileEntity getMTE() {
+        public @Nullable IMTE getMTE() {
             return GTDataUtils.getIndexSafe(GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES, mteId);
         }
 
         public String getMTEName() {
-            IMetaTileEntity imte = getMTE();
+            IMTE imte = getMTE();
 
             return imte == null ? "<error>" : imte.getLocalName();
         }

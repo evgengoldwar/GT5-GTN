@@ -21,7 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import gregtech.GTMod;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GTUtility;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -33,7 +33,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
  * This is the main construct for my Basic Machines such as the Automatic Extractor Extend this class to make a simple
  * Machine
  */
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTETransformer extends MTETieredMachineBlock {
 
     public MTETransformer(int aID, String aName, String aNameRegional, int aTier) {
@@ -84,7 +84,7 @@ public class MTETransformer extends MTETieredMachineBlock {
     }
 
     @Override
-    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGregTechTileEntity gte) {
         return new MTETransformer(mName, mTier, mDescriptionArray, mTextures);
     }
 

@@ -9,7 +9,7 @@ import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.metatileentity.CommonMetaTileEntity;
 import gregtech.common.modularui2.factory.GTBaseGuiBuilder;
 import gregtech.common.modularui2.panel.GTPopUpPanel;
@@ -32,8 +32,8 @@ public final class GTGuis {
      *
      * @see GTBaseGuiBuilder
      */
-    public static GTBaseGuiBuilder mteTemplatePanelBuilder(IMetaTileEntity mte, PosGuiData data,
-        PanelSyncManager syncManager, UISettings uiSettings) {
+    public static GTBaseGuiBuilder mteTemplatePanelBuilder(IMTE mte, PosGuiData data,
+                                                           PanelSyncManager syncManager, UISettings uiSettings) {
         return new GTBaseGuiBuilder(mte, data, syncManager, uiSettings);
     }
 

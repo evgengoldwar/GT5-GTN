@@ -14,7 +14,7 @@ import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
@@ -65,7 +65,7 @@ public class CoverNeedMaintainance extends CoverLegacyData {
         }
         boolean needsRepair = false;
         if (coverable instanceof IGregTechTileEntity tTileEntity) {
-            final IMetaTileEntity mTileEntity = tTileEntity.getMetaTileEntity();
+            final IMTE mTileEntity = tTileEntity.getMetaTileEntity();
             if (mTileEntity instanceof MTEMultiBlockBase multi) {
                 final int ideal = multi.getIdealStatus();
                 final int real = multi.getRepairStatus();

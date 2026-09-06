@@ -29,8 +29,8 @@ import gregtech.api.graphs.consumers.ConsumerNode;
 import gregtech.api.graphs.paths.PowerNodePath;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntityCable;
+import gregtech.api.interfaces.metatileentity.IMTE;
+import gregtech.api.interfaces.metatileentity.IMTECable;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -47,8 +47,8 @@ import gregtech.common.covers.Base.Cover;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-@IMetaTileEntity.SkipGenerateDescription
-public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, ILocalizedMetaPipeEntity {
+@IMTE.SkipGenerateDescription
+public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMetaPipeEntity {
 
     public final float mThickNess;
     public final Materials_OLD mMaterial;
@@ -84,7 +84,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
     }
 
     @Override
-    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGregTechTileEntity gte) {
         return new MTECable(
             mName,
             mThickNess,
@@ -271,10 +271,10 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable, IL
      * @param side The side to check.
      * @return A connectable tile or null.
      */
-    public IMetaTileEntity getConnectableMTE(ForgeDirection side) {
+    public IMTE getConnectableMTE(ForgeDirection side) {
         IGregTechTileEntity thisBMTE = this.getGTE();
         if (thisBMTE.getTileEntityAtSide(side) instanceof IGregTechTileEntity otherBMTE) {
-            IMetaTileEntity otherMTE = otherBMTE.getMetaTileEntity();
+            IMTE otherMTE = otherBMTE.getMetaTileEntity();
             if (otherMTE instanceof MTECable cable) {
                 return (cable.mMaterial == this.mMaterial && cable.mInsulated == this.mInsulated
                 // Do not connect uncolored cables to colored ones for electrical safety.

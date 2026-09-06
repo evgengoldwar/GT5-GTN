@@ -12,7 +12,7 @@ import com.gtnewhorizon.gtnhlib.util.CoordinatePacker;
 
 import gregtech.GTLoggers;
 import gregtech.api.GregTechAPI;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
@@ -177,7 +177,7 @@ public class RunnableMachineUpdate implements Runnable {
 
         final int x, y, z;
         final BaseMetaPipeEntity baseMetaPipe;
-        final IMetaTileEntity metaTile;
+        final IMTE metaTile;
         final MetaPipeEntity metaPipe;
         final boolean isMetaPipe;
         final boolean isPotentialStructureBlock;

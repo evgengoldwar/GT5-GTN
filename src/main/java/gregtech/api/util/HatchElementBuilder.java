@@ -42,7 +42,7 @@ import gnu.trove.set.hash.TIntHashSet;
 import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.IItemContainer;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.blocks.ItemMachines;
@@ -92,7 +92,7 @@ public class HatchElementBuilder<T> {
                         .rebrand())
                 .reduce(IGTHatchAdder::orElse)
                 .get()).hatchItemFilter(obj -> is -> {
-                    IMetaTileEntity tile = ItemMachines.getMetaTileEntity(is);
+                    IMTE tile = ItemMachines.getMetaTileEntity(is);
                     return tile != null && Arrays.stream(elements)
                         .anyMatch(
                             e -> !e.mteBlacklist()
@@ -155,7 +155,7 @@ public class HatchElementBuilder<T> {
                     .stream())
             .collect(Collectors.toList());
 
-        List<Class<? extends IMetaTileEntity>> blacklist = elements.keySet()
+        List<Class<? extends IMTE>> blacklist = elements.keySet()
             .stream()
             .map(IHatchElement::mteBlacklist)
             .flatMap(Collection::stream)
@@ -180,7 +180,7 @@ public class HatchElementBuilder<T> {
                         .map(Map.Entry::getKey)
                         .collect(Collectors.toList());
                     return is -> {
-                        IMetaTileEntity tile = ItemMachines.getMetaTileEntity(is);
+                        IMTE tile = ItemMachines.getMetaTileEntity(is);
                         return tile != null && !blacklist.contains(tile.getClass())
                             && neededElements.stream()
                                 .anyMatch(e -> e.matchesHatch(tile));
@@ -406,7 +406,7 @@ public class HatchElementBuilder<T> {
     }
 
     // region intermediate
-    public HatchElementBuilder<T> hatchClass(Class<? extends IMetaTileEntity> clazz) {
+    public HatchElementBuilder<T> hatchClass(Class<? extends IMTE> clazz) {
         mDescriptionNames = () -> Collections.singletonList(clazz.getSimpleName());
         return hatchItemFilter(c -> is -> clazz.isInstance(ItemMachines.getMetaTileEntity(is)))
             .cacheHint(
@@ -417,12 +417,12 @@ public class HatchElementBuilder<T> {
     }
 
     @SafeVarargs
-    public final HatchElementBuilder<T> hatchClasses(Class<? extends IMetaTileEntity>... classes) {
+    public final HatchElementBuilder<T> hatchClasses(Class<? extends IMTE>... classes) {
         return hatchClasses(Arrays.asList(classes));
     }
 
-    public final HatchElementBuilder<T> hatchClasses(List<? extends Class<? extends IMetaTileEntity>> classes) {
-        List<? extends Class<? extends IMetaTileEntity>> list = new ArrayList<>(classes);
+    public final HatchElementBuilder<T> hatchClasses(List<? extends Class<? extends IMTE>> classes) {
+        List<? extends Class<? extends IMTE>> list = new ArrayList<>(classes);
         mDescriptionNames = () -> {
             List<String> classNames = new ArrayList<>(list.size());
             for (var clazz : list) {
@@ -446,7 +446,7 @@ public class HatchElementBuilder<T> {
 
     public HatchElementBuilder<T> hatchId(int aId) {
         mDescriptionNames = () -> {
-            IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[aId];
+            IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[aId];
             if (mte != null) {
                 return Collections.singletonList("gt.blockmachines." + mte.getMetaName() + ".name");
             }
@@ -469,7 +469,7 @@ public class HatchElementBuilder<T> {
         mDescriptionNames = () -> {
             List<String> names = new ArrayList<>(sortedIds.length);
             for (int id : sortedIds) {
-                IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id];
+                IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id];
                 if (mte != null) {
                     names.add("gt.blockmachines." + mte.getMetaName() + ".name");
                 }
@@ -575,7 +575,7 @@ public class HatchElementBuilder<T> {
             @Override
             public boolean placeBlock(T t, World world, int x, int y, int z, ItemStack trigger) {
                 IGregTechTileEntity base = null;
-                if (t instanceof IMetaTileEntity mte) {
+                if (t instanceof IMTE mte) {
                     base = mte.getGTE();
                 }
                 if (base == null) return false;

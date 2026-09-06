@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.ParticleFX;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
@@ -19,7 +19,7 @@ import gregtech.api.util.GTSplit;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 
 @SuppressWarnings("unused") // Unused API is expected within scope
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEHatchMuffler extends MTEHatch {
 
     public MTEHatchMuffler(int aID, String aName, String aNameRegional, int aTier) {

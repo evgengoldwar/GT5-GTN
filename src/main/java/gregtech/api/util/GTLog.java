@@ -19,7 +19,7 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.common.config.Gregtech;
 
@@ -142,7 +142,7 @@ public class GTLog {
             .info("DIM {} ({},{},{}): {} (built by {}) {}", dimension, x, y, z, blockName, ownerName, details);
     }
 
-    public static void writeExplosionLog(IMetaTileEntity tileEntity, String details) {
+    public static void writeExplosionLog(IMTE tileEntity, String details) {
         if (tileEntity == null) {
             GT_EXPLOSION_LOGGER.info(details);
             return;

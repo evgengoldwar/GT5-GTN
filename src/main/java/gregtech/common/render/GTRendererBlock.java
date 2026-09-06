@@ -33,7 +33,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IBlockWithTextures;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IAllSidedTexturedTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.ITexturedTileEntity;
@@ -194,7 +194,7 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
         }
     }
 
-    private IMetaTileEntity getMTE(Block block, int meta) {
+    private IMTE getMTE(Block block, int meta) {
         if (!(block instanceof BlockMachines)) return null;
 
         return GTUtility.getIndexSafe(GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES, meta);
@@ -212,7 +212,7 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 
         try {
-            IMetaTileEntity imte = getMTE(aBlock, aMeta);
+            IMTE imte = getMTE(aBlock, aMeta);
 
             if (imte != null && !imte.renderInInventory(ctx)) {
                 renderNormalInventoryMetaTileEntity(ctx, imte);
@@ -232,7 +232,7 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
         }
     }
 
-    private static void renderNormalInventoryMetaTileEntity(ISBRInventoryContext ctx, IMetaTileEntity imte) {
+    private static void renderNormalInventoryMetaTileEntity(ISBRInventoryContext ctx, IMTE imte) {
         ctx.getRenderBlocks()
             .setRenderBounds(BLOCK_MIN, BLOCK_MIN, BLOCK_MIN, BLOCK_MAX, BLOCK_MAX, BLOCK_MAX);
 
@@ -283,7 +283,7 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
         if (tileEntity == null) return false;
 
         if (tileEntity instanceof IGregTechTileEntity) {
-            final IMetaTileEntity metaTileEntity;
+            final IMTE metaTileEntity;
             if ((metaTileEntity = ((IGregTechTileEntity) tileEntity).getMetaTileEntity()) != null
                 && metaTileEntity.renderInWorld(ctx)) {
                 return tessAccess.gt5u$hasVertices();

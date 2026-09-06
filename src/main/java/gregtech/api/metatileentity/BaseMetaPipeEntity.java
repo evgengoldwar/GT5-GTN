@@ -39,7 +39,7 @@ import gregtech.api.graphs.Node;
 import gregtech.api.graphs.paths.NodePath;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IConnectable;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IPipeRenderedTileEntity;
 import gregtech.api.util.GTModHandler;
@@ -104,7 +104,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     }
 
     public void reloadLocks() {
-        final IMetaTileEntity meta = getMetaTileEntity();
+        final IMTE meta = getMetaTileEntity();
         if (meta instanceof MetaPipeEntity) {
             ((MetaPipeEntity) meta).reloadLocks();
         }
@@ -250,7 +250,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     }
 
     private byte getUpdateData() {
-        IMetaTileEntity mte = getMetaTileEntity();
+        IMTE mte = getMetaTileEntity();
         return mte == null ? 0 : mte.getUpdateData();
     }
 
@@ -889,12 +889,12 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public final IMetaTileEntity getMetaTileEntity() {
+    public final IMTE getMetaTileEntity() {
         return hasValidMetaTileEntity() ? mMetaTileEntity : null;
     }
 
     @Override
-    public final void setMetaTileEntity(IMetaTileEntity aMetaTileEntity) {
+    public final void setMetaTileEntity(IMTE aMetaTileEntity) {
         mMetaTileEntity = (MetaPipeEntity) aMetaTileEntity;
         refreshMetaTileEntityValidity();
     }
@@ -1099,7 +1099,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
 
     public void onNeighborBlockChange(int aX, int aY, int aZ) {
         if (canAccessData()) {
-            final IMetaTileEntity meta = getMetaTileEntity();
+            final IMTE meta = getMetaTileEntity();
             if (meta instanceof MetaPipeEntity) {
                 // Trigger a checking of connections in case someone placed down a block that the pipe/wire shouldn't be
                 // connected to.

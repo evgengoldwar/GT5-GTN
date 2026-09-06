@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.objects.GTHashSet;
@@ -38,7 +38,7 @@ public class GregTechAPI {
     public static final CreativeTabs TAB_GREGTECH = new GTCreativeTab("Main", "Main");
     public static final CreativeTabs TAB_GREGTECH_MATERIALS = new GTCreativeTab("Materials", "Materials");
 
-    public static final IMetaTileEntity[] MULTIBLOCK_HATCH_META_TILE_ENTITIES = new IMetaTileEntity[Short.MAX_VALUE
+    public static final IMTE[] MULTIBLOCK_HATCH_META_TILE_ENTITIES = new IMTE[Short.MAX_VALUE
         - 1];
 
     public static final Map<Block, Integer> MACHINE_BLOCKS = new ConcurrentHashMap<>();

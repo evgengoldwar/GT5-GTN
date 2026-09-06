@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 
 /**
@@ -57,7 +57,7 @@ public interface IHasWorldObjectAndCoords {
     default <MTE extends MetaTileEntity> MTE getMetaTileEntity(BlockPos pos, Class<MTE> clazz) {
         if (!(getTileEntity(pos) instanceof IGregTechTileEntity igte)) return null;
 
-        IMetaTileEntity mte = igte.getMetaTileEntity();
+        IMTE mte = igte.getMetaTileEntity();
 
         if (!clazz.isInstance(mte)) return null;
 

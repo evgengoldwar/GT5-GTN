@@ -21,7 +21,7 @@ import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IColoredTileEntity;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTWidgetThemes;
@@ -39,7 +39,7 @@ public final class CommonWidgets {
      * @return ghost circuit slot widget
      */
     public static Widget<? extends Widget<?>> createCircuitSlot(PanelSyncManager syncManager,
-        IMetaTileEntity baseMachine) {
+        IMTE baseMachine) {
         if (baseMachine instanceof IConfigurationCircuitSupport circuitEnabled && circuitEnabled.allowSelectCircuit()) {
             return new GhostCircuitSlotWidget(baseMachine, syncManager)
                 .slot(new ModularSlot(new GhostCircuitItemStackHandler(baseMachine), 0));
@@ -55,7 +55,7 @@ public final class CommonWidgets {
      * @param panelWidth - The width of the machine's main panel
      * @return machine title widget on the client, null otherwise
      */
-    public static Widget<?> createMachineTitle(IMetaTileEntity mte, int panelWidth) {
+    public static Widget<?> createMachineTitle(IMTE mte, int panelWidth) {
         if (NetworkUtils.isClient()) {
             String title = mte.getLocalName();
 

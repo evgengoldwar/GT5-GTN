@@ -23,7 +23,7 @@ import appeng.api.util.DimensionalCoord;
 import gregtech.api.enums.GTValues;
 import gregtech.api.graphs.Node;
 import gregtech.api.graphs.PowerNode;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.items.ItemTool;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
@@ -144,7 +144,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
             final TileEntity tile = world.getTileEntity(coord.x, coord.y, coord.z);
 
             if (tile instanceof BaseMetaPipeEntity aTileEntity) {
-                final IMetaTileEntity metaTileEntity = aTileEntity.getMetaTileEntity();
+                final IMTE metaTileEntity = aTileEntity.getMetaTileEntity();
                 final PowerNetworkBuilder builder = new PowerNetworkBuilder();
 
                 if (metaTileEntity instanceof MTECable && findNode(aTileEntity) instanceof PowerNode tNode) {

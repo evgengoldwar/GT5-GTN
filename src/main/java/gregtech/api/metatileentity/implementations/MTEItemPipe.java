@@ -31,8 +31,8 @@ import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntityItemPipe;
+import gregtech.api.interfaces.metatileentity.IMTE;
+import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
@@ -44,8 +44,8 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.covers.Base.Cover;
 
-@IMetaTileEntity.SkipGenerateDescription
-public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPipe, ILocalizedMetaPipeEntity {
+@IMTE.SkipGenerateDescription
+public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocalizedMetaPipeEntity {
 
     public final float mThickNess;
     public final Materials_OLD mMaterial;
@@ -87,7 +87,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     }
 
     @Override
-    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGregTechTileEntity gte) {
         return new MTEItemPipe(mName, mThickNess, mMaterial, mInventory.length, mStepSize, mIsRestrictive, mTickTime);
     }
 
@@ -213,19 +213,19 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
             if (oLastReceivedFrom == mLastReceivedFrom) {
                 doTickProfilingInThisTick = false;
 
-                final ArrayList<IMetaTileEntityItemPipe> tPipeList = new ArrayList<>();
+                final ArrayList<IMTEItemPipe> tPipeList = new ArrayList<>();
 
                 for (boolean temp = true; temp && !isInventoryEmpty() && pipeCapacityCheck();) {
                     temp = false;
                     tPipeList.clear();
-                    for (IMetaTileEntityItemPipe tTileEntity : GTUtility
+                    for (IMTEItemPipe tTileEntity : GTUtility
                         .sortMapByValuesAcending(
-                            IMetaTileEntityItemPipe.Util.scanPipes(this, new HashMap<>(), 0, false, false))
+                            IMTEItemPipe.Util.scanPipes(this, new HashMap<>(), 0, false, false))
                         .keySet()) {
                         if (temp) break;
                         tPipeList.add(tTileEntity);
                         while (!temp && !isInventoryEmpty() && tTileEntity.sendItemStack(gte))
-                            for (IMetaTileEntityItemPipe tPipe : tPipeList)
+                            for (IMTEItemPipe tPipe : tPipeList)
                                 if (!tPipe.incrementTransferCounter(1)) temp = true;
                     }
                 }
@@ -260,7 +260,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
         final ItemStack handItem = player.inventory.getCurrentItem();
         if (handItem == null) return;
 
-        IMetaTileEntity meta = ItemMachines.getMetaTileEntity(handItem);
+        IMTE meta = ItemMachines.getMetaTileEntity(handItem);
         if (!(meta instanceof MTEItemPipe handPipe)) return;
 
         // Preserve old connections and meta ID

@@ -17,7 +17,7 @@ import com.cleanroommc.modularui.value.sync.PhantomItemSlotSH;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.item.GhostCircuitItemStackHandler;
 import gregtech.common.items.ItemIntegratedCircuit;
@@ -29,11 +29,11 @@ public class GhostCircuitSyncHandler extends PhantomItemSlotSH {
 
     public static final int SYNC_CIRCUIT_CONFIG = 10;
 
-    private final IMetaTileEntity mte;
+    private final IMTE mte;
     private IntSyncValue indexSync;
 
     @SuppressWarnings("UnstableApiUsage")
-    public GhostCircuitSyncHandler(ModularSlot slot, IMetaTileEntity mte) {
+    public GhostCircuitSyncHandler(ModularSlot slot, IMTE mte) {
         super(slot);
         this.mte = mte;
         if (mte instanceof IConfigurationCircuitSupport circuitEnabled && circuitEnabled.allowSelectCircuit()) {

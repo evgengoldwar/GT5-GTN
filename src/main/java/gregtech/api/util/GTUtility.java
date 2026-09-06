@@ -126,7 +126,7 @@ import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IProjectileItem;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.item.ItemStackSizeCalculator;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -437,7 +437,7 @@ public class GTUtility {
         };
     }
 
-    public static boolean compactInventory(IMetaTileEntity imte, int start, int end) {
+    public static boolean compactInventory(IMTE imte, int start, int end) {
         ItemStackSizeCalculator stackSizes = (slot, stack) -> imte.getStackSizeLimit(slot + start, stack);
 
         if (compactInventory(wrapInventory(imte).subList(start, end), stackSizes)) {
@@ -563,7 +563,7 @@ public class GTUtility {
         }
     }
 
-    public static boolean cleanInventory(IMetaTileEntity imte, int start, int end) {
+    public static boolean cleanInventory(IMTE imte, int start, int end) {
         if (cleanInventory(wrapInventory(imte).subList(start, end))) {
             imte.markDirty();
             return true;
@@ -1775,7 +1775,7 @@ public class GTUtility {
     }
 
     @Nullable
-    public static IMetaTileEntity getMetaTileEntity(TileEntity tileEntity) {
+    public static IMTE getMetaTileEntity(TileEntity tileEntity) {
         if (tileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
             return gtTE.getMetaTileEntity();
         }

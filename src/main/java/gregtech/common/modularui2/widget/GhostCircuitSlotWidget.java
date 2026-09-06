@@ -22,7 +22,7 @@ import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import com.cleanroommc.modularui.widgets.slot.PhantomItemSlot;
 
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTGuis;
 import gregtech.api.util.GTUtility;
@@ -36,12 +36,12 @@ public class GhostCircuitSlotWidget extends PhantomItemSlot {
 
     private static final String GUI_ID = "circuit_selector";
 
-    private final IMetaTileEntity mte;
+    private final IMTE mte;
     private GhostCircuitSyncHandler circuitSyncHandler;
     private IPanelHandler selectorPanelHandler;
     private final PanelSyncManager syncManager;
 
-    public GhostCircuitSlotWidget(IMetaTileEntity mte, PanelSyncManager syncManager) {
+    public GhostCircuitSlotWidget(IMTE mte, PanelSyncManager syncManager) {
         super();
         this.mte = mte;
         this.syncManager = syncManager;

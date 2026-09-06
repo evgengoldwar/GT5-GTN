@@ -7,9 +7,9 @@ import java.util.Optional;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 
-public interface IDualInputHatch extends IMetaTileEntity, ISmartInputHatch {
+public interface IDualInputHatch extends IMTE, ISmartInputHatch {
 
     Iterator<? extends IDualInputInventory> inventories();
 

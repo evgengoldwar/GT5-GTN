@@ -23,7 +23,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import gregtech.GTMod;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -36,7 +36,7 @@ import gregtech.common.gui.modularui.hatch.MTEHatchInputGui;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
 
     // hatch filter is disabled by default, meaning any fluid can be inserted when in structure.

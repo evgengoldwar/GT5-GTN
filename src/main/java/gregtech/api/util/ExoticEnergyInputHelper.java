@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.metatileentity.implementations.MTEHatch;
 
 public class ExoticEnergyInputHelper {
@@ -37,7 +37,7 @@ public class ExoticEnergyInputHelper {
         return aEU <= 0;
     }
 
-    public static boolean isExoticEnergyInput(IMetaTileEntity aHatch) {
+    public static boolean isExoticEnergyInput(IMTE aHatch) {
         for (Class<?> clazz : sExoticEnergyHatchType) {
             if (clazz.isInstance(aHatch)) return true;
         }

@@ -17,7 +17,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import com.gtnewhorizon.gtnhlib.capability.CapabilityProvider;
 
 import gregtech.api.interfaces.IDescribable;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IAddInventorySlots;
 import gregtech.api.interfaces.modularui.IGetGUITextureSet;
 import gregtech.api.util.shutdown.ShutDownReason;
@@ -47,7 +47,7 @@ public interface IGregTechTileEntity extends ITexturedTileEntity, ICoverable, IF
     /**
      * @return the MetaTileEntity which is belonging to this, or null if it doesnt has one.
      */
-    IMetaTileEntity getMetaTileEntity();
+    IMTE getMetaTileEntity();
 
     /**
      * Sets the MetaTileEntity. Even though this uses the Universal Interface, certain BaseMetaTileEntities only accept
@@ -56,7 +56,7 @@ public interface IGregTechTileEntity extends ITexturedTileEntity, ICoverable, IF
      *
      * @param aMetaTileEntity a MetaTileEntity
      */
-    void setMetaTileEntity(IMetaTileEntity aMetaTileEntity);
+    void setMetaTileEntity(IMTE aMetaTileEntity);
 
     /**
      * @return If this TileEntity is valid as a MetaTileEntity holder.
@@ -74,8 +74,8 @@ public interface IGregTechTileEntity extends ITexturedTileEntity, ICoverable, IF
      * Causes the machine to send a tile entity description packet to the client. Only has an effect on the server.
      * Also sends initial data and covers.
      *
-     * @see IMetaTileEntity#writeToStream(ByteBuf)
-     * @see IMetaTileEntity#readFromStream(ByteBuf)
+     * @see IMTE#writeToStream(ByteBuf)
+     * @see IMTE#readFromStream(ByteBuf)
      * @see TileEntity#getDescriptionPacket()
      * @see TileEntity#onDataPacket(NetworkManager, S35PacketUpdateTileEntity)
      * @see net.minecraft.world.World#markBlockForUpdate(int, int, int)

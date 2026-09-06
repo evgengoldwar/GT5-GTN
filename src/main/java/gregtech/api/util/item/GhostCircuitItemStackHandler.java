@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.cleanroommc.modularui.utils.item.IItemHandlerModifiable;
 
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.util.GTUtility;
 import gregtech.common.items.ItemIntegratedCircuit;
 
@@ -22,7 +22,7 @@ public class GhostCircuitItemStackHandler implements IItemHandlerModifiable {
     private final IItemHandlerModifiable inventory;
     private final int circuitSlot;
 
-    public GhostCircuitItemStackHandler(IMetaTileEntity mte) {
+    public GhostCircuitItemStackHandler(IMTE mte) {
         if (!(mte instanceof IConfigurationCircuitSupport ccs)) {
             throw new IllegalArgumentException(mte + " does not implement IConfigurationCircuitSupport");
         }

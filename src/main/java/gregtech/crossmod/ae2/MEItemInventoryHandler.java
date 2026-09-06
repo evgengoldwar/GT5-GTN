@@ -17,10 +17,10 @@ import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
 import appeng.util.item.AEItemStack;
 import appeng.util.item.ItemList;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.util.GTUtility;
 
-public class MEItemInventoryHandler<T extends IMetaTileEntity & IMEAwareItemInventory>
+public class MEItemInventoryHandler<T extends IMTE & IMEAwareItemInventory>
     implements IMEMonitor<IAEItemStack> {
 
     private final T machine;

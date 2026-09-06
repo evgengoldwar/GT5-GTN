@@ -45,7 +45,7 @@ import gregtech.api.interfaces.IHideTooltipEnergyInfo;
 import gregtech.api.interfaces.ISecondaryDescribable;
 import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IFluidContainerItemMetaTile;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.BaseTileEntity;
@@ -70,7 +70,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         setCreativeTab(GregTechAPI.TAB_GREGTECH);
     }
 
-    public static IMetaTileEntity getMetaTileEntity(ItemStack itemStack) {
+    public static IMTE getMetaTileEntity(ItemStack itemStack) {
         if (GTUtility.isStackInvalid(itemStack)) {
             return null;
         }
@@ -94,7 +94,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
 
             if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null) {
                 final IGregTechTileEntity gte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE();
-                final IMetaTileEntity mte = gte.getMetaTileEntity();
+                final IMTE mte = gte.getMetaTileEntity();
                 if (mte instanceof ILocalizedMetaPipeEntity localizedMetaPipeEntity) {
                     localizedMetaPipeEntity.addMaterialTooltip(list);
                 }
@@ -154,7 +154,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         }
     }
 
-    private void addDescription(List<String> list, IMetaTileEntity mte, int meta) {
+    private void addDescription(List<String> list, IMTE mte, int meta) {
         final String[] description = mte.getDescription();
         if (description == null) {
             return;
@@ -203,7 +203,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
             return;
         }
         if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null) {
-            final IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE()
+            final IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE()
                 .getMetaTileEntity();
             if (isSkipGenerateDescription(mte)) return;
             String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip";
@@ -250,7 +250,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     public String getItemStackDisplayName(ItemStack itemStack) {
         String displayName = super.getItemStackDisplayName(itemStack);
         final short meta = (short) getDamage(itemStack);
-        final IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
+        final IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
         if (meta < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length && mte != null) {
             if (mte instanceof ILocalizedMetaPipeEntity localMetaTE) {
                 return localMetaTE.getLocalizedName();
@@ -370,7 +370,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         if (meta < 0 || meta >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length) {
             return null;
         }
-        final IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
+        final IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
         return mte instanceof IFluidContainerItemMetaTile fluidMeta ? fluidMeta : null;
     }
 
@@ -393,7 +393,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     public int getCapacity(ItemStack container) {
         if (container != null) {
             final int meta = container.getItemDamage();
-            final IMetaTileEntity mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
+            final IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
             if (mte != null) {
                 return mte.getCapacity();
             }
@@ -486,8 +486,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         return null;
     }
 
-    private static boolean isSkipGenerateDescription(IMetaTileEntity metaTE) {
+    private static boolean isSkipGenerateDescription(IMTE metaTE) {
         return metaTE.getClass()
-            .getAnnotation(IMetaTileEntity.SkipGenerateDescription.class) != null;
+            .getAnnotation(IMTE.SkipGenerateDescription.class) != null;
     }
 }

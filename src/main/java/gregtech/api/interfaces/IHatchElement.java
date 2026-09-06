@@ -15,7 +15,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.google.common.collect.ImmutableList;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTStructureUtility;
@@ -23,7 +23,7 @@ import gregtech.api.util.IGTHatchAdder;
 
 public interface IHatchElement<T> {
 
-    List<? extends Class<? extends IMetaTileEntity>> mteClasses();
+    List<? extends Class<? extends IMTE>> mteClasses();
 
     IGTHatchAdder<? super T> adder();
 
@@ -44,23 +44,23 @@ public interface IHatchElement<T> {
 
     long count(T t);
 
-    default boolean matchesHatch(IMetaTileEntity mte) {
+    default boolean matchesHatch(IMTE mte) {
         return mteClasses().stream()
             .anyMatch(c -> c.isInstance(mte));
     }
 
-    default <T2 extends T> IHatchElement<T2> withMteClass(Class<? extends IMetaTileEntity> aClass) {
+    default <T2 extends T> IHatchElement<T2> withMteClass(Class<? extends IMTE> aClass) {
         if (aClass == null) throw new IllegalArgumentException();
         return withMteClasses(Collections.singletonList(aClass));
     }
 
     @SuppressWarnings("unchecked") // can't set SafeVarargs :(
-    default <T2 extends T> IHatchElement<T2> withMteClasses(Class<? extends IMetaTileEntity>... aClasses) {
+    default <T2 extends T> IHatchElement<T2> withMteClasses(Class<? extends IMTE>... aClasses) {
         if (aClasses == null) throw new IllegalArgumentException();
         return withMteClasses(Arrays.asList(aClasses));
     }
 
-    default <T2 extends T> IHatchElement<T2> withMteClasses(List<Class<? extends IMetaTileEntity>> aClasses) {
+    default <T2 extends T> IHatchElement<T2> withMteClasses(List<Class<? extends IMTE>> aClasses) {
         if (aClasses == null) throw new IllegalArgumentException();
         return new HatchElement<>(aClasses, null, null, null, null, this);
     }
@@ -155,7 +155,7 @@ public interface IHatchElement<T> {
      * Override with the '.class' call of the subclasses to omit for that HatchElement
      * Works with the general use {@link gregtech.api.util.HatchElementBuilder#atLeast(java.util.Map)} method
      */
-    default List<Class<? extends IMetaTileEntity>> mteBlacklist() {
+    default List<Class<? extends IMTE>> mteBlacklist() {
         return ImmutableList.of();
     }
 }
@@ -163,7 +163,7 @@ public interface IHatchElement<T> {
 class HatchElementEither<T> implements IHatchElement<T> {
 
     private final IHatchElement<? super T> first, second;
-    private ImmutableList<? extends Class<? extends IMetaTileEntity>> mMteClasses;
+    private ImmutableList<? extends Class<? extends IMTE>> mMteClasses;
     private String name, displayName;
 
     HatchElementEither(IHatchElement<? super T> first, IHatchElement<? super T> second) {
@@ -172,8 +172,8 @@ class HatchElementEither<T> implements IHatchElement<T> {
     }
 
     @Override
-    public List<? extends Class<? extends IMetaTileEntity>> mteClasses() {
-        if (mMteClasses == null) mMteClasses = ImmutableList.<Class<? extends IMetaTileEntity>>builder()
+    public List<? extends Class<? extends IMTE>> mteClasses() {
+        if (mMteClasses == null) mMteClasses = ImmutableList.<Class<? extends IMTE>>builder()
             .addAll(first.mteClasses())
             .addAll(second.mteClasses())
             .build();
@@ -213,21 +213,21 @@ class HatchElementEither<T> implements IHatchElement<T> {
     }
 
     @Override
-    public boolean matchesHatch(IMetaTileEntity mte) {
+    public boolean matchesHatch(IMTE mte) {
         return first.matchesHatch(mte) || second.matchesHatch(mte);
     }
 }
 
 class HatchElement<T> implements IHatchElement<T> {
 
-    private final List<Class<? extends IMetaTileEntity>> mClasses;
+    private final List<Class<? extends IMTE>> mClasses;
     private final IGTHatchAdder<? super T> mAdder;
     private final String mName, mDisplayName;
     private final IHatchElement<? super T> mBacking;
     private final ToLongFunction<? super T> mCount;
 
-    public HatchElement(List<Class<? extends IMetaTileEntity>> aMteClasses, IGTHatchAdder<? super T> aAdder,
-        String aName, String aDisplayName, ToLongFunction<? super T> aCount, IHatchElement<? super T> aBacking) {
+    public HatchElement(List<Class<? extends IMTE>> aMteClasses, IGTHatchAdder<? super T> aAdder,
+                        String aName, String aDisplayName, ToLongFunction<? super T> aCount, IHatchElement<? super T> aBacking) {
         this.mClasses = aMteClasses;
         this.mAdder = aAdder;
         this.mName = aName;
@@ -237,7 +237,7 @@ class HatchElement<T> implements IHatchElement<T> {
     }
 
     @Override
-    public List<? extends Class<? extends IMetaTileEntity>> mteClasses() {
+    public List<? extends Class<? extends IMTE>> mteClasses() {
         return mClasses == null ? mBacking.mteClasses() : mClasses;
     }
 
@@ -267,12 +267,12 @@ class HatchElement<T> implements IHatchElement<T> {
     }
 
     @Override
-    public boolean matchesHatch(IMetaTileEntity mte) {
+    public boolean matchesHatch(IMTE mte) {
         return mBacking.matchesHatch(mte);
     }
 
     @Override
-    public <T2 extends T> IHatchElement<T2> withMteClasses(List<Class<? extends IMetaTileEntity>> aClasses) {
+    public <T2 extends T> IHatchElement<T2> withMteClasses(List<Class<? extends IMTE>> aClasses) {
         if (aClasses == null) throw new IllegalArgumentException();
         return new HatchElement<>(aClasses, mAdder, mName, mDisplayName, mCount, mBacking);
     }

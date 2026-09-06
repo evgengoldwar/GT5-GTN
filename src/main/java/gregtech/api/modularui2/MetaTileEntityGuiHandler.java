@@ -13,7 +13,7 @@ import com.cleanroommc.modularui.factory.AbstractUIFactory;
 import com.cleanroommc.modularui.factory.GuiManager;
 import com.cleanroommc.modularui.factory.PosGuiData;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData> {
@@ -25,7 +25,7 @@ public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData
         super("gregtech:mte");
     }
 
-    public static void open(EntityPlayer player, IMetaTileEntity mte) {
+    public static void open(EntityPlayer player, IMTE mte) {
         IGregTechTileEntity baseTE = mte.getGTE();
         if (baseTE == null || !baseTE.canAccessData()) {
             throw new IllegalArgumentException("Can't open invalid MetaTileEntity GUI!");

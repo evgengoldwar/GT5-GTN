@@ -35,7 +35,7 @@ import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
 import gregtech.api.interfaces.INonConsumedItemDisplay;
 import gregtech.api.interfaces.IPhysicalCircuitDisplay;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IAddGregtechLogo;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.modularui.IBindPlayerInventoryUI;
@@ -268,7 +268,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity
         } else {
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
-        final IMetaTileEntity mte = getMetaTileEntity();
+        final IMTE mte = getMetaTileEntity();
         if (mte != null) mte.onTextureUpdate();
         mNeedsUpdate = false;
     }
@@ -489,7 +489,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity
 
     public final void writeDescriptionBuffer(ByteBuf buffer) {
         tileWriteToStream(buffer);
-        IMetaTileEntity imte = getMetaTileEntity();
+        IMTE imte = getMetaTileEntity();
         if (imte != null) {
             imte.writeToStream(buffer);
         }
@@ -498,7 +498,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity
     public final void readDescriptionBuffer(ByteBuf buffer) {
         // Receive and create the mte first if it doesn't exist
         tileReadFromStream(buffer);
-        IMetaTileEntity mte = getMetaTileEntity();
+        IMTE mte = getMetaTileEntity();
         if (mte != null) {
             mte.readFromStream(buffer);
             mte.onClientSoundStateChanged();

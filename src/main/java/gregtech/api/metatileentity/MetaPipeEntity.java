@@ -38,7 +38,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IConnectable;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IColoredTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
@@ -135,7 +135,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         // Pipes don't register a translation key for their name, and cloned instances
         // may lack fields needed for dynamic name construction (e.g. mPrefixKey).
         // Use the prototype from the registry which is always fully initialized.
-        IMetaTileEntity prototype = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getGTE().getMetaTileID()];
+        IMTE prototype = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getGTE().getMetaTileID()];
         if (prototype != null) {
             return prototype.getLocalName();
         }
@@ -720,7 +720,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
 
         if ((alwaysLookConnected || letsIn || letsOut)) {
             // Are we trying to connect to a pipe? let's do it!
-            final IMetaTileEntity tPipe = tTileEntity instanceof IGregTechTileEntity
+            final IMTE tPipe = tTileEntity instanceof IGregTechTileEntity
                 ? ((IGregTechTileEntity) tTileEntity).getMetaTileEntity()
                 : null;
             if (getClass().isInstance(tPipe) || (tPipe != null && tPipe.getClass()
@@ -771,7 +771,7 @@ public abstract class MetaPipeEntity extends CommonMetaTileEntity implements ICo
         mConnections &= ~side.flag;
         final ForgeDirection oppositeSide = side.getOpposite();
         IGregTechTileEntity tTileEntity = getGTE().getIGregTechTileEntityAtSide(side);
-        IMetaTileEntity tPipe = tTileEntity == null ? null : tTileEntity.getMetaTileEntity();
+        IMTE tPipe = tTileEntity == null ? null : tTileEntity.getMetaTileEntity();
         if ((this.getClass()
             .isInstance(tPipe)
             || (tPipe != null && tPipe.getClass()

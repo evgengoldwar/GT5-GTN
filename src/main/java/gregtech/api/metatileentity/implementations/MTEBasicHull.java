@@ -7,11 +7,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GTSplit;
 
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEBasicHull extends MTEBasicTank {
 
     public MTEBasicHull(int aID, String aName, String aNameRegional, int aTier, ITexture... aTextures) {
@@ -23,7 +23,7 @@ public class MTEBasicHull extends MTEBasicTank {
     }
 
     @Override
-    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGregTechTileEntity gte) {
         return new MTEBasicHull(mName, mTier, mInventory.length, mDescriptionArray, mTextures);
     }
 

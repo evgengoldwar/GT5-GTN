@@ -32,7 +32,7 @@ import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.objects.overclockdescriber.EUOverclockDescriber;
 import gregtech.api.recipe.BasicUIProperties;
@@ -50,7 +50,7 @@ import gregtech.common.gui.modularui.singleblock.base.MTEBasicMachineBaseGui;
  * This is the main construct for my Basic Machines such as the Automatic Extractor Extend this class to make a simple
  * Machine
  */
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
 
     protected final RecipeMap<?> mRecipes;
@@ -261,7 +261,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     }
 
     @Override
-    public IMetaTileEntity newMTE(IGregTechTileEntity gte) {
+    public IMTE newMTE(IGregTechTileEntity gte) {
         return new MTEBasicMachineWithRecipe(
             this.mName,
             this.mTier,

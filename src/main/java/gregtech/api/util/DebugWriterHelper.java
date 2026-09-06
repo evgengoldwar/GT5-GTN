@@ -26,7 +26,7 @@ import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 import gregtech.api.GregTechAPI;
 import gregtech.api.casing.Casings;
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 
@@ -96,7 +96,7 @@ public class DebugWriterHelper {
         // DebugStructureWriter
         registerSymbolOverride(((world, x, y, z, block, tileEntity) -> {
             if (tileEntity instanceof IGregTechTileEntity gte) {
-                IMetaTileEntity mte = gte.getMetaTileEntity();
+                IMTE mte = gte.getMetaTileEntity();
 
                 if (mte instanceof MTEDebugStructureWriter) {
                     return '~';

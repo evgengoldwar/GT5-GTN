@@ -62,7 +62,7 @@ import gregtech.api.graphs.GenerateNodeMap;
 import gregtech.api.graphs.GenerateNodeMapPower;
 import gregtech.api.graphs.Node;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -654,7 +654,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
     }
 
     private byte getUpdateData() {
-        IMetaTileEntity mte = getMetaTileEntity();
+        IMTE mte = getMetaTileEntity();
         return mte == null ? 0 : mte.getUpdateData();
     }
 
@@ -1680,12 +1680,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
     }
 
     @Override
-    public final IMetaTileEntity getMetaTileEntity() {
+    public final IMTE getMetaTileEntity() {
         return hasValidMetaTileEntity() ? mMetaTileEntity : null;
     }
 
     @Override
-    public final void setMetaTileEntity(IMetaTileEntity aMetaTileEntity) {
+    public final void setMetaTileEntity(IMTE aMetaTileEntity) {
         if (aMetaTileEntity instanceof MetaTileEntity || aMetaTileEntity == null)
             mMetaTileEntity = (MetaTileEntity) aMetaTileEntity;
         else {

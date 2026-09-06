@@ -40,10 +40,10 @@ import gregtech.api.render.ISBRInventoryContext;
 import gregtech.api.render.ISBRWorldContext;
 import io.netty.buffer.ByteBuf;
 
-public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHandler, IMachineBlockUpdateable,
+public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachineBlockUpdateable,
     IGregtechWailaProvider, IGetGUITextureSet, IGregTechDeviceInformation, CapabilityProvider, IGuiHolder<PosGuiData> {
 
-    IMetaTileEntity newMTE(IGregTechTileEntity gte);
+    IMTE newMTE(IGregTechTileEntity gte);
 
     ItemStack getStackForm(long aAmount);
 

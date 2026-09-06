@@ -39,7 +39,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.implementation.items.GTItemSink;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.modularui2.GTGuiTheme;
@@ -53,10 +53,10 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 
 /**
- * {@link IMetaTileEntity} implementation combining both machine-like ({@link MetaTileEntity}) and pipe-like
+ * {@link IMTE} implementation combining both machine-like ({@link MetaTileEntity}) and pipe-like
  * ({@link MetaPipeEntity}).
  */
-public abstract class CommonMetaTileEntity implements IMetaTileEntity {
+public abstract class CommonMetaTileEntity implements IMTE {
 
     private volatile ITexture[][] inventoryTextureCache;
 

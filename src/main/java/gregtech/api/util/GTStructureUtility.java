@@ -30,7 +30,7 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IHatchElement;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.ITurnable;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
@@ -63,19 +63,19 @@ public class GTStructureUtility {
     }
 
     @Nonnull
-    public static Predicate<ItemStack> filterByMTEClass(List<? extends Class<? extends IMetaTileEntity>> list) {
+    public static Predicate<ItemStack> filterByMTEClass(List<? extends Class<? extends IMTE>> list) {
         return is -> {
-            IMetaTileEntity tile = ItemMachines.getMetaTileEntity(is);
+            IMTE tile = ItemMachines.getMetaTileEntity(is);
             return tile != null && list.stream()
                 .anyMatch(c -> c.isInstance(tile));
         };
     }
 
-    public static <TMTE extends IMetaTileEntity> List<TMTE> extractMTEs(Class<TMTE> mteClass, ItemStack... stacks) {
+    public static <TMTE extends IMTE> List<TMTE> extractMTEs(Class<TMTE> mteClass, ItemStack... stacks) {
         List<TMTE> mtes = new ArrayList<>();
 
         for (ItemStack stack : stacks) {
-            IMetaTileEntity mte = ItemMachines.getMetaTileEntity(stack);
+            IMTE mte = ItemMachines.getMetaTileEntity(stack);
 
             assert mte != null;
             if (!mteClass.isAssignableFrom(mte.getClass()))
@@ -87,14 +87,14 @@ public class GTStructureUtility {
         return mtes;
     }
 
-    public interface MTEAdder<T, TMTE extends IMetaTileEntity> {
+    public interface MTEAdder<T, TMTE extends IMTE> {
 
         boolean check(T t, TMTE mte, int tier);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
-    public static <T, TMTE extends IMetaTileEntity> IStructureElement<T> ofGenericMTETiered(Class<TMTE> mteClass,
-        MTEAdder<T, TMTE> adder, List<TMTE> tiers) {
+    public static <T, TMTE extends IMTE> IStructureElement<T> ofGenericMTETiered(Class<TMTE> mteClass,
+                                                                                 MTEAdder<T, TMTE> adder, List<TMTE> tiers) {
         Int2IntOpenHashMap tierMap = new Int2IntOpenHashMap();
 
         int i = 1;
@@ -110,7 +110,7 @@ public class GTStructureUtility {
             private TMTE getMTE(World world, int x, int y, int z) {
                 if (!(world.getTileEntity(x, y, z) instanceof IGregTechTileEntity igte)) return null;
 
-                IMetaTileEntity imte = igte.getMetaTileEntity();
+                IMTE imte = igte.getMetaTileEntity();
 
                 if (!(mteClass.isAssignableFrom(imte.getClass()))) return null;
 
@@ -332,7 +332,7 @@ public class GTStructureUtility {
         }
 
         @Override
-        public List<? extends Class<? extends IMetaTileEntity>> mteClasses() {
+        public List<? extends Class<? extends IMTE>> mteClasses() {
             return proxiedHatch.mteClasses();
         }
 
@@ -357,7 +357,7 @@ public class GTStructureUtility {
         }
 
         @Override
-        public boolean matchesHatch(IMetaTileEntity mte) {
+        public boolean matchesHatch(IMTE mte) {
             return proxiedHatch.matchesHatch(mte);
         }
     }

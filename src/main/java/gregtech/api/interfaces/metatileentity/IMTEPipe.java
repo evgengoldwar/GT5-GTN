@@ -5,7 +5,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
-public interface IMetaTileEntityPipe extends IMetaTileEntity {
+public interface IMTEPipe extends IMTE {
 
     /**
      * Icon of the Texture. If this returns null then it falls back to getTextureIndex.

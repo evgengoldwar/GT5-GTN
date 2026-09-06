@@ -7,7 +7,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 
-public interface IMetaTileEntityItemPipe extends IMetaTileEntityPipe {
+public interface IMTEItemPipe extends IMTEPipe {
 
     /**
      * @return if this Pipe can still be used.
@@ -51,8 +51,8 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntityPipe {
         /**
          * @return connected Item Pipes
          */
-        public static Map<IMetaTileEntityItemPipe, Long> scanPipes(IMetaTileEntityItemPipe aMetaTileEntity,
-            Map<IMetaTileEntityItemPipe, Long> aMap, long aStep, boolean aSuckItems, boolean aIgnoreCapacity) {
+        public static Map<IMTEItemPipe, Long> scanPipes(IMTEItemPipe aMetaTileEntity,
+                                                        Map<IMTEItemPipe, Long> aMap, long aStep, boolean aSuckItems, boolean aIgnoreCapacity) {
             aStep += aMetaTileEntity.getStepSize();
             if (aIgnoreCapacity || aMetaTileEntity.pipeCapacityCheck())
                 if (aMap.get(aMetaTileEntity) == null || aMap.get(aMetaTileEntity) > aStep) {
@@ -74,12 +74,12 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntityPipe {
                                     }
                                 }
                                 if (tItemPipe instanceof BaseMetaPipeEntity) {
-                                    final IMetaTileEntity tMetaTileEntity = tItemPipe.getMetaTileEntity();
-                                    if (tMetaTileEntity instanceof IMetaTileEntityItemPipe
+                                    final IMTE tMetaTileEntity = tItemPipe.getMetaTileEntity();
+                                    if (tMetaTileEntity instanceof IMTEItemPipe
                                         && tItemPipe.getCoverAtSide(oppositeSide)
                                             .letsItemsOut(-2)) {
                                         scanPipes(
-                                            (IMetaTileEntityItemPipe) tMetaTileEntity,
+                                            (IMTEItemPipe) tMetaTileEntity,
                                             aMap,
                                             aStep,
                                             aSuckItems,
@@ -100,12 +100,12 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntityPipe {
                                         }
                                     }
                                     if (tItemPipe instanceof BaseMetaPipeEntity) {
-                                        final IMetaTileEntity tMetaTileEntity = tItemPipe.getMetaTileEntity();
-                                        if (tMetaTileEntity instanceof IMetaTileEntityItemPipe
+                                        final IMTE tMetaTileEntity = tItemPipe.getMetaTileEntity();
+                                        if (tMetaTileEntity instanceof IMTEItemPipe
                                             && tItemPipe.getCoverAtSide(oppositeSide)
                                                 .letsItemsIn(-2)) {
                                             scanPipes(
-                                                (IMetaTileEntityItemPipe) tMetaTileEntity,
+                                                (IMTEItemPipe) tMetaTileEntity,
                                                 aMap,
                                                 aStep,
                                                 aSuckItems,

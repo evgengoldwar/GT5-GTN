@@ -6,7 +6,7 @@ import net.minecraft.util.AxisAlignedBB;
 import com.google.common.io.ByteArrayDataInput;
 
 import gregtech.api.enums.GTValues;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.net.GTPacketClientMTERendererData;
 import io.netty.buffer.ByteBuf;
@@ -42,7 +42,7 @@ public interface IMTERenderer {
      *
      * @param mte
      */
-    default void sendRenderDataToClient(IMetaTileEntity mte) {
+    default void sendRenderDataToClient(IMTE mte) {
         IGregTechTileEntity tile = mte.getGTE();
         if (tile.isClientSide()) return;
 

@@ -67,7 +67,7 @@ import gregtech.api.interfaces.IMEConnectable;
 import gregtech.api.interfaces.INonConsumedItemDisplay;
 import gregtech.api.interfaces.IPhysicalCircuitDisplay;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
@@ -90,7 +90,7 @@ import gregtech.common.gui.modularui.hatch.MTEHatchInputBusMEGui;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProcessingAwareHatch, IPowerChannelState,
     ISmartInputHatch, IDataCopyable, IMEConnectable, IGridProxyable, IStackWatcherHost, IPhysicalCircuitDisplay {
 

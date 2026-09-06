@@ -67,7 +67,7 @@ import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.IMEConnectable;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
 import gregtech.api.metatileentity.Hatch.IRecipeProcessingAwareHatch;
@@ -90,7 +90,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState, IRecipeProcessingAwareHatch,
     ISmartInputHatch, IDataCopyable, IMEConnectable, IGridProxyable, IStackWatcherHost {
 

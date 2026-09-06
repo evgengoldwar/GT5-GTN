@@ -112,7 +112,7 @@ import gregtech.api.enums.SoundResource;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.IMEConnectable;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
@@ -133,12 +133,12 @@ import gregtech.common.gui.modularui.hatch.MTEHatchCraftingInputMEGui;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-@IMetaTileEntity.SkipGenerateDescription
+@IMTE.SkipGenerateDescription
 public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerChannelState, ICraftingProvider,
     IGridProxyable, IDualInputHatchWithPattern, ICustomNameObject, IInterfaceViewable, IMEConnectable {
 
     // Each pattern slot in the crafting input hatch has its own internal inventory
-    public static class PatternSlot<P extends IMetaTileEntity & IDualInputHatch>
+    public static class PatternSlot<P extends IMTE & IDualInputHatch>
         implements IDualInputInventoryWithPattern {
 
         protected final P parentMTE;

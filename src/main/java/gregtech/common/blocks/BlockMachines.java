@@ -44,7 +44,7 @@ import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IDebugableBlock;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
 import gregtech.api.interfaces.tileentity.IColoredTileEntity;
 import gregtech.api.interfaces.tileentity.ICoverable;
@@ -461,7 +461,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
         GregTechAPI.causeMachineUpdate(aWorld, aX, aY, aZ);
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGregTechTileEntity gtTE && gtTE.canAccessData()) {
-            IMetaTileEntity mte = gtTE.getMetaTileEntity();
+            IMTE mte = gtTE.getMetaTileEntity();
             mte.onBlockDestroyed();
             mTemporaryTileEntity.set(gtTE);
             if (!(mte instanceof MTEQuantumChest)) {
@@ -498,7 +498,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     public ArrayList<ItemStack> getDrops(World aWorld, int aX, int aY, int aZ, int aMeta, int aFortune) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGregTechTileEntity gtTE) {
-            IMetaTileEntity gtMTE = gtTE.getMetaTileEntity();
+            IMTE gtMTE = gtTE.getMetaTileEntity();
             if (gtMTE != null && gtMTE.getDroppedItem() != null) {
                 return gtMTE.getDroppedItem();
             }
@@ -673,7 +673,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     public float getExplosionResistance(Entity entity, World aWorld, int aX, int aY, int aZ, double explosionX,
         double explosionY, double explosionZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        IMetaTileEntity mte = GTUtility.getMetaTileEntity(tTileEntity);
+        IMTE mte = GTUtility.getMetaTileEntity(tTileEntity);
         if (mte != null) {
             return mte.getExplosionResistance(ForgeDirection.UNKNOWN);
         }

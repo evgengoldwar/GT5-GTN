@@ -9,7 +9,7 @@ import net.minecraft.util.StatCollector;
 import com.google.common.collect.ImmutableList;
 
 import gregtech.api.interfaces.IHatchElement;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.metatileentity.implementations.MTEHatchDynamo;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.metatileentity.implementations.MTEHatchInput;
@@ -51,7 +51,7 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
         }
 
         @Override
-        public List<? extends Class<? extends IMetaTileEntity>> mteClasses() {
+        public List<? extends Class<? extends IMTE>> mteClasses() {
             return ImmutableList
                 .of(MTEHatchInput.class, MTEHatchCraftingInputME.class, MTEHatchCraftingInputSlave.class);
         }
@@ -64,7 +64,7 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
         }
 
         @Override
-        public List<Class<? extends IMetaTileEntity>> mteBlacklist() {
+        public List<Class<? extends IMTE>> mteBlacklist() {
             return ImmutableList.of();
         }
     },
@@ -83,7 +83,7 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
         }
 
         @Override
-        public List<Class<? extends IMetaTileEntity>> mteBlacklist() {
+        public List<Class<? extends IMTE>> mteBlacklist() {
             return ImmutableList.of();
         }
     },
@@ -104,7 +104,7 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
     ExoticEnergy("GT5U.MBTT.ExoticEnergyHatch", MTEMultiBlockBase::addExoticEnergyInputToMachineList) {
 
         @Override
-        public List<? extends Class<? extends IMetaTileEntity>> mteClasses() {
+        public List<? extends Class<? extends IMTE>> mteClasses() {
             return ExoticEnergyInputHelper.getAllClasses();
         }
 
@@ -116,19 +116,19 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
     };
 
     private final String name;
-    private final List<Class<? extends IMetaTileEntity>> mteClasses;
+    private final List<Class<? extends IMTE>> mteClasses;
     private final IGTHatchAdder<MTEMultiBlockBase> adder;
     private static final HatchElement[] elements = HatchElement.values();
 
     @SafeVarargs
-    HatchElement(String name, IGTHatchAdder<MTEMultiBlockBase> adder, Class<? extends IMetaTileEntity>... mteClasses) {
+    HatchElement(String name, IGTHatchAdder<MTEMultiBlockBase> adder, Class<? extends IMTE>... mteClasses) {
         this.name = name;
         this.mteClasses = Collections.unmodifiableList(Arrays.asList(mteClasses));
         this.adder = adder;
     }
 
     @Override
-    public List<? extends Class<? extends IMetaTileEntity>> mteClasses() {
+    public List<? extends Class<? extends IMTE>> mteClasses() {
         return mteClasses;
     }
 

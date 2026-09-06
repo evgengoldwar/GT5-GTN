@@ -16,7 +16,7 @@ import com.cleanroommc.modularui.widgets.ButtonWidget;
 import com.cleanroommc.modularui.widgets.layout.Flow;
 
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.modularui2.CoverGuiData;
 import gregtech.api.modularui2.GTGuis;
@@ -47,7 +47,7 @@ import gregtech.common.modularui2.widget.CoverTabButton;
 // spotless:on
 public final class GTBaseGuiBuilder {
 
-    private final IMetaTileEntity mte;
+    private final IMTE mte;
     private final PosGuiData posGuiData;
     private final PanelSyncManager syncManager;
     private final UISettings uiSettings;
@@ -62,7 +62,7 @@ public final class GTBaseGuiBuilder {
     private int gregtechLogoPosX = 152;
     private int gregtechLogoPosY = 63;
 
-    public GTBaseGuiBuilder(IMetaTileEntity mte, PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
+    public GTBaseGuiBuilder(IMTE mte, PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
         this.mte = mte;
         this.posGuiData = data;
         this.syncManager = syncManager;
