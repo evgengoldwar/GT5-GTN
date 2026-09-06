@@ -15,15 +15,6 @@ import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 
-/**
- * This is a bunch of Functions my TileEntities provide, to make life much easier, and to get rid of internal TileEntity
- * stuff.
- * <p/>
- * This also makes access to adjacent TileEntities more Efficient.
- * <p/>
- * Note: It doesn't have to be a TileEntity in certain cases! And only certain cases, such as the Recipe checking of the
- * findRecipe Function.
- */
 public interface IWorldAccessor {
 
     World getWorld();
@@ -101,39 +92,39 @@ public interface IWorldAccessor {
 
     int getMetaID(int x, int y, int z);
 
-    int getMetaIDOffset(int aX, int aY, int aZ);
+    int getMetaIDOffset(int x, int y, int z);
 
     int getMetaIDAtSide(ForgeDirection side);
 
     int getMetaIDAtSideAndDistance(ForgeDirection side, int distance);
 
-    byte getLightLevel(int aX, int aY, int aZ);
+    byte getLightLevel(int x, int y, int z);
 
-    byte getLightLevelOffset(int aX, int aY, int aZ);
+    byte getLightLevelOffset(int x, int y, int z);
 
     byte getLightLevelAtSide(ForgeDirection side);
 
     byte getLightLevelAtSideAndDistance(ForgeDirection side, int distance);
 
-    boolean getOpacity(int aX, int aY, int aZ);
+    boolean getOpacity(int x, int y, int z);
 
-    boolean getOpacityOffset(int aX, int aY, int aZ);
+    boolean getOpacityOffset(int x, int y, int z);
 
     boolean getOpacityAtSide(ForgeDirection side);
 
     boolean getOpacityAtSideAndDistance(ForgeDirection side, int distance);
 
-    boolean getSky(int aX, int aY, int aZ);
+    boolean getSky(int x, int y, int z);
 
-    boolean getSkyOffset(int aX, int aY, int aZ);
+    boolean getSkyOffset(int x, int y, int z);
 
     boolean getSkyAtSide(ForgeDirection side);
 
     boolean getSkyAtSideAndDistance(ForgeDirection side, int distance);
 
-    boolean getAir(int aX, int aY, int aZ);
+    boolean getAir(int x, int y, int z);
 
-    boolean getAirOffset(int aX, int aY, int aZ);
+    boolean getAirOffset(int x, int y, int z);
 
     boolean getAirAtSide(ForgeDirection side);
 
@@ -141,49 +132,25 @@ public interface IWorldAccessor {
 
     BiomeGenBase getBiome();
 
-    BiomeGenBase getBiome(int aX, int aZ);
+    BiomeGenBase getBiome(int x, int z);
 
-    int getOffsetX(ForgeDirection side, int aMultiplier);
+    int getOffsetX(ForgeDirection side, int multiplier);
 
-    short getOffsetY(ForgeDirection side, int aMultiplier);
+    short getOffsetY(ForgeDirection side, int multiplier);
 
-    int getOffsetZ(ForgeDirection side, int aMultiplier);
+    int getOffsetZ(ForgeDirection side, int multiplier);
 
-    /**
-     * Checks if the TileEntity is Invalid or Unloaded. Stupid Minecraft cannot do that btw.
-     */
     boolean isDead();
 
-    /**
-     * Sends a Block Event to the Client TileEntity.
-     *
-     * @param aValue value to sync
-     */
     void sendBlockEvent(byte aID, byte aValue);
 
-    /**
-     * @return the Time this TileEntity has been loaded.
-     */
     long getTimer();
 
-    /**
-     * Sets the Light Level of this Block on a Scale of 0 - 15 It could be that it doesn't work. This is just for
-     * convenience.
-     */
     void setLightValue(byte aLightValue);
 
-    /**
-     * Function of the regular TileEntity
-     */
     void writeToNBT(NBTTagCompound aNBT);
 
-    /**
-     * Function of the regular TileEntity
-     */
     void readFromNBT(NBTTagCompound aNBT);
 
-    /**
-     * Function of the regular TileEntity
-     */
     boolean isInvalidTileEntity();
 }
