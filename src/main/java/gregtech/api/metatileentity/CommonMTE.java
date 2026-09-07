@@ -380,8 +380,8 @@ public abstract class CommonMTE implements IMTE {
 
     @Override
     public String getInventoryName() {
-        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getGTE().getMetaTileID()] != null) {
-            return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getGTE().getMetaTileID()].getLocalNameKey();
+        if (mteArray[getGTE().getMetaTileID()] != null) {
+            return mteArray[getGTE().getMetaTileID()].getLocalNameKey();
         }
         return "";
     }
