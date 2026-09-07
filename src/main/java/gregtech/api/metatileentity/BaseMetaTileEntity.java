@@ -112,14 +112,9 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
     private String mOwnerName = "";
     private UUID mOwnerUuid = GTUtility.defaultUuid;
     private int cableUpdateDelay = 30;
-    private IMTE[] mteArray;
 
     // Texture data, must call scheduleTexturePacket when changed.
     private boolean mActive = false, mRedstone = false, mLockUpgrade = false, mWorks = true, mMuffler = false;
-
-    public BaseMetaTileEntity(IMTE[] mteArray) {
-        this.mteArray = mteArray;
-    }
 
     public BaseMetaTileEntity() {}
 

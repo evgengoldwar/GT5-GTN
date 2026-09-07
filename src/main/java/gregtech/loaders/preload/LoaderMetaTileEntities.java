@@ -3,8 +3,8 @@ package gregtech.loaders.preload;
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.MetaTileEntityIDs.*;
 
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.ItemList;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.metatileentity.implementations.MTEHatchMultiInput;
 
 // TODO Some GT MetaTileEntity registrations are done in load/GT_Loader_MetaTileEntities_Recipes.java due to joint
@@ -786,7 +786,15 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "hatch.multi.input.tier.05",
                 "Quadruple Input Hatch (UV)",
                 8,
-                GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES).getStackForm(1L));
+                MTEArrays.HATCH).getStackForm(1L));
+
+        new MTEHatchMultiInput(
+            QUADRUPLE_INPUT_HATCHES_UV.ID,
+            4,
+            "hatch.multi.input.tier.05",
+            "Quadruple Input Hatch (UV)",
+            8,
+            MTEArrays.CABLE).getStackForm(1L);
 
         //
         // ItemList.DebugStructureWriter.set(

@@ -15,6 +15,7 @@ import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.utils.fluid.FluidStackTank;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
@@ -30,8 +31,8 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     private final FluidStackTank[] fluidTanks;
     public final int mCapacityPer;
 
-    public MTEHatchMultiInput(int aID, int aSlot, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
-        super(aID, aSlot, aName, aNameRegional, aTier, mteArray);
+    public MTEHatchMultiInput(int aID, int aSlot, String aName, String aNameRegional, int aTier, MTEArrays mteArrays) {
+        super(aID, aSlot, aName, aNameRegional, aTier, mteArrays.getMteArray());
         this.mStoredFluid = new FluidStack[aSlot];
         fluidTanks = new FluidStackTank[aSlot];
         mCapacityPer = getCapacityPerTank(aTier, aSlot);

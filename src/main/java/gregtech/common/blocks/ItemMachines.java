@@ -40,6 +40,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Mods;
 import gregtech.api.interfaces.IHideTooltipEnergyInfo;
 import gregtech.api.interfaces.ISecondaryDescribable;
@@ -63,11 +64,13 @@ import gregtech.crossmod.backhand.Backhand;
 
 public abstract class ItemMachines extends ItemBlock implements IFluidContainerItem {
 
+    private MTEArrays mteArrays;
     private IMTE[] mteArray;
 
-    public ItemMachines(Block block, IMTE[] mteArray) {
+    public ItemMachines(Block block, MTEArrays mteArrays) {
         super(block);
-        this.mteArray = mteArray;
+        this.mteArray = mteArrays.getMteArray();
+        this.mteArrays = mteArrays;
         setMaxDamage(0);
         setHasSubtypes(true);
         setCreativeTab(GregTechAPI.TAB_GREGTECH);
@@ -302,6 +305,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
             final TileEntity te = world.getTileEntity(x, y, z);
             final IGTE gte = (IGTE) te;
             if (gte != null) {
+                gte.setMTEArray(mteArrays);
                 gte.setInitialValuesAsNBT(gte.isServerSide() ? itemStack.getTagCompound() : null, meta);
 
                 if (player != null) {

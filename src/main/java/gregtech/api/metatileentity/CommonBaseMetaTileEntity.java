@@ -3,6 +3,7 @@ package gregtech.api.metatileentity;
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +31,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
@@ -77,13 +79,38 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     private int mTimeStatisticsIndex = 0;
     private int mLagWarningCount = 0;
 
+    public MTEArrays mteArrays;
+    public IMTE[] mteArray;
+    public String mteArrayName = "";
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setString("mte_array_name", mteArrays.getName());
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        MTEArrays arrays = MTEArrays.getByName(compound.getString("mte_array_name"));
+        if (arrays != null) {
+            mteArrays = arrays;
+            mteArray = arrays.getMteArray();
+            mteArrayName = arrays.getName();
+        }
+    }
+
+    public void setMTEArray(MTEArrays mteArrays) {
+        this.mteArrays = mteArrays;
+        this.mteArray = mteArrays.getMteArray();
+    }
+
     protected boolean createNewMetatileEntity(short aID) {
-        if (aID <= 0 || aID >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length
-            || GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[aID] == null) {
+        if (aID <= 0 || aID >= mteArray.length || mteArray[aID] == null) {
             GT_FML_LOGGER.error("MetaID {} not loadable => locking TileEntity!", aID);
         } else {
             if (hasValidMetaTileEntity()) getMetaTileEntity().setGTE(null);
-            GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[aID].newMTE(this)
+            mteArray[aID].newMTE(this)
                 .setGTE(this);
             mTickTimer = 0;
             mID = aID;
@@ -457,6 +484,14 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
      */
     public void tileWriteToStream(ByteBuf buffer) {
         buffer.writeShort(mID);
+        if (mteArrayName != null) {
+            byte[] bytes = mteArrayName.getBytes(StandardCharsets.UTF_8);
+            buffer.writeInt(bytes.length);
+            buffer.writeBytes(bytes);
+        } else {
+            buffer.writeInt(-1);
+            buffer.writeBytes(new byte[0]);
+        }
         byte coverMask = getValidCoversMask();
         buffer.writeByte(coverMask);
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
@@ -471,6 +506,18 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
      */
     public void tileReadFromStream(ByteBuf buffer) {
         short aID = buffer.readShort();
+        int length = buffer.readInt();
+        byte[] bytes = new byte[length];
+        buffer.readBytes(bytes);
+        mteArrayName = new String(bytes, StandardCharsets.UTF_8);
+
+        MTEArrays arrays = MTEArrays.getByName(mteArrayName);
+
+        if (arrays != null) {
+            mteArrays = arrays;
+            mteArray = arrays.getMteArray();
+        }
+
         if (mID != aID && aID > 0) {
             mID = aID;
             createNewMetatileEntity(mID);

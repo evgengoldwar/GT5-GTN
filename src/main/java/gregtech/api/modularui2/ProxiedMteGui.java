@@ -128,7 +128,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
                 // On the server, we must sync to the real MTE. A check that the real MTE is supplied.
                 assert NetworkUtils.isClient();
                 // Create empty fake MTE on client
-                BaseMetaTileEntity fakeBase = new BaseMetaTileEntity(data.mteArray);
+                BaseMetaTileEntity fakeBase = new BaseMetaTileEntity();
                 fakeBase.xCoord = data.getX();
                 fakeBase.yCoord = data.getY();
                 fakeBase.zCoord = data.getZ();

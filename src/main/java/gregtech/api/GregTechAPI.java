@@ -71,6 +71,7 @@ public class GregTechAPI {
     public static int MILLISECOND_THRESHOLD_UNTIL_LAG_WARNING = 100;
 
     public static Block sBlockMachines;
+    public static Block sBlockCable;
 
     public static Block sBlockReinforced;
     public static Block sBlockSheetmetalGT;

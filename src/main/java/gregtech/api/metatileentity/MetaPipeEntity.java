@@ -96,7 +96,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     public MetaPipeEntity(int aID, String aBasicName, int aInvSlotCount, boolean aAddInfo, IMTE[] mteArray) {
         super(aID, aBasicName, aInvSlotCount, mteArray);
-        setGTE(new BaseMetaPipeEntity(mteArray));
+        setGTE(new BaseMetaPipeEntity());
         getGTE().setMetaTileID((short) aID);
         this.mteArray = mteArray;
 

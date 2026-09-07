@@ -39,6 +39,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.HarvestTool;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IDebugableBlock;
@@ -71,13 +72,14 @@ public abstract class BlockMachines extends GTGenericBlock implements IDebugable
     private boolean renderAsNormalBlock;
     private IMTE[] mteArray;
 
-    public BlockMachines(IMTE[] mteArray) {
-        this(ItemMachines.class, "gt.blockmachines", new MaterialMachines(), mteArray);
-        this.mteArray = mteArray;
+    public BlockMachines(Class<? extends ItemBlock> itemClass, String name, MTEArrays mteArrays) {
+        this(itemClass, name, new MaterialMachines(), mteArrays);
+        this.mteArray = mteArrays.getMteArray();
     }
 
-    protected BlockMachines(Class<? extends ItemBlock> aItemClass, String aName, Material aMaterial, IMTE[] mteArray) {
-        super(aItemClass, aName, aMaterial, (Object) mteArray);
+    protected BlockMachines(Class<? extends ItemBlock> aItemClass, String aName, Material aMaterial,
+        MTEArrays mteArrays) {
+        super(aItemClass, aName, aMaterial, mteArrays);
         GregTechAPI.registerMachineBlock(this, -1);
         setHardness(1.0F);
         setResistance(10.0F);
@@ -86,6 +88,7 @@ public abstract class BlockMachines extends GTGenericBlock implements IDebugable
         this.isBlockContainer = true;
         this.renderAsNormalBlock = true;
         this.useNeighborBrightness = true;
+        this.mteArray = mteArrays.getMteArray();
     }
 
     @Override

@@ -64,7 +64,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     private byte oldConnections = 0;
     protected Node node;
     protected NodePath nodePath;
-    private IMTE[] mteArray;
 
     public Node getNode() {
         return node;
@@ -110,12 +109,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
             ((MetaPipeEntity) meta).reloadLocks();
         }
     }
-
-    public BaseMetaPipeEntity(IMTE[] mteArray) {
-        this.mteArray = mteArray;
-    }
-
-    public BaseMetaPipeEntity() {}
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {

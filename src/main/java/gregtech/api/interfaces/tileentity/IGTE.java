@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import com.gtnewhorizon.gtnhlib.capability.CapabilityProvider;
 
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.interfaces.IDescribable;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IAddInventorySlots;
@@ -57,6 +58,8 @@ public interface IGTE extends ITexturedTileEntity, ICoverable, IFluidHandler, IT
      * @param aMetaTileEntity a MetaTileEntity
      */
     void setMetaTileEntity(IMTE aMetaTileEntity);
+
+    void setMTEArray(MTEArrays mteArrays);
 
     /**
      * @return If this TileEntity is valid as a MetaTileEntity holder.
