@@ -11,10 +11,11 @@ public class GTGenericBlock extends Block {
 
     protected final String mUnlocalizedName;
 
-    protected GTGenericBlock(Class<? extends ItemBlock> aItemClass, String aName, Material aMaterial) {
+    protected GTGenericBlock(Class<? extends ItemBlock> aItemClass, String aName, Material aMaterial,
+        Object... itemCtorArgs) {
         super(aMaterial);
         setBlockName(mUnlocalizedName = aName);
-        GameRegistry.registerBlock(this, aItemClass, getUnlocalizedName());
+        GameRegistry.registerBlock(this, aItemClass, getUnlocalizedName(), itemCtorArgs);
         GTLanguageManager.addAnySubBlockLocalization(getUnlocalizedName());
     }
 }

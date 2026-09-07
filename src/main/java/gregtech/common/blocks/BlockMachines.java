@@ -65,17 +65,19 @@ import gregtech.common.tileentities.storage.MTEDigitalTankBase;
 import gregtech.common.tileentities.storage.MTEQuantumChest;
 
 @Optional.Interface(iface = "com.cricketcraft.chisel.api.IFacade", modid = Mods.ModIDs.CHISEL_API)
-public class BlockMachines extends GTGenericBlock implements IDebugableBlock, ITileEntityProvider, IFacade {
+public abstract class BlockMachines extends GTGenericBlock implements IDebugableBlock, ITileEntityProvider, IFacade {
 
     private static final ThreadLocal<IGTE> mTemporaryTileEntity = new ThreadLocal<>();
     private boolean renderAsNormalBlock;
+    private IMTE[] mteArray;
 
-    public BlockMachines() {
-        this(ItemMachines.class, "gt.blockmachines", new MaterialMachines());
+    public BlockMachines(IMTE[] mteArray) {
+        this(ItemMachines.class, "gt.blockmachines", new MaterialMachines(), mteArray);
+        this.mteArray = mteArray;
     }
 
-    protected BlockMachines(Class<? extends ItemBlock> aItemClass, String aName, Material aMaterial) {
-        super(aItemClass, aName, aMaterial);
+    protected BlockMachines(Class<? extends ItemBlock> aItemClass, String aName, Material aMaterial, IMTE[] mteArray) {
+        super(aItemClass, aName, aMaterial, (Object) mteArray);
         GregTechAPI.registerMachineBlock(this, -1);
         setHardness(1.0F);
         setResistance(10.0F);
@@ -356,9 +358,9 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
 
         GT_FML_LOGGER.debug("GTMod: Registering MetaTileEntity specific Textures");
         try {
-            for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
-                if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] != null) {
-                    GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i].registerIcons(aIconRegister);
+            for (int i = 1; i < mteArray.length; i++) {
+                if (mteArray[i] != null) {
+                    mteArray[i].registerIcons(aIconRegister);
                 }
             }
         } catch (Exception e) {
@@ -682,8 +684,8 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item item, CreativeTabs aCreativeTab, List<ItemStack> outputSubBlocks) {
-        for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
-            if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i] != null) {
+        for (int i = 1; i < mteArray.length; i++) {
+            if (mteArray[i] != null) {
                 outputSubBlocks.add(new ItemStack(item, 1, i));
             }
         }

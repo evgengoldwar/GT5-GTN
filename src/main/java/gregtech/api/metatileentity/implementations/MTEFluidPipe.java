@@ -26,11 +26,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
@@ -61,7 +57,6 @@ import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder.ParticleEventBuilder;
-import gregtech.common.blocks.ItemMachines;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.CoverFluidRegulator;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -404,140 +399,140 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         }
     }
 
-    @Override
-    public void onLeftClick(IGTE gte, EntityPlayer player) {
-        // Only trigger if the player is sneaking
-        if (!player.isSneaking()) {
-            return;
-        }
-
-        // Retrieve the item's MetaTileEntity
-        final ItemStack handItem = player.inventory.getCurrentItem();
-        if (handItem == null) return;
-
-        IMTE meta = ItemMachines.getMetaTileEntity(handItem);
-        if (!(meta instanceof MTEFluidPipe handFluid)) return;
-
-        // Preserve old connections and meta ID
-        byte oldConnections = this.mConnections;
-        short oldMetaID = (short) gte.getMetaTileID();
-
-        // Create the new fluid pipe
-        MTEFluidPipe newPipe = (MTEFluidPipe) handFluid.newMTE(gte);
-        if (newPipe == null) return;
-
-        // Preserve old connections
-        newPipe.mConnections = oldConnections;
-        newPipe.mDisableInput = this.mDisableInput;
-
-        // Record old pipe parameters
-        long oldCapacity = this.mCapacity;
-        boolean oldGasProof = this.mGasProof;
-        int oldHeatResistance = this.mHeatResistance;
-
-        // Add fluid to the new pipe
-        if (this.mPipeAmount <= newPipe.mPipeAmount) {
-            for (int i = 0; i < mPipeAmount; i++) {
-                if (this.mFluids[i] != null) {
-                    newPipe.mFluids[i] = this.mFluids[i].copy();
-                    newPipe.mFluids[i].amount = Math.min(this.mFluids[i].amount, newPipe.getCapacity());
-                }
-            }
-        }
-
-        // Update to the new pipe
-        gte.setMetaTileID((short) handItem.getItemDamage());
-        newPipe.setGTE(gte);
-
-        // Construct a change message if needed
-        IChatComponent message = new ChatComponentText("");
-        boolean hasContent = false;
-
-        // Compare capacity changes
-        if (oldCapacity != newPipe.mCapacity) {
-            EnumChatFormatting capacityColor = newPipe.mCapacity > oldCapacity ? EnumChatFormatting.GREEN
-                : EnumChatFormatting.RED;
-            message.appendText(formatNumber(oldCapacity * 20));
-            message.appendSibling(new ChatComponentTranslation("gt.unit.liter_per_second"));
-            message.appendText(" → ");
-            message.appendSibling(
-                new ChatComponentText(formatNumber(newPipe.mCapacity * 20L))
-                    .setChatStyle(new ChatStyle().setColor(capacityColor)));
-            message.appendSibling(
-                new ChatComponentTranslation("gt.unit.liter_per_second")
-                    .setChatStyle(new ChatStyle().setColor(capacityColor)));
-            hasContent = true;
-        }
-
-        // Compare heat resistance
-        if (oldHeatResistance != newPipe.mHeatResistance) {
-            if (hasContent) message.appendText(" | ");
-            EnumChatFormatting heatColor = newPipe.mHeatResistance > oldHeatResistance ? EnumChatFormatting.GREEN
-                : EnumChatFormatting.RED;
-            message.appendText(formatNumber(oldHeatResistance) + "K → ");
-            message.appendSibling(
-                new ChatComponentText(formatNumber(newPipe.mHeatResistance) + "K")
-                    .setChatStyle(new ChatStyle().setColor(heatColor)));
-            hasContent = true;
-        }
-
-        // Compare gas handling
-        if (oldGasProof != newPipe.mGasProof) {
-            if (hasContent) message.appendText(" | ");
-            EnumChatFormatting gasProofColor = newPipe.mGasProof ? EnumChatFormatting.GREEN : EnumChatFormatting.RED;
-            message.appendSibling(
-                new ChatComponentTranslation(
-                    newPipe.mGasProof ? "GT5U.item.pipe.swap.now_gas_proof" : "GT5U.item.pipe.swap.no_longer_gas_proof")
-                        .setChatStyle(new ChatStyle().setColor(gasProofColor)));
-            hasContent = true;
-        }
-
-        // Send a chat message if anything changed. Only send server-side, since this method also runs
-        // client-side for responsive placement and would otherwise send the message twice.
-        if (hasContent && gte.isServerSide()) {
-            GTUtility.sendChatTrans(player, "GT5U.item.pipe.swap.s", message);
-        }
-
-        // Force updates to sync changes
-        gte.markDirty();
-        gte.issueTextureUpdate();
-        gte.issueBlockUpdate();
-        gte.issueTileUpdate();
-
-        // Handle inventory operations unless in creative mode
-        if (!player.capabilities.isCreativeMode) {
-            ItemStack oldPipe = new ItemStack(handItem.getItem(), 1, oldMetaID);
-            boolean addedToInventory = false;
-
-            // Attempt to stack with existing items
-            if (oldPipe != null) {
-                for (int i = 0; i < player.inventory.mainInventory.length; i++) {
-                    ItemStack slot = player.inventory.mainInventory[i];
-                    if (slot != null && slot.getItem() == oldPipe.getItem()
-                        && slot.getItemDamage() == oldPipe.getItemDamage()
-                        && slot.stackSize < slot.getMaxStackSize()) {
-                        slot.stackSize++;
-                        addedToInventory = true;
-                        break;
-                    }
-                }
-                // Add new stack if stacking failed
-                if (!addedToInventory) {
-                    addedToInventory = player.inventory.addItemStackToInventory(oldPipe);
-                }
-                // If still unsuccessful, drop the item
-                if (!addedToInventory) {
-                    player.dropPlayerItemWithRandomChoice(oldPipe, false);
-                }
-            }
-
-            // Decrement the placed pipe from the player's hand
-            handItem.stackSize--;
-            if (handItem.stackSize <= 0) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-            }
-        }
-    }
+    // @Override
+    // public void onLeftClick(IGTE gte, EntityPlayer player) {
+    // // Only trigger if the player is sneaking
+    // if (!player.isSneaking()) {
+    // return;
+    // }
+    //
+    // // Retrieve the item's MetaTileEntity
+    // final ItemStack handItem = player.inventory.getCurrentItem();
+    // if (handItem == null) return;
+    //
+    // IMTE meta = ItemMachines.getMetaTileEntity();
+    // if (!(meta instanceof MTEFluidPipe handFluid)) return;
+    //
+    // // Preserve old connections and meta ID
+    // byte oldConnections = this.mConnections;
+    // short oldMetaID = (short) gte.getMetaTileID();
+    //
+    // // Create the new fluid pipe
+    // MTEFluidPipe newPipe = (MTEFluidPipe) handFluid.newMTE(gte);
+    // if (newPipe == null) return;
+    //
+    // // Preserve old connections
+    // newPipe.mConnections = oldConnections;
+    // newPipe.mDisableInput = this.mDisableInput;
+    //
+    // // Record old pipe parameters
+    // long oldCapacity = this.mCapacity;
+    // boolean oldGasProof = this.mGasProof;
+    // int oldHeatResistance = this.mHeatResistance;
+    //
+    // // Add fluid to the new pipe
+    // if (this.mPipeAmount <= newPipe.mPipeAmount) {
+    // for (int i = 0; i < mPipeAmount; i++) {
+    // if (this.mFluids[i] != null) {
+    // newPipe.mFluids[i] = this.mFluids[i].copy();
+    // newPipe.mFluids[i].amount = Math.min(this.mFluids[i].amount, newPipe.getCapacity());
+    // }
+    // }
+    // }
+    //
+    // // Update to the new pipe
+    // gte.setMetaTileID((short) handItem.getItemDamage());
+    // newPipe.setGTE(gte);
+    //
+    // // Construct a change message if needed
+    // IChatComponent message = new ChatComponentText("");
+    // boolean hasContent = false;
+    //
+    // // Compare capacity changes
+    // if (oldCapacity != newPipe.mCapacity) {
+    // EnumChatFormatting capacityColor = newPipe.mCapacity > oldCapacity ? EnumChatFormatting.GREEN
+    // : EnumChatFormatting.RED;
+    // message.appendText(formatNumber(oldCapacity * 20));
+    // message.appendSibling(new ChatComponentTranslation("gt.unit.liter_per_second"));
+    // message.appendText(" → ");
+    // message.appendSibling(
+    // new ChatComponentText(formatNumber(newPipe.mCapacity * 20L))
+    // .setChatStyle(new ChatStyle().setColor(capacityColor)));
+    // message.appendSibling(
+    // new ChatComponentTranslation("gt.unit.liter_per_second")
+    // .setChatStyle(new ChatStyle().setColor(capacityColor)));
+    // hasContent = true;
+    // }
+    //
+    // // Compare heat resistance
+    // if (oldHeatResistance != newPipe.mHeatResistance) {
+    // if (hasContent) message.appendText(" | ");
+    // EnumChatFormatting heatColor = newPipe.mHeatResistance > oldHeatResistance ? EnumChatFormatting.GREEN
+    // : EnumChatFormatting.RED;
+    // message.appendText(formatNumber(oldHeatResistance) + "K → ");
+    // message.appendSibling(
+    // new ChatComponentText(formatNumber(newPipe.mHeatResistance) + "K")
+    // .setChatStyle(new ChatStyle().setColor(heatColor)));
+    // hasContent = true;
+    // }
+    //
+    // // Compare gas handling
+    // if (oldGasProof != newPipe.mGasProof) {
+    // if (hasContent) message.appendText(" | ");
+    // EnumChatFormatting gasProofColor = newPipe.mGasProof ? EnumChatFormatting.GREEN : EnumChatFormatting.RED;
+    // message.appendSibling(
+    // new ChatComponentTranslation(
+    // newPipe.mGasProof ? "GT5U.item.pipe.swap.now_gas_proof" : "GT5U.item.pipe.swap.no_longer_gas_proof")
+    // .setChatStyle(new ChatStyle().setColor(gasProofColor)));
+    // hasContent = true;
+    // }
+    //
+    // // Send a chat message if anything changed. Only send server-side, since this method also runs
+    // // client-side for responsive placement and would otherwise send the message twice.
+    // if (hasContent && gte.isServerSide()) {
+    // GTUtility.sendChatTrans(player, "GT5U.item.pipe.swap.s", message);
+    // }
+    //
+    // // Force updates to sync changes
+    // gte.markDirty();
+    // gte.issueTextureUpdate();
+    // gte.issueBlockUpdate();
+    // gte.issueTileUpdate();
+    //
+    // // Handle inventory operations unless in creative mode
+    // if (!player.capabilities.isCreativeMode) {
+    // ItemStack oldPipe = new ItemStack(handItem.getItem(), 1, oldMetaID);
+    // boolean addedToInventory = false;
+    //
+    // // Attempt to stack with existing items
+    // if (oldPipe != null) {
+    // for (int i = 0; i < player.inventory.mainInventory.length; i++) {
+    // ItemStack slot = player.inventory.mainInventory[i];
+    // if (slot != null && slot.getItem() == oldPipe.getItem()
+    // && slot.getItemDamage() == oldPipe.getItemDamage()
+    // && slot.stackSize < slot.getMaxStackSize()) {
+    // slot.stackSize++;
+    // addedToInventory = true;
+    // break;
+    // }
+    // }
+    // // Add new stack if stacking failed
+    // if (!addedToInventory) {
+    // addedToInventory = player.inventory.addItemStackToInventory(oldPipe);
+    // }
+    // // If still unsuccessful, drop the item
+    // if (!addedToInventory) {
+    // player.dropPlayerItemWithRandomChoice(oldPipe, false);
+    // }
+    // }
+    //
+    // // Decrement the placed pipe from the player's hand
+    // handItem.stackSize--;
+    // if (handItem.stackSize <= 0) {
+    // player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+    // }
+    // }
+    // }
 
     @Override
     public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,

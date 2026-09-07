@@ -61,10 +61,13 @@ import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.config.Client;
 import gregtech.crossmod.backhand.Backhand;
 
-public class ItemMachines extends ItemBlock implements IFluidContainerItem {
+public abstract class ItemMachines extends ItemBlock implements IFluidContainerItem {
 
-    public ItemMachines(Block block) {
+    private IMTE[] mteArray;
+
+    public ItemMachines(Block block, IMTE[] mteArray) {
         super(block);
+        this.mteArray = mteArray;
         setMaxDamage(0);
         setHasSubtypes(true);
         setCreativeTab(GregTechAPI.TAB_GREGTECH);
@@ -88,12 +91,12 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     public void addInformation(ItemStack itemStack, EntityPlayer player, List<String> list, boolean F3_H) {
         try {
             final int meta = getDamage(itemStack);
-            if ((meta <= 0) || (meta >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length)) {
+            if ((meta <= 0) || (meta >= mteArray.length)) {
                 return;
             }
 
-            if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null) {
-                final IGTE gte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE();
+            if (mteArray[meta] != null) {
+                final IGTE gte = mteArray[meta].getGTE();
                 final IMTE mte = gte.getMetaTileEntity();
                 if (mte instanceof ILocalizedMetaPipeEntity localizedMetaPipeEntity) {
                     localizedMetaPipeEntity.addMaterialTooltip(list);
@@ -199,11 +202,11 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
 
     @SideOnly(Side.CLIENT)
     public void registerDescription(int meta) {
-        if (meta >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length) {
+        if (meta >= mteArray.length) {
             return;
         }
-        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null) {
-            final IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE()
+        if (mteArray[meta] != null) {
+            final IMTE mte = mteArray[meta].getGTE()
                 .getMetaTileEntity();
             if (isSkipGenerateDescription(mte)) return;
             String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip";
@@ -237,11 +240,11 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     @Override
     public String getUnlocalizedName(ItemStack itemStack) {
         final short meta = (short) getDamage(itemStack);
-        if ((meta < 0) || (meta >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length)) {
+        if ((meta < 0) || (meta >= mteArray.length)) {
             return "";
         }
-        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null) {
-            return getUnlocalizedName() + "." + GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getMetaName();
+        if (mteArray[meta] != null) {
+            return getUnlocalizedName() + "." + mteArray[meta].getMetaName();
         }
         return "";
     }
@@ -250,8 +253,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     public String getItemStackDisplayName(ItemStack itemStack) {
         String displayName = super.getItemStackDisplayName(itemStack);
         final short meta = (short) getDamage(itemStack);
-        final IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
-        if (meta < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length && mte != null) {
+        final IMTE mte = mteArray[meta];
+        if (mte != null) {
             if (mte instanceof ILocalizedMetaPipeEntity localMetaTE) {
                 return localMetaTE.getLocalizedName();
             }
@@ -263,9 +266,8 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
         super.onCreated(itemStack, world, player);
         final short meta = (short) getDamage(itemStack);
-        if ((meta < 0) || ((meta >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length)
-            && (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] != null))) {
-            GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].onCreated(itemStack, world, player);
+        if (meta >= 0 && meta < mteArray.length && mteArray[meta] != null) {
+            mteArray[meta].onCreated(itemStack, world, player);
         }
     }
 
@@ -275,11 +277,11 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
         final ForgeDirection side = ForgeDirection.getOrientation(ordinalSide);
         final short meta = (short) getDamage(itemStack);
         if (meta > 0) {
-            if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta] == null) {
+            if (mteArray[meta] == null) {
                 return false;
             }
 
-            final int newMeta = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta].getGTE()
+            final int newMeta = mteArray[meta].getGTE()
                 .getMetaTileID();
             if (!world.setBlock(x, y, z, this.field_150939_a, newMeta, 3)) {
                 return false;
@@ -364,19 +366,20 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     }
 
     @Nullable
-    private static IFluidContainerItemMetaTile getFluidContainerItemMeta(@Nonnull ItemStack container) {
+    private static IFluidContainerItemMetaTile getFluidContainerItemMeta(@Nonnull ItemStack container,
+        IMTE[] mteArray) {
         final int meta = container.getItemDamage();
-        if (meta < 0 || meta >= GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length) {
+        if (meta < 0 || meta >= mteArray.length) {
             return null;
         }
-        final IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
+        final IMTE mte = mteArray[meta];
         return mte instanceof IFluidContainerItemMetaTile fluidMeta ? fluidMeta : null;
     }
 
     @Override
     public FluidStack getFluid(ItemStack container) {
         if (container != null) {
-            final IFluidContainerItemMetaTile fluidMeta = getFluidContainerItemMeta(container);
+            final IFluidContainerItemMetaTile fluidMeta = getFluidContainerItemMeta(container, mteArray);
             if (fluidMeta == null) {
                 return null;
             }
@@ -392,7 +395,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     public int getCapacity(ItemStack container) {
         if (container != null) {
             final int meta = container.getItemDamage();
-            final IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[meta];
+            final IMTE mte = mteArray[meta];
             if (mte != null) {
                 return mte.getCapacity();
             }
@@ -412,7 +415,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     @Override
     public int fill(ItemStack container, FluidStack resource, boolean doFill) {
         if (container != null && resource != null) {
-            final IFluidContainerItemMetaTile fluidMeta = getFluidContainerItemMeta(container);
+            final IFluidContainerItemMetaTile fluidMeta = getFluidContainerItemMeta(container, mteArray);
             if (fluidMeta == null) {
                 return 0;
             }
@@ -461,7 +464,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
     @Override
     public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
         if (container != null && container.hasTagCompound()) {
-            final IFluidContainerItemMetaTile fluidMeta = getFluidContainerItemMeta(container);
+            final IFluidContainerItemMetaTile fluidMeta = getFluidContainerItemMeta(container, mteArray);
             if (fluidMeta == null) {
                 return null;
             }
