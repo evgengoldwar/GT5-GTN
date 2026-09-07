@@ -77,14 +77,16 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
         if (GTUtility.isStackInvalid(itemStack)) {
             return null;
         }
-        if (!(itemStack.getItem() instanceof ItemMachines)) {
+        if (!(itemStack.getItem() instanceof ItemMachines itemMachines)) {
             return null;
         }
-        if (itemStack.getItemDamage() < 0
-            || itemStack.getItemDamage() > GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length) {
+
+        IMTE[] mteArray = itemMachines.mteArray;
+
+        if (itemStack.getItemDamage() < 0 || itemStack.getItemDamage() > mteArray.length) {
             return null;
         }
-        return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[itemStack.getItemDamage()];
+        return mteArray[itemStack.getItemDamage()];
     }
 
     @Override
