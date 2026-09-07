@@ -60,8 +60,8 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     private String materialKeyOverride;
 
     public MTEItemPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        int aInvSlotCount, int aStepSize, boolean aIsRestrictive, int aTickTime) {
-        super(aID, aName, aInvSlotCount, false);
+        int aInvSlotCount, int aStepSize, boolean aIsRestrictive, int aTickTime, IMTE[] mteArray) {
+        super(aID, aName, aInvSlotCount, false, mteArray);
         this.mPrefixKey = aPrefixKey;
         mIsRestrictive = aIsRestrictive;
         mThickNess = aThickNess;
@@ -72,8 +72,8 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     }
 
     public MTEItemPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        int aInvSlotCount, int aStepSize, boolean aIsRestrictive) {
-        this(aID, aName, aPrefixKey, aThickNess, aMaterial, aInvSlotCount, aStepSize, aIsRestrictive, 20);
+        int aInvSlotCount, int aStepSize, boolean aIsRestrictive, IMTE[] mteArray) {
+        this(aID, aName, aPrefixKey, aThickNess, aMaterial, aInvSlotCount, aStepSize, aIsRestrictive, 20, mteArray);
     }
 
     public MTEItemPipe(String aName, float aThickNess, Materials_OLD aMaterial, int aInvSlotCount, int aStepSize,
@@ -88,12 +88,12 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEItemPipe(mName, mThickNess, mMaterial, mInventory.length, mStepSize, mIsRestrictive, mTickTime);
+        return new MTEItemPipe(name, mThickNess, mMaterial, inventory.length, mStepSize, mIsRestrictive, mTickTime);
     }
 
     @Override
-    public ITexture[] getTexture(IGTE aBaseMetaTileEntity, ForgeDirection side, int aConnections,
-                                 int aColorIndex, boolean aConnected, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE aBaseMetaTileEntity, ForgeDirection side, int aConnections, int aColorIndex,
+        boolean aConnected, boolean redstoneLevel) {
         if (mIsRestrictive) {
             if (aConnected) {
                 float tThickNess = getThickness();
@@ -219,14 +219,12 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
                     temp = false;
                     tPipeList.clear();
                     for (IMTEItemPipe tTileEntity : GTUtility
-                        .sortMapByValuesAcending(
-                            IMTEItemPipe.Util.scanPipes(this, new HashMap<>(), 0, false, false))
+                        .sortMapByValuesAcending(IMTEItemPipe.Util.scanPipes(this, new HashMap<>(), 0, false, false))
                         .keySet()) {
                         if (temp) break;
                         tPipeList.add(tTileEntity);
                         while (!temp && !isInventoryEmpty() && tTileEntity.sendItemStack(gte))
-                            for (IMTEItemPipe tPipe : tPipeList)
-                                if (!tPipe.incrementTransferCounter(1)) temp = true;
+                            for (IMTEItemPipe tPipe : tPipeList) if (!tPipe.incrementTransferCounter(1)) temp = true;
                     }
                 }
             }
@@ -290,13 +288,13 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
 
         // Move items that are currently in transit into the new pipe.
         // If the new pipe holds fewer stacks, drop the overflow so nothing is voided.
-        int copyCount = Math.min(this.mInventory.length, newPipe.mInventory.length);
+        int copyCount = Math.min(this.inventory.length, newPipe.inventory.length);
         for (int i = 0; i < copyCount; i++) {
-            newPipe.mInventory[i] = this.mInventory[i];
+            newPipe.inventory[i] = this.inventory[i];
         }
-        for (int i = copyCount; i < this.mInventory.length; i++) {
-            if (this.mInventory[i] != null) {
-                player.dropPlayerItemWithRandomChoice(this.mInventory[i], false);
+        for (int i = copyCount; i < this.inventory.length; i++) {
+            if (this.inventory[i] != null) {
+                player.dropPlayerItemWithRandomChoice(this.inventory[i], false);
             }
         }
 
@@ -413,9 +411,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
         final ForgeDirection oppositeSide = side.getOpposite();
         boolean connectable = false;
 
-        final IGTE gTileEntity = (tileEntity instanceof IGTE)
-            ? (IGTE) tileEntity
-            : null;
+        final IGTE gTileEntity = (tileEntity instanceof IGTE) ? (IGTE) tileEntity : null;
         if (gTileEntity != null) {
             if (gTileEntity.getMetaTileEntity() == null) return false;
             if (gTileEntity.getMetaTileEntity()
@@ -492,7 +488,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
      * Amount of ItemStacks this Pipe can conduct per Second.
      */
     public int getPipeCapacity() {
-        return mInventory.length;
+        return inventory.length;
     }
 
     @Override
@@ -537,7 +533,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
         if (side == ForgeDirection.UNKNOWN) return true;
         if (!isConnectedAtSide(side)) return false;
         if (isInventoryEmpty()) mLastReceivedFrom = side;
-        return mLastReceivedFrom == side && mInventory[index] == null;
+        return mLastReceivedFrom == side && inventory[index] == null;
     }
 
     @Override
@@ -560,7 +556,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     }
 
     private boolean isInventoryEmpty() {
-        for (ItemStack tStack : mInventory) if (tStack != null) return false;
+        for (ItemStack tStack : inventory) if (tStack != null) return false;
         return true;
     }
 

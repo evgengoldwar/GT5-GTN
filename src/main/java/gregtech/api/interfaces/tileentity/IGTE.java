@@ -30,9 +30,9 @@ import io.netty.buffer.ByteBuf;
  * <p/>
  * It can cause Problems to include this Interface!
  */
-public interface IGTE extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable,
-    IGregTechDeviceInformation, IUpgradableMachine, IDescribable, IMachineBlockUpdateable, IGregtechWailaProvider,
-    IGetGUITextureSet, IAddInventorySlots, CapabilityProvider {
+public interface IGTE extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable, IGregTechDeviceInformation,
+    IUpgradableMachine, IDescribable, IMachineBlockUpdateable, IGregtechWailaProvider, IGetGUITextureSet,
+    IAddInventorySlots, CapabilityProvider {
 
     /**
      * @return the MetaID of the Block or the MetaTileEntity ID.

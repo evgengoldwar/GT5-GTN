@@ -51,8 +51,8 @@ public interface IMTEItemPipe extends IMTEPipe {
         /**
          * @return connected Item Pipes
          */
-        public static Map<IMTEItemPipe, Long> scanPipes(IMTEItemPipe aMetaTileEntity,
-                                                        Map<IMTEItemPipe, Long> aMap, long aStep, boolean aSuckItems, boolean aIgnoreCapacity) {
+        public static Map<IMTEItemPipe, Long> scanPipes(IMTEItemPipe aMetaTileEntity, Map<IMTEItemPipe, Long> aMap,
+            long aStep, boolean aSuckItems, boolean aIgnoreCapacity) {
             aStep += aMetaTileEntity.getStepSize();
             if (aIgnoreCapacity || aMetaTileEntity.pipeCapacityCheck())
                 if (aMap.get(aMetaTileEntity) == null || aMap.get(aMetaTileEntity) > aStep) {
@@ -65,8 +65,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                         if (aSuckItems) {
                             if (aBaseMetaTileEntity.getCoverAtSide(side)
                                 .letsItemsIn(-2)) {
-                                final IGTE tItemPipe = aBaseMetaTileEntity
-                                    .getIGregTechTileEntityAtSide(side);
+                                final IGTE tItemPipe = aBaseMetaTileEntity.getIGregTechTileEntityAtSide(side);
                                 if (aBaseMetaTileEntity.getColorization() >= 0) {
                                     final byte tColor = tItemPipe.getColorization();
                                     if (tColor >= 0 && tColor != aBaseMetaTileEntity.getColorization()) {
@@ -90,8 +89,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                         } else {
                             if (aBaseMetaTileEntity.getCoverAtSide(side)
                                 .letsItemsOut(-2)) {
-                                final IGTE tItemPipe = aBaseMetaTileEntity
-                                    .getIGregTechTileEntityAtSide(side);
+                                final IGTE tItemPipe = aBaseMetaTileEntity.getIGregTechTileEntityAtSide(side);
                                 if (tItemPipe != null) {
                                     if (aBaseMetaTileEntity.getColorization() >= 0) {
                                         final byte tColor = tItemPipe.getColorization();

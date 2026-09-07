@@ -99,9 +99,8 @@ public class HatchElementBuilder<T> {
                                 .contains(tile.getClass()) && e.matchesHatch(tile));
                 })
                     .shouldSkip(
-                        (BiPredicate<? super T, ? super IGTE> & Builtin) (c,
-                                                                          t) -> t != null && Arrays.stream(elements)
-                                .anyMatch(e -> e.matchesHatch(t.getMetaTileEntity())))
+                        (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && Arrays.stream(elements)
+                            .anyMatch(e -> e.matchesHatch(t.getMetaTileEntity())))
                     .cacheHint(
                         () -> Arrays.stream(elements)
                             .map(IHatchElement::getDisplayName)
@@ -195,10 +194,9 @@ public class HatchElementBuilder<T> {
                                     >= e.getValue()
                                         .longValue()))
                     .shouldSkip(
-                        (BiPredicate<? super T, ? super IGTE> & Builtin) (c,
-                                                                          t) -> t != null && elements.keySet()
-                                .stream()
-                                .anyMatch(e -> e.matchesHatch(t.getMetaTileEntity())))
+                        (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && elements.keySet()
+                            .stream()
+                            .anyMatch(e -> e.matchesHatch(t.getMetaTileEntity())))
                     .cacheHint(
                         () -> elements.keySet()
                             .stream()
@@ -412,8 +410,7 @@ public class HatchElementBuilder<T> {
             .cacheHint(
                 () -> StatCollector.translateToLocalFormatted("gt.hatch_element_of_class", clazz.getSimpleName()))
             .shouldSkip(
-                (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> clazz
-                    .isInstance(t.getMetaTileEntity()));
+                (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> clazz.isInstance(t.getMetaTileEntity()));
     }
 
     @SafeVarargs
@@ -456,8 +453,7 @@ public class HatchElementBuilder<T> {
             c -> is -> GTUtility.isStackValid(is) && is.getItem() instanceof ItemMachines && is.getItemDamage() == aId)
                 .cacheHint(() -> StatCollector.translateToLocalFormatted("gt.hatch_element_of_id", aId))
                 .shouldSkip(
-                    (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null
-                        && t.getMetaTileID() == aId);
+                    (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && t.getMetaTileID() == aId);
     }
 
     public HatchElementBuilder<T> hatchIds(int... aIds) {
@@ -521,8 +517,7 @@ public class HatchElementBuilder<T> {
                 @Override
                 public boolean check(T t, World world, int x, int y, int z) {
                     TileEntity tileEntity = world.getTileEntity(x, y, z);
-                    return tileEntity instanceof IGTE
-                        && mAdder.apply(t, (IGTE) tileEntity, (short) mCasingIndex);
+                    return tileEntity instanceof IGTE && mAdder.apply(t, (IGTE) tileEntity, (short) mCasingIndex);
                 }
 
                 @Override
@@ -544,8 +539,7 @@ public class HatchElementBuilder<T> {
             @Override
             public boolean check(T t, World world, int x, int y, int z) {
                 TileEntity tileEntity = world.getTileEntity(x, y, z);
-                return tileEntity instanceof IGTE
-                    && mAdder.apply(t, (IGTE) tileEntity, (short) mCasingIndex);
+                return tileEntity instanceof IGTE && mAdder.apply(t, (IGTE) tileEntity, (short) mCasingIndex);
             }
 
             private String getHint() {
@@ -626,8 +620,7 @@ public class HatchElementBuilder<T> {
                 AutoPlaceEnvironment env) {
                 if (mShouldSkip != null) {
                     TileEntity tileEntity = world.getTileEntity(x, y, z);
-                    if (tileEntity instanceof IGTE
-                        && mShouldSkip.test(t, (IGTE) tileEntity)) return PlaceResult.SKIP;
+                    if (tileEntity instanceof IGTE && mShouldSkip.test(t, (IGTE) tileEntity)) return PlaceResult.SKIP;
                 }
                 if (!StructureLibAPI.isBlockTriviallyReplaceable(world, x, y, z, env.getActor()))
                     return PlaceResult.REJECT;

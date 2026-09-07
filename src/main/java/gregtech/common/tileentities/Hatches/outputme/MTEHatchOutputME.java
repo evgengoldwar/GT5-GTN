@@ -61,6 +61,7 @@ import gregtech.api.interfaces.IOutputHatch;
 import gregtech.api.interfaces.IOutputHatchTransaction;
 import gregtech.api.interfaces.IOutputTransaction;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
@@ -76,7 +77,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelState, IMEConnectable, IDataCopyable,
     ICellContainer, IGridProxyable, IPriorityHost, MTEHatchOutputMEBase.Environment<IAEFluidStack> {
 
-    public MTEHatchOutputME(int aID, String aName, String aNameRegional) {
+    public MTEHatchOutputME(int aID, String aName, String aNameRegional, IMTE[] mteArray) {
         super(
             aID,
             aName,
@@ -88,7 +89,8 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
                 "Partition the inserted Storage Cell to filter accepted outputs",
                 "Right click with screwdriver to toggle Cache Mode",
                 "Shift right click with screwdriver to toggle Check Mode" },
-            1);
+            1,
+            mteArray);
     }
 
     private final MTEHatchOutputMEBase<IAEFluidStack> provider = new MTEHatchOutputMEBase<IAEFluidStack>(
@@ -101,7 +103,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchOutputME(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchOutputME(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -356,7 +358,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
 
     @Override
     public ItemStack getCellStack() {
-        return mInventory[0];
+        return inventory[0];
     }
 
     @Override

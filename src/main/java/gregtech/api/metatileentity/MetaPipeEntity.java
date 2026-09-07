@@ -71,6 +71,8 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
      */
     private IGTE mBaseMetaTileEntity;
 
+    private IMTE[] mteArray;
+
     /**
      * This registers your Machine at the List. Use only ID's larger than 2048 - the ones lower are reserved by GT. See
      * also the list in the API package - it has a description that contains all the reservations.
@@ -88,14 +90,15 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
      *
      * @param aID the machine ID
      */
-    public MetaPipeEntity(int aID, String aBasicName, int aInvSlotCount) {
-        this(aID, aBasicName, aInvSlotCount, true);
+    public MetaPipeEntity(int aID, String aBasicName, int aInvSlotCount, IMTE[] mteArray) {
+        this(aID, aBasicName, aInvSlotCount, true, mteArray);
     }
 
-    public MetaPipeEntity(int aID, String aBasicName, int aInvSlotCount, boolean aAddInfo) {
-        super(aID, aBasicName, aInvSlotCount);
+    public MetaPipeEntity(int aID, String aBasicName, int aInvSlotCount, boolean aAddInfo, IMTE[] mteArray) {
+        super(aID, aBasicName, aInvSlotCount, mteArray);
         setGTE(new BaseMetaPipeEntity());
         getGTE().setMetaTileID((short) aID);
+        this.mteArray = mteArray;
 
         if (aAddInfo && GTMod.GT.isClientSide()) {
             addInfo(aID);
@@ -119,7 +122,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     @Override
     public String getLocalNameKey() {
-        return "gt.blockmachines." + mName + ".name";
+        return "gt.blockmachines." + name + ".name";
     }
 
     @Override
@@ -127,7 +130,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         if (this instanceof ILocalizedMetaPipeEntity localizedPipe) {
             return localizedPipe.getLocalizedName();
         }
-        return StatCollector.translateToLocal("gt.blockmachines." + mName + ".name");
+        return StatCollector.translateToLocal("gt.blockmachines." + name + ".name");
     }
 
     @Override
@@ -135,7 +138,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         // Pipes don't register a translation key for their name, and cloned instances
         // may lack fields needed for dynamic name construction (e.g. mPrefixKey).
         // Use the prototype from the registry which is always fully initialized.
-        IMTE prototype = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[getGTE().getMetaTileID()];
+        IMTE prototype = mteArray[getGTE().getMetaTileID()];
         if (prototype != null) {
             return prototype.getLocalName();
         }
@@ -511,13 +514,13 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     public abstract boolean renderInside(ForgeDirection side);
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
-                                 boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex, boolean active,
+        boolean redstoneLevel) {
         return Textures.BlockIcons.ERROR_RENDERING;
     }
 
-    public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection, int connections,
-                                 int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection, int connections, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         return Textures.BlockIcons.ERROR_RENDERING;
     }
 
@@ -720,9 +723,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
         if ((alwaysLookConnected || letsIn || letsOut)) {
             // Are we trying to connect to a pipe? let's do it!
-            final IMTE tPipe = tTileEntity instanceof IGTE
-                ? ((IGTE) tTileEntity).getMetaTileEntity()
-                : null;
+            final IMTE tPipe = tTileEntity instanceof IGTE ? ((IGTE) tTileEntity).getMetaTileEntity() : null;
             if (getClass().isInstance(tPipe) || (tPipe != null && tPipe.getClass()
                 .isInstance(this))) {
                 connectAtSide(side);

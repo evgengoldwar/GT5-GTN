@@ -40,6 +40,7 @@ import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.interfaces.ICleanroomReceiver;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.api.util.GTLanguageManager;
@@ -108,14 +109,14 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
      *
      * @param aID the machine ID
      */
-    public MetaTileEntity(int aID, String aBasicName, String aRegionalName, int aInvSlotCount) {
-        super(aID, aBasicName, aInvSlotCount);
+    public MetaTileEntity(int aID, String aBasicName, String aRegionalName, int aInvSlotCount, IMTE[] mteArray) {
+        super(aID, aBasicName, aInvSlotCount, mteArray);
         setGTE(GregTechAPI.constructBaseMetaTileEntity());
         getGTE().setMetaTileID((short) aID);
 
-        GTLanguageManager.addStringLocalization("gt.blockmachines." + mName + ".name", aRegionalName);
+        GTLanguageManager.addStringLocalization("gt.blockmachines." + name + ".name", aRegionalName);
 
-        inventoryHandler = new MTEItemStackHandler(mInventory, this);
+        inventoryHandler = new MTEItemStackHandler(inventory, this);
     }
 
     /**
@@ -123,7 +124,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
      */
     public MetaTileEntity(String aName, int aInvSlotCount) {
         super(aName, aInvSlotCount);
-        inventoryHandler = new MTEItemStackHandler(mInventory, this);
+        inventoryHandler = new MTEItemStackHandler(inventory, this);
         colorOverride = GUIColorOverride.get(getGUITextureSet().getMainBackground().location);
     }
 
@@ -181,7 +182,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
 
     @Override
     public String getLocalNameKey() {
-        return "gt.blockmachines." + mName + ".name";
+        return "gt.blockmachines." + name + ".name";
     }
 
     @Override
@@ -246,8 +247,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     }
 
     @Override
-    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
-                                float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
         if (gte.isServerSide()) {
             if (player instanceof EntityPlayerMPAccessor) {
                 playerLang = ((EntityPlayerMPAccessor) player).gt5u$getTranslator();
@@ -525,7 +525,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public void setInventorySlotContents(int aIndex, ItemStack aStack) {
         if (this instanceof IConfigurationCircuitSupport ccs) {
             if (ccs.allowSelectCircuit() && aIndex == ccs.getCircuitSlot() && aStack != null) {
-                mInventory[aIndex] = GTUtility.copyAmount(0, aStack);
+                inventory[aIndex] = GTUtility.copyAmount(0, aStack);
                 markDirty();
                 return;
             }

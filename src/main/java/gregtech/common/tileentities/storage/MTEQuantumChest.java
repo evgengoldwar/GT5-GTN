@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 
@@ -21,8 +22,8 @@ public class MTEQuantumChest extends MTEDigitalChestBase {
     public ItemStack mItemStack = null;
     NBTTagList mInvData = null;
 
-    public MTEQuantumChest(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier);
+    public MTEQuantumChest(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, mteArray);
     }
 
     public MTEQuantumChest(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -31,7 +32,7 @@ public class MTEQuantumChest extends MTEDigitalChestBase {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEQuantumChest(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEQuantumChest(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -39,14 +40,14 @@ public class MTEQuantumChest extends MTEDigitalChestBase {
         mInvData = new NBTTagList();
         boolean hasInvData = false;
         for (int i = 0; i < 3; i++) {
-            if (mInventory[i] != null) {
+            if (inventory[i] != null) {
                 NBTTagCompound tNBT = new NBTTagCompound();
-                tNBT.setByte("Count", (byte) mInventory[i].stackSize);
-                tNBT.setShort("Damage", (short) mInventory[i].getItemDamage());
-                tNBT.setShort("id", (short) Item.getIdFromItem(mInventory[i].getItem()));
+                tNBT.setByte("Count", (byte) inventory[i].stackSize);
+                tNBT.setShort("Damage", (short) inventory[i].getItemDamage());
+                tNBT.setShort("id", (short) Item.getIdFromItem(inventory[i].getItem()));
                 tNBT.setInteger("IntSlot", i);
-                if (mInventory[i].hasTagCompound()) {
-                    tNBT.setTag("tag", mInventory[i].getTagCompound());
+                if (inventory[i].hasTagCompound()) {
+                    tNBT.setTag("tag", inventory[i].getTagCompound());
                 }
                 mInvData.appendTag(tNBT);
                 hasInvData = true;

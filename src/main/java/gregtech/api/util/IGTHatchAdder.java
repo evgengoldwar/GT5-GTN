@@ -7,8 +7,8 @@ public interface IGTHatchAdder<T> {
     /**
      * Callback to add hatch, needs to check if hatch is valid (and add it)
      *
-     * @param gte hatch
-     * @param aShort              requested texture index, or null if not...
+     * @param gte    hatch
+     * @param aShort requested texture index, or null if not...
      * @return managed to add hatch (structure still valid)
      */
     boolean apply(T t, IGTE gte, Short aShort);

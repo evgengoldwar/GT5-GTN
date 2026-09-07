@@ -20,8 +20,7 @@ import appeng.util.item.ItemList;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.util.GTUtility;
 
-public class MEItemInventoryHandler<T extends IMTE & IMEAwareItemInventory>
-    implements IMEMonitor<IAEItemStack> {
+public class MEItemInventoryHandler<T extends IMTE & IMEAwareItemInventory> implements IMEMonitor<IAEItemStack> {
 
     private final T machine;
 

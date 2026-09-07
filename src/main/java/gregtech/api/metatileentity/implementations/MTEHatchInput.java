@@ -43,20 +43,22 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     public boolean disableFilter = true;
     public RecipeMap<?> mRecipeMap = null;
 
-    public MTEHatchInput(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 4, (String) null);
+    public MTEHatchInput(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 4, (String) null, mteArray);
     }
 
-    public MTEHatchInput(int aID, String aName, String aNameRegional, int aTier, String[] aDescription) {
-        this(aID, 3, aName, aNameRegional, aTier, aDescription);
+    public MTEHatchInput(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
+        IMTE[] mteArray) {
+        this(aID, 3, aName, aNameRegional, aTier, aDescription, mteArray);
     }
 
-    public MTEHatchInput(int aID, int aSlot, String aName, String aNameRegional, int aTier) {
-        this(aID, aSlot, aName, aNameRegional, aTier, null);
+    public MTEHatchInput(int aID, int aSlot, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        this(aID, aSlot, aName, aNameRegional, aTier, null, mteArray);
     }
 
-    public MTEHatchInput(int aID, int aSlot, String aName, String aNameRegional, int aTier, String[] aDescription) {
-        super(aID, aName, aNameRegional, aTier, aSlot, aDescription);
+    public MTEHatchInput(int aID, int aSlot, String aName, String aNameRegional, int aTier, String[] aDescription,
+        IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, aSlot, aDescription, mteArray);
     }
 
     public int getCapacityPerTank(int aTier, int aSlot) {
@@ -98,7 +100,7 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchInput(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchInput(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -173,8 +175,8 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     public void updateSlots() {
-        if (mInventory[getInputSlot()] != null && mInventory[getInputSlot()].stackSize <= 0)
-            mInventory[getInputSlot()] = null;
+        if (inventory[getInputSlot()] != null && inventory[getInputSlot()].stackSize <= 0)
+            inventory[getInputSlot()] = null;
     }
 
     @Override

@@ -69,8 +69,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
      */
     public MTEBasicMachineWithRecipe(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
         RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot,
-        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, ITexture[] aOverlays,
-        Object[] aRecipe) {
+        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, ITexture[] aOverlays, Object[] aRecipe,
+        IMTE[] mteArray) {
         super(
             aID,
             aName,
@@ -80,6 +80,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
             aDescription,
             aInputSlots,
             aOutputSlots,
+            mteArray,
             aOverlays);
         this.mTankCapacity = aTankCapacity;
         this.hasInputFluidSlot = hasInputFluidSlot;
@@ -96,7 +97,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
      */
     public MTEBasicMachineWithRecipe(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
         RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot,
-        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays, Object[] aRecipe) {
+        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays, Object[] aRecipe,
+        IMTE[] mteArray) {
         this(
             aID,
             aName,
@@ -193,7 +195,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
                                 "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_BOTTOM_GLOW")))
                         .glow()
                         .build()) },
-            aRecipe);
+            aRecipe,
+            mteArray);
     }
 
     /**
@@ -202,7 +205,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
      */
     public MTEBasicMachineWithRecipe(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
         RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot,
-        SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays) {
+        SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays, IMTE[] mteArray) {
         this(
             aID,
             aName,
@@ -217,7 +220,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
             hasInputFluidSlot || hasOutputFluidSlot ? getCapacityForTier(aTier) : 0,
             aSound,
             aSpecialEffect,
-            aOverlays);
+            aOverlays,
+            mteArray);
     }
 
     /**
@@ -226,7 +230,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
      */
     public MTEBasicMachineWithRecipe(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
         RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot,
-        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays) {
+        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays, IMTE[] mteArray) {
         this(
             aID,
             aName,
@@ -242,7 +246,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
             aSound,
             aSpecialEffect,
             aOverlays,
-            null);
+            null,
+            mteArray);
     }
 
     /**
@@ -263,7 +268,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     @Override
     public IMTE newMTE(IGTE gte) {
         return new MTEBasicMachineWithRecipe(
-            this.mName,
+            this.name,
             this.mTier,
             this.mDescriptionArray,
             this.mRecipes,
@@ -295,7 +300,7 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
 
     @Override
     protected boolean allowPutStackValidated(IGTE aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-                                             ItemStack aStack) {
+        ItemStack aStack) {
         if (!super.allowPutStackValidated(aBaseMetaTileEntity, aIndex, side, aStack)) return false;
         switch (this.mInputSlotCount) {
             case 0 -> {

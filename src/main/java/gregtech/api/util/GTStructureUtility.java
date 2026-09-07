@@ -94,7 +94,7 @@ public class GTStructureUtility {
 
     @SuppressWarnings("SpellCheckingInspection")
     public static <T, TMTE extends IMTE> IStructureElement<T> ofGenericMTETiered(Class<TMTE> mteClass,
-                                                                                 MTEAdder<T, TMTE> adder, List<TMTE> tiers) {
+        MTEAdder<T, TMTE> adder, List<TMTE> tiers) {
         Int2IntOpenHashMap tierMap = new Int2IntOpenHashMap();
 
         int i = 1;

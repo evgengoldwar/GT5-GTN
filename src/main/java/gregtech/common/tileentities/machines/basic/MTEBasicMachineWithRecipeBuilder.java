@@ -170,7 +170,8 @@ public final class MTEBasicMachineWithRecipeBuilder {
                     hasOutputFluidSlot,
                     sound,
                     specialEffect,
-                    overlays);
+                    overlays,
+                    null);
             } else {
                 machine = new MTEBasicMachineWithRecipe(
                     id,
@@ -186,7 +187,8 @@ public final class MTEBasicMachineWithRecipeBuilder {
                     fluidTankCapacityOverride,
                     sound,
                     specialEffect,
-                    overlays);
+                    overlays,
+                    null);
             }
             if (machineAmperageOverride != 0) {
                 machine.setMachineAmperage(machineAmperageOverride);

@@ -59,6 +59,7 @@ import gregtech.api.interfaces.IOutputBus;
 import gregtech.api.interfaces.IOutputBusTransaction;
 import gregtech.api.interfaces.IOutputTransaction;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchOutputBus;
@@ -74,7 +75,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 public class MTEHatchOutputBusME extends MTEHatchOutputBus implements IPowerChannelState, IMEConnectable,
     ICellContainer, IGridProxyable, IPriorityHost, MTEHatchOutputMEBase.Environment<IAEItemStack> {
 
-    public MTEHatchOutputBusME(int aID, String aName, String aNameRegional) {
+    public MTEHatchOutputBusME(int aID, String aName, String aNameRegional, IMTE[] mteArray) {
         super(
             aID,
             aName,
@@ -86,7 +87,8 @@ public class MTEHatchOutputBusME extends MTEHatchOutputBus implements IPowerChan
                 "Partition the inserted Storage Cell to filter accepted outputs",
                 "Right click with screwdriver to toggle Cache Mode",
                 "Shift right click with screwdriver to toggle Check Mode" },
-            1);
+            1,
+            mteArray);
     }
 
     public MTEHatchOutputBusME(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -95,7 +97,7 @@ public class MTEHatchOutputBusME extends MTEHatchOutputBus implements IPowerChan
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchOutputBusME(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchOutputBusME(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -166,7 +168,7 @@ public class MTEHatchOutputBusME extends MTEHatchOutputBus implements IPowerChan
 
     @Override
     public ItemStack getCellStack() {
-        return mInventory[0];
+        return inventory[0];
     }
 
     @Override

@@ -14,6 +14,7 @@ import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.singleblock.base.MTETieredMachineBlockBaseGui;
@@ -36,8 +37,8 @@ public abstract class MTETieredMachineBlock extends MetaTileEntity {
     public final ITexture[][][] mTextures;
 
     public MTETieredMachineBlock(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount,
-        String aDescription, ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aInvSlotCount);
+        String aDescription, IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aInvSlotCount, mteArray);
         mTier = (byte) Math.max(0, Math.min(aTier, 14));
         mDescriptionArray = aDescription == null ? GTValues.emptyStringArray : new String[] { aDescription };
         // must always be the last call!
@@ -46,8 +47,8 @@ public abstract class MTETieredMachineBlock extends MetaTileEntity {
     }
 
     public MTETieredMachineBlock(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount,
-        String[] aDescription, ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aInvSlotCount);
+        String[] aDescription, IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aInvSlotCount, mteArray);
         mTier = (byte) Math.max(0, Math.min(aTier, 15));
         mDescriptionArray = aDescription == null ? GTValues.emptyStringArray : aDescription;
 

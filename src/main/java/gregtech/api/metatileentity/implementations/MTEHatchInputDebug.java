@@ -128,7 +128,7 @@ public class MTEHatchInputDebug extends MTEHatchInput {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchInputDebug(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchInputDebug(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

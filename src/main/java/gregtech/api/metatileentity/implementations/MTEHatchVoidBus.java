@@ -34,8 +34,8 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
     private static final String DATA_STICK_DATA_TYPE = "voidBusFilter";
     private static final String LOCKED_ITEMS_NBT_KEY = "lockedItems";
 
-    public MTEHatchVoidBus(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional, 1, null, 4);
+    public MTEHatchVoidBus(int aID, String aName, String aNameRegional, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, 1, null, 4, mteArray);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchVoidBus(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchVoidBus(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -78,11 +78,11 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
         final NBTTagList lockedItemList = new NBTTagList();
 
         nbt.setString("type", DATA_STICK_DATA_TYPE);
-        for (int i = 0; i < mInventory.length; i++) {
-            if (mInventory[i] == null) continue;
+        for (int i = 0; i < inventory.length; i++) {
+            if (inventory[i] == null) continue;
             NBTTagCompound itemTag = new NBTTagCompound();
             itemTag.setByte("Slot", (byte) i);
-            mInventory[i].writeToNBT(itemTag);
+            inventory[i].writeToNBT(itemTag);
             lockedItemList.appendTag(itemTag);
         }
 
@@ -96,14 +96,14 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
         if (!nbt.hasKey(LOCKED_ITEMS_NBT_KEY)) return false;
 
         // Clear current configuration
-        Arrays.fill(mInventory, null);
+        Arrays.fill(inventory, null);
 
         NBTTagList lockedItemList = nbt.getTagList(LOCKED_ITEMS_NBT_KEY, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < lockedItemList.tagCount(); i++) {
             NBTTagCompound itemTag = lockedItemList.getCompoundTagAt(i);
             int slot = itemTag.getByte("Slot");
-            if (slot < mInventory.length) {
-                mInventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
+            if (slot < inventory.length) {
+                inventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
             }
         }
         return true;
@@ -132,15 +132,15 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
         for (int i = 0; i < lockedItemList.tagCount(); i++) {
             NBTTagCompound itemTag = lockedItemList.getCompoundTagAt(i);
             int slot = itemTag.getByte("Slot");
-            if (slot < mInventory.length) {
-                mInventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
+            if (slot < inventory.length) {
+                inventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
             }
         }
     }
 
     @Override
     public boolean isLocked() {
-        for (ItemStack lockedItem : mInventory) {
+        for (ItemStack lockedItem : inventory) {
             if (lockedItem != null) {
                 return true;
             }
@@ -155,7 +155,7 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
 
     @Override
     public boolean isFilteredToItem(GTUtility.ItemId id) {
-        for (ItemStack lockedItem : mInventory) {
+        for (ItemStack lockedItem : inventory) {
             if (lockedItem != null && id.matches(lockedItem)) return true;
         }
 
@@ -169,7 +169,7 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
 
     @Override
     public boolean storePartial(ItemStack stack, boolean simulate) {
-        for (ItemStack lockedItem : mInventory) {
+        for (ItemStack lockedItem : inventory) {
             if (lockedItem != null && lockedItem.isItemEqual(stack)) {
                 stack.stackSize = 0;
                 return true;
@@ -197,7 +197,7 @@ public class MTEHatchVoidBus extends MTEHatchOutputBus {
 
         @Override
         public boolean storePartial(GTUtility.ItemId id, ItemStack stack) {
-            for (ItemStack lockedItem : mInventory) {
+            for (ItemStack lockedItem : inventory) {
                 if (lockedItem != null && lockedItem.isItemEqual(stack)) {
                     stack.stackSize = 0;
                     return true;

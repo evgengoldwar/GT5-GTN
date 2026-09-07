@@ -117,13 +117,13 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     private boolean shouldSkipMaterialTooltip = false;
 
     public MTEFluidPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        int aCapacity, int aHeatResistance, boolean aGasProof) {
-        this(aID, aName, aPrefixKey, aThickNess, aMaterial, aCapacity, aHeatResistance, aGasProof, 1);
+        int aCapacity, int aHeatResistance, boolean aGasProof, IMTE[] mteArray) {
+        this(aID, aName, aPrefixKey, aThickNess, aMaterial, aCapacity, aHeatResistance, aGasProof, 1, mteArray);
     }
 
     public MTEFluidPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        int aCapacity, int aHeatResistance, boolean aGasProof, int aFluidTypes) {
-        super(aID, aName, 0, false);
+        int aCapacity, int aHeatResistance, boolean aGasProof, int aFluidTypes, IMTE[] mteArray) {
+        super(aID, aName, 0, false, mteArray);
         mPrefixKey = aPrefixKey;
         mThickNess = aThickNess;
         mMaterial = aMaterial;
@@ -149,12 +149,12 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEFluidPipe(mName, mThickNess, mMaterial, mCapacity, mHeatResistance, mGasProof, mPipeAmount);
+        return new MTEFluidPipe(name, mThickNess, mMaterial, mCapacity, mHeatResistance, mGasProof, mPipeAmount);
     }
 
     @Override
-    public ITexture[] getTexture(IGTE base, ForgeDirection side, int connections, int colorIndex,
-                                 boolean connected, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE base, ForgeDirection side, int connections, int colorIndex, boolean connected,
+        boolean redstoneLevel) {
         List<ITexture> textures = new ArrayList<>();
 
         textures.add(getBaseTexture(connected, colorIndex));
@@ -302,7 +302,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
             if (tTemperature > mHeatResistance) {
                 if (aBaseMetaTileEntity.getRandomNumber(100) == 0) {
                     // Poof
-                    GTLog.writeExplosionLog(aBaseMetaTileEntity, mName, "set to fire due to low heat resistance");
+                    GTLog.writeExplosionLog(aBaseMetaTileEntity, name, "set to fire due to low heat resistance");
                     aBaseMetaTileEntity.setToFire();
                     return true;
                 }
@@ -311,7 +311,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
 
                 GTLog.writeExplosionLog(
                     aBaseMetaTileEntity,
-                    mName,
+                    name,
                     "set blocks around to fire due to low heat resistance");
             }
             if (!mGasProof && tFluid.getFluid()
@@ -648,9 +648,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         final IGTE baseMetaTile = getGTE();
         if (baseMetaTile == null) return false;
 
-        final IGTE gTileEntity = (tileEntity instanceof IGTE)
-            ? (IGTE) tileEntity
-            : null;
+        final IGTE gTileEntity = (tileEntity instanceof IGTE) ? (IGTE) tileEntity : null;
 
         if (TinkerConstruct.isModLoaded() && isTConstructFaucet(tileEntity)) return true;
 

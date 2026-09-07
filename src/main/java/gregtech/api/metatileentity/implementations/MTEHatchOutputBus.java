@@ -8,7 +8,6 @@ import static gregtech.api.util.GTUtility.isStackValid;
 
 import java.util.BitSet;
 
-import gregtech.api.enums.ItemList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -25,6 +24,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizons.modularui.api.forge.ItemHandlerHelper;
 
 import gregtech.GTMod;
+import gregtech.api.enums.ItemList;
 import gregtech.api.enums.OutputBusType;
 import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.IOutputBus;
@@ -50,21 +50,22 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
 
     protected ItemStack lockedItem = null;
 
-    public MTEHatchOutputBus(int aID, String aName, String aNameRegional, int aTier) {
-        this(aID, aName, aNameRegional, aTier, getSlots(aTier));
+    public MTEHatchOutputBus(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        this(aID, aName, aNameRegional, aTier, getSlots(aTier), mteArray);
     }
 
-    public MTEHatchOutputBus(int id, String name, String nameRegional, int tier, int slots) {
-        super(id, name, nameRegional, tier, slots, (String) null);
-    }
-
-    public MTEHatchOutputBus(int aID, String aName, String aNameRegional, int aTier, String[] aDescription) {
-        super(aID, aName, aNameRegional, aTier, getSlots(aTier), aDescription);
+    public MTEHatchOutputBus(int id, String name, String nameRegional, int tier, int slots, IMTE[] mteArray) {
+        super(id, name, nameRegional, tier, slots, (String) null, mteArray);
     }
 
     public MTEHatchOutputBus(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
-        int inventorySize) {
-        super(aID, aName, aNameRegional, aTier, inventorySize, aDescription);
+        IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, getSlots(aTier), aDescription, mteArray);
+    }
+
+    public MTEHatchOutputBus(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
+        int inventorySize, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, inventorySize, aDescription, mteArray);
     }
 
     public MTEHatchOutputBus(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -101,7 +102,7 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchOutputBus(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchOutputBus(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -112,10 +113,10 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
         }
 
         final ItemStack dataStick = aPlayer.inventory.getCurrentItem();
-         if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
-         openGui(aPlayer);
-         return true;
-         }
+        if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
+            openGui(aPlayer);
+            return true;
+        }
 
         if (!pasteCopiedData(aPlayer, dataStick.stackTagCompound)) {
             aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.invalid"));
@@ -178,11 +179,11 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
 
         if (lockedItem != null && !lockedItem.isItemEqual(stack)) return false;
 
-        int invLength = mInventory.length;
+        int invLength = inventory.length;
 
         for (int i = 0; i < invLength && stack.stackSize > 0; i++) {
             @Nullable
-            ItemStack slot = mInventory[i];
+            ItemStack slot = inventory[i];
 
             // the slot has an item and the stacks can't be merged; ignore it
             if (!isStackInvalid(slot) && !areStacksEqual(slot, stack)) continue;
@@ -196,7 +197,7 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
 
             if (!simulate) {
                 // if the slot is invalid create an empty stack in it
-                if (isStackInvalid(slot)) mInventory[i] = slot = stack.splitStack(0);
+                if (isStackInvalid(slot)) inventory[i] = slot = stack.splitStack(0);
 
                 slot.stackSize += toInsert;
             }
@@ -227,7 +228,7 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     protected int getStackTransferAmount() {
-        return mInventory.length;
+        return inventory.length;
     }
 
     @Override
@@ -352,7 +353,7 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
         private boolean active = true;
 
         StandardOutputBusTransaction() {
-            inventory = GTDataUtils.mapToArray(mInventory, ItemStack[]::new, GTUtility::copy);
+            inventory = GTDataUtils.mapToArray(MTEHatchOutputBus.this.inventory, ItemStack[]::new, GTUtility::copy);
 
             for (int i = 0, inventoryLength = inventory.length; i < inventoryLength; i++) {
                 ItemStack stack = inventory[i];
@@ -430,9 +431,9 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
 
         @Override
         public void commit() {
-            assert mInventory.length == inventory.length;
+            assert MTEHatchOutputBus.this.inventory.length == inventory.length;
 
-            System.arraycopy(inventory, 0, mInventory, 0, inventory.length);
+            System.arraycopy(inventory, 0, MTEHatchOutputBus.this.inventory, 0, inventory.length);
 
             MTEHatchOutputBus.this.markDirty();
 

@@ -76,9 +76,10 @@ import gregtech.api.interfaces.IConfigurationCircuitSupport;
 import gregtech.api.interfaces.INonConsumedItemDisplay;
 import gregtech.api.interfaces.IPhysicalCircuitDisplay;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IAddGregtechLogo;
-import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IOverclockDescriptionProvider;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.objects.overclockdescriber.EUOverclockDescriber;
@@ -163,7 +164,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
      *                  SideFacingPipeInactive
      */
     public MTEBasicMachine(int aID, String aName, String aNameRegional, int aTier, int aAmperage, String aDescription,
-        int aInputSlotCount, int aOutputSlotCount, ITexture... aOverlays) {
+        int aInputSlotCount, int aOutputSlotCount, IMTE[] mteArray, ITexture... aOverlays) {
         super(
             aID,
             aName,
@@ -171,6 +172,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             aTier,
             OTHER_SLOT_COUNT + aInputSlotCount + aOutputSlotCount + 1,
             aDescription,
+            mteArray,
             aOverlays);
         mInputSlotCount = Math.max(0, aInputSlotCount);
         mOutputItems = new ItemStack[Math.max(0, aOutputSlotCount)];
@@ -182,7 +184,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
      * Registers machine with multi-line descriptions.
      */
     public MTEBasicMachine(int aID, String aName, String aNameRegional, int aTier, int aAmperage, String[] aDescription,
-        int aInputSlotCount, int aOutputSlotCount, ITexture... aOverlays) {
+        int aInputSlotCount, int aOutputSlotCount, IMTE[] mteArray, ITexture... aOverlays) {
         super(
             aID,
             aName,
@@ -190,6 +192,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             aTier,
             OTHER_SLOT_COUNT + aInputSlotCount + aOutputSlotCount + 1,
             aDescription,
+            mteArray,
             aOverlays);
         mInputSlotCount = Math.max(0, aInputSlotCount);
         mOutputItems = new ItemStack[Math.max(0, aOutputSlotCount)];
@@ -278,8 +281,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-                                 int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         final int textureIndex;
         if ((mMainFacing.flag & (UP.flag | DOWN.flag)) != 0) { // UP or DOWN
             if (sideDirection == facingDirection) {
@@ -660,9 +663,9 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                     && hasEnoughEnergyToCheckRecipe()) {
                     if (checkRecipe() == FOUND_AND_SUCCESSFULLY_USED_RECIPE) {
                         if (getSpecialSlot() != null && getSpecialSlot().stackSize <= 0)
-                            mInventory[getSpecialSlotIndex()] = null;
+                            inventory[getSpecialSlotIndex()] = null;
                         for (int i = getInputSlot(), j = i + mInputSlotCount; i < j; i++)
-                            if (mInventory[i] != null && mInventory[i].stackSize <= 0) mInventory[i] = null;
+                            if (inventory[i] != null && inventory[i].stackSize <= 0) inventory[i] = null;
                         for (int i = 0; i < mOutputItems.length; i++) {
                             mOutputItems[i] = GTUtility.copyOrNull(mOutputItems[i]);
                             if (mOutputItems[i] != null && mOutputItems[i].stackSize > 64)
@@ -729,11 +732,11 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     protected ItemStack getSpecialSlot() {
-        return mInventory[getSpecialSlotIndex()];
+        return inventory[getSpecialSlotIndex()];
     }
 
     protected ItemStack getOutputAt(int aIndex) {
-        return mInventory[getOutputSlot() + aIndex];
+        return inventory[getOutputSlot() + aIndex];
     }
 
     protected ItemStack[] getAllOutputs() {
@@ -768,7 +771,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     protected ItemStack getInputAt(int aIndex) {
-        return mInventory[getInputSlot() + aIndex];
+        return inventory[getInputSlot() + aIndex];
     }
 
     protected ItemStack[] getAllInputs() {
@@ -967,7 +970,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         if (!mAllowInputFromOutputSide && side == gte.getFrontFacing()) return false;
 
         for (int i = getInputSlot(), j = i + mInputSlotCount; i < j; i++) {
-            if (GTUtility.areStacksEqual(GTOreDictUnificator.get(itemStack), mInventory[i]) && mDisableMultiStack) {
+            if (GTUtility.areStacksEqual(GTOreDictUnificator.get(itemStack), inventory[i]) && mDisableMultiStack) {
                 return i == index;
             }
         }
@@ -981,8 +984,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
      * check for it anyway.
      */
     protected boolean allowPutStackValidated(IGTE aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-                                             ItemStack aStack) {
-        return !mDisableMultiStack || mInventory[aIndex] == null;
+        ItemStack aStack) {
+        return !mDisableMultiStack || inventory[aIndex] == null;
     }
 
     @Override

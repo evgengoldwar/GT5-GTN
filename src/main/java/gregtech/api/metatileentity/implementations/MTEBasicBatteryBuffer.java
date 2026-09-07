@@ -23,8 +23,8 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.items.MetaBaseItem;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
@@ -42,8 +42,8 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     private long mMax = 0;
 
     public MTEBasicBatteryBuffer(int aID, String aName, String aNameRegional, int aTier, String aDescription,
-        int aSlotCount) {
-        super(aID, aName, aNameRegional, aTier, aSlotCount, aDescription);
+        int aSlotCount, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, aSlotCount, aDescription, mteArray);
     }
 
     public MTEBasicBatteryBuffer(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures,
@@ -55,7 +55,7 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     public String[] getDescription() {
         String[] desc = new String[mDescriptionArray.length + 1];
         System.arraycopy(mDescriptionArray, 0, desc, 0, mDescriptionArray.length);
-        desc[mDescriptionArray.length] = mInventory.length + " Slots";
+        desc[mDescriptionArray.length] = inventory.length + " Slots";
         return desc;
     }
 
@@ -65,22 +65,22 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
         for (byte i = -1; i < 16; i++) {
             rTextures[0][i + 1] = new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[mTier][i + 1] };
             rTextures[1][i + 1] = new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[mTier][i + 1],
-                mInventory.length == 16 ? Textures.BlockIcons.OVERLAYS_ENERGY_OUT_MULTI_16A[mTier + 1]
-                    : mInventory.length > 1 ? Textures.BlockIcons.OVERLAYS_ENERGY_OUT_MULTI_4A[mTier + 1]
+                inventory.length == 16 ? Textures.BlockIcons.OVERLAYS_ENERGY_OUT_MULTI_16A[mTier + 1]
+                    : inventory.length > 1 ? Textures.BlockIcons.OVERLAYS_ENERGY_OUT_MULTI_4A[mTier + 1]
                         : Textures.BlockIcons.OVERLAYS_ENERGY_OUT[mTier + 1] };
         }
         return rTextures;
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
-                                 boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex, boolean aActive,
+        boolean redstoneLevel) {
         return mTextures[side == aFacing ? 1 : 0][colorIndex + 1];
     }
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEBasicBatteryBuffer(mName, mTier, mDescriptionArray, mTextures, mInventory.length);
+        return new MTEBasicBatteryBuffer(name, mTier, mDescriptionArray, mTextures, inventory.length);
     }
 
     @Override
@@ -115,12 +115,12 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
 
     @Override
     public long getMinimumStoredEU() {
-        return V[mTier] * 16L * mInventory.length;
+        return V[mTier] * 16L * inventory.length;
     }
 
     @Override
     public long maxEUStore() {
-        return V[mTier] * 64L * mInventory.length;
+        return V[mTier] * 64L * inventory.length;
     }
 
     @Override
@@ -145,12 +145,12 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
 
     @Override
     public int rechargerSlotCount() {
-        return mCharge ? mInventory.length : 0;
+        return mCharge ? inventory.length : 0;
     }
 
     @Override
     public int dechargerSlotCount() {
-        return mDecharge ? mInventory.length : 0;
+        return mDecharge ? inventory.length : 0;
     }
 
     @Override
@@ -190,7 +190,7 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
             mDecharge = gte.getStoredEU() < gte.getEUCapacity() / 3 && !forceCharge();
             mBatteryCount = 0;
             mChargeableCount = 0;
-            for (ItemStack tStack : mInventory) if (GTModHandler.isElectricItem(tStack, mTier)) {
+            for (ItemStack tStack : inventory) if (GTModHandler.isElectricItem(tStack, mTier)) {
                 if (GTModHandler.isChargerItem(tStack)) mBatteryCount++;
                 mChargeableCount++;
             }
@@ -219,7 +219,7 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
         if (!GTUtility.isStackValid(itemStack)) {
             return false;
         }
-        return mInventory[index] == null && GTModHandler.isElectricItem(itemStack, this.mTier);
+        return inventory[index] == null && GTModHandler.isElectricItem(itemStack, this.mTier);
     }
 
     @Override
@@ -233,8 +233,8 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
         long tScale = getGTE().getEUCapacity();
         long tStored = getGTE().getStoredEU();
         long tStep = 0;
-        if (mInventory != null) {
-            for (ItemStack aStack : mInventory) {
+        if (inventory != null) {
+            for (ItemStack aStack : inventory) {
                 if (GTModHandler.isElectricItem(aStack)) {
 
                     if (aStack.getItem() instanceof MetaBaseItem) {

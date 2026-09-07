@@ -64,16 +64,17 @@ public class MTEHatchInputBus extends MTEHatch
     public boolean disableLimited = true;
     protected int uiButtonCount = 0;
 
-    public MTEHatchInputBus(int id, String name, String nameRegional, int tier) {
-        this(id, name, nameRegional, tier, getSlots(tier) + 1);
+    public MTEHatchInputBus(int id, String name, String nameRegional, int tier, IMTE[] mteArray) {
+        this(id, name, nameRegional, tier, getSlots(tier) + 1, mteArray);
     }
 
-    protected MTEHatchInputBus(int id, String name, String nameRegional, int tier, int slots, String[] description) {
-        super(id, name, nameRegional, tier, slots, description);
+    protected MTEHatchInputBus(int id, String name, String nameRegional, int tier, int slots, String[] description,
+        IMTE[] mteArray) {
+        super(id, name, nameRegional, tier, slots, description, mteArray);
     }
 
-    public MTEHatchInputBus(int id, String name, String nameRegional, int tier, int slots) {
-        super(id, name, nameRegional, tier, slots, (String) null);
+    public MTEHatchInputBus(int id, String name, String nameRegional, int tier, int slots, IMTE[] mteArray) {
+        super(id, name, nameRegional, tier, slots, (String) null, mteArray);
     }
 
     public MTEHatchInputBus(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -116,7 +117,7 @@ public class MTEHatchInputBus extends MTEHatch
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchInputBus(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchInputBus(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -158,15 +159,15 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     public void updateSlots() {
-        for (int i = 0; i < mInventory.length - 1; i++)
-            if (mInventory[i] != null && mInventory[i].stackSize <= 0) mInventory[i] = null;
+        for (int i = 0; i < inventory.length - 1; i++)
+            if (inventory[i] != null && inventory[i].stackSize <= 0) inventory[i] = null;
         if (!disableSort) fillStacksIntoFirstSlots();
     }
 
     protected void fillStacksIntoFirstSlots() {
         // Don't compact busses with fewer than 2 slots since there's no point
-        if (mInventory.length > 1) {
-            GTUtility.compactInventory(Arrays.asList(mInventory), 0, mInventory.length - 1);
+        if (inventory.length > 1) {
+            GTUtility.compactInventory(Arrays.asList(inventory), 0, inventory.length - 1);
         }
     }
 
@@ -248,8 +249,8 @@ public class MTEHatchInputBus extends MTEHatch
 
     protected boolean limitedAllowPutStack(int aIndex, ItemStack aStack) {
         for (int i = 0; i < getSizeInventory(); i++)
-            if (GTUtility.areStacksEqual(GTOreDictUnificator.get_nocopy(aStack), mInventory[i])) return i == aIndex;
-        return mInventory[aIndex] == null;
+            if (GTUtility.areStacksEqual(GTOreDictUnificator.get_nocopy(aStack), inventory[i])) return i == aIndex;
+        return inventory[aIndex] == null;
     }
 
     @Override

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import gregtech.api.metatileentity.CommonMTE;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -27,6 +26,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IWorldAccessor;
+import gregtech.api.metatileentity.CommonMTE;
 import gregtech.api.net.GTPacketSendCoverData;
 import gregtech.common.covers.Base.Cover;
 
@@ -111,12 +111,7 @@ public class GTUIInfos {
         GTValues.NW.sendToPlayer(new GTPacketSendCoverData(cover, tileEntity, side), (EntityPlayerMP) player);
 
         coverUI.get(side)
-            .open(
-                player,
-                tileEntity.getWorld(),
-                tileEntity.getXCord(),
-                tileEntity.getYCord(),
-                tileEntity.getZCord());
+            .open(player, tileEntity.getWorld(), tileEntity.getXCord(), tileEntity.getYCord(), tileEntity.getZCord());
     }
 
     /**

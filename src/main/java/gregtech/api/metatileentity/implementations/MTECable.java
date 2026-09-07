@@ -32,8 +32,8 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTECable;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
-import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
@@ -59,8 +59,9 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     public int mTransferredAmperage = 0;
 
     public MTECable(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        long aCableLossPerMeter, long aAmperage, long aVoltage, boolean aInsulated, boolean aCanShock) {
-        super(aID, aName, 0);
+        long aCableLossPerMeter, long aAmperage, long aVoltage, boolean aInsulated, boolean aCanShock,
+        IMTE[] mteArray) {
+        super(aID, aName, 0, mteArray);
         prefixKey = aPrefixKey;
         mThickNess = aThickNess;
         mMaterial = aMaterial;
@@ -86,7 +87,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     @Override
     public IMTE newMTE(IGTE gte) {
         return new MTECable(
-            mName,
+            name,
             mThickNess,
             mMaterial,
             mCableLossPerMeter,
@@ -97,8 +98,8 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     }
 
     @Override
-    public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection,
-                                 int facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection, int facingDirection,
+        int colorIndex, boolean active, boolean redstoneLevel) {
         if (!mInsulated) return new ITexture[] { TextureFactory.of(
             mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()],
             Dyes.getModulation(colorIndex, mMaterial.mRGBa)) };

@@ -36,6 +36,7 @@ import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IFluidContainerItemMetaTile;
 import gregtech.api.interfaces.metatileentity.IFluidLockableMui2;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTEBasicTank;
 import gregtech.api.render.TextureFactory;
@@ -53,7 +54,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     protected boolean mAllowInputFromOutputSide = false;
     protected boolean mDisableFilter = true;
 
-    public MTEDigitalTankBase(int aID, String aName, String aNameRegional, int aTier) {
+    public MTEDigitalTankBase(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
         super(
             aID,
             aName,
@@ -62,7 +63,8 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
             3,
             new String[] {
                 translateToLocalFormatted("GT5U.machines.digitaltank.tooltip", formatNumber(commonSizeCompute(aTier))),
-                translateToLocal("GT5U.machines.digitaltank.tooltip1"), });
+                translateToLocal("GT5U.machines.digitaltank.tooltip1"), },
+            mteArray);
     }
 
     protected static int commonSizeCompute(int tier) {
@@ -311,8 +313,8 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-                                 int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         if (sideDirection != ForgeDirection.UP) {
             if (sideDirection == gte.getFrontFacing()) {
                 return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1], TextureFactory.of(OVERLAY_PIPE) };
@@ -380,14 +382,14 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
         }
 
         if (doesEmptyContainers()) {
-            FluidStack tFluid = GTUtility.getFluidForFilledItem(mInventory[getInputSlot()], true);
+            FluidStack tFluid = GTUtility.getFluidForFilledItem(inventory[getInputSlot()], true);
             if (tFluid != null && isFluidInputAllowed(tFluid)) {
                 if (getFillableStack() == null) {
                     if ((tFluid.amount <= getRealCapacity()) || mVoidFluidPart) {
                         tFluid = tFluid.copy();
                         if (gte.addStackToSlot(
                             getOutputSlot(),
-                            GTUtility.getContainerForFilledItem(mInventory[getInputSlot()], true),
+                            GTUtility.getContainerForFilledItem(inventory[getInputSlot()], true),
                             1)) {
                             setFillableStack(tFluid);
                             this.onEmptyingContainerWhenEmpty();
@@ -400,7 +402,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
                         || mVoidFluidFull) {
                         if (gte.addStackToSlot(
                             getOutputSlot(),
-                            GTUtility.getContainerForFilledItem(mInventory[getInputSlot()], true),
+                            GTUtility.getContainerForFilledItem(inventory[getInputSlot()], true),
                             1)) {
                             getFillableStack().amount += Math
                                 .min(tFluid.amount, getRealCapacity() - getFillableStack().amount);
@@ -413,7 +415,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
 
         if (doesFillContainers()) {
             ItemStack tOutput = GTUtility
-                .fillFluidContainer(getDrainableStack(), mInventory[getInputSlot()], false, true);
+                .fillFluidContainer(getDrainableStack(), inventory[getInputSlot()], false, true);
             if (tOutput != null && gte.addStackToSlot(getOutputSlot(), tOutput, 1)) {
                 FluidStack tFluid = GTUtility.getFluidForFilledItem(tOutput, true);
                 gte.decrStackSize(getInputSlot(), 1);

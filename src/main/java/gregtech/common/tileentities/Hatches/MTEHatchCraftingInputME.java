@@ -113,8 +113,8 @@ import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.IMEConnectable;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
 import gregtech.api.metatileentity.Hatch.IDualInputHatch;
 import gregtech.api.metatileentity.Hatch.IDualInputHatchWithPattern;
@@ -138,8 +138,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     IGridProxyable, IDualInputHatchWithPattern, ICustomNameObject, IInterfaceViewable, IMEConnectable {
 
     // Each pattern slot in the crafting input hatch has its own internal inventory
-    public static class PatternSlot<P extends IMTE & IDualInputHatch>
-        implements IDualInputInventoryWithPattern {
+    public static class PatternSlot<P extends IMTE & IDualInputHatch> implements IDualInputInventoryWithPattern {
 
         protected final P parentMTE;
         protected final ItemStack pattern;
@@ -506,7 +505,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchCraftingInputME(mName, mTier, mDescriptionArray, mTextures, supportFluids);
+        return new MTEHatchCraftingInputME(name, mTier, mDescriptionArray, mTextures, supportFluids);
     }
 
     @Override
@@ -663,11 +662,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
 
     @Override
     public DimensionalCoord getLocation() {
-        return new DimensionalCoord(
-            getGTE().getWorld(),
-            getGTE().getXCord(),
-            getGTE().getYCord(),
-            getGTE().getZCord());
+        return new DimensionalCoord(getGTE().getWorld(), getGTE().getXCord(), getGTE().getYCord(), getGTE().getZCord());
     }
 
     @Override
@@ -728,8 +723,8 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
 
         StringJoiner manualSlots = new StringJoiner(", ");
         for (int i = SLOT_MANUAL_START; i < SLOT_MANUAL_START + SLOT_MANUAL_SIZE; i++) {
-            if (mInventory[i] != null) {
-                manualSlots.add(CommonBaseMetaTileEntity.getShortItemDisplayName(mInventory[i]));
+            if (inventory[i] != null) {
+                manualSlots.add(CommonBaseMetaTileEntity.getShortItemDisplayName(inventory[i]));
             }
         }
         if (manualSlots.length() > 0) {
@@ -830,13 +825,13 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
         int oldPatternCount = 4 * 8;
         int oldSlotManual = oldPatternCount + 1;
 
-        if (internalInventory[oldSlotManual] == null && mInventory[oldSlotManual] != null) {
-            mInventory[SLOT_MANUAL_START] = mInventory[oldSlotManual];
-            mInventory[oldSlotManual] = null;
+        if (internalInventory[oldSlotManual] == null && inventory[oldSlotManual] != null) {
+            inventory[SLOT_MANUAL_START] = inventory[oldSlotManual];
+            inventory[oldSlotManual] = null;
         }
-        if (internalInventory[oldPatternCount] == null && mInventory[oldPatternCount] != null) {
-            mInventory[SLOT_CIRCUIT] = mInventory[oldPatternCount];
-            mInventory[oldPatternCount] = null;
+        if (internalInventory[oldPatternCount] == null && inventory[oldPatternCount] != null) {
+            inventory[SLOT_CIRCUIT] = inventory[oldPatternCount];
+            inventory[oldPatternCount] = null;
         }
 
         // reconstruct patternDetailsPatternSlotMap
@@ -858,7 +853,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
         // Sync inventories to ensure that the real inventory matches what AE2 is seeing.
         for (int i = 0; i < MAX_PATTERN_COUNT; i++) {
             if (internalInventory[i] == null) continue;
-            mInventory[i] = internalInventory[i].pattern;
+            inventory[i] = internalInventory[i].pattern;
         }
     }
 
@@ -1063,7 +1058,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     @Override
     public void updateSlots() {
         for (int slotId = SLOT_MANUAL_START; slotId < SLOT_MANUAL_START + SLOT_MANUAL_SIZE; ++slotId) {
-            if (mInventory[slotId] != null && mInventory[slotId].stackSize <= 0) mInventory[slotId] = null;
+            if (inventory[slotId] != null && inventory[slotId].stackSize <= 0) inventory[slotId] = null;
         }
     }
 
@@ -1105,8 +1100,8 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     @Override
     public ItemStack[] getSharedItems() {
         ItemStack[] sharedItems = new ItemStack[SLOT_MANUAL_SIZE + 1];
-        sharedItems[0] = mInventory[SLOT_CIRCUIT];
-        System.arraycopy(mInventory, SLOT_MANUAL_START, sharedItems, 1, SLOT_MANUAL_SIZE);
+        sharedItems[0] = inventory[SLOT_CIRCUIT];
+        System.arraycopy(inventory, SLOT_MANUAL_START, sharedItems, 1, SLOT_MANUAL_SIZE);
         return ArrayExt.withoutNulls(sharedItems, ItemStack[]::new);
     }
 
@@ -1177,8 +1172,8 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
             lines.appendTag(new NBTTagString(CommonBaseMetaTileEntity.getShortItemDisplayName(item)));
         }
         for (int i = SLOT_MANUAL_START; i < SLOT_MANUAL_START + SLOT_MANUAL_SIZE; i++) {
-            if (mInventory[i] != null) {
-                lines.appendTag(new NBTTagString(CommonBaseMetaTileEntity.getShortItemDisplayName(mInventory[i])));
+            if (inventory[i] != null) {
+                lines.appendTag(new NBTTagString(CommonBaseMetaTileEntity.getShortItemDisplayName(inventory[i])));
             }
         }
         return lines;
@@ -1340,8 +1335,7 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
-                                float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
         final ItemStack is = player.inventory.getCurrentItem();
         if (is != null && is.getItem() instanceof ToolQuartzCuttingKnife) {
             if (ForgeEventFactory.onItemUseStart(player, is, 1) <= 0) return false;

@@ -30,6 +30,7 @@ import com.gtnewhorizons.modularui.common.widget.TextWidget;
 import gregtech.api.enums.GTValues;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTUtility;
@@ -58,13 +59,13 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
      * @param aInvSlotCount should be 3
      */
     public MTEBasicTank(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount, String aDescription,
-        ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, aTextures);
+        IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, mteArray, aTextures);
     }
 
     public MTEBasicTank(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount,
-        String[] aDescription, ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, aTextures);
+        String[] aDescription, IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, mteArray, aTextures);
     }
 
     public MTEBasicTank(String aName, int aTier, int aInvSlotCount, String[] aDescription, ITexture[][][] aTextures) {
@@ -155,13 +156,13 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
             final int inputSlot = getInputSlot();
 
             if (doesEmptyContainers()) {
-                FluidStack tFluid = GTUtility.getFluidForFilledItem(mInventory[inputSlot], true);
+                FluidStack tFluid = GTUtility.getFluidForFilledItem(inventory[inputSlot], true);
                 if (tFluid != null && isFluidInputAllowed(tFluid)) {
                     if (getFillableStack() == null) {
                         if (isFluidInputAllowed(tFluid) && tFluid.amount <= getCapacity()) {
                             if (gte.addStackToSlot(
                                 getOutputSlot(),
-                                GTUtility.getContainerForFilledItem(mInventory[inputSlot], true),
+                                GTUtility.getContainerForFilledItem(inventory[inputSlot], true),
                                 1)) {
                                 setFillableStack(tFluid.copy());
                                 this.onEmptyingContainerWhenEmpty();
@@ -173,7 +174,7 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
                             && ((long) tFluid.amount + getFillableStack().amount) <= (long) getCapacity()) {
                             if (gte.addStackToSlot(
                                 getOutputSlot(),
-                                GTUtility.getContainerForFilledItem(mInventory[inputSlot], true),
+                                GTUtility.getContainerForFilledItem(inventory[inputSlot], true),
                                 1)) {
                                 getFillableStack().amount += tFluid.amount;
                                 gte.decrStackSize(inputSlot, 1);
@@ -185,7 +186,7 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
 
             if (doesFillContainers()) {
                 ItemStack tOutput = GTUtility
-                    .fillFluidContainer(getDrainableStack(), mInventory[inputSlot], false, true);
+                    .fillFluidContainer(getDrainableStack(), inventory[inputSlot], false, true);
                 if (tOutput != null && gte.addStackToSlot(getOutputSlot(), tOutput, 1)) {
                     FluidStack tFluid = GTUtility.getFluidForFilledItem(tOutput, true);
                     gte.decrStackSize(inputSlot, 1);

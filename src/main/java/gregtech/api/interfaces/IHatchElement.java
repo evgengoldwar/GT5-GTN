@@ -226,8 +226,8 @@ class HatchElement<T> implements IHatchElement<T> {
     private final IHatchElement<? super T> mBacking;
     private final ToLongFunction<? super T> mCount;
 
-    public HatchElement(List<Class<? extends IMTE>> aMteClasses, IGTHatchAdder<? super T> aAdder,
-                        String aName, String aDisplayName, ToLongFunction<? super T> aCount, IHatchElement<? super T> aBacking) {
+    public HatchElement(List<Class<? extends IMTE>> aMteClasses, IGTHatchAdder<? super T> aAdder, String aName,
+        String aDisplayName, ToLongFunction<? super T> aCount, IHatchElement<? super T> aBacking) {
         this.mClasses = aMteClasses;
         this.mAdder = aAdder;
         this.mName = aName;

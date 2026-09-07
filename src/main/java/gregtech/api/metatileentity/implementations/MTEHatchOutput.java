@@ -39,8 +39,8 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.fluid.IFluidStore;
 import gregtech.api.interfaces.metatileentity.IFluidLockableMui2;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
@@ -56,8 +56,8 @@ public class MTEHatchOutput extends MTEHatch
     private WeakReference<EntityPlayer> playerThatLockedfluid = null;
     protected byte mMode = 0;
 
-    public MTEHatchOutput(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 4, (String) null);
+    public MTEHatchOutput(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 4, (String) null, mteArray);
     }
 
     public MTEHatchOutput(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -65,8 +65,8 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     public MTEHatchOutput(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
-        int inventorySize) {
-        super(aID, aName, aNameRegional, aTier, inventorySize, aDescription);
+        int inventorySize, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, inventorySize, aDescription, mteArray);
     }
 
     public MTEHatchOutput(String name, int tier, int slots, String[] description, ITexture[][][] textures) {
@@ -108,7 +108,7 @@ public class MTEHatchOutput extends MTEHatch
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchOutput(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchOutput(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -270,8 +270,7 @@ public class MTEHatchOutput extends MTEHatch
     }
 
     @Override
-    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
-                                float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
         if (tryToLockHatch(player, side)) return true;
         return super.onRightClick(gte, player, side, x, y, z);
     }

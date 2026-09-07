@@ -532,8 +532,7 @@ public class BlockMachines extends GTGenericBlock implements IDebugableBlock, IT
                 baseTE.setColorization((byte) -1);
             }
 
-            if (tTileEntity instanceof IGTE gtTE
-                && gtTE.getMetaTileEntity() instanceof MTEDigitalTankBase tankMTE) {
+            if (tTileEntity instanceof IGTE gtTE && gtTE.getMetaTileEntity() instanceof MTEDigitalTankBase tankMTE) {
                 tankMTE.resetFluidLockOnShiftBreak();
             }
         }

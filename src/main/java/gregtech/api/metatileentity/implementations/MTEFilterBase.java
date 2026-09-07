@@ -8,6 +8,7 @@ import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.common.gui.modularui.singleblock.base.MTEFilterBaseGui;
 
 public abstract class MTEFilterBase extends MTEBuffer {
@@ -17,8 +18,8 @@ public abstract class MTEFilterBase extends MTEBuffer {
     protected boolean invertFilter = false;
 
     public MTEFilterBase(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount,
-        String[] aDescription) {
-        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription);
+        String[] aDescription, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, mteArray);
     }
 
     public MTEFilterBase(String aName, int aTier, int aInvSlotCount, String[] aDescription, ITexture[][][] aTextures) {
@@ -68,7 +69,7 @@ public abstract class MTEFilterBase extends MTEBuffer {
     public int getEmptySlots() {
         int emptySlots = 0;
         for (int i = 0; i < NUM_INVENTORY_SLOTS; i++) {
-            if (mInventory[i] == null) ++emptySlots;
+            if (inventory[i] == null) ++emptySlots;
         }
         return emptySlots;
     }

@@ -28,8 +28,8 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.IDataCopyable;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.metatileentity.Hatch.IDualInputHatchWithPattern;
 import gregtech.api.metatileentity.Hatch.IDualInputInventory;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
@@ -70,7 +70,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchCraftingInputSlave(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchCraftingInputSlave(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

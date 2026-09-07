@@ -30,8 +30,8 @@ public class MTEHatchInputBusDebug extends MTEHatchInputBus {
     public boolean finiteMode;
     public int stackSizeParseAs;
 
-    public MTEHatchInputBusDebug(int id, String name, String nameRegional, int tier) {
-        super(id, name, nameRegional, tier, 1);
+    public MTEHatchInputBusDebug(int id, String name, String nameRegional, int tier, IMTE[] mteArray) {
+        super(id, name, nameRegional, tier, 1, mteArray);
         finiteMode = false;
         stackSizeParseAs = 64;
     }
@@ -74,7 +74,7 @@ public class MTEHatchInputBusDebug extends MTEHatchInputBus {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchInputBusDebug(mName, mTier, new String[0], mTextures);
+        return new MTEHatchInputBusDebug(name, mTier, new String[0], mTextures);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class MTEHatchInputBusDebug extends MTEHatchInputBus {
     @Override
     public ItemStack getStackInSlot(int slotIndex) {
         if (slotIndex < 0 || slotIndex >= getSizeInventory()) return null;
-        if (slotIndex == getCircuitSlot() + SLOT_COUNT) return mInventory[getCircuitSlot()];
+        if (slotIndex == getCircuitSlot() + SLOT_COUNT) return inventory[getCircuitSlot()];
 
         ItemStack stack = phantomHolder.getStackInSlot(slotIndex);
         if (stack == null) return null;

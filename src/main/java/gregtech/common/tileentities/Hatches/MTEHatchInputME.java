@@ -133,7 +133,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchInputME(mName, autoPullAvailable, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchInputME(name, autoPullAvailable, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -906,8 +906,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
     }
 
     @Override
-    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
-                                float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
         if (!(player instanceof EntityPlayerMP)) return super.onRightClick(gte, player, side, x, y, z);
         ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true))
@@ -1052,11 +1051,7 @@ public class MTEHatchInputME extends MTEHatchInput implements IPowerChannelState
 
     @Override
     public DimensionalCoord getLocation() {
-        return new DimensionalCoord(
-            getGTE().getWorld(),
-            getGTE().getXCord(),
-            getGTE().getYCord(),
-            getGTE().getZCord());
+        return new DimensionalCoord(getGTE().getWorld(), getGTE().getXCord(), getGTE().getYCord(), getGTE().getZCord());
     }
 
     private IStackWatcher watcher;

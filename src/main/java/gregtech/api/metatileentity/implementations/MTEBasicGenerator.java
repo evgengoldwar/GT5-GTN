@@ -15,6 +15,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.util.GTRecipe;
@@ -24,13 +25,13 @@ import gregtech.common.gui.modularui.singleblock.base.MTEBasicGeneratorBaseGui;
 public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMapWorkable {
 
     public MTEBasicGenerator(int aID, String aName, String aNameRegional, int aTier, String aDescription,
-        ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aTier, 3, aDescription, aTextures);
+        IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aTier, 3, aDescription, mteArray, aTextures);
     }
 
     public MTEBasicGenerator(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
-        ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aTier, 3, aDescription, aTextures);
+        IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aTier, 3, aDescription, mteArray, aTextures);
     }
 
     public MTEBasicGenerator(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -56,8 +57,8 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facingDirection,
-                                 int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facingDirection, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         return mTextures[(active ? 5 : 0) + (side == facingDirection ? 0
             : side == facingDirection.getOpposite() ? 1
                 : side == ForgeDirection.DOWN ? 2 : side == ForgeDirection.UP ? 3 : 4)][colorIndex + 1];
@@ -200,14 +201,14 @@ public abstract class MTEBasicGenerator extends MTEBasicTank implements RecipeMa
                 }
             }
 
-            if (mInventory[getInputSlot()] != null
+            if (inventory[getInputSlot()] != null
                 && gte.getUniversalEnergyStored() < (maxEUOutput() * 20 + getMinimumStoredEU())
-                && ((GTUtility.getFluidForFilledItem(mInventory[getInputSlot()], true) != null))) {
-                long tFuelValue = getFuelValue(mInventory[getInputSlot()]);
-                if (tFuelValue <= 0) tFuelValue = getFuelValue(mInventory[getInputSlot()], true);
+                && ((GTUtility.getFluidForFilledItem(inventory[getInputSlot()], true) != null))) {
+                long tFuelValue = getFuelValue(inventory[getInputSlot()]);
+                if (tFuelValue <= 0) tFuelValue = getFuelValue(inventory[getInputSlot()], true);
 
                 if (tFuelValue > 0) {
-                    ItemStack tEmptyContainer = getEmptyContainer(mInventory[getInputSlot()]);
+                    ItemStack tEmptyContainer = getEmptyContainer(inventory[getInputSlot()]);
                     if (gte.addStackToSlot(getOutputSlot(), tEmptyContainer)) {
                         gte.increaseStoredEnergyUnits(tFuelValue, true);
                         gte.decrStackSize(getInputSlot(), 1);

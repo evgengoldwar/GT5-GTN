@@ -37,6 +37,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.HatchElement;
 import gregtech.api.enums.SoundResource;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.structure.StructureChecker;
 import gregtech.api.structure.error.ErrorType;
@@ -69,8 +70,8 @@ public abstract class MTEEnhancedMultiBlockBase<T extends MTEEnhancedMultiBlockB
     private final Vector3i errorPos = new Vector3i();
     private int structureRadius;
 
-    protected MTEEnhancedMultiBlockBase(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional);
+    protected MTEEnhancedMultiBlockBase(int aID, String aName, String aNameRegional, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, mteArray);
     }
 
     protected MTEEnhancedMultiBlockBase(String aName) {

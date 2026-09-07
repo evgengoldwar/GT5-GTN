@@ -15,12 +15,13 @@ import gregtech.api.util.GTSplit;
 @IMTE.SkipGenerateDescription
 public class MTEHatchDynamo extends MTEHatch {
 
-    public MTEHatchDynamo(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 0, (String) null);
+    public MTEHatchDynamo(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 0, (String) null, mteArray);
     }
 
-    public MTEHatchDynamo(int aID, String aName, String aNameRegional, int aTier, String[] aDescription) {
-        super(aID, aName, aNameRegional, aTier, 0, aDescription);
+    public MTEHatchDynamo(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
+        IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 0, aDescription, mteArray);
     }
 
     public MTEHatchDynamo(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -69,7 +70,7 @@ public class MTEHatchDynamo extends MTEHatch {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchDynamo(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchDynamo(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

@@ -18,6 +18,7 @@ import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
@@ -48,13 +49,13 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
     protected final List<IHatchWatcher> watchers = new ArrayList<>();
 
     public MTEHatch(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount, String aDescription,
-        ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, aTextures);
+        IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, mteArray, aTextures);
     }
 
     public MTEHatch(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount, String[] aDescription,
-        ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, aTextures);
+        IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, mteArray, aTextures);
     }
 
     public MTEHatch(String aName, int aTier, int aInvSlotCount, String[] aDescription, ITexture[][][] aTextures) {
@@ -124,8 +125,8 @@ public abstract class MTEHatch extends MTEBasicTank implements ICasingTexturePro
     public abstract ITexture[] getTexturesInactive(ITexture aBaseTexture);
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
-                                 boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex, boolean aActive,
+        boolean redstoneLevel) {
 
         try {
             ITexture background = getCasingTexture();

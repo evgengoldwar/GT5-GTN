@@ -38,8 +38,7 @@ public final class CommonWidgets {
      * @param baseMachine - meta tile entity
      * @return ghost circuit slot widget
      */
-    public static Widget<? extends Widget<?>> createCircuitSlot(PanelSyncManager syncManager,
-        IMTE baseMachine) {
+    public static Widget<? extends Widget<?>> createCircuitSlot(PanelSyncManager syncManager, IMTE baseMachine) {
         if (baseMachine instanceof IConfigurationCircuitSupport circuitEnabled && circuitEnabled.allowSelectCircuit()) {
             return new GhostCircuitSlotWidget(baseMachine, syncManager)
                 .slot(new ModularSlot(new GhostCircuitItemStackHandler(baseMachine), 0));

@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
@@ -21,8 +22,8 @@ import gregtech.common.tileentities.storage.MTEQuantumTank;
 
 public class MTEDebugTank extends MTEQuantumTank {
 
-    public MTEDebugTank(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier);
+    public MTEDebugTank(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, mteArray);
     }
 
     public MTEDebugTank(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -37,7 +38,7 @@ public class MTEDebugTank extends MTEQuantumTank {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEDebugTank(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEDebugTank(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -61,8 +62,8 @@ public class MTEDebugTank extends MTEQuantumTank {
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-                                 int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         if (sideDirection != ForgeDirection.UP) {
             if (sideDirection == gte.getFrontFacing()) {
                 return new ITexture[] { MACHINE_CASINGS[14][colorIndex + 1], TextureFactory.of(OVERLAY_PIPE) };

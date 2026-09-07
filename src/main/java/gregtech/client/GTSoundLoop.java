@@ -40,8 +40,8 @@ public class GTSoundLoop extends MovingSound {
      * @param soundY           positional sound Y coordinate
      * @param soundZ           positional sound Z coordinate
      */
-    public GTSoundLoop(ResourceLocation soundResource, IGTE base, boolean stopWhenActive,
-                       boolean stopWhenInactive, float soundX, float soundY, float soundZ) {
+    public GTSoundLoop(ResourceLocation soundResource, IGTE base, boolean stopWhenActive, boolean stopWhenInactive,
+        float soundX, float soundY, float soundZ) {
 
         super(soundResource);
         this.whileActive = stopWhenActive;
@@ -57,16 +57,9 @@ public class GTSoundLoop extends MovingSound {
         volume = VOLUME_RAMP;
     }
 
-    public GTSoundLoop(ResourceLocation soundResource, IGTE base, boolean stopWhenActive,
-                       boolean stopWhenInactive, float volumeRamp) {
-        this(
-            soundResource,
-            base,
-            stopWhenActive,
-            stopWhenInactive,
-            base.getXCord(),
-            base.getYCord(),
-            base.getZCord());
+    public GTSoundLoop(ResourceLocation soundResource, IGTE base, boolean stopWhenActive, boolean stopWhenInactive,
+        float volumeRamp) {
+        this(soundResource, base, stopWhenActive, stopWhenInactive, base.getXCord(), base.getYCord(), base.getZCord());
         this.targetVolume = volumeRamp;
         volume = volumeRamp;
     }
@@ -82,7 +75,7 @@ public class GTSoundLoop extends MovingSound {
      * @implNote positional sound coordinates centred on tile
      */
     public GTSoundLoop(ResourceLocation soundResource, IGTE tileEntity, boolean stopWhenActive,
-                       boolean stopWhenInactive) {
+        boolean stopWhenInactive) {
         this(
             soundResource,
             tileEntity,

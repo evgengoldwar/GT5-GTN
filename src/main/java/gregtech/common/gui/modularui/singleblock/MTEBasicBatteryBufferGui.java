@@ -33,6 +33,6 @@ public class MTEBasicBatteryBufferGui extends MTETieredMachineBlockBaseGui<MTEBa
     }
 
     private int getDimension() {
-        return (int) Math.floor(Math.sqrt(machine.mInventory.length));
+        return (int) Math.floor(Math.sqrt(machine.inventory.length));
     }
 }

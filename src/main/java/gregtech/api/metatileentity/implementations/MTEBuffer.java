@@ -35,6 +35,7 @@ import com.gtnewhorizon.gtnhlib.capability.item.ItemSink;
 import com.gtnewhorizon.gtnhlib.chat.customcomponents.ChatComponentNumber;
 
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTItemTransfer;
@@ -60,8 +61,9 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
         bSortStacks = false;
     public int mSuccess = 0, mTargetStackSize = 0;
 
-    public MTEBuffer(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount, String[] aDescription) {
-        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription);
+    public MTEBuffer(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount, String[] aDescription,
+        IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, mteArray);
     }
 
     public MTEBuffer(String aName, int aTier, int aInvSlotCount, String[] aDescription, ITexture[][][] aTextures) {
@@ -149,8 +151,8 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-                                 int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         colorIndex = colorIndex + 1;
         if (sideDirection == facingDirection) return mTextures[FRONT_INDEX][colorIndex];
         if (sideDirection.getOpposite() == facingDirection) return mTextures[OUTPUT_INDEX][colorIndex];
@@ -218,7 +220,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
 
     @Override
     public boolean isValidSlot(int index) {
-        return index < mInventory.length - 1;
+        return index < inventory.length - 1;
     }
 
     @Override
@@ -398,8 +400,8 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     public boolean hasEmptySlots() {
-        return IntStream.range(0, mInventory.length)
-            .anyMatch(i -> isValidSlot(i) && mInventory[i] == null);
+        return IntStream.range(0, inventory.length)
+            .anyMatch(i -> isValidSlot(i) && inventory[i] == null);
     }
 
     @Override
@@ -480,7 +482,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     protected int getMovableInventoryEnd() {
-        return mInventory.length;
+        return inventory.length;
     }
 
     @Override

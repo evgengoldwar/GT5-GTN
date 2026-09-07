@@ -52,43 +52,26 @@ import gregtech.api.render.ISBRWorldContext;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 
-/**
- * {@link IMTE} implementation combining both machine-like ({@link MetaTileEntity}) and pipe-like
- * ({@link MetaPipeEntity}).
- */
 public abstract class CommonMTE implements IMTE {
 
     private volatile ITexture[][] inventoryTextureCache;
 
-    /**
-     * Inventory of this block.
-     */
-    public final ItemStack[] mInventory;
+    public final ItemStack[] inventory;
 
-    /**
-     * Internal name of this block, mainly used for localization keys.
-     */
-    public final String mName;
+    public final String name;
 
-    /**
-     * While this is set to false, lag caused by this block won't be reported to console. Use it while the block is
-     * intentionally doing something that lags, such as scanning multiple chunks or file IO. Don't forget to set it back
-     * to true on the next tick.
-     */
     public boolean doTickProfilingInThisTick = true;
 
-    /**
-     * For debugging how many sounds get requested to be played in given time.
-     */
-    public long mSoundRequests = 0;
+    public long soundRequests = 0;
 
-    protected CommonMTE(int id, String basicName, int invSlotCount) {
-        if (GregTechAPI.sPostloadStarted || !GregTechAPI.sPreloadStarted)
-            throw new IllegalAccessError("This Constructor has to be called in the load Phase");
-        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id] == null) {
-            GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id] = this;
+    protected IMTE[] mteArray;
+
+    protected CommonMTE(int id, String basicName, int invSlotCount, IMTE[] mteArray) {
+        if (mteArray[id] == null) {
+            mteArray[id] = this;
+            this.mteArray = mteArray;
         } else {
-            var existing = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[id];
+            var existing = mteArray[id];
             throw new IllegalArgumentException(
                 "MetaTileEntity id " + id
                     + " is already occupied! Existing MTE is "
@@ -98,14 +81,14 @@ public abstract class CommonMTE implements IMTE {
                         .getCanonicalName()
                     + ").");
         }
-        mInventory = new ItemStack[invSlotCount];
-        mName = basicName.replace(" ", "_")
+        inventory = new ItemStack[invSlotCount];
+        name = basicName.replace(" ", "_")
             .toLowerCase(Locale.ENGLISH);
     }
 
     protected CommonMTE(String name, int invSlotCount) {
-        mInventory = new ItemStack[invSlotCount];
-        mName = name;
+        inventory = new ItemStack[invSlotCount];
+        this.name = name;
     }
 
     /**
@@ -192,8 +175,7 @@ public abstract class CommonMTE implements IMTE {
      * Called when a player right-clicks this block. Shift-right-clicks will not get passed to this!
      */
     @Override
-    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
-                                float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
         return false;
     }
 
@@ -229,7 +211,7 @@ public abstract class CommonMTE implements IMTE {
         if (!getGTE().isMuffled()) {
             getGTE().sendBlockEvent(GregTechTileClientEvents.START_SOUND_LOOP, index);
         }
-        mSoundRequests++;
+        soundRequests++;
     }
 
     @Override
@@ -265,8 +247,7 @@ public abstract class CommonMTE implements IMTE {
     }
 
     @Override
-    public ArrayList<String> getSpecialDebugInfo(IGTE gte, EntityPlayer player, int logLevel,
-                                                 ArrayList<String> list) {
+    public ArrayList<String> getSpecialDebugInfo(IGTE gte, EntityPlayer player, int logLevel, ArrayList<String> list) {
         return list;
     }
 
@@ -363,13 +344,13 @@ public abstract class CommonMTE implements IMTE {
 
     @Override
     public int getSizeInventory() {
-        return mInventory.length;
+        return inventory.length;
     }
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        if (index >= 0 && index < mInventory.length) {
-            return mInventory[index];
+        if (index >= 0 && index < inventory.length) {
+            return inventory[index];
         }
         return null;
     }
@@ -380,7 +361,7 @@ public abstract class CommonMTE implements IMTE {
      * @return the first ItemStack in the bus
      */
     public ItemStack getFirstStack() {
-        for (int index = 0; index < mInventory.length; index++) {
+        for (int index = 0; index < inventory.length; index++) {
             ItemStack stackInSlot = getStackInSlot(index);
             if (stackInSlot != null) {
                 return stackInSlot;
@@ -391,8 +372,8 @@ public abstract class CommonMTE implements IMTE {
 
     @Override
     public void setInventorySlotContents(int index, ItemStack itemStack) {
-        if (index >= 0 && index < mInventory.length) {
-            mInventory[index] = itemStack;
+        if (index >= 0 && index < inventory.length) {
+            inventory[index] = itemStack;
         }
         markDirty();
     }
@@ -451,15 +432,15 @@ public abstract class CommonMTE implements IMTE {
     @Override
     public boolean canInsertItem(int index, ItemStack itemStack, int ordinalSide) {
         return isValidSlot(index) && itemStack != null
-            && index < mInventory.length
-            && (mInventory[index] == null || GTUtility.areStacksEqual(itemStack, mInventory[index]))
+            && index < inventory.length
+            && (inventory[index] == null || GTUtility.areStacksEqual(itemStack, inventory[index]))
             && allowPutStack(getGTE(), index, ForgeDirection.getOrientation(ordinalSide), itemStack);
     }
 
     @Override
     public boolean canExtractItem(int index, ItemStack itemStack, int ordinalSide) {
         return isValidSlot(index) && itemStack != null
-            && index < mInventory.length
+            && index < inventory.length
             && allowPullStack(getGTE(), index, ForgeDirection.getOrientation(ordinalSide), itemStack);
     }
 
@@ -514,7 +495,7 @@ public abstract class CommonMTE implements IMTE {
 
     @Override
     public String getMetaName() {
-        return mName;
+        return name;
     }
 
     @Override
@@ -545,7 +526,7 @@ public abstract class CommonMTE implements IMTE {
 
     @Override
     public ItemStack[] getRealInventory() {
-        return mInventory;
+        return inventory;
     }
 
     @Override
@@ -667,7 +648,7 @@ public abstract class CommonMTE implements IMTE {
 
     @Override
     public final String getGuiId() {
-        return mName;
+        return name;
     }
 
     /**

@@ -15,14 +15,14 @@ import gregtech.api.util.GTSplit;
 @IMTE.SkipGenerateDescription
 public class MTEHatchEnergy extends MTEHatch {
 
-    public MTEHatchEnergy(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 0, (String) null);
+    public MTEHatchEnergy(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 0, (String) null, mteArray);
     }
 
     @SuppressWarnings("unused") // needed in an addon
     public MTEHatchEnergy(int aID, String aName, String aNameRegional, int aTier, int aInventorySize,
-        String[] aDescriptionArray) {
-        super(aID, aName, aNameRegional, aTier, aInventorySize, aDescriptionArray);
+        String[] aDescriptionArray, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, aInventorySize, aDescriptionArray, mteArray);
     }
 
     public MTEHatchEnergy(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -80,7 +80,7 @@ public class MTEHatchEnergy extends MTEHatch {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchEnergy(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchEnergy(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

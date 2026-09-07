@@ -5,15 +5,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 
 public abstract class MTESpecialFilter extends MTEFilterBase {
 
     private boolean allowNbt = false;
 
-    public MTESpecialFilter(int aID, String aName, String aNameRegional, int aTier, String[] aDescription) {
+    public MTESpecialFilter(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
+        IMTE[] mteArray) {
         // 9 buffer slot, 1 representation slot, 1 holo slot. last seems not needed...
-        super(aID, aName, aNameRegional, aTier, 11, aDescription);
+        super(aID, aName, aNameRegional, aTier, 11, aDescription, mteArray);
     }
 
     public MTESpecialFilter(String aName, int aTier, int aInvSlotCount, String[] aDescription,

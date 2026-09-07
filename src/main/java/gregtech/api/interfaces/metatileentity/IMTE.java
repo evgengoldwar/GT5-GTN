@@ -32,8 +32,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Dyes;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.modularui.IGetGUITextureSet;
-import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGregtechWailaProvider;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.render.ISBRInventoryContext;
@@ -152,8 +152,7 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
 
     boolean doTickProfilingMessageDuringThisTick();
 
-    ArrayList<String> getSpecialDebugInfo(IGTE gte, EntityPlayer player, int logLevel,
-                                          ArrayList<String> aList);
+    ArrayList<String> getSpecialDebugInfo(IGTE gte, EntityPlayer player, int logLevel, ArrayList<String> aList);
 
     String[] getDescription();
 
@@ -167,8 +166,8 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
 
     String getSpecialVoltageToolTip();
 
-    ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
-                          boolean active, boolean redstoneLevel);
+    ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex, boolean active,
+        boolean redstoneLevel);
 
     @SideOnly(Side.CLIENT)
     void registerIcons(IIconRegister iconRegister);

@@ -14,8 +14,9 @@ import gregtech.api.util.GTSplit;
 @IMTE.SkipGenerateDescription
 public class MTEBasicHull extends MTEBasicTank {
 
-    public MTEBasicHull(int aID, String aName, String aNameRegional, int aTier, ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aTier, 1, (String) null, aTextures);
+    public MTEBasicHull(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray,
+        ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aTier, 1, (String) null, mteArray, aTextures);
     }
 
     public MTEBasicHull(String aName, int aTier, int aInvSlotCount, String[] aDescription, ITexture[][][] aTextures) {
@@ -24,7 +25,7 @@ public class MTEBasicHull extends MTEBasicTank {
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEBasicHull(mName, mTier, mInventory.length, mDescriptionArray, mTextures);
+        return new MTEBasicHull(name, mTier, inventory.length, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class MTEBasicHull extends MTEBasicTank {
 
     @Override
     public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
-                                 boolean aConnected, boolean redstoneLevel) {
+        boolean aConnected, boolean redstoneLevel) {
         return mTextures[Math.min(2, side.ordinal()) + (side == aFacing ? 3 : 0)][colorIndex + 1];
     }
 

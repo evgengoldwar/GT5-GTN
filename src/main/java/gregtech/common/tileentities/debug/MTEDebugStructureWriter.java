@@ -29,6 +29,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
@@ -45,8 +46,8 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
     private boolean showHighlightBox = true;
     private String[] result = new String[] { translateToLocal("GT5U.infodata.undefined") };
 
-    public MTEDebugStructureWriter(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 0, "");
+    public MTEDebugStructureWriter(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 0, "", mteArray);
     }
 
     public MTEDebugStructureWriter(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -79,12 +80,12 @@ public class MTEDebugStructureWriter extends MTETieredMachineBlock {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEDebugStructureWriter(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEDebugStructureWriter(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection,
-                                 int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, ForgeDirection facingDirection, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         return new ITexture[] {
             Textures.BlockIcons.MACHINE_CASINGS[mTier][colorIndex + 1], sideDirection != facingDirection
                 ? TextureFactory.of(

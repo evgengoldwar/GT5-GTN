@@ -49,6 +49,7 @@ import appeng.api.storage.data.IItemList;
 import gregtech.api.enums.GTValues;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
@@ -68,7 +69,7 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
 
     private int lastTrueCount;
 
-    public MTEDigitalChestBase(int aID, String aName, String aNameRegional, int aTier) {
+    public MTEDigitalChestBase(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
         super(
             aID,
             aName,
@@ -76,7 +77,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
             aTier,
             3,
             new String[] { "Stores " + formatNumber(commonSizeCompute(aTier)) + " items", "Use a screwdriver to enable",
-                "voiding items on overflow", "Will keep its contents when harvested", });
+                "voiding items on overflow", "Will keep its contents when harvested", },
+            mteArray);
     }
 
     protected static int commonSizeCompute(int tier) {
@@ -175,12 +177,12 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
 
     @Override
     public ItemStack getExtraItemStack() {
-        return mInventory[1];
+        return inventory[1];
     }
 
     @Override
     public void setExtraItemStack(ItemStack stack) {
-        mInventory[1] = stack;
+        inventory[1] = stack;
     }
 
     @Override
@@ -236,47 +238,47 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
                 setItemStack(null);
                 setItemCount(0);
             }
-            if (getItemStack() == null && mInventory[0] != null) {
-                setItemStack(mInventory[0].copy());
+            if (getItemStack() == null && inventory[0] != null) {
+                setItemStack(inventory[0].copy());
             }
             int count = getItemCount();
             ItemStack stack = getItemStack();
             int savedCount = count;
             final int availableSpace = mVoidOverflow ? getMaxItemCount() : getMaxItemCount() - savedCount;
 
-            if ((mInventory[0] != null) && availableSpace > 0 && GTUtility.areStacksEqual(mInventory[0], stack)) {
-                final int stackToMove = Math.min(mInventory[0].stackSize, availableSpace);
+            if ((inventory[0] != null) && availableSpace > 0 && GTUtility.areStacksEqual(inventory[0], stack)) {
+                final int stackToMove = Math.min(inventory[0].stackSize, availableSpace);
                 count = (int) Math.min((long) count + stackToMove, getMaxItemCount());
-                mInventory[0].stackSize -= stackToMove;
-                if (mInventory[0].stackSize <= 0) {
-                    mInventory[0] = null;
+                inventory[0].stackSize -= stackToMove;
+                if (inventory[0].stackSize <= 0) {
+                    inventory[0] = null;
                 }
             }
-            if (mInventory[1] == null && stack != null) {
-                mInventory[1] = stack.copy();
-                mInventory[1].stackSize = Math.min(stack.getMaxStackSize(), count);
-                count -= mInventory[1].stackSize;
-            } else if ((count > 0) && GTUtility.areStacksEqual(mInventory[1], stack)
-                && mInventory[1].getMaxStackSize() > mInventory[1].stackSize) {
-                    int tmp = Math.min(count, mInventory[1].getMaxStackSize() - mInventory[1].stackSize);
-                    mInventory[1].stackSize += tmp;
+            if (inventory[1] == null && stack != null) {
+                inventory[1] = stack.copy();
+                inventory[1].stackSize = Math.min(stack.getMaxStackSize(), count);
+                count -= inventory[1].stackSize;
+            } else if ((count > 0) && GTUtility.areStacksEqual(inventory[1], stack)
+                && inventory[1].getMaxStackSize() > inventory[1].stackSize) {
+                    int tmp = Math.min(count, inventory[1].getMaxStackSize() - inventory[1].stackSize);
+                    inventory[1].stackSize += tmp;
                     count -= tmp;
                 }
             setItemCount(count);
             if (stack != null) {
-                mInventory[2] = stack.copy();
-                mInventory[2].stackSize = Math.min(stack.getMaxStackSize(), count);
+                inventory[2] = stack.copy();
+                inventory[2].stackSize = Math.min(stack.getMaxStackSize(), count);
             } else {
-                mInventory[2] = null;
+                inventory[2] = null;
             }
 
             int extraCount = 0;
-            if (mInventory[1] != null) {
-                if (GTUtility.areStacksEqual(mInventory[1], stack)) {
-                    extraCount = mInventory[1].stackSize;
+            if (inventory[1] != null) {
+                if (GTUtility.areStacksEqual(inventory[1], stack)) {
+                    extraCount = inventory[1].stackSize;
                 } else if (stack == null || stack.stackSize <= 0) {
-                    extraCount = mInventory[1].stackSize;
-                    stack = mInventory[1];
+                    extraCount = inventory[1].stackSize;
+                    stack = inventory[1];
                 }
             }
 
@@ -305,8 +307,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
 
     @Override
     public int getProgresstime() {
-        return getItemCount() + (mInventory[0] == null ? 0 : mInventory[0].stackSize)
-            + (mInventory[1] == null ? 0 : mInventory[1].stackSize);
+        return getItemCount() + (inventory[0] == null ? 0 : inventory[0].stackSize)
+            + (inventory[1] == null ? 0 : inventory[1].stackSize);
     }
 
     @Override
@@ -345,7 +347,7 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
 
     @Override
     public ItemStack[] getStoredItemData() {
-        return mInventory;
+        return inventory;
     }
 
     protected abstract String localizedChestName();
@@ -366,8 +368,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
         mVoidOverflow = nbt.getBoolean("mVoidOverflow");
         mDisableFilter = nbt.getBoolean("mDisableFilter");
         lastTrueCount = getItemCount();
-        if (GTUtility.areStacksEqual(getItemStack(), mInventory[1])) {
-            lastTrueCount += mInventory[1].stackSize;
+        if (GTUtility.areStacksEqual(getItemStack(), inventory[1])) {
+            lastTrueCount += inventory[1].stackSize;
         }
     }
 
@@ -381,9 +383,9 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
         if (GTValues.disableDigitalChestsExternalAccess && meInventoryHandler.hasActiveMEConnection()) return false;
         if (index != 0) return false;
-        if ((mInventory[0] != null && !GTUtility.areStacksEqual(mInventory[0], itemStack))) return false;
+        if ((inventory[0] != null && !GTUtility.areStacksEqual(inventory[0], itemStack))) return false;
         if (mDisableFilter) return true;
-        if (getItemStack() == null) return mInventory[1] == null || GTUtility.areStacksEqual(mInventory[1], itemStack);
+        if (getItemStack() == null) return inventory[1] == null || GTUtility.areStacksEqual(inventory[1], itemStack);
         return GTUtility.areStacksEqual(getItemStack(), itemStack);
     }
 
@@ -403,8 +405,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex,
-                                 boolean aActive, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection aFacing, int colorIndex, boolean aActive,
+        boolean redstoneLevel) {
         if (side != aFacing) return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1] };
         return new ITexture[] { MACHINE_CASINGS[mTier][colorIndex + 1], TextureFactory.of(OVERLAY_SCHEST),
             TextureFactory.builder()
@@ -440,8 +442,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
         ItemStack is = getItemStack();
         if (GTUtility.isStackInvalid(is)) return;
         long realItemCount = getItemCount();
-        if (GTUtility.isStackValid(mInventory[1]) && GTUtility.areStacksEqual(mInventory[1], is))
-            realItemCount += mInventory[1].stackSize;
+        if (GTUtility.isStackValid(inventory[1]) && GTUtility.areStacksEqual(inventory[1], is))
+            realItemCount += inventory[1].stackSize;
         tag.setLong("itemCount", realItemCount);
         tag.setTag("itemType", is.writeToNBT(new NBTTagCompound()));
     }
@@ -513,7 +515,7 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
                         return GTUtility.copyAmountUnsafe(getItemCount(), getItemStack());
                     }
                     case 1 -> {
-                        return GTUtility.copy(mInventory[1]);
+                        return GTUtility.copy(inventory[1]);
                     }
                     default -> {
                         return null;
@@ -551,7 +553,7 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
                         return extracted;
                     }
                     case 1 -> {
-                        ItemStack inSlot = mInventory[1];
+                        ItemStack inSlot = inventory[1];
 
                         if (inSlot == null) return null;
 
@@ -585,7 +587,7 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
                 if (getCurrentSlot() == 1) {
                     int max = getStackSizeLimit(1, stack.toStackFast());
 
-                    ItemStack stored = mInventory[1];
+                    ItemStack stored = inventory[1];
 
                     if (!ItemUtil.isStackEmpty(stored) && !stack.matches(stored)) {
                         return remaining;
@@ -596,9 +598,9 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
                     int toInsert = Math.min(stack.getStackSize(), max - storedAmount);
 
                     if (!simulated) {
-                        if (stored == null) mInventory[1] = stack.toStackFast(0);
+                        if (stored == null) inventory[1] = stack.toStackFast(0);
 
-                        mInventory[1].stackSize += toInsert;
+                        inventory[1].stackSize += toInsert;
                     }
                     remaining -= toInsert;
                 }

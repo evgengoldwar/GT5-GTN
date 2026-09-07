@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.ISecondaryDescribable;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 
@@ -28,8 +29,8 @@ public abstract class MTETooltipMultiBlockBase extends MTEMultiBlockBase impleme
         }
     }
 
-    public MTETooltipMultiBlockBase(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional);
+    public MTETooltipMultiBlockBase(int aID, String aName, String aNameRegional, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, mteArray);
     }
 
     public MTETooltipMultiBlockBase(String aName) {

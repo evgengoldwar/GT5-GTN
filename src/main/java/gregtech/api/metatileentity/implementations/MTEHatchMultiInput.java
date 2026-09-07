@@ -30,8 +30,8 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     private final FluidStackTank[] fluidTanks;
     public final int mCapacityPer;
 
-    public MTEHatchMultiInput(int aID, int aSlot, String aName, String aNameRegional, int aTier) {
-        super(aID, aSlot, aName, aNameRegional, aTier);
+    public MTEHatchMultiInput(int aID, int aSlot, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aSlot, aName, aNameRegional, aTier, mteArray);
         this.mStoredFluid = new FluidStack[aSlot];
         fluidTanks = new FluidStackTank[aSlot];
         mCapacityPer = getCapacityPerTank(aTier, aSlot);
@@ -76,7 +76,7 @@ public class MTEHatchMultiInput extends MTEHatchInput {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchMultiInput(mName, getMaxType(), mTier, mDescriptionArray, mTextures);
+        return new MTEHatchMultiInput(name, getMaxType(), mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -312,7 +312,7 @@ public class MTEHatchMultiInput extends MTEHatchInput {
 
     @Override
     public String[] getDescription() {
-        final int slots = mInventory.length;
+        final int slots = inventory.length;
         return GTSplit.splitLocalizedFormatted(
             "gt.blockmachines.input_hatch_multislot.desc",
             formatNumber(getCapacityPerTank(mTier, slots)),

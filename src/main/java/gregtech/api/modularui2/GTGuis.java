@@ -32,8 +32,8 @@ public final class GTGuis {
      *
      * @see GTBaseGuiBuilder
      */
-    public static GTBaseGuiBuilder mteTemplatePanelBuilder(IMTE mte, PosGuiData data,
-                                                           PanelSyncManager syncManager, UISettings uiSettings) {
+    public static GTBaseGuiBuilder mteTemplatePanelBuilder(IMTE mte, PosGuiData data, PanelSyncManager syncManager,
+        UISettings uiSettings) {
         return new GTBaseGuiBuilder(mte, data, syncManager, uiSettings);
     }
 

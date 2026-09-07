@@ -31,8 +31,8 @@ import gregtech.common.gui.modularui.hatch.MTEHatchVoidGui;
 @IMTE.SkipGenerateDescription
 public class MTEHatchVoid extends MTEHatchOutput implements IOutputHatch {
 
-    public MTEHatchVoid(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional, 1, null, 1);
+    public MTEHatchVoid(int aID, String aName, String aNameRegional, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, 1, null, 1, mteArray);
     }
 
     public MTEHatchVoid(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -51,7 +51,7 @@ public class MTEHatchVoid extends MTEHatchOutput implements IOutputHatch {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchVoid(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchVoid(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

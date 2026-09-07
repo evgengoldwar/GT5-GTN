@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.google.common.collect.Iterables;
 
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -27,8 +28,8 @@ public abstract class MTEExtendedPowerMultiBlockBase<T extends MTEEnhancedMultiB
 
     public long lEUt;
 
-    protected MTEExtendedPowerMultiBlockBase(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional);
+    protected MTEExtendedPowerMultiBlockBase(int aID, String aName, String aNameRegional, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, mteArray);
     }
 
     protected MTEExtendedPowerMultiBlockBase(String aName) {

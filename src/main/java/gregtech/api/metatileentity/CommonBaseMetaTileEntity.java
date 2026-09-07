@@ -48,8 +48,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 
-public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity
-    implements IGTE, IInterfaceNameProvider {
+public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity implements IGTE, IInterfaceNameProvider {
 
     // mNeedsUpdate: Client only, mark the block for rerender
     // mNeedsTileUpdate: Server only, mark the block for sync using `S35PacketUpdateTileEntity`

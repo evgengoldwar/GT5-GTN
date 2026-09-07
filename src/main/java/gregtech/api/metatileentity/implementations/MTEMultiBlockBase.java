@@ -251,8 +251,8 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     protected static final byte INTERRUPT_SOUND_INDEX = 8;
     protected static final byte PROCESS_START_SOUND_INDEX = 1;
 
-    public MTEMultiBlockBase(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional, 2);
+    public MTEMultiBlockBase(int aID, String aName, String aNameRegional, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, 2, mteArray);
         this.processingLogic = null;
         MTEMultiBlockBase.disableMaintenance = MachineStats.machines.disableMaintenanceChecks;
         this.damageFactorLow = MachineStats.machines.damageFactorLow;
@@ -540,7 +540,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         if ((mStructureChanged || aForceReset)) {
             clearHatches();
             structureErrors.clear();
-            checkMachine(aBaseMetaTileEntity, mInventory[1], structureErrors);
+            checkMachine(aBaseMetaTileEntity, inventory[1], structureErrors);
             mMachine = structureErrors.isEmpty();
 
             onStructureCheckFinished(aBaseMetaTileEntity);
@@ -559,7 +559,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
      */
     protected final boolean checkMachine_TT(IGTE aBaseMetaTileEntity) {
         structureErrors.clear();
-        checkMachine(aBaseMetaTileEntity, mInventory[1], structureErrors);
+        checkMachine(aBaseMetaTileEntity, inventory[1], structureErrors);
         return structureErrors.isEmpty();
     }
 
@@ -771,7 +771,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
     protected void runMachine(IGTE aBaseMetaTileEntity, long aTick) {
         if (mMaxProgresstime > 0 && doRandomMaintenanceDamage()) {
-            if (onRunningTick(mInventory[1])) {
+            if (onRunningTick(inventory[1])) {
                 markDirty();
                 if (mMaxProgresstime > 0) {
                     incrementProgressTime();
@@ -972,7 +972,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     public CheckRecipeResult checkProcessing() {
         // If no logic is found, try legacy checkRecipe
         if (processingLogic == null) {
-            return checkRecipe(mInventory[1]) ? CheckRecipeResultRegistry.SUCCESSFUL
+            return checkRecipe(inventory[1]) ? CheckRecipeResultRegistry.SUCCESSFUL
                 : CheckRecipeResultRegistry.NO_RECIPE;
         }
 
@@ -1325,8 +1325,8 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
             if (shouldCheckMaintenance() && getGTE().getRandomNumber(6000) == 0) {
                 causeMaintenanceIssue();
             }
-            if (mInventory[1] != null && getGTE().getRandomNumber(2) == 0
-                && !mInventory[1].getUnlocalizedName()
+            if (inventory[1] != null && getGTE().getRandomNumber(2) == 0
+                && !inventory[1].getUnlocalizedName()
                     .startsWith("gt.blockmachines.basicmachine.")) {}
         }
         return true;
@@ -1347,7 +1347,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
         GTLog.writeExplosionLog(this, "MultiBlockExplosion");
 
-        mInventory[1] = null;
+        inventory[1] = null;
         // noinspection unchecked // In this case, the inspection only indicates that the array can be abused in runtime
         Iterable<MetaTileEntity> allHatches = Iterables.concat(
             mInputBusses,
@@ -2805,7 +2805,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     public ItemStack getControllerSlot() {
-        return mInventory[getControllerSlotIndex()];
+        return inventory[getControllerSlotIndex()];
     }
 
     public final int getControllerSlotIndex() {

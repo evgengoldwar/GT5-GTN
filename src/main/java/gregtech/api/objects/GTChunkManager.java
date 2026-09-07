@@ -72,10 +72,9 @@ public class GTChunkManager implements OrderedLoadingCallback, PlayerOrderedLoad
                         ForgeChunkManager.forceChunk(ticket, new ChunkCoordIntPair(x >> 4, z >> 4));
                         if (!registeredTickets.containsKey(tile)) {
                             registeredTickets.put(tile, ticket);
-                            if (((IGTE) tile).getMetaTileEntity() instanceof IChunkLoader)
-                                ForgeChunkManager.forceChunk(
-                                    ticket,
-                                    ((IChunkLoader) ((IGTE) tile).getMetaTileEntity()).getActiveChunk());
+                            if (((IGTE) tile).getMetaTileEntity() instanceof IChunkLoader) ForgeChunkManager.forceChunk(
+                                ticket,
+                                ((IChunkLoader) ((IGTE) tile).getMetaTileEntity()).getActiveChunk());
                             validTickets.add(ticket);
                         }
                     }

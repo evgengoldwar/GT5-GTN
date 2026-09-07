@@ -23,8 +23,8 @@ import gregtech.common.gui.modularui.hatch.MTEHatchEnergyDebugGui;
 @IMTE.SkipGenerateDescription
 public class MTEHatchEnergyDebug extends MTEHatchEnergy {
 
-    public MTEHatchEnergyDebug(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier);
+    public MTEHatchEnergyDebug(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, mteArray);
     }
 
     public MTEHatchEnergyDebug(String aName, byte aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -53,7 +53,7 @@ public class MTEHatchEnergyDebug extends MTEHatchEnergy {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchEnergyDebug(mName, mTier, new String[] { "" }, mTextures);
+        return new MTEHatchEnergyDebug(name, mTier, new String[] { "" }, mTextures);
     }
 
     @Override

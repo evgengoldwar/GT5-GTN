@@ -20,8 +20,7 @@ public class MachineModularSlot extends ModularSlot {
             (_, _, client, init) -> { if (!client && !init) baseMetaTileEntity.markInventoryBeenModified(); });
     }
 
-    public static BiFunction<IItemHandler, Integer, MachineModularSlot> supplier(
-        IGTE baseMetaTileEntity) {
+    public static BiFunction<IItemHandler, Integer, MachineModularSlot> supplier(IGTE baseMetaTileEntity) {
         return (itemHandler, index) -> new MachineModularSlot(itemHandler, index, baseMetaTileEntity);
     }
 }

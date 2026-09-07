@@ -36,8 +36,8 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 @IMTE.SkipGenerateDescription
 public class MTETransformer extends MTETieredMachineBlock {
 
-    public MTETransformer(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 0, (String) null);
+    public MTETransformer(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 0, (String) null, mteArray);
     }
 
     public MTETransformer(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -77,15 +77,15 @@ public class MTETransformer extends MTETieredMachineBlock {
     }
 
     @Override
-    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facingDirection,
-                                 int colorIndex, boolean active, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facingDirection, int colorIndex,
+        boolean active, boolean redstoneLevel) {
         return mTextures[Math.min(2, side.ordinal()) + (side == facingDirection ? 3 : 0)
             + (gte.isAllowedToWork() ? 0 : 6)][colorIndex + 1];
     }
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTETransformer(mName, mTier, mDescriptionArray, mTextures);
+        return new MTETransformer(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

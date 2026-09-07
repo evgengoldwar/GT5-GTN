@@ -68,8 +68,8 @@ import gregtech.api.interfaces.INonConsumedItemDisplay;
 import gregtech.api.interfaces.IPhysicalCircuitDisplay;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.metatileentity.Hatch.IHatchWatcher;
 import gregtech.api.metatileentity.Hatch.IRecipeProcessingAwareHatch;
 import gregtech.api.metatileentity.Hatch.ISmartInputHatch;
@@ -126,7 +126,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchInputBusME(mName, autoPullAvailable, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchInputBusME(name, autoPullAvailable, mTier, mDescriptionArray, mTextures);
     }
 
     @Override
@@ -393,8 +393,8 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
                 }
 
                 // Migrate the circuit and manual slots
-                mInventory[0] = oldInventory[SLOT_COUNT * 2];
-                mInventory[1] = oldInventory[SLOT_COUNT * 2 + 1];
+                this.inventory[0] = oldInventory[SLOT_COUNT * 2];
+                this.inventory[1] = oldInventory[SLOT_COUNT * 2 + 1];
 
                 // Migrate the config from the old system (raw item stacks) to the new system (dedicated slot objects)
                 for (int i = 0; i < SLOT_COUNT; i++) {
@@ -467,13 +467,12 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
 
     @Override
     public void updateSlots() {
-        if (mInventory[getManualSlot()] != null && mInventory[getManualSlot()].stackSize <= 0)
-            mInventory[getManualSlot()] = null;
+        if (inventory[getManualSlot()] != null && inventory[getManualSlot()].stackSize <= 0)
+            inventory[getManualSlot()] = null;
     }
 
     @Override
-    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
-                                float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
         if (!(player instanceof EntityPlayerMP)) return super.onRightClick(gte, player, side, x, y, z);
         ItemStack dataStick = player.inventory.getCurrentItem();
         // if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true))
@@ -660,8 +659,8 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
         // Put the circuit + manual slots at the end. The stocked slots come first, then the circuit, then the manual.
         // Since machines reverse this order prior to recipe checks, the actual order is: manual, then circuit, then
         // stocked.
-        if (slotIndex == getCircuitSlot() + virtualSlotOffset) return mInventory[getCircuitSlot()];
-        if (slotIndex == getManualSlot() + virtualSlotOffset) return mInventory[getManualSlot()];
+        if (slotIndex == getCircuitSlot() + virtualSlotOffset) return inventory[getCircuitSlot()];
+        if (slotIndex == getManualSlot() + virtualSlotOffset) return inventory[getManualSlot()];
         if (!processingRecipe) return null;
 
         if (!isAllowedToWork()) {
@@ -1110,11 +1109,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
 
     @Override
     public DimensionalCoord getLocation() {
-        return new DimensionalCoord(
-            getGTE().getWorld(),
-            getGTE().getXCord(),
-            getGTE().getYCord(),
-            getGTE().getZCord());
+        return new DimensionalCoord(getGTE().getWorld(), getGTE().getXCord(), getGTE().getYCord(), getGTE().getZCord());
     }
 
     private IStackWatcher watcher;

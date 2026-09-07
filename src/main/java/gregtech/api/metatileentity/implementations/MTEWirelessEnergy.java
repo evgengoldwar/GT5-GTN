@@ -28,8 +28,8 @@ public class MTEWirelessEnergy extends MTEHatchEnergy {
 
     private UUID owner_uuid;
 
-    public MTEWirelessEnergy(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier);
+    public MTEWirelessEnergy(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, mteArray);
     }
 
     public MTEWirelessEnergy(String aName, byte aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -75,7 +75,7 @@ public class MTEWirelessEnergy extends MTEHatchEnergy {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEWirelessEnergy(mName, mTier, new String[] { "" }, mTextures);
+        return new MTEWirelessEnergy(name, mTier, new String[] { "" }, mTextures);
     }
 
     @Override

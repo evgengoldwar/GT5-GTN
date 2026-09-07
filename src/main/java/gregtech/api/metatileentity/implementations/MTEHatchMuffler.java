@@ -22,13 +22,13 @@ import gregtech.api.util.WorldSpawnedEventBuilder;
 @IMTE.SkipGenerateDescription
 public class MTEHatchMuffler extends MTEHatch {
 
-    public MTEHatchMuffler(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 0, "");
+    public MTEHatchMuffler(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 0, "", mteArray);
     }
 
     public MTEHatchMuffler(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount,
-        String[] aDescription, ITexture... aTextures) {
-        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, aTextures);
+        String[] aDescription, IMTE[] mteArray, ITexture... aTextures) {
+        super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, mteArray, aTextures);
     }
 
     public MTEHatchMuffler(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -73,7 +73,7 @@ public class MTEHatchMuffler extends MTEHatch {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTEHatchMuffler(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEHatchMuffler(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

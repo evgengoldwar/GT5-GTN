@@ -5,13 +5,14 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import net.minecraft.util.EnumChatFormatting;
 
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 
 public class MTESuperTank extends MTEDigitalTankBase {
 
-    public MTESuperTank(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier);
+    public MTESuperTank(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, mteArray);
     }
 
     public MTESuperTank(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -20,7 +21,7 @@ public class MTESuperTank extends MTEDigitalTankBase {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        return new MTESuperTank(mName, mTier, mDescriptionArray, mTextures);
+        return new MTESuperTank(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

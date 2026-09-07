@@ -538,20 +538,20 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
         }
         for (int i = mMetaTileEntity.dechargerSlotStartIndex(), k = mMetaTileEntity.dechargerSlotCount() + i; i
             < k; i++) {
-            if (mMetaTileEntity.mInventory[i] == null || getStoredEU() >= getEUCapacity()) {
+            if (mMetaTileEntity.inventory[i] == null || getStoredEU() >= getEUCapacity()) {
                 continue;
             }
             // electric batteries
-            dischargeItem(mMetaTileEntity.mInventory[i]);
+            dischargeItem(mMetaTileEntity.inventory[i]);
             // consumable, e.g. redstone
-            double ic2Energy = ic2.api.info.Info.itemEnergy.getEnergyValue(mMetaTileEntity.mInventory[i]);
+            double ic2Energy = ic2.api.info.Info.itemEnergy.getEnergyValue(mMetaTileEntity.inventory[i]);
             if (ic2Energy > 0 && getStoredEU() + ic2Energy < getEUCapacity()) {
                 increaseStoredEnergyUnits((long) ic2Energy, false);
-                mMetaTileEntity.mInventory[i].stackSize--;
+                mMetaTileEntity.inventory[i].stackSize--;
                 mInventoryChanged = true;
             }
-            if (mMetaTileEntity.mInventory[i].stackSize <= 0) {
-                mMetaTileEntity.mInventory[i] = null;
+            if (mMetaTileEntity.inventory[i].stackSize <= 0) {
+                mMetaTileEntity.inventory[i] = null;
                 mInventoryChanged = true;
             }
         }
@@ -566,12 +566,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
         }
         for (int i = mMetaTileEntity.rechargerSlotStartIndex(), k = mMetaTileEntity.rechargerSlotCount() + i; i
             < k; i++) {
-            if (getStoredEU() <= 0 || mMetaTileEntity.mInventory[i] == null) {
+            if (getStoredEU() <= 0 || mMetaTileEntity.inventory[i] == null) {
                 continue;
             }
-            chargeItem(mMetaTileEntity.mInventory[i]);
-            if (mMetaTileEntity.mInventory[i].stackSize <= 0) {
-                mMetaTileEntity.mInventory[i] = null;
+            chargeItem(mMetaTileEntity.inventory[i]);
+            if (mMetaTileEntity.inventory[i].stackSize <= 0) {
+                mMetaTileEntity.inventory[i] = null;
                 mInventoryChanged = true;
             }
         }
@@ -759,10 +759,10 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
             tList.add(
                 StatCollector.translateToLocalFormatted(
                     "GT5U.scanner.debug.sound_requests",
-                    formatNumber(mMetaTileEntity.mSoundRequests),
+                    formatNumber(mMetaTileEntity.soundRequests),
                     formatNumber(mTickTimer - mLastCheckTick)));
             mLastCheckTick = mTickTimer;
-            mMetaTileEntity.mSoundRequests = 0;
+            mMetaTileEntity.soundRequests = 0;
         }
         if (aLogLevel > 0) {
             tList.add(

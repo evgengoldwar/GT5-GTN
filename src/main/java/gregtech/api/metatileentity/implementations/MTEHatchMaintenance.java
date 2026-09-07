@@ -41,6 +41,7 @@ import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
@@ -66,13 +67,13 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     public boolean mWrench = false, mScrewdriver = false, mSoftMallet = false, mHardHammer = false,
         mSolderingTool = false, mCrowbar = false, mAuto;
 
-    public MTEHatchMaintenance(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 1, "For maintaining multiblocks");
+    public MTEHatchMaintenance(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 1, "For maintaining multiblocks", mteArray);
         mAuto = false;
     }
 
-    public MTEHatchMaintenance(int aID, String aName, String aNameRegional, int aTier, boolean aAuto) {
-        super(aID, aName, aNameRegional, aTier, 4, "For automatically maintaining multiblocks");
+    public MTEHatchMaintenance(int aID, String aName, String aNameRegional, int aTier, boolean aAuto, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, 4, "For automatically maintaining multiblocks", mteArray);
         mAuto = aAuto;
     }
 
@@ -162,14 +163,12 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
 
     @Override
     public MetaTileEntity newMTE(IGTE gte) {
-        if (gte.getMetaTileID() == 111)
-            return new MTEHatchMaintenance(mName, mTier, mDescriptionArray, mTextures, true);
-        return new MTEHatchMaintenance(mName, mTier, mDescriptionArray, mTextures, false);
+        if (gte.getMetaTileID() == 111) return new MTEHatchMaintenance(name, mTier, mDescriptionArray, mTextures, true);
+        return new MTEHatchMaintenance(name, mTier, mDescriptionArray, mTextures, false);
     }
 
     @Override
-    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y,
-                                float z) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
         if (side == gte.getFrontFacing()) {
             if (gte.isClientSide()) return true;
             // only allow OC robot & dynamism tablet fake player
@@ -199,8 +198,8 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
     }
 
     public void updateSlots() {
-        for (int i = 0; i < mInventory.length; i++)
-            if (mInventory[i] != null && mInventory[i].stackSize <= 0) mInventory[i] = null;
+        for (int i = 0; i < inventory.length; i++)
+            if (inventory[i] != null && inventory[i].stackSize <= 0) inventory[i] = null;
     }
 
     @Override
@@ -308,7 +307,7 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
             if (tStack != null) {
                 amt = tStack.stackSize;
                 boolean temp = true;
-                for (ItemStack aStack : mInventory) {
+                for (ItemStack aStack : inventory) {
                     if ((GTUtility.areUnificationsEqual(aStack, tStack, true)
                         || GTUtility.areUnificationsEqual(GTOreDictUnificator.get(false, aStack), tStack, true))) {
                         amt -= aStack.stackSize;
@@ -326,7 +325,7 @@ public class MTEHatchMaintenance extends MTEHatch implements IAlignment {
             for (ItemStack tStack : mInputs) {
                 if (tStack != null) {
                     amt = tStack.stackSize;
-                    for (ItemStack aStack : mInventory) {
+                    for (ItemStack aStack : inventory) {
                         if ((GTUtility.areUnificationsEqual(aStack, tStack, true)
                             || GTUtility.areUnificationsEqual(GTOreDictUnificator.get(false, aStack), tStack, true))) {
                             if (aStack.stackSize < amt) {

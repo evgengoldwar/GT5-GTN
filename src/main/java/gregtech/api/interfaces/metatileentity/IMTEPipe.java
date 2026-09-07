@@ -19,6 +19,6 @@ public interface IMTEPipe extends IMTE {
      * @param redstoneLevel if the Machine is currently outputting a RedstoneSignal (use this instead of calling
      *                      mBaseMetaTileEntity.mRedstone!!!)
      */
-    ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection side, int facingBitMask,
-                          int colorIndex, boolean active, boolean redstoneLevel);
+    ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection side, int facingBitMask, int colorIndex,
+        boolean active, boolean redstoneLevel);
 }

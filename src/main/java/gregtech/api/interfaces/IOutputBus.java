@@ -1,9 +1,9 @@
 package gregtech.api.interfaces;
 
-import gregtech.api.interfaces.tileentity.IInventory;
 import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.OutputBusType;
+import gregtech.api.interfaces.tileentity.IInventory;
 import gregtech.api.util.GTUtility;
 
 public interface IOutputBus {

@@ -18,8 +18,8 @@ public class MTEWetTransformer extends MTETransformer {
 
     private boolean mHalfMode = false;
 
-    public MTEWetTransformer(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier);
+    public MTEWetTransformer(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+        super(aID, aName, aNameRegional, aTier, mteArray);
     }
 
     public MTEWetTransformer(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -28,7 +28,7 @@ public class MTEWetTransformer extends MTETransformer {
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEWetTransformer(mName, mTier, mDescriptionArray, mTextures);
+        return new MTEWetTransformer(name, mTier, mDescriptionArray, mTextures);
     }
 
     @Override

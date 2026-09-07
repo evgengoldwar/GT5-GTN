@@ -353,8 +353,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
             if (player.isSneaking()) {
                 TileEntity adjTile = pipe.getGTE()
                     .getTileEntityAtSide(oppositeSide);
-                if (adjTile instanceof IGTE gte
-                    && gte.getMetaTileEntity() instanceof MTEFluidPipe adjPipe) {
+                if (adjTile instanceof IGTE gte && gte.getMetaTileEntity() instanceof MTEFluidPipe adjPipe) {
                     adjPipe.mDisableInput |= (byte) side.flag;
                 }
             } else {
