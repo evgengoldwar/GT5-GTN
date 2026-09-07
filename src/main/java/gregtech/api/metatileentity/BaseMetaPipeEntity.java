@@ -64,6 +64,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     private byte oldConnections = 0;
     protected Node node;
     protected NodePath nodePath;
+    private IMTE[] mteArray;
 
     public Node getNode() {
         return node;
@@ -108,6 +109,10 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
         if (meta instanceof MetaPipeEntity) {
             ((MetaPipeEntity) meta).reloadLocks();
         }
+    }
+
+    public BaseMetaPipeEntity(IMTE[] mteArray) {
+        this.mteArray = mteArray;
     }
 
     public BaseMetaPipeEntity() {}
@@ -392,8 +397,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     @Override
     public String getInventoryName() {
         if (canAccessData()) return mMetaTileEntity.getInventoryName();
-        if (GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[mID] != null)
-            return GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[mID].getInventoryName();
+        if (mteArray[mID] != null) return mteArray[mID].getInventoryName();
         return "";
     }
 

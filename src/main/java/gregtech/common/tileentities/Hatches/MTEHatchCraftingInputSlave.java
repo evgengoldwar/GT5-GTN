@@ -255,7 +255,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
         var master = getMaster();
         if (master != null) {
             if (aBaseMetaTileEntity.isServerSide()) {
-                ProxiedMteGui.open(master, player);
+                ProxiedMteGui.open(master, player, mteArray);
             }
             return true;
         }

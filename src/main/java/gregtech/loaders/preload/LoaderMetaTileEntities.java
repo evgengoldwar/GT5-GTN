@@ -3,6 +3,10 @@ package gregtech.loaders.preload;
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.MetaTileEntityIDs.*;
 
+import gregtech.api.GregTechAPI;
+import gregtech.api.enums.ItemList;
+import gregtech.api.metatileentity.implementations.MTEHatchMultiInput;
+
 // TODO Some GT MetaTileEntity registrations are done in load/GT_Loader_MetaTileEntities_Recipes.java due to joint
 // registration+recipe methods, they should be split and brought here to register all in preload.
 
@@ -774,12 +778,16 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         // registerBatteryBuffer4x4();
         // registerWirelessEnergyHatch();
         // registerWetTransformer();
-        // ItemList.Wireless_Hatch_Energy_MAX.set(
-        // new MTEWirelessEnergy(
-        // WIRELESS_HATCH_ENERGY_MAX.ID,
-        // "hatch.wireless.receiver.tier.14",
-        // "MAX Wireless Energy Hatch",
-        // 14, GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES).getStackForm(1L));
+
+        ItemList.Hatch_Input_Multi_2x2_UV.set(
+            new MTEHatchMultiInput(
+                QUADRUPLE_INPUT_HATCHES_UV.ID,
+                4,
+                "hatch.multi.input.tier.05",
+                "Quadruple Input Hatch (UV)",
+                8,
+                GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES).getStackForm(1L));
+
         //
         // ItemList.DebugStructureWriter.set(
         // new MTEDebugStructureWriter(DEBUG_STRUCTURE_WRITER.ID, "debugstructurewriter", "Debug Structure Writer", 5)

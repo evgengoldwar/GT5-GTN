@@ -46,8 +46,8 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
         this.mte = mte;
     }
 
-    public static void open(MetaTileEntity mte, EntityPlayerMP player) {
-        GuiManager.open(GUI, new ProxiedMteGuiData(player, mte), player);
+    public static void open(MetaTileEntity mte, EntityPlayerMP player, IMTE[] mteArray) {
+        GuiManager.open(GUI, new ProxiedMteGuiData(player, mte, mteArray), player);
     }
 
     @SideOnly(Side.CLIENT)
@@ -72,8 +72,9 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
         final private int x;
         final private int y;
         final private int z;
+        private IMTE[] mteArray;
 
-        public ProxiedMteGuiData(EntityPlayer player, MetaTileEntity serverMTE) {
+        public ProxiedMteGuiData(EntityPlayer player, MetaTileEntity serverMTE, IMTE[] mteArray) {
             super(player);
             this.serverMTE = serverMTE;
             IGTE base = serverMTE.getGTE();
@@ -81,6 +82,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
             this.x = base.getXCord();
             this.y = base.getYCord();
             this.z = base.getZCord();
+            this.mteArray = mteArray;
         }
 
         public ProxiedMteGuiData(EntityPlayer player, int mid, int x, int y, int z) {
@@ -126,7 +128,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
                 // On the server, we must sync to the real MTE. A check that the real MTE is supplied.
                 assert NetworkUtils.isClient();
                 // Create empty fake MTE on client
-                BaseMetaTileEntity fakeBase = new BaseMetaTileEntity();
+                BaseMetaTileEntity fakeBase = new BaseMetaTileEntity(data.mteArray);
                 fakeBase.xCoord = data.getX();
                 fakeBase.yCoord = data.getY();
                 fakeBase.zCoord = data.getZ();
