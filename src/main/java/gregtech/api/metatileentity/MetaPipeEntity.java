@@ -35,6 +35,7 @@ import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IConnectable;
@@ -57,17 +58,17 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     private IGTE gte;
 
-    private IMTE[] mteArray;
+    private MTEArrays mteArrays;
 
-    public MetaPipeEntity(int meta, String name, int slotCount, IMTE[] mteArray) {
-        this(meta, name, slotCount, true, mteArray);
+    public MetaPipeEntity(int meta, String name, int slotCount, MTEArrays mteArrays) {
+        this(meta, name, slotCount, true, mteArrays);
     }
 
-    public MetaPipeEntity(int meta, String name, int slotCount, boolean addInfo, IMTE[] mteArray) {
-        super(meta, name, slotCount, mteArray);
+    public MetaPipeEntity(int meta, String name, int slotCount, boolean addInfo, MTEArrays mteArrays) {
+        super(meta, name, slotCount, mteArrays);
         setGTE(new BaseMetaPipeEntity());
         getGTE().setMetaTileID((short) meta);
-        this.mteArray = mteArray;
+        this.mteArrays = mteArrays;
 
         if (addInfo && GTMod.GT.isClientSide()) {
             addInfo(meta);
@@ -103,7 +104,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     @Override
     public String getInventoryName() {
-        IMTE prototype = mteArray[getGTE().getMetaTileID()];
+        IMTE prototype = mteArrays.getMteArray()[getGTE().getMetaTileID()];
         if (prototype != null) {
             return prototype.getLocalName();
         }

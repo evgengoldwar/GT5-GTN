@@ -35,6 +35,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.implementation.items.GTItemSink;
 import gregtech.api.interfaces.ITexture;
@@ -62,12 +63,13 @@ public abstract class CommonMTE implements IMTE {
 
     public long soundRequests = 0;
 
-    protected IMTE[] mteArray;
+    protected MTEArrays mteArrays;
 
-    protected CommonMTE(int meta, String name, int slotCount, IMTE[] mteArray) {
+    protected CommonMTE(int meta, String name, int slotCount, MTEArrays mteArrays) {
+        this.mteArrays = mteArrays;
+        IMTE[] mteArray = mteArrays.getMteArray();
         if (mteArray[meta] == null) {
             mteArray[meta] = this;
-            this.mteArray = mteArray;
         } else {
             var existing = mteArray[meta];
             throw new IllegalArgumentException(
@@ -333,6 +335,7 @@ public abstract class CommonMTE implements IMTE {
 
     @Override
     public String getInventoryName() {
+        IMTE[] mteArray = mteArrays.getMteArray();
         if (mteArray[getGTE().getMetaTileID()] != null) {
             return mteArray[getGTE().getMetaTileID()].getLocalNameKey();
         }
