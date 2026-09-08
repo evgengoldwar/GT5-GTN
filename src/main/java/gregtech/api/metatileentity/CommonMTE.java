@@ -518,8 +518,8 @@ public abstract class CommonMTE implements IMTE {
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB inputAABB,
         List<AxisAlignedBB> outputAABB, Entity collider) {
-        AxisAlignedBB axisalignedbb1 = getCollisionBoundingBoxFromPool(world, x, y, z);
-        if (axisalignedbb1 != null && inputAABB.intersectsWith(axisalignedbb1)) outputAABB.add(axisalignedbb1);
+        AxisAlignedBB alignedBB = getCollisionBoundingBoxFromPool(world, x, y, z);
+        if (alignedBB != null && inputAABB.intersectsWith(alignedBB)) outputAABB.add(alignedBB);
     }
 
     @Override
