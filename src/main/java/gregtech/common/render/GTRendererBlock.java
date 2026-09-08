@@ -30,7 +30,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.GregTechAPI;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.interfaces.IBlockWithTextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
@@ -197,7 +197,15 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
     private IMTE getMTE(Block block, int meta) {
         if (!(block instanceof BlockMachines)) return null;
 
-        return GTUtility.getIndexSafe(GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES, meta);
+        for (MTEArrays mteArray : MTEArrays.values()) {
+            Class<? extends BlockMachines> blockClass = mteArray.getBlockClass();
+            if (block.getClass() == blockClass) {
+                IMTE[] array = mteArray.getMteArray();
+                return GTUtility.getIndexSafe(array, meta);
+            }
+        }
+
+        return null;
     }
 
     @Override
