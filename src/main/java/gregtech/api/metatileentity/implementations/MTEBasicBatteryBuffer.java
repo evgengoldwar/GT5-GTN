@@ -174,8 +174,8 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        openGui(aPlayer);
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        openGui(player);
         return true;
     }
 
@@ -292,29 +292,29 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         NBTTagCompound tag = accessor.getNBTData();
-        currenttip.add(
+        list.add(
             StatCollector.translateToLocalFormatted(
                 "GT5U.waila.energy.stored",
                 formatNumber(tag.getLong("mStored")),
                 formatNumber(tag.getLong("mMax"))));
         long avgIn = tag.getLong("AvgIn");
         long avgOut = tag.getLong("AvgOut");
-        currenttip.add(
+        list.add(
             StatCollector.translateToLocalFormatted(
                 "GT5U.waila.energy.avg_in_with_amperage",
                 formatNumber(avgIn),
                 GTUtility.getAmperageForTier(avgIn, (byte) getInputTier()),
                 GTUtility.getColoredTierNameFromTier((byte) getInputTier())));
-        currenttip.add(
+        list.add(
             StatCollector.translateToLocalFormatted(
                 "GT5U.waila.energy.avg_out_with_amperage",
                 formatNumber(avgOut),
                 GTUtility.getAmperageForTier(avgOut, (byte) getOutputTier()),
                 GTUtility.getColoredTierNameFromTier((byte) getOutputTier())));
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
     }
 
     @Override

@@ -109,7 +109,7 @@ public abstract class MTETieredMachineBlock extends MetaTileEntity {
 
     protected SlotWidget createChargerSlot(int x, int y, String tooltipKey, Object[] tooltipArgs) {
         return (SlotWidget) new SlotWidget(inventoryHandler, rechargerSlotStartIndex()).disableShiftInsert()
-            .setGTTooltip(() -> mTooltipCache.getData(tooltipKey, tooltipArgs))
+            .setGTTooltip(() -> tooltipDataCache.getData(tooltipKey, tooltipArgs))
             .setTooltipShowUpDelay(TOOLTIP_DELAY)
             .setBackground(getGUITextureSet().getItemSlot(), GTUITextures.OVERLAY_SLOT_CHARGER)
             .setPos(x, y);

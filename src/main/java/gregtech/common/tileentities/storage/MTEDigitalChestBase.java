@@ -290,8 +290,8 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        openGui(aPlayer);
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        openGui(player);
         return true;
     }
 
@@ -416,22 +416,22 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
         final NBTTagCompound tag = accessor.getNBTData();
         if (tag.hasKey("itemType", Constants.NBT.TAG_COMPOUND)) {
-            currenttip.add(
+            list.add(
                 StatCollector.translateToLocalFormatted(
                     "GT5U.waila.digital_chest.count",
                     formatNumber(tag.getLong("itemCount"))));
-            currenttip.add(
+            list.add(
                 StatCollector.translateToLocalFormatted(
                     "GT5U.waila.digital_chest.type",
                     ItemStack.loadItemStackFromNBT(tag.getCompoundTag("itemType"))
                         .getDisplayName()));
         } else {
-            currenttip.add(StatCollector.translateToLocal("GT5U.waila.digital_chest.empty"));
+            list.add(StatCollector.translateToLocal("GT5U.waila.digital_chest.empty"));
         }
     }
 

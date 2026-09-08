@@ -285,7 +285,7 @@ public class MTETieredMachineBlockBaseGui<T extends MTETieredMachineBlock> {
     ///
     /// Accounts for extended tooltips shown when shift is held down.
     protected Consumer<RichTooltip> configureTooltip(String key, Object... args) {
-        GTTooltipDataCache.TooltipData data = machine.mTooltipCache.getData(key, args);
+        GTTooltipDataCache.TooltipData data = machine.tooltipDataCache.getData(key, args);
         return addTooltipDataToRichTooltip(() -> data);
     }
 
@@ -296,7 +296,7 @@ public class MTETieredMachineBlockBaseGui<T extends MTETieredMachineBlock> {
     @SafeVarargs
     protected final Consumer<RichTooltip> configureDynamicTooltip(String key, Supplier<Object>... args) {
         return addTooltipDataToRichTooltip(
-            () -> machine.mTooltipCache.getUncachedTooltipData(
+            () -> machine.tooltipDataCache.getUncachedTooltipData(
                 key,
                 Arrays.stream(args)
                     .map(Supplier::get)

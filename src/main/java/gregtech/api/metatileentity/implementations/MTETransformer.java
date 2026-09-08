@@ -197,7 +197,7 @@ public class MTETransformer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         final ForgeDirection facing = getGTE().getFrontFacing();
         final NBTTagCompound tag = accessor.getNBTData();
@@ -207,7 +207,7 @@ public class MTETransformer extends MTETieredMachineBlock {
         final byte inputTier = GTUtility.getTier(tag.getLong("maxEUInput"));
         final byte outputTier = GTUtility.getTier(tag.getLong("maxEUOutput"));
 
-        currenttip.add(
+        list.add(
             String.format(
                 "%s %s(%dA) -> %s(%dA)",
                 (allowedToWork ? (GREEN + StatCollector.translateToLocal("GT5U.waila.transformer.step_down"))
@@ -220,14 +220,14 @@ public class MTETransformer extends MTETieredMachineBlock {
                 tag.getLong("maxAmperesOut")));
 
         if ((side == facing && allowedToWork) || (side != facing && !allowedToWork)) {
-            currenttip.add(
+            list.add(
                 GOLD + StatCollector.translateToLocalFormatted(
                     "GT5U.waila.transformer.input",
                     GTMod.proxy.mWailaTransformerVoltageTier ? GTUtility.getColoredTierNameFromTier(inputTier)
                         : tag.getLong("maxEUInput"),
                     tag.getLong("maxAmperesIn")));
         } else {
-            currenttip.add(
+            list.add(
                 BLUE + StatCollector.translateToLocalFormatted(
                     "GT5U.waila.transformer.output",
                     GTMod.proxy.mWailaTransformerVoltageTier ? GTUtility.getColoredTierNameFromTier(outputTier)
@@ -235,7 +235,7 @@ public class MTETransformer extends MTETieredMachineBlock {
                     tag.getLong("maxAmperesOut")));
         }
 
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
     }
 
     @Override

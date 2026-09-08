@@ -328,8 +328,8 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        openGui(aPlayer);
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        openGui(player);
         return true;
     }
 
@@ -529,15 +529,15 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
 
         NBTTagCompound tag = accessor.getNBTData();
         FluidStack fluid = tag.hasKey("mFluid") ? FluidStack.loadFluidStackFromNBT(tag.getCompoundTag("mFluid")) : null;
         if (fluid != null && fluid.amount >= 0) {
-            currenttip.remove(0);
-            currenttip.add(
+            list.remove(0);
+            list.add(
                 0,
                 SpecialChars.getRenderString(
                     "waila.fluid",
@@ -547,7 +547,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
                     fluid.amount + "",
                     getRealCapacity() + ""));
         } else {
-            currenttip.add(0, StatCollector.translateToLocal("GT5U.waila.digital_tank.empty"));
+            list.add(0, StatCollector.translateToLocal("GT5U.waila.digital_tank.empty"));
         }
     }
 

@@ -888,24 +888,24 @@ public class MTEHatchInputBusME extends MTEHatchInputBus implements IRecipeProce
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         if (!autoPullAvailable) {
-            super.getWailaBody(itemStack, currenttip, accessor, config);
+            super.getWailaBody(itemStack, list, accessor, config);
             return;
         }
 
         NBTTagCompound tag = accessor.getNBTData();
         boolean autopull = tag.getBoolean("autoPull");
         int minSize = tag.getInteger("minStackSize");
-        currenttip.add(
+        list.add(
             StatCollector.translateToLocal("GT5U.waila.stocking_bus.auto_pull." + (autopull ? "enabled" : "disabled")));
         if (autopull) {
-            currenttip.add(
+            list.add(
                 StatCollector
                     .translateToLocalFormatted("GT5U.waila.stocking_bus.min_stack_size", formatNumber(minSize)));
         }
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
     }
 
     @Override

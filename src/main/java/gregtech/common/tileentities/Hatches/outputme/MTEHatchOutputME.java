@@ -197,10 +197,10 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
     EntityPlayer lastClickedPlayer = null;
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        lastClickedPlayer = aPlayer;
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        lastClickedPlayer = player;
 
-        openGui(aPlayer);
+        openGui(player);
 
         return true;
     }
@@ -283,13 +283,13 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getWailaBody(ItemStack itemStack, List<String> ss, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, ss, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
 
         NBTTagCompound tag = accessor.getNBTData();
 
-        ss.add(
+        list.add(
             translateToLocalFormatted(
                 "GT5U.waila.hatch.outputme.fluid_cache_capacity",
                 formatNumber(tag.getLong("cacheCapacity"))));

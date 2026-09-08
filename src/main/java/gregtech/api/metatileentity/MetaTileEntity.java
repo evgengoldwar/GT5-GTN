@@ -34,16 +34,15 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TieredVariant;
 import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.interfaces.ICleanroomReceiver;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
-import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTECable;
-import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTTooltipDataCache;
 import gregtech.api.util.GTUtility;
@@ -54,25 +53,12 @@ import gregtech.mixin.interfaces.accessors.EntityPlayerMPAccessor;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-/**
- * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
- * <p/>
- * Extend this Class to add a new MetaMachine Call the Constructor with the desired ID at the load-phase (not preload
- * and also not postload!) Implement the newMetaEntity-Method to return a new ready instance of your MetaTileEntity
- * <p/>
- * Call the Constructor like the following example inside the Load Phase, to register it. "new MTEFurnace(54,
- * "GT_E_Furnace", "Automatic E-Furnace");"
- */
-@SuppressWarnings("unused")
 public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconProvider {
 
-    /**
-     * Inventory wrapper for ModularUI
-     */
     public final ItemStackHandler inventoryHandler;
 
     protected GUIColorOverride colorOverride;
-    public final GTTooltipDataCache mTooltipCache = new GTTooltipDataCache();
+    public final GTTooltipDataCache tooltipDataCache = new GTTooltipDataCache();
 
     private static final String[] FACING_DIRECTION_NAMES = new String[] { "GT5U.waila.facing.down",
         "GT5U.waila.facing.up", "GT5U.waila.facing.north", "GT5U.waila.facing.south", "GT5U.waila.facing.west",
@@ -85,67 +71,41 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
 
     protected final ICleanroomReceiver cleanroomReference = new CleanroomReference();
 
-    /**
-     * accessibility to this Field is no longer given, see below
-     */
-    private IGTE mBaseMetaTileEntity;
+    private IGTE gte;
 
     private String playerLang;
 
-    /**
-     * This registers your Machine at the List. Use only ID's larger than 2048 - the ones lower are reserved by GT. See
-     * also the list in the API package - it has a description that contains all the reservations.
-     * <p>
-     * The constructor can be overloaded as follows: <blockquote>
-     *
-     * <pre>
-     *
-     * public MTEBench(int id, String name, String nameRegional) {
-     *     super(id, name, nameRegional);
-     * }
-     * </pre>
-     *
-     * </blockquote>
-     *
-     * @param aID the machine ID
-     */
-    public MetaTileEntity(int aID, String aBasicName, String aRegionalName, int aInvSlotCount, IMTE[] mteArray) {
-        super(aID, aBasicName, aInvSlotCount, mteArray);
+    public MetaTileEntity(MTEArrays mteArrays, int meta, String name, int slotCount) {
+        super(mteArrays, meta, name, slotCount);
         setGTE(GregTechAPI.constructBaseMetaTileEntity());
-        getGTE().setMetaTileID((short) aID);
-
-        GTLanguageManager.addStringLocalization("gt.blockmachines." + name + ".name", aRegionalName);
+        getGTE().setMetaTileID((short) meta);
 
         inventoryHandler = new MTEItemStackHandler(inventory, this);
     }
 
-    /**
-     * This is the normal Constructor.
-     */
-    public MetaTileEntity(String aName, int aInvSlotCount) {
-        super(aName, aInvSlotCount);
+    public MetaTileEntity(String name, int slotCount) {
+        super(name, slotCount);
         inventoryHandler = new MTEItemStackHandler(inventory, this);
         colorOverride = GUIColorOverride.get(getGUITextureSet().getMainBackground().location);
     }
 
     @Nullable
     @Override
-    // making this method final allows it to be inlined by the JIT compiler
     public final IGTE getGTE() {
-        return mBaseMetaTileEntity;
+        return gte;
     }
 
     @Override
     public final void setGTE(IGTE gte) {
-        final IGTE oldBase = mBaseMetaTileEntity;
-        if (mBaseMetaTileEntity != null && gte == null) {
-            mBaseMetaTileEntity.getMetaTileEntity()
+        final IGTE oldBase = this.gte;
+        if (this.gte != null && gte == null) {
+            this.gte.getMetaTileEntity()
                 .inValidate();
-            mBaseMetaTileEntity.setMetaTileEntity(null);
+            this.gte.setMetaTileEntity(null);
         }
-        mBaseMetaTileEntity = gte;
-        if (mBaseMetaTileEntity != null) {
-            mBaseMetaTileEntity.setMetaTileEntity(this);
+        this.gte = gte;
+        if (this.gte != null) {
+            this.gte.setMetaTileEntity(this);
         }
         if (oldBase != gte && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
             oldMeta.refreshMetaTileEntityValidity();
@@ -156,13 +116,6 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         return getGTE() != null && getGTE().getMetaTileEntity() == this && !getGTE().isDead();
     }
 
-    /**
-     * Override to delegate capability this machine implements to baseMTE. Don't forget to fall back to
-     * {@code super.getCapability}.
-     *
-     * @see com.gtnewhorizon.gtnhlib.capability.CapabilityProvider CapabilityProvider
-     * @inheritDoc
-     */
     @Nullable
     @Override
     public <T> T getCapability(@NotNull Class<T> capability, @NotNull ForgeDirection side) {
@@ -239,10 +192,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         GTLog.writeExplosionLog(this, "Machine exploded");
     }
 
-    /**
-     * a Player rightclicks the Machine Sneaky rightclicks are not getting passed to this!
-     */
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
         return false;
     }
 
@@ -254,7 +204,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
             }
         }
 
-        return onRightclick(gte, player);
+        return onRightClick(gte, player);
     }
 
     protected String translate(String key) {
@@ -283,199 +233,112 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         return String.format(translate(key), params);
     }
 
-    /**
-     * @return true if this Device emits Energy at all
-     */
     public boolean isElectric() {
         return true;
     }
 
-    /**
-     * @return true if this Device emits Energy at all
-     */
     public boolean isPneumatic() {
         return false;
     }
 
-    /**
-     * @return true if this Device emits Energy at all
-     */
     public boolean isSteampowered() {
         return false;
     }
 
-    /**
-     * @return what type of texture does this machine use for GUI, i.e. Bronze, Steel, or Primitive
-     */
     public TieredVariant getTieredVariant() {
         return TieredVariant.STANDARD;
     }
 
-    /**
-     * @return true if this Device emits Energy at all
-     */
     public boolean isEnetOutput() {
         return false;
     }
 
-    /**
-     * @return true if this Device consumes Energy at all
-     */
     public boolean isEnetInput() {
         return false;
     }
 
-    /**
-     * @return the amount of EU, which can be stored in this Device. Default is 0 EU.
-     */
     public long maxEUStore() {
         return 0;
     }
 
-    /**
-     * @return the amount of EU/t, which can be accepted by this Device before it explodes.
-     */
     public long maxEUInput() {
         return 0;
     }
 
-    /**
-     * @return the amount of EU/t, which can be outputted by this Device.
-     */
     public long maxEUOutput() {
         return 0;
     }
 
-    /**
-     * @return the amount of E-net Impulses of the maxEUOutput size, which can be outputted by this Device. Default is 1
-     *         Pulse, this shouldn't be set to smaller Values than 1, as it won't output anything in that Case!
-     */
     public long maxAmperesOut() {
         return 1;
     }
 
-    /**
-     * How many Amperes this Block can suck at max. Surpassing this value won't blow it up.
-     */
     public long maxAmperesIn() {
         return 1;
     }
 
-    /**
-     * @return true if that Side is an Output.
-     */
     public boolean isOutputFacing(ForgeDirection side) {
         return false;
     }
 
-    /**
-     * @return true if that Side is an Input.
-     */
     public boolean isInputFacing(ForgeDirection side) {
         return false;
     }
 
-    /**
-     * @return true if Transformer Upgrades increase Packet Amount.
-     */
-    public boolean isTransformingLowEnergy() {
-        return true;
-    }
-
-    /**
-     * This is used to get the internal Energy. I use this for the IDSU.
-     */
     public long getEUVar() {
-        return ((BaseMetaTileEntity) mBaseMetaTileEntity).mStoredEnergy;
+        return ((BaseMetaTileEntity) gte).mStoredEnergy;
     }
 
-    /**
-     * This is used to set the internal Energy to the given Parameter. I use this for the IDSU.
-     */
-    public void setEUVar(long aEnergy) {
-        if (aEnergy != ((BaseMetaTileEntity) mBaseMetaTileEntity).mStoredEnergy) {
+    public void setEUVar(long energy) {
+        if (energy != ((BaseMetaTileEntity) gte).mStoredEnergy) {
             markDirty();
-            ((BaseMetaTileEntity) mBaseMetaTileEntity).mStoredEnergy = aEnergy;
+            ((BaseMetaTileEntity) gte).mStoredEnergy = energy;
         }
     }
 
-    /**
-     * This is used to get the internal Steam Energy.
-     */
     public long getSteamVar() {
-        return ((BaseMetaTileEntity) mBaseMetaTileEntity).mStoredSteam;
+        return ((BaseMetaTileEntity) gte).mStoredSteam;
     }
 
-    /**
-     * This is used to set the internal Steam Energy to the given Parameter.
-     */
     public void setSteamVar(long aSteam) {
-        if (((BaseMetaTileEntity) mBaseMetaTileEntity).mStoredSteam != aSteam) {
+        if (((BaseMetaTileEntity) gte).mStoredSteam != aSteam) {
             markDirty();
-            ((BaseMetaTileEntity) mBaseMetaTileEntity).mStoredSteam = aSteam;
+            ((BaseMetaTileEntity) gte).mStoredSteam = aSteam;
         }
     }
 
-    /**
-     * @return the amount of Steam, which can be stored in this Device. Default is 0 EU.
-     */
     public long maxSteamStore() {
         return 0;
     }
 
-    /**
-     * @return the amount of EU, which this Device stores before starting to emit Energy. useful if you don't want to
-     *         emit stored Energy until a certain Level is reached.
-     */
     public long getMinimumStoredEU() {
         return 512;
     }
 
-    /**
-     * Determines the Tier of the Machine, used for de-charging Tools.
-     */
     public long getInputTier() {
         return GTUtility.getTier(getGTE().getInputVoltage());
     }
 
-    /**
-     * Determines the Tier of the Machine, used for charging Tools.
-     */
     public long getOutputTier() {
         return GTUtility.getTier(getGTE().getOutputVoltage());
     }
 
-    /**
-     * gets the first RechargerSlot
-     */
     public int rechargerSlotStartIndex() {
         return 0;
     }
 
-    /**
-     * gets the amount of RechargerSlots
-     */
     public int rechargerSlotCount() {
         return 0;
     }
 
-    /**
-     * gets the first DechargerSlot
-     */
     public int dechargerSlotStartIndex() {
         return 0;
     }
 
-    /**
-     * gets the amount of DechargerSlots
-     */
     public int dechargerSlotCount() {
         return 0;
     }
 
-    /**
-     * gets if this is protected from other Players per default or not
-     */
     public boolean ownerControl() {
         return false;
     }
@@ -490,68 +353,44 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         return true;
     }
 
-    /**
-     * Actual fluid capacity. If your machine has void-overflow feature, you'll want to override this method to make
-     * sure correct capacity is shown on GUI.
-     */
     public int getRealCapacity() {
         return getCapacity();
     }
 
-    /**
-     * When the Facing gets changed.
-     */
-    public void onFacingChange() {
-        /* Do nothing */
-    }
+    public void onFacingChange() {}
 
-    /**
-     * if the IC2 Teleporter can drain from this.
-     */
     public boolean isTeleporterCompatible() {
         return isEnetOutput() && getGTE().getOutputVoltage() >= 128 && getGTE().getUniversalEnergyCapacity() >= 500000;
     }
 
-    /**
-     * Flag if this MTE will exploding when its raining
-     *
-     * @return True if this will explode in rain, else false
-     */
     public boolean willExplodeInRain() {
         return true;
     }
 
     @Override
-    public void setInventorySlotContents(int aIndex, ItemStack aStack) {
+    public void setInventorySlotContents(int index, ItemStack itemStack) {
         if (this instanceof IConfigurationCircuitSupport ccs) {
-            if (ccs.allowSelectCircuit() && aIndex == ccs.getCircuitSlot() && aStack != null) {
-                inventory[aIndex] = GTUtility.copyAmount(0, aStack);
+            if (ccs.allowSelectCircuit() && index == ccs.getCircuitSlot() && itemStack != null) {
+                inventory[index] = GTUtility.copyAmount(0, itemStack);
                 markDirty();
                 return;
             }
         }
-        super.setInventorySlotContents(aIndex, aStack);
-        onContentsChanged(aIndex);
+        super.setInventorySlotContents(index, itemStack);
+        onContentsChanged(index);
     }
 
-    /**
-     * Called when a slot is changed. Note: {@link #setInventorySlotContents} is not called when the player interacts
-     * with a {@link gregtech.api.interfaces.modularui.IAddInventorySlots} slot, nor when items are inserted/extracted
-     * through {@link #getInventoryHandler()} (the path used by the GUI and AE). Marking the tile dirty here makes
-     * {@link IGTE#hasInventoryBeenModified()} reliable across all of those paths, which input hatches
-     * rely on to trigger instant recipe checks.
-     */
     public void onContentsChanged(int slot) {
         markDirty();
     }
 
     @Override
-    public int fill(ForgeDirection side, FluidStack aFluid, boolean doFill) {
-        // if (getBaseMetaTileEntity().isSteampowered() && GTModHandler.isSteam(aFluid) && aFluid.amount > 1) {
+    public int fill(ForgeDirection side, FluidStack fluidStack, boolean doFill) {
+        // if (getBaseMetaTileEntity().isSteampowered() && GTModHandler.isSteam(fluidStack) && fluidStack.amount > 1) {
         // int tSteam = (int) Math.min(
         // Integer.MAX_VALUE,
         // Math.min(
-        // aFluid.amount / 2,
+        // fluidStack.amount / 2,
         // getBaseMetaTileEntity().getSteamCapacity() - getBaseMetaTileEntity().getStoredSteam()));
         // if (tSteam > 0) {
         // markDirty();
@@ -564,8 +403,8 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
 
     @Override
     public void markDirty() {
-        if (mBaseMetaTileEntity != null) {
-            mBaseMetaTileEntity.markDirty();
+        if (gte != null) {
+            gte.markDirty();
         }
     }
 
@@ -642,23 +481,23 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     // === Waila compat ===
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         if (Client.waila.showFacing) {
-            currenttip.add(
+            list.add(
                 StatCollector.translateToLocalFormatted(
                     "GT5U.waila.facing",
                     getFacingNameLocalized(
-                        mBaseMetaTileEntity.getFrontFacing()
+                        gte.getFrontFacing()
                             .ordinal())));
         }
 
-        if (this instanceof IPowerChannelState state) {
+        if (this instanceof IPowerChannelState) {
             final NBTTagCompound tag = accessor.getNBTData();
             final boolean isActive = tag.getBoolean("isActive");
             final boolean isPowered = tag.getBoolean("isPowered");
             final boolean isBooting = tag.getBoolean("isBooting");
-            currenttip.add(WailaText.getPowerState(isActive, isPowered, isBooting));
+            list.add(WailaText.getPowerState(isActive, isPowered, isBooting));
         }
     }
 

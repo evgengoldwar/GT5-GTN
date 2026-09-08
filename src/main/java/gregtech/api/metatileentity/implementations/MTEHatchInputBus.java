@@ -121,8 +121,8 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        openGui(aPlayer);
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        openGui(player);
         return true;
     }
 
@@ -134,12 +134,12 @@ public class MTEHatchInputBus extends MTEHatch
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
         final byte color = (byte) (accessor.getNBTData()
             .getByte("color") - 1);
-        MTEHatch.addColorChannelInfo(currenttip, color);
+        MTEHatch.addColorChannelInfo(list, color);
     }
 
     @Override
@@ -308,14 +308,14 @@ public class MTEHatchInputBus extends MTEHatch
                 () -> !disableSort,
                 val -> disableSort = !val,
                 GTUITextures.OVERLAY_BUTTON_SORTING_MODE,
-                () -> mTooltipCache.getData(SORTING_MODE_TOOLTIP)));
+                () -> tooltipDataCache.getData(SORTING_MODE_TOOLTIP)));
     }
 
     protected void addOneStackLimitButton(ModularWindow.Builder builder) {
         builder.widget(createToggleButton(() -> !disableLimited, val -> {
             disableLimited = !val;
             updateSlots();
-        }, GTUITextures.OVERLAY_BUTTON_ONE_STACK_LIMIT, () -> mTooltipCache.getData(ONE_STACK_LIMIT_TOOLTIP)));
+        }, GTUITextures.OVERLAY_BUTTON_ONE_STACK_LIMIT, () -> tooltipDataCache.getData(ONE_STACK_LIMIT_TOOLTIP)));
     }
 
     @Override

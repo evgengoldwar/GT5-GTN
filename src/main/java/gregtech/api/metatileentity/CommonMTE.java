@@ -65,7 +65,7 @@ public abstract class CommonMTE implements IMTE {
 
     protected MTEArrays mteArrays;
 
-    protected CommonMTE(int meta, String name, int slotCount, MTEArrays mteArrays) {
+    protected CommonMTE(MTEArrays mteArrays, int meta, String name, int slotCount) {
         this.mteArrays = mteArrays;
         IMTE[] mteArray = mteArrays.getMteArray();
         if (mteArray[meta] == null) {

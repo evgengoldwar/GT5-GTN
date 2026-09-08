@@ -130,8 +130,8 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        openGui(aPlayer);
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        openGui(player);
         return true;
     }
 
@@ -143,12 +143,12 @@ public class MTEHatchInput extends MTEHatch implements ISmartInputHatch {
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
         final byte color = (byte) (accessor.getNBTData()
             .getByte("color") - 1);
-        MTEHatch.addColorChannelInfo(currenttip, color);
+        MTEHatch.addColorChannelInfo(list, color);
     }
 
     @Override

@@ -476,19 +476,18 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (GTUtil.hasMultiblockInputConfiguration(aPlayer.getHeldItem())) {
-            if (aBaseMetaTileEntity.isServerSide()) {
-                if (GTUtil.loadMultiblockInputConfiguration(this, aPlayer)) {
-                    aPlayer.addChatComponentMessage(new ChatComponentTranslation("GT5U.MULTI_MACHINE_CONFIG.LOAD"));
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        if (GTUtil.hasMultiblockInputConfiguration(player.getHeldItem())) {
+            if (gte.isServerSide()) {
+                if (GTUtil.loadMultiblockInputConfiguration(this, player)) {
+                    player.addChatComponentMessage(new ChatComponentTranslation("GT5U.MULTI_MACHINE_CONFIG.LOAD"));
                 } else {
-                    aPlayer
-                        .addChatComponentMessage(new ChatComponentTranslation("GT5U.MULTI_MACHINE_CONFIG.LOAD.FAIL"));
+                    player.addChatComponentMessage(new ChatComponentTranslation("GT5U.MULTI_MACHINE_CONFIG.LOAD.FAIL"));
                 }
             }
             return true;
         }
-        openGui(aPlayer);
+        openGui(player);
         return true;
     }
 
@@ -2370,16 +2369,16 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         final NBTTagCompound tag = accessor.getNBTData();
 
         String efficiency = RESET
             + translateToLocalFormatted("GT5U.waila.multiblock.status.efficiency", tag.getFloat("efficiency"));
         if (tag.getBoolean("hasProblems")) {
-            currentTip.add(RED + translateToLocal("GT5U.waila.multiblock.status.has_problem") + efficiency);
+            list.add(RED + translateToLocal("GT5U.waila.multiblock.status.has_problem") + efficiency);
         } else if (!tag.getBoolean("incompleteStructure")) {
-            currentTip.add(GREEN + translateToLocal("GT5U.waila.multiblock.status.running_fine") + efficiency);
+            list.add(GREEN + translateToLocal("GT5U.waila.multiblock.status.running_fine") + efficiency);
         }
 
         boolean isActive = tag.getBoolean("isActive");
@@ -2389,14 +2388,14 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
             long actualEnergyUsage = tag.getLong("energyUsage");
             if (energyTier > 0) {
                 if (actualEnergyUsage > 0) {
-                    currentTip.add(
+                    list.add(
                         translateToLocalFormatted(
                             "GT5U.waila.energy.use_with_amperage",
                             formatNumber(actualEnergyUsage),
                             GTUtility.getAmperageForTier(actualEnergyUsage, (byte) energyTier),
                             GTUtility.getColoredTierNameFromTier((byte) energyTier)));
                 } else if (actualEnergyUsage < 0) {
-                    currentTip.add(
+                    list.add(
                         translateToLocalFormatted(
                             "GT5U.waila.energy.produce_with_amperage",
                             formatNumber(-actualEnergyUsage),
@@ -2405,13 +2404,13 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                 }
             } else {
                 if (actualEnergyUsage > 0) {
-                    currentTip.add(
+                    list.add(
                         translateToLocalFormatted(
                             "GT5U.waila.energy.use",
                             formatNumber(actualEnergyUsage),
                             GTUtility.getColoredTierNameFromVoltage(actualEnergyUsage)));
                 } else if (actualEnergyUsage < 0) {
-                    currentTip.add(
+                    list.add(
                         translateToLocalFormatted(
                             "GT5U.waila.energy.produce",
                             formatNumber(-actualEnergyUsage),
@@ -2425,24 +2424,24 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
 
         if (!isActive && isLockedToRecipe && !lockedRecipe.isEmpty()) {
             // Display locked recipe when the machine is idle
-            currentTip.add(translateToLocal("GT5U.waila.multiblock.status.locked_recipe"));
+            list.add(translateToLocal("GT5U.waila.multiblock.status.locked_recipe"));
             String[] lines = lockedRecipe.split("\n");
-            currentTip.addAll(Arrays.asList(lines));
+            list.addAll(Arrays.asList(lines));
         } else if (isActive) {
             int outputItemLength = tag.getInteger("outputItemLength");
             int outputFluidLength = tag.getInteger("outputFluidLength");
             int totalOutputs = outputItemLength + outputFluidLength;
 
             if (totalOutputs > 0) {
-                currentTip.add(translateToLocal("GT5U.waila.producing"));
+                list.add(translateToLocal("GT5U.waila.producing"));
                 if (isLockedToRecipe) {
-                    currentTip.add(translateToLocal("GT5U.waila.multiblock.status.locked_recipe"));
+                    list.add(translateToLocal("GT5U.waila.multiblock.status.locked_recipe"));
                 }
                 for (int i = 0; i < min(3, outputItemLength); i++) {
                     // Localize on the client: the NBT holds the raw stack, not the display name
                     ItemStack outputStack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("outputItemStack" + i));
                     String itemName = outputStack != null ? outputStack.getDisplayName() : "";
-                    currentTip.add(
+                    list.add(
                         "  " + tag.getString("outputItemIcon" + i)
                             + EnumChatFormatting.AQUA
                             + itemName
@@ -2456,7 +2455,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                     String internalName = tag.getString("outputFluidName" + i);
                     Fluid fluid = FluidRegistry.getFluid(internalName);
                     String fluidName = fluid != null ? new FluidStack(fluid, 1).getLocalizedName() : internalName;
-                    currentTip.add(
+                    list.add(
                         "  " + tag.getString("outputFluidIcon" + i)
                             + EnumChatFormatting.AQUA
                             + fluidName
@@ -2467,12 +2466,12 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                             + "L");
                 }
                 if (totalOutputs > 3) {
-                    currentTip.add(
+                    list.add(
                         translateToLocalFormatted("GT5U.waila.producing.andmore", formatNumber((totalOutputs - 3))));
                 }
             }
         }
-        currentTip.add(
+        list.add(
             GTWaila.getMachineProgressString(
                 isActive,
                 tag.getBoolean("isAllowedToWork"),
@@ -2481,8 +2480,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
         // Show ns on the tooltip
         if (GTMod.proxy.wailaAverageNS && tag.hasKey("averageNS")) {
             int tAverageTime = tag.getInteger("averageNS");
-            currentTip
-                .add(translateToLocalFormatted("GT5U.waila.multiblock.status.cpu_load", formatNumber(tAverageTime)));
+            list.add(translateToLocalFormatted("GT5U.waila.multiblock.status.cpu_load", formatNumber(tAverageTime)));
         }
 
         final int localMaxParallels = tag.getInteger("maxParallelRecipes");
@@ -2499,25 +2497,25 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
                     + localMaxParallels;
             }
 
-            currentTip.add(tooltip);
+            list.add(tooltip);
         }
 
         if (tag.hasKey("mode")) {
-            currentTip.add(
+            list.add(
                 StatCollector.translateToLocal("GT5U.multiblock.runningMode") + " "
                     + EnumChatFormatting.WHITE
                     + tag.getString("mode")
                     + EnumChatFormatting.RESET);
         }
 
-        getExtraWailaBody(itemStack, currentTip, tag, accessor, config);
+        getExtraWailaBody(itemStack, list, tag, accessor, config);
 
         if (tag.getBoolean("incompleteStructure")) {
-            currentTip.clear();
-            currentTip.add(RED + translateToLocalFormatted("GT5U.waila.multiblock.status.incomplete") + RESET);
+            list.clear();
+            list.add(RED + translateToLocalFormatted("GT5U.waila.multiblock.status.incomplete") + RESET);
         }
 
-        super.getWailaBody(itemStack, currentTip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
     }
 
     public final void getMTEWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,

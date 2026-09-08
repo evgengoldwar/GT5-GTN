@@ -492,12 +492,12 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (aBaseMetaTileEntity.isClientSide()) {
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        if (gte.isClientSide()) {
             return true;
         }
 
-        openGui(aPlayer);
+        openGui(player);
         return true;
     }
 
@@ -1173,7 +1173,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         final NBTTagCompound tag = accessor.getNBTData();
         final IGTE gte = getGTE();
@@ -1192,13 +1192,13 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             Comparator.<ItemStack, Boolean>comparing(stack -> !(stack.getItem() instanceof ItemIntegratedCircuit))
                 .thenComparingInt(ItemStack::getItemDamage));
 
-        currenttip.add(TTRenderBar.create(euText, 0xFFF5E32C, 0xFF9C7E00, (double) eu / maxEu));
+        list.add(TTRenderBar.create(euText, 0xFFF5E32C, 0xFF9C7E00, (double) eu / maxEu));
 
         if (tag.getBoolean("stutteringSingleBlock")) {
-            currenttip.add(translateToLocal(getWailaStutteringLine(tag)));
+            list.add(translateToLocal(getWailaStutteringLine(tag)));
         } else {
             if (isActive) {
-                currenttip.add(
+                list.add(
                     GTWaila.getMachineProgressString(
                         true,
                         tag.getBoolean("isAllowedToWorkSingleBlock"),
@@ -1210,14 +1210,14 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                         double exactAmps = GTUtility.getExactAmperageForTier(euT, (byte) getInputTier());
                         String ampString = String.format("%.2f", exactAmps);
 
-                        currenttip.add(
+                        list.add(
                             translateToLocalFormatted(
                                 "GT5U.waila.energy.use_with_amperage",
                                 formatNumber(euT),
                                 ampString,
                                 GTUtility.getColoredTierNameFromTier((byte) getInputTier())));
                     } else if (euT < 0) {
-                        currenttip.add(
+                        list.add(
                             translateToLocalFormatted(
                                 "GT5U.waila.energy.produce_with_amperage",
                                 formatNumber(-euT),
@@ -1226,13 +1226,13 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                     }
                 } else {
                     if (euT > 0) {
-                        currenttip.add(
+                        list.add(
                             translateToLocalFormatted(
                                 "GTPP.waila.steam.use",
                                 formatNumber(euT * 40L),
                                 GTUtility.getColoredTierNameFromVoltage(euT)));
                     } else if (euT < 0) {
-                        currenttip.add(
+                        list.add(
                             translateToLocalFormatted(
                                 "GTPP.waila.steam.use",
                                 formatNumber(-euT * 40L),
@@ -1243,22 +1243,22 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         }
 
         if (!inputItems.isEmpty()) {
-            currenttip.add(StatCollector.translateToLocal("GT5U.waila.machine.recipe_inputs"));
-            getWailaRenderItems(currenttip, inputItems);
+            list.add(StatCollector.translateToLocal("GT5U.waila.machine.recipe_inputs"));
+            getWailaRenderItems(list, inputItems);
         }
 
-        currenttip.add(
+        list.add(
             StatCollector.translateToLocalFormatted(
                 "GT5U.waila.machine.recipe_outputs",
                 getFacingNameLocalized(tag.getInteger("outputFacingSingleBlock"))));
 
         if (!outputItems.isEmpty()) {
-            getWailaRenderItems(currenttip, outputItems);
+            getWailaRenderItems(list, outputItems);
         }
 
         if (Client.waila.showFacing) {
             if (gte != null) {
-                currenttip.add(
+                list.add(
                     StatCollector.translateToLocalFormatted(
                         "GT5U.waila.facing",
                         getFacingNameLocalized(tag.getInteger("mainFacingSingleBlock"))));
@@ -1508,7 +1508,8 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         return (SlotWidget) new SlotWidget(inventoryHandler, getSpecialSlotIndex()).setAccess(true, true)
             .disableShiftInsert()
             .setGTTooltip(
-                () -> mTooltipCache.getData(uiProperties.useSpecialSlot ? SPECIAL_SLOT_TOOLTIP : UNUSED_SLOT_TOOLTIP))
+                () -> tooltipDataCache
+                    .getData(uiProperties.useSpecialSlot ? SPECIAL_SLOT_TOOLTIP : UNUSED_SLOT_TOOLTIP))
             .setTooltipShowUpDelay(TOOLTIP_DELAY)
             .setBackground(backgrounds)
             .setPos(pos);
@@ -1539,7 +1540,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         return (CycleButtonWidget) new CycleButtonWidget().setToggle(() -> mItemTransfer, val -> mItemTransfer = val)
             .setStaticTexture(GTUITextures.OVERLAY_BUTTON_AUTOOUTPUT_ITEM)
             .setVariableBackground(GTUITextures.BUTTON_STANDARD_TOGGLE)
-            .setGTTooltip(() -> mTooltipCache.getData(ITEM_TRANSFER_TOOLTIP))
+            .setGTTooltip(() -> tooltipDataCache.getData(ITEM_TRANSFER_TOOLTIP))
             .setTooltipShowUpDelay(TOOLTIP_DELAY)
             .setPos(25, 62)
             .setSize(18, 18);
@@ -1549,7 +1550,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         return (CycleButtonWidget) new CycleButtonWidget().setToggle(() -> mFluidTransfer, val -> mFluidTransfer = val)
             .setStaticTexture(GTUITextures.OVERLAY_BUTTON_AUTOOUTPUT_FLUID)
             .setVariableBackground(GTUITextures.BUTTON_STANDARD_TOGGLE)
-            .setGTTooltip(() -> mTooltipCache.getData(FLUID_TRANSFER_TOOLTIP))
+            .setGTTooltip(() -> tooltipDataCache.getData(FLUID_TRANSFER_TOOLTIP))
             .setTooltipShowUpDelay(TOOLTIP_DELAY)
             .setPos(7, 62)
             .setSize(18, 18);
@@ -1659,11 +1660,11 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     protected GTTooltipDataCache.TooltipData getErrorTooltip() {
         if (isSteampowered()) {
             if (cannotVentSteam()) {
-                return mTooltipCache.getData(STALLED_VENT_TOOLTIP);
+                return tooltipDataCache.getData(STALLED_VENT_TOOLTIP);
             }
         }
         if (mStuttering) {
-            return mTooltipCache.getData(
+            return tooltipDataCache.getData(
                 STALLED_STUTTERING_TOOLTIP,
                 translateToLocal(POWER_SOURCE_KEY + (isSteampowered() ? "steam" : "power")));
         }

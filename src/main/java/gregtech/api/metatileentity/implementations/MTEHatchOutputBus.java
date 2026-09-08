@@ -106,24 +106,24 @@ public class MTEHatchOutputBus extends MTEHatch implements IItemLockable, IDataC
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        if (!acceptsItemLock() || !(aPlayer instanceof EntityPlayerMP)) {
-            openGui(aPlayer);
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        if (!acceptsItemLock() || !(player instanceof EntityPlayerMP)) {
+            openGui(player);
             return true;
         }
 
-        final ItemStack dataStick = aPlayer.inventory.getCurrentItem();
+        final ItemStack dataStick = player.inventory.getCurrentItem();
         if (!ItemList.Tool_DataStick.isStackEqual(dataStick, false, true)) {
-            openGui(aPlayer);
+            openGui(player);
             return true;
         }
 
-        if (!pasteCopiedData(aPlayer, dataStick.stackTagCompound)) {
-            aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.invalid"));
+        if (!pasteCopiedData(player, dataStick.stackTagCompound)) {
+            player.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.invalid"));
             return false;
         }
 
-        aPlayer.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.loaded"));
+        player.addChatMessage(new ChatComponentTranslation("GT5U.machines.output_bus.loaded"));
         return true;
 
     }

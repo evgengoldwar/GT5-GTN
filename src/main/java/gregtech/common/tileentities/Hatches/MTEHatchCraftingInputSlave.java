@@ -245,7 +245,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
+    public boolean onRightClick(IGTE gte, EntityPlayer aPlayer) {
         if (!(aPlayer instanceof EntityPlayerMP player)) {
             return true;
         }
@@ -254,7 +254,7 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
         }
         var master = getMaster();
         if (master != null) {
-            if (aBaseMetaTileEntity.isServerSide()) {
+            if (gte.isServerSide()) {
                 ProxiedMteGui.open(master, player, mteArray);
             }
             return true;
@@ -315,16 +315,16 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         NBTTagCompound tag = accessor.getNBTData();
-        currenttip.add(
+        list.add(
             StatCollector.translateToLocal(
                 tag.getBoolean("linked") ? "GT5U.waila.hatch.crafting_input_slave.linked"
                     : "GT5U.waila.hatch.crafting_input_slave.unlinked"));
 
         if (tag.hasKey("masterX")) {
-            currenttip.add(
+            list.add(
                 StatCollector.translateToLocalFormatted(
                     "GT5U.waila.hatch.crafting_input_slave.bound_to",
                     tag.getInteger("masterX"),
@@ -332,16 +332,16 @@ public final class MTEHatchCraftingInputSlave extends MTEHatchInputBus
                     tag.getInteger("masterZ")));
         }
 
-        currenttip.add(
+        list.add(
             StatCollector.translateToLocalFormatted(
                 "GT5U.waila.hatch.crafting_input_slave.reverseRecipes",
                 tag.getBoolean("reverseRecipes") ? "on" : "off"));
 
         if (tag.hasKey("masterName")) {
-            currenttip.add(EnumChatFormatting.GOLD + tag.getString("masterName") + EnumChatFormatting.RESET);
+            list.add(EnumChatFormatting.GOLD + tag.getString("masterName") + EnumChatFormatting.RESET);
         }
 
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
     }
 
     @Override

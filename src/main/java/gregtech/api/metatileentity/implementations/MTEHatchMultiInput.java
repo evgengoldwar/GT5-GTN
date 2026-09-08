@@ -254,8 +254,8 @@ public class MTEHatchMultiInput extends MTEHatchInput {
     }
 
     @Override
-    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        return fill(resource, doFill);
+    public int fill(ForgeDirection from, FluidStack fluidStack, boolean doFill) {
+        return fill(fluidStack, doFill);
     }
 
     @Override

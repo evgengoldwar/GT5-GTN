@@ -1106,21 +1106,20 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         NBTTagCompound tag = accessor.getNBTData();
         if (tag.hasKey("nameLines")) {
             NBTTagList nameLines = tag.getTagList("nameLines", Constants.NBT.TAG_STRING);
             if (nameLines.tagCount() > 0) {
-                currenttip.add(EnumChatFormatting.AQUA + nameLines.getStringTagAt(0) + EnumChatFormatting.RESET);
+                list.add(EnumChatFormatting.AQUA + nameLines.getStringTagAt(0) + EnumChatFormatting.RESET);
                 // Indent everything below the machine name, so the listed items read as one block
                 for (int i = 1; i < nameLines.tagCount(); i++) {
-                    currenttip
-                        .add(EnumChatFormatting.AQUA + "  " + nameLines.getStringTagAt(i) + EnumChatFormatting.RESET);
+                    list.add(EnumChatFormatting.AQUA + "  " + nameLines.getStringTagAt(i) + EnumChatFormatting.RESET);
                 }
             }
         }
-        currenttip.add(
+        list.add(
             StatCollector.translateToLocal(
                 "GT5U.infodata.hatch.crafting_input_me.show_pattern." + (showPattern ? "enable" : "disabled")));
         if (tag.hasKey("inventory")) {
@@ -1129,14 +1128,14 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
                 NBTTagCompound item = inventory.getCompoundTagAt(i);
                 String name = item.getString("name");
                 long amount = item.getLong("amount");
-                currenttip.add(
+                list.add(
                     name + ": "
                         + EnumChatFormatting.GOLD
                         + ReadableNumberConverter.INSTANCE.toWideReadableForm(amount)
                         + EnumChatFormatting.RESET);
             }
         }
-        super.getWailaBody(itemStack, currenttip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
     }
 
     /**
@@ -1397,10 +1396,10 @@ public class MTEHatchCraftingInputME extends MTEHatchInputBus implements IPowerC
     }
 
     @Override
-    public void setInventorySlotContents(int aIndex, ItemStack aStack) {
-        super.setInventorySlotContents(aIndex, aStack);
-        if (aIndex >= MAX_PATTERN_COUNT) return;
-        onPatternChange(aIndex, aStack);
+    public void setInventorySlotContents(int index, ItemStack itemStack) {
+        super.setInventorySlotContents(index, itemStack);
+        if (index >= MAX_PATTERN_COUNT) return;
+        onPatternChange(index, itemStack);
         needPatternSync = true;
     }
 

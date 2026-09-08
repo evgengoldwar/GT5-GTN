@@ -302,9 +302,9 @@ public class MTEHatchOutputBusME extends MTEHatchOutputBus implements IPowerChan
     }
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        this.lastClickedPlayer = aPlayer;
-        openGui(aPlayer);
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        this.lastClickedPlayer = player;
+        openGui(player);
         return true;
     }
 
@@ -512,13 +512,13 @@ public class MTEHatchOutputBusME extends MTEHatchOutputBus implements IPowerChan
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getWailaBody(ItemStack itemStack, List<String> ss, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, ss, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
 
         NBTTagCompound tag = accessor.getNBTData();
 
-        ss.add(
+        list.add(
             translateToLocalFormatted(
                 "GT5U.waila.hatch.outputme.item_cache_capacity",
                 formatNumber(tag.getLong("cacheCapacity"))));

@@ -102,7 +102,7 @@ public class MTEBasicMachineBaseGui<T extends MTEBasicMachine> extends MTETiered
         syncManager.syncValue("powerfail", powerfailSyncer);
         errorMap.put(
             powerfailSyncer,
-            machine.mTooltipCache.getData(
+            machine.tooltipDataCache.getData(
                 "GT5U.machines.stalled_stuttering.tooltip",
                 StatCollector.translateToLocal("GT5U.machines.powersource.power")));
     }

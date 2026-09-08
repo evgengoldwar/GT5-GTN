@@ -287,8 +287,8 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     public abstract ITexture getOverlayIcon();
 
     @Override
-    public boolean onRightclick(IGTE aBaseMetaTileEntity, EntityPlayer aPlayer) {
-        openGui(aPlayer);
+    public boolean onRightClick(IGTE gte, EntityPlayer player) {
+        openGui(player);
         return true;
     }
 
@@ -334,10 +334,10 @@ public abstract class MTEBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currentTip, accessor, config);
-        addAdditionalTooltipInformation(accessor.getNBTData(), currentTip);
+        super.getWailaBody(itemStack, list, accessor, config);
+        addAdditionalTooltipInformation(accessor.getNBTData(), list);
     }
 
     public void addAdditionalTooltipInformation(NBTTagCompound nbt, List<String> tooltip) {
