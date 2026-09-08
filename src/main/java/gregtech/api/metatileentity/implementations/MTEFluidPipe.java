@@ -238,7 +238,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         for (int i = 0; i < mPipeAmount; i++) if (mFluids[i] != null)
             nbt.setTag("mFluid" + (i == 0 ? "" : i), mFluids[i].writeToNBT(new NBTTagCompound()));
         nbt.setByte("mLastReceivedFrom", mLastReceivedFrom);
-        nbt.setByte("mConnections", mConnections);
+        nbt.setByte("mConnections", connections);
         nbt.setByte("mDisableInput", mDisableInput);
     }
 
@@ -247,7 +247,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
         for (int i = 0; i < mPipeAmount; i++)
             mFluids[i] = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("mFluid" + (i == 0 ? "" : i)));
         mLastReceivedFrom = nbt.getByte("mLastReceivedFrom");
-        mConnections = nbt.getByte("mConnections");
+        connections = nbt.getByte("mConnections");
         mDisableInput = nbt.getByte("mDisableInput");
     }
 
@@ -265,7 +265,7 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
                 mLastReceivedFrom = 0;
             }
 
-            if (mCheckConnections) {
+            if (checkConnections) {
                 checkConnections();
             }
 

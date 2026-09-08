@@ -176,13 +176,13 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     @Override
     public void saveNBTData(NBTTagCompound nbt) {
         nbt.setByte("mLastReceivedFrom", (byte) mLastReceivedFrom.ordinal());
-        nbt.setByte("mConnections", mConnections);
+        nbt.setByte("mConnections", connections);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
         mLastReceivedFrom = ForgeDirection.getOrientation(nbt.getByte("mLastReceivedFrom"));
-        mConnections = nbt.getByte("mConnections");
+        connections = nbt.getByte("mConnections");
     }
 
     @Override
@@ -199,7 +199,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
                 mCurrentTransferStartTick = 0;
             }
 
-            if (mCheckConnections) {
+            if (checkConnections) {
                 checkConnections();
             }
 

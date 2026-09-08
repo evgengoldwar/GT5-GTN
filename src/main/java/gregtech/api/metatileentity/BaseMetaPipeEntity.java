@@ -227,10 +227,10 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
     }
 
     public void updateConnections() {
-        if (mConnections == mMetaTileEntity.mConnections) {
+        if (mConnections == mMetaTileEntity.connections) {
             return;
         }
-        mConnections = mMetaTileEntity.mConnections;
+        mConnections = mMetaTileEntity.connections;
         GregTechAPI.causeCableUpdate(worldObj, xCoord, yCoord, zCoord);
     }
 

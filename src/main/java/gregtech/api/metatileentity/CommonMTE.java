@@ -64,14 +64,14 @@ public abstract class CommonMTE implements IMTE {
 
     protected IMTE[] mteArray;
 
-    protected CommonMTE(int id, String basicName, int invSlotCount, IMTE[] mteArray) {
-        if (mteArray[id] == null) {
-            mteArray[id] = this;
+    protected CommonMTE(int meta, String name, int slotCount, IMTE[] mteArray) {
+        if (mteArray[meta] == null) {
+            mteArray[meta] = this;
             this.mteArray = mteArray;
         } else {
-            var existing = mteArray[id];
+            var existing = mteArray[meta];
             throw new IllegalArgumentException(
-                "MetaTileEntity id " + id
+                "MetaTileEntity meta " + meta
                     + " is already occupied! Existing MTE is "
                     + existing.getMetaName()
                     + "("
@@ -79,13 +79,13 @@ public abstract class CommonMTE implements IMTE {
                         .getCanonicalName()
                     + ").");
         }
-        inventory = new ItemStack[invSlotCount];
-        name = basicName.replace(" ", "_")
+        inventory = new ItemStack[slotCount];
+        this.name = name.replace(" ", "_")
             .toLowerCase(Locale.ENGLISH);
     }
 
-    protected CommonMTE(String name, int invSlotCount) {
-        inventory = new ItemStack[invSlotCount];
+    protected CommonMTE(String name, int slotCount) {
+        inventory = new ItemStack[slotCount];
         this.name = name;
     }
 

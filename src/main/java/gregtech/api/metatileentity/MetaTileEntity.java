@@ -176,8 +176,8 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     }
 
     @Override
-    public ItemStack getStackForm(long aAmount) {
-        return new ItemStack(GregTechAPI.sBlockMachines, (int) aAmount, getGTE().getMetaTileID());
+    public ItemStack getStackForm(long amount) {
+        return new ItemStack(GregTechAPI.sBlockMachines, (int) amount, getGTE().getMetaTileID());
     }
 
     @Override

@@ -47,77 +47,45 @@ import gregtech.api.render.ISBRWorldContext;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.common.covers.Base.Cover;
 
-/**
- * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
- * <p/>
- * Extend this Class to add a new MetaPipe Call the Constructor with the desired ID at the load-phase (not preload and
- * also not postload!) Implement the newMetaEntity-Method to return a new ready instance of your MetaTileEntity
- * <p/>
- * Call the Constructor like the following example inside the Load Phase, to register it. "new MTEFurnace(54,
- * "GT_E_Furnace", "Automatic E-Furnace");"
- */
 public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     private volatile ITexture[][] inventoryTextureCache;
 
-    /**
-     * This variable tells, which directions the Block is connected to. It is a Bitmask.
-     */
-    public byte mConnections = 0;
+    public byte connections = 0;
 
-    protected boolean mCheckConnections = false;
-    /**
-     * accessibility to this Field is no longer given, see below
-     */
-    private IGTE mBaseMetaTileEntity;
+    protected boolean checkConnections = false;
+
+    private IGTE gte;
 
     private IMTE[] mteArray;
 
-    /**
-     * This registers your Machine at the List. Use only ID's larger than 2048 - the ones lower are reserved by GT. See
-     * also the list in the API package - it has a description that contains all the reservations.
-     * <p>
-     * The constructor can be overloaded as follows: <blockquote>
-     *
-     * <pre>
-     *
-     * public MTEBench(int id, String name, String nameRegional) {
-     *     super(id, name, nameRegional);
-     * }
-     * </pre>
-     *
-     * </blockquote>
-     *
-     * @param aID the machine ID
-     */
-    public MetaPipeEntity(int aID, String aBasicName, int aInvSlotCount, IMTE[] mteArray) {
-        this(aID, aBasicName, aInvSlotCount, true, mteArray);
+    public MetaPipeEntity(int meta, String name, int slotCount, IMTE[] mteArray) {
+        this(meta, name, slotCount, true, mteArray);
     }
 
-    public MetaPipeEntity(int aID, String aBasicName, int aInvSlotCount, boolean aAddInfo, IMTE[] mteArray) {
-        super(aID, aBasicName, aInvSlotCount, mteArray);
+    public MetaPipeEntity(int meta, String name, int slotCount, boolean addInfo, IMTE[] mteArray) {
+        super(meta, name, slotCount, mteArray);
         setGTE(new BaseMetaPipeEntity());
-        getGTE().setMetaTileID((short) aID);
+        getGTE().setMetaTileID((short) meta);
         this.mteArray = mteArray;
 
-        if (aAddInfo && GTMod.GT.isClientSide()) {
-            addInfo(aID);
+        if (addInfo && GTMod.GT.isClientSide()) {
+            addInfo(meta);
         }
     }
 
-    protected final void addInfo(int aID) {
-        if (!GTMod.GT.isClientSide()) return;
+    protected final void addInfo(int meta) {
+        if (!GTMod.GT.isClientSide()) {
+            return;
+        }
 
-        ItemStack tStack = new ItemStack(GregTechAPI.sBlockMachines, 1, aID);
+        ItemStack tStack = new ItemStack(GregTechAPI.sBlockMachines, 1, meta);
         Objects.requireNonNull(tStack.getItem())
             .addInformation(tStack, null, new ArrayList<>(), true);
     }
 
-    /**
-     * This is the normal Constructor.
-     */
-    public MetaPipeEntity(String aName, int aInvSlotCount) {
-        super(aName, aInvSlotCount);
+    public MetaPipeEntity(String name, int slotCount) {
+        super(name, slotCount);
     }
 
     @Override
@@ -135,9 +103,6 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     @Override
     public String getInventoryName() {
-        // Pipes don't register a translation key for their name, and cloned instances
-        // may lack fields needed for dynamic name construction (e.g. mPrefixKey).
-        // Use the prototype from the registry which is always fully initialized.
         IMTE prototype = mteArray[getGTE().getMetaTileID()];
         if (prototype != null) {
             return prototype.getLocalName();
@@ -172,7 +137,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         return true;
     }
 
-    @SuppressWarnings("OverlyComplexMethod") // Naturally complex logic
+    @SuppressWarnings("OverlyComplexMethod")
     @Override
     @SideOnly(Side.CLIENT)
     public boolean renderInWorld(ISBRWorldContext ctx) {
@@ -492,25 +457,14 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         return true;
     }
 
-    /**
-     * For Pipe Rendering
-     */
     public float getThickness() {
-        // If we are holding a soldering iron, minimize the rendered thickness of the pipe.
         if (GTMod.GT.isClientSide() && GTMod.clientProxy()
             .shouldHideThings()) return 0.0625F;
         return getCollisionThickness();
     }
 
-    /**
-     * For Bounding Box collision checks The bounding box is unaffected in case a soldering iron is held and the render
-     * thickness of the pipe is minimized.
-     */
     public abstract float getCollisionThickness();
 
-    /**
-     * For Pipe Rendering
-     */
     public abstract boolean renderInside(ForgeDirection side);
 
     @Override
@@ -525,22 +479,21 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     }
 
     @Override
-    // making this method final allows it to be inlined by the JIT compiler
     public final IGTE getGTE() {
-        return mBaseMetaTileEntity;
+        return gte;
     }
 
     @Override
     public final void setGTE(IGTE gte) {
-        final IGTE oldBase = mBaseMetaTileEntity;
-        if (mBaseMetaTileEntity != null && gte == null) {
-            mBaseMetaTileEntity.getMetaTileEntity()
+        final IGTE oldBase = this.gte;
+        if (this.gte != null && gte == null) {
+            this.gte.getMetaTileEntity()
                 .inValidate();
-            mBaseMetaTileEntity.setMetaTileEntity(null);
+            this.gte.setMetaTileEntity(null);
         }
-        mBaseMetaTileEntity = gte;
-        if (mBaseMetaTileEntity != null) {
-            mBaseMetaTileEntity.setMetaTileEntity(this);
+        this.gte = gte;
+        if (this.gte != null) {
+            this.gte.setMetaTileEntity(this);
         }
         if (oldBase != gte && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
             oldMeta.refreshMetaTileEntityValidity();
@@ -551,13 +504,13 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     public void receiveClientEvent(byte eventId, byte value) {
         super.receiveClientEvent(eventId, value);
         if (eventId == GregTechTileClientEvents.CHANGE_COMMON_DATA) {
-            mConnections = value;
+            connections = value;
         }
     }
 
     @Override
-    public ItemStack getStackForm(long aAmount) {
-        return new ItemStack(GregTechAPI.sBlockMachines, (int) aAmount, getGTE().getMetaTileID());
+    public ItemStack getStackForm(long amount) {
+        return new ItemStack(GregTechAPI.sBlockMachines, (int) amount, getGTE().getMetaTileID());
     }
 
     @Override
@@ -568,35 +521,33 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         }
     }
 
-    public boolean isCoverOnSide(BaseMetaPipeEntity aPipe, EntityLivingBase aEntity) {
+    public boolean isCoverOnSide(BaseMetaPipeEntity pipe, EntityLivingBase entity) {
         ForgeDirection side = ForgeDirection.UNKNOWN;
-        double difference = aEntity.posY - (double) aPipe.yCoord;
+        double difference = entity.posY - (double) pipe.yCoord;
         if (difference > 0.6 && difference < 0.99) {
             side = ForgeDirection.UP;
         }
         if (difference < -1.5 && difference > -1.99) {
             side = ForgeDirection.DOWN;
         }
-        difference = aEntity.posZ - (double) aPipe.zCoord;
+        difference = entity.posZ - (double) pipe.zCoord;
         if (difference < -0.05 && difference > -0.4) {
             side = ForgeDirection.NORTH;
         }
         if (difference > 1.05 && difference < 1.4) {
             side = ForgeDirection.SOUTH;
         }
-        difference = aEntity.posX - (double) aPipe.xCoord;
+        difference = entity.posX - (double) pipe.xCoord;
         if (difference < -0.05 && difference > -0.4) {
             side = ForgeDirection.WEST;
         }
         if (difference > 1.05 && difference < 1.4) {
             side = ForgeDirection.EAST;
         }
-        boolean tCovered = side != ForgeDirection.UNKNOWN && mBaseMetaTileEntity.hasCoverAtSide(side);
+        boolean tCovered = side != ForgeDirection.UNKNOWN && gte.hasCoverAtSide(side);
         if (isConnectedAtSide(side)) {
             tCovered = true;
         }
-        // GT_FML_LOGGER.info("Cover: "+mBaseMetaTileEntity.getCoverIDAtSide(aSide));
-        // toDo: filter cover ids that actually protect against temperature (rubber/plastic maybe?, more like asbestos)
         return tCovered;
     }
 
@@ -623,9 +574,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     }
 
     @Override
-    public void onExplosion() {
-        /* Do nothing */
-    }
+    public void onExplosion() {}
 
     @Override
     public boolean isLiquidInput(ForgeDirection side) {
@@ -652,9 +601,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     }
 
     @Override
-    public void markDirty() {
-        //
-    }
+    public void markDirty() {}
 
     @Override
     public void onColorChangeServer(byte color) {
@@ -662,7 +609,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     }
 
     public void setCheckConnections() {
-        mCheckConnections = true;
+        checkConnections = true;
     }
 
     public long injectEnergyUnits(ForgeDirection side, long aVoltage, long aAmperage) {
@@ -690,9 +637,6 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     }
 
     protected boolean connectableColor(TileEntity tTileEntity) {
-        // Determine if two entities are connectable based on their colorization:
-        // Uncolored can connect to anything
-        // If both are colored they must be the same color to connect.
         if (tTileEntity instanceof IColoredTileEntity) {
             if (getGTE().getColorization() >= 0) {
                 final byte tColor = ((IColoredTileEntity) tTileEntity).getColorization();
@@ -749,27 +693,25 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     }
 
     protected void checkConnections() {
-        // Verify connections around us. If GT6 style cables are not enabled then revert to old behavior and try
-        // connecting to everything around us
         for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             if ((isConnectedAtSide(side)) && connect(side) == 0) {
                 disconnect(side);
             }
         }
-        mCheckConnections = false;
+        checkConnections = false;
     }
 
     private void connectAtSide(ForgeDirection side) {
-        mConnections |= side.flag;
+        connections |= side.flag;
         if (getGTE() instanceof BaseMetaPipeEntity pipe && pipe.isClientSide()) {
-            pipe.mConnections = mConnections;
+            pipe.mConnections = connections;
         }
     }
 
     @Override
     public void disconnect(ForgeDirection side) {
         if (side == ForgeDirection.UNKNOWN) return;
-        mConnections &= ~side.flag;
+        connections &= ~side.flag;
         final ForgeDirection oppositeSide = side.getOpposite();
         IGTE tTileEntity = getGTE().getIGregTechTileEntityAtSide(side);
         IMTE tPipe = tTileEntity == null ? null : tTileEntity.getMetaTileEntity();
@@ -784,7 +726,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     @Override
     public boolean isConnectedAtSide(ForgeDirection sideDirection) {
-        return (mConnections & sideDirection.flag) != 0;
+        return (connections & sideDirection.flag) != 0;
     }
 
     @Override
@@ -816,9 +758,6 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
             .forceFullBlockBB()) || getCollisionThickness() == 1;
     }
 
-    /**
-     * Gets the bounding box that corresponds to the rendered pipe.
-     */
     private @NotNull AxisAlignedBB getPhysicalCollisionBoundingBox(int x, int y, int z) {
         final float space = (1f - getCollisionThickness()) / 2;
         float yStart = space;

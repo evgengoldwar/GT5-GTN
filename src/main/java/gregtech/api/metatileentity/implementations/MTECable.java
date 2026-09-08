@@ -230,7 +230,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     @Override
     public void onPostTick(IGTE gte, long tick) {
         super.onPostTick(gte, tick);
-        if (tick % 20 == 0 && gte.isServerSide() && (mCheckConnections)) {
+        if (tick % 20 == 0 && gte.isServerSide() && (checkConnections)) {
             checkConnections();
         }
     }
@@ -361,12 +361,12 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
 
     @Override
     public void saveNBTData(NBTTagCompound nbt) {
-        nbt.setByte("mConnections", mConnections);
+        nbt.setByte("mConnections", connections);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
-        mConnections = nbt.getByte("mConnections");
+        connections = nbt.getByte("mConnections");
     }
 
     @Override

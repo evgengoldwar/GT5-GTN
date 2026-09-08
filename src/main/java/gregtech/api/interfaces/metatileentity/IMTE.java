@@ -45,7 +45,7 @@ public interface IMTE extends ISidedInventory, IFluidTank, IFluidHandler, IMachi
 
     IMTE newMTE(IGTE gte);
 
-    ItemStack getStackForm(long aAmount);
+    ItemStack getStackForm(long amount);
 
     IGTE getGTE();
 
