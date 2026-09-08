@@ -2,14 +2,14 @@ package gregtech.common.tileentities.storage;
 
 import net.minecraft.util.StatCollector;
 
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 
 public class MTESuperChest extends MTEQuantumChest {
 
-    public MTESuperChest(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
+    public MTESuperChest(int aID, String aName, String aNameRegional, int aTier, MTEArrays mteArray) {
         super(aID, aName, aNameRegional, aTier, mteArray);
     }
 

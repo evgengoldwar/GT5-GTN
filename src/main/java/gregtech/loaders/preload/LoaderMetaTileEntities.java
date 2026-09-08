@@ -3,10 +3,6 @@ package gregtech.loaders.preload;
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.MetaTileEntityIDs.*;
 
-import gregtech.api.enums.ItemList;
-import gregtech.api.enums.MTEArrays;
-import gregtech.api.metatileentity.implementations.MTEHatchMultiInput;
-
 // TODO Some GT MetaTileEntity registrations are done in load/GT_Loader_MetaTileEntities_Recipes.java due to joint
 // registration+recipe methods, they should be split and brought here to register all in preload.
 
@@ -779,22 +775,25 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         // registerWirelessEnergyHatch();
         // registerWetTransformer();
 
-        ItemList.Hatch_Input_Multi_2x2_UV.set(
-            new MTEHatchMultiInput(
-                QUADRUPLE_INPUT_HATCHES_UV.ID,
-                4,
-                "hatch.multi.input.tier.05",
-                "Quadruple Input Hatch (UV)",
-                8,
-                MTEArrays.HATCH).getStackForm(1L));
+        // for (int i = 0; i < 30_000; i++) {
+        // new MTEHatchMultiInput(
+        // i,
+        // 4,
+        // "hatch.multi.input.tier.05",
+        // "Quadruple Input Hatch (UV)",
+        // 8,
+        // MTEArrays.HATCH).getStackForm(1L);
+        //
+        // new MTEQuantumChest(i, "quantum.chest.tier.09", "Quantum Chest IV", 9, MTEArrays.CABLE).getStackForm(1L);
+        // }
 
-        new MTEHatchMultiInput(
-            QUADRUPLE_INPUT_HATCHES_UV.ID,
-            4,
-            "hatch.multi.input.tier.05",
-            "Quadruple Input Hatch (UV)",
-            8,
-            MTEArrays.CABLE).getStackForm(1L);
+        // new MTEHatchMultiInput(
+        // QUADRUPLE_INPUT_HATCHES_UV.ID,
+        // 4,
+        // "hatch.multi.input.tier.05",
+        // "Quadruple Input Hatch (UV)",
+        // 8,
+        // MTEArrays.CABLE).getStackForm(1L);
 
         //
         // ItemList.DebugStructureWriter.set(

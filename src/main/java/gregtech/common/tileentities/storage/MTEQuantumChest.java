@@ -11,8 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MetaTileEntity;
 
@@ -22,8 +22,8 @@ public class MTEQuantumChest extends MTEDigitalChestBase {
     public ItemStack mItemStack = null;
     NBTTagList mInvData = null;
 
-    public MTEQuantumChest(int aID, String aName, String aNameRegional, int aTier, IMTE[] mteArray) {
-        super(aID, aName, aNameRegional, aTier, mteArray);
+    public MTEQuantumChest(int aID, String aName, String aNameRegional, int aTier, MTEArrays mteArrays) {
+        super(aID, aName, aNameRegional, aTier, mteArrays.getMteArray());
     }
 
     public MTEQuantumChest(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
