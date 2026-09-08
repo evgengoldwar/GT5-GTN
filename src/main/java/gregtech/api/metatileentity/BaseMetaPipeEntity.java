@@ -464,12 +464,12 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
 
     @Override
     public int getProgress() {
-        return canAccessData() ? mMetaTileEntity.getProgresstime() : 0;
+        return canAccessData() ? mMetaTileEntity.getProgressTime() : 0;
     }
 
     @Override
     public int getMaxProgress() {
-        return canAccessData() ? mMetaTileEntity.maxProgresstime() : 0;
+        return canAccessData() ? mMetaTileEntity.maxProgressTime() : 0;
     }
 
     @Override

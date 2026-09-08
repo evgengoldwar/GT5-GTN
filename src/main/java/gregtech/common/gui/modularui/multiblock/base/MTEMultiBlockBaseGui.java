@@ -1284,7 +1284,7 @@ public class MTEMultiBlockBaseGui<T extends MTEMultiBlockBase> {
             if (isPowerSwitchDisabled()) return;
             if (bool) multiblock.enableWorking();
             else {
-                if (multiblock.maxProgresstime() > 0) {
+                if (multiblock.maxProgressTime() > 0) {
                     multiblock.disableWorking();
                     wasShutDown.setValue(true);
                     shutdownReasonSyncer.setValue(ShutDownReasonRegistry.NONE);

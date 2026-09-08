@@ -183,12 +183,12 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     }
 
     @Override
-    public int getProgresstime() {
+    public int getProgressTime() {
         return mTransferredAmperage * 64;
     }
 
     @Override
-    public int maxProgresstime() {
+    public int maxProgressTime() {
         return (int) mAmperage * 64;
     }
 

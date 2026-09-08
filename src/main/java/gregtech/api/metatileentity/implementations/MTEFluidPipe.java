@@ -224,12 +224,12 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     }
 
     @Override
-    public int getProgresstime() {
+    public int getProgressTime() {
         return getFluidAmount();
     }
 
     @Override
-    public int maxProgresstime() {
+    public int maxProgressTime() {
         return getCapacity();
     }
 

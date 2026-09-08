@@ -306,13 +306,13 @@ public abstract class MTEDigitalChestBase extends MTETieredMachineBlock
     }
 
     @Override
-    public int getProgresstime() {
+    public int getProgressTime() {
         return getItemCount() + (inventory[0] == null ? 0 : inventory[0].stackSize)
             + (inventory[1] == null ? 0 : inventory[1].stackSize);
     }
 
     @Override
-    public int maxProgresstime() {
+    public int maxProgressTime() {
         return getMaxItemCount();
     }
 

@@ -106,7 +106,7 @@ public class CoverItemMeter extends Cover {
         final IMTE mte = ((IGTE) tileEntity).getMetaTileEntity();
         if (mte instanceof MTEDigitalChestBase dc) {
             max = dc.getMaxItemCount();
-            used = dc.getProgresstime();
+            used = dc.getProgressTime();
         } else if (mte instanceof MTEHatchOutputBusME meoutputbus) {
             // todo for cache mode
             if (meoutputbus.hasPhysicalSpace()) {

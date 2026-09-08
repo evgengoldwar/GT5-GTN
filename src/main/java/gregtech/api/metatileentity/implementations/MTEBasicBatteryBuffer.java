@@ -154,12 +154,12 @@ public class MTEBasicBatteryBuffer extends MTETieredMachineBlock {
     }
 
     @Override
-    public int getProgresstime() {
+    public int getProgressTime() {
         return (int) getGTE().getUniversalEnergyStored();
     }
 
     @Override
-    public int maxProgresstime() {
+    public int maxProgressTime() {
         return (int) getGTE().getUniversalEnergyCapacity();
     }
 

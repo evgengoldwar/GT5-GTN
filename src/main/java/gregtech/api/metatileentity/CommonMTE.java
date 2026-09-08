@@ -39,7 +39,6 @@ import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.implementation.items.GTItemSink;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modularui2.GTGuiTheme;
 import gregtech.api.modularui2.GTGuiThemes;
@@ -90,9 +89,6 @@ public abstract class CommonMTE implements IMTE {
         this.name = name;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Nullable
     @Override
     public <T> T getCapability(@NotNull Class<T> capability, @NotNull ForgeDirection side) {
@@ -170,9 +166,6 @@ public abstract class CommonMTE implements IMTE {
     @Override
     public void initDefaultModes(NBTTagCompound nbt) {}
 
-    /**
-     * Called when a player right-clicks this block. Shift-right-clicks will not get passed to this!
-     */
     @Override
     public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
         return false;
@@ -255,55 +248,34 @@ public abstract class CommonMTE implements IMTE {
         return null;
     }
 
-    /**
-     * Returns the fluid this block contains.
-     */
     @Override
     public FluidStack getFluid() {
         return null;
     }
 
-    /**
-     * Tries to fill this tank.
-     */
     @Override
     public int fill(FluidStack resource, boolean doFill) {
         return 0;
     }
 
-    /**
-     * Tries to empty this tank.
-     */
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
         return null;
     }
 
-    /**
-     * Returns capacity of the fluid.
-     */
     @Override
     public int getCapacity() {
         return 0;
     }
 
-    /**
-     * Returns progress in ticks this machine has already made.
-     */
-    public int getProgresstime() {
+    public int getProgressTime() {
         return 0;
     }
 
-    /**
-     * Returns total ticks required for this machine to finish one cycle of the progress.
-     */
-    public int maxProgresstime() {
+    public int maxProgressTime() {
         return 0;
     }
 
-    /**
-     * Increases the progress, returns the overflown progress.
-     */
     public int increaseProgress(int progress) {
         return 0;
     }
@@ -314,9 +286,6 @@ public abstract class CommonMTE implements IMTE {
     @Override
     public void receiveClientEvent(byte eventId, byte value) {}
 
-    /**
-     * Gets the output for the comparator on the given side
-     */
     @Override
     public byte getComparatorValue(ForgeDirection side) {
         return 0;
@@ -350,21 +319,6 @@ public abstract class CommonMTE implements IMTE {
     public ItemStack getStackInSlot(int index) {
         if (index >= 0 && index < inventory.length) {
             return inventory[index];
-        }
-        return null;
-    }
-
-    /**
-     * Gets the first ItemStack in the bus, reading from the top left to bottom right
-     *
-     * @return the first ItemStack in the bus
-     */
-    public ItemStack getFirstStack() {
-        for (int index = 0; index < inventory.length; index++) {
-            ItemStack stackInSlot = getStackInSlot(index);
-            if (stackInSlot != null) {
-                return stackInSlot;
-            }
         }
         return null;
     }
@@ -466,10 +420,6 @@ public abstract class CommonMTE implements IMTE {
         return drain(side, fluidStack, fluidStack == null ? 0 : fluidStack.amount, doDrain);
     }
 
-    /**
-     * Type-aware drain with an overridden amount. Avoids allocating a new {@link FluidStack} per call when the caller
-     * needs to drain a different amount than {@code fluidStack.amount}.
-     */
     public FluidStack drain(ForgeDirection side, FluidStack fluidStack, int amount, boolean doDrain) {
         if (getFluid() != null && fluidStack != null && getFluid().isFluidEqual(fluidStack)) {
             return drain(amount, doDrain);
@@ -598,11 +548,6 @@ public abstract class CommonMTE implements IMTE {
         return "";
     }
 
-    /**
-     * Opens GUI for the specified player. Currently, we have two ways to create GUI: MUI1 and MUI2. We're gradually
-     * migrating to MUI2. However, since cover panel is not supported for the time being, leave support for MUI1
-     * ({@link IAddUIWidgets#addUIWidgets}) as well.
-     */
     @SuppressWarnings("deprecation")
     public void openGui(EntityPlayer player) {
         if ((GTGuis.GLOBAL_SWITCH_MUI2 && useMui2()) || forceUseMui2()) {
@@ -620,29 +565,12 @@ public abstract class CommonMTE implements IMTE {
 
     }
 
-    /**
-     * Whether to use MUI2 for creating GUI. Use {@link #buildUI} for MUI2, and {@link IAddUIWidgets#addUIWidgets} for
-     * MUI1.
-     */
     protected boolean useMui2() {
         return false;
     }
 
-    /**
-     * Returning true means opening GUI with MUI2, regardless of {@link GTGuis#GLOBAL_SWITCH_MUI2}. Note that cover tabs
-     * are currently unfinished.
-     */
     protected boolean forceUseMui2() {
         return false;
-    }
-
-    /**
-     * A public method to verify if this MTE has a Mui2 GUI. Returning false indicates that do not try to open a Mui2
-     * GUI
-     * of this.
-     */
-    public boolean hasMui2Gui() {
-        return useMui2() || forceUseMui2();
     }
 
     @Override
@@ -650,22 +578,10 @@ public abstract class CommonMTE implements IMTE {
         return name;
     }
 
-    /**
-     * Specifies theme of this GUI. {@link GTGuiThemes} lists all the themes you can use.
-     */
     public GTGuiTheme getGuiTheme() {
         return GTGuiThemes.STANDARD;
     }
 
-    /**
-     * Override to create GUI with MUI2. You also need to override {@link #useMui2}.
-     * <p>
-     * Called on server and client. Create only the main panel here. Only here you can add sync handlers to widgets
-     * directly. If the widget to be synced is not in this panel yet (f.e. in another panel) the sync handler must be
-     * registered here with {@link PanelSyncManager}.
-     *
-     * @inheritDoc
-     */
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
         return null;

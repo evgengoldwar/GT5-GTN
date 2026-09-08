@@ -306,12 +306,12 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity
     }
 
     @Override
-    public int getProgresstime() {
+    public int getProgressTime() {
         return mProgresstime;
     }
 
     @Override
-    public int maxProgresstime() {
+    public int maxProgressTime() {
         return mMaxProgresstime;
     }
 

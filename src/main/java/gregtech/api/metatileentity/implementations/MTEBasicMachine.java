@@ -434,12 +434,12 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     }
 
     @Override
-    public int getProgresstime() {
+    public int getProgressTime() {
         return mProgresstime;
     }
 
     @Override
-    public int maxProgresstime() {
+    public int maxProgressTime() {
         return mMaxProgresstime;
     }
 
@@ -1471,7 +1471,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         builder.widget(
             setNEITransferRect(
                 new ProgressBar()
-                    .setProgress(() -> maxProgresstime() != 0 ? (float) getProgresstime() / maxProgresstime() : 0)
+                    .setProgress(() -> maxProgressTime() != 0 ? (float) getProgressTime() / maxProgressTime() : 0)
                     .setTexture(
                         isSteamPowered ? uiProperties.progressBarTextureSteam.get(getTieredVariant())
                             : uiProperties.progressBarTexture.get(),

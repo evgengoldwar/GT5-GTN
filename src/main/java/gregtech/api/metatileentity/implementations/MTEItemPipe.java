@@ -164,12 +164,12 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     }
 
     @Override
-    public int getProgresstime() {
+    public int getProgressTime() {
         return getPipeContent() * 64;
     }
 
     @Override
-    public int maxProgresstime() {
+    public int maxProgressTime() {
         return getMaxPipeCapacity() * 64;
     }
 
