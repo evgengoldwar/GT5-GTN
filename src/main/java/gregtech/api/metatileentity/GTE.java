@@ -59,31 +59,13 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.data.GTBlockEventTracker;
 import gregtech.common.gui.modularui.base.ItemSelectBaseGui;
 
-/**
- * The Functions my old TileEntities and my BaseMetaTileEntities have in common.
- * <p/>
- * Basically everything a TileEntity should have.
- */
 public abstract class GTE extends TileEntity
     implements IWorldAccessor, IGTEnet, ITileWithModularUI, IAddGregtechLogo, IGetGUITextureSet {
 
-    /**
-     * Buffers adjacent TileEntities for faster access
-     * <p/>
-     * "this" means that there is no TileEntity, while "null" means that it doesn't know if there is even a TileEntity
-     * and still needs to check that if needed.
-     */
     private final TileEntity[] mBufferedTileEntities = new TileEntity[6];
-    /**
-     * If this TileEntity checks for the Chunk to be loaded before returning World based values. The AdvPump hacks this
-     * to false to ensure everything runs properly even when far Chunks are not actively loaded. But anything else
-     * should not cause worfin' Chunks, uhh I mean orphan Chunks.
-     */
+
     public boolean ignoreUnloadedChunks = true;
-    /**
-     * This Variable checks if this TileEntity is dead, because Minecraft is too stupid to have proper TileEntity
-     * unloading.
-     */
+
     public boolean isDead = false;
 
     private final ChunkCoordinates mReturnedCoordinates = new ChunkCoordinates();
@@ -104,9 +86,6 @@ public abstract class GTE extends TileEntity
             if (mBufferedTileEntities[i] == this) mBufferedTileEntities[i] = null;
     }
 
-    /**
-     * Called automatically when the Coordinates of this TileEntity have been changed
-     */
     protected final void clearTileEntityBuffer() {
         Arrays.fill(mBufferedTileEntities, null);
     }
@@ -437,9 +416,6 @@ public abstract class GTE extends TileEntity
         final int tY = getOffsetY(side, 1);
         final int tZ = getOffsetZ(side, 1);
         if (crossedChunkBorder(tX, tZ)) {
-            // never trust the "nothing here" marker across a chunk border
-            // loading the neighbor chunk fires no block update
-            // the marker would stick forever and we would never see its tile entities.
             mBufferedTileEntities[ordinalSide] = null;
             if (ignoreUnloadedChunks && !worldObj.blockExists(tX, tY, tZ)) return null;
         } else if (mBufferedTileEntities[ordinalSide] == this) return null;
@@ -493,7 +469,6 @@ public abstract class GTE extends TileEntity
 
     @Override
     public void updateEntity() {
-        // Well if the TileEntity gets ticked it is alive.
         isDead = false;
     }
 
@@ -560,12 +535,6 @@ public abstract class GTE extends TileEntity
         }
     }
 
-    /**
-     * Gets items to be displayed for HoloInventory mod.
-     *
-     * @return null if default implementation should be used, i.e. {@link IInventory#getStackInSlot}. Otherwise, a list
-     *         of items to be displayed. Null element may be contained.
-     */
     @Nullable
     public List<ItemStack> getItemsForHoloGlasses() {
         return null;
@@ -579,34 +548,14 @@ public abstract class GTE extends TileEntity
         return false;
     }
 
-    // === GUI stuff ===
-
     public IItemHandlerModifiable getInventoryHandler() {
         return null;
     }
 
     protected GTTooltipDataCache mTooltipCache = new GTTooltipDataCache();
 
-    // Tooltip localization keys
-    public static final String BATTERY_SLOT_TOOLTIP = "GT5U.machines.battery_slot.tooltip",
-        BATTERY_SLOT_TOOLTIP_ALT = "GT5U.machines.battery_slot.tooltip.alternative",
-        UNUSED_SLOT_TOOLTIP = "GT5U.machines.unused_slot.tooltip",
-        SPECIAL_SLOT_TOOLTIP = "GT5U.machines.special_slot.tooltip",
-        STALLED_STUTTERING_TOOLTIP = "GT5U.machines.stalled_stuttering.tooltip",
-        STALLED_VENT_TOOLTIP = "GT5U.machines.stalled_vent.tooltip",
-        FLUID_TRANSFER_TOOLTIP = "GT5U.machines.fluid_transfer.tooltip",
-        ITEM_TRANSFER_TOOLTIP = "GT5U.machines.item_transfer.tooltip", POWER_SOURCE_KEY = "GT5U.machines.powersource.",
-        BUTTON_FORBIDDEN_TOOLTIP = "GT5U.gui.button.forbidden",
-        BUTTON_FEATURE_ENABLED_TOOLTIP = "GT5U.gui.button.feature_enabled",
-        BUTTON_FEATURE_DISABLED_TOOLTIP = "GT5U.gui.button.feature_disabled",
-        NEI_TRANSFER_STEAM_TOOLTIP = "GT5U.machines.nei_transfer.steam.tooltip",
-        NEI_TRANSFER_VOLTAGE_TOOLTIP = "GT5U.machines.nei_transfer.voltage.tooltip";
-
     public static final int TOOLTIP_DELAY = 0;
 
-    /**
-     * Override this to add {@link com.gtnewhorizons.modularui.api.widget.Widget}s for your UI.
-     */
     public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {}
 
     public void bindPlayerInventoryUI(ModularWindow.Builder builder, UIBuildContext buildContext) {
@@ -705,9 +654,7 @@ public abstract class GTE extends TileEntity
         return true;
     }
 
-    public void addCoverTabs(ModularWindow.Builder builder, UIBuildContext buildContext) {
-        /* Do nothing */
-    }
+    public void addCoverTabs(ModularWindow.Builder builder, UIBuildContext buildContext) {}
 
     public IConfigurationCircuitSupport getConfigurationCircuitSupport() {
         if (!(this instanceof IConfigurationCircuitSupport)) return null;
@@ -819,8 +766,6 @@ public abstract class GTE extends TileEntity
 
         if (!(this instanceof IInventory inv)) return;
 
-        // we will not do any validation on client side
-        // it doesn't get to actually decide what inventory contains anyway
         inv.setInventorySlotContents(ccs.getCircuitSlot(), selected);
     }
 
@@ -829,10 +774,6 @@ public abstract class GTE extends TileEntity
     }
 
     protected Supplier<Integer> COLOR_TITLE = () -> getTextColorOrDefault("title", 0x404040);
-    protected Supplier<Integer> COLOR_TITLE_WHITE = () -> getTextColorOrDefault("title_white", 0xfafaff);
-    protected Supplier<Integer> COLOR_TEXT_WHITE = () -> getTextColorOrDefault("text_white", 0xfafaff);
-    protected Supplier<Integer> COLOR_TEXT_GRAY = () -> getTextColorOrDefault("text_gray", 0x404040);
-    protected Supplier<Integer> COLOR_TEXT_RED = () -> getTextColorOrDefault("text_red", 0xff0000);
 
     public int getGUIColorization() {
         return Dyes.dyeWhite.toInt();
