@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.google.common.io.ByteArrayDataInput;
 
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.metatileentity.CoverableTileEntity;
+import gregtech.api.metatileentity.CoverableGTE;
 import gregtech.common.covers.Base.Cover;
 import io.netty.buffer.ByteBuf;
 
@@ -93,7 +93,7 @@ public class GTPacketRequestCoverData extends GTPacket {
         final World world = DimensionManager.getWorld(mPlayer.dimension);
         if (world != null) {
             final TileEntity tile = world.getTileEntity(mX, mY, mZ);
-            if (tile instanceof CoverableTileEntity te) {
+            if (tile instanceof CoverableGTE te) {
                 if (!te.isDead() && te.getCoverAtSide(side)
                     .getCoverID() == coverID) {
                     te.issueCoverUpdate(side);

@@ -48,7 +48,7 @@ import gregtech.api.interfaces.metatileentity.IFluidContainerItemMetaTile;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
-import gregtech.api.metatileentity.CoverableTileEntity;
+import gregtech.api.metatileentity.CoverableGTE;
 import gregtech.api.metatileentity.GTE;
 import gregtech.api.metatileentity.MTE;
 import gregtech.api.metatileentity.implementations.MTEFluidPipe;
@@ -143,7 +143,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
                     list.add(translateToLocal("gt.tileentity.has_steam_upgrade"));
                 }
 
-                CoverableTileEntity.addInstalledCoversInformation(nbt, list);
+                CoverableGTE.addInstalledCoversInformation(nbt, list);
                 if (nbt.hasKey("mColor") && nbt.getByte("mColor") != -1) {
                     list.add(
                         translateToLocalFormatted(

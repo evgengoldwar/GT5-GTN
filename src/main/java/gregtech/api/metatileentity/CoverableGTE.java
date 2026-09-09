@@ -7,7 +7,6 @@ import static gregtech.api.util.GTLanguageManager.getTranslation;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -59,44 +58,35 @@ import gregtech.common.covers.Base.Cover;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-public abstract class CoverableTileEntity extends GTE implements ICoverable, IGregtechWailaProvider {
+public abstract class CoverableGTE extends GTE implements ICoverable, IGregtechWailaProvider {
 
-    // TODO DEPRECATED: Remove for 2.9. Only kept around for the name remover
-    @Deprecated
-    public static final String[] COVER_DATA_NBT_KEYS = Arrays.stream(ForgeDirection.VALID_DIRECTIONS)
-        .mapToInt(Enum::ordinal)
-        .mapToObj(i -> "mCoverData" + i)
-        .toArray(String[]::new);
     private static final String NBT_COVER_SIDE = "s";
 
-    // New Cover Information
     protected final Cover[] covers = new Cover[] { CoverRegistry.NO_COVER, CoverRegistry.NO_COVER,
         CoverRegistry.NO_COVER, CoverRegistry.NO_COVER, CoverRegistry.NO_COVER, CoverRegistry.NO_COVER };
     private byte validCoversMask;
 
-    // Whether block update is needed because of redstone changes.
-    protected boolean mNeedsBlockUpdate = true;
-    // The actual redstone signal per side, direct modifiers of this are required to issue block update for change.
-    // Use `setOutputRedstoneSignal` to modify the redstone output and issue block update on the server if changed.
-    protected final byte[] mSidedRedstone = new byte[] { 0, 0, 0, 0, 0, 0 };
+    protected boolean needsBlockUpdate = true;
+
+    protected final byte[] sidedRedstone = new byte[] { 0, 0, 0, 0, 0, 0 };
     // Use `setStrongRedstone` to automatically send block update on change
-    private byte mStrongRedstone = 0;
+    private byte strongRedstone = 0;
     // To only issue update to sides that has strong redstone set either previously or currently
-    private byte oldStrongRedstone = 0;
+    private byte strongRedstoneOld = 0;
 
-    protected short mID = 0;
-    public long mTickTimer = 0;
+    protected short meta = 0;
+    public long tickTimer = 0;
 
-    protected void writeCoverNBT(NBTTagCompound aNBT, boolean isDrop) {
+    protected void writeCoverNBT(NBTTagCompound nbt, boolean isDrop) {
         final NBTTagList tList = buildCoversNbtTag();
         if (tList.tagCount() > 0) {
-            aNBT.setTag(GTValues.NBT.COVERS, tList);
+            nbt.setTag(GTValues.NBT.COVERS, tList);
         }
 
-        if (mStrongRedstone > 0) aNBT.setByte("mStrongRedstone", mStrongRedstone);
+        if (strongRedstone > 0) nbt.setByte("mStrongRedstone", strongRedstone);
 
         if (!isDrop) {
-            aNBT.setByteArray("mRedstoneSided", mSidedRedstone);
+            nbt.setByteArray("mRedstoneSided", sidedRedstone);
         }
     }
 
@@ -115,14 +105,14 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
         return covers;
     }
 
-    protected void readCoverNBT(NBTTagCompound aNBT) {
-        mStrongRedstone = aNBT.getByte("mStrongRedstone");
+    protected void readCoverNBT(NBTTagCompound nbt) {
+        strongRedstone = nbt.getByte("mStrongRedstone");
 
-        if (aNBT.hasKey("mRedstoneSided")) {
-            byte[] readArray = aNBT.getByteArray("mRedstoneSided");
-            System.arraycopy(readArray, 0, mSidedRedstone, 0, Math.min(mSidedRedstone.length, readArray.length));
+        if (nbt.hasKey("mRedstoneSided")) {
+            byte[] readArray = nbt.getByteArray("mRedstoneSided");
+            System.arraycopy(readArray, 0, sidedRedstone, 0, Math.min(sidedRedstone.length, readArray.length));
         }
-        applyCovers(readCoversNBT(aNBT, this));
+        applyCovers(readCoversNBT(nbt, this));
     }
 
     private void applyCovers(@NotNull List<Cover> storedCovers) {
@@ -132,14 +122,14 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
         }
     }
 
-    public static @NotNull List<Cover> readCoversNBT(NBTTagCompound aNBT, CoverableTileEntity coverableTileEntity) {
-        if (aNBT != null && aNBT.hasKey(GTValues.NBT.COVERS)) {
-            final NBTTagList tList = aNBT.getTagList(GTValues.NBT.COVERS, TAG_COMPOUND);
+    public static @NotNull List<Cover> readCoversNBT(NBTTagCompound nbt, CoverableGTE coverableGTE) {
+        if (nbt != null && nbt.hasKey(GTValues.NBT.COVERS)) {
+            final NBTTagList tList = nbt.getTagList(GTValues.NBT.COVERS, TAG_COMPOUND);
             List<Cover> storedCovers = new ArrayList<>();
             for (byte i = 0; i < tList.tagCount(); i++) {
                 final NBTTagCompound tNBT = tList.getCompoundTagAt(i);
                 ForgeDirection side = ForgeDirection.getOrientation(tNBT.getByte(NBT_COVER_SIDE));
-                storedCovers.add(CoverRegistry.buildCoverFromNbt(tNBT, side, coverableTileEntity));
+                storedCovers.add(CoverRegistry.buildCoverFromNbt(tNBT, side, coverableGTE));
             }
             return storedCovers;
         }
@@ -178,9 +168,6 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
         cover.onCoverUnload();
     }
 
-    /**
-     * @return {@code false} if the tile is no longer valid after ticking the cover
-     */
     private boolean tickCoverAtSide(ForgeDirection side) {
         final Cover cover = getCoverAtSide(side);
         if (!cover.isValid()) return true;
@@ -272,10 +259,6 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
 
     abstract public void enableTicking();
 
-    /**
-     * @param cover the cover to apply. Not guaranteed to have a side.
-     * @param side  the side to apply the cover to.
-     */
     private void applyCover(@NotNull Cover cover, ForgeDirection side) {
         if (side != ForgeDirection.UNKNOWN) {
             covers[side.ordinal()] = cover;
@@ -288,7 +271,6 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
         }
     }
 
-    // TODO: Re-implement using validCoversMask, if that makes sense.
     @Override
     public boolean hasCoverAtSide(ForgeDirection side) {
         return getCoverAtSide(side).isValid();
@@ -336,22 +318,19 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
         }
     }
 
-    /**
-     * Used on client side, no need to issue block update
-     */
     protected void setRedstoneOutput(int packedRedstoneValue) {
-        mSidedRedstone[0] = (byte) ((packedRedstoneValue & 1) == 1 ? 15 : 0);
-        mSidedRedstone[1] = (byte) ((packedRedstoneValue & 2) == 2 ? 15 : 0);
-        mSidedRedstone[2] = (byte) ((packedRedstoneValue & 4) == 4 ? 15 : 0);
-        mSidedRedstone[3] = (byte) ((packedRedstoneValue & 8) == 8 ? 15 : 0);
-        mSidedRedstone[4] = (byte) ((packedRedstoneValue & 16) == 16 ? 15 : 0);
-        mSidedRedstone[5] = (byte) ((packedRedstoneValue & 32) == 32 ? 15 : 0);
+        sidedRedstone[0] = (byte) ((packedRedstoneValue & 1) == 1 ? 15 : 0);
+        sidedRedstone[1] = (byte) ((packedRedstoneValue & 2) == 2 ? 15 : 0);
+        sidedRedstone[2] = (byte) ((packedRedstoneValue & 4) == 4 ? 15 : 0);
+        sidedRedstone[3] = (byte) ((packedRedstoneValue & 8) == 8 ? 15 : 0);
+        sidedRedstone[4] = (byte) ((packedRedstoneValue & 16) == 16 ? 15 : 0);
+        sidedRedstone[5] = (byte) ((packedRedstoneValue & 32) == 32 ? 15 : 0);
     }
 
     public final byte getSidedRedstoneMask() {
         byte redstone = 0;
         for (int i = 0; i < 6; i++) {
-            if (mSidedRedstone[i] > 0) {
+            if (sidedRedstone[i] > 0) {
                 redstone |= (byte) (0b1 << i);
             }
         }
@@ -359,54 +338,46 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
     }
 
     public final byte getStrongRedstone() {
-        return mStrongRedstone;
+        return strongRedstone;
     }
 
-    /**
-     * Sets a new value for strong redstone. If the value is changed, block update is issued automatically.
-     */
     public final void setStrongRedstone(byte newStrongRedstone) {
-        if (newStrongRedstone != mStrongRedstone) {
-            mStrongRedstone = newStrongRedstone;
+        if (newStrongRedstone != strongRedstone) {
+            strongRedstone = newStrongRedstone;
             markDirty();
             issueBlockUpdate();
         }
     }
 
-    /**
-     * Toggles the specified side for strong redstone
-     *
-     * @return whether the side is emitting strong redstone
-     */
     public final boolean toggleStrongRedstone(ForgeDirection side) {
-        mStrongRedstone ^= (byte) side.flag;
+        strongRedstone ^= (byte) side.flag;
         markDirty();
         issueBlockUpdate();
-        return (mStrongRedstone & side.flag) != 0;
+        return (strongRedstone & side.flag) != 0;
     }
 
     @Override
     public void issueBlockUpdate() {
-        mNeedsBlockUpdate = true;
+        needsBlockUpdate = true;
         if (isTickDisabled()) {
             doBlockUpdateServer();
         }
     }
 
     public final void doBlockUpdateServer() {
-        updateNeighbours(mStrongRedstone, oldStrongRedstone);
-        oldStrongRedstone = mStrongRedstone;
-        mNeedsBlockUpdate = false;
+        updateNeighbours(strongRedstone, strongRedstoneOld);
+        strongRedstoneOld = strongRedstone;
+        needsBlockUpdate = false;
     }
 
     @Override
     public void setOutputRedstoneSignal(ForgeDirection side, byte strength) {
-        final byte cappedStrength = (byte) Math.min(Math.max(0, strength), 15);
+        final byte cappedStrength = (byte) Math.clamp(strength, 0, 15);
         if (side == ForgeDirection.UNKNOWN) return;
 
         final int ordinalSide = side.ordinal();
-        if (mSidedRedstone[ordinalSide] != cappedStrength) {
-            mSidedRedstone[ordinalSide] = cappedStrength;
+        if (sidedRedstone[ordinalSide] != cappedStrength) {
+            sidedRedstone[ordinalSide] = cappedStrength;
             issueBlockUpdate();
             scheduleTexturePacket();
         }
@@ -414,28 +385,28 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
 
     @Override
     public void setStrongOutputRedstoneSignal(ForgeDirection side, byte strength) {
-        setStrongRedstone((byte) (mStrongRedstone | side.flag));
+        setStrongRedstone((byte) (strongRedstone | side.flag));
         setOutputRedstoneSignal(side, strength);
     }
 
     @Override
     public void setRedstoneOutputStrength(ForgeDirection side, boolean isStrong) {
         if (isStrong) {
-            setStrongRedstone((byte) (mStrongRedstone | side.flag));
+            setStrongRedstone((byte) (strongRedstone | side.flag));
         } else {
-            setStrongRedstone((byte) (mStrongRedstone & (~side.flag)));
+            setStrongRedstone((byte) (strongRedstone & (~side.flag)));
         }
-        setOutputRedstoneSignal(side, mSidedRedstone[side.ordinal()]);
+        setOutputRedstoneSignal(side, sidedRedstone[side.ordinal()]);
     }
 
     @Override
     public boolean getRedstoneOutputStrength(ForgeDirection side) {
-        return (mStrongRedstone & side.flag) != 0;
+        return (strongRedstone & side.flag) != 0;
     }
 
     @Override
-    public void setInternalOutputRedstoneSignal(ForgeDirection side, byte aStrength) {
-        if (!getCoverAtSide(side).manipulatesSidedRedstoneOutput()) setOutputRedstoneSignal(side, aStrength);
+    public void setInternalOutputRedstoneSignal(ForgeDirection side, byte strength) {
+        if (!getCoverAtSide(side).manipulatesSidedRedstoneOutput()) setOutputRedstoneSignal(side, strength);
     }
 
     @Override
@@ -468,8 +439,8 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
     @Override
     public byte getStrongOutputRedstoneSignal(ForgeDirection side) {
         final int ordinalSide = side.ordinal();
-        return side != ForgeDirection.UNKNOWN && (mStrongRedstone & (1 << ordinalSide)) != 0
-            ? (byte) (mSidedRedstone[ordinalSide] & 15)
+        return side != ForgeDirection.UNKNOWN && (strongRedstone & (1 << ordinalSide)) != 0
+            ? (byte) (sidedRedstone[ordinalSide] & 15)
             : 0;
     }
 
@@ -487,7 +458,7 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
 
     @Override
     public byte getOutputRedstoneSignal(ForgeDirection side) {
-        return getCoverAtSide(side).manipulatesSidedRedstoneOutput() ? mSidedRedstone[side.ordinal()]
+        return getCoverAtSide(side).manipulatesSidedRedstoneOutput() ? sidedRedstone[side.ordinal()]
             : getGeneralRS(side);
     }
 
@@ -529,7 +500,7 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         final ForgeDirection currentFacing = accessor.getSide();
 
@@ -538,7 +509,7 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
 
             final ItemStack coverStack = cover.asItemStack();
             if (coverStack != null) {
-                currentTip.add(
+                list.add(
                     StatCollector.translateToLocalFormatted(
                         "GT5U.waila.cover",
                         currentFacing == cover.getSide()
@@ -549,7 +520,7 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
                                     .toLowerCase()),
                         coverStack.getDisplayName()));
                 final String behaviorDesc = cover.getDescription();
-                if (!Objects.equals(behaviorDesc, E)) currentTip.add(behaviorDesc);
+                if (!Objects.equals(behaviorDesc, E)) list.add(behaviorDesc);
             }
         }
 
@@ -572,12 +543,6 @@ public abstract class CoverableTileEntity extends GTE implements ICoverable, IGr
         }
     }
 
-    /**
-     * Add installed cover information, generally called from ItemBlock
-     *
-     * @param aNBT  - NBTTagCompound from the stack
-     * @param aList - List to add the information to
-     */
     public static void addInstalledCoversInformation(NBTTagCompound aNBT, List<String> aList) {
         if (aNBT == null || aList == null) return;
         final NBTTagList tList = aNBT.getTagList(GTValues.NBT.COVERS, 10);

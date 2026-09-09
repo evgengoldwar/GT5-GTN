@@ -53,7 +53,7 @@ import gregtech.api.items.GTGenericBlock;
 import gregtech.api.items.MetaBaseItem;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
-import gregtech.api.metatileentity.CoverableTileEntity;
+import gregtech.api.metatileentity.CoverableGTE;
 import gregtech.api.metatileentity.GTE;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
@@ -518,7 +518,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public boolean removedByPlayer(World aWorld, EntityPlayer aPlayer, int aX, int aY, int aZ, boolean aWillHarvest) {
         if (aPlayer != null && aPlayer.isSneaking() && !EnchantmentHelper.getSilkTouchModifier(aPlayer)) {
             final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-            if (tTileEntity instanceof CoverableTileEntity coverableTE) {
+            if (tTileEntity instanceof CoverableGTE coverableTE) {
                 for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                     if (coverableTE.hasCoverAtSide(side)) {
                         coverableTE.dropCover(side, side);
@@ -700,7 +700,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     @Override
     public Block getFacade(IBlockAccess aWorld, int aX, int aY, int aZ, int ordinalSide) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof CoverableTileEntity tile) {
+        if (tTileEntity instanceof CoverableGTE tile) {
             final ForgeDirection dir = ForgeDirection.getOrientation(ordinalSide);
             if (dir != ForgeDirection.UNKNOWN) {
                 final Block facadeBlock = tile.getCoverAtSide(dir)
@@ -722,7 +722,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     @Override
     public int getFacadeMetadata(IBlockAccess aWorld, int aX, int aY, int aZ, int ordinalSide) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof CoverableTileEntity tile) {
+        if (tTileEntity instanceof CoverableGTE tile) {
             final ForgeDirection dir = ForgeDirection.getOrientation(ordinalSide);
             if (ordinalSide != -1) {
                 final Cover cover = tile.getCoverAtSide(dir);

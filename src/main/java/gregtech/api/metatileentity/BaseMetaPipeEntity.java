@@ -114,7 +114,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
             GT_FML_LOGGER.error("Encountered CRITICAL ERROR while saving MetaTileEntity", e);
         }
         try {
-            nbt.setInteger("mID", mID);
+            nbt.setInteger("mID", meta);
             writeCoverNBT(nbt, false);
             writeCommonNBT(nbt);
             nbt.setByte("mConnections", mConnections);
@@ -134,12 +134,12 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     @Override
     public void setInitialValuesAsNBT(NBTTagCompound nbt, short meta) {
         if (nbt == null) {
-            if (meta > 0) mID = meta;
-            else mID = mID > 0 ? mID : 0;
-            if (mID != 0) createNewMetatileEntity(mID);
+            if (meta > 0) this.meta = meta;
+            else this.meta = this.meta > 0 ? this.meta : 0;
+            if (this.meta != 0) createNewMetatileEntity(this.meta);
         } else {
-            if (meta <= 0) mID = (short) nbt.getInteger("mID");
-            else mID = meta;
+            if (meta <= 0) this.meta = (short) nbt.getInteger("mID");
+            else this.meta = meta;
             mConnections = nbt.getByte("mConnections");
             mWorks = !nbt.getBoolean("mWorks");
 
@@ -157,7 +157,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
         }
         final boolean isServerSide = isServerSide();
         if (hasValidMetaTileEntity()) {
-            if (mTickTimer++ == 0) {
+            if (tickTimer++ == 0) {
                 handleFirstTick(isServerSide);
                 if (!hasValidMetaTileEntity()) {
                     return;
@@ -172,35 +172,35 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
                     return;
                 }
             } else {
-                if (mTickTimer > 10) {
+                if (tickTimer > 10) {
                     if (!doCoverThings()) {
                         return;
                     }
                     updateConnections();
                 }
             }
-            mMetaTileEntity.onPreTick(this, mTickTimer);
+            mMetaTileEntity.onPreTick(this, tickTimer);
             if (!hasValidMetaTileEntity()) {
                 return;
             }
             if (isServerSide) {
-                if (mTickTimer == 10) {
+                if (tickTimer == 10) {
                     issueBlockUpdate();
                 }
                 handlePositionChange();
             }
-            mMetaTileEntity.onPostTick(this, mTickTimer);
+            mMetaTileEntity.onPostTick(this, tickTimer);
             if (!hasValidMetaTileEntity()) {
                 return;
             }
             if (isServerSide) {
-                if (mTickTimer > 10) {
+                if (tickTimer > 10) {
                     handleConnectionsChangeServer();
                     handleUpdateDataChangeServer();
                     handleSidedRedstoneChangeServer();
                 }
 
-                if (mNeedsBlockUpdate) {
+                if (needsBlockUpdate) {
                     doBlockUpdateServer();
                 }
 
@@ -240,7 +240,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     protected void onTickFail() {
-        mMetaTileEntity.onTickFail(this, mTickTimer);
+        mMetaTileEntity.onTickFail(this, tickTimer);
     }
 
     private byte getUpdateData() {
@@ -358,7 +358,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     @Override
     public String getInventoryName() {
         if (canAccessData()) return mMetaTileEntity.getInventoryName();
-        if (mteArray[mID] != null) return mteArray[mID].getInventoryName();
+        if (mteArray[meta] != null) return mteArray[meta].getInventoryName();
         return "";
     }
 
@@ -380,7 +380,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer aPlayer) {
-        return hasValidMetaTileEntity() && mTickTimer > 1
+        return hasValidMetaTileEntity() && tickTimer > 1
             && getTileEntityOffset(0, 0, 0) == this
             && aPlayer.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64
             && mMetaTileEntity.isAccessAllowed(aPlayer);
@@ -389,7 +389,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     @Override
     public void validate() {
         super.validate();
-        mTickTimer = 0;
+        tickTimer = 0;
     }
 
     @Override
@@ -475,12 +475,12 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public int getMeta() {
-        return mID;
+        return meta;
     }
 
     @Override
     public void setMeta(short meta) {
-        mID = meta;
+        this.meta = meta;
     }
 
     @Override
@@ -507,7 +507,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public long getTimer() {
-        return mTickTimer;
+        return tickTimer;
     }
 
     @Override
@@ -644,7 +644,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public ArrayList<ItemStack> getDrops() {
-        final ItemStack rStack = new ItemStack(GregTechAPI.sBlockMachines, 1, mID);
+        final ItemStack rStack = new ItemStack(GregTechAPI.sBlockMachines, 1, meta);
         final NBTTagCompound tNBT = new NBTTagCompound();
 
         writeCoverNBT(tNBT, true);
@@ -933,7 +933,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public int fill(ForgeDirection side, FluidStack aFluidStack, boolean doFill) {
-        if (mTickTimer > 5 && canAccessData()
+        if (tickTimer > 5 && canAccessData()
             && canMoveFluidOnSide(side, aFluidStack == null ? null : aFluidStack.getFluid(), true))
             return mMetaTileEntity.fill(side, aFluidStack, doFill);
         return 0;
@@ -941,7 +941,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public FluidStack drain(ForgeDirection side, int maxDrain, boolean doDrain) {
-        if (mTickTimer > 5 && canAccessData()
+        if (tickTimer > 5 && canAccessData()
             && canMoveFluidOnSide(
                 side,
                 mMetaTileEntity.getFluid() == null ? null
@@ -954,7 +954,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public FluidStack drain(ForgeDirection side, FluidStack aFluidStack, boolean doDrain) {
-        if (mTickTimer > 5 && canAccessData()
+        if (tickTimer > 5 && canAccessData()
             && canMoveFluidOnSide(side, aFluidStack == null ? null : aFluidStack.getFluid(), false))
             return mMetaTileEntity.drain(side, aFluidStack, doDrain);
         return null;
@@ -962,14 +962,14 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public boolean canFill(ForgeDirection side, Fluid aFluid) {
-        if (mTickTimer > 5 && canAccessData() && canMoveFluidOnSide(side, aFluid, true))
+        if (tickTimer > 5 && canAccessData() && canMoveFluidOnSide(side, aFluid, true))
             return mMetaTileEntity.canFill(side, aFluid);
         return false;
     }
 
     @Override
     public boolean canDrain(ForgeDirection side, Fluid aFluid) {
-        if (mTickTimer > 5 && canAccessData() && canMoveFluidOnSide(side, aFluid, false))
+        if (tickTimer > 5 && canAccessData() && canMoveFluidOnSide(side, aFluid, false))
             return mMetaTileEntity.canDrain(side, aFluid);
         return false;
     }
@@ -1077,12 +1077,12 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         if (hasValidMetaTileEntity()) {
-            getMTE().getWailaBody(itemStack, currentTip, accessor, config);
+            getMTE().getWailaBody(itemStack, list, accessor, config);
         }
-        super.getWailaBody(itemStack, currentTip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
     }
 
     @Override

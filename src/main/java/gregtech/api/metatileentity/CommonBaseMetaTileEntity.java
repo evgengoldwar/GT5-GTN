@@ -50,7 +50,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 
-public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity implements IGTE, IInterfaceNameProvider {
+public abstract class CommonBaseMetaTileEntity extends CoverableGTE implements IGTE, IInterfaceNameProvider {
 
     // mNeedsUpdate: Client only, mark the block for rerender
     // mNeedsTileUpdate: Server only, mark the block for sync using `S35PacketUpdateTileEntity`
@@ -112,8 +112,8 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             if (hasValidMetaTileEntity()) getMTE().setGTE(null);
             mteArray[aID].newMTE(this)
                 .setGTE(this);
-            mTickTimer = 0;
-            mID = aID;
+            tickTimer = 0;
+            meta = aID;
             return true;
         }
         return false;
@@ -211,7 +211,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             mTimeStatisticsIndex = (mTimeStatisticsIndex + 1) % mTimeStatistics.length;
             mTimeStatistics[mTimeStatisticsIndex] = (int) duration;
             if (duration > 0 && duration > (GregTechAPI.MILLISECOND_THRESHOLD_UNTIL_LAG_WARNING * 1_000_000L)
-                && mTickTimer > 1000
+                && tickTimer > 1000
                 && getMTE().doTickProfilingMessageDuringThisTick()
                 && mLagWarningCount++ < 10)
                 GT_FML_LOGGER.warn(
@@ -371,7 +371,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     protected void loadMetaTileNBT(NBTTagCompound aNBT) {
         final int nbtVersion = aNBT.getInteger("nbtVersion");
-        if (mID != 0 && createNewMetatileEntity(mID)) {
+        if (meta != 0 && createNewMetatileEntity(meta)) {
             final NBTTagList tItemList = aNBT.getTagList("Inventory", 10);
             for (int i = 0; i < tItemList.tagCount(); i++) {
                 final NBTTagCompound tTag = tItemList.getCompoundTagAt(i);
@@ -483,7 +483,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
      * Run on the server when the block is marked for a full resync, e.g. when loading a chunk.
      */
     public void tileWriteToStream(ByteBuf buffer) {
-        buffer.writeShort(mID);
+        buffer.writeShort(meta);
         if (mteArrayName != null) {
             byte[] bytes = mteArrayName.getBytes(StandardCharsets.UTF_8);
             buffer.writeInt(bytes.length);
@@ -518,9 +518,9 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             mteArray = arrays.getMteArray();
         }
 
-        if (mID != aID && aID > 0) {
-            mID = aID;
-            createNewMetatileEntity(mID);
+        if (meta != aID && aID > 0) {
+            meta = aID;
+            createNewMetatileEntity(meta);
         }
         byte coverMask = buffer.readByte();
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {

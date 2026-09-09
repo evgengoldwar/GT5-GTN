@@ -122,7 +122,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         }
         try {
             nbt.setBoolean("mWasShutdown", mWasShutdown);
-            nbt.setInteger("mID", mID);
+            nbt.setInteger("mID", meta);
             nbt.setLong("mStoredSteam", mStoredSteam);
             nbt.setLong("mStoredEnergy", mStoredEnergy);
             writeCoverNBT(nbt, false);
@@ -156,12 +156,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public void setInitialValuesAsNBT(NBTTagCompound nbt, short meta) {
         if (nbt == null) {
-            if (meta > 0) mID = meta;
-            else mID = mID > 0 ? mID : 0;
-            if (mID != 0) createNewMetatileEntity(mID);
+            if (meta > 0) this.meta = meta;
+            else this.meta = this.meta > 0 ? this.meta : 0;
+            if (this.meta != 0) createNewMetatileEntity(this.meta);
         } else {
-            if (meta <= 0) mID = (short) nbt.getInteger("mID");
-            else mID = meta;
+            if (meta <= 0) this.meta = (short) nbt.getInteger("mID");
+            else this.meta = meta;
             mStoredSteam = nbt.getLong("mStoredSteam");
             mStoredEnergy = nbt.getLong("mStoredEnergy");
             mLightValue = nbt.getByte("mLightValue");
@@ -262,7 +262,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         mRunningThroughTick = true;
         if (hasValidMetaTileEntity()) {
             final boolean isServerSide = isServerSide();
-            if (mTickTimer++ == 0) {
+            if (tickTimer++ == 0) {
                 handleFirstTick(isServerSide);
                 if (!hasValidMetaTileEntity()) {
                     mRunningThroughTick = false;
@@ -280,7 +280,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                     return;
                 }
             } else {
-                if (mTickTimer > 10 && !doCoverThings()) {
+                if (tickTimer > 10 && !doCoverThings()) {
                     mRunningThroughTick = false;
                     return;
                 }
@@ -318,7 +318,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
             if (isServerSide) {
                 handleCableUpdates();
 
-                if (mTickTimer > 10) {
+                if (tickTimer > 10) {
                     maybeSendTextureData();
                     handleUpdateDataChangeServer();
                     handleSidedRedstoneChangeServer();
@@ -331,7 +331,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                     }
                 }
 
-                if (mNeedsBlockUpdate) {
+                if (needsBlockUpdate) {
                     doBlockUpdateServer();
                 }
             }
@@ -347,11 +347,11 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     private void doPreTick() {
-        mte.onPreTick(this, mTickTimer);
+        mte.onPreTick(this, tickTimer);
     }
 
     private void doPostTick() {
-        mte.onPostTick(this, mTickTimer);
+        mte.onPostTick(this, tickTimer);
     }
 
     /**
@@ -408,7 +408,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      * @return true if the MetaTileEntity is still valid
      */
     private boolean handleElectricUpdates() {
-        if (mTickTimer <= 20 || !mte.isElectric()) {
+        if (tickTimer <= 20 || !mte.isElectric()) {
             return true;
         }
         mAcceptedAmperes = 0;
@@ -574,7 +574,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      * Handles cable power node updates
      */
     private void handleCableUpdates() {
-        if (mTickTimer > 20 && cableUpdateDelay == 0) {
+        if (tickTimer > 20 && cableUpdateDelay == 0) {
             generatePowerNodes();
         }
         cableUpdateDelay--;
@@ -582,16 +582,16 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     protected void onTickFail() {
-        mte.onTickFail(this, mTickTimer);
+        mte.onTickFail(this, tickTimer);
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         if (hasValidMetaTileEntity()) {
-            getMTE().getWailaBody(itemStack, currentTip, accessor, config);
+            getMTE().getWailaBody(itemStack, list, accessor, config);
         }
-        super.getWailaBody(itemStack, currentTip, accessor, config);
+        super.getWailaBody(itemStack, list, accessor, config);
     }
 
     @Override
@@ -805,7 +805,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public String getInventoryName() {
         if (canAccessData()) return mte.getInventoryName();
-        if (mteArray[mID] != null) return mteArray[mID].getInventoryName();
+        if (mteArray[meta] != null) return mteArray[meta].getInventoryName();
         return "";
     }
 
@@ -824,7 +824,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public boolean isUseableByPlayer(EntityPlayer aPlayer) {
         return canAccessData() && playerOwnsThis(aPlayer, false)
-            && mTickTimer > 1
+            && tickTimer > 1
             && getTileEntityOffset(0, 0, 0) == this
             && aPlayer.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64
             && mte.isAccessAllowed(aPlayer);
@@ -833,7 +833,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public void validate() {
         super.validate();
-        mTickTimer = 0;
+        tickTimer = 0;
     }
 
     @Override
@@ -947,12 +947,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public int getMeta() {
-        return mID;
+        return meta;
     }
 
     @Override
     public void setMeta(short meta) {
-        mID = meta;
+        this.meta = meta;
     }
 
     @Nullable
@@ -991,7 +991,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public long getTimer() {
-        return mTickTimer;
+        return tickTimer;
     }
 
     @Override
@@ -1307,7 +1307,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public ArrayList<ItemStack> getDrops() {
-        final ItemStack rStack = new ItemStack(GregTechAPI.sBlockMachines, 1, mID);
+        final ItemStack rStack = new ItemStack(GregTechAPI.sBlockMachines, 1, meta);
         final NBTTagCompound tNBT = new NBTTagCompound();
         if (mLockUpgrade) tNBT.setBoolean("mLockUpgrade", true);
         if (getColorRaw() > 0) tNBT.setByte("mColor", getColorRaw());
@@ -1583,7 +1583,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public byte getGeneralRS(ForgeDirection side) {
         if (mte == null) return 0;
-        return mte.allowGeneralRedstoneOutput() ? mSidedRedstone[side.ordinal()] : 0;
+        return mte.allowGeneralRedstoneOutput() ? sidedRedstone[side.ordinal()] : 0;
     }
 
     @Override
@@ -1747,7 +1747,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public int fill(ForgeDirection side, FluidStack aFluid, boolean doFill) {
-        if (mTickTimer > 5 && canAccessData()
+        if (tickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mInputDisabled)
             && (side == ForgeDirection.UNKNOWN || (mte.isLiquidInput(side)
                 && getCoverAtSide(side).letsFluidIn(aFluid == null ? null : aFluid.getFluid()))))
@@ -1757,7 +1757,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public FluidStack drain(ForgeDirection side, int maxDrain, boolean doDrain) {
-        if (mTickTimer > 5 && canAccessData()
+        if (tickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mOutputDisabled)
             && (side == ForgeDirection.UNKNOWN || (mte.isLiquidOutput(side) && getCoverAtSide(side).letsFluidOut(
                 mte.getFluid() == null ? null
@@ -1769,7 +1769,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public FluidStack drain(ForgeDirection side, FluidStack aFluid, boolean doDrain) {
-        if (mTickTimer > 5 && canAccessData()
+        if (tickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mOutputDisabled)
             && (side == ForgeDirection.UNKNOWN || (mte.isLiquidOutput(side)
                 && getCoverAtSide(side).letsFluidOut(aFluid == null ? null : aFluid.getFluid()))))
@@ -1779,7 +1779,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public boolean canFill(ForgeDirection side, Fluid aFluid) {
-        if (mTickTimer > 5 && canAccessData()
+        if (tickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mInputDisabled)
             && (side == ForgeDirection.UNKNOWN
                 || (mte.isLiquidInput(side) && getCoverAtSide(side).letsFluidIn(aFluid))))
@@ -1789,7 +1789,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public boolean canDrain(ForgeDirection side, Fluid aFluid) {
-        if (mTickTimer > 5 && canAccessData()
+        if (tickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mOutputDisabled)
             && (side == ForgeDirection.UNKNOWN
                 || (mte.isLiquidOutput(side) && getCoverAtSide(side).letsFluidOut(aFluid))))
