@@ -11,17 +11,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import gregtech.api.metatileentity.BaseTileEntity;
+import gregtech.api.metatileentity.GTE;
 
 public class GTInventoryDecoder extends InventoryDecoder {
 
     public GTInventoryDecoder() {
-        super(BaseTileEntity.class);
+        super(GTE.class);
     }
 
     @Override
     public NBTTagList toNBT(IInventory inv) {
-        List<ItemStack> items = ((BaseTileEntity) inv).getItemsForHoloGlasses();
+        List<ItemStack> items = ((GTE) inv).getItemsForHoloGlasses();
         if (items == null) {
             return InventoryDecoderRegistry.DEFAULT.toNBT(inv);
         }

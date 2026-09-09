@@ -48,8 +48,8 @@ import gregtech.api.interfaces.metatileentity.IFluidContainerItemMetaTile;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
-import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.metatileentity.CoverableTileEntity;
+import gregtech.api.metatileentity.GTE;
 import gregtech.api.metatileentity.MTE;
 import gregtech.api.metatileentity.implementations.MTEFluidPipe;
 import gregtech.api.util.GTItsNotMyFaultException;
@@ -316,8 +316,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
                         proxy.setOwner(player);
                     }
                 }
-                gte.setFrontFacing(
-                    BaseTileEntity.getSideForPlayerPlacing(player, ForgeDirection.UP, gte.getValidFacings()));
+                gte.setFrontFacing(GTE.getSideForPlayerPlacing(player, ForgeDirection.UP, gte.getValidFacings()));
                 final ForgeDirection oppositeSide = side.getOpposite();
                 if (gte.getMTE() instanceof IConnectable connectable) {
                     connectable.connect(oppositeSide);

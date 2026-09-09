@@ -1,6 +1,6 @@
 package gregtech.api.modularui2.common;
 
-import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
+import static gregtech.api.metatileentity.GTE.TOOLTIP_DELAY;
 
 import java.util.function.Consumer;
 

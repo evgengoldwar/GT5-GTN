@@ -53,8 +53,8 @@ import gregtech.api.items.GTGenericBlock;
 import gregtech.api.items.MetaBaseItem;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
-import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.metatileentity.CoverableTileEntity;
+import gregtech.api.metatileentity.GTE;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
@@ -117,7 +117,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
 
         checkingAdjacent = true;
 
-        if (aWorld.getTileEntity(aX, aY, aZ) instanceof BaseTileEntity base) {
+        if (aWorld.getTileEntity(aX, aY, aZ) instanceof GTE base) {
             base.onAdjacentBlockChange(aTileX, aTileY, aTileZ);
         }
 

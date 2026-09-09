@@ -59,7 +59,7 @@ import gregtech.common.covers.Base.Cover;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-public abstract class CoverableTileEntity extends BaseTileEntity implements ICoverable, IGregtechWailaProvider {
+public abstract class CoverableTileEntity extends GTE implements ICoverable, IGregtechWailaProvider {
 
     // TODO DEPRECATED: Remove for 2.9. Only kept around for the name remover
     @Deprecated

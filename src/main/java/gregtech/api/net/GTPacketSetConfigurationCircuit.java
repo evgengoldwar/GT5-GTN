@@ -14,7 +14,7 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IInventory;
-import gregtech.api.metatileentity.BaseTileEntity;
+import gregtech.api.metatileentity.GTE;
 import gregtech.api.util.GTByteBuffer;
 import gregtech.api.util.GTUtility;
 import io.netty.buffer.ByteBuf;
@@ -39,7 +39,7 @@ public class GTPacketSetConfigurationCircuit extends GTPacket {
         this(tile.getXCord(), tile.getYCord(), tile.getZCord(), circuit);
     }
 
-    public GTPacketSetConfigurationCircuit(BaseTileEntity tile, ItemStack circuit) {
+    public GTPacketSetConfigurationCircuit(GTE tile, ItemStack circuit) {
         this(tile.getXCord(), tile.getYCord(), tile.getZCord(), circuit);
     }
 
@@ -96,9 +96,9 @@ public class GTPacketSetConfigurationCircuit extends GTPacket {
         if (world == null) return;
 
         final TileEntity tile = world.getTileEntity(mX, mY, mZ);
-        if (!(tile instanceof BaseTileEntity) || ((BaseTileEntity) tile).isDead()) return;
+        if (!(tile instanceof GTE) || ((GTE) tile).isDead()) return;
 
-        final IConfigurationCircuitSupport machine = ((BaseTileEntity) tile).getConfigurationCircuitSupport();
+        final IConfigurationCircuitSupport machine = ((GTE) tile).getConfigurationCircuitSupport();
         if (machine == null) return;
         if (!machine.allowSelectCircuit()) return;
         GTUtility.getAllIntegratedCircuits()

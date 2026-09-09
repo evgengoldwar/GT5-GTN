@@ -64,7 +64,7 @@ import gregtech.common.gui.modularui.base.ItemSelectBaseGui;
  * <p/>
  * Basically everything a TileEntity should have.
  */
-public abstract class BaseTileEntity extends TileEntity
+public abstract class GTE extends TileEntity
     implements IWorldAccessor, IGTEnet, ITileWithModularUI, IAddGregtechLogo, IGetGUITextureSet {
 
     /**
