@@ -7,6 +7,6 @@ import gregtech.api.interfaces.tileentity.IGTE;
 
 public interface IMTEPipe extends IMTE {
 
-    ITexture[] getTexture(IGTE gte, ForgeDirection side, int facingBitMask, int colorIndex,
-        boolean active, boolean redstoneLevel);
+    ITexture[] getTexture(IGTE gte, ForgeDirection side, int facingBitMask, int colorIndex, boolean active,
+        boolean redstoneLevel);
 }

@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
-import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.MTE;
 import gregtech.api.util.FieldsAreNonnullByDefault;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 
@@ -40,13 +40,13 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
 
     public static final ProxiedMteGuiFactory GUI = new ProxiedMteGuiFactory();
 
-    private final MetaTileEntity mte;
+    private final MTE mte;
 
-    public ProxiedMteGui(MetaTileEntity mte) {
+    public ProxiedMteGui(MTE mte) {
         this.mte = mte;
     }
 
-    public static void open(MetaTileEntity mte, EntityPlayerMP player, IMTE[] mteArray) {
+    public static void open(MTE mte, EntityPlayerMP player, IMTE[] mteArray) {
         GuiManager.open(GUI, new ProxiedMteGuiData(player, mte, mteArray), player);
     }
 
@@ -67,14 +67,14 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
 
     final public static class ProxiedMteGuiData extends GuiData {
 
-        final private @Nullable MetaTileEntity serverMTE;
+        final private @Nullable MTE serverMTE;
         final private int mid;
         final private int x;
         final private int y;
         final private int z;
         private IMTE[] mteArray;
 
-        public ProxiedMteGuiData(EntityPlayer player, MetaTileEntity serverMTE, IMTE[] mteArray) {
+        public ProxiedMteGuiData(EntityPlayer player, MTE serverMTE, IMTE[] mteArray) {
             super(player);
             this.serverMTE = serverMTE;
             IGTE base = serverMTE.getGTE();
@@ -94,7 +94,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
             this.z = z;
         }
 
-        public @Nullable MetaTileEntity getServerMTE() {
+        public @Nullable MTE getServerMTE() {
             return serverMTE;
         }
 
@@ -123,7 +123,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
 
         @Override
         public IGuiHolder<ProxiedMteGuiData> getGuiHolder(ProxiedMteGuiData data) {
-            MetaTileEntity mte = data.getServerMTE();
+            MTE mte = data.getServerMTE();
             if (mte == null) {
                 // On the server, we must sync to the real MTE. A check that the real MTE is supplied.
                 assert NetworkUtils.isClient();
@@ -133,7 +133,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
                 fakeBase.yCoord = data.getY();
                 fakeBase.zCoord = data.getZ();
                 fakeBase.setInitialValuesAsNBT(null, (short) data.getMetaId());
-                mte = (MetaTileEntity) fakeBase.getMTE();
+                mte = (MTE) fakeBase.getMTE();
                 assert mte != null;
             }
             return new ProxiedMteGui(mte);

@@ -6,13 +6,13 @@ import org.jetbrains.annotations.Nullable;
 
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 
-import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.MTE;
 
 public class MTEItemStackHandler extends ItemStackHandler {
 
-    private final MetaTileEntity mte;
+    private final MTE mte;
 
-    public MTEItemStackHandler(ItemStack[] inventory, MetaTileEntity mte) {
+    public MTEItemStackHandler(ItemStack[] inventory, MTE mte) {
         super(inventory);
         this.mte = mte;
     }

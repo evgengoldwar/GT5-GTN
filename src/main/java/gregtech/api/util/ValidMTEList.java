@@ -6,9 +6,9 @@ import java.util.NoSuchElementException;
 
 import org.jetbrains.annotations.NotNull;
 
-import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.MTE;
 
-public class ValidMTEList<E extends Collection<T>, T extends MetaTileEntity> implements Iterable<T> {
+public class ValidMTEList<E extends Collection<T>, T extends MTE> implements Iterable<T> {
 
     private final E collection;
 

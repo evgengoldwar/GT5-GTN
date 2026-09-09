@@ -129,7 +129,7 @@ import gregtech.api.interfaces.item.ItemStackSizeCalculator;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.GTGenericItem;
-import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.MTE;
 import gregtech.api.net.GTPacketSound;
 import gregtech.api.objects.CollectorUtils;
 import gregtech.api.objects.GTItemStack;
@@ -1735,7 +1735,7 @@ public class GTUtility {
     /**
      * @return Supplied collection that doesn't contain invalid MetaTileEntities.
      */
-    public static <T extends Collection<E>, E extends MetaTileEntity> T filterValidMTEs(T metaTileEntities) {
+    public static <T extends Collection<E>, E extends MTE> T filterValidMTEs(T metaTileEntities) {
         metaTileEntities.removeIf(mte -> mte == null || !mte.isValid());
         return metaTileEntities;
     }
@@ -1743,8 +1743,7 @@ public class GTUtility {
     /**
      * @return Supplied collection that removes invalid MTEs from the collection while it is being iterated
      */
-    public static <T extends Collection<E>, E extends MetaTileEntity> ValidMTEList<T, E> validMTEList(
-        T metaTileEntities) {
+    public static <T extends Collection<E>, E extends MTE> ValidMTEList<T, E> validMTEList(T metaTileEntities) {
         return new ValidMTEList<>(metaTileEntities);
     }
 
@@ -1757,8 +1756,8 @@ public class GTUtility {
      * @param <MTESuper> The MTE superclass
      * @param <MTEImpl>  The MTE implementation class/subclass
      */
-    public static <MTESuper extends MetaTileEntity, MTEImpl extends MTESuper> List<MTEImpl> getMTEsOfType(
-        List<MTESuper> mtes, Class<MTEImpl> mteClass) {
+    public static <MTESuper extends MTE, MTEImpl extends MTESuper> List<MTEImpl> getMTEsOfType(List<MTESuper> mtes,
+        Class<MTEImpl> mteClass) {
         List<MTEImpl> out = new ArrayList<>(mtes.size());
 
         for (int i = 0, mtesSize = mtes.size(); i < mtesSize; i++) {

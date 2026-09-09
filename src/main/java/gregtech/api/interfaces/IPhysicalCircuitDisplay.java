@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 
-import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.MTE;
 import gregtech.api.util.GTUtility;
 
 /**
@@ -26,7 +26,7 @@ public interface IPhysicalCircuitDisplay {
      *
      * @param skipSlot Slot to ignore, usually the ghost circuit slot.
      */
-    static List<Integer> collectCircuitNumbers(MetaTileEntity machine, int fromSlot, int toSlot, int skipSlot) {
+    static List<Integer> collectCircuitNumbers(MTE machine, int fromSlot, int toSlot, int skipSlot) {
         List<Integer> numbers = new ArrayList<>();
         for (int i = fromSlot; i < toSlot; i++) {
             if (i == skipSlot) continue;

@@ -89,7 +89,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public long mLastSoundTick = 0;
     public boolean mWasShutdown = false;
     public @Nonnull ShutDownReason lastShutDownReason = ShutDownReasonRegistry.NONE;
-    protected MetaTileEntity mMetaTileEntity;
+    protected MTE mte;
     protected long mStoredEnergy = 0, mStoredSteam = 0;
     protected int mAverageEUInputIndex = 0, mAverageEUOutputIndex = 0;
     protected boolean mReleaseEnergy = false;
@@ -205,7 +205,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
             GTModHandler.chargeElectricItem(
                 aStack,
                 (int) Math.min(Integer.MAX_VALUE, getStoredEU()),
-                (int) Math.min(Integer.MAX_VALUE, mMetaTileEntity.getOutputTier()),
+                (int) Math.min(Integer.MAX_VALUE, mte.getOutputTier()),
                 false,
                 false),
             true);
@@ -219,7 +219,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
             GTModHandler.dischargeElectricItem(
                 aStack,
                 (int) Math.min(Integer.MAX_VALUE, getEUCapacity() - getStoredEU()),
-                (int) Math.min(Integer.MAX_VALUE, mMetaTileEntity.getInputTier()),
+                (int) Math.min(Integer.MAX_VALUE, mte.getInputTier()),
                 false,
                 false,
                 false),
@@ -256,8 +256,8 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public final void updateEntityProfiled() {
         if (!hasValidMetaTileEntity()) {
-            if (mMetaTileEntity == null) return;
-            mMetaTileEntity.setGTE(this);
+            if (mte == null) return;
+            mte.setGTE(this);
         }
         mRunningThroughTick = true;
         if (hasValidMetaTileEntity()) {
@@ -347,11 +347,11 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     private void doPreTick() {
-        mMetaTileEntity.onPreTick(this, mTickTimer);
+        mte.onPreTick(this, mTickTimer);
     }
 
     private void doPostTick() {
-        mMetaTileEntity.onPostTick(this, mTickTimer);
+        mte.onPostTick(this, mTickTimer);
     }
 
     /**
@@ -408,7 +408,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      * @return true if the MetaTileEntity is still valid
      */
     private boolean handleElectricUpdates() {
-        if (mTickTimer <= 20 || !mMetaTileEntity.isElectric()) {
+        if (mTickTimer <= 20 || !mte.isElectric()) {
             return true;
         }
         mAcceptedAmperes = 0;
@@ -422,7 +422,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      * Updates which faces are active for EU I/O
      */
     private void updateActiveEUIOFaces() {
-        if (!mMetaTileEntity.isEnetOutput() && !mMetaTileEntity.isEnetInput()) {
+        if (!mte.isEnetOutput() && !mte.isEnetInput()) {
             return;
         }
         for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
@@ -436,13 +436,13 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      * Performs EU output to the energy network
      */
     private void handleEUOutput() {
-        if (!mMetaTileEntity.isEnetOutput() || oldOutput <= 0) {
+        if (!mte.isEnetOutput() || oldOutput <= 0) {
             return;
         }
         int voltageTier = Math.max(0, GTUtility.getTier(oldOutput) - 1);
         // voltage + output loss
         long outputVoltage = Math.max(oldOutput, oldOutput + (1L << voltageTier));
-        long availableAmperage = (getStoredEU() - mMetaTileEntity.getMinimumStoredEU()) / outputVoltage;
+        long availableAmperage = (getStoredEU() - mte.getMinimumStoredEU()) / outputVoltage;
         long usableAmperage = Math.min(getOutputAmperage(), availableAmperage);
         if (usableAmperage <= 0) {
             return;
@@ -491,7 +491,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      * @return true if the MetaTileEntity is still valid
      */
     private boolean handleRainExposure() {
-        if (!GregTechAPI.sMachineRainExplosions || !mMetaTileEntity.willExplodeInRain()) {
+        if (!GregTechAPI.sMachineRainExplosions || !mte.willExplodeInRain()) {
             return true;
         }
         if (getRandomNumber(1000) != 0 || !isRainPossible()) {
@@ -528,25 +528,24 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      * Handles discharging items from the de-charger slot
      */
     private void handleInventoryDechargingServer() {
-        if (mMetaTileEntity.dechargerSlotCount() <= 0 || getStoredEU() >= getEUCapacity()) {
+        if (mte.dechargerSlotCount() <= 0 || getStoredEU() >= getEUCapacity()) {
             return;
         }
-        for (int i = mMetaTileEntity.dechargerSlotStartIndex(), k = mMetaTileEntity.dechargerSlotCount() + i; i
-            < k; i++) {
-            if (mMetaTileEntity.inventory[i] == null || getStoredEU() >= getEUCapacity()) {
+        for (int i = mte.dechargerSlotStartIndex(), k = mte.dechargerSlotCount() + i; i < k; i++) {
+            if (mte.inventory[i] == null || getStoredEU() >= getEUCapacity()) {
                 continue;
             }
             // electric batteries
-            dischargeItem(mMetaTileEntity.inventory[i]);
+            dischargeItem(mte.inventory[i]);
             // consumable, e.g. redstone
-            double ic2Energy = ic2.api.info.Info.itemEnergy.getEnergyValue(mMetaTileEntity.inventory[i]);
+            double ic2Energy = ic2.api.info.Info.itemEnergy.getEnergyValue(mte.inventory[i]);
             if (ic2Energy > 0 && getStoredEU() + ic2Energy < getEUCapacity()) {
                 increaseStoredEnergyUnits((long) ic2Energy, false);
-                mMetaTileEntity.inventory[i].stackSize--;
+                mte.inventory[i].stackSize--;
                 mInventoryChanged = true;
             }
-            if (mMetaTileEntity.inventory[i].stackSize <= 0) {
-                mMetaTileEntity.inventory[i] = null;
+            if (mte.inventory[i].stackSize <= 0) {
+                mte.inventory[i] = null;
                 mInventoryChanged = true;
             }
         }
@@ -556,17 +555,16 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      * Handles charging items in the charger slot
      */
     private void handleInventoryChargingServer() {
-        if (mMetaTileEntity.rechargerSlotCount() <= 0 || getStoredEU() <= 0) {
+        if (mte.rechargerSlotCount() <= 0 || getStoredEU() <= 0) {
             return;
         }
-        for (int i = mMetaTileEntity.rechargerSlotStartIndex(), k = mMetaTileEntity.rechargerSlotCount() + i; i
-            < k; i++) {
-            if (getStoredEU() <= 0 || mMetaTileEntity.inventory[i] == null) {
+        for (int i = mte.rechargerSlotStartIndex(), k = mte.rechargerSlotCount() + i; i < k; i++) {
+            if (getStoredEU() <= 0 || mte.inventory[i] == null) {
                 continue;
             }
-            chargeItem(mMetaTileEntity.inventory[i]);
-            if (mMetaTileEntity.inventory[i].stackSize <= 0) {
-                mMetaTileEntity.inventory[i] = null;
+            chargeItem(mte.inventory[i]);
+            if (mte.inventory[i].stackSize <= 0) {
+                mte.inventory[i] = null;
                 mInventoryChanged = true;
             }
         }
@@ -584,7 +582,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     protected void onTickFail() {
-        mMetaTileEntity.onTickFail(this, mTickTimer);
+        mte.onTickFail(this, mTickTimer);
     }
 
     @Override
@@ -677,7 +675,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
         if (hasValidMetaTileEntity()) {
             try {
-                mMetaTileEntity.receiveClientEvent((byte) aEventID, (byte) aValue);
+                mte.receiveClientEvent((byte) aEventID, (byte) aValue);
             } catch (Exception e) {
                 GT_FML_LOGGER.error(
                     "Encountered Exception while receiving Data from the Server, the Client should've been crashed by now, but I prevented that. Please report immediately to GregTech Intergalactical!!!");
@@ -697,7 +695,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                 }
                 case GregTechTileClientEvents.CHANGE_CUSTOM_DATA -> {
                     if (hasValidMetaTileEntity()) {
-                        mMetaTileEntity.onValueUpdate((byte) (aValue & 0x7F));
+                        mte.onValueUpdate((byte) (aValue & 0x7F));
                     }
                 }
                 case GregTechTileClientEvents.CHANGE_COLOR -> {
@@ -707,15 +705,15 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                 case GregTechTileClientEvents.CHANGE_REDSTONE_OUTPUT -> setRedstoneOutput(aValue);
                 case GregTechTileClientEvents.DO_SOUND -> {
                     if (hasValidMetaTileEntity() && isClientSettled())
-                        mMetaTileEntity.doSound((byte) aValue, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+                        mte.doSound((byte) aValue, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
                 }
                 case GregTechTileClientEvents.START_SOUND_LOOP -> {
                     if (hasValidMetaTileEntity() && isClientSettled())
-                        mMetaTileEntity.startSoundLoop((byte) aValue, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+                        mte.startSoundLoop((byte) aValue, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
                 }
                 case GregTechTileClientEvents.STOP_SOUND_LOOP -> {
                     if (hasValidMetaTileEntity() && isClientSettled())
-                        mMetaTileEntity.stopSoundLoop((byte) aValue, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+                        mte.stopSoundLoop((byte) aValue, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
                 }
                 case GregTechTileClientEvents.CHANGE_LIGHT -> {
                     mLightValue = (byte) aValue;
@@ -725,7 +723,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
             issueTextureUpdate();
             if ((aEventID == GregTechTileClientEvents.CHANGE_COMMON_DATA
                 || aEventID == GregTechTileClientEvents.CHANGE_CUSTOM_DATA) && hasValidMetaTileEntity()) {
-                mMetaTileEntity.onClientSoundStateChanged();
+                mte.onClientSoundStateChanged();
             }
         }
         return true;
@@ -733,7 +731,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public boolean isGivingInformation() {
-        return canAccessData() && mMetaTileEntity.isGivingInformation();
+        return canAccessData() && mte.isGivingInformation();
     }
 
     @Override
@@ -768,10 +766,10 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         if (isValidFacing(aFacing)) {
             mFacing = aFacing;
             scheduleTexturePacket();
-            mMetaTileEntity.onFacingChange();
+            mte.onFacingChange();
             cableUpdateDelay = 10;
 
-            if (mMetaTileEntity.shouldTriggerBlockUpdate()) {
+            if (mte.shouldTriggerBlockUpdate()) {
                 // If we're triggering a block update this will call onMachineBlockUpdate()
                 GregTechAPI.causeMachineUpdate(worldObj, xCoord, yCoord, zCoord);
             } else {
@@ -783,13 +781,13 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public int getSizeInventory() {
-        if (canAccessData()) return mMetaTileEntity.getSizeInventory();
+        if (canAccessData()) return mte.getSizeInventory();
         return 0;
     }
 
     @Override
     public ItemStack getStackInSlot(int aIndex) {
-        if (canAccessData()) return mMetaTileEntity.getStackInSlot(aIndex);
+        if (canAccessData()) return mte.getStackInSlot(aIndex);
         return null;
     }
 
@@ -798,7 +796,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         mInventoryChanged = true;
         if (canAccessData()) {
             markDirty();
-            mMetaTileEntity.setInventorySlotContents(
+            mte.setInventorySlotContents(
                 aIndex,
                 worldObj.isRemote ? aStack : GTOreDictUnificator.setStack(true, aStack));
         }
@@ -806,14 +804,14 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public String getInventoryName() {
-        if (canAccessData()) return mMetaTileEntity.getInventoryName();
+        if (canAccessData()) return mte.getInventoryName();
         if (mteArray[mID] != null) return mteArray[mID].getInventoryName();
         return "";
     }
 
     @Override
     public int getInventoryStackLimit() {
-        if (canAccessData()) return mMetaTileEntity.getInventoryStackLimit();
+        if (canAccessData()) return mte.getInventoryStackLimit();
         return 64;
     }
 
@@ -829,7 +827,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
             && mTickTimer > 1
             && getTileEntityOffset(0, 0, 0) == this
             && aPlayer.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64
-            && mMetaTileEntity.isAccessAllowed(aPlayer);
+            && mte.isAccessAllowed(aPlayer);
     }
 
     @Override
@@ -843,8 +841,8 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         tileEntityInvalid = false;
         if (canAccessData()) {
             invalidateAE();
-            mMetaTileEntity.onRemoval();
-            mMetaTileEntity.setGTE(null);
+            mte.onRemoval();
+            mte.setGTE(null);
         }
         super.invalidate();
     }
@@ -853,7 +851,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public void onUnload() {
         if (canAccessData()) {
             onCoverUnload();
-            mMetaTileEntity.onUnload();
+            mte.onUnload();
         }
         super.onUnload();
         onChunkUnloadAE();
@@ -876,7 +874,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      */
     @Override
     public void onMachineBlockUpdate() {
-        if (canAccessData()) mMetaTileEntity.onMachineBlockUpdate();
+        if (canAccessData()) mte.onMachineBlockUpdate();
         cableUpdateDelay = 10;
     }
 
@@ -885,30 +883,30 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      */
     @Override
     public boolean isMachineBlockUpdateRecursive() {
-        return canAccessData() && mMetaTileEntity.isMachineBlockUpdateRecursive();
+        return canAccessData() && mte.isMachineBlockUpdateRecursive();
     }
 
     @Override
     public void onAdjacentBlockChange(int x, int y, int z) {
         super.onAdjacentBlockChange(x, y, z);
         if (hasValidMetaTileEntity()) {
-            mMetaTileEntity.onAdjacentBlockChange(x, y, z);
+            mte.onAdjacentBlockChange(x, y, z);
         }
     }
 
     @Override
     public int getProgress() {
-        return canAccessData() ? mMetaTileEntity.getProgressTime() : 0;
+        return canAccessData() ? mte.getProgressTime() : 0;
     }
 
     @Override
     public int getMaxProgress() {
-        return canAccessData() ? mMetaTileEntity.maxProgressTime() : 0;
+        return canAccessData() ? mte.maxProgressTime() : 0;
     }
 
     @Override
     public boolean increaseProgress(int aProgressAmountInTicks) {
-        return canAccessData() && mMetaTileEntity.increaseProgress(aProgressAmountInTicks) != aProgressAmountInTicks;
+        return canAccessData() && mte.increaseProgress(aProgressAmountInTicks) != aProgressAmountInTicks;
     }
 
     @Override
@@ -924,7 +922,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         setShutdownStatus(false);
         setShutDownReason(ShutDownReasonRegistry.NONE);
         if (hasValidMetaTileEntity()) {
-            mMetaTileEntity.onEnableWorking();
+            mte.onEnableWorking();
         }
     }
 
@@ -933,7 +931,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         mWorks = false;
         scheduleTexturePacket();
         if (hasValidMetaTileEntity()) {
-            mMetaTileEntity.onDisableWorking();
+            mte.onDisableWorking();
         }
     }
 
@@ -961,7 +959,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public <T> T getCapability(@NotNull Class<T> capability, @NotNull ForgeDirection side) {
         if (canAccessData()) {
-            return mMetaTileEntity.getCapability(capability, side);
+            return mte.getCapability(capability, side);
         }
         return null;
     }
@@ -976,7 +974,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         mActive = aActive;
         scheduleTexturePacket();
         if (hasValidMetaTileEntity()) {
-            mMetaTileEntity.onSetActive(aActive);
+            mte.onSetActive(aActive);
         }
     }
 
@@ -1007,7 +1005,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public boolean increaseStoredEnergyUnits(long aEnergy, boolean aIgnoreTooMuchEnergy) {
         if (!canAccessData()) return false;
         if (getStoredEU() < getEUCapacity() || aIgnoreTooMuchEnergy) {
-            setStoredEU(mMetaTileEntity.getEUVar() + aEnergy);
+            setStoredEU(mte.getEUVar() + aEnergy);
             return true;
         }
         return false;
@@ -1039,12 +1037,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public boolean isEnetOutput() {
-        return mMetaTileEntity != null && mMetaTileEntity.isEnetOutput();
+        return mte != null && mte.isEnetOutput();
     }
 
     @Override
     public boolean isEnetInput() {
-        return mMetaTileEntity != null && mMetaTileEntity.isEnetInput();
+        return mte != null && mte.isEnetInput();
     }
 
     public void generatePowerNodes() {
@@ -1075,34 +1073,33 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public long getOutputAmperage() {
-        if (canAccessData() && mMetaTileEntity.isElectric()) return mMetaTileEntity.maxAmperesOut();
+        if (canAccessData() && mte.isElectric()) return mte.maxAmperesOut();
         return 0;
     }
 
     @Override
     public long getOutputVoltage() {
-        if (canAccessData() && mMetaTileEntity.isElectric() && mMetaTileEntity.isEnetOutput())
-            return mMetaTileEntity.maxEUOutput();
+        if (canAccessData() && mte.isElectric() && mte.isEnetOutput()) return mte.maxEUOutput();
         return 0;
     }
 
     @Override
     public long getInputAmperage() {
-        if (canAccessData() && mMetaTileEntity.isElectric()) return mMetaTileEntity.maxAmperesIn();
+        if (canAccessData() && mte.isElectric()) return mte.maxAmperesIn();
         return 0;
     }
 
     @Override
     public long getInputVoltage() {
-        if (canAccessData() && mMetaTileEntity.isElectric()) return mMetaTileEntity.maxEUInput();
+        if (canAccessData() && mte.isElectric()) return mte.maxEUInput();
         return Integer.MAX_VALUE;
     }
 
     @Override
     public boolean increaseStoredSteam(long aEnergy, boolean aIgnoreTooMuchEnergy) {
         if (!canAccessData()) return false;
-        if (mMetaTileEntity.getSteamVar() < getSteamCapacity() || aIgnoreTooMuchEnergy) {
-            setStoredSteam(mMetaTileEntity.getSteamVar() + aEnergy);
+        if (mte.getSteamVar() < getSteamCapacity() || aIgnoreTooMuchEnergy) {
+            setStoredSteam(mte.getSteamVar() + aEnergy);
             return true;
         }
         return false;
@@ -1121,8 +1118,8 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public long getStoredEU() {
         if (canAccessData()) {
-            final long cap = mMetaTileEntity.maxEUStore();
-            final long stored = mMetaTileEntity.getEUVar();
+            final long cap = mte.maxEUStore();
+            final long stored = mte.getEUVar();
             return Math.min(stored, cap);
         }
         return 0;
@@ -1130,19 +1127,19 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public long getEUCapacity() {
-        if (canAccessData()) return mMetaTileEntity.maxEUStore();
+        if (canAccessData()) return mte.maxEUStore();
         return 0;
     }
 
     @Override
     public long getStoredSteam() {
-        if (canAccessData()) return Math.min(mMetaTileEntity.getSteamVar(), getSteamCapacity());
+        if (canAccessData()) return Math.min(mte.getSteamVar(), getSteamCapacity());
         return 0;
     }
 
     @Override
     public long getSteamCapacity() {
-        if (canAccessData()) return mMetaTileEntity.maxSteamStore();
+        if (canAccessData()) return mte.maxSteamStore();
         return 0;
     }
 
@@ -1150,8 +1147,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public ITexture[] getTexture(Block aBlock, ForgeDirection side) {
         final ITexture coverTexture = getCoverTexture(side);
         final ITexture[] textureUncovered = hasValidMetaTileEntity()
-            ? mMetaTileEntity
-                .getTexture(this, side, mFacing, getColorization(), mActive, getOutputRedstoneSignal(side) > 0)
+            ? mte.getTexture(this, side, mFacing, getColorization(), mActive, getOutputRedstoneSignal(side) > 0)
             : Textures.BlockIcons.ERROR_RENDERING;
         final ITexture[] textureCovered;
         if (coverTexture != null) {
@@ -1167,8 +1163,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         if (side != ForgeDirection.UNKNOWN) {
             if (!getCoverAtSide(side).letsEnergyIn()) return false;
             if (isInvalid() || mReleaseEnergy) return false;
-            if (canAccessData() && mMetaTileEntity.isElectric() && mMetaTileEntity.isEnetInput())
-                return mMetaTileEntity.isInputFacing(side);
+            if (canAccessData() && mte.isElectric() && mte.isEnetInput()) return mte.isInputFacing(side);
         }
         return false;
     }
@@ -1177,29 +1172,28 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         if (side != ForgeDirection.UNKNOWN) {
             if (!getCoverAtSide(side).letsEnergyOut()) return false;
             if (isInvalid() || mReleaseEnergy) return mReleaseEnergy;
-            if (canAccessData() && mMetaTileEntity.isElectric() && mMetaTileEntity.isEnetOutput())
-                return mMetaTileEntity.isOutputFacing(side);
+            if (canAccessData() && mte.isElectric() && mte.isEnetOutput()) return mte.isOutputFacing(side);
         }
         return false;
     }
 
     @Override
     void refreshMetaTileEntityValidity() {
-        mMetaTileEntityValid = mMetaTileEntity != null && mMetaTileEntity.getGTE() == this;
-        mNeedsClientTick = mMetaTileEntity == null || mMetaTileEntity.needsClientTick();
+        mMetaTileEntityValid = mte != null && mte.getGTE() == this;
+        mNeedsClientTick = mte == null || mte.needsClientTick();
     }
 
     public boolean setStoredEU(long aEnergy) {
         if (!canAccessData()) return false;
         if (aEnergy < 0) aEnergy = 0;
-        mMetaTileEntity.setEUVar(aEnergy);
+        mte.setEUVar(aEnergy);
         return true;
     }
 
     public boolean setStoredSteam(long aEnergy) {
         if (!canAccessData()) return false;
         if (aEnergy < 0) aEnergy = 0;
-        mMetaTileEntity.setSteamVar(aEnergy);
+        mte.setSteamVar(aEnergy);
         return true;
     }
 
@@ -1207,9 +1201,9 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         if (!canAccessData()) {
             return false;
         }
-        if (aIgnoreTooLessEnergy || mMetaTileEntity.getEUVar() - aEnergy >= 0) {
-            setStoredEU(mMetaTileEntity.getEUVar() - aEnergy);
-            if (mMetaTileEntity.getEUVar() < 0) {
+        if (aIgnoreTooLessEnergy || mte.getEUVar() - aEnergy >= 0) {
+            setStoredEU(mte.getEUVar() - aEnergy);
+            if (mte.getEUVar() < 0) {
                 setStoredEU(0);
                 return false;
             }
@@ -1220,9 +1214,9 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     public boolean decreaseStoredSteam(long aEnergy, boolean aIgnoreTooLessEnergy) {
         if (!canAccessData()) return false;
-        if (aIgnoreTooLessEnergy || mMetaTileEntity.getSteamVar() - aEnergy >= 0) {
-            setStoredSteam(mMetaTileEntity.getSteamVar() - aEnergy);
-            if (mMetaTileEntity.getSteamVar() < 0) {
+        if (aIgnoreTooLessEnergy || mte.getSteamVar() - aEnergy >= 0) {
+            setStoredSteam(mte.getSteamVar() - aEnergy);
+            if (mte.getSteamVar() < 0) {
                 setStoredSteam(0);
                 return false;
             }
@@ -1244,7 +1238,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     public boolean privateAccess() {
         if (!canAccessData()) return mLockUpgrade;
-        return mLockUpgrade || mMetaTileEntity.ownerControl();
+        return mLockUpgrade || mte.ownerControl();
     }
 
     public void doEnergyExplosion() {
@@ -1265,9 +1259,9 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public void doExplosion(long explosionEu) {
         if (canAccessData()) {
             // Keep a reference: a chained explosion can invalidate this TE mid-call and null out mMetaTileEntity.
-            final MetaTileEntity tMetaTileEntity = mMetaTileEntity;
+            final MTE mte = this.mte;
             // This is only for Electric Machines
-            if (GregTechAPI.sMachineWireFire && tMetaTileEntity.isElectric()) {
+            if (GregTechAPI.sMachineWireFire && mte.isElectric()) {
                 try {
                     mReleaseEnergy = true;
                     IEnergyConnected.Util.emitEnergyToNetwork(V[5], Math.max(1, getStoredEU() / V[5]), this);
@@ -1275,7 +1269,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
             }
             mReleaseEnergy = false;
             // Normal Explosion Code
-            tMetaTileEntity.onExplosion();
+            mte.onExplosion();
             for (int i = 0; i < this.getSizeInventory(); i++) {
                 final ItemStack tItem = this.getStackInSlot(i);
                 if ((tItem != null) && (tItem.stackSize > 0) && (this.isValidSlot(i))) {
@@ -1283,7 +1277,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                     this.setInventorySlotContents(i, null);
                 }
             }
-            tMetaTileEntity.doExplosion(explosionEu);
+            mte.doExplosion(explosionEu);
         }
     }
 
@@ -1321,7 +1315,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
         writeCoverNBT(tNBT, true);
 
-        if (hasValidMetaTileEntity()) mMetaTileEntity.setItemNBT(tNBT);
+        if (hasValidMetaTileEntity()) mte.setItemNBT(tNBT);
         if (!tNBT.hasNoTags()) rStack.setTagCompound(tNBT);
 
         onBaseTEDestroyed();
@@ -1361,7 +1355,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                         return true;
                     }
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sWrenchList)) {
-                        if (mMetaTileEntity.onWrenchRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
+                        if (mte.onWrenchRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
                             GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player);
                             sendSoundToPlayers(SoundResource.GTCEU_OP_WRENCH, 1.0F, 1);
                             cableUpdateDelay = 10;
@@ -1374,7 +1368,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sScrewdriverList)) {
                         if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 200, player)) {
                             getCoverAtSide(side).onCoverScrewdriverClick(player, x, y, z);
-                            mMetaTileEntity.onScrewdriverRightClick(side, player, x, y, z, tCurrentItem);
+                            mte.onScrewdriverRightClick(side, player, x, y, z, tCurrentItem);
                             sendSoundToPlayers(SoundResource.GTCEU_OP_SCREWDRIVER, 1.0F, 1);
                             if (tCurrentItem.stackSize == 0)
                                 ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
@@ -1437,8 +1431,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                     }
 
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sSolderingToolList)) {
-                        if (mMetaTileEntity
-                            .onSolderingToolRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
+                        if (mte.onSolderingToolRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
                             // logic handled internally
                             sendSoundToPlayers(SoundResource.IC2_TOOLS_BATTERY_USE, 1.0F, -1);
                         } else if (GTModHandler.useSolderingIron(tCurrentItem, player)) {
@@ -1455,8 +1448,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                     }
 
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sWireCutterList)) {
-                        if (mMetaTileEntity
-                            .onWireCutterRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
+                        if (mte.onWireCutterRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
                             // logic handled internally
                             sendSoundToPlayers(SoundResource.GTCEU_OP_WIRECUTTER, 1.0F, 1);
                             if (tCurrentItem.stackSize == 0)
@@ -1470,7 +1462,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                         if (player.isSneaking() && CoverRegistry.isCover(tCurrentItem)) {
                             if (CoverRegistry.getCoverPlacer(tCurrentItem)
                                 .isCoverPlaceable(effectiveSide, tCurrentItem, this)
-                                && mMetaTileEntity.allowCoverOnSide(effectiveSide, tCurrentItem)) {
+                                && mte.allowCoverOnSide(effectiveSide, tCurrentItem)) {
 
                                 CoverRegistry.getCoverPlacer(tCurrentItem)
                                     .placeCover(player, tCurrentItem, this, effectiveSide);
@@ -1520,8 +1512,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         }
 
         try {
-            if (!player.isSneaking() && hasValidMetaTileEntity())
-                return mMetaTileEntity.onRightClick(this, player, side, x, y, z);
+            if (!player.isSneaking() && hasValidMetaTileEntity()) return mte.onRightClick(this, player, side, x, y, z);
         } catch (Exception e) {
             GT_FML_LOGGER.error(
                 "Encountered Exception while rightclicking TileEntity, the Game should've crashed now, but I prevented that. Please report immediately to GregTech Intergalactical!!!");
@@ -1535,7 +1526,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public void onLeftClick(EntityPlayer player) {
         try {
-            if (player != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftClick(this, player);
+            if (player != null && hasValidMetaTileEntity()) mte.onLeftClick(this, player);
         } catch (Exception e) {
             GT_FML_LOGGER.error(
                 "Encountered Exception while leftclicking TileEntity, the Game should've crashed now, but I prevented that. Please report immediately to GregTech Intergalactical!!!");
@@ -1548,7 +1539,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
      */
     @Override
     public boolean isItemValidForSlot(int aIndex, ItemStack aStack) {
-        return canAccessData() && mMetaTileEntity.isItemValidForSlot(aIndex, aStack);
+        return canAccessData() && mte.isItemValidForSlot(aIndex, aStack);
     }
 
     /**
@@ -1559,7 +1550,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public int[] getAccessibleSlotsFromSide(int ordinalSide) {
         final Cover cover = getCoverAtSide(ForgeDirection.getOrientation(ordinalSide));
         if (canAccessData() && (cover.letsItemsOut(-1) || cover.letsItemsIn(-1)))
-            return mMetaTileEntity.getAccessibleSlotsFromSide(ordinalSide);
+            return mte.getAccessibleSlotsFromSide(ordinalSide);
         return GTValues.emptyIntArray;
     }
 
@@ -1570,7 +1561,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public boolean canInsertItem(int slotIndex, ItemStack stack, int ordinalSide) {
         return canAccessData() && (mRunningThroughTick || !mInputDisabled)
             && getCoverAtSide(ForgeDirection.getOrientation(ordinalSide)).letsItemsIn(slotIndex)
-            && mMetaTileEntity.canInsertItem(slotIndex, stack, ordinalSide);
+            && mte.canInsertItem(slotIndex, stack, ordinalSide);
     }
 
     /**
@@ -1581,7 +1572,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         final ForgeDirection side = ForgeDirection.getOrientation(ordinalSide);
         return canAccessData() && (mRunningThroughTick || !mOutputDisabled)
             && getCoverAtSide(side).letsItemsOut(slotIndex)
-            && mMetaTileEntity.canExtractItem(slotIndex, stack, ordinalSide);
+            && mte.canExtractItem(slotIndex, stack, ordinalSide);
     }
 
     @Override
@@ -1591,8 +1582,8 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public byte getGeneralRS(ForgeDirection side) {
-        if (mMetaTileEntity == null) return 0;
-        return mMetaTileEntity.allowGeneralRedstoneOutput() ? mSidedRedstone[side.ordinal()] : 0;
+        if (mte == null) return 0;
+        return mte.allowGeneralRedstoneOutput() ? mSidedRedstone[side.ordinal()] : 0;
     }
 
     @Override
@@ -1628,12 +1619,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public final IMTE getMTE() {
-        return hasValidMetaTileEntity() ? mMetaTileEntity : null;
+        return hasValidMetaTileEntity() ? mte : null;
     }
 
     @Override
     public final void setMTE(IMTE mte) {
-        if (mte instanceof MetaTileEntity || mte == null) mMetaTileEntity = (MetaTileEntity) mte;
+        if (mte instanceof MTE || mte == null) this.mte = (MTE) mte;
         else {
             GT_FML_LOGGER.error(
                 "Unknown meta tile entity set! Class {}, inventory name {}.",
@@ -1695,29 +1686,29 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public byte getComparatorValue(ForgeDirection side) {
-        return canAccessData() ? mMetaTileEntity.getComparatorValue(side) : 0;
+        return canAccessData() ? mte.getComparatorValue(side) : 0;
     }
 
     @Override
     public ItemStack decrStackSize(int aIndex, int aAmount) {
         if (canAccessData()) {
             mInventoryChanged = true;
-            return mMetaTileEntity.decrStackSize(aIndex, aAmount);
+            return mte.decrStackSize(aIndex, aAmount);
         }
         return null;
     }
 
     @Override
     public long injectEnergyUnits(ForgeDirection side, long aVoltage, long aAmperage) {
-        if (!canAccessData() || !mMetaTileEntity.isElectric()
+        if (!canAccessData() || !mte.isElectric()
             || !inputEnergyFrom(side)
             || aAmperage <= 0
             || aVoltage <= 0
             || getStoredEU() >= getEUCapacity()
-            || mMetaTileEntity.maxAmperesIn() <= mAcceptedAmperes) return 0;
+            || mte.maxAmperesIn() <= mAcceptedAmperes) return 0;
         if (aVoltage > getInputVoltage()) {
             GTLog.writeExplosionLog(
-                this.mMetaTileEntity,
+                this.mte,
                 "Energy Explosion, injected " + aVoltage + "EU/t in a " + getInputVoltage() + "EU/t Machine!");
             doExplosion(aVoltage);
             return 0;
@@ -1725,9 +1716,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         if (increaseStoredEnergyUnits(
             aVoltage * (aAmperage = Math.min(
                 aAmperage,
-                Math.min(
-                    mMetaTileEntity.maxAmperesIn() - mAcceptedAmperes,
-                    1 + ((getEUCapacity() - getStoredEU()) / aVoltage)))),
+                Math.min(mte.maxAmperesIn() - mAcceptedAmperes, 1 + ((getEUCapacity() - getStoredEU()) / aVoltage)))),
             true)) {
             ensureAverageEUArrays();
             mAverageEUInput[mAverageEUInputIndex] += aVoltage * aAmperage;
@@ -1739,15 +1728,15 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     /** @return whether {@link #injectEnergyUnits} could still accept energy this tick. */
     public boolean canAcceptEnergyThisTick() {
-        if (!canAccessData() || mMetaTileEntity.maxAmperesIn() <= mAcceptedAmperes) return false;
-        return mMetaTileEntity.getEUVar() < mMetaTileEntity.maxEUStore();
+        if (!canAccessData() || mte.maxAmperesIn() <= mAcceptedAmperes) return false;
+        return mte.getEUVar() < mte.maxEUStore();
     }
 
     @Override
     public boolean drainEnergyUnits(ForgeDirection side, long aVoltage, long aAmperage) {
-        if (!canAccessData() || !mMetaTileEntity.isElectric()
+        if (!canAccessData() || !mte.isElectric()
             || !outputsEnergyTo(side)
-            || getStoredEU() - (aVoltage * aAmperage) < mMetaTileEntity.getMinimumStoredEU()) return false;
+            || getStoredEU() - (aVoltage * aAmperage) < mte.getMinimumStoredEU()) return false;
         if (decreaseStoredEU(aVoltage * aAmperage, false)) {
             ensureAverageEUArrays();
             mAverageEUOutput[mAverageEUOutputIndex] += aVoltage * aAmperage;
@@ -1760,9 +1749,9 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public int fill(ForgeDirection side, FluidStack aFluid, boolean doFill) {
         if (mTickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mInputDisabled)
-            && (side == ForgeDirection.UNKNOWN || (mMetaTileEntity.isLiquidInput(side)
+            && (side == ForgeDirection.UNKNOWN || (mte.isLiquidInput(side)
                 && getCoverAtSide(side).letsFluidIn(aFluid == null ? null : aFluid.getFluid()))))
-            return mMetaTileEntity.fill(side, aFluid, doFill);
+            return mte.fill(side, aFluid, doFill);
         return 0;
     }
 
@@ -1770,12 +1759,11 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public FluidStack drain(ForgeDirection side, int maxDrain, boolean doDrain) {
         if (mTickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mOutputDisabled)
-            && (side == ForgeDirection.UNKNOWN
-                || (mMetaTileEntity.isLiquidOutput(side) && getCoverAtSide(side).letsFluidOut(
-                    mMetaTileEntity.getFluid() == null ? null
-                        : mMetaTileEntity.getFluid()
-                            .getFluid()))))
-            return mMetaTileEntity.drain(side, maxDrain, doDrain);
+            && (side == ForgeDirection.UNKNOWN || (mte.isLiquidOutput(side) && getCoverAtSide(side).letsFluidOut(
+                mte.getFluid() == null ? null
+                    : mte.getFluid()
+                        .getFluid()))))
+            return mte.drain(side, maxDrain, doDrain);
         return null;
     }
 
@@ -1783,9 +1771,9 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public FluidStack drain(ForgeDirection side, FluidStack aFluid, boolean doDrain) {
         if (mTickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mOutputDisabled)
-            && (side == ForgeDirection.UNKNOWN || (mMetaTileEntity.isLiquidOutput(side)
+            && (side == ForgeDirection.UNKNOWN || (mte.isLiquidOutput(side)
                 && getCoverAtSide(side).letsFluidOut(aFluid == null ? null : aFluid.getFluid()))))
-            return mMetaTileEntity.drain(side, aFluid, doDrain);
+            return mte.drain(side, aFluid, doDrain);
         return null;
     }
 
@@ -1794,8 +1782,8 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         if (mTickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mInputDisabled)
             && (side == ForgeDirection.UNKNOWN
-                || (mMetaTileEntity.isLiquidInput(side) && getCoverAtSide(side).letsFluidIn(aFluid))))
-            return mMetaTileEntity.canFill(side, aFluid);
+                || (mte.isLiquidInput(side) && getCoverAtSide(side).letsFluidIn(aFluid))))
+            return mte.canFill(side, aFluid);
         return false;
     }
 
@@ -1804,14 +1792,14 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         if (mTickTimer > 5 && canAccessData()
             && (mRunningThroughTick || !mOutputDisabled)
             && (side == ForgeDirection.UNKNOWN
-                || (mMetaTileEntity.isLiquidOutput(side) && getCoverAtSide(side).letsFluidOut(aFluid))))
-            return mMetaTileEntity.canDrain(side, aFluid);
+                || (mte.isLiquidOutput(side) && getCoverAtSide(side).letsFluidOut(aFluid))))
+            return mte.canDrain(side, aFluid);
         return false;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection side) {
-        if (canAccessData()) return mMetaTileEntity.getTankInfo(side);
+        if (canAccessData()) return mte.getTankInfo(side);
         return GTValues.emptyFluidTankInfo;
     }
 
@@ -1820,11 +1808,11 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     public boolean isTeleporterCompatible(ForgeDirection side) {
-        return canAccessData() && mMetaTileEntity.isTeleporterCompatible();
+        return canAccessData() && mte.isTeleporterCompatible();
     }
 
     public double demandedEnergyUnits() {
-        if (mReleaseEnergy || !canAccessData() || !mMetaTileEntity.isEnetInput()) return 0;
+        if (mReleaseEnergy || !canAccessData() || !mte.isEnetInput()) return 0;
         return getEUCapacity() - getStoredEU();
     }
 
@@ -1841,9 +1829,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     public double getOfferedEnergy() {
-        return (canAccessData() && getStoredEU() - mMetaTileEntity.getMinimumStoredEU() >= oldOutput)
-            ? Math.max(0, oldOutput)
-            : 0;
+        return (canAccessData() && getStoredEU() - mte.getMinimumStoredEU() >= oldOutput) ? Math.max(0, oldOutput) : 0;
     }
 
     public void drawEnergy(double amount) {
@@ -1860,7 +1846,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         if (!canAccessData()) return 0;
         if (aEnergy > 0) increaseStoredEnergyUnits(aEnergy, true);
         else decreaseStoredEU(-aEnergy, true);
-        return (int) Math.min(Integer.MAX_VALUE, mMetaTileEntity.getEUVar());
+        return (int) Math.min(Integer.MAX_VALUE, mte.getEUVar());
     }
 
     public boolean isAddedToEnergyNet() {
@@ -1873,7 +1859,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     public int demandsEnergy() {
-        if (mReleaseEnergy || !canAccessData() || !mMetaTileEntity.isEnetInput()) return 0;
+        if (mReleaseEnergy || !canAccessData() || !mte.isEnetInput()) return 0;
         return getCapacity() - getStored();
     }
 
@@ -1899,7 +1885,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     public long getStoredEUuncapped() {
-        return mMetaTileEntity.getEUVar();
+        return mte.getEUVar();
     }
 
     public int getOutput() {
@@ -1911,7 +1897,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     public boolean isTeleporterCompatible(Direction ignoredDirection) {
-        return canAccessData() && mMetaTileEntity.isTeleporterCompatible();
+        return canAccessData() && mte.isTeleporterCompatible();
     }
 
     public boolean acceptsEnergyFrom(TileEntity ignoredTileEntity, Direction aDirection) {
@@ -1968,7 +1954,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public int getLightOpacity() {
-        return mMetaTileEntity == null ? getLightValue() > 0 ? 0 : 255 : mMetaTileEntity.getLightOpacity();
+        return mte == null ? getLightValue() > 0 ? 0 : 255 : mte.getLightOpacity();
     }
 
     @Override
@@ -1979,7 +1965,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public AECableType getCableConnectionType(ForgeDirection forgeDirection) {
-        return mMetaTileEntity == null ? AECableType.NONE : mMetaTileEntity.getCableConnectionType(forgeDirection);
+        return mte == null ? AECableType.NONE : mte.getCableConnectionType(forgeDirection);
     }
 
     @Override
@@ -1993,7 +1979,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public AENetworkProxy getProxy() {
-        return mMetaTileEntity == null ? null : mMetaTileEntity.getProxy();
+        return mte == null ? null : mte.getProxy();
     }
 
     @Override
@@ -2003,7 +1989,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public void gridChanged() {
-        if (mMetaTileEntity != null) mMetaTileEntity.gridChanged();
+        if (mte != null) mte.gridChanged();
     }
 
     void onChunkUnloadAE() {
@@ -2052,7 +2038,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public List<ItemStack> getItemsForHoloGlasses() {
         if (canAccessData()) {
-            return mMetaTileEntity.getItemsForHoloGlasses();
+            return mte.getItemsForHoloGlasses();
         }
         return null;
     }

@@ -50,7 +50,7 @@ import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.metatileentity.CoverableTileEntity;
-import gregtech.api.metatileentity.MetaTileEntity;
+import gregtech.api.metatileentity.MTE;
 import gregtech.api.metatileentity.implementations.MTEFluidPipe;
 import gregtech.api.util.GTItsNotMyFaultException;
 import gregtech.api.util.GTLanguageManager;
@@ -310,7 +310,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
                     gte.setOwnerUuid(player.getUniqueID());
                 }
 
-                if (gte.getMTE() instanceof MetaTileEntity mte) {
+                if (gte.getMTE() instanceof MTE mte) {
                     AENetworkProxy proxy = mte.getProxy();
                     if (proxy != null) {
                         proxy.setOwner(player);

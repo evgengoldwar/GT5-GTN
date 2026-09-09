@@ -1,10 +1,8 @@
 package gregtech.api.metatileentity;
 
-import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.interfaces.tileentity.IColoredTileEntity.UNCOLOURED;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -25,8 +23,6 @@ import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 
 import appeng.api.crafting.ICraftingIconProvider;
 import appeng.api.implementations.IPowerChannelState;
-import appeng.api.networking.energy.IEnergyGrid;
-import appeng.api.networking.pathing.IPathingGrid;
 import appeng.api.util.AECableType;
 import appeng.core.localization.WailaText;
 import appeng.me.helpers.AENetworkProxy;
@@ -36,14 +32,11 @@ import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.TieredVariant;
 import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTECable;
-import gregtech.api.util.GTLog;
-import gregtech.api.util.GTTooltipDataCache;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
 import gregtech.common.gui.modularui.util.MTEItemStackHandler;
@@ -51,16 +44,22 @@ import gregtech.mixin.interfaces.accessors.EntityPlayerMPAccessor;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconProvider {
+public abstract class MTE extends CommonMTE implements ICraftingIconProvider {
 
     public final ItemStackHandler inventoryHandler;
 
     protected GUIColorOverride colorOverride;
-    public final GTTooltipDataCache tooltipDataCache = new GTTooltipDataCache();
 
-    private static final String[] FACING_DIRECTION_NAMES = new String[] { "GT5U.waila.facing.down",
-        "GT5U.waila.facing.up", "GT5U.waila.facing.north", "GT5U.waila.facing.south", "GT5U.waila.facing.west",
-        "GT5U.waila.facing.east", "GT5U.waila.facing.unknown" };
+    // spotless:off
+    private static final String[] FACING_DIRECTION_NAMES = new String[] {
+        "GT5U.waila.facing.down",
+        "GT5U.waila.facing.up",
+        "GT5U.waila.facing.north",
+        "GT5U.waila.facing.south",
+        "GT5U.waila.facing.west",
+        "GT5U.waila.facing.east",
+        "GT5U.waila.facing.unknown" };
+    // spotless:on
 
     @Override
     public IItemHandlerModifiable getInventoryHandler() {
@@ -71,7 +70,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
 
     private String playerLang;
 
-    public MetaTileEntity(MTEArrays mteArrays, int meta, String name, int slotCount) {
+    public MTE(MTEArrays mteArrays, int meta, String name, int slotCount) {
         super(mteArrays, meta, name, slotCount);
         setGTE(GregTechAPI.constructBaseMetaTileEntity());
         getGTE().setMeta((short) meta);
@@ -79,7 +78,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         inventoryHandler = new MTEItemStackHandler(inventory, this);
     }
 
-    public MetaTileEntity(String name, int slotCount) {
+    public MTE(String name, int slotCount) {
         super(name, slotCount);
         inventoryHandler = new MTEItemStackHandler(inventory, this);
         colorOverride = GUIColorOverride.get(getGUITextureSet().getMainBackground().location);
@@ -139,7 +138,10 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public boolean onWrenchRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player, float x,
         float y, float z, ItemStack tool) {
         final IGTE meta = getGTE();
-        if (!meta.isValidFacing(wrenchingSide)) return false;
+        if (!meta.isValidFacing(wrenchingSide)) {
+            return false;
+        }
+
         meta.setFrontFacing(wrenchingSide);
 
         for (final ForgeDirection s : ForgeDirection.VALID_DIRECTIONS) {
@@ -152,12 +154,13 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
         float x, float y, float z, ItemStack tool) {
 
-        if (!player.isSneaking()) return false;
+        if (!player.isSneaking()) {
+            return false;
+        }
+
         final ForgeDirection oppositeSide = wrenchingSide.getOpposite();
         final TileEntity tTileEntity = getGTE().getTileEntityAtSide(wrenchingSide);
         if ((tTileEntity instanceof IGTE gtTE) && (gtTE.getMTE() instanceof MTECable)) {
-
-            // The tile entity we're facing is a cable, let's try to connect to it
             return gtTE.getMTE()
                 .onWireCutterRightClick(wrenchingSide, oppositeSide, player, x, y, z, tool);
         }
@@ -168,12 +171,13 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public boolean onSolderingToolRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer player,
         float x, float y, float z, ItemStack tool) {
 
-        if (!player.isSneaking()) return false;
+        if (!player.isSneaking()) {
+            return false;
+        }
+
         final ForgeDirection oppositeSide = wrenchingSide.getOpposite();
         TileEntity tTileEntity = getGTE().getTileEntityAtSide(wrenchingSide);
         if ((tTileEntity instanceof IGTE gtTE) && (gtTE.getMTE() instanceof MTECable)) {
-
-            // The tile entity we're facing is a cable, let's try to connect to it
             return gtTE.getMTE()
                 .onSolderingToolRightClick(wrenchingSide, oppositeSide, player, x, y, z, tool);
         }
@@ -181,9 +185,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     }
 
     @Override
-    public void onExplosion() {
-        GTLog.writeExplosionLog(this, "Machine exploded");
-    }
+    public void onExplosion() {}
 
     public boolean onRightClick(IGTE gte, EntityPlayer player) {
         return false;
@@ -228,18 +230,6 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
 
     public boolean isElectric() {
         return true;
-    }
-
-    public boolean isPneumatic() {
-        return false;
-    }
-
-    public boolean isSteampowered() {
-        return false;
-    }
-
-    public TieredVariant getTieredVariant() {
-        return TieredVariant.STANDARD;
     }
 
     public boolean isEnetOutput() {
@@ -293,10 +283,10 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         return ((BaseMetaTileEntity) gte).mStoredSteam;
     }
 
-    public void setSteamVar(long aSteam) {
-        if (((BaseMetaTileEntity) gte).mStoredSteam != aSteam) {
+    public void setSteamVar(long steam) {
+        if (((BaseMetaTileEntity) gte).mStoredSteam != steam) {
             markDirty();
-            ((BaseMetaTileEntity) gte).mStoredSteam = aSteam;
+            ((BaseMetaTileEntity) gte).mStoredSteam = steam;
         }
     }
 
@@ -407,42 +397,32 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     }
 
     @Override
-    public void onBlockDestroyed() {
-        final IGTE meta = getGTE();
-    }
-
-    @Override
     public void onColorChangeServer(byte color) {
-        final IGTE meta = getGTE();
-        final int aX = meta.getXCord(), aY = meta.getYCord(), aZ = meta.getZCord();
+        final IGTE gte = getGTE();
+        final int x = gte.getXCord();
+        final int y = gte.getYCord();
+        final int z = gte.getZCord();
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-            // Flag surrounding pipes/cables to revaluate their connection with us if we got painted
-            final TileEntity tTileEntity = meta.getTileEntityAtSide(side);
-            if (tTileEntity instanceof BaseMetaPipeEntity pipe) {
-                pipe.onNeighborBlockChange(aX, aY, aZ);
+            final TileEntity te = gte.getTileEntityAtSide(side);
+            if (te instanceof BaseMetaPipeEntity pipe) {
+                pipe.onNeighborBlockChange(x, y, z);
             }
-
-            final IGTE gte = meta.getIGregTechTileEntityAtSide(side);
         }
     }
 
     @Override
     public void doExplosion(long explosionPower) {
-        float tStrength = GTValues.getExplosionPowerForVoltage(explosionPower);
-        final int tX = getGTE().getXCord();
-        final int tY = getGTE().getYCord();
-        final int tZ = getGTE().getZCord();
-        final World tWorld = getGTE().getWorld();
-        GTUtility.sendSoundToPlayers(
-            tWorld,
-            SoundResource.IC2_MACHINES_MACHINE_OVERLOAD,
-            1.0F,
-            -1,
-            tX + .5,
-            tY + .5,
-            tZ + .5);
-        tWorld.setBlock(tX, tY, tZ, Blocks.air);
-        if (GregTechAPI.sMachineExplosions) tWorld.createExplosion(null, tX + 0.5, tY + 0.5, tZ + 0.5, tStrength, true);
+        float strength = GTValues.getExplosionPowerForVoltage(explosionPower);
+        final int x = getGTE().getXCord();
+        final int y = getGTE().getYCord();
+        final int z = getGTE().getZCord();
+        final World world = getGTE().getWorld();
+        GTUtility
+            .sendSoundToPlayers(world, SoundResource.IC2_MACHINES_MACHINE_OVERLOAD, 1.0F, -1, x + .5, y + .5, z + .5);
+        world.setBlock(x, y, z, Blocks.air);
+        if (GregTechAPI.sMachineExplosions) {
+            world.createExplosion(null, x + 0.5, y + 0.5, z + 0.5, strength, true);
+        }
     }
 
     @Override
@@ -453,8 +433,6 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public boolean shouldTriggerBlockUpdate() {
         return false;
     }
-
-    // === AE2 compat ===
 
     public AECableType getCableConnectionType(ForgeDirection forgeDirection) {
         return AECableType.NONE;
@@ -470,8 +448,6 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public ItemStack getMachineCraftingIcon() {
         return getStackForm(1);
     }
-
-    // === Waila compat ===
 
     @Override
     public void getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor accessor,
@@ -514,32 +490,6 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         }
     }
 
-    protected String getAEDiagnostics() {
-        try {
-            if (getProxy() == null) return StatCollector.translateToLocal("GT5U.infodata.hatch.me.diagnostics.proxy");
-            if (getProxy().getNode() == null)
-                return StatCollector.translateToLocal("GT5U.infodata.hatch.me.diagnostics.node");
-            if (getProxy().getNode()
-                .getGrid() == null) return StatCollector.translateToLocal("GT5U.infodata.hatch.me.diagnostics.grid");
-            if (!getProxy().getNode()
-                .meetsChannelRequirements())
-                return StatCollector.translateToLocal("GT5U.infodata.hatch.me.diagnostics.channels");
-            IPathingGrid pg = getProxy().getNode()
-                .getGrid()
-                .getCache(IPathingGrid.class);
-            if (!pg.isNetworkBooting())
-                return StatCollector.translateToLocal("GT5U.infodata.hatch.me.diagnostics.booting");
-            IEnergyGrid eg = getProxy().getNode()
-                .getGrid()
-                .getCache(IEnergyGrid.class);
-            if (!eg.isNetworkPowered())
-                return StatCollector.translateToLocal("GT5U.infodata.hatch.me.diagnostics.power");
-        } catch (Exception ex) {
-            GT_FML_LOGGER.error(ex);
-        }
-        return "";
-    }
-
     @Override
     public GUITextureSet getGUITextureSet() {
         return GUITextureSet.DEFAULT;
@@ -572,33 +522,6 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         IGTE baseMetaTileEntity = getGTE();
         if (baseMetaTileEntity == null) return UNCOLOURED;
         return baseMetaTileEntity.getColorization();
-    }
-
-    protected Supplier<Integer> COLOR_TITLE = () -> getTextColorOrDefault("title", 0x404040);
-    protected Supplier<Integer> COLOR_TITLE_WHITE = () -> getTextColorOrDefault("title_white", 0xfafaff);
-    protected Supplier<Integer> COLOR_TEXT_WHITE = () -> getTextColorOrDefault("text_white", 0xfafaff);
-    protected Supplier<Integer> COLOR_TEXT_GRAY = () -> getTextColorOrDefault("text_gray", 0x404040);
-    protected Supplier<Integer> COLOR_TEXT_RED = () -> getTextColorOrDefault("text_red", 0xff0000);
-
-    // For MUI2 guis (which are usually built in a different class).
-    public int getTitleColor() {
-        return COLOR_TITLE.get();
-    }
-
-    public int getColorTitleWhite() {
-        return COLOR_TITLE_WHITE.get();
-    }
-
-    public int getColorTextWhite() {
-        return COLOR_TEXT_WHITE.get();
-    }
-
-    public int getColorTextGray() {
-        return COLOR_TEXT_GRAY.get();
-    }
-
-    public int getColorTextRed() {
-        return COLOR_TEXT_RED.get();
     }
 
     public boolean isItemValidForPhantomSlot(int index, ItemStack itemStack) {
