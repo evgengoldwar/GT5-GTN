@@ -74,7 +74,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public MetaTileEntity(MTEArrays mteArrays, int meta, String name, int slotCount) {
         super(mteArrays, meta, name, slotCount);
         setGTE(GregTechAPI.constructBaseMetaTileEntity());
-        getGTE().setMetaTileID((short) meta);
+        getGTE().setMeta((short) meta);
 
         inventoryHandler = new MTEItemStackHandler(inventory, this);
     }
@@ -95,13 +95,13 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public final void setGTE(IGTE gte) {
         final IGTE oldBase = this.gte;
         if (this.gte != null && gte == null) {
-            this.gte.getMetaTileEntity()
+            this.gte.getMTE()
                 .inValidate();
-            this.gte.setMetaTileEntity(null);
+            this.gte.setMTE(null);
         }
         this.gte = gte;
         if (this.gte != null) {
-            this.gte.setMetaTileEntity(this);
+            this.gte.setMTE(this);
         }
         if (oldBase != gte && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
             oldMeta.refreshMetaTileEntityValidity();
@@ -109,7 +109,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     }
 
     public boolean isValid() {
-        return getGTE() != null && getGTE().getMetaTileEntity() == this && !getGTE().isDead();
+        return getGTE() != null && getGTE().getMTE() == this && !getGTE().isDead();
     }
 
     @Nullable
@@ -123,7 +123,7 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
 
     @Override
     public ItemStack getStackForm(long amount) {
-        return new ItemStack(GregTechAPI.sBlockMachines, (int) amount, getGTE().getMetaTileID());
+        return new ItemStack(GregTechAPI.sBlockMachines, (int) amount, getGTE().getMeta());
     }
 
     @Override
@@ -155,10 +155,10 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         if (!player.isSneaking()) return false;
         final ForgeDirection oppositeSide = wrenchingSide.getOpposite();
         final TileEntity tTileEntity = getGTE().getTileEntityAtSide(wrenchingSide);
-        if ((tTileEntity instanceof IGTE gtTE) && (gtTE.getMetaTileEntity() instanceof MTECable)) {
+        if ((tTileEntity instanceof IGTE gtTE) && (gtTE.getMTE() instanceof MTECable)) {
 
             // The tile entity we're facing is a cable, let's try to connect to it
-            return gtTE.getMetaTileEntity()
+            return gtTE.getMTE()
                 .onWireCutterRightClick(wrenchingSide, oppositeSide, player, x, y, z, tool);
         }
         return false;
@@ -171,10 +171,10 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
         if (!player.isSneaking()) return false;
         final ForgeDirection oppositeSide = wrenchingSide.getOpposite();
         TileEntity tTileEntity = getGTE().getTileEntityAtSide(wrenchingSide);
-        if ((tTileEntity instanceof IGTE gtTE) && (gtTE.getMetaTileEntity() instanceof MTECable)) {
+        if ((tTileEntity instanceof IGTE gtTE) && (gtTE.getMTE() instanceof MTECable)) {
 
             // The tile entity we're facing is a cable, let's try to connect to it
-            return gtTE.getMetaTileEntity()
+            return gtTE.getMTE()
                 .onSolderingToolRightClick(wrenchingSide, oppositeSide, player, x, y, z, tool);
         }
         return false;

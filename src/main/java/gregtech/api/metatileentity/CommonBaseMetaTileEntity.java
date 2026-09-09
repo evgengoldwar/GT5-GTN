@@ -100,7 +100,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
         }
     }
 
-    public void setMTEArray(MTEArrays mteArrays) {
+    public void setMTEArrays(MTEArrays mteArrays) {
         this.mteArrays = mteArrays;
         this.mteArray = mteArrays.getMteArray();
     }
@@ -109,7 +109,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
         if (aID <= 0 || aID >= mteArray.length || mteArray[aID] == null) {
             GT_FML_LOGGER.error("MetaID {} not loadable => locking TileEntity!", aID);
         } else {
-            if (hasValidMetaTileEntity()) getMetaTileEntity().setGTE(null);
+            if (hasValidMetaTileEntity()) getMTE().setGTE(null);
             mteArray[aID].newMTE(this)
                 .setGTE(this);
             mTickTimer = 0;
@@ -186,7 +186,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
         } catch (Exception e) {
             GT_FML_LOGGER.error(
                 "Error ticking meta tile entity {} at ({}, {}, {}) in world {}",
-                getMetaTileID(),
+                getMeta(),
                 xCoord,
                 yCoord,
                 zCoord,
@@ -197,7 +197,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             } catch (Exception ex) {
                 GT_FML_LOGGER.error(
                     "Error calling tick fail on meta tile entity {} at ({}, {}, {}) in world {}",
-                    getMetaTileID(),
+                    getMeta(),
                     xCoord,
                     yCoord,
                     zCoord,
@@ -212,7 +212,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             mTimeStatistics[mTimeStatisticsIndex] = (int) duration;
             if (duration > 0 && duration > (GregTechAPI.MILLISECOND_THRESHOLD_UNTIL_LAG_WARNING * 1_000_000L)
                 && mTickTimer > 1000
-                && getMetaTileEntity().doTickProfilingMessageDuringThisTick()
+                && getMTE().doTickProfilingMessageDuringThisTick()
                 && mLagWarningCount++ < 10)
                 GT_FML_LOGGER.warn(
                     "WARNING: Possible Lag Source at [{}, {}, {}] in Dimension {} with {} ns caused by an instance of {}",
@@ -221,7 +221,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
                     zCoord,
                     worldObj.provider.dimensionId,
                     duration,
-                    getMetaTileEntity().getClass());
+                    getMTE().getClass());
         }
 
     }
@@ -242,7 +242,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             requestCoverDataIfNeeded();
         }
         worldObj.markTileEntityChunkModified(xCoord, yCoord, zCoord, this);
-        getMetaTileEntity().onFirstTick(this);
+        getMTE().onFirstTick(this);
     }
 
     /** Whether this tile has been on the client long enough to act on sound events. */
@@ -273,11 +273,11 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
         mColor = color;
         if (isClientSide()) {
             if (hasValidMetaTileEntity()) {
-                getMetaTileEntity().onColorChangeClient(mColor);
+                getMTE().onColorChangeClient(mColor);
             }
             issueTextureUpdate();
         } else {
-            getMetaTileEntity().onColorChangeServer(mColor);
+            getMTE().onColorChangeServer(mColor);
             sendBlockEvent(GregTechTileClientEvents.CHANGE_COLOR, mColor);
         }
     }
@@ -294,7 +294,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
         } else {
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
-        final IMTE mte = getMetaTileEntity();
+        final IMTE mte = getMTE();
         if (mte != null) mte.onTextureUpdate();
         mNeedsUpdate = false;
     }
@@ -317,7 +317,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
      * Handles the update data changing
      */
     protected final void handleUpdateDataChangeServer() {
-        byte updateData = getMetaTileEntity().getUpdateData();
+        byte updateData = getMTE().getUpdateData();
         if (updateData == oldUpdateData) {
             return;
         }
@@ -344,8 +344,8 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             if (hasValidMetaTileEntity()) {
                 aNBT.setInteger("nbtVersion", GTMod.NBT_VERSION);
                 final NBTTagList tItemList = new NBTTagList();
-                for (int i = 0; i < getMetaTileEntity().getRealInventory().length; i++) {
-                    final ItemStack tStack = getMetaTileEntity().getRealInventory()[i];
+                for (int i = 0; i < getMTE().getRealInventory().length; i++) {
+                    final ItemStack tStack = getMTE().getRealInventory()[i];
                     if (tStack != null) {
                         final NBTTagCompound tTag = new NBTTagCompound();
                         tTag.setInteger("IntSlot", i);
@@ -359,7 +359,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
                 aNBT.setTag("Inventory", tItemList);
 
                 try {
-                    getMetaTileEntity().saveNBTData(aNBT);
+                    getMTE().saveNBTData(aNBT);
                 } catch (Exception e) {
                     GT_FML_LOGGER.error("Encountered CRITICAL ERROR while saving MetaTileEntity.", e);
                 }
@@ -376,18 +376,18 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             for (int i = 0; i < tItemList.tagCount(); i++) {
                 final NBTTagCompound tTag = tItemList.getCompoundTagAt(i);
                 final int tSlot = migrateInventoryIndex(tTag.getInteger("IntSlot"), nbtVersion);
-                if (tSlot >= 0 && tSlot < getMetaTileEntity().getRealInventory().length) {
+                if (tSlot >= 0 && tSlot < getMTE().getRealInventory().length) {
                     ItemStack loadedStack = GTUtility.loadItem(tTag);
                     // We move away from fluid display item in TEs
                     if (loadedStack != null && loadedStack.getItem() == ItemList.Display_Fluid.getItem()) {
                         loadedStack = null;
                     }
-                    getMetaTileEntity().getRealInventory()[tSlot] = loadedStack;
+                    getMTE().getRealInventory()[tSlot] = loadedStack;
                 }
             }
 
             try {
-                getMetaTileEntity().loadNBTData(aNBT);
+                getMTE().loadNBTData(aNBT);
             } catch (Exception e) {
                 GT_FML_LOGGER.error("Encountered Exception while loading MetaTileEntity.");
                 GTMod.logStackTrace(e);
@@ -475,7 +475,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     @Override
     public boolean isValidSlot(int aIndex) {
-        if (canAccessData()) return getMetaTileEntity().isValidSlot(aIndex);
+        if (canAccessData()) return getMTE().isValidSlot(aIndex);
         return false;
     }
 
@@ -535,7 +535,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     public final void writeDescriptionBuffer(ByteBuf buffer) {
         tileWriteToStream(buffer);
-        IMTE imte = getMetaTileEntity();
+        IMTE imte = getMTE();
         if (imte != null) {
             imte.writeToStream(buffer);
         }
@@ -544,7 +544,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     public final void readDescriptionBuffer(ByteBuf buffer) {
         // Receive and create the mte first if it doesn't exist
         tileReadFromStream(buffer);
-        IMTE mte = getMetaTileEntity();
+        IMTE mte = getMTE();
         if (mte != null) {
             mte.readFromStream(buffer);
             mte.onClientSoundStateChanged();
@@ -598,7 +598,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     @Override
     public boolean isValidFacing(ForgeDirection side) {
-        if (canAccessData()) return getMetaTileEntity().isFacingValid(side);
+        if (canAccessData()) return getMTE().isFacingValid(side);
         return false;
     }
 
@@ -615,7 +615,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     @Override
     public String[] getDescription() {
-        if (canAccessData()) return getMetaTileEntity().getDescription();
+        if (canAccessData()) return getMTE().getDescription();
         return GTValues.emptyStringArray;
     }
 
@@ -626,7 +626,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     @Override
     public boolean allowCoverOnSide(ForgeDirection side, ItemStack coverItem) {
-        return hasValidMetaTileEntity() && getMetaTileEntity().allowCoverOnSide(side, coverItem);
+        return hasValidMetaTileEntity() && getMTE().allowCoverOnSide(side, coverItem);
     }
 
     /*
@@ -635,8 +635,8 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     @Override
     public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
-        if (hasValidMetaTileEntity() && getMetaTileEntity() instanceof IAddUIWidgets) {
-            ((IAddUIWidgets) getMetaTileEntity()).addUIWidgets(builder, buildContext);
+        if (hasValidMetaTileEntity() && getMTE() instanceof IAddUIWidgets) {
+            ((IAddUIWidgets) getMTE()).addUIWidgets(builder, buildContext);
             return;
         }
         super.addUIWidgets(builder, buildContext);
@@ -644,8 +644,8 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     @Override
     public void bindPlayerInventoryUI(ModularWindow.Builder builder, UIBuildContext buildContext) {
-        if (hasValidMetaTileEntity() && getMetaTileEntity() instanceof IBindPlayerInventoryUI) {
-            ((IBindPlayerInventoryUI) getMetaTileEntity()).bindPlayerInventoryUI(builder, buildContext);
+        if (hasValidMetaTileEntity() && getMTE() instanceof IBindPlayerInventoryUI) {
+            ((IBindPlayerInventoryUI) getMTE()).bindPlayerInventoryUI(builder, buildContext);
             return;
         }
         super.bindPlayerInventoryUI(builder, buildContext);
@@ -653,8 +653,8 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     @Override
     public IConfigurationCircuitSupport getConfigurationCircuitSupport() {
-        if (hasValidMetaTileEntity() && getMetaTileEntity() instanceof IConfigurationCircuitSupport) {
-            return (IConfigurationCircuitSupport) getMetaTileEntity();
+        if (hasValidMetaTileEntity() && getMTE() instanceof IConfigurationCircuitSupport) {
+            return (IConfigurationCircuitSupport) getMTE();
         }
         return null;
     }
@@ -672,7 +672,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
                 circuitNumbers.add(stack.getItemDamage());
             }
         }
-        if (hasValidMetaTileEntity() && getMetaTileEntity() instanceof IPhysicalCircuitDisplay provider) {
+        if (hasValidMetaTileEntity() && getMTE() instanceof IPhysicalCircuitDisplay provider) {
             circuitNumbers.addAll(provider.getPhysicalCircuitNumbers());
         }
         if (!circuitNumbers.isEmpty()) {
@@ -685,7 +685,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
         }
 
         // Non-consumed items suffix (e.g. molds in Extruder)
-        if (hasValidMetaTileEntity() && getMetaTileEntity() instanceof INonConsumedItemDisplay provider) {
+        if (hasValidMetaTileEntity() && getMTE() instanceof INonConsumedItemDisplay provider) {
             List<ItemStack> items = provider.getNonConsumedInputDisplayItems();
             if (!items.isEmpty()) {
                 String joined = items.stream()
@@ -717,7 +717,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     @Override
     public IItemHandlerModifiable getInventoryHandler() {
         if (hasValidMetaTileEntity()) {
-            return getMetaTileEntity().getInventoryHandler();
+            return getMTE().getInventoryHandler();
         }
         return null;
     }
@@ -729,35 +729,35 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
 
     @Override
     public String getLocalName() {
-        if (hasValidMetaTileEntity()) return getMetaTileEntity().getLocalName();
+        if (hasValidMetaTileEntity()) return getMTE().getLocalName();
         return super.getLocalName();
     }
 
     @Override
     protected int getGUIWidth() {
-        if (hasValidMetaTileEntity()) return getMetaTileEntity().getGUIWidth();
+        if (hasValidMetaTileEntity()) return getMTE().getGUIWidth();
 
         return super.getGUIWidth();
     }
 
     @Override
     protected int getGUIHeight() {
-        if (hasValidMetaTileEntity()) return getMetaTileEntity().getGUIHeight();
+        if (hasValidMetaTileEntity()) return getMTE().getGUIHeight();
 
         return super.getGUIHeight();
     }
 
     @Override
     protected boolean doesBindPlayerInventory() {
-        if (hasValidMetaTileEntity()) return getMetaTileEntity().doesBindPlayerInventory();
+        if (hasValidMetaTileEntity()) return getMTE().doesBindPlayerInventory();
 
         return super.doesBindPlayerInventory();
     }
 
     @Override
     public void addGregTechLogo(ModularWindow.Builder builder) {
-        if (hasValidMetaTileEntity() && getMetaTileEntity() instanceof IAddGregtechLogo) {
-            ((IAddGregtechLogo) getMetaTileEntity()).addGregTechLogo(builder);
+        if (hasValidMetaTileEntity() && getMTE() instanceof IAddGregtechLogo) {
+            ((IAddGregtechLogo) getMTE()).addGregTechLogo(builder);
             return;
         }
         super.addGregTechLogo(builder);
@@ -766,15 +766,15 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     @Override
     public ItemStack getStackForm(long aAmount) {
         if (hasValidMetaTileEntity()) {
-            return getMetaTileEntity().getStackForm(aAmount);
+            return getMTE().getStackForm(aAmount);
         }
         return super.getStackForm(aAmount);
     }
 
     @Override
     public int getTitleColor() {
-        if (hasValidMetaTileEntity() && getMetaTileEntity() instanceof IGetTitleColor) {
-            return ((IGetTitleColor) getMetaTileEntity()).getTitleColor();
+        if (hasValidMetaTileEntity() && getMTE() instanceof IGetTitleColor) {
+            return ((IGetTitleColor) getMTE()).getTitleColor();
         }
         return super.getTitleColor();
     }
@@ -782,7 +782,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     @Override
     public int getGUIColorization() {
         if (hasValidMetaTileEntity()) {
-            return getMetaTileEntity().getGUIColorization();
+            return getMTE().getGUIColorization();
         }
         return super.getGUIColorization();
     }
@@ -790,7 +790,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     @Override
     protected int getTextColorOrDefault(String textType, int defaultColor) {
         if (hasValidMetaTileEntity()) {
-            return getMetaTileEntity().getTextColorOrDefault(textType, defaultColor);
+            return getMTE().getTextColorOrDefault(textType, defaultColor);
         }
         return defaultColor;
     }
@@ -798,7 +798,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     @Override
     public GUITextureSet getGUITextureSet() {
         if (hasValidMetaTileEntity()) {
-            return getMetaTileEntity().getGUITextureSet();
+            return getMTE().getGUITextureSet();
         }
         return super.getGUITextureSet();
     }

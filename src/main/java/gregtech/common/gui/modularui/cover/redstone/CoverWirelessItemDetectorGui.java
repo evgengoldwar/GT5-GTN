@@ -35,10 +35,8 @@ public class CoverWirelessItemDetectorGui extends CoverAdvancedRedstoneTransmitt
         IntSyncValue slotSyncer = new IntSyncValue(cover::getSlot, cover::setSlot).allowC2S();
         final ICoverable tile = data.getCoverable();
         IItemHandler inventoryHandler;
-        if (!tile.isDead() && tile instanceof IGTE gtTile
-            && gtTile.getMetaTileEntity() != null
-            && tile.getSizeInventory() > 0) {
-            inventoryHandler = new InvWrapper(gtTile.getMetaTileEntity());
+        if (!tile.isDead() && tile instanceof IGTE gtTile && gtTile.getMTE() != null && tile.getSizeInventory() > 0) {
+            inventoryHandler = new InvWrapper(gtTile.getMTE());
         } else {
             inventoryHandler = null;
         }

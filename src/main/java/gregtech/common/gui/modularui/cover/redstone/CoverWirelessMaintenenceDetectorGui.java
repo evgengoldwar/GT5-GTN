@@ -46,8 +46,8 @@ public class CoverWirelessMaintenenceDetectorGui
         final ICoverable tile = data.getCoverable();
         boolean usesTurbines = false;
 
-        if (!tile.isDead() && tile instanceof IGTE gTE && gTE.getMetaTileEntity() != null) {
-            IMTE metaTE = (gTE.getMetaTileEntity());
+        if (!tile.isDead() && tile instanceof IGTE gTE && gTE.getMTE() != null) {
+            IMTE metaTE = (gTE.getMTE());
             // if (metaTE instanceof MTEMultiBlockBase multiTE) {
             // usesTurbines = multiTE.usesTurbines();
             // }

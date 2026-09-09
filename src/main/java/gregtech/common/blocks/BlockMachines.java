@@ -260,7 +260,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int ordinalSide) {
         final TileEntity tTileEntity = blockAccess.getTileEntity(x, y, z);
         if (tTileEntity instanceof BaseMetaTileEntity tile) {
-            if (tile.getMetaTileEntity() instanceof ICasingTextureProvider textureProvider) {
+            if (tile.getMTE() instanceof ICasingTextureProvider textureProvider) {
                 if (textureProvider.getCasingTexture() instanceof IIconTexture texture) {
                     return texture.getIcon(ordinalSide, null);
                 }
@@ -287,7 +287,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
         List<AxisAlignedBB> outputAABB, Entity collider) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
-            gtTE.getMetaTileEntity()
+            gtTE.getMTE()
                 .addCollisionBoxesToList(aWorld, aX, aY, aZ, inputAABB, outputAABB, collider);
             return;
         }
@@ -298,7 +298,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
-            return gtTE.getMetaTileEntity()
+            return gtTE.getMTE()
                 .getCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ);
         }
         return super.getCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ);
@@ -309,7 +309,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
-            return gtTE.getMetaTileEntity()
+            return gtTE.getMTE()
                 .getCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ);
         }
         return super.getSelectedBoundingBoxFromPool(aWorld, aX, aY, aZ);
@@ -319,7 +319,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = blockAccess.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
-            final AxisAlignedBB bbb = gtTE.getMetaTileEntity()
+            final AxisAlignedBB bbb = gtTE.getMTE()
                 .getCollisionBoundingBoxFromPool(gtTE.getWorld(), 0, 0, 0);
             minX = bbb.minX; // This essentially sets block bounds
             minY = bbb.minY;
@@ -341,7 +341,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public void onEntityCollidedWithBlock(World aWorld, int aX, int aY, int aZ, Entity collider) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
-            gtTE.getMetaTileEntity()
+            gtTE.getMTE()
                 .onEntityCollidedWithBlock(aWorld, aX, aY, aZ, collider);
             return;
         }
@@ -425,7 +425,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
             if ((!aWorld.isRemote) && !gtTE.isUseableByPlayer(aPlayer)) {
                 return true;
             }
-            return gtTE.onRightclick(aPlayer, side, aOffsetX, aOffsetY, aOffsetZ);
+            return gtTE.onRightClick(aPlayer, side, aOffsetX, aOffsetY, aOffsetZ);
         }
         return false;
     }
@@ -434,7 +434,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public void onBlockClicked(World aWorld, int aX, int aY, int aZ, EntityPlayer aPlayer) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE) {
-            gtTE.onLeftclick(aPlayer);
+            gtTE.onLeftClick(aPlayer);
         }
     }
 
@@ -442,7 +442,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public int getDamageValue(World aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE) {
-            return gtTE.getMetaTileID();
+            return gtTE.getMeta();
         }
         return 0;
     }
@@ -462,7 +462,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
         GregTechAPI.causeMachineUpdate(aWorld, aX, aY, aZ);
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
-            IMTE mte = gtTE.getMetaTileEntity();
+            IMTE mte = gtTE.getMTE();
             mte.onBlockDestroyed();
             mTemporaryTileEntity.set(gtTE);
             for (int i = 0; i < gtTE.getSizeInventory(); i++) {
@@ -497,7 +497,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public ArrayList<ItemStack> getDrops(World aWorld, int aX, int aY, int aZ, int aMeta, int aFortune) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE) {
-            IMTE gtMTE = gtTE.getMetaTileEntity();
+            IMTE gtMTE = gtTE.getMTE();
             if (gtMTE != null && gtMTE.getDroppedItem() != null) {
                 return gtMTE.getDroppedItem();
             }
@@ -635,7 +635,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public void randomDisplayTick(World aWorld, int aX, int aY, int aZ, Random aRandom) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
-            gtTE.getMetaTileEntity()
+            gtTE.getMTE()
                 .onRandomDisplayTick(gtTE);
         }
     }

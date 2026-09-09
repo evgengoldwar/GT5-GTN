@@ -85,7 +85,7 @@ public class GTStructureUtility {
         for (TMTE mte : tiers) {
             tierMap.put(
                 mte.getGTE()
-                    .getMetaTileID(),
+                    .getMeta(),
                 i++);
         }
 
@@ -94,7 +94,7 @@ public class GTStructureUtility {
             private TMTE getMTE(World world, int x, int y, int z) {
                 if (!(world.getTileEntity(x, y, z) instanceof IGTE igte)) return null;
 
-                IMTE imte = igte.getMetaTileEntity();
+                IMTE imte = igte.getMTE();
 
                 if (!(mteClass.isAssignableFrom(imte.getClass()))) return null;
 
@@ -115,7 +115,7 @@ public class GTStructureUtility {
 
                 int tier = tierMap.getOrDefault(
                     mte.getGTE()
-                        .getMetaTileID(),
+                        .getMeta(),
                     -1);
 
                 if (tier == -1) return false;
@@ -132,7 +132,7 @@ public class GTStructureUtility {
 
                 int tier = tierMap.getOrDefault(
                     actual.getGTE()
-                        .getMetaTileID(),
+                        .getMeta(),
                     -1);
 
                 if (tier == -1) return false;

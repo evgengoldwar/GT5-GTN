@@ -20,7 +20,7 @@ public class GTItemTransfer extends ItemTransfer {
     }
 
     public void outOfMachine(IGTE igte, ForgeDirection side) {
-        outOfMachine(igte.getMetaTileEntity(), side);
+        outOfMachine(igte.getMTE(), side);
     }
 
     public void outOfMachine(IMTE imte, ForgeDirection side) {

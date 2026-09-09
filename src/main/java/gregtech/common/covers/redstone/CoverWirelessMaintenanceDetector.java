@@ -91,7 +91,7 @@ public class CoverWirelessMaintenanceDetector extends CoverAdvancedRedstoneTrans
         boolean signal = false;
 
         if (tileEntity instanceof IGTE) {
-            IMTE metaTE = ((IGTE) tileEntity).getMetaTileEntity();
+            IMTE metaTE = ((IGTE) tileEntity).getMTE();
         }
 
         if (invert) {

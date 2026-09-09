@@ -535,7 +535,7 @@ public class MTEFluidPipe extends MetaPipeEntity {
         float y, float z, ItemStack tool) {
 
         IGTE currentPipeBase = getGTE();
-        MTEFluidPipe currentPipe = (MTEFluidPipe) currentPipeBase.getMetaTileEntity();
+        MTEFluidPipe currentPipe = (MTEFluidPipe) currentPipeBase.getMTE();
         final ForgeDirection tSide = GTUtility.determineWrenchingSide(side, x, y, z);
         final byte tMask = (byte) (tSide.flag);
 

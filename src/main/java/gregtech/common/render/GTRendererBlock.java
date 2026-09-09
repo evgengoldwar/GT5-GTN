@@ -292,8 +292,7 @@ public class GTRendererBlock implements ISimpleBlockRenderingHandler {
 
         if (tileEntity instanceof IGTE) {
             final IMTE metaTileEntity;
-            if ((metaTileEntity = ((IGTE) tileEntity).getMetaTileEntity()) != null
-                && metaTileEntity.renderInWorld(ctx)) {
+            if ((metaTileEntity = ((IGTE) tileEntity).getMTE()) != null && metaTileEntity.renderInWorld(ctx)) {
                 return tessAccess.gt5u$hasVertices();
             }
         }

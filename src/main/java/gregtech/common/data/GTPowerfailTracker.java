@@ -110,7 +110,7 @@ public class GTPowerfailTracker {
             this.x = igte.getXCord();
             this.y = igte.getYCord();
             this.z = igte.getZCord();
-            this.mteId = igte.getMetaTileID();
+            this.mteId = igte.getMeta();
             this.count++;
             this.lastOccurrence = new Date();
             this.ownerId = igte.getOwnerUuid();

@@ -27,7 +27,7 @@ public class GenerateNodeMapPower extends GenerateNodeMap {
 
     @Override
     protected boolean isPipe(TileEntity aTileEntity) {
-        return super.isPipe(aTileEntity) && ((BaseMetaPipeEntity) aTileEntity).getMetaTileEntity() instanceof MTECable;
+        return super.isPipe(aTileEntity) && ((BaseMetaPipeEntity) aTileEntity).getMTE() instanceof MTECable;
     }
 
     @Override

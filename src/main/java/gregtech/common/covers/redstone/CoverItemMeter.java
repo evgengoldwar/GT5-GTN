@@ -101,7 +101,7 @@ public class CoverItemMeter extends Cover {
         int ordinalSide) {
         long max = 0;
         long used = 0;
-        final IMTE mte = ((IGTE) tileEntity).getMetaTileEntity();
+        final IMTE mte = ((IGTE) tileEntity).getMTE();
         final int[] slots = slot >= 0 ? new int[] { slot } : tileEntity.getAccessibleSlotsFromSide(ordinalSide);
 
         for (int i : slots) {

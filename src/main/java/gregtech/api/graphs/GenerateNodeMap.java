@@ -51,7 +51,7 @@ public abstract class GenerateNodeMap {
     // gets the next node
     protected void generateNextNode(BaseMetaPipeEntity aPipe, Node aPipeNode, ForgeDirection aInvalidSide,
         int aNextNodeValue, ArrayList<ConsumerNode> tConsumers, HashSet<Node> tNodeMap) {
-        final MetaPipeEntity tMetaPipe = (MetaPipeEntity) aPipe.getMetaTileEntity();
+        final MetaPipeEntity tMetaPipe = (MetaPipeEntity) aPipe.getMTE();
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             if (side == aInvalidSide) {
                 continue;
@@ -93,7 +93,7 @@ public abstract class GenerateNodeMap {
         Node tThisNode = null;
         if (isPipe(aTileEntity)) {
             final BaseMetaPipeEntity tPipe = (BaseMetaPipeEntity) aTileEntity;
-            final MetaPipeEntity tMetaPipe = (MetaPipeEntity) tPipe.getMetaTileEntity();
+            final MetaPipeEntity tMetaPipe = (MetaPipeEntity) tPipe.getMTE();
             final int tConnections = getNumberOfConnections(tMetaPipe);
             final Node tPipeNode;
             if (tConnections == 1) {
@@ -138,7 +138,7 @@ public abstract class GenerateNodeMap {
         if (!isPipe(aTileEntity)) return new Pair(aTileEntity, side);
 
         final BaseMetaPipeEntity tPipe = (BaseMetaPipeEntity) aTileEntity;
-        final MetaPipeEntity tMetaPipe = (MetaPipeEntity) tPipe.getMetaTileEntity();
+        final MetaPipeEntity tMetaPipe = (MetaPipeEntity) tPipe.getMTE();
         final Node tNode = tPipe.getNode();
         if (tNode != null && aNodeMap.contains(tNode)) return null;
 

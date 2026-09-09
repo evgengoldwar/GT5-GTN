@@ -84,7 +84,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
         if (!world.isRemote) {
             final TileEntity tile = world.getTileEntity(x, y, z);
 
-            if (tile instanceof BaseMetaPipeEntity cableMeta && cableMeta.getMetaTileEntity() instanceof MTECable
+            if (tile instanceof BaseMetaPipeEntity cableMeta && cableMeta.getMTE() instanceof MTECable
                 || tile instanceof BaseMetaTileEntity multiMeta) {
                 final DimensionalCoord coord = new DimensionalCoord(tile);
                 setLocation(stack, coord);
@@ -140,7 +140,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
             final TileEntity tile = world.getTileEntity(coord.x, coord.y, coord.z);
 
             if (tile instanceof BaseMetaPipeEntity aTileEntity) {
-                final IMTE metaTileEntity = aTileEntity.getMetaTileEntity();
+                final IMTE metaTileEntity = aTileEntity.getMTE();
                 final PowerNetworkBuilder builder = new PowerNetworkBuilder();
 
                 if (metaTileEntity instanceof MTECable && findNode(aTileEntity) instanceof PowerNode tNode) {
@@ -193,7 +193,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
 
         while (!queue.isEmpty()) {
             final BaseMetaPipeEntity current = queue.poll();
-            final MetaPipeEntity tMetaPipe = (MetaPipeEntity) current.getMetaTileEntity();
+            final MetaPipeEntity tMetaPipe = (MetaPipeEntity) current.getMTE();
             final Node node = current.getNode();
 
             if (node != null) {

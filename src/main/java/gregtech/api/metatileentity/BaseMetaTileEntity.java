@@ -154,46 +154,46 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public void setInitialValuesAsNBT(NBTTagCompound aNBT, short aID) {
-        if (aNBT == null) {
-            if (aID > 0) mID = aID;
+    public void setInitialValuesAsNBT(NBTTagCompound nbt, short meta) {
+        if (nbt == null) {
+            if (meta > 0) mID = meta;
             else mID = mID > 0 ? mID : 0;
             if (mID != 0) createNewMetatileEntity(mID);
         } else {
-            if (aID <= 0) mID = (short) aNBT.getInteger("mID");
-            else mID = aID;
-            mStoredSteam = aNBT.getLong("mStoredSteam");
-            mStoredEnergy = aNBT.getLong("mStoredEnergy");
-            mLightValue = aNBT.getByte("mLightValue");
-            mFacing = oldFacing = ForgeDirection.getOrientation(aNBT.getShort("mFacing"));
-            mOwnerName = aNBT.getString("mOwnerName");
-            setShutdownStatus(aNBT.getBoolean("mWasShutdown"));
-            String shutDownReasonID = aNBT.getString("shutDownReasonID");
+            if (meta <= 0) mID = (short) nbt.getInteger("mID");
+            else mID = meta;
+            mStoredSteam = nbt.getLong("mStoredSteam");
+            mStoredEnergy = nbt.getLong("mStoredEnergy");
+            mLightValue = nbt.getByte("mLightValue");
+            mFacing = oldFacing = ForgeDirection.getOrientation(nbt.getShort("mFacing"));
+            mOwnerName = nbt.getString("mOwnerName");
+            setShutdownStatus(nbt.getBoolean("mWasShutdown"));
+            String shutDownReasonID = nbt.getString("shutDownReasonID");
             if (ShutDownReasonRegistry.isRegistered(shutDownReasonID)) {
                 ShutDownReason reason = ShutDownReasonRegistry.getSampleFromRegistry(shutDownReasonID)
                     .newInstance();
-                reason.readFromNBT(aNBT.getCompoundTag("shutDownReason"));
+                reason.readFromNBT(nbt.getCompoundTag("shutDownReason"));
                 setShutDownReason(reason);
             }
             try {
-                mOwnerUuid = UUID.fromString(aNBT.getString("mOwnerUuid"));
+                mOwnerUuid = UUID.fromString(nbt.getString("mOwnerUuid"));
             } catch (IllegalArgumentException e) {
                 mOwnerUuid = null;
             }
-            mLockUpgrade = aNBT.getBoolean("mLockUpgrade");
-            mMuffler = aNBT.getBoolean("mMuffler");
-            mActive = aNBT.getBoolean("mActive");
-            mWorks = !aNBT.getBoolean("mWorks");
-            mRedstone = aNBT.getBoolean("mRedstone");
-            mInputDisabled = aNBT.getBoolean("mInputDisabled");
-            mOutputDisabled = aNBT.getBoolean("mOutputDisabled");
-            mOtherUpgrades = (byte) (aNBT.getByte("mOtherUpgrades") + aNBT.getByte("mBatteries")
-                + aNBT.getByte("mLiBatteries"));
+            mLockUpgrade = nbt.getBoolean("mLockUpgrade");
+            mMuffler = nbt.getBoolean("mMuffler");
+            mActive = nbt.getBoolean("mActive");
+            mWorks = !nbt.getBoolean("mWorks");
+            mRedstone = nbt.getBoolean("mRedstone");
+            mInputDisabled = nbt.getBoolean("mInputDisabled");
+            mOutputDisabled = nbt.getBoolean("mOutputDisabled");
+            mOtherUpgrades = (byte) (nbt.getByte("mOtherUpgrades") + nbt.getByte("mBatteries")
+                + nbt.getByte("mLiBatteries"));
 
-            final int nbtVersion = aNBT.getInteger("nbtVersion");
-            readCommonNBT(aNBT);
-            readCoverNBT(aNBT);
-            loadMetaTileNBT(aNBT);
+            final int nbtVersion = nbt.getInteger("nbtVersion");
+            readCommonNBT(nbt);
+            readCoverNBT(nbt);
+            loadMetaTileNBT(nbt);
         }
     }
 
@@ -591,7 +591,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         if (hasValidMetaTileEntity()) {
-            getMetaTileEntity().getWailaBody(itemStack, currentTip, accessor, config);
+            getMTE().getWailaBody(itemStack, currentTip, accessor, config);
         }
         super.getWailaBody(itemStack, currentTip, accessor, config);
     }
@@ -599,7 +599,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     @Override
     public boolean hasWailaAdvancedBody(ItemStack itemStack, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         if (hasValidMetaTileEntity()) {
-            return getMetaTileEntity().hasWailaAdvancedBody(itemStack, accessor, config);
+            return getMTE().hasWailaAdvancedBody(itemStack, accessor, config);
         }
         return super.hasWailaAdvancedBody(itemStack, accessor, config);
     }
@@ -608,7 +608,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     public void getWailaAdvancedBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         if (hasValidMetaTileEntity()) {
-            getMetaTileEntity().getWailaAdvancedBody(itemStack, currentTip, accessor, config);
+            getMTE().getWailaAdvancedBody(itemStack, currentTip, accessor, config);
         }
         super.getWailaAdvancedBody(itemStack, currentTip, accessor, config);
     }
@@ -618,7 +618,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
         if (hasValidMetaTileEntity()) {
-            getMetaTileEntity().getWailaNBTData(player, tile, tag, world, x, y, z);
+            getMTE().getWailaNBTData(player, tile, tag, world, x, y, z);
         }
     }
 
@@ -649,7 +649,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     private byte getUpdateData() {
-        IMTE mte = getMetaTileEntity();
+        IMTE mte = getMTE();
         return mte == null ? 0 : mte.getUpdateData();
     }
 
@@ -738,19 +738,19 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public String[] getInfoData() {
-        return canAccessData() ? getMetaTileEntity().getInfoData() : GTValues.emptyStringArray;
+        return canAccessData() ? getMTE().getInfoData() : GTValues.emptyStringArray;
     }
 
     @Override
     public void getExtraInfoData(List<String> info) {
         if (canAccessData()) {
-            getMetaTileEntity().getExtraInfoData(info);
+            getMTE().getExtraInfoData(info);
         }
     }
 
     @Override
     public Map<String, String> getInfoMap() {
-        return canAccessData() ? getMetaTileEntity().getInfoMap() : Collections.emptyMap();
+        return canAccessData() ? getMTE().getInfoMap() : Collections.emptyMap();
     }
 
     @Override
@@ -948,13 +948,13 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public int getMetaTileID() {
+    public int getMeta() {
         return mID;
     }
 
     @Override
-    public int setMetaTileID(short aID) {
-        return mID = aID;
+    public void setMeta(short meta) {
+        mID = meta;
     }
 
     @Nullable
@@ -1262,7 +1262,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public void doExplosion(long aAmount) {
+    public void doExplosion(long explosionEu) {
         if (canAccessData()) {
             // Keep a reference: a chained explosion can invalidate this TE mid-call and null out mMetaTileEntity.
             final MetaTileEntity tMetaTileEntity = mMetaTileEntity;
@@ -1283,7 +1283,7 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                     this.setInventorySlotContents(i, null);
                 }
             }
-            tMetaTileEntity.doExplosion(aAmount);
+            tMetaTileEntity.doExplosion(explosionEu);
         }
     }
 
@@ -1333,14 +1333,14 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public boolean onRightclick(final EntityPlayer aPlayer, final ForgeDirection side, final float aX, final float aY,
-        final float aZ) {
-        final ForgeDirection wrenchingSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
+    public boolean onRightClick(final EntityPlayer player, final ForgeDirection side, final float x, final float y,
+        final float z) {
+        final ForgeDirection wrenchingSide = GTUtility.determineWrenchingSide(side, x, y, z);
         final ForgeDirection effectiveSide = !hasCoverAtSide(side) ? wrenchingSide : side;
         Cover effectiveSideCover = getCoverAtSide(effectiveSide);
         if (isClientSide()) {
             // Place/configure Cover, sneak can also be: screwdriver, wrench, side cutter, soldering iron
-            if (aPlayer.isSneaking()) {
+            if (player.isSneaking()) {
                 return (effectiveSideCover.hasCoverGUI());
             }
 
@@ -1348,9 +1348,9 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         }
 
         if (isServerSide()) {
-            if (!privateAccess() || aPlayer.getDisplayName()
+            if (!privateAccess() || player.getDisplayName()
                 .equalsIgnoreCase(getOwnerName())) {
-                final ItemStack tCurrentItem = aPlayer.inventory.getCurrentItem();
+                final ItemStack tCurrentItem = player.inventory.getCurrentItem();
                 if (tCurrentItem != null) {
                     final boolean isHardHammer = GTUtility.isStackInList(tCurrentItem, GregTechAPI.sHardHammerList);
                     final boolean isJackhammer = GTUtility.isStackInList(tCurrentItem, GregTechAPI.sJackhammerList);
@@ -1361,35 +1361,34 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                         return true;
                     }
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sWrenchList)) {
-                        if (mMetaTileEntity
-                            .onWrenchRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
-                            GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer);
+                        if (mMetaTileEntity.onWrenchRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
+                            GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player);
                             sendSoundToPlayers(SoundResource.GTCEU_OP_WRENCH, 1.0F, 1);
                             cableUpdateDelay = 10;
                         }
 
-                        if (tCurrentItem.stackSize == 0) ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                        if (tCurrentItem.stackSize == 0) ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
                         return true;
                     }
 
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sScrewdriverList)) {
-                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 200, aPlayer)) {
-                            getCoverAtSide(side).onCoverScrewdriverClick(aPlayer, aX, aY, aZ);
-                            mMetaTileEntity.onScrewdriverRightClick(side, aPlayer, aX, aY, aZ, tCurrentItem);
+                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 200, player)) {
+                            getCoverAtSide(side).onCoverScrewdriverClick(player, x, y, z);
+                            mMetaTileEntity.onScrewdriverRightClick(side, player, x, y, z, tCurrentItem);
                             sendSoundToPlayers(SoundResource.GTCEU_OP_SCREWDRIVER, 1.0F, 1);
                             if (tCurrentItem.stackSize == 0)
-                                ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                                ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
                         }
                         return true;
                     }
 
                     if (!hasCoverAtSide(effectiveSide) && (isHardHammer || isJackhammer)) {
-                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
-                            if (aPlayer.isSneaking()) {
+                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player)) {
+                            if (player.isSneaking()) {
                                 mInputDisabled = !mInputDisabled;
                                 if (mInputDisabled) mOutputDisabled = !mOutputDisabled;
                                 GTUtility.sendChatComp(
-                                    aPlayer,
+                                    player,
                                     new ChatComponentTranslation(
                                         mInputDisabled ? "GT5U.chat.machine.auto_input.disable"
                                             : "GT5U.chat.machine.auto_input.enable").appendText("  ")
@@ -1402,17 +1401,17 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                                 mMuffler = !mMuffler;
                                 scheduleTexturePacket();
                                 GTUtility.sendChatTrans(
-                                    aPlayer,
+                                    player,
                                     mMuffler ? "GT5U.machines.muffled.on" : "GT5U.machines.muffled.off");
                             }
                             if (tCurrentItem.stackSize == 0)
-                                ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                                ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
                         }
                         return true;
                     }
 
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sSoftMalletList)) {
-                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
+                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player)) {
                             if (!mWorks) {
                                 if (isServerSide()) {
                                     GTMod.proxy.powerfailTracker.removePowerfailEvents(this);
@@ -1421,17 +1420,17 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
                             } else if (mWorks) {
                                 disableWorking();
                             }
-                            if (getMetaTileEntity() != null && getMetaTileEntity().hasAlternativeModeText()) {
-                                GTUtility.sendChatTrans(aPlayer, getMetaTileEntity().getAlternativeModeText());
+                            if (getMTE() != null && getMTE().hasAlternativeModeText()) {
+                                GTUtility.sendChatTrans(player, getMTE().getAlternativeModeText());
                             } else {
                                 GTUtility.sendChatTrans(
-                                    aPlayer,
+                                    player,
                                     isAllowedToWork() ? "GT5U.chat.machine.processing.enable"
                                         : "GT5U.chat.machine.processing.disable");
                             }
                             sendSoundToPlayers(SoundResource.GTCEU_OP_SOFT_HAMMER, 1.0F, 1);
                             if (tCurrentItem.stackSize == 0) {
-                                ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                                ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
                             }
                         }
                         return true;
@@ -1439,90 +1438,90 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sSolderingToolList)) {
                         if (mMetaTileEntity
-                            .onSolderingToolRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
+                            .onSolderingToolRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
                             // logic handled internally
                             sendSoundToPlayers(SoundResource.IC2_TOOLS_BATTERY_USE, 1.0F, -1);
-                        } else if (GTModHandler.useSolderingIron(tCurrentItem, aPlayer)) {
+                        } else if (GTModHandler.useSolderingIron(tCurrentItem, player)) {
                             GTUtility.sendChatTrans(
-                                aPlayer,
+                                player,
                                 toggleStrongRedstone(wrenchingSide) ? "GT5U.chat.machine.redstone_output_set.strong"
                                     : "GT5U.chat.machine.redstone_output_set.weak",
                                 new ChatComponentTranslation(GTUtility.getUnlocalizedSideName(wrenchingSide)));
                             sendSoundToPlayers(SoundResource.IC2_TOOLS_BATTERY_USE, 3.0F, -1);
                         }
-                        if (tCurrentItem.stackSize == 0) ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                        if (tCurrentItem.stackSize == 0) ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
                         cableUpdateDelay = 10;
                         return true;
                     }
 
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sWireCutterList)) {
                         if (mMetaTileEntity
-                            .onWireCutterRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
+                            .onWireCutterRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
                             // logic handled internally
                             sendSoundToPlayers(SoundResource.GTCEU_OP_WIRECUTTER, 1.0F, 1);
                             if (tCurrentItem.stackSize == 0)
-                                ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                                ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
                         }
                         cableUpdateDelay = 10;
                         return true;
                     }
 
                     if (!hasCoverAtSide(effectiveSide)) {
-                        if (aPlayer.isSneaking() && CoverRegistry.isCover(tCurrentItem)) {
+                        if (player.isSneaking() && CoverRegistry.isCover(tCurrentItem)) {
                             if (CoverRegistry.getCoverPlacer(tCurrentItem)
                                 .isCoverPlaceable(effectiveSide, tCurrentItem, this)
                                 && mMetaTileEntity.allowCoverOnSide(effectiveSide, tCurrentItem)) {
 
                                 CoverRegistry.getCoverPlacer(tCurrentItem)
-                                    .placeCover(aPlayer, tCurrentItem, this, effectiveSide);
+                                    .placeCover(player, tCurrentItem, this, effectiveSide);
 
-                                if (!aPlayer.capabilities.isCreativeMode) tCurrentItem.stackSize--;
+                                if (!player.capabilities.isCreativeMode) tCurrentItem.stackSize--;
                                 sendSoundToPlayers(SoundResource.GTCEU_OP_WRENCH, 1.0F, 1);
                                 issueTileUpdate();
                             }
                             return true;
                         }
                     } else {
-                        if (aPlayer.isSneaking() && GTUtility.isStackInList(tCurrentItem, GregTechAPI.sCrowbarList)) {
-                            if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
+                        if (player.isSneaking() && GTUtility.isStackInList(tCurrentItem, GregTechAPI.sCrowbarList)) {
+                            if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player)) {
                                 sendSoundToPlayers(SoundResource.RANDOM_BREAK, 1.0F, -1);
                                 dropCover(effectiveSide, side);
                                 if (tCurrentItem.stackSize == 0)
-                                    ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                                    ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
                             }
                             return true;
                         } else if (isHardHammer || isJackhammer) {
                             // Configuration of delicate electronics calls for a tool with precision and subtlety.
-                            if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
+                            if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player)) {
                                 if (effectiveSideCover.isValid()) {
                                     if (effectiveSideCover.allowsTickRateAddition()) {
-                                        effectiveSideCover.onCoverJackhammer(aPlayer);
+                                        effectiveSideCover.onCoverJackhammer(player);
                                         sendSoundToPlayers(SoundResource.IC2_TOOLS_DRILL_DRILL_SOFT, 1.0F, 1);
 
                                     } else {
-                                        GTUtility.sendChatTrans(aPlayer, "gt.cover.info.chat.tick_rate_not_allowed");
+                                        GTUtility.sendChatTrans(player, "gt.cover.info.chat.tick_rate_not_allowed");
                                     }
                                     if (tCurrentItem.stackSize == 0)
-                                        ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                                        ForgeEventFactory.onPlayerDestroyItem(player, tCurrentItem);
                                     return true;
                                 }
                             }
                         }
                     }
                     // End item != null
-                } else if (aPlayer.isSneaking()) { // Sneak click, no tool -> open cover config if possible.
-                    return effectiveSideCover.isValid() && effectiveSideCover.onCoverShiftRightClick(aPlayer);
+                } else if (player.isSneaking()) { // Sneak click, no tool -> open cover config if possible.
+                    return effectiveSideCover.isValid() && effectiveSideCover.onCoverShiftRightClick(player);
                 }
 
-                if (getCoverAtSide(side).onCoverRightClick(aPlayer, aX, aY, aZ)) return true;
+                if (getCoverAtSide(side).onCoverRightClick(player, x, y, z)) return true;
 
                 if (!getCoverAtSide(side).isGUIClickable()) return false;
             }
         }
 
         try {
-            if (!aPlayer.isSneaking() && hasValidMetaTileEntity())
-                return mMetaTileEntity.onRightClick(this, aPlayer, side, aX, aY, aZ);
+            if (!player.isSneaking() && hasValidMetaTileEntity())
+                return mMetaTileEntity.onRightClick(this, player, side, x, y, z);
         } catch (Exception e) {
             GT_FML_LOGGER.error(
                 "Encountered Exception while rightclicking TileEntity, the Game should've crashed now, but I prevented that. Please report immediately to GregTech Intergalactical!!!");
@@ -1534,9 +1533,9 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public void onLeftclick(EntityPlayer aPlayer) {
+    public void onLeftClick(EntityPlayer player) {
         try {
-            if (aPlayer != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftClick(this, aPlayer);
+            if (player != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftClick(this, player);
         } catch (Exception e) {
             GT_FML_LOGGER.error(
                 "Encountered Exception while leftclicking TileEntity, the Game should've crashed now, but I prevented that. Please report immediately to GregTech Intergalactical!!!");
@@ -1628,19 +1627,18 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public final IMTE getMetaTileEntity() {
+    public final IMTE getMTE() {
         return hasValidMetaTileEntity() ? mMetaTileEntity : null;
     }
 
     @Override
-    public final void setMetaTileEntity(IMTE aMetaTileEntity) {
-        if (aMetaTileEntity instanceof MetaTileEntity || aMetaTileEntity == null)
-            mMetaTileEntity = (MetaTileEntity) aMetaTileEntity;
+    public final void setMTE(IMTE mte) {
+        if (mte instanceof MetaTileEntity || mte == null) mMetaTileEntity = (MetaTileEntity) mte;
         else {
             GT_FML_LOGGER.error(
                 "Unknown meta tile entity set! Class {}, inventory name {}.",
-                aMetaTileEntity.getClass(),
-                aMetaTileEntity.getInventoryName());
+                mte.getClass(),
+                mte.getInventoryName());
         }
         refreshMetaTileEntityValidity();
     }
@@ -1677,9 +1675,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
-    public String setOwnerName(String aName) {
-        if (GTUtility.isStringInvalid(aName)) return mOwnerName = "Player";
-        return mOwnerName = aName;
+    public void setOwnerName(String name) {
+        if (GTUtility.isStringInvalid(name)) {
+            mOwnerName = "Player";
+            return;
+        }
+        mOwnerName = name;
     }
 
     @Override
@@ -2037,15 +2038,14 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public IAlignment getAlignment() {
-        return getMetaTileEntity() instanceof IAlignmentProvider
-            ? ((IAlignmentProvider) getMetaTileEntity()).getAlignment()
-            : getMetaTileEntity() instanceof IAlignment ? (IAlignment) getMetaTileEntity() : null;
+        return getMTE() instanceof IAlignmentProvider ? ((IAlignmentProvider) getMTE()).getAlignment()
+            : getMTE() instanceof IAlignment ? (IAlignment) getMTE() : null;
     }
 
     @Nullable
     @Override
     public IConstructable getConstructable() {
-        return getMetaTileEntity() instanceof IConstructable ? (IConstructable) getMetaTileEntity() : null;
+        return getMTE() instanceof IConstructable ? (IConstructable) getMTE() : null;
     }
 
     @Nullable
@@ -2059,18 +2059,17 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public String getCustomName() {
-        return getMetaTileEntity() instanceof ICustomNameObject customNameObject ? customNameObject.getCustomName()
-            : null;
+        return getMTE() instanceof ICustomNameObject customNameObject ? customNameObject.getCustomName() : null;
     }
 
     @Override
     public boolean hasCustomName() {
-        return getMetaTileEntity() instanceof ICustomNameObject customNameObject && customNameObject.hasCustomName();
+        return getMTE() instanceof ICustomNameObject customNameObject && customNameObject.hasCustomName();
     }
 
     @Override
     public void setCustomName(String name) {
-        if (getMetaTileEntity() instanceof ICustomNameObject customNameObject) customNameObject.setCustomName(name);
+        if (getMTE() instanceof ICustomNameObject customNameObject) customNameObject.setCustomName(name);
     }
 
     @Override
@@ -2080,14 +2079,13 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
-        return getMetaTileEntity() instanceof IMTERenderer mteRenderer
-            ? mteRenderer.getRenderBoundingBox(xCoord, yCoord, zCoord)
+        return getMTE() instanceof IMTERenderer mteRenderer ? mteRenderer.getRenderBoundingBox(xCoord, yCoord, zCoord)
             : super.getRenderBoundingBox();
     }
 
     @Override
     public double getMaxRenderDistanceSquared() {
-        return getMetaTileEntity() instanceof IMTERenderer mteRenderer ? mteRenderer.getMaxRenderDistanceSquared()
+        return getMTE() instanceof IMTERenderer mteRenderer ? mteRenderer.getMaxRenderDistanceSquared()
             : super.getMaxRenderDistanceSquared();
     }
 }

@@ -187,7 +187,7 @@ public class RunnableMachineUpdate implements Runnable {
             this.y = y;
             this.z = z;
             baseMetaPipe = bmpe;
-            metaTile = baseMetaPipe.getMetaTileEntity();
+            metaTile = baseMetaPipe.getMTE();
             isMetaPipe = metaTile instanceof MetaPipeEntity;
             metaPipe = isMetaPipe ? (MetaPipeEntity) metaTile : null;
             isPotentialStructureBlock = false;

@@ -411,11 +411,11 @@ public class PowerNetworkBuilder {
         while (!queue.isEmpty()) {
             final TileEntity tile = queue.poll();
 
-            if (tile instanceof BaseMetaPipeEntity currPipe && currPipe.getMetaTileEntity() instanceof MTECable cable) {
+            if (tile instanceof BaseMetaPipeEntity currPipe && currPipe.getMTE() instanceof MTECable cable) {
                 for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                     if (cable.isConnectedAtSide(side)
                         && currPipe.getTileEntityAtSide(side) instanceof BaseMetaPipeEntity nextPipe
-                        && nextPipe.getMetaTileEntity() instanceof MTECable) {
+                        && nextPipe.getMTE() instanceof MTECable) {
                         addDeadEndEdge(tile, nextPipe);
 
                         if (this.visited.add(nextPipe) && !this.nodes.containsKey(nextPipe)) {
@@ -689,7 +689,7 @@ public class PowerNetworkBuilder {
                     if (sideEntity != null && !(sideEntity instanceof BaseMetaPipeEntity)) {
 
                         if (sideEntity instanceof BaseMetaTileEntity metaTile) {
-                            long outputAmperage = metaTile.getMetaTileEntity() instanceof MetaTileEntity metaTileEntity
+                            long outputAmperage = metaTile.getMTE() instanceof MetaTileEntity metaTileEntity
                                 ? metaTileEntity.maxAmperesOut()
                                 : metaTile.getOutputAmperage();
                             long outputVoltage = metaTile.getOutputVoltage();
@@ -736,7 +736,7 @@ public class PowerNetworkBuilder {
                 // voltage = vIn;
             } else if (false) {
                 // amps = Math.max(0L, hatch.maxWorkingAmperesIn());
-            } else if (baseMeta.getMetaTileEntity() instanceof MetaTileEntity metaTile) {
+            } else if (baseMeta.getMTE() instanceof MetaTileEntity metaTile) {
                 amps = Math.max(0L, metaTile.maxAmperesIn());
             }
 
@@ -785,7 +785,7 @@ public class PowerNetworkBuilder {
 
     private static MTECable getMTECable(TileEntity tile) {
 
-        if (tile instanceof BaseMetaPipeEntity metaEntity && metaEntity.getMetaTileEntity() instanceof MTECable cable) {
+        if (tile instanceof BaseMetaPipeEntity metaEntity && metaEntity.getMTE() instanceof MTECable cable) {
             return cable;
         }
 

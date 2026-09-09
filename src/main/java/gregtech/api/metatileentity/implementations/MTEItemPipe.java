@@ -401,8 +401,8 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe {
 
         final IGTE gTileEntity = (tileEntity instanceof IGTE) ? (IGTE) tileEntity : null;
         if (gTileEntity != null) {
-            if (gTileEntity.getMetaTileEntity() == null) return false;
-            if (gTileEntity.getMetaTileEntity()
+            if (gTileEntity.getMTE() == null) return false;
+            if (gTileEntity.getMTE()
                 .connectsToItemPipe(oppositeSide)) return true;
             connectable = true;
         }

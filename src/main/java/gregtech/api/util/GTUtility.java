@@ -1777,7 +1777,7 @@ public class GTUtility {
     @Nullable
     public static IMTE getMetaTileEntity(TileEntity tileEntity) {
         if (tileEntity instanceof IGTE gtTE && gtTE.canAccessData()) {
-            return gtTE.getMetaTileEntity();
+            return gtTE.getMTE();
         }
         return null;
     }

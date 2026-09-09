@@ -73,7 +73,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                                     }
                                 }
                                 if (tItemPipe instanceof BaseMetaPipeEntity) {
-                                    final IMTE tMetaTileEntity = tItemPipe.getMetaTileEntity();
+                                    final IMTE tMetaTileEntity = tItemPipe.getMTE();
                                     if (tMetaTileEntity instanceof IMTEItemPipe
                                         && tItemPipe.getCoverAtSide(oppositeSide)
                                             .letsItemsOut(-2)) {
@@ -98,7 +98,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                                         }
                                     }
                                     if (tItemPipe instanceof BaseMetaPipeEntity) {
-                                        final IMTE tMetaTileEntity = tItemPipe.getMetaTileEntity();
+                                        final IMTE tMetaTileEntity = tItemPipe.getMTE();
                                         if (tMetaTileEntity instanceof IMTEItemPipe
                                             && tItemPipe.getCoverAtSide(oppositeSide)
                                                 .letsItemsIn(-2)) {

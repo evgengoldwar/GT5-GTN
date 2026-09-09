@@ -48,7 +48,7 @@ public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData
     public IGuiHolder<PosGuiData> getGuiHolder(PosGuiData data) {
         TileEntity te = data.getTileEntity();
         if (te instanceof IGTE baseTE) {
-            IGuiHolder<PosGuiData> guiHolder = castGuiHolder(baseTE.getMetaTileEntity());
+            IGuiHolder<PosGuiData> guiHolder = castGuiHolder(baseTE.getMTE());
             if (guiHolder != null) {
                 return guiHolder;
             }

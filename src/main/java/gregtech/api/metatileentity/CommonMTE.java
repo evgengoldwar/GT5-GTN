@@ -336,8 +336,8 @@ public abstract class CommonMTE implements IMTE {
     @Override
     public String getInventoryName() {
         IMTE[] mteArray = mteArrays.getMteArray();
-        if (mteArray[getGTE().getMetaTileID()] != null) {
-            return mteArray[getGTE().getMetaTileID()].getLocalNameKey();
+        if (mteArray[getGTE().getMeta()] != null) {
+            return mteArray[getGTE().getMeta()].getLocalNameKey();
         }
         return "";
     }

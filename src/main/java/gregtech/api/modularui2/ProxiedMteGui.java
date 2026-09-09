@@ -78,7 +78,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
             super(player);
             this.serverMTE = serverMTE;
             IGTE base = serverMTE.getGTE();
-            this.mid = base.getMetaTileID();
+            this.mid = base.getMeta();
             this.x = base.getXCord();
             this.y = base.getYCord();
             this.z = base.getZCord();
@@ -133,7 +133,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
                 fakeBase.yCoord = data.getY();
                 fakeBase.zCoord = data.getZ();
                 fakeBase.setInitialValuesAsNBT(null, (short) data.getMetaId());
-                mte = (MetaTileEntity) fakeBase.getMetaTileEntity();
+                mte = (MetaTileEntity) fakeBase.getMTE();
                 assert mte != null;
             }
             return new ProxiedMteGui(mte);

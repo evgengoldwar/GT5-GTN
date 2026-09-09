@@ -115,14 +115,14 @@ public class CoverItemMeterGui extends CoverBaseGui<CoverItemMeter> {
         if (!(tile instanceof IGTE gtTile)) {
             return null;
         }
-        if (gtTile.getMetaTileEntity() == null) {
+        if (gtTile.getMTE() == null) {
             return null;
         }
         if (tile.getSizeInventory() <= 0) {
             return null;
         }
 
-        return new InvWrapper(gtTile.getMetaTileEntity());
+        return new InvWrapper(gtTile.getMTE());
     }
 
     private Consumer<RichTooltip> getItemDisplayTooltip(IntSyncValue slotSyncer) {

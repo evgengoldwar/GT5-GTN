@@ -100,7 +100,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     public void reloadLocks() {
-        final IMTE meta = getMetaTileEntity();
+        final IMTE meta = getMTE();
         if (meta instanceof MetaPipeEntity) {
             ((MetaPipeEntity) meta).reloadLocks();
         }
@@ -132,20 +132,20 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     @Override
-    public void setInitialValuesAsNBT(NBTTagCompound aNBT, short aID) {
-        if (aNBT == null) {
-            if (aID > 0) mID = aID;
+    public void setInitialValuesAsNBT(NBTTagCompound nbt, short meta) {
+        if (nbt == null) {
+            if (meta > 0) mID = meta;
             else mID = mID > 0 ? mID : 0;
             if (mID != 0) createNewMetatileEntity(mID);
         } else {
-            if (aID <= 0) mID = (short) aNBT.getInteger("mID");
-            else mID = aID;
-            mConnections = aNBT.getByte("mConnections");
-            mWorks = !aNBT.getBoolean("mWorks");
+            if (meta <= 0) mID = (short) nbt.getInteger("mID");
+            else mID = meta;
+            mConnections = nbt.getByte("mConnections");
+            mWorks = !nbt.getBoolean("mWorks");
 
-            readCommonNBT(aNBT);
-            readCoverNBT(aNBT);
-            loadMetaTileNBT(aNBT);
+            readCommonNBT(nbt);
+            readCoverNBT(nbt);
+            loadMetaTileNBT(nbt);
         }
     }
 
@@ -244,7 +244,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     private byte getUpdateData() {
-        IMTE mte = getMetaTileEntity();
+        IMTE mte = getMTE();
         return mte == null ? 0 : mte.getUpdateData();
     }
 
@@ -314,12 +314,12 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     @Override
     public String[] getInfoData() {
-        return canAccessData() ? getMetaTileEntity().getInfoData() : GTValues.emptyStringArray;
+        return canAccessData() ? getMTE().getInfoData() : GTValues.emptyStringArray;
     }
 
     @Override
     public Map<String, String> getInfoMap() {
-        return canAccessData() ? getMetaTileEntity().getInfoMap() : Collections.emptyMap();
+        return canAccessData() ? getMTE().getInfoMap() : Collections.emptyMap();
     }
 
     @Override
@@ -474,13 +474,13 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     @Override
-    public int getMetaTileID() {
+    public int getMeta() {
         return mID;
     }
 
     @Override
-    public int setMetaTileID(short aID) {
-        return mID = aID;
+    public void setMeta(short meta) {
+        mID = meta;
     }
 
     @Override
@@ -635,10 +635,10 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     @Override
-    public void doExplosion(long aAmount) {
+    public void doExplosion(long explosionEu) {
         if (canAccessData()) {
             mMetaTileEntity.onExplosion();
-            mMetaTileEntity.doExplosion(aAmount);
+            mMetaTileEntity.doExplosion(explosionEu);
         }
     }
 
@@ -657,19 +657,19 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     @Override
-    public boolean onRightclick(final EntityPlayer aPlayer, final ForgeDirection side, final float aX, final float aY,
-        final float aZ) {
-        final ForgeDirection wrenchingSide = GTUtility.determineWrenchingSide(side, aX, aY, aZ);
+    public boolean onRightClick(final EntityPlayer player, final ForgeDirection side, final float x, final float y,
+        final float z) {
+        final ForgeDirection wrenchingSide = GTUtility.determineWrenchingSide(side, x, y, z);
         final ForgeDirection effectiveSide = (!hasCoverAtSide(side)) ? wrenchingSide : side;
         Cover effectiveSideCover = getCoverAtSide(effectiveSide);
         if (isClientSide()) {
             // Place/configure Cover, sneak can also be: screwdriver, wrench, side cutter, soldering iron
-            if (aPlayer.isSneaking()) {
+            if (player.isSneaking()) {
                 return (effectiveSideCover.hasCoverGUI());
             }
         }
         if (isServerSide()) {
-            final ItemStack tCurrentItem = aPlayer.inventory.getCurrentItem();
+            final ItemStack tCurrentItem = player.inventory.getCurrentItem();
             if (tCurrentItem != null) {
                 if (getColorization() >= 0
                     && GTUtility.areStacksEqual(new ItemStack(Items.water_bucket, 1), tCurrentItem)) {
@@ -679,25 +679,25 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
                     return true;
                 }
                 if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sWrenchList)) {
-                    if (mMetaTileEntity.onWrenchRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
+                    if (mMetaTileEntity.onWrenchRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
                         mMetaTileEntity.markDirty();
-                        GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer);
+                        GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player);
                         sendSoundToPlayers(SoundResource.GTCEU_OP_WRENCH, 1.0F, 1);
                     }
                     return true;
                 }
                 if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sScrewdriverList)) {
                     if (!hasCoverAtSide(side) && hasCoverAtSide(wrenchingSide)) {
-                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 200, aPlayer)) {
-                            getCoverAtSide(wrenchingSide).onCoverScrewdriverClick(aPlayer, 0.5F, 0.5F, 0.5F);
-                            mMetaTileEntity.onScrewdriverRightClick(wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem);
+                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 200, player)) {
+                            getCoverAtSide(wrenchingSide).onCoverScrewdriverClick(player, 0.5F, 0.5F, 0.5F);
+                            mMetaTileEntity.onScrewdriverRightClick(wrenchingSide, player, x, y, z, tCurrentItem);
                             mMetaTileEntity.markDirty();
                             sendSoundToPlayers(SoundResource.GTCEU_OP_SCREWDRIVER, 1.0F, 1);
                         }
                     } else {
-                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
-                            getCoverAtSide(side).onCoverScrewdriverClick(aPlayer, aX, aY, aZ);
-                            mMetaTileEntity.onScrewdriverRightClick(side, aPlayer, aX, aY, aZ, tCurrentItem);
+                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player)) {
+                            getCoverAtSide(side).onCoverScrewdriverClick(player, x, y, z);
+                            mMetaTileEntity.onScrewdriverRightClick(side, player, x, y, z, tCurrentItem);
                             mMetaTileEntity.markDirty();
                             sendSoundToPlayers(SoundResource.GTCEU_OP_SCREWDRIVER, 1.0F, 1);
                         }
@@ -710,12 +710,12 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
                 }
 
                 if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sSoftMalletList)) {
-                    if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
+                    if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player)) {
                         if (mWorks) disableWorking();
                         else enableWorking();
                         mMetaTileEntity.markDirty();
                         GTUtility.sendChatTrans(
-                            aPlayer,
+                            player,
                             isAllowedToWork() ? "GT5U.chat.pipe.processing.enable"
                                 : "GT5U.chat.pipe.processing.disable");
                         sendSoundToPlayers(SoundResource.GTCEU_OP_SOFT_HAMMER, 1.0F, 1);
@@ -724,8 +724,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
                 }
 
                 if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sWireCutterList)) {
-                    if (mMetaTileEntity
-                        .onWireCutterRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
+                    if (mMetaTileEntity.onWireCutterRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
                         mMetaTileEntity.markDirty();
                         // logic handled internally
                         sendSoundToPlayers(SoundResource.GTCEU_OP_WIRECUTTER, 1.0F, 1);
@@ -734,14 +733,13 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
                 }
 
                 if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sSolderingToolList)) {
-                    if (mMetaTileEntity
-                        .onSolderingToolRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
+                    if (mMetaTileEntity.onSolderingToolRightClick(side, wrenchingSide, player, x, y, z, tCurrentItem)) {
                         mMetaTileEntity.markDirty();
                         // logic handled internally
                         sendSoundToPlayers(SoundResource.IC2_TOOLS_BATTERY_USE, 1.0F, -1);
-                    } else if (GTModHandler.useSolderingIron(tCurrentItem, aPlayer)) {
+                    } else if (GTModHandler.useSolderingIron(tCurrentItem, player)) {
                         GTUtility.sendChatTrans(
-                            aPlayer,
+                            player,
                             toggleStrongRedstone(wrenchingSide) ? "GT5U.chat.machine.redstone_output_set.strong"
                                 : "GT5U.chat.machine.redstone_output_set.weak",
                             new ChatComponentTranslation(GTUtility.getUnlocalizedSideName(wrenchingSide)));
@@ -751,23 +749,23 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
                 }
 
                 if (!hasCoverAtSide(effectiveSide)) {
-                    if (aPlayer.isSneaking() && CoverRegistry.isCover(tCurrentItem)) {
+                    if (player.isSneaking() && CoverRegistry.isCover(tCurrentItem)) {
                         if (CoverRegistry.getCoverPlacer(tCurrentItem)
                             .isCoverPlaceable(effectiveSide, tCurrentItem, this)
                             && mMetaTileEntity.allowCoverOnSide(effectiveSide, tCurrentItem)) {
 
                             CoverRegistry.getCoverPlacer(tCurrentItem)
-                                .placeCover(aPlayer, tCurrentItem, this, effectiveSide);
+                                .placeCover(player, tCurrentItem, this, effectiveSide);
 
                             mMetaTileEntity.markDirty();
-                            if (!aPlayer.capabilities.isCreativeMode) tCurrentItem.stackSize--;
+                            if (!player.capabilities.isCreativeMode) tCurrentItem.stackSize--;
                             sendSoundToPlayers(SoundResource.GTCEU_OP_WRENCH, 1.0F, 1);
                         }
                         return true;
                     }
                 } else {
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sCrowbarList)) {
-                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
+                        if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player)) {
                             sendSoundToPlayers(SoundResource.RANDOM_BREAK, 1.0F, -1);
                             dropCover(effectiveSide, side);
                             mMetaTileEntity.markDirty();
@@ -775,16 +773,16 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
                         return true;
                     }
                 }
-            } else if (aPlayer.isSneaking()) { // Sneak click, no tool -> open cover config or turn back.
-                return effectiveSideCover.isValid() && effectiveSideCover.onCoverShiftRightClick(aPlayer);
+            } else if (player.isSneaking()) { // Sneak click, no tool -> open cover config or turn back.
+                return effectiveSideCover.isValid() && effectiveSideCover.onCoverShiftRightClick(player);
             }
 
-            if (getCoverAtSide(side).onCoverRightClick(aPlayer, aX, aY, aZ)) return true;
+            if (getCoverAtSide(side).onCoverRightClick(player, x, y, z)) return true;
         }
         if (!getCoverAtSide(side).isGUIClickable()) return false;
         try {
-            if (!aPlayer.isSneaking() && hasValidMetaTileEntity()) {
-                boolean value = mMetaTileEntity.onRightClick(this, aPlayer, side, aX, aY, aZ);
+            if (!player.isSneaking() && hasValidMetaTileEntity()) {
+                boolean value = mMetaTileEntity.onRightClick(this, player, side, x, y, z);
                 mMetaTileEntity.markDirty();
                 return value;
             }
@@ -796,9 +794,9 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     @Override
-    public void onLeftclick(EntityPlayer aPlayer) {
+    public void onLeftClick(EntityPlayer player) {
         try {
-            if (aPlayer != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftClick(this, aPlayer);
+            if (player != null && hasValidMetaTileEntity()) mMetaTileEntity.onLeftClick(this, player);
         } catch (Exception e) {
             GT_FML_LOGGER.error("Encountered Exception while left clicking TileEntity", e);
         }
@@ -854,13 +852,13 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     @Override
-    public final IMTE getMetaTileEntity() {
+    public final IMTE getMTE() {
         return hasValidMetaTileEntity() ? mMetaTileEntity : null;
     }
 
     @Override
-    public final void setMetaTileEntity(IMTE aMetaTileEntity) {
-        mMetaTileEntity = (MetaPipeEntity) aMetaTileEntity;
+    public final void setMTE(IMTE mte) {
+        mMetaTileEntity = (MetaPipeEntity) mte;
         refreshMetaTileEntityValidity();
     }
 
@@ -885,9 +883,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     }
 
     @Override
-    public String setOwnerName(String aName) {
-        return "Player";
-    }
+    public void setOwnerName(String name) {}
 
     @Override
     public UUID getOwnerUuid() {
@@ -1064,7 +1060,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
 
     public void onNeighborBlockChange(int aX, int aY, int aZ) {
         if (canAccessData()) {
-            final IMTE meta = getMetaTileEntity();
+            final IMTE meta = getMTE();
             if (meta instanceof MetaPipeEntity) {
                 // Trigger a checking of connections in case someone placed down a block that the pipe/wire shouldn't be
                 // connected to.
@@ -1084,7 +1080,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         if (hasValidMetaTileEntity()) {
-            getMetaTileEntity().getWailaBody(itemStack, currentTip, accessor, config);
+            getMTE().getWailaBody(itemStack, currentTip, accessor, config);
         }
         super.getWailaBody(itemStack, currentTip, accessor, config);
     }
@@ -1092,7 +1088,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     @Override
     public boolean hasWailaAdvancedBody(ItemStack itemStack, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         if (hasValidMetaTileEntity()) {
-            return getMetaTileEntity().hasWailaAdvancedBody(itemStack, accessor, config);
+            return getMTE().hasWailaAdvancedBody(itemStack, accessor, config);
         }
         return super.hasWailaAdvancedBody(itemStack, accessor, config);
     }
@@ -1101,7 +1097,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
     public void getWailaAdvancedBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         if (hasValidMetaTileEntity()) {
-            getMetaTileEntity().getWailaAdvancedBody(itemStack, currentTip, accessor, config);
+            getMTE().getWailaAdvancedBody(itemStack, currentTip, accessor, config);
         }
         super.getWailaAdvancedBody(itemStack, currentTip, accessor, config);
     }
@@ -1111,7 +1107,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPip
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
         if (hasValidMetaTileEntity()) {
-            getMetaTileEntity().getWailaNBTData(player, tile, tag, world, x, y, z);
+            getMTE().getWailaNBTData(player, tile, tag, world, x, y, z);
         }
     }
 }

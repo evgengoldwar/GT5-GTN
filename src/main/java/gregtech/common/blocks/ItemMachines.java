@@ -101,7 +101,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
 
             if (mteArray[meta] != null) {
                 final IGTE gte = mteArray[meta].getGTE();
-                final IMTE mte = gte.getMetaTileEntity();
+                final IMTE mte = gte.getMTE();
                 if (mte instanceof ILocalizedMetaPipeEntity localizedMetaPipeEntity) {
                     localizedMetaPipeEntity.addMaterialTooltip(list);
                 }
@@ -209,7 +209,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
         }
         if (mteArray[meta] != null) {
             final IMTE mte = mteArray[meta].getGTE()
-                .getMetaTileEntity();
+                .getMTE();
             if (isSkipGenerateDescription(mte)) return;
             String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip";
             if (mte instanceof ISecondaryDescribable secondaryDescribable) {
@@ -284,7 +284,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
             }
 
             final int newMeta = mteArray[meta].getGTE()
-                .getMetaTileID();
+                .getMeta();
             if (!world.setBlock(x, y, z, this.field_150939_a, newMeta, 3)) {
                 return false;
             }
@@ -302,7 +302,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
             final TileEntity te = world.getTileEntity(x, y, z);
             final IGTE gte = (IGTE) te;
             if (gte != null) {
-                gte.setMTEArray(mteArrays);
+                gte.setMTEArrays(mteArrays);
                 gte.setInitialValuesAsNBT(gte.isServerSide() ? itemStack.getTagCompound() : null, meta);
 
                 if (player != null) {
@@ -310,7 +310,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
                     gte.setOwnerUuid(player.getUniqueID());
                 }
 
-                if (gte.getMetaTileEntity() instanceof MetaTileEntity mte) {
+                if (gte.getMTE() instanceof MetaTileEntity mte) {
                     AENetworkProxy proxy = mte.getProxy();
                     if (proxy != null) {
                         proxy.setOwner(player);
@@ -319,18 +319,18 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
                 gte.setFrontFacing(
                     BaseTileEntity.getSideForPlayerPlacing(player, ForgeDirection.UP, gte.getValidFacings()));
                 final ForgeDirection oppositeSide = side.getOpposite();
-                if (gte.getMetaTileEntity() instanceof IConnectable connectable) {
+                if (gte.getMTE() instanceof IConnectable connectable) {
                     connectable.connect(oppositeSide);
                     if (player != null && Mods.Backhand.isModLoaded() && connectable instanceof MTEFluidPipe pipe) {
                         pipeDirectionOffhand(player, pipe, side);
                     }
                 } else if (player != null && player.isSneaking()) {
                     final IGTE newGte = gte.getIGregTechTileEntityAtSide(oppositeSide);
-                    if (newGte != null && newGte.getMetaTileEntity() instanceof IConnectable connectable) {
+                    if (newGte != null && newGte.getMTE() instanceof IConnectable connectable) {
                         connectable.connect(side);
                     }
                 }
-                gte.getMetaTileEntity()
+                gte.getMTE()
                     .initDefaultModes(itemStack.getTagCompound());
 
                 if (player instanceof EntityPlayerMP playerMP && playerMP.playerNetServerHandler != null) {
@@ -358,7 +358,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
             if (player.isSneaking()) {
                 TileEntity adjTile = pipe.getGTE()
                     .getTileEntityAtSide(oppositeSide);
-                if (adjTile instanceof IGTE gte && gte.getMetaTileEntity() instanceof MTEFluidPipe adjPipe) {
+                if (adjTile instanceof IGTE gte && gte.getMTE() instanceof MTEFluidPipe adjPipe) {
                     adjPipe.mDisableInput |= (byte) side.flag;
                 }
             } else {

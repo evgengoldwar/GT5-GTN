@@ -518,7 +518,7 @@ public class GTRenderedTexture extends GTTextureBase implements IColorModulation
         IAlignment alignment = null;
 
         if (te instanceof IGTE) {
-            final IMTE meta = ((IGTE) te).getMetaTileEntity();
+            final IMTE meta = ((IGTE) te).getMTE();
 
             if (meta instanceof IAlignmentProvider) {
                 alignment = ((IAlignmentProvider) meta).getAlignment();

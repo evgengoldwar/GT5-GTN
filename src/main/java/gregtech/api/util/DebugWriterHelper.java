@@ -94,7 +94,7 @@ public class DebugWriterHelper {
         // DebugStructureWriter
         registerSymbolOverride(((world, x, y, z, block, tileEntity) -> {
             if (tileEntity instanceof IGTE gte) {
-                IMTE mte = gte.getMetaTileEntity();
+                IMTE mte = gte.getMTE();
 
                 // if (mte instanceof MTEDebugStructureWriter) {
                 // return '~';

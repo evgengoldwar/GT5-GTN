@@ -44,7 +44,7 @@ public interface IWorldAccessor {
     default <MTE extends MetaTileEntity> MTE getMetaTileEntity(BlockPos pos, Class<MTE> clazz) {
         if (!(getTileEntity(pos) instanceof IGTE igte)) return null;
 
-        IMTE mte = igte.getMetaTileEntity();
+        IMTE mte = igte.getMTE();
 
         if (!clazz.isInstance(mte)) return null;
 

@@ -53,8 +53,7 @@ public class GTPacketClientMTERendererData extends GTPacket {
     @Override
     public void process(IBlockAccess world) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (readBuffer != null && te instanceof IGTE gtTe
-            && gtTe.getMetaTileEntity() instanceof IMTERenderer mteRenderer) {
+        if (readBuffer != null && te instanceof IGTE gtTe && gtTe.getMTE() instanceof IMTERenderer mteRenderer) {
             mteRenderer.decodeRenderData(readBuffer);
         }
     }

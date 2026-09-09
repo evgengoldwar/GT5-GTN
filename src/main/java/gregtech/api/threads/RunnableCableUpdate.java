@@ -62,8 +62,7 @@ public class RunnableCableUpdate extends RunnableMachineUpdate {
 
                 // Now see if we should add the nearby blocks to the queue:
                 // only add blocks the cable is connected to
-                if (tTileEntity instanceof BaseMetaPipeEntity metaPipe
-                    && metaPipe.getMetaTileEntity() instanceof MTECable cable) {
+                if (tTileEntity instanceof BaseMetaPipeEntity metaPipe && metaPipe.getMTE() instanceof MTECable cable) {
                     for (int i = 0; i < ForgeDirection.VALID_DIRECTIONS.length; i++) {
                         final ForgeDirection side = ForgeDirection.VALID_DIRECTIONS[i];
                         if (cable.isConnectedAtSide(side)) {

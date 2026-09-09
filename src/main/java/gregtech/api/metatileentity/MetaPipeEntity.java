@@ -67,7 +67,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     public MetaPipeEntity(MTEArrays mteArrays, int meta, String name, int slotCount, boolean addInfo) {
         super(mteArrays, meta, name, slotCount);
         setGTE(new BaseMetaPipeEntity());
-        getGTE().setMetaTileID((short) meta);
+        getGTE().setMeta((short) meta);
         this.mteArrays = mteArrays;
 
         if (addInfo && GTMod.GT.isClientSide()) {
@@ -104,7 +104,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     @Override
     public String getInventoryName() {
-        IMTE prototype = mteArrays.getMteArray()[getGTE().getMetaTileID()];
+        IMTE prototype = mteArrays.getMteArray()[getGTE().getMeta()];
         if (prototype != null) {
             return prototype.getLocalName();
         }
@@ -488,13 +488,13 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     public final void setGTE(IGTE gte) {
         final IGTE oldBase = this.gte;
         if (this.gte != null && gte == null) {
-            this.gte.getMetaTileEntity()
+            this.gte.getMTE()
                 .inValidate();
-            this.gte.setMetaTileEntity(null);
+            this.gte.setMTE(null);
         }
         this.gte = gte;
         if (this.gte != null) {
-            this.gte.setMetaTileEntity(this);
+            this.gte.setMTE(this);
         }
         if (oldBase != gte && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
             oldMeta.refreshMetaTileEntityValidity();
@@ -511,7 +511,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     @Override
     public ItemStack getStackForm(long amount) {
-        return new ItemStack(GregTechAPI.sBlockMachines, (int) amount, getGTE().getMetaTileID());
+        return new ItemStack(GregTechAPI.sBlockMachines, (int) amount, getGTE().getMeta());
     }
 
     @Override
@@ -668,7 +668,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
         if ((alwaysLookConnected || letsIn || letsOut)) {
             // Are we trying to connect to a pipe? let's do it!
-            final IMTE tPipe = tTileEntity instanceof IGTE ? ((IGTE) tTileEntity).getMetaTileEntity() : null;
+            final IMTE tPipe = tTileEntity instanceof IGTE ? ((IGTE) tTileEntity).getMTE() : null;
             if (getClass().isInstance(tPipe) || (tPipe != null && tPipe.getClass()
                 .isInstance(this))) {
                 connectAtSide(side);
@@ -715,7 +715,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         connections &= ~side.flag;
         final ForgeDirection oppositeSide = side.getOpposite();
         IGTE tTileEntity = getGTE().getIGregTechTileEntityAtSide(side);
-        IMTE tPipe = tTileEntity == null ? null : tTileEntity.getMetaTileEntity();
+        IMTE tPipe = tTileEntity == null ? null : tTileEntity.getMTE();
         if ((this.getClass()
             .isInstance(tPipe)
             || (tPipe != null && tPipe.getClass()

@@ -113,7 +113,7 @@ public class BlockOverlayRenderer {
         if (!(aTileEntity instanceof ICoverable)) return;
 
         if (event.player.isSneaking() && aTileEntity instanceof IGTE gtEntity
-            && gtEntity.getMetaTileEntity() instanceof MetaPipeEntity) {
+            && gtEntity.getMTE() instanceof MetaPipeEntity) {
             if (event.currentItem != null && event.currentItem.getItem() instanceof ItemMachines
                 && GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[event.currentItem
                     .getItemDamage()] instanceof MetaPipeEntity) {

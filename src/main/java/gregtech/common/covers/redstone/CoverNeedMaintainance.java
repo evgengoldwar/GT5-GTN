@@ -64,7 +64,7 @@ public class CoverNeedMaintainance extends CoverLegacyData {
         }
         boolean needsRepair = false;
         if (coverable instanceof IGTE tTileEntity) {
-            final IMTE mTileEntity = tTileEntity.getMetaTileEntity();
+            final IMTE mTileEntity = tTileEntity.getMTE();
             // if (mTileEntity instanceof MTEMultiBlockBase multi) {
             // final int ideal = multi.getIdealStatus();
             // final int real = multi.getRepairStatus();

@@ -99,7 +99,7 @@ public class HatchElementBuilder<T> {
                 })
                     .shouldSkip(
                         (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && Arrays.stream(elements)
-                            .anyMatch(e -> e.matchesHatch(t.getMetaTileEntity())))
+                            .anyMatch(e -> e.matchesHatch(t.getMTE())))
                     .cacheHint(
                         () -> Arrays.stream(elements)
                             .map(IHatchElement::getDisplayName)
@@ -195,7 +195,7 @@ public class HatchElementBuilder<T> {
                     .shouldSkip(
                         (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && elements.keySet()
                             .stream()
-                            .anyMatch(e -> e.matchesHatch(t.getMetaTileEntity())))
+                            .anyMatch(e -> e.matchesHatch(t.getMTE())))
                     .cacheHint(
                         () -> elements.keySet()
                             .stream()
@@ -408,8 +408,7 @@ public class HatchElementBuilder<T> {
         return hatchItemFilter(c -> is -> clazz.isInstance(ItemMachines.getMetaTileEntity(is)))
             .cacheHint(
                 () -> StatCollector.translateToLocalFormatted("gt.hatch_element_of_class", clazz.getSimpleName()))
-            .shouldSkip(
-                (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> clazz.isInstance(t.getMetaTileEntity()));
+            .shouldSkip((BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> clazz.isInstance(t.getMTE()));
     }
 
     @SafeVarargs
@@ -437,7 +436,7 @@ public class HatchElementBuilder<T> {
                         "")))
             .shouldSkip(
                 (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && list.stream()
-                    .anyMatch(clazz -> clazz.isInstance(t.getMetaTileEntity())));
+                    .anyMatch(clazz -> clazz.isInstance(t.getMTE())));
     }
 
     public HatchElementBuilder<T> hatchId(int aId) {
@@ -451,8 +450,7 @@ public class HatchElementBuilder<T> {
         return hatchItemFilter(
             c -> is -> GTUtility.isStackValid(is) && is.getItem() instanceof ItemMachines && is.getItemDamage() == aId)
                 .cacheHint(() -> StatCollector.translateToLocalFormatted("gt.hatch_element_of_id", aId))
-                .shouldSkip(
-                    (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && t.getMetaTileID() == aId);
+                .shouldSkip((BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null && t.getMeta() == aId);
     }
 
     public HatchElementBuilder<T> hatchIds(int... aIds) {
@@ -484,7 +482,7 @@ public class HatchElementBuilder<T> {
                                 "")))
                     .shouldSkip(
                         (BiPredicate<? super T, ? super IGTE> & Builtin) (c, t) -> t != null
-                            && coll.contains(t.getMetaTileID()));
+                            && coll.contains(t.getMeta()));
     }
 
     // endregion
@@ -550,7 +548,7 @@ public class HatchElementBuilder<T> {
                 TileEntity tileEntity = world.getTileEntity(x, y, z);
                 if (tileEntity instanceof IGTE gtTileEntity) {
                     // verify that the block matches the item hatch filter
-                    ItemStack blockItem = gtTileEntity.getMetaTileEntity()
+                    ItemStack blockItem = gtTileEntity.getMTE()
                         .getStackForm(0);
                     return mHatchItemFilter.apply(t, trigger)
                         .test(blockItem);
