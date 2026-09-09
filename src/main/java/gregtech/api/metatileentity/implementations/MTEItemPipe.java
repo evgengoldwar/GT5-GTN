@@ -80,8 +80,8 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe {
     }
 
     @Override
-    public ITexture[] getTexture(IGTE aBaseMetaTileEntity, ForgeDirection side, int aConnections, int aColorIndex,
-        boolean aConnected, boolean redstoneLevel) {
+    public ITexture[] getTexture(IGTE gte, ForgeDirection side, int aConnections, int aColorIndex,
+                                 boolean aConnected, boolean redstoneLevel) {
         if (mIsRestrictive) {
             if (aConnected) {
                 float tThickNess = getSize();
