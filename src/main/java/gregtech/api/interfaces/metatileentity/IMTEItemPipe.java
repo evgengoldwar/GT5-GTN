@@ -21,18 +21,18 @@ public interface IMTEItemPipe extends IMTEPipe {
 
     class Util {
 
-        public static Map<IMTEItemPipe, Long> scanPipes(IMTEItemPipe aMetaTileEntity, Map<IMTEItemPipe, Long> aMap,
-            long aStep, boolean aSuckItems, boolean aIgnoreCapacity) {
-            aStep += aMetaTileEntity.getStepSize();
-            if (aIgnoreCapacity || aMetaTileEntity.pipeCapacityCheck())
-                if (aMap.get(aMetaTileEntity) == null || aMap.get(aMetaTileEntity) > aStep) {
-                    final IGTE aBaseMetaTileEntity = aMetaTileEntity.getGTE();
-                    aMap.put(aMetaTileEntity, aStep);
+        public static Map<IMTEItemPipe, Long> scanPipes(IMTEItemPipe pipe, Map<IMTEItemPipe, Long> map,
+            long step, boolean suckItem, boolean ignoreCapacity) {
+            step += pipe.getStepSize();
+            if (ignoreCapacity || pipe.pipeCapacityCheck())
+                if (map.get(pipe) == null || map.get(pipe) > step) {
+                    final IGTE aBaseMetaTileEntity = pipe.getGTE();
+                    map.put(pipe, step);
                     for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-                        if (aMetaTileEntity instanceof IConnectable
-                            && !((IConnectable) aMetaTileEntity).isConnectedAtSide(side)) continue;
+                        if (pipe instanceof IConnectable
+                            && !((IConnectable) pipe).isConnectedAtSide(side)) continue;
                         final ForgeDirection oppositeSide = side.getOpposite();
-                        if (aSuckItems) {
+                        if (suckItem) {
                             if (aBaseMetaTileEntity.getCoverAtSide(side)
                                 .letsItemsIn(-2)) {
                                 final IGTE tItemPipe = aBaseMetaTileEntity.getIGregTechTileEntityAtSide(side);
@@ -49,10 +49,10 @@ public interface IMTEItemPipe extends IMTEPipe {
                                             .letsItemsOut(-2)) {
                                         scanPipes(
                                             (IMTEItemPipe) tMetaTileEntity,
-                                            aMap,
-                                            aStep,
-                                            aSuckItems,
-                                            aIgnoreCapacity);
+                                            map,
+                                            step,
+                                            suckItem,
+                                            ignoreCapacity);
                                     }
                                 }
                             }
@@ -74,10 +74,10 @@ public interface IMTEItemPipe extends IMTEPipe {
                                                 .letsItemsIn(-2)) {
                                             scanPipes(
                                                 (IMTEItemPipe) tMetaTileEntity,
-                                                aMap,
-                                                aStep,
-                                                aSuckItems,
-                                                aIgnoreCapacity);
+                                                map,
+                                                step,
+                                                suckItem,
+                                                ignoreCapacity);
                                         }
                                     }
                                 }
@@ -85,7 +85,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                         }
                     }
                 }
-            return aMap;
+            return map;
         }
     }
 }
