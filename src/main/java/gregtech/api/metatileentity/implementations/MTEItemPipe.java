@@ -415,21 +415,21 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe {
     }
 
     @Override
-    public boolean incrementTransferCounter(int aIncrement) {
+    public boolean incrementTransferCounter(int increment) {
         if (mTransferredItems == 0) mCurrentTransferStartTick = getGTE().getTimer();
-        mTransferredItems += aIncrement;
+        mTransferredItems += increment;
         return pipeCapacityCheck();
     }
 
     @Override
-    public boolean sendItemStack(Object aSender) {
+    public boolean sendItemStack(Object sender) {
         if (pipeCapacityCheck()) {
             final byte tOffset = (byte) getGTE().getRandomNumber(6);
             for (final byte i : ALL_VALID_SIDES) {
                 final ForgeDirection tSide = ForgeDirection.getOrientation((i + tOffset) % 6);
                 if (isConnectedAtSide(tSide)
-                    && (isInventoryEmpty() || (tSide != mLastReceivedFrom || aSender != getGTE()))) {
-                    if (insertItemStackIntoTileEntity(aSender, tSide)) return true;
+                    && (isInventoryEmpty() || (tSide != mLastReceivedFrom || sender != getGTE()))) {
+                    if (insertItemStackIntoTileEntity(sender, tSide)) return true;
                 }
             }
         }
@@ -438,7 +438,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe {
     }
 
     @Override
-    public boolean insertItemStackIntoTileEntity(Object aSender, ForgeDirection side) {
+    public boolean insertItemStackIntoTileEntity(Object sender, ForgeDirection side) {
         if (!getGTE().getCoverAtSide(side)
             .letsItemsOut(-1)) return false;
 
@@ -453,7 +453,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe {
 
         GTItemTransfer transfer = new GTItemTransfer();
 
-        transfer.source(aSender, ForgeDirection.UNKNOWN);
+        transfer.source(sender, ForgeDirection.UNKNOWN);
         transfer.sink(neighbour, side.getOpposite());
 
         return transfer.transfer() > 0;

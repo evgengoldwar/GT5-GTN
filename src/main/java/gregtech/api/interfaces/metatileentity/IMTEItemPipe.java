@@ -9,48 +9,18 @@ import gregtech.api.metatileentity.BaseMetaPipeEntity;
 
 public interface IMTEItemPipe extends IMTEPipe {
 
-    /**
-     * @return if this Pipe can still be used.
-     */
     boolean pipeCapacityCheck();
 
-    /**
-     * @return if this Pipe can still be used.
-     */
-    boolean incrementTransferCounter(int aIncrement);
+    boolean incrementTransferCounter(int increment);
 
-    /**
-     * Sends an ItemStack from aSender to the adjacent Blocks.
-     *
-     * @param aSender the BaseMetaTileEntity sending the Stack.
-     * @return if it was able to send something
-     */
-    boolean sendItemStack(Object aSender);
+    boolean sendItemStack(Object sender);
 
-    /**
-     * Executes the Sending Code for inserting Stacks into the TileEntities.
-     *
-     * @param aSender the BaseMetaTileEntity sending the Stack.
-     * @param side    the Side of the PIPE facing the TileEntity.
-     * @return if this Side was allowed to Output into the Block.
-     */
-    boolean insertItemStackIntoTileEntity(Object aSender, ForgeDirection side);
+    boolean insertItemStackIntoTileEntity(Object sender, ForgeDirection side);
 
-    /**
-     * Can be used to make flow control Pipes, like Redpowers Restriction Tubes. Every normal Pipe returns a Value of
-     * 32768, so you can easily insert lower Numbers to set Routing priorities. Negative Numbers to "suck" Items into a
-     * certain direction are also possible.
-     */
     int getStepSize();
 
-    /**
-     * Utility for the Item Network
-     */
     class Util {
 
-        /**
-         * @return connected Item Pipes
-         */
         public static Map<IMTEItemPipe, Long> scanPipes(IMTEItemPipe aMetaTileEntity, Map<IMTEItemPipe, Long> aMap,
             long aStep, boolean aSuckItems, boolean aIgnoreCapacity) {
             aStep += aMetaTileEntity.getStepSize();
