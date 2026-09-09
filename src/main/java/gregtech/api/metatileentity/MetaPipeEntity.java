@@ -496,7 +496,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         if (this.gte != null) {
             this.gte.setMTE(this);
         }
-        if (oldBase != gte && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
+        if (oldBase != gte && oldBase instanceof CommonGTE oldMeta) {
             oldMeta.refreshMetaTileEntityValidity();
         }
     }

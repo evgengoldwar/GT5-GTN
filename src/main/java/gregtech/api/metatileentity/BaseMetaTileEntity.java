@@ -81,7 +81,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
  * <p/>
  * This is the main TileEntity for EVERYTHING.
  */
-public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
+public class BaseMetaTileEntity extends CommonGTE
     implements IActionHost, IGridProxyable, IAlignmentProvider, IConstructableProvider, ICustomNameObject {
 
     private final boolean[] mActiveEUInputs = new boolean[] { false, false, false, false, false, false };

@@ -71,7 +71,7 @@ import gregtech.api.hazards.HazardProtection;
 import gregtech.api.hazards.HazardProtectionTooltip;
 import gregtech.api.interfaces.IUpdatePlayerMovement;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
-import gregtech.api.metatileentity.CommonBaseMetaTileEntity;
+import gregtech.api.metatileentity.CommonGTE;
 import gregtech.api.metatileentity.CommonMTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.net.GTPacketClientPreference;
@@ -406,7 +406,7 @@ public class GTClient extends GTProxy {
                 final Chunk chunk = mc.theWorld.getChunkFromChunkCoords(cx, cz);
                 if (chunk == null || !chunk.isChunkLoaded) continue;
                 for (Object tile : chunk.chunkTileEntityMap.values()) {
-                    if (tile instanceof CommonBaseMetaTileEntity gtTile) {
+                    if (tile instanceof CommonGTE gtTile) {
                         gtTile.issueTextureUpdate();
                     }
                 }

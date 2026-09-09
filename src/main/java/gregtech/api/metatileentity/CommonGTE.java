@@ -50,7 +50,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 
-public abstract class CommonBaseMetaTileEntity extends CoverableGTE implements IGTE, IInterfaceNameProvider {
+public abstract class CommonGTE extends CoverableGTE implements IGTE, IInterfaceNameProvider {
 
     // mNeedsUpdate: Client only, mark the block for rerender
     // mNeedsTileUpdate: Server only, mark the block for sync using `S35PacketUpdateTileEntity`
@@ -689,7 +689,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableGTE implements I
             List<ItemStack> items = provider.getNonConsumedInputDisplayItems();
             if (!items.isEmpty()) {
                 String joined = items.stream()
-                    .map(CommonBaseMetaTileEntity::getShortItemDisplayName)
+                    .map(CommonGTE::getShortItemDisplayName)
                     .collect(Collectors.joining(", "));
                 try {
                     suffix.append(String.format(Gregtech.machines.itemSlotsSuffixFormat, joined));

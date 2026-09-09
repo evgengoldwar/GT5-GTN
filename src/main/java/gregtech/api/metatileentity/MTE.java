@@ -102,7 +102,7 @@ public abstract class MTE extends CommonMTE implements ICraftingIconProvider {
         if (this.gte != null) {
             this.gte.setMTE(this);
         }
-        if (oldBase != gte && oldBase instanceof CommonBaseMetaTileEntity oldMeta) {
+        if (oldBase != gte && oldBase instanceof CommonGTE oldMeta) {
             oldMeta.refreshMetaTileEntityValidity();
         }
     }
