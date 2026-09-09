@@ -27,7 +27,6 @@ import gregtech.common.covers.Invertable;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.modularui.cover.redstone.CoverLiquidMeterGui;
 import gregtech.common.gui.mui1.cover.LiquidMeterUIFactory;
-import gregtech.common.tileentities.storage.MTEDigitalTankBase;
 import io.netty.buffer.ByteBuf;
 
 /**
@@ -102,11 +101,7 @@ public class CoverLiquidMeter extends Cover implements Invertable {
             if (tanks != null) {
                 for (FluidTankInfo tank : tanks) {
                     if (tank != null) {
-                        if (tileEntity instanceof BaseMetaTileEntity
-                            && ((BaseMetaTileEntity) tileEntity).getMetaTileEntity() instanceof MTEDigitalTankBase) {
-                            max += ((MTEDigitalTankBase) ((BaseMetaTileEntity) tileEntity).getMetaTileEntity())
-                                .getRealCapacity();
-                        } else max += tank.capacity;
+                        if (tileEntity instanceof BaseMetaTileEntity) {} else max += tank.capacity;
                         FluidStack tLiquid = tank.fluid;
                         if (tLiquid != null) {
                             used += tLiquid.amount;

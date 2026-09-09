@@ -66,7 +66,6 @@ import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -1407,17 +1406,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
                         return true;
                     }
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sWrenchList)) {
-                        if (aPlayer.isSneaking() && mMetaTileEntity instanceof MTEBasicMachine
-                            && ((MTEBasicMachine) mMetaTileEntity).setMainFacing(wrenchingSide)) {
+                        if (mMetaTileEntity
+                            .onWrenchRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
                             GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer);
                             sendSoundToPlayers(SoundResource.GTCEU_OP_WRENCH, 1.0F, 1);
                             cableUpdateDelay = 10;
-                        } else if (mMetaTileEntity
-                            .onWrenchRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, tCurrentItem)) {
-                                GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer);
-                                sendSoundToPlayers(SoundResource.GTCEU_OP_WRENCH, 1.0F, 1);
-                                cableUpdateDelay = 10;
-                            }
+                        }
 
                         if (tCurrentItem.stackSize == 0) ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
                         return true;
@@ -2019,102 +2013,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
     @Override
     public int getLightOpacity() {
         return mMetaTileEntity == null ? getLightValue() > 0 ? 0 : 255 : mMetaTileEntity.getLightOpacity();
-    }
-
-    /**
-     * Shifts the machine Inventory index according to the change in Input/Output Slots. This is NOT done automatically.
-     * If you want to change slot count for a machine this method needs to be adapted. Currently this method only works
-     * for MTEBasicMachine
-     *
-     * @param slotIndex  The original Inventory index
-     * @param nbtVersion The GregTech version in which the original Inventory Index was saved.
-     * @return The corrected Inventory index
-     */
-    @Override
-    protected int migrateInventoryIndex(int slotIndex, int nbtVersion) {
-        final int oldInputSize;
-        final int newInputSize;
-        final int oldOutputSize;
-        final int newOutputSize;
-        final int chemistryUpdateVersion = GTMod.calculateTotalGTVersion(509, 31);
-        final int configCircuitAdditionVersion = GTMod.calculateTotalGTVersion(509, 40);
-        final int wireAdditionVersion = GTMod.calculateTotalGTVersion(509, 41);
-        final int disassemblerRemoveVersion = GTMod.calculateTotalGTVersion(509, 42, 44);
-        if (nbtVersion < 1000000) nbtVersion *= 1000;
-        // 4 is old MTEBasicMachine.OTHER_SLOT_COUNT
-        if (nbtVersion < configCircuitAdditionVersion && getMetaTileEntity() instanceof MTEBasicMachine
-            && slotIndex >= 4) slotIndex += 1;
-        if (mID >= 211 && mID <= 218) { // Assembler
-            if (nbtVersion < chemistryUpdateVersion) {
-                oldInputSize = 2;
-                oldOutputSize = 1;
-            } else {
-                return slotIndex;
-            }
-            newInputSize = 6;
-            newOutputSize = 1;
-
-        } else if (mID >= 421 && mID <= 428) { // Chemical Reactor
-            if (nbtVersion < chemistryUpdateVersion) {
-                oldInputSize = 2;
-                oldOutputSize = 1;
-            } else {
-                return slotIndex;
-            }
-            newInputSize = 2;
-            newOutputSize = 2;
-
-        } else if (mID >= 531 && mID <= 538) { // Distillery
-            if (nbtVersion < chemistryUpdateVersion) {
-                oldInputSize = 1;
-                oldOutputSize = 0;
-            } else {
-                return slotIndex;
-            }
-            newInputSize = 1;
-            newOutputSize = 1;
-        } else if (mID >= 581 && mID <= 588) { // Mixer
-            if (nbtVersion < chemistryUpdateVersion) {
-                oldInputSize = 4;
-                oldOutputSize = 1;
-            } else {
-                return slotIndex;
-            }
-            newInputSize = 6;
-            newOutputSize = 1;
-
-        } else if (mID >= 351 && mID <= 355 || mID >= 11050 && mID <= 11056) { // wire mill
-            if (nbtVersion < wireAdditionVersion) {
-                oldInputSize = 1;
-                oldOutputSize = 1;
-            } else {
-                return slotIndex;
-            }
-            newInputSize = 2;
-            newOutputSize = 1;
-
-        } else if (mID >= 654 && mID <= 655 || mID >= 11070 && mID <= 11076) { // arc furnace
-            if (nbtVersion < disassemblerRemoveVersion) {
-                oldInputSize = 1;
-                oldOutputSize = 4;
-            } else {
-                return slotIndex;
-            }
-            newInputSize = 1;
-            newOutputSize = 9;
-
-        } else {
-            return slotIndex;
-        }
-
-        int indexShift = 0;
-        if (slotIndex >= MTEBasicMachine.OTHER_SLOT_COUNT + oldInputSize) {
-            indexShift += newInputSize - oldInputSize;
-        }
-        if (slotIndex >= MTEBasicMachine.OTHER_SLOT_COUNT + oldInputSize + oldOutputSize) {
-            indexShift += newOutputSize - oldOutputSize;
-        }
-        return slotIndex + indexShift;
     }
 
     @Override

@@ -24,14 +24,11 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.graphs.Node;
 import gregtech.api.graphs.PowerNode;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.ItemTool;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
-import gregtech.api.metatileentity.implementations.MTEHatch;
-import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData.AnalyzerModes;
 import gregtech.common.networkanalyzer.events.NetworkAnalyzerPlayerTracker;
@@ -88,8 +85,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
             final TileEntity tile = world.getTileEntity(x, y, z);
 
             if (tile instanceof BaseMetaPipeEntity cableMeta && cableMeta.getMetaTileEntity() instanceof MTECable
-                || tile instanceof BaseMetaTileEntity multiMeta
-                    && multiMeta.getMetaTileEntity() instanceof MTEMultiBlockBase) {
+                || tile instanceof BaseMetaTileEntity multiMeta) {
                 final DimensionalCoord coord = new DimensionalCoord(tile);
                 setLocation(stack, coord);
 
@@ -152,43 +148,42 @@ public class ItemNetworkAnalyzer extends ItemTool {
                 }
 
                 GTValues.NW.sendToPlayer(new GTPacketNetworkAnalyzer(builder.getData(getMode(stack))), player);
-            } else if (tile instanceof BaseMetaTileEntity multiMeta
-                && multiMeta.getMetaTileEntity() instanceof MTEMultiBlockBase multiBlock) {
-                    final PowerNetworkBuilder builder = new PowerNetworkBuilder();
+            } else if (tile instanceof BaseMetaTileEntity multiMeta) {
+                final PowerNetworkBuilder builder = new PowerNetworkBuilder();
 
-                    collectHatchNetworks(multiBlock.mEnergyHatches, builder);
-                    collectHatchNetworks(multiBlock.mDynamoHatches, builder);
-                    collectHatchNetworks(multiBlock.getExoticEnergyHatches(), builder);
-                    collectHatchNetworks(multiBlock.getExoticDynamoHatches(), builder);
+                // collectHatchNetworks(multiBlock.mEnergyHatches, builder);
+                // collectHatchNetworks(multiBlock.mDynamoHatches, builder);
+                // collectHatchNetworks(multiBlock.getExoticEnergyHatches(), builder);
+                // collectHatchNetworks(multiBlock.getExoticDynamoHatches(), builder);
 
-                    GTValues.NW.sendToPlayer(new GTPacketNetworkAnalyzer(builder.getData(getMode(stack))), player);
-                } else {
-                    ItemStackNBT.removeTag(stack, "dim");
-                    NetworkAnalyzerPlayerTracker.reset(player);
-                    GTValues.NW.sendToPlayer(new GTPacketNetworkAnalyzer(new NetworkAnalyzerData()), player);
-                    player.addChatMessage(
-                        new ChatComponentText(StatCollector.translateToLocal("gt.NetworkAnalyzer.target_lost")));
-                }
-
-        }
-
-    }
-
-    private static void collectHatchNetworks(Iterable<? extends MTEHatch> hatches, PowerNetworkBuilder builder) {
-        for (MTEHatch hatch : hatches) {
-            final IGTE hatchBase = hatch.getGTE();
-            if (hatchBase == null) continue;
-            final ForgeDirection facing = hatchBase.getFrontFacing();
-            final TileEntity neighbor = hatchBase.getWorld()
-                .getTileEntity(
-                    hatchBase.getXCord() + facing.offsetX,
-                    hatchBase.getYCord() + facing.offsetY,
-                    hatchBase.getZCord() + facing.offsetZ);
-            if (neighbor instanceof BaseMetaPipeEntity pipe && pipe.getNode() instanceof PowerNode tNode) {
-                builder.addNetwork(tNode);
+                GTValues.NW.sendToPlayer(new GTPacketNetworkAnalyzer(builder.getData(getMode(stack))), player);
+            } else {
+                ItemStackNBT.removeTag(stack, "dim");
+                NetworkAnalyzerPlayerTracker.reset(player);
+                GTValues.NW.sendToPlayer(new GTPacketNetworkAnalyzer(new NetworkAnalyzerData()), player);
+                player.addChatMessage(
+                    new ChatComponentText(StatCollector.translateToLocal("gt.NetworkAnalyzer.target_lost")));
             }
+
         }
+
     }
+
+    // private static void collectHatchNetworks(Iterable<? extends MTEHatch> hatches, PowerNetworkBuilder builder) {
+    // for (MTEHatch hatch : hatches) {
+    // final IGTE hatchBase = hatch.getGTE();
+    // if (hatchBase == null) continue;
+    // final ForgeDirection facing = hatchBase.getFrontFacing();
+    // final TileEntity neighbor = hatchBase.getWorld()
+    // .getTileEntity(
+    // hatchBase.getXCord() + facing.offsetX,
+    // hatchBase.getYCord() + facing.offsetY,
+    // hatchBase.getZCord() + facing.offsetZ);
+    // if (neighbor instanceof BaseMetaPipeEntity pipe && pipe.getNode() instanceof PowerNode tNode) {
+    // builder.addNetwork(tNode);
+    // }
+    // }
+    // }
 
     private Node findNode(BaseMetaPipeEntity pipe) {
         final Set<BaseMetaPipeEntity> visited = new HashSet<>();

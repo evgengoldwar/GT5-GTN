@@ -44,7 +44,6 @@ import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.misc.GTStructureChannels;
 
@@ -581,9 +580,9 @@ public class HatchElementBuilder<T> {
                     .fromLegacy(GTCreativeHatchSource.instance, player, chat -> {});
                 PlaceResult result = survivalPlaceBlock(t, world, x, y, z, trigger, env);
 
-                if (t instanceof MTEMultiBlockBase multi) {
-                    multi.checkStructure(true, base);
-                }
+                // if (t instanceof MTEMultiBlockBase multi) {
+                // multi.checkStructure(true, base);
+                // }
                 return result == PlaceResult.ACCEPT || result == PlaceResult.ACCEPT_STOP || result == PlaceResult.SKIP;
             }
 

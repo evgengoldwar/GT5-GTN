@@ -22,7 +22,6 @@ import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerNumericWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerToggleButtonWidget;
 import gregtech.common.gui.modularui.widget.ItemWatcherSlotWidget;
-import gregtech.common.tileentities.storage.MTEDigitalChestBase;
 
 public class WirelessItemDetectorUIFactory extends AdvancedRedstoneTransmitterBaseUIFactory<CoverWirelessItemDetector> {
 
@@ -126,10 +125,7 @@ public class WirelessItemDetectorUIFactory extends AdvancedRedstoneTransmitterBa
 
     private void setMaxSlot() {
         final ICoverable tile = getUIBuildContext().getTile();
-        if (!tile.isDead() && tile instanceof IGTE gtTile
-            && !(gtTile.getMetaTileEntity() instanceof MTEDigitalChestBase)) {
-            maxSlot = tile.getSizeInventory() - 1;
-        } else {
+        if (!tile.isDead() && tile instanceof IGTE gtTile) {} else {
             maxSlot = -1;
         }
     }

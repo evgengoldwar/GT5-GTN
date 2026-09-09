@@ -17,10 +17,7 @@ import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.metatileentity.implementations.MTEBasicBatteryBuffer;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.Invertable;
@@ -272,23 +269,8 @@ public class CoverEUMeter extends Cover implements Invertable {
             translateToLocal("gt.interact.desc.Energy_Detector.average_out.tooltip"),
             ICoverable::getAverageElectricOutput, (te) -> te.getOutputVoltage() * te.getOutputAmperage()),
         ELECTRICITY_STORAGE_INCLUDING_BATTERIES(translateToLocal("gt.interact.desc.Energy_Detector.eu_stored"),
-            translateToLocal("gt.interact.desc.Energy_Detector.eu_stored.tooltip"), (te) -> {
-                if (te instanceof IGTE) {
-                    IMTE mte = ((IGTE) te).getMetaTileEntity();
-                    if (mte instanceof MTEBasicBatteryBuffer buffer) {
-                        return buffer.getStoredEnergy()[0];
-                    }
-                }
-                return te.getStoredEU();
-            }, (te) -> {
-                if (te instanceof IGTE) {
-                    IMTE mte = ((IGTE) te).getMetaTileEntity();
-                    if (mte instanceof MTEBasicBatteryBuffer buffer) {
-                        return buffer.getStoredEnergy()[1];
-                    }
-                }
-                return te.getEUCapacity();
-            });
+            translateToLocal("gt.interact.desc.Energy_Detector.eu_stored.tooltip"),
+            (te) -> { return te.getStoredEU(); }, (te) -> { return te.getEUCapacity(); });
 
         private final String title;
         private final String tooltip;

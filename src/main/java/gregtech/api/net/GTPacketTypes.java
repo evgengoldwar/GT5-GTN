@@ -22,7 +22,6 @@ public enum GTPacketTypes {
     // ID 20 unused
     // ID 28 unused
     NODE_INFO(29, new GTPacketNodeInfo()),
-    COIL_STATUS(30, new GTCoilStatus()),
     PLAYER_TELEPORT(31, new PacketTeleportPlayer()),
     SEND_WIRELESS_EU(33, new GTPacketUpdatePowerGoggles()),
     OVERWRITE_POWER_GOGGLES_MEASUREMENTS(34, new GTPacketOverwritePowerGogglesMeasurements()),

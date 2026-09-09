@@ -17,7 +17,6 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.conditions.MaintenanceAlertCondition;
 import gregtech.common.covers.modes.RedstoneMode;
@@ -66,16 +65,16 @@ public class CoverNeedMaintainance extends CoverLegacyData {
         boolean needsRepair = false;
         if (coverable instanceof IGTE tTileEntity) {
             final IMTE mTileEntity = tTileEntity.getMetaTileEntity();
-            if (mTileEntity instanceof MTEMultiBlockBase multi) {
-                final int ideal = multi.getIdealStatus();
-                final int real = multi.getRepairStatus();
-                final int coverVar = this.coverData >>> 1;
-                if (coverVar < 5) {
-                    if (ideal - real > coverVar) needsRepair = true;
-                } else if (coverVar == 5 || coverVar == 6) {
-                    needsRepair = true;
-                }
-            }
+            // if (mTileEntity instanceof MTEMultiBlockBase multi) {
+            // final int ideal = multi.getIdealStatus();
+            // final int real = multi.getRepairStatus();
+            // final int coverVar = this.coverData >>> 1;
+            // if (coverVar < 5) {
+            // if (ideal - real > coverVar) needsRepair = true;
+            // } else if (coverVar == 5 || coverVar == 6) {
+            // needsRepair = true;
+            // }
+            // }
         }
         if (this.coverData % 2 == 0) {
             needsRepair = !needsRepair;

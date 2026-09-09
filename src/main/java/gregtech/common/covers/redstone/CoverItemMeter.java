@@ -22,8 +22,6 @@ import gregtech.common.covers.Base.Cover;
 import gregtech.common.gui.modularui.cover.base.CoverBaseGui;
 import gregtech.common.gui.modularui.cover.redstone.CoverItemMeterGui;
 import gregtech.common.gui.mui1.cover.ItemMeterUIFactory;
-import gregtech.common.tileentities.Hatches.outputme.MTEHatchOutputBusME;
-import gregtech.common.tileentities.storage.MTEDigitalChestBase;
 import io.netty.buffer.ByteBuf;
 
 public class CoverItemMeter extends Cover {
@@ -104,23 +102,13 @@ public class CoverItemMeter extends Cover {
         long max = 0;
         long used = 0;
         final IMTE mte = ((IGTE) tileEntity).getMetaTileEntity();
-        if (mte instanceof MTEDigitalChestBase dc) {
-            max = dc.getMaxItemCount();
-            used = dc.getProgressTime();
-        } else if (mte instanceof MTEHatchOutputBusME meoutputbus) {
-            // todo for cache mode
-            if (meoutputbus.hasPhysicalSpace()) {
-                max = 64;
-            }
-        } else {
-            final int[] slots = slot >= 0 ? new int[] { slot } : tileEntity.getAccessibleSlotsFromSide(ordinalSide);
+        final int[] slots = slot >= 0 ? new int[] { slot } : tileEntity.getAccessibleSlotsFromSide(ordinalSide);
 
-            for (int i : slots) {
-                if (i >= 0 && i < tileEntity.getSizeInventory()) {
-                    max += 64;
-                    final ItemStack stack = tileEntity.getStackInSlot(i);
-                    if (stack != null) used += ((long) stack.stackSize << 6) / stack.getMaxStackSize();
-                }
+        for (int i : slots) {
+            if (i >= 0 && i < tileEntity.getSizeInventory()) {
+                max += 64;
+                final ItemStack stack = tileEntity.getStackInSlot(i);
+                if (stack != null) used += ((long) stack.stackSize << 6) / stack.getMaxStackSize();
             }
         }
 

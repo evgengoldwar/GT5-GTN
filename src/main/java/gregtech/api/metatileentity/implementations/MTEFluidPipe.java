@@ -38,6 +38,7 @@ import org.apache.commons.lang3.tuple.MutableTriple;
 import cpw.mods.fml.common.Optional;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
@@ -46,14 +47,11 @@ import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TextureSet;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder.ParticleEventBuilder;
@@ -63,7 +61,7 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
 @IMTE.SkipGenerateDescription
-public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEntity {
+public class MTEFluidPipe extends MetaPipeEntity {
 
     protected static final EnumMap<ForgeDirection, EnumMap<Border, ForgeDirection>> FACE_BORDER_MAP = new EnumMap<>(
         ForgeDirection.class);
@@ -107,38 +105,36 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
      * Bitmask for whether disable fluid input form each side.
      */
     public byte mDisableInput = 0;
-    private String mPrefixKey;
     private String materialKeyOverride;
     private boolean shouldSkipMaterialTooltip = false;
 
-    public MTEFluidPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        int aCapacity, int aHeatResistance, boolean aGasProof, IMTE[] mteArray) {
-        this(aID, aName, aPrefixKey, aThickNess, aMaterial, aCapacity, aHeatResistance, aGasProof, 1, mteArray);
+    public MTEFluidPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int capacity,
+        int heatResistance, boolean gasProof) {
+        this(mteArrays, meta, name, size, material, capacity, heatResistance, gasProof, 1);
     }
 
-    public MTEFluidPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        int aCapacity, int aHeatResistance, boolean aGasProof, int aFluidTypes, IMTE[] mteArray) {
-        super(aID, aName, 0, false, mteArray);
-        mPrefixKey = aPrefixKey;
-        mThickNess = aThickNess;
-        mMaterial = aMaterial;
-        mCapacity = aCapacity;
-        mGasProof = aGasProof;
-        mHeatResistance = aHeatResistance;
-        mPipeAmount = aFluidTypes;
+    public MTEFluidPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int capacity,
+        int heatResistance, boolean gasProof, int fluidTypes) {
+        super(mteArrays, meta, name, 0, false);
+        mThickNess = size;
+        mMaterial = material;
+        mCapacity = capacity;
+        mGasProof = gasProof;
+        mHeatResistance = heatResistance;
+        mPipeAmount = fluidTypes;
         mFluids = new FluidStack[mPipeAmount];
-        addInfo(aID);
+        addInfo(meta);
     }
 
-    public MTEFluidPipe(String aName, float aThickNess, Materials_OLD aMaterial, int aCapacity, int aHeatResistance,
-        boolean aGasProof, int aFluidTypes) {
-        super(aName, 0);
-        mThickNess = aThickNess;
-        mMaterial = aMaterial;
-        mCapacity = aCapacity;
-        mGasProof = aGasProof;
-        mHeatResistance = aHeatResistance;
-        mPipeAmount = aFluidTypes;
+    public MTEFluidPipe(String name, float size, Materials_OLD material, int capacity, int heatResistance,
+        boolean gasProof, int fluidTypes) {
+        super(name, 0);
+        mThickNess = size;
+        mMaterial = material;
+        mCapacity = capacity;
+        mGasProof = gasProof;
+        mHeatResistance = heatResistance;
+        mPipeAmount = fluidTypes;
         mFluids = new FluidStack[mPipeAmount];
     }
 
@@ -935,39 +931,6 @@ public class MTEFluidPipe extends MetaPipeEntity implements ILocalizedMetaPipeEn
     protected static ForgeDirection getSideAtBorder(ForgeDirection side, Border border) {
         return FACE_BORDER_MAP.get(side)
             .get(border);
-    }
-
-    @Override
-    public IOreMaterial getMaterial() {
-        return mMaterial;
-    }
-
-    @Override
-    public String getPrefixKey() {
-        return mPrefixKey;
-    }
-
-    @Override
-    public String getMaterialKeyOverride() {
-        return materialKeyOverride;
-    }
-
-    @Override
-    public boolean shouldSkipMaterialTooltip() {
-        return shouldSkipMaterialTooltip;
-    }
-
-    public MTEFluidPipe renameMaterial(String newName) {
-        if (newName == null) return this;
-        final String key = mMaterial.getLocalizedNameKey() + ".fluidpipe.newname";
-        GTLanguageManager.addStringLocalization(key, newName);
-        this.materialKeyOverride = key;
-        return this;
-    }
-
-    public MTEFluidPipe setShouldSkipMaterialTooltip(boolean shouldSkipMaterialTooltip) {
-        this.shouldSkipMaterialTooltip = shouldSkipMaterialTooltip;
-        return this;
     }
 
     protected enum Border {

@@ -18,6 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import appeng.tile.powersink.IC2;
 import gregtech.api.enums.Dyes;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.MaterialIconRegistry;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Textures;
@@ -27,17 +28,14 @@ import gregtech.api.graphs.PowerNode;
 import gregtech.api.graphs.PowerNodes;
 import gregtech.api.graphs.consumers.ConsumerNode;
 import gregtech.api.graphs.paths.PowerNodePath;
-import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTECable;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
-import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
@@ -48,40 +46,37 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
 @IMTE.SkipGenerateDescription
-public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMetaPipeEntity {
+public class MTECable extends MetaPipeEntity implements IMTECable {
 
     public final float mThickNess;
     public final Materials_OLD mMaterial;
     public final long mCableLossPerMeter, mAmperage, mVoltage;
     public final boolean mInsulated, mCanShock;
-    private String prefixKey;
 
     public int mTransferredAmperage = 0;
 
-    public MTECable(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        long aCableLossPerMeter, long aAmperage, long aVoltage, boolean aInsulated, boolean aCanShock,
-        IMTE[] mteArray) {
-        super(aID, aName, 0, mteArray);
-        prefixKey = aPrefixKey;
-        mThickNess = aThickNess;
-        mMaterial = aMaterial;
-        mAmperage = aAmperage;
-        mVoltage = aVoltage;
-        mInsulated = aInsulated;
-        mCanShock = aCanShock;
-        mCableLossPerMeter = aCableLossPerMeter;
+    public MTECable(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, long lossPerMeter,
+        long amperage, long voltage, boolean insulated, boolean canShock) {
+        super(mteArrays, meta, name, 0);
+        mThickNess = size;
+        mMaterial = material;
+        mAmperage = amperage;
+        mVoltage = voltage;
+        mInsulated = insulated;
+        mCanShock = canShock;
+        mCableLossPerMeter = lossPerMeter;
     }
 
-    public MTECable(String aName, float aThickNess, Materials_OLD aMaterial, long aCableLossPerMeter, long aAmperage,
-        long aVoltage, boolean aInsulated, boolean aCanShock) {
-        super(aName, 0);
-        mThickNess = aThickNess;
+    public MTECable(String name, float size, Materials_OLD aMaterial, long lossPerMeter, long amperage, long voltage,
+        boolean insulated, boolean canShock) {
+        super(name, 0);
+        mThickNess = size;
         mMaterial = aMaterial;
-        mAmperage = aAmperage;
-        mVoltage = aVoltage;
-        mInsulated = aInsulated;
-        mCanShock = aCanShock;
-        mCableLossPerMeter = aCableLossPerMeter;
+        mAmperage = amperage;
+        mVoltage = voltage;
+        mInsulated = insulated;
+        mCanShock = canShock;
+        mCableLossPerMeter = lossPerMeter;
     }
 
     @Override
@@ -98,41 +93,45 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
     }
 
     @Override
-    public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection, int facingDirection,
-        int colorIndex, boolean active, boolean redstoneLevel) {
-        if (!mInsulated) return new ITexture[] { TextureFactory.of(
-            mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()],
-            Dyes.getModulation(colorIndex, mMaterial.mRGBa)) };
+    public ITexture[] getTexture(IGTE gte, ForgeDirection sideDirection, int facingDirection, int colorIndex,
+        boolean active, boolean redstoneLevel) {
+        if (!mInsulated) {
+            return new ITexture[] { TextureFactory.of(
+                mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()],
+                Dyes.getModulation(colorIndex, mMaterial.mRGBa)) };
+        }
         if (active) {
-            float tThickNess = getThickness();
-            if (tThickNess < 0.124F) return new ITexture[] { TextureFactory.of(
-                Textures.BlockIcons.INSULATION_FULL,
-                Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
-            if (tThickNess < 0.374F) // 0.375 x1
+            float size = getSize();
+            if (size < 0.124F) {
+                return new ITexture[] { TextureFactory.of(
+                    Textures.BlockIcons.INSULATION_FULL,
+                    Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
+            }
+            if (size < 0.374F) // 0.375 x1
                 return new ITexture[] { TextureFactory
                     .of(mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()], mMaterial.mRGBa),
                     TextureFactory.of(
                         Textures.BlockIcons.INSULATION_TINY,
                         Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
-            if (tThickNess < 0.499F) // 0.500 x2
+            if (size < 0.499F) // 0.500 x2
                 return new ITexture[] { TextureFactory
                     .of(mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()], mMaterial.mRGBa),
                     TextureFactory.of(
                         Textures.BlockIcons.INSULATION_SMALL,
                         Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
-            if (tThickNess < 0.624F) // 0.625 x4
+            if (size < 0.624F) // 0.625 x4
                 return new ITexture[] { TextureFactory
                     .of(mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()], mMaterial.mRGBa),
                     TextureFactory.of(
                         Textures.BlockIcons.INSULATION_MEDIUM,
                         Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
-            if (tThickNess < 0.749F) // 0.750 x8
+            if (size < 0.749F) // 0.750 x8
                 return new ITexture[] { TextureFactory
                     .of(mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()], mMaterial.mRGBa),
                     TextureFactory.of(
                         Textures.BlockIcons.INSULATION_MEDIUM_PLUS,
                         Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
-            if (tThickNess < 0.874F) // 0.825 x12
+            if (size < 0.874F) // 0.825 x12
                 return new ITexture[] { TextureFactory
                     .of(mMaterial.mIconSet.mTextures[MaterialIconRegistry.IconType.WIRE.ordinal()], mMaterial.mRGBa),
                     TextureFactory.of(
@@ -151,8 +150,9 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
 
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity aEntity) {
-
-        if (!mCanShock) return;
+        if (!mCanShock) {
+            return;
+        }
 
         final BaseMetaPipeEntity baseEntity = (BaseMetaPipeEntity) getGTE();
 
@@ -258,41 +258,6 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
             return true;
         }
         return false;
-    }
-
-    /**
-     * This method is a part of the multi-connection algorithm. It checks whether the given side of the cable is facing
-     * a MetaTileEntity that can be safely connected to this cable. This can be:
-     * <ul>
-     * <li>A machine that can output or accept power of the same voltage as this cable on that side.</li>
-     * <li>A cable that is made of the same material and colored by the same color as this cable.</li>
-     * </ul>
-     * If a valid MTE is found, it is returned. Otherwise, the method returns null.
-     *
-     * @param side The side to check.
-     * @return A connectable tile or null.
-     */
-    public IMTE getConnectableMTE(ForgeDirection side) {
-        IGTE thisBMTE = this.getGTE();
-        if (thisBMTE.getTileEntityAtSide(side) instanceof IGTE otherBMTE) {
-            IMTE otherMTE = otherBMTE.getMetaTileEntity();
-            if (otherMTE instanceof MTECable cable) {
-                return (cable.mMaterial == this.mMaterial && cable.mInsulated == this.mInsulated
-                // Do not connect uncolored cables to colored ones for electrical safety.
-                    && otherBMTE.getColorization() == thisBMTE.getColorization()) ? cable : null;
-            }
-            if (otherMTE instanceof MetaTileEntity metaTile) {
-                if (metaTile.isEnetInput() && metaTile.isInputFacing(side.getOpposite())
-                    && metaTile.maxEUInput() == this.mVoltage) {
-                    return otherMTE;
-                }
-                if (metaTile.isEnetOutput() && metaTile.isOutputFacing(side.getOpposite())
-                    && metaTile.maxEUOutput() == this.mVoltage) {
-                    return otherMTE;
-                }
-            }
-        }
-        return null;
     }
 
     @Override
@@ -454,15 +419,5 @@ public class MTECable extends MetaPipeEntity implements IMTECable, ILocalizedMet
                 TooltipHelper.voltageText(mVoltage),
                 TooltipHelper.ampText(mAmperage),
                 TooltipHelper.cableLossText(mCableLossPerMeter)));
-    }
-
-    @Override
-    public IOreMaterial getMaterial() {
-        return mMaterial;
-    }
-
-    @Override
-    public String getPrefixKey() {
-        return prefixKey;
     }
 }

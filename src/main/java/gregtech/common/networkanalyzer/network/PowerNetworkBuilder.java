@@ -28,8 +28,6 @@ import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
-import gregtech.api.metatileentity.implementations.MTEHatch;
-import gregtech.api.metatileentity.implementations.MTETransformer;
 import gregtech.api.util.Localized;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData.AnalyzerModes;
@@ -729,15 +727,15 @@ public class PowerNetworkBuilder {
             long voltage = baseMeta.getInputVoltage();
             long amps = 0L;
 
-            if (baseMeta.getMetaTileEntity() instanceof MTETransformer transformer) {
-                final long vIn = transformer.maxEUInput();
-                final long vOut = transformer.maxEUOutput();
-                if (vIn > 0) {
-                    amps = Math.max(0L, transformer.maxAmperesOut() * vOut / vIn);
-                }
-                voltage = vIn;
-            } else if (baseMeta.getMetaTileEntity() instanceof MTEHatch hatch) {
-                amps = Math.max(0L, hatch.maxWorkingAmperesIn());
+            if (false) {
+                // final long vIn = transformer.maxEUInput();
+                // final long vOut = transformer.maxEUOutput();
+                // if (vIn > 0) {
+                // amps = Math.max(0L, transformer.maxAmperesOut() * vOut / vIn);
+                // }
+                // voltage = vIn;
+            } else if (false) {
+                // amps = Math.max(0L, hatch.maxWorkingAmperesIn());
             } else if (baseMeta.getMetaTileEntity() instanceof MetaTileEntity metaTile) {
                 amps = Math.max(0L, metaTile.maxAmperesIn());
             }

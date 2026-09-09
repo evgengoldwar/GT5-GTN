@@ -1,35 +1,20 @@
 package gregtech.api.util;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
-import static gregtech.api.util.GTUtility.filterValidMTEs;
-import static gregtech.api.util.GTUtility.validMTEList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
-
-import gregtech.api.interfaces.IDataCopyable;
-import gregtech.api.metatileentity.Hatch.IDualInputHatch;
-import gregtech.api.metatileentity.implementations.MTEHatch;
-import gregtech.api.metatileentity.implementations.MTEHatchOutput;
-import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
-import gregtech.common.tileentities.Hatches.outputme.MTEHatchOutputME;
 
 public class GTUtil {
 
@@ -181,190 +166,11 @@ public class GTUtil {
             (short) ((aColors >>> 24) & 255) };
     }
 
-    public static boolean saveMultiblockInputConfiguration(MTEMultiBlockBase controller, EntityPlayer player) {
-        NBTTagCompound newTag = new NBTTagCompound();
-        ItemStack dataOrb = player.getHeldItem();
-        // if (GTUtility.isStackInvalid(dataOrb) || !ItemList.Tool_DataOrb.isStackEqual(dataOrb, false, true)) {
-        // return false;
-        // }
-        if (!controller.saveOtherHatchConfiguration(player)) {
-            return false;
-        }
-        newTag.setString("type", "MultiblockConfiguration");
-        int count = 0;
-        NBTTagList list = saveConfigurationToDataStick(player, controller.mInputBusses);
-        if (list == null) return false;
-        newTag.setTag("mInputBusses", list);
-        count += list.tagCount();
-        list = saveConfigurationToDataStick(player, controller.mInputHatches);
-        if (list == null) return false;
-        newTag.setTag("mInputHatches", list);
-        count += list.tagCount();
-        list = saveConfigurationToDataStick(player, controller.mOutputBusses);
-        if (list == null) return false;
-        newTag.setTag("mOutputBusses", list);
-        count += list.tagCount();
-
-        ArrayList<MTEHatch> meOutputHatches = new ArrayList<>();
-        for (MTEHatchOutput outputHatch : controller.mOutputHatches) {
-            if (outputHatch instanceof MTEHatchOutputME hatch) {
-                meOutputHatches.add(hatch);
-            }
-        }
-        list = saveConfigurationToDataStick(player, meOutputHatches);
-        if (list == null) return false;
-        newTag.setTag("mMEOutputHatches", list);
-        count += list.tagCount();
-
-        // For Crafting Input Proxy
-        ArrayList<MTEHatch> dualInputHatches = new ArrayList<>();
-        for (IDualInputHatch dualInputHatch : controller.mDualInputHatches) {
-            if (dualInputHatch instanceof MTEHatch hatch) {
-                dualInputHatches.add(hatch);
-            }
-        }
-        list = saveConfigurationToDataStick(player, dualInputHatches);
-        if (list == null) return false;
-        newTag.setTag("mDualInputHatches", list);
-        count += list.tagCount();
-
-        // Output hatch config currently cannot be copied, so we omit this part for now
-
-        dataOrb.setTagCompound(newTag);
-        return true;
-    }
-
     public static boolean hasMultiblockInputConfiguration(ItemStack dataOrb) {
         return !GTUtility.isStackInvalid(dataOrb)
             && "MultiblockConfiguration".equals(ItemStackNBT.getString(dataOrb, "type"));
     }
 
-    public static boolean loadMultiblockInputConfiguration(MTEMultiBlockBase controller, EntityPlayer player) {
-        ItemStack dataOrb = player.getHeldItem();
-        if (!hasMultiblockInputConfiguration(dataOrb)) {
-            return false;
-        }
-        if (!controller.loadOtherHatchConfiguration(player)) {
-            return false;
-        }
-        NBTTagCompound tag = dataOrb.getTagCompound();
-        if (checkCanLoadConfigurationFromDataStick(
-            tag.getTagList("mInputBusses", Constants.NBT.TAG_COMPOUND),
-            player,
-            controller.mInputBusses)) {
-            if (!loadConfigurationFromDataStick(
-                tag.getTagList("mInputBusses", Constants.NBT.TAG_COMPOUND),
-                player,
-                controller.mInputBusses)) return false;
-        }
-        if (checkCanLoadConfigurationFromDataStick(
-            tag.getTagList("mInputHatches", Constants.NBT.TAG_COMPOUND),
-            player,
-            controller.mInputHatches)) {
-            if (!loadConfigurationFromDataStick(
-                tag.getTagList("mInputHatches", Constants.NBT.TAG_COMPOUND),
-                player,
-                controller.mInputHatches)) return false;
-        }
-        if (checkCanLoadConfigurationFromDataStick(
-            tag.getTagList("mOutputBusses", Constants.NBT.TAG_COMPOUND),
-            player,
-            controller.mOutputBusses)) {
-            if (!loadConfigurationFromDataStick(
-                tag.getTagList("mOutputBusses", Constants.NBT.TAG_COMPOUND),
-                player,
-                controller.mOutputBusses)) return false;
-        }
-
-        // for ME output hatches (normal output hatches are not implemented)
-        ArrayList<MTEHatch> meOutputHatches = new ArrayList<>();
-        for (MTEHatchOutput outputHatch : controller.mOutputHatches) {
-            if (outputHatch instanceof MTEHatchOutputME hatch) {
-                meOutputHatches.add(hatch);
-            }
-        }
-        if (checkCanLoadConfigurationFromDataStick(
-            tag.getTagList("mMEOutputHatches", Constants.NBT.TAG_COMPOUND),
-            player,
-            meOutputHatches)) {
-            if (!loadConfigurationFromDataStick(
-                tag.getTagList("mMEOutputHatches", Constants.NBT.TAG_COMPOUND),
-                player,
-                meOutputHatches)) return false;
-        }
-
-        // For Crafting Input Proxy
-        ArrayList<MTEHatch> dualInputHatches = new ArrayList<>();
-        for (IDualInputHatch dualInputHatch : controller.mDualInputHatches) {
-            if (dualInputHatch instanceof MTEHatch hatch) {
-                dualInputHatches.add(hatch);
-            }
-        }
-        if (checkCanLoadConfigurationFromDataStick(
-            tag.getTagList("mDualInputHatches", Constants.NBT.TAG_COMPOUND),
-            player,
-            dualInputHatches)) {
-            return loadConfigurationFromDataStick(
-                tag.getTagList("mDualInputHatches", Constants.NBT.TAG_COMPOUND),
-                player,
-                dualInputHatches);
-        }
-
-        return true;
-    }
-
-    private static NBTTagList saveConfigurationToDataStick(EntityPlayer player, List<? extends MTEHatch> hatches) {
-        NBTTagList list = new NBTTagList();
-        for (MTEHatch tHatch : validMTEList(hatches)) {
-            if (!(tHatch instanceof IDataCopyable copyable)) {
-                list.appendTag(new NBTTagCompound());
-                continue;
-            }
-            NBTTagCompound tag = copyable.getCopiedData(player);
-            if (tag == null) return null;
-            list.appendTag(tag);
-        }
-        return list;
-    }
-
-    private static boolean loadConfigurationFromDataStick(NBTTagList list, EntityPlayer player,
-        List<? extends MTEHatch> hatches) {
-        if (list == null || list.tagList.isEmpty()) return false;
-        List<? extends MTEHatch> validMTEs = filterValidMTEs(hatches);
-        int end = Math.min(validMTEs.size(), list.tagCount());
-        for (int i = 0; i < end; i++) {
-            MTEHatch tHatch = validMTEs.get(i);
-            NBTTagCompound tag = list.getCompoundTagAt(i);
-            if (!(tHatch instanceof IDataCopyable copyable)) {
-                if (tag.hasNoTags()) continue;
-                return false;
-            }
-            if (tag.hasNoTags()) return false;
-            if (!copyable.pasteCopiedData(player, tag)) return false;
-        }
-        return true;
-    }
-
-    private static boolean checkCanLoadConfigurationFromDataStick(NBTTagList list, EntityPlayer player,
-        List<? extends MTEHatch> hatches) {
-        if (list == null || list.tagList.isEmpty()) return false;
-        List<? extends MTEHatch> validMTEs = filterValidMTEs(hatches);
-        int end = Math.min(validMTEs.size(), list.tagCount());
-        for (int i = 0; i < end; i++) {
-            MTEHatch tHatch = validMTEs.get(i);
-            NBTTagCompound tag = list.getCompoundTagAt(i);
-            if (tag.hasNoTags()) continue;
-            if (!(tHatch instanceof IDataCopyable copyable) || !copyable.getCopiedDataIdentifier(player)
-                .equals(tag.getString("type"))) return false;
-        }
-        return true;
-    }
-
-    /**
-     * Set the direction of a vanilla large chest. return false when the new direction is invalid
-     *
-     * @param dryRun pass in true to prevent actually setting block metadata
-     */
     public static boolean setVanillaChestDirection(World world, int x, int y, int z, int newSide, Block currentBlock,
         boolean dryRun) {
         ForgeDirection newDirection = ForgeDirection.getOrientation(newSide);

@@ -41,8 +41,6 @@ import gregtech.api.interfaces.tileentity.ITurnable;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
-import gregtech.api.metatileentity.implementations.MTEBasicMachine;
-import gregtech.api.metatileentity.implementations.MTEBuffer;
 import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Client;
@@ -128,13 +126,6 @@ public class BlockOverlayRenderer {
                 && event.player.isSneaking()) {
             if (!((ICoverable) aTileEntity).hasCoverAtSide(ForgeDirection.getOrientation(event.target.sideHit)))
                 drawGrid(event, false, false, event.player.isSneaking());
-            return;
-        }
-
-        if (GTUtility.isStackInList(event.currentItem, GregTechAPI.sScrewdriverList)
-            && aTileEntity instanceof IGTE gtEntity
-            && gtEntity.getMetaTileEntity() instanceof MTEBuffer) {
-            drawGrid(event, false, false, event.player.isSneaking());
             return;
         }
 
@@ -256,9 +247,6 @@ public class BlockOverlayRenderer {
                 }
             } else if (tTile instanceof BaseMetaTileEntity baseMetaTile && baseMetaTile.getAlignment() == null) {
                 if (!aIsSneaking) tConnections |= baseMetaTile.getFrontFacing().flag;
-                else if (baseMetaTile.getMetaTileEntity() instanceof MTEBasicMachine basicMachine) {
-                    tConnections |= basicMachine.mMainFacing.flag;
-                }
             } else if (tTile instanceof BaseMetaPipeEntity pipeEntity) tConnections = pipeEntity.mConnections;
         } else if (tTile instanceof IWrenchable wrenchable) {
             tConnections |= ForgeDirection.getOrientation(wrenchable.getFacing()).flag;

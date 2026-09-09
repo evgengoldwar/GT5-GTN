@@ -28,7 +28,6 @@ import gregtech.api.casing.Casings;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 
 public class DebugWriterHelper {
 
@@ -98,9 +97,9 @@ public class DebugWriterHelper {
             if (tileEntity instanceof IGTE gte) {
                 IMTE mte = gte.getMetaTileEntity();
 
-                if (mte instanceof MTEDebugStructureWriter) {
-                    return '~';
-                }
+                // if (mte instanceof MTEDebugStructureWriter) {
+                // return '~';
+                // }
             }
             return null;
         }));

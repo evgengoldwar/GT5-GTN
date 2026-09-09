@@ -101,7 +101,6 @@ import gregtech.common.render.FluidDisplayStackRenderer;
 import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.GTRendererCasing;
 import gregtech.common.render.RenderInit;
-import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 import gregtech.crossmod.navigator.PowerfailLayerManager;
 import gregtech.loaders.ExtraIcons;
 import gregtech.loaders.preload.GTPreLoad;
@@ -179,7 +178,6 @@ public class GTClient extends GTProxy {
         MinecraftForge.EVENT_BUS.register(new NEIGTConfig());
         MinecraftForge.EVENT_BUS.register(new GTMouseEventHandler());
         MinecraftForge.EVENT_BUS.register(new BlockOverlayRenderer());
-        MinecraftForge.EVENT_BUS.register(new MTEDebugStructureWriter.EventHandler());
         MinecraftForge.EVENT_BUS.register(new GTWorkAreaRenderer());
         WorldOverlayRenderer.init();
         powerfailRenderer = new GTPowerfailRenderer();

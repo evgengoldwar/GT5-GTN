@@ -62,8 +62,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.IIconTexture;
-import gregtech.common.tileentities.storage.MTEDigitalTankBase;
-import gregtech.common.tileentities.storage.MTEQuantumChest;
 
 @Optional.Interface(iface = "com.cricketcraft.chisel.api.IFacade", modid = Mods.ModIDs.CHISEL_API)
 public abstract class BlockMachines extends GTGenericBlock implements IDebugableBlock, ITileEntityProvider, IFacade {
@@ -469,29 +467,27 @@ public abstract class BlockMachines extends GTGenericBlock implements IDebugable
             IMTE mte = gtTE.getMetaTileEntity();
             mte.onBlockDestroyed();
             mTemporaryTileEntity.set(gtTE);
-            if (!(mte instanceof MTEQuantumChest)) {
-                for (int i = 0; i < gtTE.getSizeInventory(); i++) {
-                    final ItemStack tItem = gtTE.getStackInSlot(i);
-                    if ((tItem != null) && (tItem.stackSize > 0) && (gtTE.isValidSlot(i)) && mte.shouldDropItemAt(i)) {
-                        final EntityItem tItemEntity = new EntityItem(
-                            aWorld,
-                            aX + XSTR_INSTANCE.nextFloat() * 0.8F + 0.1F,
-                            aY + XSTR_INSTANCE.nextFloat() * 0.8F + 0.1F,
-                            aZ + XSTR_INSTANCE.nextFloat() * 0.8F + 0.1F,
-                            new ItemStack(tItem.getItem(), tItem.stackSize, tItem.getItemDamage()));
-                        if (tItem.hasTagCompound()) {
-                            tItemEntity.getEntityItem()
-                                .setTagCompound(
-                                    (NBTTagCompound) tItem.getTagCompound()
-                                        .copy());
-                        }
-                        tItemEntity.motionX = (XSTR_INSTANCE.nextGaussian() * 0.05D);
-                        tItemEntity.motionY = (XSTR_INSTANCE.nextGaussian() * 0.25D);
-                        tItemEntity.motionZ = (XSTR_INSTANCE.nextGaussian() * 0.05D);
-                        aWorld.spawnEntityInWorld(tItemEntity);
-                        tItem.stackSize = 0;
-                        gtTE.setInventorySlotContents(i, null);
+            for (int i = 0; i < gtTE.getSizeInventory(); i++) {
+                final ItemStack tItem = gtTE.getStackInSlot(i);
+                if ((tItem != null) && (tItem.stackSize > 0) && (gtTE.isValidSlot(i)) && mte.shouldDropItemAt(i)) {
+                    final EntityItem tItemEntity = new EntityItem(
+                        aWorld,
+                        aX + XSTR_INSTANCE.nextFloat() * 0.8F + 0.1F,
+                        aY + XSTR_INSTANCE.nextFloat() * 0.8F + 0.1F,
+                        aZ + XSTR_INSTANCE.nextFloat() * 0.8F + 0.1F,
+                        new ItemStack(tItem.getItem(), tItem.stackSize, tItem.getItemDamage()));
+                    if (tItem.hasTagCompound()) {
+                        tItemEntity.getEntityItem()
+                            .setTagCompound(
+                                (NBTTagCompound) tItem.getTagCompound()
+                                    .copy());
                     }
+                    tItemEntity.motionX = (XSTR_INSTANCE.nextGaussian() * 0.05D);
+                    tItemEntity.motionY = (XSTR_INSTANCE.nextGaussian() * 0.25D);
+                    tItemEntity.motionZ = (XSTR_INSTANCE.nextGaussian() * 0.05D);
+                    aWorld.spawnEntityInWorld(tItemEntity);
+                    tItem.stackSize = 0;
+                    gtTE.setInventorySlotContents(i, null);
                 }
             }
         }
@@ -535,10 +531,6 @@ public abstract class BlockMachines extends GTGenericBlock implements IDebugable
 
             if (tTileEntity instanceof BaseMetaTileEntity baseTE) {
                 baseTE.setColorization((byte) -1);
-            }
-
-            if (tTileEntity instanceof IGTE gtTE && gtTE.getMetaTileEntity() instanceof MTEDigitalTankBase tankMTE) {
-                tankMTE.resetFluidLockOnShiftBreak();
             }
         }
         // This delays deletion of the block until after getDrops

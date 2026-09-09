@@ -13,7 +13,6 @@ import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.ItemList;
 import gregtech.api.objects.AE2DigitalChestHandler;
 import gregtech.common.covers.CoverFacadeAE;
-import gregtech.common.tileentities.Hatches.MTEHatchCraftingInputME;
 
 public final class AE2Compat {
 
@@ -21,7 +20,6 @@ public final class AE2Compat {
         IInterfaceTerminalRegistry reg = AEApi.instance()
             .registries()
             .interfaceTerminal();
-        reg.register(MTEHatchCraftingInputME.class);
     }
 
     public static void onPostInit() {

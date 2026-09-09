@@ -114,7 +114,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean renderInInventory(ISBRInventoryContext ctx) {
-        final float tThickness = getThickness();
+        final float tThickness = getSize();
         final float pipeMin = (BLOCK_MAX - tThickness) / 2.0F;
         final float pipeMax = BLOCK_MAX - pipeMin;
         final RenderBlocks renderBlocks = ctx.getRenderBlocks();
@@ -146,7 +146,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         if (rte == null) return false;
 
         final byte aConnections = rte.getConnections();
-        final float thickness = getThickness();
+        final float thickness = getSize();
         if (thickness >= 1) {
             ctx.renderNegativeYFacing(rte.getTextureCovered(DOWN));
             ctx.renderPositiveYFacing(rte.getTextureCovered(UP));
@@ -458,7 +458,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         return true;
     }
 
-    public float getThickness() {
+    public float getSize() {
         if (GTMod.GT.isClientSide() && GTMod.clientProxy()
             .shouldHideThings()) return 0.0625F;
         return getCollisionThickness();

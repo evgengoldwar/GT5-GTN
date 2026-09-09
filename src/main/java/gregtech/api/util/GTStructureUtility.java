@@ -20,7 +20,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.gtnewhorizon.gtnhlib.util.CoordinatePacker;
 import com.gtnewhorizon.structurelib.StructureLibAPI;
 import com.gtnewhorizon.structurelib.structure.AutoPlaceEnvironment;
 import com.gtnewhorizon.structurelib.structure.IItemSource;
@@ -33,7 +32,6 @@ import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ITurnable;
-import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.common.blocks.ItemMachines;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 
@@ -46,20 +44,6 @@ public class GTStructureUtility {
 
     public static <T> HatchElementBuilder<T> buildHatchAdder() {
         return HatchElementBuilder.builder();
-    }
-
-    public static <T extends MTEMultiBlockBase> IStructureElement<T> activeCoils(IStructureElement<T> element) {
-        return new ProxyStructureElement<>(element) {
-
-            @Override
-            public boolean check(T t, World world, int x, int y, int z) {
-                if (!element.check(t, world, x, y, z)) return false;
-
-                t.mCoils.add(CoordinatePacker.pack(x, y, z));
-
-                return true;
-            }
-        };
     }
 
     @Nonnull

@@ -7,5 +7,5 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IMTECable extends IMTEPipe {
 
-    long transferElectricity(ForgeDirection side, long aVoltage, long aAmperage, HashSet<TileEntity> aAlreadyPassedSet);
+    long transferElectricity(ForgeDirection side, long voltage, long amperage, HashSet<TileEntity> alreadyPassedSet);
 }

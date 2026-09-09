@@ -21,7 +21,6 @@ import gregtech.common.gui.modularui.widget.CoverDataControllerWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerNumericWidget;
 import gregtech.common.gui.modularui.widget.CoverDataFollowerToggleButtonWidget;
 import gregtech.common.gui.modularui.widget.ItemWatcherSlotWidget;
-import gregtech.common.tileentities.storage.MTEDigitalChestBase;
 
 public class ItemMeterUIFactory extends CoverUIFactory<CoverItemMeter> {
 
@@ -116,10 +115,7 @@ public class ItemMeterUIFactory extends CoverUIFactory<CoverItemMeter> {
 
     private void setMaxSlot() {
         final ICoverable tile = getUIBuildContext().getTile();
-        if (!tile.isDead() && tile instanceof IGTE gtTile
-            && !(gtTile.getMetaTileEntity() instanceof MTEDigitalChestBase)) {
-            maxSlot = Math.min(tile.getSizeInventory() - 1, MAX_SLOT_NUMBER);
-        } else {
+        if (!tile.isDead() && tile instanceof IGTE gtTile) {} else {
             maxSlot = -1;
         }
     }

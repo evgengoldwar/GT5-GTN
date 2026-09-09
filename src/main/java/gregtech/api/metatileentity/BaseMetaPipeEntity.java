@@ -1060,7 +1060,7 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
 
     @Override
     public float getThickNess() {
-        if (canAccessData()) return mMetaTileEntity.getThickness();
+        if (canAccessData()) return mMetaTileEntity.getSize();
         return 1.0F;
     }
 

@@ -1,9 +1,6 @@
 package gregtech.api.casing;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
-
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 import net.minecraft.block.Block;
@@ -18,15 +15,11 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Mods;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.IStructureProvider;
-import gregtech.api.structure.ISuperChestAcceptor;
-import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.GTUtility;
-import gregtech.common.tileentities.storage.MTEDigitalChestBase;
 
 public enum Casings implements ICasing {
 
@@ -669,23 +662,24 @@ public enum Casings implements ICasing {
 
         @Override
         public <T> IStructureElement<T> asElement(CasingElementContext<T> context) {
-            List<MTEDigitalChestBase> tiers = GTStructureUtility.extractMTEs(
-                MTEDigitalChestBase.class,
-                ItemList.Super_Chest_LV.get(1),
-                ItemList.Super_Chest_MV.get(1),
-                ItemList.Super_Chest_HV.get(1),
-                ItemList.Super_Chest_EV.get(1),
-                ItemList.Super_Chest_IV.get(1),
-                ItemList.Quantum_Chest_LV.get(1),
-                ItemList.Quantum_Chest_MV.get(1),
-                ItemList.Quantum_Chest_HV.get(1),
-                ItemList.Quantum_Chest_EV.get(1),
-                ItemList.Quantum_Chest_IV.get(1));
-
-            return lazy(() -> GTStructureUtility.ofGenericMTETiered(
-                MTEDigitalChestBase.class,
-                (t, mte, tier) -> ((ISuperChestAcceptor) t).onSuperChestAdded(context.getGroup(), mte, tier),
-                tiers));
+//            List<MTEDigitalChestBase> tiers = GTStructureUtility.extractMTEs(
+//                MTEDigitalChestBase.class,
+//                ItemList.Super_Chest_LV.get(1),
+//                ItemList.Super_Chest_MV.get(1),
+//                ItemList.Super_Chest_HV.get(1),
+//                ItemList.Super_Chest_EV.get(1),
+//                ItemList.Super_Chest_IV.get(1),
+//                ItemList.Quantum_Chest_LV.get(1),
+//                ItemList.Quantum_Chest_MV.get(1),
+//                ItemList.Quantum_Chest_HV.get(1),
+//                ItemList.Quantum_Chest_EV.get(1),
+//                ItemList.Quantum_Chest_IV.get(1));
+//
+//            return lazy(() -> GTStructureUtility.ofGenericMTETiered(
+//                MTEDigitalChestBase.class,
+//                (t, mte, tier) -> ((ISuperChestAcceptor) t).onSuperChestAdded(context.getGroup(), mte, tier),
+//                tiers));
+            return null;
         }
     },
 

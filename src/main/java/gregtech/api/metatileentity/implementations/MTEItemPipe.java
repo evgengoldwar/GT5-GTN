@@ -7,8 +7,6 @@ import static gregtech.api.enums.Textures.BlockIcons.PIPE_RESTRICTOR;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,24 +20,22 @@ import com.gtnewhorizon.gtnhlib.util.ItemUtil;
 
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTItemTransfer;
-import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 
 @IMTE.SkipGenerateDescription
-public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocalizedMetaPipeEntity {
+public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe {
 
     public final float mThickNess;
     public final Materials_OLD mMaterial;
@@ -50,34 +46,32 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     public ForgeDirection mLastReceivedFrom = ForgeDirection.UNKNOWN, oLastReceivedFrom = ForgeDirection.UNKNOWN;
     public boolean mIsRestrictive = false;
     private int[] cacheSides;
-    private String mPrefixKey;
     private String materialKeyOverride;
 
-    public MTEItemPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        int aInvSlotCount, int aStepSize, boolean aIsRestrictive, int aTickTime, IMTE[] mteArray) {
-        super(aID, aName, aInvSlotCount, false, mteArray);
-        this.mPrefixKey = aPrefixKey;
-        mIsRestrictive = aIsRestrictive;
-        mThickNess = aThickNess;
-        mMaterial = aMaterial;
-        mStepSize = aStepSize;
-        mTickTime = aTickTime;
-        addInfo(aID);
+    public MTEItemPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int slotCount,
+        int stepSize, boolean isRestrictive, int tickTime) {
+        super(mteArrays, meta, name, slotCount, false);
+        mIsRestrictive = isRestrictive;
+        mThickNess = size;
+        mMaterial = material;
+        mStepSize = stepSize;
+        mTickTime = tickTime;
+        addInfo(meta);
     }
 
-    public MTEItemPipe(int aID, String aName, String aPrefixKey, float aThickNess, Materials_OLD aMaterial,
-        int aInvSlotCount, int aStepSize, boolean aIsRestrictive, IMTE[] mteArray) {
-        this(aID, aName, aPrefixKey, aThickNess, aMaterial, aInvSlotCount, aStepSize, aIsRestrictive, 20, mteArray);
+    public MTEItemPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int slotCount,
+        int stepSize, boolean isRestrictive) {
+        this(mteArrays, meta, name, size, material, slotCount, stepSize, isRestrictive, 20);
     }
 
-    public MTEItemPipe(String aName, float aThickNess, Materials_OLD aMaterial, int aInvSlotCount, int aStepSize,
-        boolean aIsRestrictive, int aTickTime) {
-        super(aName, aInvSlotCount);
-        mIsRestrictive = aIsRestrictive;
-        mThickNess = aThickNess;
-        mMaterial = aMaterial;
-        mStepSize = aStepSize;
-        mTickTime = aTickTime;
+    public MTEItemPipe(String name, float size, Materials_OLD material, int slotCount, int stepSize,
+        boolean isRestrictive, int tickTime) {
+        super(name, slotCount);
+        mIsRestrictive = isRestrictive;
+        mThickNess = size;
+        mMaterial = material;
+        mStepSize = stepSize;
+        mTickTime = tickTime;
     }
 
     @Override
@@ -90,7 +84,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
         boolean aConnected, boolean redstoneLevel) {
         if (mIsRestrictive) {
             if (aConnected) {
-                float tThickNess = getThickness();
+                float tThickNess = getSize();
                 if (tThickNess < 0.124F) return new ITexture[] { TextureFactory.of(
                     mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
                     Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
@@ -119,7 +113,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
                 Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
         }
         if (aConnected) {
-            float tThickNess = getThickness();
+            float tThickNess = getSize();
             if (tThickNess < 0.124F) return new ITexture[] { TextureFactory.of(
                 mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
                 Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
@@ -557,28 +551,5 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe, ILocali
     @Override
     public float getCollisionThickness() {
         return mThickNess;
-    }
-
-    @Override
-    public IOreMaterial getMaterial() {
-        return mMaterial;
-    }
-
-    @Override
-    public String getPrefixKey() {
-        return mPrefixKey;
-    }
-
-    @Override
-    public String getMaterialKeyOverride() {
-        return materialKeyOverride;
-    }
-
-    public MTEItemPipe renameMaterial(@Nullable String newName) {
-        if (newName == null) return this;
-        final String key = mMaterial.getLocalizedNameKey() + ".itempipe.newname";
-        GTLanguageManager.addStringLocalization(key, newName);
-        this.materialKeyOverride = key;
-        return this;
     }
 }

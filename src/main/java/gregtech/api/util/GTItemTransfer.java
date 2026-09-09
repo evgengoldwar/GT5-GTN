@@ -8,7 +8,6 @@ import com.gtnewhorizon.gtnhlib.item.ItemTransfer;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IWorldAccessor;
-import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 
 public class GTItemTransfer extends ItemTransfer {
 
@@ -39,12 +38,5 @@ public class GTItemTransfer extends ItemTransfer {
                 tile.getXCord() + output.offsetX,
                 tile.getYCord() + output.offsetY,
                 tile.getZCord() + output.offsetZ));
-    }
-
-    public void dropItems(MTEBasicMachine machine) {
-        dropItems(
-            machine.getGTE(),
-            machine.getGTE()
-                .getFrontFacing());
     }
 }
