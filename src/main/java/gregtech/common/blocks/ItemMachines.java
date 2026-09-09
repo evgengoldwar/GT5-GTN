@@ -42,7 +42,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Mods;
-import gregtech.api.interfaces.IHideTooltipEnergyInfo;
 import gregtech.api.interfaces.ISecondaryDescribable;
 import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IFluidContainerItemMetaTile;
@@ -109,25 +108,23 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
                 addDescription(list, mte, meta);
                 mte.addAdditionalTooltipInformation(itemStack, list);
                 if (gte.getEUCapacity() > 0L) {
-                    if (!(mte instanceof IHideTooltipEnergyInfo)) {
-                        if (gte.getInputVoltage() > 0L) {
-                            list.add(
-                                StatCollector.translateToLocalFormatted(
-                                    "gt.tileentity.eup_in",
-                                    TooltipHelper.voltageText(gte.getInputVoltage())));
-                        }
-                        if (gte.getOutputVoltage() > 0L) {
-                            list.add(
-                                StatCollector.translateToLocalFormatted(
-                                    "gt.tileentity.eup_out",
-                                    TooltipHelper.voltageText(gte.getOutputVoltage())));
-                        }
-                        if (gte.getOutputAmperage() > 1L) {
-                            list.add(
-                                StatCollector.translateToLocalFormatted(
-                                    "gt.tileentity.amperage",
-                                    TooltipHelper.ampText(gte.getOutputAmperage())));
-                        }
+                    if (gte.getInputVoltage() > 0L) {
+                        list.add(
+                            StatCollector.translateToLocalFormatted(
+                                "gt.tileentity.eup_in",
+                                TooltipHelper.voltageText(gte.getInputVoltage())));
+                    }
+                    if (gte.getOutputVoltage() > 0L) {
+                        list.add(
+                            StatCollector.translateToLocalFormatted(
+                                "gt.tileentity.eup_out",
+                                TooltipHelper.voltageText(gte.getOutputVoltage())));
+                    }
+                    if (gte.getOutputAmperage() > 1L) {
+                        list.add(
+                            StatCollector.translateToLocalFormatted(
+                                "gt.tileentity.amperage",
+                                TooltipHelper.ampText(gte.getOutputAmperage())));
                     }
                     if (Client.tooltip.showEnergyCapacity) {
                         list.add(

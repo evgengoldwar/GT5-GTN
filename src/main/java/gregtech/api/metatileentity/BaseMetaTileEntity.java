@@ -1,6 +1,5 @@
 package gregtech.api.metatileentity;
 
-import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.objects.XSTR.XSTR_INSTANCE;
@@ -27,8 +26,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -63,7 +60,6 @@ import gregtech.api.graphs.GenerateNodeMapPower;
 import gregtech.api.graphs.Node;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTLog;
@@ -85,8 +81,8 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
  * <p/>
  * This is the main TileEntity for EVERYTHING.
  */
-public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IActionHost, IGridProxyable,
-    IAlignmentProvider, IConstructableProvider, IDebugableTileEntity, ICustomNameObject {
+public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
+    implements IActionHost, IGridProxyable, IAlignmentProvider, IConstructableProvider, ICustomNameObject {
 
     private final boolean[] mActiveEUInputs = new boolean[] { false, false, false, false, false, false };
     private final boolean[] mActiveEUOutputs = new boolean[] { false, false, false, false, false, false };
@@ -733,47 +729,6 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity implements IAct
             }
         }
         return true;
-    }
-
-    @Override
-    public ArrayList<String> getDebugInfo(EntityPlayer aPlayer, int aLogLevel) {
-        final ArrayList<String> tList = new ArrayList<>();
-        if (aLogLevel > 2) {
-            tList.add(
-                StatCollector.translateToLocalFormatted(
-                    "GT5U.scanner.debug.meta_id",
-                    mID,
-                    canAccessData() ? StatCollector.translateToLocal("GT5U.multiblock.scanner.valid")
-                        : StatCollector.translateToLocal("GT5U.multiblock.scanner.invalid"))
-                    + (mMetaTileEntity == null
-                        ? EnumChatFormatting.RED + " MetaTileEntity == null!" + EnumChatFormatting.RESET
-                        : ""));
-        }
-        if (aLogLevel > 1 && mMetaTileEntity != null) {
-            addProfilingInformation(tList);
-            tList.add(
-                StatCollector.translateToLocal(
-                    mMetaTileEntity.isAccessAllowed(aPlayer) ? "GT5U.scanner.debug.accessible"
-                        : "GT5U.scanner.debug.not_accessible"));
-            tList.add(
-                StatCollector.translateToLocalFormatted(
-                    "GT5U.scanner.debug.sound_requests",
-                    formatNumber(mMetaTileEntity.soundRequests),
-                    formatNumber(mTickTimer - mLastCheckTick)));
-            mLastCheckTick = mTickTimer;
-            mMetaTileEntity.soundRequests = 0;
-        }
-        if (aLogLevel > 0) {
-            tList.add(
-                StatCollector.translateToLocal(
-                    mActive ? "GT5U.scanner.debug.machine_active" : "GT5U.scanner.debug.machine_inactive"));
-            tList.add(
-                StatCollector.translateToLocal(
-                    isAllowedToWork() ? "GT5U.scanner.debug.machine_allowed_to_work"
-                        : "GT5U.scanner.debug.machine_not_allowed_to_work"));
-            if (!mHasEnoughEnergy) tList.add(StatCollector.translateToLocal("GT5U.scanner.debug.needs_power"));
-        }
-        return mMetaTileEntity.getSpecialDebugInfo(this, aPlayer, aLogLevel, tList);
     }
 
     @Override

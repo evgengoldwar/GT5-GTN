@@ -17,8 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -40,7 +38,6 @@ import gregtech.api.graphs.paths.NodePath;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IPipeRenderedTileEntity;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -55,8 +52,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
  * <p/>
  * This is the main TileEntity for EVERYTHING.
  */
-public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
-    implements IPipeRenderedTileEntity, IDebugableTileEntity {
+public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity implements IPipeRenderedTileEntity {
 
     public byte mConnections = IConnectable.NO_CONNECTION;
     protected MetaPipeEntity mMetaTileEntity;
@@ -309,34 +305,6 @@ public class BaseMetaPipeEntity extends CommonBaseMetaTileEntity
             issueTextureUpdate();
         }
         return true;
-    }
-
-    @Override
-    public ArrayList<String> getDebugInfo(EntityPlayer aPlayer, int aLogLevel) {
-        final ArrayList<String> tList = new ArrayList<>();
-        if (aLogLevel > 3) {
-            tList.add(
-                "Meta-ID: " + EnumChatFormatting.BLUE
-                    + mID
-                    + EnumChatFormatting.RESET
-                    + (hasValidMetaTileEntity() ? EnumChatFormatting.GREEN + " valid" + EnumChatFormatting.RESET
-                        : EnumChatFormatting.RED + " invalid" + EnumChatFormatting.RESET)
-                    + (mMetaTileEntity == null
-                        ? EnumChatFormatting.RED + " MetaTileEntity == null!" + EnumChatFormatting.RESET
-                        : " "));
-        }
-        if (aLogLevel > 1) {
-            addProfilingInformation(tList);
-            if (mMetaTileEntity != null) {
-                tList.add(
-                    StatCollector.translateToLocal(
-                        mMetaTileEntity.isAccessAllowed(aPlayer) ? "GT5U.scanner.debug.accessible"
-                            : "GT5U.scanner.debug.not_accessible"));
-            }
-        }
-
-        return mMetaTileEntity != null ? mMetaTileEntity.getSpecialDebugInfo(this, aPlayer, aLogLevel, tList)
-            : new ArrayList<>();
     }
 
     @Override

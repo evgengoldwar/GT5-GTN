@@ -42,14 +42,12 @@ import gregtech.api.enums.HarvestTool;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.Textures;
-import gregtech.api.interfaces.IDebugableBlock;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
 import gregtech.api.interfaces.tileentity.IColoredTileEntity;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.GTGenericBlock;
 import gregtech.api.items.MetaBaseItem;
@@ -64,7 +62,7 @@ import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.IIconTexture;
 
 @Optional.Interface(iface = "com.cricketcraft.chisel.api.IFacade", modid = Mods.ModIDs.CHISEL_API)
-public abstract class BlockMachines extends GTGenericBlock implements IDebugableBlock, ITileEntityProvider, IFacade {
+public abstract class BlockMachines extends GTGenericBlock implements ITileEntityProvider, IFacade {
 
     private static final ThreadLocal<IGTE> mTemporaryTileEntity = new ThreadLocal<>();
     private boolean renderAsNormalBlock;
@@ -684,15 +682,6 @@ public abstract class BlockMachines extends GTGenericBlock implements IDebugable
                 outputSubBlocks.add(new ItemStack(item, 1, i));
             }
         }
-    }
-
-    @Override
-    public ArrayList<String> getDebugInfo(EntityPlayer aPlayer, int aX, int aY, int aZ, int aLogLevel) {
-        final TileEntity tTileEntity = aPlayer.worldObj.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof IDebugableTileEntity) {
-            return ((IDebugableTileEntity) tTileEntity).getDebugInfo(aPlayer, aLogLevel);
-        }
-        return new ArrayList<>();
     }
 
     @Override

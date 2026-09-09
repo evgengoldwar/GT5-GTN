@@ -24,7 +24,6 @@ import com.gtnewhorizon.structurelib.StructureLib;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
 import gregtech.api.objects.GTChunkManager;
-import gregtech.api.util.FakeCleanroom;
 import gregtech.commands.GTBaseCommand;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
 
@@ -148,7 +147,6 @@ public final class GTMiscCommand extends GTBaseCommand {
         }
         switch (args[0]) {
             case "chunks" -> this.processChunksCommand(sender);
-            case "cleanroom_bypass" -> this.processCleanroomBypassCommand(sender, args);
             case "global_energy_add" -> this.processGlobalEnergyAddCommand(sender, args);
             case "global_energy_display" -> this.processGlobalEnergyDisplayCommand(sender, args);
             case "global_energy_join" -> this.processGlobalEnergyJoinCommand(sender, args);
@@ -183,52 +181,6 @@ public final class GTMiscCommand extends GTBaseCommand {
         } catch (Exception e) {
             sendChatToPlayer(sender, "No such variable: " + args[0]);
         }
-    }
-
-    private void processCleanroomBypassCommand(ICommandSender sender, String[] args) {
-        if (args.length < 2) {
-            sendChatToPlayer(
-                sender,
-                EnumChatFormatting.RED + "Usage: gt cleanroom_bypass <on|off|status> <all|cleanroom|lowgrav>");
-            return;
-        }
-        String act = args[1].toLowerCase();
-        String spec = (args.length >= 3 ? args[2] : "all").toLowerCase();
-        switch (act) {
-            case "status":
-                break;
-
-            case "on":
-                switch (spec) {
-                    case "all" -> {
-                        FakeCleanroom.CLEANROOM_BYPASS = true;
-                        FakeCleanroom.LOWGRAV_BYPASS = true;
-                    }
-                    case "cleanroom" -> FakeCleanroom.CLEANROOM_BYPASS = true;
-                    case "lowgrav" -> FakeCleanroom.LOWGRAV_BYPASS = true;
-                }
-                break;
-
-            case "off":
-                switch (spec) {
-                    case "all" -> {
-                        FakeCleanroom.CLEANROOM_BYPASS = false;
-                        FakeCleanroom.LOWGRAV_BYPASS = false;
-                    }
-                    case "cleanroom" -> FakeCleanroom.CLEANROOM_BYPASS = false;
-                    case "lowgrav" -> FakeCleanroom.LOWGRAV_BYPASS = false;
-                }
-                break;
-        }
-        sendChatToPlayer(
-            sender,
-            EnumChatFormatting.YELLOW + "Cleanroom Bypass: "
-                + (FakeCleanroom.CLEANROOM_BYPASS ? EnumChatFormatting.GREEN + "Enabled"
-                    : EnumChatFormatting.RED + "Disabled")
-                + EnumChatFormatting.YELLOW
-                + " & LowGrav Bypass: "
-                + (FakeCleanroom.LOWGRAV_BYPASS ? EnumChatFormatting.GREEN + "Enabled"
-                    : EnumChatFormatting.RED + "Disabled"));
     }
 
     private void processChunksCommand(ICommandSender sender) {

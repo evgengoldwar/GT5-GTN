@@ -19,7 +19,6 @@ import com.gtnewhorizon.gtnhlib.capability.CapabilityProvider;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.interfaces.IDescribable;
 import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.modularui.IAddInventorySlots;
 import gregtech.api.interfaces.modularui.IGetGUITextureSet;
 import gregtech.api.util.shutdown.ShutDownReason;
 import io.netty.buffer.ByteBuf;
@@ -31,9 +30,9 @@ import io.netty.buffer.ByteBuf;
  * <p/>
  * It can cause Problems to include this Interface!
  */
-public interface IGTE extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable, IGregTechDeviceInformation,
-    IUpgradableMachine, IDescribable, IMachineBlockUpdateable, IGregtechWailaProvider, IGetGUITextureSet,
-    IAddInventorySlots, CapabilityProvider {
+public interface IGTE
+    extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable, IGregTechDeviceInformation, IUpgradableMachine,
+    IDescribable, IMachineBlockUpdateable, IGregtechWailaProvider, IGetGUITextureSet, CapabilityProvider {
 
     /**
      * @return the MetaID of the Block or the MetaTileEntity ID.

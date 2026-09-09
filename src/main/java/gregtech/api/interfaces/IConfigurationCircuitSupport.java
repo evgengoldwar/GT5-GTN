@@ -15,9 +15,7 @@ public interface IConfigurationCircuitSupport {
      */
     boolean allowSelectCircuit();
 
-    @Deprecated // mui2 port will be more custom
     int getCircuitSlotX();
 
-    @Deprecated
     int getCircuitSlotY();
 }

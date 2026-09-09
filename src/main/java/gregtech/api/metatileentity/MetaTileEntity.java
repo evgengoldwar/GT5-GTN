@@ -39,14 +39,12 @@ import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TieredVariant;
 import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.GUITextureSet;
-import gregtech.api.interfaces.ICleanroomReceiver;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTTooltipDataCache;
 import gregtech.api.util.GTUtility;
-import gregtech.common.capability.CleanroomReference;
 import gregtech.common.config.Client;
 import gregtech.common.gui.modularui.util.MTEItemStackHandler;
 import gregtech.mixin.interfaces.accessors.EntityPlayerMPAccessor;
@@ -68,8 +66,6 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     public IItemHandlerModifiable getInventoryHandler() {
         return inventoryHandler;
     }
-
-    protected final ICleanroomReceiver cleanroomReference = new CleanroomReference();
 
     private IGTE gte;
 
@@ -119,9 +115,6 @@ public abstract class MetaTileEntity extends CommonMTE implements ICraftingIconP
     @Nullable
     @Override
     public <T> T getCapability(@NotNull Class<T> capability, @NotNull ForgeDirection side) {
-        if (capability == ICleanroomReceiver.class) {
-            return capability.cast(cleanroomReference);
-        }
         if (capability == ICraftingIconProvider.class) {
             return capability.cast(this);
         }

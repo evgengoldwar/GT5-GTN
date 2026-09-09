@@ -27,7 +27,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 
 import com.cleanroommc.modularui.utils.item.IItemHandlerModifiable;
-import com.gtnewhorizons.modularui.api.drawable.IDrawable;
 import com.gtnewhorizons.modularui.api.drawable.ItemDrawable;
 import com.gtnewhorizons.modularui.api.math.Alignment;
 import com.gtnewhorizons.modularui.api.screen.ITileWithModularUI;
@@ -38,7 +37,6 @@ import com.gtnewhorizons.modularui.common.internal.network.NetworkUtils;
 import com.gtnewhorizons.modularui.common.internal.wrapper.BaseSlot;
 import com.gtnewhorizons.modularui.common.widget.DrawableWidget;
 import com.gtnewhorizons.modularui.common.widget.MultiChildWidget;
-import com.gtnewhorizons.modularui.common.widget.SlotGroup;
 import com.gtnewhorizons.modularui.common.widget.SlotWidget;
 import com.gtnewhorizons.modularui.common.widget.TextWidget;
 
@@ -51,7 +49,6 @@ import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
 import gregtech.api.interfaces.modularui.IAddGregtechLogo;
-import gregtech.api.interfaces.modularui.IAddInventorySlots;
 import gregtech.api.interfaces.modularui.IGetGUITextureSet;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IGTEnet;
@@ -68,7 +65,7 @@ import gregtech.common.gui.modularui.base.ItemSelectBaseGui;
  * Basically everything a TileEntity should have.
  */
 public abstract class BaseTileEntity extends TileEntity
-    implements IWorldAccessor, IGTEnet, ITileWithModularUI, IAddGregtechLogo, IGetGUITextureSet, IAddInventorySlots {
+    implements IWorldAccessor, IGTEnet, ITileWithModularUI, IAddGregtechLogo, IGetGUITextureSet {
 
     /**
      * Buffers adjacent TileEntities for faster access
@@ -706,74 +703,6 @@ public abstract class BaseTileEntity extends TileEntity
 
     protected boolean doesBindPlayerInventory() {
         return true;
-    }
-
-    @Override
-    public void add1by1Slot(ModularWindow.Builder builder, IDrawable... background) {
-        final IItemHandlerModifiable inventoryHandler = getInventoryHandler();
-        if (inventoryHandler == null) return;
-
-        if (background.length == 0) {
-            background = new IDrawable[] { getGUITextureSet().getItemSlot() };
-        }
-        builder.widget(
-            SlotGroup.ofItemHandler(inventoryHandler, 1)
-                .startFromSlot(0)
-                .endAtSlot(0)
-                .background(background)
-                .build()
-                .setPos(79, 34));
-    }
-
-    @Override
-    public void add2by2Slots(ModularWindow.Builder builder, IDrawable... background) {
-        final IItemHandlerModifiable inventoryHandler = getInventoryHandler();
-        if (inventoryHandler == null) return;
-
-        if (background.length == 0) {
-            background = new IDrawable[] { getGUITextureSet().getItemSlot() };
-        }
-        builder.widget(
-            SlotGroup.ofItemHandler(inventoryHandler, 2)
-                .startFromSlot(0)
-                .endAtSlot(3)
-                .background(background)
-                .build()
-                .setPos(70, 25));
-    }
-
-    @Override
-    public void add3by3Slots(ModularWindow.Builder builder, IDrawable... background) {
-        final IItemHandlerModifiable inventoryHandler = getInventoryHandler();
-        if (inventoryHandler == null) return;
-
-        if (background.length == 0) {
-            background = new IDrawable[] { getGUITextureSet().getItemSlot() };
-        }
-        builder.widget(
-            SlotGroup.ofItemHandler(inventoryHandler, 3)
-                .startFromSlot(0)
-                .endAtSlot(8)
-                .background(background)
-                .build()
-                .setPos(61, 16));
-    }
-
-    @Override
-    public void add4by4Slots(ModularWindow.Builder builder, IDrawable... background) {
-        final IItemHandlerModifiable inventoryHandler = getInventoryHandler();
-        if (inventoryHandler == null) return;
-
-        if (background.length == 0) {
-            background = new IDrawable[] { getGUITextureSet().getItemSlot() };
-        }
-        builder.widget(
-            SlotGroup.ofItemHandler(inventoryHandler, 4)
-                .startFromSlot(0)
-                .endAtSlot(15)
-                .background(background)
-                .build()
-                .setPos(52, 7));
     }
 
     public void addCoverTabs(ModularWindow.Builder builder, UIBuildContext buildContext) {

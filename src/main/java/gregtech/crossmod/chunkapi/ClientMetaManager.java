@@ -3,7 +3,6 @@ package gregtech.crossmod.chunkapi;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import net.minecraft.block.Block;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.world.World;
@@ -13,7 +12,6 @@ import com.falsepattern.chunk.api.DataManager;
 import com.gtnewhorizon.gtnhlib.util.CoordinatePacker;
 
 import gregtech.api.enums.Mods;
-import gregtech.api.interfaces.IBlockWithClientMeta;
 import gregtech.api.net.ClientMetaTrackerRegistry;
 import gregtech.api.net.IClientMetaTracker;
 import it.unimi.dsi.fastutil.longs.LongSet;
@@ -41,44 +39,16 @@ public class ClientMetaManager implements DataManager.PacketDataManager, DataMan
                 int x = CoordinatePacker.unpackX(packedBlockPos);
                 int y = CoordinatePacker.unpackY(packedBlockPos);
                 int z = CoordinatePacker.unpackZ(packedBlockPos);
-                Block current = theWorld.getBlock(x, y, z);
-                if (current instanceof IBlockWithClientMeta clientMetaBlock) {
-                    buffer.putShort((short) clientMetaBlock.getClientMeta(theWorld, x, y, z));
-                } else {
-                    buffer.putShort((short) theWorld.getBlockMetadata(x, y, z));
-                }
+                buffer.putShort((short) theWorld.getBlockMetadata(x, y, z));
             }
         }
     }
 
     @Override
-    public void readFromBuffer(Chunk chunk, int subChunkMask, boolean forceUpdate, ByteBuffer buffer) {
-        // Loop for exactly the same time as the server does
-        for (IClientMetaTracker _ : ClientMetaTrackerRegistry.getAllTrackers()) {
-            World theWorld = chunk.worldObj;
-            int count = buffer.getInt();
-            for (int i = 0; i < count; i++) {
-                long packedBlockPos = buffer.getLong();
-                int x = CoordinatePacker.unpackX(packedBlockPos);
-                int y = CoordinatePacker.unpackY(packedBlockPos);
-                int z = CoordinatePacker.unpackZ(packedBlockPos);
-                short meta = buffer.getShort();
-                Block current = theWorld.getBlock(x, y, z);
-                if (current instanceof IBlockWithClientMeta) {
-                    theWorld.setBlockMetadataWithNotify(x, y, z, meta, 2);
-                }
-            }
-        }
-    }
+    public void readFromBuffer(Chunk chunk, int subChunkMask, boolean forceUpdate, ByteBuffer buffer) {}
 
     @Override
-    public void writeBlockToPacket(Chunk chunk, int x, int y, int z, S23PacketBlockChange packet) {
-        World theWorld = chunk.worldObj;
-        if (packet.field_148883_d instanceof IBlockWithClientMeta clientMetaBlock) {
-            packet.field_148884_e = clientMetaBlock
-                .getClientMeta(theWorld, (chunk.xPosition << 4) + x, y, (chunk.zPosition << 4) + z);
-        }
-    }
+    public void writeBlockToPacket(Chunk chunk, int x, int y, int z, S23PacketBlockChange packet) {}
 
     @Override
     public void readBlockFromPacket(Chunk chunk, int x, int y, int z, S23PacketBlockChange packet) {}
