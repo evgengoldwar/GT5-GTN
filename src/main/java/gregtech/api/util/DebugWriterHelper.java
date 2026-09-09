@@ -24,7 +24,6 @@ import net.minecraft.world.World;
 import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.casing.Casings;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
@@ -37,7 +36,7 @@ public class DebugWriterHelper {
     private static final List<BlockSymbolOverride> symbolOverrides = new ArrayList<>();
 
     private static final Map<Block, String> VANILLA_BLOCK_NAMES = new IdentityHashMap<>();
-    private static final Casings[] CASINGS_VALUES = Casings.values();
+//    private static final Casings[] CASINGS_VALUES = Casings.values();
     private static final Materials_OLD[] MATERIALS_OLD_VALUES = Materials_OLD.values();
 
     static {
@@ -59,21 +58,21 @@ public class DebugWriterHelper {
         });
 
         // Casings
-        registerBlockAssociation((block, meta, symbol) -> {
-            for (Casings casing : CASINGS_VALUES) {
-                try {
-                    if (casing.getBlock() == block && casing.getBlockMeta() == meta) {
-                        return symbol + "-> "
-                            + "addElement('"
-                            + symbol
-                            + "', Casings."
-                            + casing.name()
-                            + ".asElement()";
-                    }
-                } catch (Exception ignored) {}
-            }
-            return null;
-        });
+//        registerBlockAssociation((block, meta, symbol) -> {
+//            for (Casings casing : CASINGS_VALUES) {
+//                try {
+//                    if (casing.getBlock() == block && casing.getBlockMeta() == meta) {
+//                        return symbol + "-> "
+//                            + "addElement('"
+//                            + symbol
+//                            + "', Casings."
+//                            + casing.name()
+//                            + ".asElement()";
+//                    }
+//                } catch (Exception ignored) {}
+//            }
+//            return null;
+//        });
 
         // Sheet Metal
         registerBlockAssociation((block, meta, symbol) -> {
