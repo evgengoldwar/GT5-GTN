@@ -62,13 +62,17 @@ import gregtech.common.gui.modularui.base.ItemSelectBaseGui;
 public abstract class GTE extends TileEntity
     implements IWorldAccessor, IGTEnet, ITileWithModularUI, IAddGregtechLogo, IGetGUITextureSet {
 
-    private final TileEntity[] mBufferedTileEntities = new TileEntity[6];
+    private final TileEntity[] bufferedTileEntities = new TileEntity[6];
 
     public boolean ignoreUnloadedChunks = true;
 
     public boolean isDead = false;
 
-    private final ChunkCoordinates mReturnedCoordinates = new ChunkCoordinates();
+    protected GTTooltipDataCache tooltipCache = new GTTooltipDataCache();
+
+    public static final int TOOLTIP_DELAY = 0;
+
+    private final ChunkCoordinates returnedCoordinates = new ChunkCoordinates();
 
     public static ForgeDirection getSideForPlayerPlacing(Entity player, ForgeDirection defaultFacing,
         boolean[] aAllowedFacings) {
@@ -77,17 +81,24 @@ public abstract class GTE extends TileEntity
         if (facingFromPlayer != ForgeDirection.UNKNOWN && aAllowedFacings[facingFromPlayer.ordinal()])
             return facingFromPlayer;
 
-        for (final ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) if (aAllowedFacings[dir.ordinal()]) return dir;
+        for (final ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            if (aAllowedFacings[dir.ordinal()]) {
+                return dir;
+            }
+        }
         return defaultFacing;
     }
 
     private void clearNullMarkersFromTileEntityBuffer() {
-        for (int i = 0; i < mBufferedTileEntities.length; i++)
-            if (mBufferedTileEntities[i] == this) mBufferedTileEntities[i] = null;
+        for (int i = 0; i < bufferedTileEntities.length; i++) {
+            if (bufferedTileEntities[i] == this) {
+                bufferedTileEntities[i] = null;
+            }
+        }
     }
 
     protected final void clearTileEntityBuffer() {
-        Arrays.fill(mBufferedTileEntities, null);
+        Arrays.fill(bufferedTileEntities, null);
     }
 
     @Override
@@ -112,10 +123,10 @@ public abstract class GTE extends TileEntity
 
     @Override
     public final ChunkCoordinates getCords() {
-        mReturnedCoordinates.posX = xCoord;
-        mReturnedCoordinates.posY = yCoord;
-        mReturnedCoordinates.posZ = zCoord;
-        return mReturnedCoordinates;
+        returnedCoordinates.posX = xCoord;
+        returnedCoordinates.posY = yCoord;
+        returnedCoordinates.posZ = zCoord;
+        return returnedCoordinates;
     }
 
     @Override
@@ -416,24 +427,24 @@ public abstract class GTE extends TileEntity
         final int tY = getOffsetY(side, 1);
         final int tZ = getOffsetZ(side, 1);
         if (crossedChunkBorder(tX, tZ)) {
-            mBufferedTileEntities[ordinalSide] = null;
+            bufferedTileEntities[ordinalSide] = null;
             if (ignoreUnloadedChunks && !worldObj.blockExists(tX, tY, tZ)) return null;
-        } else if (mBufferedTileEntities[ordinalSide] == this) return null;
-        if (mBufferedTileEntities[ordinalSide] == null) {
-            mBufferedTileEntities[ordinalSide] = worldObj.getTileEntity(tX, tY, tZ);
-            if (mBufferedTileEntities[ordinalSide] == null) {
-                mBufferedTileEntities[ordinalSide] = this;
+        } else if (bufferedTileEntities[ordinalSide] == this) return null;
+        if (bufferedTileEntities[ordinalSide] == null) {
+            bufferedTileEntities[ordinalSide] = worldObj.getTileEntity(tX, tY, tZ);
+            if (bufferedTileEntities[ordinalSide] == null) {
+                bufferedTileEntities[ordinalSide] = this;
                 return null;
             }
-            return mBufferedTileEntities[ordinalSide];
+            return bufferedTileEntities[ordinalSide];
         }
-        if (mBufferedTileEntities[ordinalSide].isInvalid()) {
-            mBufferedTileEntities[ordinalSide] = null;
+        if (bufferedTileEntities[ordinalSide].isInvalid()) {
+            bufferedTileEntities[ordinalSide] = null;
             return getTileEntityAtSide(side);
         }
-        if (mBufferedTileEntities[ordinalSide].xCoord == tX && mBufferedTileEntities[ordinalSide].yCoord == tY
-            && mBufferedTileEntities[ordinalSide].zCoord == tZ) {
-            return mBufferedTileEntities[ordinalSide];
+        if (bufferedTileEntities[ordinalSide].xCoord == tX && bufferedTileEntities[ordinalSide].yCoord == tY
+            && bufferedTileEntities[ordinalSide].zCoord == tZ) {
+            return bufferedTileEntities[ordinalSide];
         }
         return null;
     }
@@ -476,7 +487,7 @@ public abstract class GTE extends TileEntity
         clearNullMarkersFromTileEntityBuffer();
     }
 
-    public void updateNeighbours(int mStrongRedstone, int oStrongRedstone) {
+    public void updateNeighbours(int strongRedstoneOne, int strongRedstoneTwo) {
         final Block thisBlock = getBlockOffset(0, 0, 0);
         for (final ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             final int x1 = xCoord + dir.offsetX, y1 = yCoord + dir.offsetY, z1 = zCoord + dir.offsetZ;
@@ -485,7 +496,7 @@ public abstract class GTE extends TileEntity
                 worldObj.notifyBlockOfNeighborChange(x1, y1, z1, thisBlock);
 
                 // update if it was / is strong powered.
-                if (((((mStrongRedstone | oStrongRedstone) >>> dir.ordinal()) & 1) != 0)
+                if (((((strongRedstoneOne | strongRedstoneTwo) >>> dir.ordinal()) & 1) != 0)
                     && getBlock(x1, y1, z1).isNormalCube()) {
                     final int skipUpdateSide = dir.getOpposite()
                         .ordinal(); // Don't update this block. Still updates
@@ -503,16 +514,16 @@ public abstract class GTE extends TileEntity
     }
 
     @Override
-    public final void sendBlockEvent(byte aID, byte aValue) {
-        GTBlockEventTracker.enqueue(worldObj, xCoord, yCoord, zCoord, aID, aValue);
+    public final void sendBlockEvent(byte eventId, byte value) {
+        GTBlockEventTracker.enqueue(worldObj, xCoord, yCoord, zCoord, eventId, value);
     }
 
     protected boolean crossedChunkBorder(int x, int z) {
         return x >> 4 != xCoord >> 4 || z >> 4 != zCoord >> 4;
     }
 
-    public final boolean crossedChunkBorder(ChunkCoordinates coords) {
-        return coords.posX >> 4 != xCoord >> 4 || coords.posZ >> 4 != zCoord >> 4;
+    public final boolean crossedChunkBorder(ChunkCoordinates cords) {
+        return cords.posX >> 4 != xCoord >> 4 || cords.posZ >> 4 != zCoord >> 4;
     }
 
     public final void setOnFire() {
@@ -551,10 +562,6 @@ public abstract class GTE extends TileEntity
     public IItemHandlerModifiable getInventoryHandler() {
         return null;
     }
-
-    protected GTTooltipDataCache mTooltipCache = new GTTooltipDataCache();
-
-    public static final int TOOLTIP_DELAY = 0;
 
     public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {}
 
@@ -732,7 +739,7 @@ public abstract class GTE extends TileEntity
             .disableShiftInsert()
             .setHandlePhantomActionClient(true)
             .setBackground(getGUITextureSet().getItemSlot(), GTUITextures.OVERLAY_SLOT_INT_CIRCUIT)
-            .setGTTooltip(() -> mTooltipCache.getData("GT5U.machines.select_circuit.tooltip"))
+            .setGTTooltip(() -> tooltipCache.getData("GT5U.machines.select_circuit.tooltip"))
             .setTooltipShowUpDelay(TOOLTIP_DELAY)
             .setPos(ccs.getCircuitSlotX() - 1, ccs.getCircuitSlotY() - 1));
     }
@@ -779,7 +786,7 @@ public abstract class GTE extends TileEntity
         return Dyes.dyeWhite.toInt();
     }
 
-    public ItemStack getStackForm(long aAmount) {
+    public ItemStack getStackForm(long amount) {
         return null;
     }
 }

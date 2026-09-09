@@ -764,11 +764,11 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     }
 
     @Override
-    public ItemStack getStackForm(long aAmount) {
+    public ItemStack getStackForm(long amount) {
         if (hasValidMetaTileEntity()) {
-            return getMTE().getStackForm(aAmount);
+            return getMTE().getStackForm(amount);
         }
-        return super.getStackForm(aAmount);
+        return super.getStackForm(amount);
     }
 
     @Override
