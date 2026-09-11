@@ -105,8 +105,6 @@ public class MTEFluidPipe extends PipeMTE {
      * Bitmask for whether disable fluid input form each side.
      */
     public byte mDisableInput = 0;
-    private String materialKeyOverride;
-    private boolean shouldSkipMaterialTooltip = false;
 
     public MTEFluidPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int capacity,
         int heatResistance, boolean gasProof) {
@@ -115,7 +113,7 @@ public class MTEFluidPipe extends PipeMTE {
 
     public MTEFluidPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int capacity,
         int heatResistance, boolean gasProof, int fluidTypes) {
-        super(mteArrays, meta, name, 0, false);
+        super(mteArrays, meta, name, 0);
         mThickNess = size;
         mMaterial = material;
         mCapacity = capacity;
@@ -123,7 +121,6 @@ public class MTEFluidPipe extends PipeMTE {
         mHeatResistance = heatResistance;
         mPipeAmount = fluidTypes;
         mFluids = new FluidStack[mPipeAmount];
-        addInfo(meta);
     }
 
     public MTEFluidPipe(String name, float size, Materials_OLD material, int capacity, int heatResistance,

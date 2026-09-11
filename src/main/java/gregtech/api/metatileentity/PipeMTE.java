@@ -9,9 +9,7 @@ import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
@@ -61,28 +59,10 @@ public abstract class PipeMTE extends CommonMTE implements IConnectable {
     private MTEArrays mteArrays;
 
     public PipeMTE(MTEArrays mteArrays, int meta, String name, int slotCount) {
-        this(mteArrays, meta, name, slotCount, true);
-    }
-
-    public PipeMTE(MTEArrays mteArrays, int meta, String name, int slotCount, boolean addInfo) {
         super(mteArrays, meta, name, slotCount);
         setGTE(new BasePipeGTE());
         getGTE().setMeta((short) meta);
         this.mteArrays = mteArrays;
-
-        if (addInfo && GTMod.GT.isClientSide()) {
-            addInfo(meta);
-        }
-    }
-
-    protected final void addInfo(int meta) {
-        if (!GTMod.GT.isClientSide()) {
-            return;
-        }
-
-        ItemStack tStack = new ItemStack(GregTechAPI.sBlockMachines, 1, meta);
-        Objects.requireNonNull(tStack.getItem())
-            .addInformation(tStack, null, new ArrayList<>(), true);
     }
 
     public PipeMTE(String name, int slotCount) {

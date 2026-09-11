@@ -50,13 +50,12 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
 
     public MTEItemPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int slotCount,
         int stepSize, boolean isRestrictive, int tickTime) {
-        super(mteArrays, meta, name, slotCount, false);
+        super(mteArrays, meta, name, slotCount);
         mIsRestrictive = isRestrictive;
         mThickNess = size;
         mMaterial = material;
         mStepSize = stepSize;
         mTickTime = tickTime;
-        addInfo(meta);
     }
 
     public MTEItemPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int slotCount,
