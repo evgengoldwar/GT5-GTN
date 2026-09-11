@@ -73,7 +73,7 @@ import gregtech.api.interfaces.IUpdatePlayerMovement;
 import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.CommonGTE;
 import gregtech.api.metatileentity.CommonMTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.net.GTPacketClientPreference;
 import gregtech.api.render.RenderOverlay;
 import gregtech.api.util.ColorsMetadataSection;
@@ -480,7 +480,7 @@ public class GTClient extends GTProxy {
             || GTUtility.isStackInList(stack, GregTechAPI.sCrowbarList)
             || CoverRegistry.isCover(stack)
             || (stack.getItem() instanceof ItemMachines
-                && GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[stack.getItemDamage()] instanceof MetaPipeEntity
+                && GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[stack.getItemDamage()] instanceof PipeMTE
                 && player.isSneaking());
     }
 

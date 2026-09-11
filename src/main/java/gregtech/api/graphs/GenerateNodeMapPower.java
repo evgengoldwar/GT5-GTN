@@ -15,7 +15,7 @@ import gregtech.api.graphs.paths.PowerNodePath;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.metatileentity.implementations.MTECable;
 
 // node map generator for power distribution
@@ -51,7 +51,7 @@ public class GenerateNodeMapPower extends GenerateNodeMap {
     }
 
     @Override
-    protected NodePath getNewPath(MetaPipeEntity[] aPipes) {
+    protected NodePath getNewPath(PipeMTE[] aPipes) {
         return new PowerNodePath(aPipes);
     }
 

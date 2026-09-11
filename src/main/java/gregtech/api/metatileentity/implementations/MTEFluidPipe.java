@@ -50,7 +50,7 @@ import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
@@ -61,7 +61,7 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
 @IMTE.SkipGenerateDescription
-public class MTEFluidPipe extends MetaPipeEntity {
+public class MTEFluidPipe extends PipeMTE {
 
     protected static final EnumMap<ForgeDirection, EnumMap<Border, ForgeDirection>> FACE_BORDER_MAP = new EnumMap<>(
         ForgeDirection.class);

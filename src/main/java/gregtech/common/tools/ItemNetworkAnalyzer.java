@@ -27,7 +27,7 @@ import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.items.ItemTool;
 import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData.AnalyzerModes;
@@ -193,7 +193,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
 
         while (!queue.isEmpty()) {
             final BasePipeGTE current = queue.poll();
-            final MetaPipeEntity tMetaPipe = (MetaPipeEntity) current.getMTE();
+            final PipeMTE tMetaPipe = (PipeMTE) current.getMTE();
             final Node node = current.getNode();
 
             if (node != null) {

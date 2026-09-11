@@ -28,14 +28,14 @@ import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTItemTransfer;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 
 @IMTE.SkipGenerateDescription
-public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe {
+public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
 
     public final float mThickNess;
     public final Materials_OLD mMaterial;

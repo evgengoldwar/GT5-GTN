@@ -35,7 +35,7 @@ import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
@@ -46,7 +46,7 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
 @IMTE.SkipGenerateDescription
-public class MTECable extends MetaPipeEntity implements IMTECable {
+public class MTECable extends PipeMTE implements IMTECable {
 
     public final float mThickNess;
     public final Materials_OLD mMaterial;

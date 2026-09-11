@@ -26,7 +26,7 @@ import gregtech.api.graphs.paths.PowerNodePath;
 import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.api.util.Localized;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData;
@@ -260,7 +260,7 @@ public class PowerNetworkBuilder {
     }
 
     private void addPathEdge(PowerNodePath path, GraphNode fromGraph, GraphNode toGraph, Node neighbourNode, int side) {
-        final MetaPipeEntity[] pipes = path.getPipes();
+        final PipeMTE[] pipes = path.getPipes();
         final GraphEdge edge = new GraphEdge();
         TileEntity fromTile = fromGraph.tile;
         TileEntity toTile = toGraph.tile;
@@ -280,7 +280,7 @@ public class PowerNetworkBuilder {
             edge.path.add(fromTile);
             this.visited.add(fromTile);
 
-            for (MetaPipeEntity pipe : pipes) {
+            for (PipeMTE pipe : pipes) {
                 final TileEntity tile = (TileEntity) pipe.getGTE();
                 if (tile == null) return;
                 edge.path.add(tile);

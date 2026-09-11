@@ -15,7 +15,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.common.config.Gregtech;
 import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
@@ -178,7 +178,7 @@ public class RunnableMachineUpdate implements Runnable {
         final int x, y, z;
         final BasePipeGTE baseMetaPipe;
         final IMTE metaTile;
-        final MetaPipeEntity metaPipe;
+        final PipeMTE metaPipe;
         final boolean isMetaPipe;
         final boolean isPotentialStructureBlock;
 
@@ -188,8 +188,8 @@ public class RunnableMachineUpdate implements Runnable {
             this.z = z;
             baseMetaPipe = bmpe;
             metaTile = baseMetaPipe.getMTE();
-            isMetaPipe = metaTile instanceof MetaPipeEntity;
-            metaPipe = isMetaPipe ? (MetaPipeEntity) metaTile : null;
+            isMetaPipe = metaTile instanceof PipeMTE;
+            metaPipe = isMetaPipe ? (PipeMTE) metaTile : null;
             isPotentialStructureBlock = false;
         }
     }

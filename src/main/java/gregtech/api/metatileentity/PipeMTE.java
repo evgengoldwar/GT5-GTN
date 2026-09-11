@@ -48,7 +48,7 @@ import gregtech.api.render.ISBRWorldContext;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.common.covers.Base.Cover;
 
-public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
+public abstract class PipeMTE extends CommonMTE implements IConnectable {
 
     private volatile ITexture[][] inventoryTextureCache;
 
@@ -60,11 +60,11 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     private MTEArrays mteArrays;
 
-    public MetaPipeEntity(MTEArrays mteArrays, int meta, String name, int slotCount) {
+    public PipeMTE(MTEArrays mteArrays, int meta, String name, int slotCount) {
         this(mteArrays, meta, name, slotCount, true);
     }
 
-    public MetaPipeEntity(MTEArrays mteArrays, int meta, String name, int slotCount, boolean addInfo) {
+    public PipeMTE(MTEArrays mteArrays, int meta, String name, int slotCount, boolean addInfo) {
         super(mteArrays, meta, name, slotCount);
         setGTE(new BasePipeGTE());
         getGTE().setMeta((short) meta);
@@ -85,7 +85,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
             .addInformation(tStack, null, new ArrayList<>(), true);
     }
 
-    public MetaPipeEntity(String name, int slotCount) {
+    public PipeMTE(String name, int slotCount) {
         super(name, slotCount);
     }
 

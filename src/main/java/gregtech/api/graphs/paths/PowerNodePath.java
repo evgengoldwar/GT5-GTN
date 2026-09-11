@@ -4,7 +4,7 @@ import net.minecraft.server.MinecraftServer;
 
 import gregtech.api.enums.TickTime;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.api.util.AveragePerTickCounter;
 
@@ -23,7 +23,7 @@ public class PowerNodePath extends NodePath {
     private final AveragePerTickCounter avgAmperageCounter = new AveragePerTickCounter(TickTime.SECOND);
     private final AveragePerTickCounter avgVoltageCounter = new AveragePerTickCounter(TickTime.SECOND);
 
-    public PowerNodePath(MetaPipeEntity[] aCables) {
+    public PowerNodePath(PipeMTE[] aCables) {
         super(aCables);
     }
 
@@ -48,7 +48,7 @@ public class PowerNodePath extends NodePath {
         }
         if (aVoltage > mMaxVoltage) {
             lock.addTileEntity(null);
-            for (MetaPipeEntity tCable : mPipes) {
+            for (PipeMTE tCable : mPipes) {
                 if (((MTECable) tCable).mVoltage < this.mVoltage) {
                     BasePipeGTE tBaseCable = (BasePipeGTE) tCable.getGTE();
                     if (tBaseCable != null) {
@@ -74,7 +74,7 @@ public class PowerNodePath extends NodePath {
         this.mAmps += aAmps;
         if (this.mAmps > mMaxAmps * 40) {
             lock.addTileEntity(null);
-            for (MetaPipeEntity tCable : mPipes) {
+            for (PipeMTE tCable : mPipes) {
                 if (((MTECable) tCable).mAmperage * 40 < this.mAmps) {
                     BasePipeGTE tBaseCable = (BasePipeGTE) tCable.getGTE();
                     if (tBaseCable != null) {
@@ -114,7 +114,7 @@ public class PowerNodePath extends NodePath {
         super.processPipes();
         mMaxAmps = Integer.MAX_VALUE;
         mMaxVoltage = Integer.MAX_VALUE;
-        for (MetaPipeEntity tCable : mPipes) {
+        for (PipeMTE tCable : mPipes) {
             if (tCable instanceof MTECable) {
                 mMaxAmps = Math.min(((MTECable) tCable).mAmperage, mMaxAmps);
                 mLoss += ((MTECable) tCable).mCableLossPerMeter;

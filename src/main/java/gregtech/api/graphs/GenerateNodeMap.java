@@ -11,7 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import gregtech.api.graphs.consumers.ConsumerNode;
 import gregtech.api.graphs.paths.NodePath;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 
 // generates the node map
 public abstract class GenerateNodeMap {
@@ -40,7 +40,7 @@ public abstract class GenerateNodeMap {
     }
 
     // get how many connections the pipe have
-    private static int getNumberOfConnections(MetaPipeEntity aPipe) {
+    private static int getNumberOfConnections(PipeMTE aPipe) {
         int tCons = 0;
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             if (aPipe.isConnectedAtSide(side)) tCons++;
@@ -51,14 +51,14 @@ public abstract class GenerateNodeMap {
     // gets the next node
     protected void generateNextNode(BasePipeGTE aPipe, Node aPipeNode, ForgeDirection aInvalidSide, int aNextNodeValue,
         ArrayList<ConsumerNode> tConsumers, HashSet<Node> tNodeMap) {
-        final MetaPipeEntity tMetaPipe = (MetaPipeEntity) aPipe.getMTE();
+        final PipeMTE tMetaPipe = (PipeMTE) aPipe.getMTE();
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             if (side == aInvalidSide) {
                 continue;
             }
             final TileEntity tNextTileEntity = aPipe.getTileEntityAtSide(side);
             if (tNextTileEntity == null || (tMetaPipe != null && !tMetaPipe.isConnectedAtSide(side))) continue;
-            final ArrayList<MetaPipeEntity> tNewPipes = new ArrayList<>();
+            final ArrayList<PipeMTE> tNewPipes = new ArrayList<>();
             final Pair nextTileEntity = getNextValidTileEntity(tNextTileEntity, tNewPipes, side, tNodeMap);
             if (nextTileEntity != null) {
                 final Node tNextNode = generateNode(
@@ -85,15 +85,14 @@ public abstract class GenerateNodeMap {
 
     // on a valid tile entity create a new node
     protected Node generateNode(TileEntity aTileEntity, Node aPreviousNode, int aNextNodeValue,
-        ArrayList<MetaPipeEntity> aPipes, ForgeDirection side, ArrayList<ConsumerNode> aConsumers,
-        HashSet<Node> aNodeMap) {
+        ArrayList<PipeMTE> aPipes, ForgeDirection side, ArrayList<ConsumerNode> aConsumers, HashSet<Node> aNodeMap) {
         if (aTileEntity.isInvalid()) return null;
         final ForgeDirection oppositeSide = side.getOpposite();
         final ForgeDirection tInvalidSide = aPreviousNode == null ? ForgeDirection.UNKNOWN : oppositeSide;
         Node tThisNode = null;
         if (isPipe(aTileEntity)) {
             final BasePipeGTE tPipe = (BasePipeGTE) aTileEntity;
-            final MetaPipeEntity tMetaPipe = (MetaPipeEntity) tPipe.getMTE();
+            final PipeMTE tMetaPipe = (PipeMTE) tPipe.getMTE();
             final int tConnections = getNumberOfConnections(tMetaPipe);
             final Node tPipeNode;
             if (tConnections == 1) {
@@ -104,12 +103,12 @@ public abstract class GenerateNodeMap {
             }
             tPipe.setNode(tPipeNode);
             aNodeMap.add(tPipeNode);
-            tPipeNode.mSelfPath = getNewPath(new MetaPipeEntity[] { tMetaPipe });
+            tPipeNode.mSelfPath = getNewPath(new PipeMTE[] { tMetaPipe });
             tThisNode = tPipeNode;
             if (tInvalidSide != ForgeDirection.UNKNOWN) {
                 final int iInvalid = tInvalidSide.ordinal();
                 tPipeNode.mNeighbourNodes[iInvalid] = aPreviousNode;
-                tPipeNode.mNodePaths[iInvalid] = getNewPath(aPipes.toArray(new MetaPipeEntity[0]));
+                tPipeNode.mNodePaths[iInvalid] = getNewPath(aPipes.toArray(new PipeMTE[0]));
                 final Lock lock = new Lock();
                 tPipeNode.mNodePaths[oppositeSide.ordinal()].lock = lock;
                 tPipeNode.locks[iInvalid] = lock;
@@ -122,7 +121,7 @@ public abstract class GenerateNodeMap {
             final int oppositeSideOrdinal = oppositeSide.ordinal();
             final ConsumerNode tConsumeNode = aConsumers.get(aConsumers.size() - 1);
             tConsumeNode.mNeighbourNodes[oppositeSideOrdinal] = aPreviousNode;
-            tConsumeNode.mNodePaths[oppositeSideOrdinal] = getNewPath(aPipes.toArray(new MetaPipeEntity[0]));
+            tConsumeNode.mNodePaths[oppositeSideOrdinal] = getNewPath(aPipes.toArray(new PipeMTE[0]));
             final Lock lock = new Lock();
             tConsumeNode.mNodePaths[oppositeSideOrdinal].lock = lock;
             aPreviousNode.returnValues.mReturnPath = tConsumeNode.mNodePaths[oppositeSideOrdinal];
@@ -133,12 +132,12 @@ public abstract class GenerateNodeMap {
     }
 
     // go over the pipes until we see a valid tile entity that needs a node
-    protected Pair getNextValidTileEntity(TileEntity aTileEntity, ArrayList<MetaPipeEntity> aPipes, ForgeDirection side,
+    protected Pair getNextValidTileEntity(TileEntity aTileEntity, ArrayList<PipeMTE> aPipes, ForgeDirection side,
         HashSet<Node> aNodeMap) {
         if (!isPipe(aTileEntity)) return new Pair(aTileEntity, side);
 
         final BasePipeGTE tPipe = (BasePipeGTE) aTileEntity;
-        final MetaPipeEntity tMetaPipe = (MetaPipeEntity) tPipe.getMTE();
+        final PipeMTE tMetaPipe = (PipeMTE) tPipe.getMTE();
         final Node tNode = tPipe.getNode();
         if (tNode != null && aNodeMap.contains(tNode)) return null;
 
@@ -172,7 +171,7 @@ public abstract class GenerateNodeMap {
         ArrayList<ConsumerNode> aConsumers);
 
     // get correct pathClass that you need for your node network
-    protected abstract NodePath getNewPath(MetaPipeEntity[] aPipes);
+    protected abstract NodePath getNewPath(PipeMTE[] aPipes);
 
     // used for if you need to use dead ends for something can be null
     protected Node getEmptyNode(int aNodeValue, ForgeDirection side, TileEntity aTileEntity,

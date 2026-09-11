@@ -2,32 +2,32 @@ package gregtech.api.graphs.paths;
 
 import gregtech.api.graphs.Lock;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 
 // to contain all info about the path between nodes
 public class NodePath {
 
-    protected MetaPipeEntity[] mPipes;
+    protected PipeMTE[] mPipes;
     public Lock lock = new Lock();
 
-    public NodePath(MetaPipeEntity[] aCables) {
+    public NodePath(PipeMTE[] aCables) {
         this.mPipes = aCables;
         processPipes();
     }
 
-    public MetaPipeEntity[] getPipes() {
+    public PipeMTE[] getPipes() {
         return mPipes;
     }
 
     protected void processPipes() {
-        for (MetaPipeEntity tPipe : mPipes) {
+        for (PipeMTE tPipe : mPipes) {
             BasePipeGTE basePipe = (BasePipeGTE) tPipe.getGTE();
             basePipe.setNodePath(this);
         }
     }
 
     public void clearPath() {
-        for (MetaPipeEntity mPipe : mPipes) {
+        for (PipeMTE mPipe : mPipes) {
             BasePipeGTE tBasePipe = (BasePipeGTE) mPipe.getGTE();
             if (tBasePipe != null) {
                 tBasePipe.setNodePath(null);
@@ -36,7 +36,7 @@ public class NodePath {
     }
 
     public void reloadLocks() {
-        for (MetaPipeEntity pipe : mPipes) {
+        for (PipeMTE pipe : mPipes) {
             BasePipeGTE basePipe = (BasePipeGTE) pipe.getGTE();
             if (basePipe != null) {
                 basePipe.reloadLocks();

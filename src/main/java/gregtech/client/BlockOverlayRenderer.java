@@ -40,7 +40,7 @@ import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ITurnable;
 import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BasePipeGTE;
-import gregtech.api.metatileentity.MetaPipeEntity;
+import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Client;
@@ -112,11 +112,10 @@ public class BlockOverlayRenderer {
 
         if (!(aTileEntity instanceof ICoverable)) return;
 
-        if (event.player.isSneaking() && aTileEntity instanceof IGTE gtEntity
-            && gtEntity.getMTE() instanceof MetaPipeEntity) {
+        if (event.player.isSneaking() && aTileEntity instanceof IGTE gtEntity && gtEntity.getMTE() instanceof PipeMTE) {
             if (event.currentItem != null && event.currentItem.getItem() instanceof ItemMachines
                 && GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[event.currentItem
-                    .getItemDamage()] instanceof MetaPipeEntity) {
+                    .getItemDamage()] instanceof PipeMTE) {
                 drawGrid(event, false, false, false);
             }
         }

@@ -55,7 +55,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
 
     public byte mConnections = IConnectable.NO_CONNECTION;
-    protected MetaPipeEntity mMetaTileEntity;
+    protected PipeMTE mMetaTileEntity;
     private boolean mWorkUpdate = false, mWorks = true;
     private byte oldConnections = 0;
     protected Node node;
@@ -101,8 +101,8 @@ public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
 
     public void reloadLocks() {
         final IMTE meta = getMTE();
-        if (meta instanceof MetaPipeEntity) {
-            ((MetaPipeEntity) meta).reloadLocks();
+        if (meta instanceof PipeMTE) {
+            ((PipeMTE) meta).reloadLocks();
         }
     }
 
@@ -858,7 +858,7 @@ public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
 
     @Override
     public final void setMTE(IMTE mte) {
-        mMetaTileEntity = (MetaPipeEntity) mte;
+        mMetaTileEntity = (PipeMTE) mte;
         refreshMetaTileEntityValidity();
     }
 
@@ -1061,12 +1061,12 @@ public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
     public void onNeighborBlockChange(int aX, int aY, int aZ) {
         if (canAccessData()) {
             final IMTE meta = getMTE();
-            if (meta instanceof MetaPipeEntity) {
+            if (meta instanceof PipeMTE) {
                 // Trigger a checking of connections in case someone placed down a block that the pipe/wire shouldn't be
                 // connected to.
                 // However; don't do it immediately in case the world isn't finished loading
                 // (This caused issues with AE2 GTEU p2p connections.
-                ((MetaPipeEntity) meta).setCheckConnections();
+                ((PipeMTE) meta).setCheckConnections();
             }
         }
     }
