@@ -10,7 +10,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.graphs.consumers.ConsumerNode;
 import gregtech.api.graphs.paths.NodePath;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 
 // generates the node map
@@ -18,7 +18,7 @@ public abstract class GenerateNodeMap {
 
     // clearing the node map to make sure it is gone on reset
     public static void clearNodeMap(Node aNode, int aReturnNodeValue) {
-        if (aNode.mTileEntity instanceof BaseMetaPipeEntity tPipe) {
+        if (aNode.mTileEntity instanceof BasePipeGTE tPipe) {
             tPipe.setNode(null);
             tPipe.setNodePath(null);
             if (aNode.mSelfPath != null) {
@@ -49,8 +49,8 @@ public abstract class GenerateNodeMap {
     }
 
     // gets the next node
-    protected void generateNextNode(BaseMetaPipeEntity aPipe, Node aPipeNode, ForgeDirection aInvalidSide,
-        int aNextNodeValue, ArrayList<ConsumerNode> tConsumers, HashSet<Node> tNodeMap) {
+    protected void generateNextNode(BasePipeGTE aPipe, Node aPipeNode, ForgeDirection aInvalidSide, int aNextNodeValue,
+        ArrayList<ConsumerNode> tConsumers, HashSet<Node> tNodeMap) {
         final MetaPipeEntity tMetaPipe = (MetaPipeEntity) aPipe.getMTE();
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             if (side == aInvalidSide) {
@@ -92,7 +92,7 @@ public abstract class GenerateNodeMap {
         final ForgeDirection tInvalidSide = aPreviousNode == null ? ForgeDirection.UNKNOWN : oppositeSide;
         Node tThisNode = null;
         if (isPipe(aTileEntity)) {
-            final BaseMetaPipeEntity tPipe = (BaseMetaPipeEntity) aTileEntity;
+            final BasePipeGTE tPipe = (BasePipeGTE) aTileEntity;
             final MetaPipeEntity tMetaPipe = (MetaPipeEntity) tPipe.getMTE();
             final int tConnections = getNumberOfConnections(tMetaPipe);
             final Node tPipeNode;
@@ -137,7 +137,7 @@ public abstract class GenerateNodeMap {
         HashSet<Node> aNodeMap) {
         if (!isPipe(aTileEntity)) return new Pair(aTileEntity, side);
 
-        final BaseMetaPipeEntity tPipe = (BaseMetaPipeEntity) aTileEntity;
+        final BasePipeGTE tPipe = (BasePipeGTE) aTileEntity;
         final MetaPipeEntity tMetaPipe = (MetaPipeEntity) tPipe.getMTE();
         final Node tNode = tPipe.getNode();
         if (tNode != null && aNodeMap.contains(tNode)) return null;
@@ -164,7 +164,7 @@ public abstract class GenerateNodeMap {
 
     // check if the tile entity is the correct pipe
     protected boolean isPipe(TileEntity aTileEntity) {
-        return aTileEntity instanceof BaseMetaPipeEntity;
+        return aTileEntity instanceof BasePipeGTE;
     }
 
     // checks if the tile entity is a consumer and add to the list

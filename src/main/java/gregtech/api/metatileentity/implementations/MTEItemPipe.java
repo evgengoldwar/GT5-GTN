@@ -27,7 +27,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTItemTransfer;
@@ -449,7 +449,7 @@ public class MTEItemPipe extends MetaPipeEntity implements IMTEItemPipe {
                 .ordinal()) return false;
         }
 
-        if (neighbour instanceof BaseMetaPipeEntity) return false;
+        if (neighbour instanceof BasePipeGTE) return false;
 
         GTItemTransfer transfer = new GTItemTransfer();
 

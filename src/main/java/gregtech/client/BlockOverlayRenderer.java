@@ -39,7 +39,7 @@ import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ITurnable;
 import gregtech.api.metatileentity.BaseGTE;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.ItemMachines;
@@ -247,7 +247,7 @@ public class BlockOverlayRenderer {
                 }
             } else if (tTile instanceof BaseGTE baseMetaTile && baseMetaTile.getAlignment() == null) {
                 if (!aIsSneaking) tConnections |= baseMetaTile.getFrontFacing().flag;
-            } else if (tTile instanceof BaseMetaPipeEntity pipeEntity) tConnections = pipeEntity.mConnections;
+            } else if (tTile instanceof BasePipeGTE pipeEntity) tConnections = pipeEntity.mConnections;
         } else if (tTile instanceof IWrenchable wrenchable) {
             tConnections |= ForgeDirection.getOrientation(wrenchable.getFacing()).flag;
         } else if (ROTATABLE_VANILLA_BLOCKS.contains(block)) {

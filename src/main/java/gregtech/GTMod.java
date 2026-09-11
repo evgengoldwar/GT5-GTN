@@ -46,7 +46,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.gui.modularui.GTUIInfos;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTGuiTheme;
 import gregtech.api.modularui2.GTGuis;
@@ -208,7 +208,7 @@ public class GTMod {
         }
 
         for (int i = 4; i < 12; i++) {
-            GregTechAPI.registerTileEntityConstructor(i, i2 -> new BaseMetaPipeEntity());
+            GregTechAPI.registerTileEntityConstructor(i, i2 -> new BasePipeGTE());
         }
     }
 

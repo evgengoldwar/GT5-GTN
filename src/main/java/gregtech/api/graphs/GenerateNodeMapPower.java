@@ -14,20 +14,20 @@ import gregtech.api.graphs.paths.NodePath;
 import gregtech.api.graphs.paths.PowerNodePath;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.metatileentity.BaseGTE;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
 
 // node map generator for power distribution
 public class GenerateNodeMapPower extends GenerateNodeMap {
 
-    public GenerateNodeMapPower(BaseMetaPipeEntity aTileEntity) {
+    public GenerateNodeMapPower(BasePipeGTE aTileEntity) {
         generateNode(aTileEntity, null, 1, null, ForgeDirection.UNKNOWN, new ArrayList<>(), new HashSet<>());
     }
 
     @Override
     protected boolean isPipe(TileEntity aTileEntity) {
-        return super.isPipe(aTileEntity) && ((BaseMetaPipeEntity) aTileEntity).getMTE() instanceof MTECable;
+        return super.isPipe(aTileEntity) && ((BasePipeGTE) aTileEntity).getMTE() instanceof MTECable;
     }
 
     @Override

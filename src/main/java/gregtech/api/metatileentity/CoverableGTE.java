@@ -209,7 +209,7 @@ public abstract class CoverableGTE extends GTE implements ICoverable, IGregtechW
             .shouldHideThings()) {
             return Textures.BlockIcons.HIDDEN_TEXTURE[0]; // See through
         }
-        final ITexture coverTexture = this instanceof BaseMetaPipeEntity ? cover.getSpecialFaceTexture()
+        final ITexture coverTexture = this instanceof BasePipeGTE ? cover.getSpecialFaceTexture()
             : cover.getOverlayTexture();
 
         return coverTexture != null ? coverTexture : CoverRegistry.getCoverTexture(cover.asItemStack());

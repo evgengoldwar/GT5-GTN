@@ -52,7 +52,7 @@ import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.GTGenericBlock;
 import gregtech.api.items.MetaBaseItem;
 import gregtech.api.metatileentity.BaseGTE;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.CoverableGTE;
 import gregtech.api.metatileentity.GTE;
 import gregtech.api.util.GTLog;
@@ -127,8 +127,8 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     @Override
     public void onNeighborBlockChange(World aWorld, int aX, int aY, int aZ, Block aBlock) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if ((tTileEntity instanceof BaseMetaPipeEntity)) {
-            ((BaseMetaPipeEntity) tTileEntity).onNeighborBlockChange(aX, aY, aZ);
+        if ((tTileEntity instanceof BasePipeGTE)) {
+            ((BasePipeGTE) tTileEntity).onNeighborBlockChange(aX, aY, aZ);
         }
     }
 
@@ -193,7 +193,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
         };
         final TileEntity machineEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (machineEntity instanceof BaseGTE bmte) {}
-        if (machineEntity instanceof BaseMetaPipeEntity bmpe) {
+        if (machineEntity instanceof BasePipeGTE bmpe) {
             return bmpe.hasCoverAtSide(forgeSide);
         }
         return false;
@@ -604,8 +604,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
             if (tTileEntity instanceof BaseGTE) {
                 return true;
             }
-            if (tTileEntity instanceof BaseMetaPipeEntity
-                && (((BaseMetaPipeEntity) tTileEntity).mConnections & 0xFFFFFFC0) != 0) {
+            if (tTileEntity instanceof BasePipeGTE && (((BasePipeGTE) tTileEntity).mConnections & 0xFFFFFFC0) != 0) {
                 return true;
             }
             return tTileEntity instanceof ICoverable && ((ICoverable) tTileEntity).hasCoverAtSide(side);

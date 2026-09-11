@@ -1,7 +1,7 @@
 package gregtech.api.graphs.paths;
 
 import gregtech.api.graphs.Lock;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 
 // to contain all info about the path between nodes
@@ -21,14 +21,14 @@ public class NodePath {
 
     protected void processPipes() {
         for (MetaPipeEntity tPipe : mPipes) {
-            BaseMetaPipeEntity basePipe = (BaseMetaPipeEntity) tPipe.getGTE();
+            BasePipeGTE basePipe = (BasePipeGTE) tPipe.getGTE();
             basePipe.setNodePath(this);
         }
     }
 
     public void clearPath() {
         for (MetaPipeEntity mPipe : mPipes) {
-            BaseMetaPipeEntity tBasePipe = (BaseMetaPipeEntity) mPipe.getGTE();
+            BasePipeGTE tBasePipe = (BasePipeGTE) mPipe.getGTE();
             if (tBasePipe != null) {
                 tBasePipe.setNodePath(null);
             }
@@ -37,7 +37,7 @@ public class NodePath {
 
     public void reloadLocks() {
         for (MetaPipeEntity pipe : mPipes) {
-            BaseMetaPipeEntity basePipe = (BaseMetaPipeEntity) pipe.getGTE();
+            BasePipeGTE basePipe = (BasePipeGTE) pipe.getGTE();
             if (basePipe != null) {
                 basePipe.reloadLocks();
             }

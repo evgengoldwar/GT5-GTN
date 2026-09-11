@@ -5,7 +5,7 @@ import java.util.Map;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 
 public interface IMTEItemPipe extends IMTEPipe {
 
@@ -40,7 +40,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                                     continue;
                                 }
                             }
-                            if (tItemPipe instanceof BaseMetaPipeEntity) {
+                            if (tItemPipe instanceof BasePipeGTE) {
                                 final IMTE tMetaTileEntity = tItemPipe.getMTE();
                                 if (tMetaTileEntity instanceof IMTEItemPipe && tItemPipe.getCoverAtSide(oppositeSide)
                                     .letsItemsOut(-2)) {
@@ -59,7 +59,7 @@ public interface IMTEItemPipe extends IMTEPipe {
                                         continue;
                                     }
                                 }
-                                if (tItemPipe instanceof BaseMetaPipeEntity) {
+                                if (tItemPipe instanceof BasePipeGTE) {
                                     final IMTE tMetaTileEntity = tItemPipe.getMTE();
                                     if (tMetaTileEntity instanceof IMTEItemPipe
                                         && tItemPipe.getCoverAtSide(oppositeSide)

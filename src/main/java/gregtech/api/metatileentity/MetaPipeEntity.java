@@ -66,7 +66,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     public MetaPipeEntity(MTEArrays mteArrays, int meta, String name, int slotCount, boolean addInfo) {
         super(mteArrays, meta, name, slotCount);
-        setGTE(new BaseMetaPipeEntity());
+        setGTE(new BasePipeGTE());
         getGTE().setMeta((short) meta);
         this.mteArrays = mteArrays;
 
@@ -142,7 +142,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean renderInWorld(ISBRWorldContext ctx) {
-        BaseMetaPipeEntity rte = (BaseMetaPipeEntity) getGTE();
+        BasePipeGTE rte = (BasePipeGTE) getGTE();
         if (rte == null) return false;
 
         final byte aConnections = rte.getConnections();
@@ -517,12 +517,12 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
     @Override
     public void initDefaultModes(NBTTagCompound nbt) {
         super.initDefaultModes(nbt);
-        if (getGTE() instanceof BaseMetaPipeEntity pipe) {
+        if (getGTE() instanceof BasePipeGTE pipe) {
             pipe.updateConnections();
         }
     }
 
-    public boolean isCoverOnSide(BaseMetaPipeEntity pipe, EntityLivingBase entity) {
+    public boolean isCoverOnSide(BasePipeGTE pipe, EntityLivingBase entity) {
         ForgeDirection side = ForgeDirection.UNKNOWN;
         double difference = entity.posY - (double) pipe.yCoord;
         if (difference > 0.6 && difference < 0.99) {
@@ -704,7 +704,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
 
     private void connectAtSide(ForgeDirection side) {
         connections |= side.flag;
-        if (getGTE() instanceof BaseMetaPipeEntity pipe && pipe.isClientSide()) {
+        if (getGTE() instanceof BasePipeGTE pipe && pipe.isClientSide()) {
             pipe.mConnections = connections;
         }
     }
@@ -767,7 +767,7 @@ public abstract class MetaPipeEntity extends CommonMTE implements IConnectable {
         float zEnd = 1f - space;
         float xStart = space;
         float xEnd = 1f - space;
-        final BaseMetaPipeEntity baseTE = (BaseMetaPipeEntity) getGTE();
+        final BasePipeGTE baseTE = (BasePipeGTE) getGTE();
 
         if (baseTE.hasCoverAtSide(ForgeDirection.DOWN)) {
             yStart = zStart = xStart = 0;

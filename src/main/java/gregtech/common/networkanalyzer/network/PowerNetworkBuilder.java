@@ -24,7 +24,7 @@ import gregtech.api.graphs.consumers.ConsumerNode;
 import gregtech.api.graphs.consumers.EmptyPowerConsumer;
 import gregtech.api.graphs.paths.PowerNodePath;
 import gregtech.api.metatileentity.BaseGTE;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
@@ -411,10 +411,10 @@ public class PowerNetworkBuilder {
         while (!queue.isEmpty()) {
             final TileEntity tile = queue.poll();
 
-            if (tile instanceof BaseMetaPipeEntity currPipe && currPipe.getMTE() instanceof MTECable cable) {
+            if (tile instanceof BasePipeGTE currPipe && currPipe.getMTE() instanceof MTECable cable) {
                 for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                     if (cable.isConnectedAtSide(side)
-                        && currPipe.getTileEntityAtSide(side) instanceof BaseMetaPipeEntity nextPipe
+                        && currPipe.getTileEntityAtSide(side) instanceof BasePipeGTE nextPipe
                         && nextPipe.getMTE() instanceof MTECable) {
                         addDeadEndEdge(tile, nextPipe);
 
@@ -686,7 +686,7 @@ public class PowerNetworkBuilder {
                     final TileEntity sideEntity = cable.getGTE()
                         .getTileEntityAtSide(side);
 
-                    if (sideEntity != null && !(sideEntity instanceof BaseMetaPipeEntity)) {
+                    if (sideEntity != null && !(sideEntity instanceof BasePipeGTE)) {
 
                         if (sideEntity instanceof BaseGTE metaTile) {
                             long outputAmperage = metaTile.getMTE() instanceof MTE metaTileEntity
@@ -785,7 +785,7 @@ public class PowerNetworkBuilder {
 
     private static MTECable getMTECable(TileEntity tile) {
 
-        if (tile instanceof BaseMetaPipeEntity metaEntity && metaEntity.getMTE() instanceof MTECable cable) {
+        if (tile instanceof BasePipeGTE metaEntity && metaEntity.getMTE() instanceof MTECable cable) {
             return cable;
         }
 

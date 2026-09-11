@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.graphs.paths.PowerNodePath;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 
 // this is here to apply voltage to dead ends
 public class EmptyPowerConsumer extends ConsumerNode {
@@ -23,7 +23,7 @@ public class EmptyPowerConsumer extends ConsumerNode {
 
     @Override
     public int injectEnergy(long aVoltage, long aMaxAmps) {
-        BaseMetaPipeEntity tPipe = (BaseMetaPipeEntity) mTileEntity;
+        BasePipeGTE tPipe = (BasePipeGTE) mTileEntity;
         PowerNodePath tPath = (PowerNodePath) tPipe.getNodePath();
         tPath.applyVoltage(aVoltage, true);
         return 0;

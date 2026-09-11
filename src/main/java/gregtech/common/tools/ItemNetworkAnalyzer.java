@@ -26,7 +26,7 @@ import gregtech.api.graphs.PowerNode;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.items.ItemTool;
 import gregtech.api.metatileentity.BaseGTE;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData;
@@ -84,7 +84,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
         if (!world.isRemote) {
             final TileEntity tile = world.getTileEntity(x, y, z);
 
-            if (tile instanceof BaseMetaPipeEntity cableMeta && cableMeta.getMTE() instanceof MTECable
+            if (tile instanceof BasePipeGTE cableMeta && cableMeta.getMTE() instanceof MTECable
                 || tile instanceof BaseGTE multiMeta) {
                 final DimensionalCoord coord = new DimensionalCoord(tile);
                 setLocation(stack, coord);
@@ -139,7 +139,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
             && NetworkAnalyzerPlayerTracker.needToUpdate(player, coord)) {
             final TileEntity tile = world.getTileEntity(coord.x, coord.y, coord.z);
 
-            if (tile instanceof BaseMetaPipeEntity aTileEntity) {
+            if (tile instanceof BasePipeGTE aTileEntity) {
                 final IMTE metaTileEntity = aTileEntity.getMTE();
                 final PowerNetworkBuilder builder = new PowerNetworkBuilder();
 
@@ -185,14 +185,14 @@ public class ItemNetworkAnalyzer extends ItemTool {
     // }
     // }
 
-    private Node findNode(BaseMetaPipeEntity pipe) {
-        final Set<BaseMetaPipeEntity> visited = new HashSet<>();
-        final ArrayDeque<BaseMetaPipeEntity> queue = new ArrayDeque<>();
+    private Node findNode(BasePipeGTE pipe) {
+        final Set<BasePipeGTE> visited = new HashSet<>();
+        final ArrayDeque<BasePipeGTE> queue = new ArrayDeque<>();
         queue.add(pipe);
         visited.add(pipe);
 
         while (!queue.isEmpty()) {
-            final BaseMetaPipeEntity current = queue.poll();
+            final BasePipeGTE current = queue.poll();
             final MetaPipeEntity tMetaPipe = (MetaPipeEntity) current.getMTE();
             final Node node = current.getNode();
 
@@ -204,7 +204,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
                 if (!tMetaPipe.isConnectedAtSide(dir)) continue;
                 final TileEntity neighbor = current.getTileEntityAtSide(dir);
 
-                if (neighbor instanceof BaseMetaPipeEntity neighborPipe && !visited.contains(neighborPipe)) {
+                if (neighbor instanceof BasePipeGTE neighborPipe && !visited.contains(neighborPipe)) {
                     visited.add(neighborPipe);
                     queue.add(neighborPipe);
                 }

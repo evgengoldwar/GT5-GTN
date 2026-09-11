@@ -404,7 +404,7 @@ public abstract class MTE extends CommonMTE implements ICraftingIconProvider {
         final int z = gte.getZCord();
         for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             final TileEntity te = gte.getTileEntityAtSide(side);
-            if (te instanceof BaseMetaPipeEntity pipe) {
+            if (te instanceof BasePipeGTE pipe) {
                 pipe.onNeighborBlockChange(x, y, z);
             }
         }

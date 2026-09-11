@@ -10,7 +10,7 @@ import com.gtnewhorizon.gtnhlib.util.CoordinatePacker;
 
 import gregtech.GTLoggers;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.implementations.MTECable;
 
 public class RunnableCableUpdate extends RunnableMachineUpdate {
@@ -62,7 +62,7 @@ public class RunnableCableUpdate extends RunnableMachineUpdate {
 
                 // Now see if we should add the nearby blocks to the queue:
                 // only add blocks the cable is connected to
-                if (tTileEntity instanceof BaseMetaPipeEntity metaPipe && metaPipe.getMTE() instanceof MTECable cable) {
+                if (tTileEntity instanceof BasePipeGTE metaPipe && metaPipe.getMTE() instanceof MTECable cable) {
                     for (int i = 0; i < ForgeDirection.VALID_DIRECTIONS.length; i++) {
                         final ForgeDirection side = ForgeDirection.VALID_DIRECTIONS[i];
                         if (cable.isConnectedAtSide(side)) {

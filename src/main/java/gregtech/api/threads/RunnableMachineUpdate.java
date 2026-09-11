@@ -14,7 +14,7 @@ import gregtech.GTLoggers;
 import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.common.config.Gregtech;
 import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
@@ -115,9 +115,9 @@ public class RunnableMachineUpdate implements Runnable {
 
                 // Skip propagation through pipes\cables\etc, but save some BaseMetaPipeEntity data for later
                 if (Gregtech.features.speedupMachineUpdateThread) {
-                    final boolean isBaseMetaPipeEntity = tTileEntity instanceof BaseMetaPipeEntity;
+                    final boolean isBaseMetaPipeEntity = tTileEntity instanceof BasePipeGTE;
                     if (isBaseMetaPipeEntity) {
-                        final BMPEdata bmpeData = new BMPEdata((BaseMetaPipeEntity) tTileEntity, posX, posY, posZ);
+                        final BMPEdata bmpeData = new BMPEdata((BasePipeGTE) tTileEntity, posX, posY, posZ);
                         adjacentCableKeys.add(packedCoords);
                         adjacentCableList.add(bmpeData);
                         if (!bmpeData.isPotentialStructureBlock) continue;
@@ -176,13 +176,13 @@ public class RunnableMachineUpdate implements Runnable {
     private static class BMPEdata {
 
         final int x, y, z;
-        final BaseMetaPipeEntity baseMetaPipe;
+        final BasePipeGTE baseMetaPipe;
         final IMTE metaTile;
         final MetaPipeEntity metaPipe;
         final boolean isMetaPipe;
         final boolean isPotentialStructureBlock;
 
-        BMPEdata(BaseMetaPipeEntity bmpe, int x, int y, int z) {
+        BMPEdata(BasePipeGTE bmpe, int x, int y, int z) {
             this.x = x;
             this.y = y;
             this.z = z;

@@ -1047,8 +1047,7 @@ public class BaseGTE extends CommonGTE
             for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                 if (outputsEnergyTo(side, false) || inputEnergyFrom(side, false)) {
                     final IGTE TE = getIGregTechTileEntityAtSide(side);
-                    if (TE instanceof BaseMetaPipeEntity pipe
-                        && (pipe.getConnections() & side.getOpposite().flag) != 0) {
+                    if (TE instanceof BasePipeGTE pipe && (pipe.getConnections() & side.getOpposite().flag) != 0) {
                         final Node node = pipe.getNode();
                         if (node == null) {
                             new GenerateNodeMapPower(pipe);

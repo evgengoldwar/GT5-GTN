@@ -34,7 +34,7 @@ import gregtech.api.interfaces.metatileentity.IMTECable;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
@@ -154,7 +154,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable {
             return;
         }
 
-        final BaseMetaPipeEntity baseEntity = (BaseMetaPipeEntity) getGTE();
+        final BasePipeGTE baseEntity = (BasePipeGTE) getGTE();
 
         if (!(aEntity instanceof EntityLivingBase livingEntity)) return;
         if (!(baseEntity.getNodePath() instanceof PowerNodePath powerPath)) return;
@@ -205,7 +205,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable {
         HashSet<TileEntity> alreadyPassedSet) {
         if (amperage <= 0 || !getGTE().isServerSide() || (!isConnectedAtSide(side) && side != ForgeDirection.UNKNOWN))
             return 0;
-        final BaseMetaPipeEntity tBase = (BaseMetaPipeEntity) getGTE();
+        final BasePipeGTE tBase = (BasePipeGTE) getGTE();
         if (!(tBase.getNode() instanceof PowerNode tNode)) return 0;
         int tPlace = 0;
         final Node[] tToPower = new Node[tNode.mConsumers.size()];
@@ -341,7 +341,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable {
 
     @Override
     public String[] getInfoData() {
-        final BaseMetaPipeEntity base = (BaseMetaPipeEntity) getGTE();
+        final BasePipeGTE base = (BasePipeGTE) getGTE();
         final PowerNodePath path = (PowerNodePath) base.getNodePath();
 
         if (path == null) return new String[] { "GT5U.infodata.cable.failed" };
@@ -375,7 +375,7 @@ public class MTECable extends MetaPipeEntity implements IMTECable {
 
     @Override
     public void reloadLocks() {
-        final BaseMetaPipeEntity pipe = (BaseMetaPipeEntity) getGTE();
+        final BasePipeGTE pipe = (BasePipeGTE) getGTE();
         if (pipe.getNode() != null) {
             for (final ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
                 if (isConnectedAtSide(side)) {

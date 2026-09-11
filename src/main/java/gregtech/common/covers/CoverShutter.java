@@ -11,7 +11,7 @@ import gregtech.api.covers.CoverContext;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IMachineProgress;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.CoverLegacyData;
 import gregtech.common.covers.modes.ShutterMode;
@@ -54,7 +54,7 @@ public class CoverShutter extends CoverLegacyData {
             case 2 -> GTUtility.sendChatTrans(aPlayer, "GT5U.chat.cover.shutter.output.allowed");
             case 3 -> GTUtility.sendChatTrans(aPlayer, "GT5U.chat.cover.shutter.input.allowed");
         }
-        if (coveredTile.get() instanceof BaseMetaPipeEntity bmpe) {
+        if (coveredTile.get() instanceof BasePipeGTE bmpe) {
             bmpe.reloadLocks();
         }
     }

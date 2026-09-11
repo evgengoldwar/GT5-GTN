@@ -52,7 +52,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
  * <p/>
  * This is the main TileEntity for EVERYTHING.
  */
-public class BaseMetaPipeEntity extends CommonGTE implements IPipeRenderedTileEntity {
+public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
 
     public byte mConnections = IConnectable.NO_CONNECTION;
     protected MetaPipeEntity mMetaTileEntity;

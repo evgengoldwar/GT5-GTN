@@ -3,7 +3,7 @@ package gregtech.api.graphs.paths;
 import net.minecraft.server.MinecraftServer;
 
 import gregtech.api.enums.TickTime;
-import gregtech.api.metatileentity.BaseMetaPipeEntity;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.api.util.AveragePerTickCounter;
@@ -50,7 +50,7 @@ public class PowerNodePath extends NodePath {
             lock.addTileEntity(null);
             for (MetaPipeEntity tCable : mPipes) {
                 if (((MTECable) tCable).mVoltage < this.mVoltage) {
-                    BaseMetaPipeEntity tBaseCable = (BaseMetaPipeEntity) tCable.getGTE();
+                    BasePipeGTE tBaseCable = (BasePipeGTE) tCable.getGTE();
                     if (tBaseCable != null) {
                         tBaseCable.setToFire();
                     }
@@ -76,7 +76,7 @@ public class PowerNodePath extends NodePath {
             lock.addTileEntity(null);
             for (MetaPipeEntity tCable : mPipes) {
                 if (((MTECable) tCable).mAmperage * 40 < this.mAmps) {
-                    BaseMetaPipeEntity tBaseCable = (BaseMetaPipeEntity) tCable.getGTE();
+                    BasePipeGTE tBaseCable = (BasePipeGTE) tCable.getGTE();
                     if (tBaseCable != null) {
                         tBaseCable.setToFire();
                     }
