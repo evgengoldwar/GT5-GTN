@@ -105,6 +105,8 @@ public class Textures {
             VOID = GlobalIcons.VOID, // The Empty Texture
             RENDERING_ERROR = GlobalIcons.RENDERING_ERROR,
 
+            PIPE_SIDE = create(""),
+
             MACHINE_UEV_SIDE = create("MACHINE_UEV_SIDE"),
             MACHINE_UIV_SIDE = create("MACHINE_UIV_SIDE"),
 
