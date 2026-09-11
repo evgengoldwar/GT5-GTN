@@ -70,7 +70,7 @@ import gregtech.api.hazards.Hazard;
 import gregtech.api.hazards.HazardProtection;
 import gregtech.api.hazards.HazardProtectionTooltip;
 import gregtech.api.interfaces.IUpdatePlayerMovement;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.CommonGTE;
 import gregtech.api.metatileentity.CommonMTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
@@ -171,7 +171,7 @@ public class GTClient extends GTProxy {
         RenderingRegistry.registerBlockHandler(new GTRendererBlock());
         RenderingRegistry.registerBlockHandler(new GTRendererCasing());
 
-        ClientRegistry.bindTileEntitySpecialRenderer(BaseMetaTileEntity.class, new BaseMetaTileEntityRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(BaseGTE.class, new BaseMetaTileEntityRenderer());
 
         MinecraftForgeClient.registerItemRenderer(ItemList.Display_Fluid.getItem(), new FluidDisplayStackRenderer());
 

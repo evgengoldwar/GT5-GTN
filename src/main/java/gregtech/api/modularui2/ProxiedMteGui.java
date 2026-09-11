@@ -23,7 +23,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.MTE;
 import gregtech.api.util.FieldsAreNonnullByDefault;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
@@ -128,7 +128,7 @@ public final class ProxiedMteGui implements IGuiHolder<ProxiedMteGui.ProxiedMteG
                 // On the server, we must sync to the real MTE. A check that the real MTE is supplied.
                 assert NetworkUtils.isClient();
                 // Create empty fake MTE on client
-                BaseMetaTileEntity fakeBase = new BaseMetaTileEntity();
+                BaseGTE fakeBase = new BaseGTE();
                 fakeBase.xCoord = data.getX();
                 fakeBase.yCoord = data.getY();
                 fakeBase.zCoord = data.getZ();

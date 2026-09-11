@@ -51,8 +51,8 @@ import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.items.GTGenericBlock;
 import gregtech.api.items.MetaBaseItem;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.CoverableGTE;
 import gregtech.api.metatileentity.GTE;
 import gregtech.api.util.GTLog;
@@ -192,7 +192,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
             default -> ForgeDirection.UNKNOWN;
         };
         final TileEntity machineEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (machineEntity instanceof BaseMetaTileEntity bmte) {}
+        if (machineEntity instanceof BaseGTE bmte) {}
         if (machineEntity instanceof BaseMetaPipeEntity bmpe) {
             return bmpe.hasCoverAtSide(forgeSide);
         }
@@ -259,7 +259,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     @Override
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int ordinalSide) {
         final TileEntity tTileEntity = blockAccess.getTileEntity(x, y, z);
-        if (tTileEntity instanceof BaseMetaTileEntity tile) {
+        if (tTileEntity instanceof BaseGTE tile) {
             if (tile.getMTE() instanceof ICasingTextureProvider textureProvider) {
                 if (textureProvider.getCasingTexture() instanceof IIconTexture texture) {
                     return texture.getIcon(ordinalSide, null);
@@ -381,8 +381,8 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     @Override
     public float getPlayerRelativeBlockHardness(EntityPlayer aPlayer, World aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        return tTileEntity instanceof BaseMetaTileEntity && ((BaseMetaTileEntity) tTileEntity).privateAccess()
-            && !((BaseMetaTileEntity) tTileEntity).playerOwnsThis(aPlayer, true) ? -1.0F
+        return tTileEntity instanceof BaseGTE && ((BaseGTE) tTileEntity).privateAccess()
+            && !((BaseGTE) tTileEntity).playerOwnsThis(aPlayer, true) ? -1.0F
                 : super.getPlayerRelativeBlockHardness(aPlayer, aWorld, aX, aY, aZ);
     }
 
@@ -450,7 +450,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     @Override
     public void onBlockExploded(World aWorld, int aX, int aY, int aZ, Explosion aExplosion) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof BaseMetaTileEntity baseTE) {
+        if (tTileEntity instanceof BaseGTE baseTE) {
             GTLog.writeExplosionLog(baseTE, this.getUnlocalizedName(), "exploded due to near explosion");
             baseTE.doEnergyExplosion();
         }
@@ -527,7 +527,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
                 coverableTE.setStrongRedstone((byte) 0);
             }
 
-            if (tTileEntity instanceof BaseMetaTileEntity baseTE) {
+            if (tTileEntity instanceof BaseGTE baseTE) {
                 baseTE.setColorization((byte) -1);
             }
         }
@@ -584,7 +584,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
         if (!aWorld.isRemote) {
             final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
             if (tTileEntity != null && (chance < 1.0F)) {
-                if (tTileEntity instanceof BaseMetaTileEntity bmte && (GregTechAPI.sMachineNonWrenchExplosions)) {
+                if (tTileEntity instanceof BaseGTE bmte && (GregTechAPI.sMachineNonWrenchExplosions)) {
                     GTLog.writeExplosionLog(bmte, this.getUnlocalizedName(), "exploded due to NonWrench picking/Rain!");
                     bmte.doEnergyExplosion();
                 }
@@ -601,7 +601,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
         }
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity != null) {
-            if (tTileEntity instanceof BaseMetaTileEntity) {
+            if (tTileEntity instanceof BaseGTE) {
                 return true;
             }
             if (tTileEntity instanceof BaseMetaPipeEntity
@@ -652,8 +652,8 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     @Override
     public int getLightValue(IBlockAccess aWorld, int aX, int aY, int aZ) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
-        if (tTileEntity instanceof BaseMetaTileEntity) {
-            return ((BaseMetaTileEntity) tTileEntity).getLightValue();
+        if (tTileEntity instanceof BaseGTE) {
+            return ((BaseGTE) tTileEntity).getLightValue();
         }
         return 0;
     }

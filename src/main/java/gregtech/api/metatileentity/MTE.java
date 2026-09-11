@@ -269,24 +269,24 @@ public abstract class MTE extends CommonMTE implements ICraftingIconProvider {
     }
 
     public long getEUVar() {
-        return ((BaseMetaTileEntity) gte).mStoredEnergy;
+        return ((BaseGTE) gte).mStoredEnergy;
     }
 
     public void setEUVar(long energy) {
-        if (energy != ((BaseMetaTileEntity) gte).mStoredEnergy) {
+        if (energy != ((BaseGTE) gte).mStoredEnergy) {
             markDirty();
-            ((BaseMetaTileEntity) gte).mStoredEnergy = energy;
+            ((BaseGTE) gte).mStoredEnergy = energy;
         }
     }
 
     public long getSteamVar() {
-        return ((BaseMetaTileEntity) gte).mStoredSteam;
+        return ((BaseGTE) gte).mStoredSteam;
     }
 
     public void setSteamVar(long steam) {
-        if (((BaseMetaTileEntity) gte).mStoredSteam != steam) {
+        if (((BaseGTE) gte).mStoredSteam != steam) {
             markDirty();
-            ((BaseMetaTileEntity) gte).mStoredSteam = steam;
+            ((BaseGTE) gte).mStoredSteam = steam;
         }
     }
 
@@ -427,7 +427,7 @@ public abstract class MTE extends CommonMTE implements ICraftingIconProvider {
 
     @Override
     public int getLightOpacity() {
-        return ((BaseMetaTileEntity) getGTE()).getLightValue() > 0 ? 0 : 255;
+        return ((BaseGTE) getGTE()).getLightValue() > 0 ? 0 : 255;
     }
 
     public boolean shouldTriggerBlockUpdate() {

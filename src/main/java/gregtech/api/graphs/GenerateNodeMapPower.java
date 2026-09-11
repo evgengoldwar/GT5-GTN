@@ -13,8 +13,8 @@ import gregtech.api.graphs.consumers.NodeGTBaseMetaTile;
 import gregtech.api.graphs.paths.NodePath;
 import gregtech.api.graphs.paths.PowerNodePath;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
 
@@ -33,7 +33,7 @@ public class GenerateNodeMapPower extends GenerateNodeMap {
     @Override
     protected boolean addConsumer(TileEntity aTileEntity, ForgeDirection side, int aNodeValue,
         ArrayList<ConsumerNode> aConsumers) {
-        if (aTileEntity instanceof BaseMetaTileEntity tBaseTileEntity) {
+        if (aTileEntity instanceof BaseGTE tBaseTileEntity) {
             if (tBaseTileEntity.inputEnergyFrom(side, false)) {
                 ConsumerNode tConsumerNode = new NodeGTBaseMetaTile(aNodeValue, tBaseTileEntity, side, aConsumers);
                 aConsumers.add(tConsumerNode);

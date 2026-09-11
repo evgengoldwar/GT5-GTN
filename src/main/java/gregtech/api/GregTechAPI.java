@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.objects.GTHashSet;
 import gregtech.api.threads.RunnableCableUpdate;
 import gregtech.api.threads.RunnableMachineUpdate;
@@ -180,9 +180,9 @@ public class GregTechAPI {
         return false;
     }
 
-    public static BaseMetaTileEntity constructBaseMetaTileEntity() {
+    public static BaseGTE constructBaseMetaTileEntity() {
         try {
-            return new BaseMetaTileEntity();
+            return new BaseGTE();
         } catch (Exception e) {
             GT_FML_LOGGER.error("GTMod: Fatal Error occurred while initializing TileEntities, crashing Minecraft.");
             GT_FML_LOGGER.error(e);

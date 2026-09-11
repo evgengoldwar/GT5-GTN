@@ -7,14 +7,14 @@ import appeng.api.networking.security.BaseActionSource;
 import appeng.api.storage.IExternalStorageHandler;
 import appeng.api.storage.IMEInventory;
 import appeng.api.storage.StorageChannel;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.BaseGTE;
 
 public class AE2DigitalChestHandler implements IExternalStorageHandler {
 
     @Override
     public boolean canHandle(final TileEntity te, final ForgeDirection d, final StorageChannel chan,
         final BaseActionSource mySrc) {
-        return chan == StorageChannel.ITEMS && te instanceof BaseMetaTileEntity;
+        return chan == StorageChannel.ITEMS && te instanceof BaseGTE;
     }
 
     @Override

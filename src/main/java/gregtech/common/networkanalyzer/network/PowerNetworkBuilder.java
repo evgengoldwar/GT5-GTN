@@ -23,8 +23,8 @@ import gregtech.api.graphs.PowerNode;
 import gregtech.api.graphs.consumers.ConsumerNode;
 import gregtech.api.graphs.consumers.EmptyPowerConsumer;
 import gregtech.api.graphs.paths.PowerNodePath;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MTE;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
@@ -688,7 +688,7 @@ public class PowerNetworkBuilder {
 
                     if (sideEntity != null && !(sideEntity instanceof BaseMetaPipeEntity)) {
 
-                        if (sideEntity instanceof BaseMetaTileEntity metaTile) {
+                        if (sideEntity instanceof BaseGTE metaTile) {
                             long outputAmperage = metaTile.getMTE() instanceof MTE metaTileEntity
                                 ? metaTileEntity.maxAmperesOut()
                                 : metaTile.getOutputAmperage();
@@ -723,7 +723,7 @@ public class PowerNetworkBuilder {
 
     private static EnergyResult getPotentialConsumerStats(ConsumerNode consumer) {
 
-        if (consumer.mTileEntity instanceof BaseMetaTileEntity baseMeta) {
+        if (consumer.mTileEntity instanceof BaseGTE baseMeta) {
             long voltage = baseMeta.getInputVoltage();
             long amps = 0L;
 

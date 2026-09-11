@@ -20,7 +20,7 @@ import gregtech.api.covers.CoverContext;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.Invertable;
@@ -101,7 +101,7 @@ public class CoverLiquidMeter extends Cover implements Invertable {
             if (tanks != null) {
                 for (FluidTankInfo tank : tanks) {
                     if (tank != null) {
-                        if (tileEntity instanceof BaseMetaTileEntity) {} else max += tank.capacity;
+                        if (tileEntity instanceof BaseGTE) {} else max += tank.capacity;
                         FluidStack tLiquid = tank.fluid;
                         if (tLiquid != null) {
                             used += tLiquid.amount;

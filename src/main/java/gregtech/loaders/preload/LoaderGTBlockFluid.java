@@ -3,7 +3,7 @@ package gregtech.loaders.preload;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.common.blocks.BlockCable;
 import gregtech.common.blocks.BlockHatch;
 import gregtech.common.blocks.ItemBlockCable;
@@ -22,9 +22,9 @@ public class LoaderGTBlockFluid implements Runnable {
 
         // new MTECable(100, "CAL", "CAL", 0.01F, Materials.Steam, 1, 1, 32, false, false);
 
-        BaseMetaTileEntity tBaseMetaTileEntity = GregTechAPI.constructBaseMetaTileEntity();
+        BaseGTE baseGTE = GregTechAPI.constructBaseMetaTileEntity();
 
-        GameRegistry.registerTileEntity(tBaseMetaTileEntity.getClass(), "BaseMetaTileEntity");
+        GameRegistry.registerTileEntity(baseGTE.getClass(), "BaseMetaTileEntity");
         // FMLInterModComms.sendMessage(
         // AppliedEnergistics2.ID,
         // "whitelist-spatial",

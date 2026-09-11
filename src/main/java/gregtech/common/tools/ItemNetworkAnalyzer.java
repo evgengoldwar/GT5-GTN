@@ -25,8 +25,8 @@ import gregtech.api.graphs.Node;
 import gregtech.api.graphs.PowerNode;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.items.ItemTool;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
-import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.metatileentity.implementations.MTECable;
 import gregtech.common.networkanalyzer.NetworkAnalyzerData;
@@ -85,7 +85,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
             final TileEntity tile = world.getTileEntity(x, y, z);
 
             if (tile instanceof BaseMetaPipeEntity cableMeta && cableMeta.getMTE() instanceof MTECable
-                || tile instanceof BaseMetaTileEntity multiMeta) {
+                || tile instanceof BaseGTE multiMeta) {
                 final DimensionalCoord coord = new DimensionalCoord(tile);
                 setLocation(stack, coord);
 
@@ -148,7 +148,7 @@ public class ItemNetworkAnalyzer extends ItemTool {
                 }
 
                 GTValues.NW.sendToPlayer(new GTPacketNetworkAnalyzer(builder.getData(getMode(stack))), player);
-            } else if (tile instanceof BaseMetaTileEntity multiMeta) {
+            } else if (tile instanceof BaseGTE multiMeta) {
                 final PowerNetworkBuilder builder = new PowerNetworkBuilder();
 
                 // collectHatchNetworks(multiBlock.mEnergyHatches, builder);

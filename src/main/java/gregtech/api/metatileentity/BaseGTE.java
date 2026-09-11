@@ -76,12 +76,7 @@ import io.netty.buffer.ByteBuf;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
-/**
- * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
- * <p/>
- * This is the main TileEntity for EVERYTHING.
- */
-public class BaseMetaTileEntity extends CommonGTE
+public class BaseGTE extends CommonGTE
     implements IActionHost, IGridProxyable, IAlignmentProvider, IConstructableProvider, ICustomNameObject {
 
     private final boolean[] mActiveEUInputs = new boolean[] { false, false, false, false, false, false };
@@ -111,7 +106,7 @@ public class BaseMetaTileEntity extends CommonGTE
     // Texture data, must call scheduleTexturePacket when changed.
     private boolean mActive = false, mRedstone = false, mLockUpgrade = false, mWorks = true, mMuffler = false;
 
-    public BaseMetaTileEntity() {}
+    public BaseGTE() {}
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
