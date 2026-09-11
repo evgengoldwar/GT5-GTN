@@ -2,7 +2,6 @@ package gregtech.api.metatileentity.implementations;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static gregtech.api.enums.GTValues.ALL_VALID_SIDES;
-import static gregtech.api.enums.Textures.BlockIcons.PIPE_RESTRICTOR;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,61 +80,61 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
     @Override
     public ITexture[] getTexture(IGTE gte, ForgeDirection side, int aConnections, int aColorIndex, boolean aConnected,
         boolean redstoneLevel) {
-        if (mIsRestrictive) {
-            if (aConnected) {
-                float tThickNess = getSize();
-                if (tThickNess < 0.124F) return new ITexture[] { TextureFactory.of(
-                    mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
-                    Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
-                if (tThickNess < 0.374F) // 0.375
-                    return new ITexture[] { TextureFactory.of(
-                        mMaterial.mIconSet.mTextures[OrePrefixes.pipeTiny.getTextureIndex()],
-                        Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
-                if (tThickNess < 0.499F) // 0.500
-                    return new ITexture[] { TextureFactory.of(
-                        mMaterial.mIconSet.mTextures[OrePrefixes.pipeSmall.getTextureIndex()],
-                        Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
-                if (tThickNess < 0.749F) // 0.750
-                    return new ITexture[] { TextureFactory.of(
-                        mMaterial.mIconSet.mTextures[OrePrefixes.pipeMedium.getTextureIndex()],
-                        Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
-                if (tThickNess < 0.874F) // 0.825
-                    return new ITexture[] { TextureFactory.of(
-                        mMaterial.mIconSet.mTextures[OrePrefixes.pipeLarge.getTextureIndex()],
-                        Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
-                return new ITexture[] { TextureFactory.of(
-                    mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
-                    Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
-            }
-            return new ITexture[] { TextureFactory.of(
-                mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
-                Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
-        }
-        if (aConnected) {
-            float tThickNess = getSize();
-            if (tThickNess < 0.124F) return new ITexture[] { TextureFactory.of(
-                mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
-                Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
-            if (tThickNess < 0.374F) // 0.375
-                return new ITexture[] { TextureFactory.of(
-                    mMaterial.mIconSet.mTextures[OrePrefixes.pipeTiny.getTextureIndex()],
-                    Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
-            if (tThickNess < 0.499F) // 0.500
-                return new ITexture[] { TextureFactory.of(
-                    mMaterial.mIconSet.mTextures[OrePrefixes.pipeSmall.getTextureIndex()],
-                    Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
-            if (tThickNess < 0.749F) // 0.750
-                return new ITexture[] { TextureFactory.of(
-                    mMaterial.mIconSet.mTextures[OrePrefixes.pipeMedium.getTextureIndex()],
-                    Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
-            if (tThickNess < 0.874F) // 0.825
-                return new ITexture[] { TextureFactory.of(
-                    mMaterial.mIconSet.mTextures[OrePrefixes.pipeLarge.getTextureIndex()],
-                    Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
-            return new ITexture[] { TextureFactory.of(
-                mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
-                Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
-        }
+        // if (mIsRestrictive) {
+        // if (aConnected) {
+        // float tThickNess = getSize();
+        // if (tThickNess < 0.124F) return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
+        // if (tThickNess < 0.374F) // 0.375
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeTiny.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
+        // if (tThickNess < 0.499F) // 0.500
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeSmall.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
+        // if (tThickNess < 0.749F) // 0.750
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeMedium.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
+        // if (tThickNess < 0.874F) // 0.825
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeLarge.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
+        // }
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)), TextureFactory.of(PIPE_RESTRICTOR) };
+        // }
+        // if (aConnected) {
+        // float tThickNess = getSize();
+        // if (tThickNess < 0.124F) return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
+        // if (tThickNess < 0.374F) // 0.375
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeTiny.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
+        // if (tThickNess < 0.499F) // 0.500
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeSmall.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
+        // if (tThickNess < 0.749F) // 0.750
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeMedium.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
+        // if (tThickNess < 0.874F) // 0.825
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeLarge.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
+        // return new ITexture[] { TextureFactory.of(
+        // mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
+        // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
+        // }
         return new ITexture[] { TextureFactory.of(
             mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()],
             Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };

@@ -791,7 +791,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         // new MTEQuantumChest(i, "quantum.chest.tier.09", "Quantum Chest IV", 9, MTEArrays.CABLE).getStackForm(1L);
         // }
 
-        new MTEItemPipe(MTEArrays.HATCH, 1, "CAL", 0.25F, Materials_OLD.Salt, 2, 524288 / 2, false);
+        new MTEItemPipe(MTEArrays.CABLE, 1, "CAL", 0.25F, Materials_OLD.Salt, 2, 524288 / 2, false);
 
         // new MTEHatchMultiInput(
         // QUADRUPLE_INPUT_HATCHES_UV.ID,

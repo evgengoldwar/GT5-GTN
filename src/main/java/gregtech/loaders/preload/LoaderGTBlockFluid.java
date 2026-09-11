@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.metatileentity.BaseGTE;
+import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.common.blocks.BlockCable;
 import gregtech.common.blocks.BlockHatch;
 import gregtech.common.blocks.ItemBlockCable;
@@ -24,7 +25,7 @@ public class LoaderGTBlockFluid implements Runnable {
 
         BaseGTE baseGTE = GregTechAPI.constructBaseMetaTileEntity();
 
-        GameRegistry.registerTileEntity(baseGTE.getClass(), "BaseMetaTileEntity");
+        GameRegistry.registerTileEntity(baseGTE.getClass(), "baseGTE");
         // FMLInterModComms.sendMessage(
         // AppliedEnergistics2.ID,
         // "whitelist-spatial",
@@ -32,7 +33,7 @@ public class LoaderGTBlockFluid implements Runnable {
         // .getName());
 
         // GT_FML_LOGGER.debug("GTMod: Registering the BaseMetaPipeEntity.");
-        // GameRegistry.registerTileEntity(BaseMetaPipeEntity.class, "BaseMetaPipeEntity");
+        GameRegistry.registerTileEntity(BasePipeGTE.class, "BasePipeGTE");
         // FMLInterModComms.sendMessage(AppliedEnergistics2.ID, "whitelist-spatial",
         // BaseMetaPipeEntity.class.getName());
     }

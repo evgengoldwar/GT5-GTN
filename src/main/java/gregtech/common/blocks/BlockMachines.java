@@ -66,10 +66,12 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
 
     private static final ThreadLocal<IGTE> mTemporaryTileEntity = new ThreadLocal<>();
     private boolean renderAsNormalBlock;
+    private MTEArrays mteArrays;
     private IMTE[] mteArray;
 
     public BlockMachines(Class<? extends ItemBlock> itemClass, String name, MTEArrays mteArrays) {
         this(itemClass, name, new MaterialMachines(), mteArrays);
+        this.mteArrays = mteArrays;
         this.mteArray = mteArrays.getMteArray();
     }
 
@@ -659,7 +661,7 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
 
     @Override
     public TileEntity createTileEntity(World aWorld, int aMeta) {
-        return GregTechAPI.createTileEntity(aMeta);
+        return mteArrays.getTileEntityInstance();
     }
 
     @Override
