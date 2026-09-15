@@ -162,10 +162,10 @@ public final class CheckRecipeResultRegistry {
     /**
      * Cannot process recipe because the machine cannot handle its heat.
      */
-    @Nonnull
-    public static CheckRecipeResult insufficientHeat(int required) {
-        return new ResultInsufficientHeat(required);
-    }
+    // @Nonnull
+    // public static CheckRecipeResult insufficientHeat(int required) {
+    // return new ResultInsufficientHeat(required);
+    // }
 
     /**
      * Cannot process recipe because the machine is tiered and its tier is too low.
@@ -197,7 +197,6 @@ public final class CheckRecipeResultRegistry {
         register(new SimpleCheckRecipeResult(false, "", false));
         register(new ResultInsufficientPower(0));
         register(new ResultInsufficientVoltage(0));
-        register(new ResultInsufficientHeat(0));
         register(new ResultInsufficientMachineTier(0));
         register(new ResultInsufficientStartupPower(0));
         register(new ResultMissingItem());
