@@ -4,7 +4,6 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import static gregtech.api.enums.GTValues.ALL_VALID_SIDES;
 import static gregtech.api.enums.Mods.TinkerConstruct;
 import static gregtech.api.enums.Mods.Translocator;
-import static gregtech.api.objects.XSTR.XSTR_INSTANCE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +25,12 @@ import cpw.mods.fml.common.Optional;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.ParticleFX;
-import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
-import gregtech.api.util.WorldSpawnedEventBuilder.ParticleEventBuilder;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.covers.CoverFluidRegulator;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -574,29 +570,6 @@ public class MTEFluidPipe extends PipeMTE {
     private boolean isTranslocator(TileEntity tTileEntity) {
         // Translocators return a TankInfo, but it's of 0 length - so check the class if we see this pattern
         return tTileEntity instanceof codechicken.translocator.TileLiquidTranslocator;
-    }
-
-    @Override
-    public void doSound(byte index, double aX, double y, double z) {
-        super.doSound(index, aX, y, z);
-        if (index == 9) {
-            GTUtility.doSoundAtClient(SoundResource.RANDOM_FIZZ, 5, 1.0F, aX, y, z);
-
-            new ParticleEventBuilder().setIdentifier(ParticleFX.CLOUD)
-                .setWorld(getGTE().getWorld())
-                .<ParticleEventBuilder>times(
-                    6,
-                    (x, i) -> x
-                        .setMotion(
-                            ForgeDirection.getOrientation(i).offsetX / 5.0,
-                            ForgeDirection.getOrientation(i).offsetY / 5.0,
-                            ForgeDirection.getOrientation(i).offsetZ / 5.0)
-                        .setPosition(
-                            aX - 0.5 + XSTR_INSTANCE.nextFloat(),
-                            y - 0.5 + XSTR_INSTANCE.nextFloat(),
-                            z - 0.5 + XSTR_INSTANCE.nextFloat())
-                        .run());
-        }
     }
 
     @Override
