@@ -7,10 +7,8 @@ import java.util.Map;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.interfaces.IColorModulationContainer;
 import gregtech.api.util.GTUtility;
@@ -134,56 +132,9 @@ public enum Dyes implements IColorModulationContainer {
         return 0 <= index && index <= 15;
     }
 
-    /**
-     * Transforms a dye index between the GT index for this color and the vanilla index for this color.
-     *
-     * @param index an integer between 0 and 15
-     * @return the transformed index
-     */
     public static int transformDyeIndex(int index) {
         if (isDyeIndex(index)) return 15 - index;
         throw new IllegalArgumentException("Index passed to `transformDyeIndex` must be between 0 and 15");
-    }
-
-    @Deprecated
-    public static short @NotNull [] getModulation(int index) {
-        return getModulation(index, Dyes._NULL.getRGBA());
-    }
-
-    @Deprecated
-    public static short @NotNull [] getModulation(int index, short @NotNull [] defaultModulation) {
-        if (isDyeIndex(index)) return VALUES[index].mRGBa;
-        return defaultModulation;
-    }
-
-    public static @Nullable Dyes getFluidDye(@Nullable FluidStack fluidStack) {
-        if (fluidStack == null) return null;
-        return getFluidDye(fluidStack.getFluid());
-    }
-
-    public static @Nullable Dyes getFluidDye(@Nullable Fluid fluid) {
-        if (fluid == null) return null;
-        return fluidDyesMap.get(fluid);
-    }
-
-    public static boolean isFluidDye(@Nullable FluidStack fluidStack) {
-        if (fluidStack == null) return false;
-        return isFluidDye(fluidStack.getFluid());
-    }
-
-    public static boolean isFluidDye(@Nullable Fluid fluid) {
-        if (fluid == null) return false;
-        return fluidDyesMap.containsKey(fluid);
-    }
-
-    public void addFluidDye(@Nullable Fluid fluid) {
-        if (fluid == null) return;
-        fluidDyesSet.add(fluid);
-        fluidDyesMap.put(fluid, this);
-    }
-
-    public @NotNull HashSet<@NotNull Fluid> getFluidDyes() {
-        return fluidDyesSet;
     }
 
     @Override
