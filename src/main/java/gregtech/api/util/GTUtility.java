@@ -52,6 +52,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.item.EntityItem;
@@ -73,6 +74,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
@@ -2584,5 +2586,11 @@ public class GTUtility {
 
     public static boolean isSourceWater(Block block, World world, int x, int y, int z) {
         return isWater(block) && !isFlowingWater(block, world, x, y, z);
+    }
+
+    public static IIcon getMissingNo() {
+        return ((TextureMap) Minecraft.getMinecraft()
+            .getTextureManager()
+            .getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
     }
 }
