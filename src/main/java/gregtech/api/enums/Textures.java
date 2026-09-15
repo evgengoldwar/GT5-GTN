@@ -23,10 +23,8 @@ import gregtech.client.iconContainers.blocks.GTCustomAlphaFallbackBlockIconConta
 import gregtech.client.iconContainers.blocks.GTCustomBlockIconContainer;
 import gregtech.client.iconContainers.blocks.GTCustomOptionalBlockIconContainer;
 import gregtech.client.iconContainers.blocks.GTOptionalBlockIconContainer;
-import gregtech.client.iconContainers.blocks.GTTextureSetBlockIconContainer;
 import gregtech.client.iconContainers.items.GTCustomItemIconContainer;
 import gregtech.client.iconContainers.items.GTItemIconContainer;
-import gregtech.client.iconContainers.items.GTTextureSetItemIconContainer;
 
 public class Textures {
 
@@ -215,15 +213,6 @@ public class Textures {
             return GTCustomAlphaFallbackBlockIconContainer.create(aIconName, fallback);
         }
 
-        public static @NotNull IIconContainer textureSet(@NotNull String setName, @NotNull String prefix) {
-            return GTTextureSetBlockIconContainer.create(setName, prefix, null);
-        }
-
-        public static @NotNull IIconContainer textureSetWithRegister(@NotNull String setName, @NotNull String prefix,
-            IIconRegister register) {
-            return GTTextureSetBlockIconContainer.create(setName, prefix, register);
-        }
-
         private static @NotNull IIconContainer create(@NotNull String name) {
             return GTBlockIconContainer.create(name);
         }
@@ -259,7 +248,6 @@ public class Textures {
         }
 
         public static void cleanup() {
-            GTTextureSetBlockIconContainer.cleanup();
             GTCustomBlockIconContainer.cleanup();
             GTCustomAlphaFallbackBlockIconContainer.cleanup();
         }
@@ -320,27 +308,8 @@ public class Textures {
             throw new AssertionError("No instances allowed");
         }
 
-        /**
-         * Registers a Custom Item {@link IIconContainer}
-         * <p>
-         * Each custom item icon consists of a main icon, an overlay, or both.
-         * At least one of the icon or overlay must be present; individually, each is optional.
-         *
-         * @param aIconName The unique identifier of the custom item icon container.
-         *
-         * @return The {@link IIconContainer} instance
-         */
         public static @NotNull IIconContainer custom(@NotNull String aIconName) {
             return GTCustomItemIconContainer.create(aIconName);
-        }
-
-        public static @NotNull IIconContainer textureSet(@NotNull String setName, @NotNull String prefix) {
-            return GTTextureSetItemIconContainer.create(setName, prefix, null);
-        }
-
-        public static @NotNull IIconContainer textureSetWithRegister(@NotNull String setName, @NotNull String prefix,
-            IIconRegister register) {
-            return GTTextureSetItemIconContainer.create(setName, prefix, register);
         }
 
         private static @NotNull IIconContainer create(@NotNull String name) {
@@ -348,7 +317,6 @@ public class Textures {
         }
 
         public static void cleanup() {
-            GTTextureSetItemIconContainer.cleanup();
             GTCustomItemIconContainer.cleanup();
         }
 
