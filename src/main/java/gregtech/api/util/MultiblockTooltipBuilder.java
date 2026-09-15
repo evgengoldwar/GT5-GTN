@@ -26,7 +26,6 @@ import com.google.common.collect.SetMultimap;
 import com.gtnewhorizon.structurelib.StructureLibAPI;
 
 import gregtech.GTMod;
-import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.GTValues;
 import gregtech.api.structure.IStructureChannels;
 import gregtech.api.util.tooltip.MarkdownTooltipLoader;
@@ -1704,13 +1703,6 @@ public class MultiblockTooltipBuilder {
                 + EnumChatFormatting.GRAY
                 + " "
                 + TT_todisplay);
-
-        if (!authors.isEmpty()) {
-            iLines.add(TT_addedBy + COLON + GTAuthors.formatAuthors(authors));
-        }
-        if (!structureAuthors.isEmpty()) {
-            iLines.add(TT_StructureAuthor + COLON + GTAuthors.formatAuthors(structureAuthors));
-        }
 
         hLines.add(TT_structurehint);
         this.addStructureInfoSeparator(EnumChatFormatting.GRAY, 30, true);
