@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 
 import gregtech.api.enums.Dyes;
-import gregtech.api.enums.FluidState;
 import gregtech.api.interfaces.fluid.IGTFluid;
 import gregtech.api.interfaces.fluid.IGTFluidBuilder;
 import gregtech.api.interfaces.fluid.IGTRegisteredFluid;
@@ -24,7 +23,6 @@ public class GTFluidBuilder implements IGTFluidBuilder {
     ResourceLocation stillIconResourceLocation = null, flowingIconResourceLocation = null;
     short[] colorRGBA = Dyes._NULL.getRGBA();
     Block fluidBlock = null;
-    FluidState fluidState;
     int temperature;
     IIcon stillIcon;
     IIcon flowingIcon;
@@ -49,16 +47,6 @@ public class GTFluidBuilder implements IGTFluidBuilder {
     @Override
     public IGTFluidBuilder withDefaultLocalName(final String defaultLocalName) {
         this.defaultLocalName = defaultLocalName;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public IGTFluidBuilder withStateAndTemperature(final FluidState fluidState, final int temperature) {
-        this.fluidState = fluidState;
-        this.temperature = temperature;
         return this;
     }
 

@@ -7,8 +7,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import gregtech.api.enums.FluidState;
-
 @SuppressWarnings("unused") // API might legitimately expose unused methods within this local project's scope
 public interface IGTFluidBuilder {
 
@@ -21,7 +19,7 @@ public interface IGTFluidBuilder {
 
     /**
      * Set the default local name(original name) of the fluid, previously named withLocalizedName.
-     * 
+     *
      * @param defaultLocalName The default local name of this {@link IGTFluidBuilder}
      * @return {@link IGTFluidBuilder} self for call chaining
      */
@@ -39,14 +37,6 @@ public interface IGTFluidBuilder {
     default IGTFluidBuilder withLocalizedName(final String localizedName) {
         return withDefaultLocalName(localizedName);
     }
-
-    /**
-     * @param fluidState  The {@link FluidState} of this {@link IGTFluidBuilder}
-     * @param temperature The Kelvin temperature of this {@link IGTFluidBuilder}
-     * @return {@link IGTFluidBuilder} self for call chaining
-     */
-    @SuppressWarnings("UnusedReturnValue") // Last call in chain, may not use this returned value
-    IGTFluidBuilder withStateAndTemperature(final FluidState fluidState, final int temperature);
 
     /**
      * @param stillIconResourceLocation the {@link ResourceLocation} of the still fluid icon

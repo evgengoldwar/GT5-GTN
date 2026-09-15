@@ -4,7 +4,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import gregtech.api.enums.FluidState;
 import gregtech.api.interfaces.fluid.IGTFluid;
 import gregtech.api.interfaces.fluid.IGTFluidBuilder;
 import gregtech.common.fluid.GTFluidBuilder;
@@ -41,19 +40,8 @@ import gregtech.common.fluid.GTFluidBuilder;
 @SuppressWarnings("unused") // API might legitimately expose unused methods within this local project's scope
 public class GTFluidFactory {
 
-    /**
-     * Helper for quick fluid creation and registration
-     *
-     * @param fluidName     The name key of the {@link Fluid} to register in the {@link FluidRegistry}
-     * @param localizedName The localized name of this {@link IGTFluid}
-     * @param state         The {@link FluidState} of this {@link IGTFluid}
-     * @param temperature   The fluid temperature in Kelvin
-     * @return the registered {@link Fluid}
-     */
-    public static Fluid of(final String fluidName, final String localizedName, final FluidState state,
-        final int temperature) {
+    public static Fluid of(final String fluidName, final String localizedName, final int temperature) {
         return builder(fluidName).withDefaultLocalName(localizedName)
-            .withStateAndTemperature(state, temperature)
             .buildAndRegister()
             .addLocalizedName()
             .asFluid();

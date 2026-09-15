@@ -13,7 +13,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.FluidState;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluid;
 import gregtech.api.interfaces.fluid.IGTRegisteredFluid;
@@ -25,7 +24,6 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
     private final ResourceLocation stillIconResourceLocation;
     private final ResourceLocation flowingIconResourceLocation;
     private final short[] colorRGBA;
-    private final FluidState fluidState;
     private final Fluid iconsFrom;
     private Fluid registeredFluid;
     private Supplier<String> localizedName;
@@ -43,41 +41,8 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
         this.iconsFrom = builder.iconsFrom;
         this.block = builder.fluidBlock;
         this.colorRGBA = builder.colorRGBA;
-        this.fluidState = builder.fluidState;
         this.temperature = builder.temperature;
-        configureFromStateTemperature();
-    }
-
-    /**
-     * Adjusts this {@link Fluid}'s settings based on this {@link IGTFluid}'s state
-     */
-    protected void configureFromStateTemperature() {
-        switch (fluidState) {
-            case SLURRY:
-                setGaseous(false).setViscosity(10000);
-                break;
-            case GAS:
-                setGaseous(true).setDensity(-100)
-                    .setViscosity(200);
-                break;
-            case PLASMA:
-                setGaseous(true).setDensity(55536)
-                    .setViscosity(10)
-                    .setLuminosity(15);
-                break;
-            case MOLTEN:
-                final int luminosity;
-                if (temperature >= 3500) {
-                    luminosity = 15;
-                } else {
-                    luminosity = temperature < 1000 ? 0 : 14 * (temperature - 1000) / 2500 + 1;
-                }
-                setLuminosity(luminosity);
-            case LIQUID:
-            default:
-                setGaseous(false).setViscosity(1000);
-                break;
-        }
+        setGaseous(false).setViscosity(1000);
     }
 
     // ----- Fluid implementations -----
