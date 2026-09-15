@@ -13,7 +13,6 @@ import org.lwjgl.opengl.GL12;
 
 import com.gtnewhorizon.gtnhlib.util.ItemRenderUtil;
 
-import gregtech.api.enums.Textures;
 import gregtech.common.config.Client;
 
 public class CosmicNeutroniumRenderer extends GeneratedMaterialRenderer {
@@ -21,7 +20,7 @@ public class CosmicNeutroniumRenderer extends GeneratedMaterialRenderer {
     // TODO: Render halo outside of inventory.
     public static void renderHalo(ItemRenderType type) {
         // Because when this class is instantiated, making this a static field will cause it to set to null.
-        final IIcon haloFuzzy = Textures.ItemIcons.HALO_FUZZY.getIcon();
+        final IIcon haloFuzzy = null;
 
         if (haloFuzzy == null) {
             return;

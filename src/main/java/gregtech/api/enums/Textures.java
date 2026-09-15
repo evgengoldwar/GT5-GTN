@@ -23,8 +23,6 @@ import gregtech.client.iconContainers.blocks.GTCustomAlphaFallbackBlockIconConta
 import gregtech.client.iconContainers.blocks.GTCustomBlockIconContainer;
 import gregtech.client.iconContainers.blocks.GTCustomOptionalBlockIconContainer;
 import gregtech.client.iconContainers.blocks.GTOptionalBlockIconContainer;
-import gregtech.client.iconContainers.items.GTCustomItemIconContainer;
-import gregtech.client.iconContainers.items.GTItemIconContainer;
 
 public class Textures {
 
@@ -258,66 +256,13 @@ public class Textures {
         // spotless:off
         public static final IIconContainer
             VOID = GlobalIcons.VOID, // The Empty Texture
-            RENDERING_ERROR = GlobalIcons.RENDERING_ERROR,
-
-            MORTAR = create("MORTAR"),
-            ROLLING_PIN = create("ROLLING_PIN"),
-            HANDLE_SWORD = create("HANDLE_SWORD"),
-            HANDLE_FILE = create("HANDLE_FILE"),
-            HANDLE_SCREWDRIVER = create("HANDLE_SCREWDRIVER"),
-            HANDLE_BUZZSAW = create("HANDLE_BUZZSAW"),
-            HANDLE_ELECTRIC_SCREWDRIVER = create("HANDLE_ELECTRIC_SCREWDRIVER"),
-            HANDLE_SOLDERING = create("HANDLE_SOLDERING"),
-            POWER_UNIT_LV = create("POWER_UNIT_LV"),
-            POWER_UNIT_MV = create("POWER_UNIT_MV"),
-            POWER_UNIT_HV = create("POWER_UNIT_HV"),
-            DURABILITY_BAR_0 = create("DURABILITY_BAR_0"),
-            DURABILITY_BAR_1 = create("DURABILITY_BAR_1"),
-            DURABILITY_BAR_2 = create("DURABILITY_BAR_2"),
-            DURABILITY_BAR_3 = create("DURABILITY_BAR_3"),
-            DURABILITY_BAR_4 = create("DURABILITY_BAR_4"),
-            DURABILITY_BAR_5 = create("DURABILITY_BAR_5"),
-            DURABILITY_BAR_6 = create("DURABILITY_BAR_6"),
-            DURABILITY_BAR_7 = create("DURABILITY_BAR_7"),
-            DURABILITY_BAR_8 = create("DURABILITY_BAR_8"),
-            ENERGY_BAR_0 = create("ENERGY_BAR_0"),
-            ENERGY_BAR_1 = create("ENERGY_BAR_1"),
-            ENERGY_BAR_2 = create("ENERGY_BAR_2"),
-            ENERGY_BAR_3 = create("ENERGY_BAR_3"),
-            ENERGY_BAR_4 = create("ENERGY_BAR_4"),
-            ENERGY_BAR_5 = create("ENERGY_BAR_5"),
-            ENERGY_BAR_6 = create("ENERGY_BAR_6"),
-            ENERGY_BAR_7 = create("ENERGY_BAR_7"),
-            ENERGY_BAR_8 = create("ENERGY_BAR_8"),
-            WIRELESS_HEADPHONES = create("WIRELESS_HEADPHONES"),
-            HALO = create("HALO"),
-            HALO_FUZZY = create("HALO_FUZZY"),
-            MASK_VOLTAGE_COIL = create("MASK_VOLTAGE_COIL"),
-            JACKHAMMER_BASE = create("JACKHAMMER_BASE");
+            RENDERING_ERROR = GlobalIcons.RENDERING_ERROR;
         // spotless:on
-
-        public static final IIconContainer[] DURABILITY_BAR = { DURABILITY_BAR_0, DURABILITY_BAR_1, DURABILITY_BAR_2,
-            DURABILITY_BAR_3, DURABILITY_BAR_4, DURABILITY_BAR_5, DURABILITY_BAR_6, DURABILITY_BAR_7,
-            DURABILITY_BAR_8, },
-            ENERGY_BAR = { ENERGY_BAR_0, ENERGY_BAR_1, ENERGY_BAR_2, ENERGY_BAR_3, ENERGY_BAR_4, ENERGY_BAR_5,
-                ENERGY_BAR_6, ENERGY_BAR_7, ENERGY_BAR_8, };
 
         public static final ITexture[] ERROR_RENDERING = { TextureFactory.of(Textures.GlobalIcons.RENDERING_ERROR) };
 
         private ItemIcons() {
             throw new AssertionError("No instances allowed");
-        }
-
-        public static @NotNull IIconContainer custom(@NotNull String aIconName) {
-            return GTCustomItemIconContainer.create(aIconName);
-        }
-
-        private static @NotNull IIconContainer create(@NotNull String name) {
-            return GTItemIconContainer.create(name);
-        }
-
-        public static void cleanup() {
-            GTCustomItemIconContainer.cleanup();
         }
 
     }

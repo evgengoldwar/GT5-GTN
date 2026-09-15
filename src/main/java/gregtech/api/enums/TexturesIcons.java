@@ -6,8 +6,6 @@ import net.minecraft.util.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.interfaces.IIconContainer;
-import gregtech.client.iconContainers.blocks.GTCustomBlockIconContainer;
-import gregtech.client.iconContainers.items.GTCustomItemIconContainer;
 
 public enum TexturesIcons implements IIconContainer {
 
@@ -32,13 +30,5 @@ public enum TexturesIcons implements IIconContainer {
     @Override
     public ResourceLocation getTextureFile() {
         return container.getTextureFile();
-    }
-
-    public static @NotNull IIconContainer createItemIcon(@NotNull String iconPath) {
-        return GTCustomItemIconContainer.create(iconPath);
-    }
-
-    public static @NotNull IIconContainer createBlockIcon(@NotNull String iconPath) {
-        return GTCustomBlockIconContainer.create(iconPath);
     }
 }

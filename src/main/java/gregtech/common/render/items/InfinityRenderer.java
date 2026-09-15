@@ -10,7 +10,6 @@ import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
 import codechicken.lib.render.TextureUtils;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IGT_ItemWithMaterialRenderer;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
@@ -86,7 +85,7 @@ public class InfinityRenderer extends GeneratedMaterialRenderer {
     }
 
     public static void renderHalo() {
-        IIcon halo = Textures.ItemIcons.HALO.getIcon();
+        IIcon halo = null;
 
         int spread = 10;
         int haloAlpha = 0xFF000000;

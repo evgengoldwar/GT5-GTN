@@ -194,7 +194,6 @@ public class GTClient extends GTProxy {
     public void onLoadComplete(FMLLoadCompleteEvent event) {
         super.onLoadComplete(event);
 
-        Textures.ItemIcons.cleanup();
         Textures.BlockIcons.cleanup();
     }
 
