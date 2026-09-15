@@ -150,6 +150,54 @@ public class GTUtility {
         .omitEmptyStrings();
     private static Block DISTILLED_WATER_BLOCK;
 
+    public static final IIcon INVISIBLE_ICON = new IIcon() {
+
+        @Override
+        public int getIconWidth() {
+            return 1;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return 1;
+        }
+
+        @Override
+        public float getMinU() {
+            return 0.999f;
+        }
+
+        @Override
+        public float getMaxU() {
+            return 1.0f;
+        }
+
+        @Override
+        public float getInterpolatedU(double p_94214_1_) {
+            return 1.0f;
+        }
+
+        @Override
+        public float getMinV() {
+            return 0.999f;
+        }
+
+        @Override
+        public float getMaxV() {
+            return 1.0f;
+        }
+
+        @Override
+        public float getInterpolatedV(double p_94207_1_) {
+            return 1.0f;
+        }
+
+        @Override
+        public String getIconName() {
+            return "invisible";
+        }
+    };
+
     public static int safeInt(long number, int margin) {
         return number > Integer.MAX_VALUE - margin ? Integer.MAX_VALUE - margin : (int) number;
     }

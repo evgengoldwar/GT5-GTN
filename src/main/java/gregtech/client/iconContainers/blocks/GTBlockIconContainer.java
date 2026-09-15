@@ -1,6 +1,7 @@
 package gregtech.client.iconContainers.blocks;
 
 import static gregtech.api.enums.Mods.GregTech;
+import static gregtech.api.util.GTUtility.INVISIBLE_ICON;
 import static gregtech.api.util.GTUtility.getMissingNo;
 
 import java.util.Map;
@@ -52,6 +53,8 @@ public class GTBlockIconContainer extends AbstractBlockIconContainer implements 
 
         if (ResourceUtils.resourceExists(overlayResource)) {
             overlay = GregTechAPI.sBlockIcons.registerIcon(overlayName);
+        } else {
+            overlay = INVISIBLE_ICON;
         }
     }
 
