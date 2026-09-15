@@ -61,7 +61,7 @@ public enum ChatMessage {
         if (GTUtility.isServer()) {
             GTValues.NW.sendToPlayer(new GTPacketChat(this, args), (EntityPlayerMP) player);
         } else {
-            GTUtility.sendChatToPlayer(player, localize(args));
+            GTUtility.sendChatTrans(player, localize(args));
         }
     }
 

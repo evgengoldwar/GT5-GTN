@@ -70,7 +70,6 @@ import net.minecraft.network.play.server.S1DPacketEntityEffect;
 import net.minecraft.network.play.server.S1FPacketSetExperience;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
@@ -263,17 +262,6 @@ public class GTUtility {
         return translateToLocalFormatted(
             "GT5U.gui.text.tier_name_with_parentheses",
             color + GTValues.VN[tier] + EnumChatFormatting.RESET);
-    }
-
-    /**
-     * @deprecated Use {@link #sendChatTrans} instead.
-     */
-    @Deprecated
-    public static void sendChatToPlayer(EntityPlayer player, String message) {
-        if (message != null) {
-            message = processFormatStacks(message);
-            player.addChatComponentMessage(new ChatComponentText(message));
-        }
     }
 
     /**
