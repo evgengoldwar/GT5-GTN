@@ -38,7 +38,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
-import gregtech.api.enums.HarvestTool;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.Textures;
@@ -91,14 +90,12 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
 
     @Override
     public String getHarvestTool(int aMeta) {
-        return HarvestTool.fromMeta(aMeta)
-            .getHarvestTool();
+        return "pickaxe";
     }
 
     @Override
     public int getHarvestLevel(int aMeta) {
-        return HarvestTool.fromMeta(aMeta)
-            .getHarvestLevel();
+        return 1;
     }
 
     @Override
