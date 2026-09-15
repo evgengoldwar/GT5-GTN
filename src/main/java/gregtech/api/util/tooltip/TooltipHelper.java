@@ -8,7 +8,6 @@ import net.minecraft.util.StatCollector;
 import com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil;
 
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.VoltageIndex;
 import gregtech.api.util.GTUtility;
 
 /**
@@ -132,29 +131,12 @@ public class TooltipHelper {
         return String.format("%s%s%s", ITALIC, text, EnumChatFormatting.RESET);
     }
 
-    /**
-     * Returns a voltage tier string with appropriate color formatting.
-     * <br>
-     * If the voltage index is out of range, it returns "Invalid Voltage Tier".
-     *
-     * @param voltageIndex The voltage index, as defined in {@link VoltageIndex}.
-     * @return A formatted string representing the voltage tier.
-     */
     public static String voltageTierText(int voltageIndex) {
         return voltageTierText(voltageIndex, true);
     }
 
-    /**
-     * Returns a voltage tier string with appropriate color formatting.
-     * <br>
-     * If the voltage index is out of range, it returns "Invalid Voltage Tier".
-     *
-     * @param voltageIndex   The voltage index, as defined in {@link VoltageIndex}.
-     * @param withTierSuffix If true, returns the string like "UHV-tier". If false, returns like "UHV"
-     * @return A formatted string representing the voltage tier.
-     */
     public static String voltageTierText(int voltageIndex, boolean withTierSuffix) {
-        if (voltageIndex < VoltageIndex.ULV || voltageIndex > VoltageIndex.MAX) return "Invalid Voltage Tier";
+        if (voltageIndex < 0 || voltageIndex > 14) return "Invalid Voltage Tier";
         return GTValues.TIER_COLORS[voltageIndex] + GTValues.VN[voltageIndex]
             + EnumChatFormatting.GRAY
             + (withTierSuffix ? StatCollector.translateToLocal("gt.voltage.tier") : "");
