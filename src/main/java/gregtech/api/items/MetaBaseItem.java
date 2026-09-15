@@ -20,7 +20,6 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,7 +38,6 @@ import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 import com.gtnewhorizons.modularui.api.KeyboardUtil;
 
 import gregtech.GTLoggers;
-import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IItemBehaviour;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
@@ -89,36 +87,6 @@ public abstract class MetaBaseItem extends GTGenericItem
 
     protected Function<ItemStack, String> getToolTipLocalizationFunction(ItemStack aStack) {
         return null;
-    }
-
-    @Override
-    public boolean hasProjectile(SubTag aProjectileType, ItemStack aStack) {
-        ArrayList<IItemBehaviour<MetaBaseItem>> tList = mItemBehaviors.get((short) getDamage(aStack));
-        if (tList != null) for (IItemBehaviour<MetaBaseItem> tBehavior : tList)
-            if (tBehavior.hasProjectile(this, aProjectileType, aStack)) return true;
-        return super.hasProjectile(aProjectileType, aStack);
-    }
-
-    @Override
-    public EntityArrow getProjectile(SubTag aProjectileType, ItemStack aStack, World aWorld, double aX, double aY,
-        double aZ) {
-        ArrayList<IItemBehaviour<MetaBaseItem>> tList = mItemBehaviors.get((short) getDamage(aStack));
-        if (tList != null) for (IItemBehaviour<MetaBaseItem> tBehavior : tList) {
-            EntityArrow rArrow = tBehavior.getProjectile(this, aProjectileType, aStack, aWorld, aX, aY, aZ);
-            if (rArrow != null) return rArrow;
-        }
-        return super.getProjectile(aProjectileType, aStack, aWorld, aX, aY, aZ);
-    }
-
-    @Override
-    public EntityArrow getProjectile(SubTag aProjectileType, ItemStack aStack, World aWorld, EntityLivingBase aEntity,
-        float aSpeed) {
-        ArrayList<IItemBehaviour<MetaBaseItem>> tList = mItemBehaviors.get((short) getDamage(aStack));
-        if (tList != null) for (IItemBehaviour<MetaBaseItem> tBehavior : tList) {
-            EntityArrow rArrow = tBehavior.getProjectile(this, aProjectileType, aStack, aWorld, aEntity, aSpeed);
-            if (rArrow != null) return rArrow;
-        }
-        return super.getProjectile(aProjectileType, aStack, aWorld, aEntity, aSpeed);
     }
 
     @Override

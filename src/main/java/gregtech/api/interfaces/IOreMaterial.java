@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
  * Once the new material system is finished, this should be removed and all the code referencing this should be migrated
  * to the new system.
  */
-public interface IOreMaterial extends ISubTagContainer {
+public interface IOreMaterial {
 
     /**
      * Add tooltips(mainly chemical formula) for material items。

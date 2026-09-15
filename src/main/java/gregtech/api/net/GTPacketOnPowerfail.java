@@ -77,7 +77,7 @@ public class GTPacketOnPowerfail extends GTPacket {
         renderer.addPowerfail(powerfail);
 
         if (Client.chat.powerfailNotifications && (previous == null || previous.getSecs() > 60)) {
-            GTUtility.sendChatToPlayer(
+            GTUtility.sendChatTrans(
                 player,
                 powerfail.toDescription()
                     .toString());

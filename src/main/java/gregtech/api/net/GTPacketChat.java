@@ -54,6 +54,6 @@ public class GTPacketChat extends GTPacket {
     @Override
     public void process(IBlockAccess world) {
         // Assume we are on the client
-        GTUtility.sendChatToPlayer(GTMod.proxy.getThePlayer(), message.toString());
+        GTUtility.sendChatTrans(GTMod.proxy.getThePlayer(), message.toString());
     }
 }

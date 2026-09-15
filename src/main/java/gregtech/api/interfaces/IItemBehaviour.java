@@ -5,18 +5,13 @@ import java.util.Optional;
 
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import gregtech.api.enums.SubTag;
-import gregtech.api.items.MetaBaseItem;
 
 public interface IItemBehaviour<E extends Item> {
 
@@ -86,12 +81,4 @@ public interface IItemBehaviour<E extends Item> {
     boolean canDispense(E aItem, IBlockSource aSource, ItemStack aStack);
 
     ItemStack onDispense(E aItem, IBlockSource aSource, ItemStack aStack);
-
-    boolean hasProjectile(MetaBaseItem aItem, SubTag aProjectileType, ItemStack aStack);
-
-    EntityArrow getProjectile(E aItem, SubTag aProjectileType, ItemStack aStack, World aWorld, double aX, double aY,
-        double aZ);
-
-    EntityArrow getProjectile(E aItem, SubTag aProjectileType, ItemStack aStack, World aWorld, EntityLivingBase aEntity,
-        float aSpeed);
 }

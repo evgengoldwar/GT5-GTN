@@ -16,19 +16,15 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -40,8 +36,6 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -82,9 +76,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.SubTag;
-import gregtech.api.interfaces.IProjectileItem;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.objects.GTChunkManager;
 import gregtech.api.threads.RunnableCableUpdate;
@@ -95,7 +86,6 @@ import gregtech.api.util.GTClientPreference;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
-import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.config.OPStuff;
 import gregtech.common.data.GTPowerfailTracker;
@@ -474,75 +464,6 @@ public class GTProxy implements IFuelHandler {
      */
     public int getNEIReloadCount() {
         return 0;
-    }
-
-    @SubscribeEvent
-    public void onArrowNockEvent(ArrowNockEvent aEvent) {
-        if (GTUtility.isStackValid(aEvent.result)
-            && (GTUtility.getProjectile(SubTag.PROJECTILE_ARROW, aEvent.entityPlayer.inventory) != null)) {
-            aEvent.entityPlayer.setItemInUse(
-                aEvent.result,
-                aEvent.result.getItem()
-                    .getMaxItemUseDuration(aEvent.result));
-            aEvent.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void onArrowLooseEvent(ArrowLooseEvent aEvent) {
-        ItemStack aArrow = GTUtility.getProjectile(SubTag.PROJECTILE_ARROW, aEvent.entityPlayer.inventory);
-        if (GTUtility.isStackValid(aEvent.bow) && (aArrow != null) && ((aEvent.bow.getItem() instanceof ItemBow))) {
-            float tSpeed = aEvent.charge / 20.0F;
-            tSpeed = (tSpeed * tSpeed + tSpeed * 2.0F) / 3.0F;
-            if (tSpeed < 0.1D) {
-                return;
-            }
-            if (tSpeed > 1.0D) {
-                tSpeed = 1.0F;
-            }
-            EntityArrow tArrowEntity = ((IProjectileItem) aArrow.getItem()).getProjectile(
-                SubTag.PROJECTILE_ARROW,
-                aArrow,
-                aEvent.entityPlayer.worldObj,
-                aEvent.entityPlayer,
-                tSpeed * 2.0F);
-            if (tSpeed >= 1.0F) {
-                tArrowEntity.setIsCritical(true);
-            }
-            int tLevel = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, aEvent.bow);
-            if (tLevel > 0) {
-                tArrowEntity.setDamage(tArrowEntity.getDamage() + tLevel * 0.5D + 0.5D);
-            }
-            tLevel = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, aEvent.bow);
-            if (tLevel > 0) {
-                tArrowEntity.setKnockbackStrength(tLevel);
-            }
-            tLevel = EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, aEvent.bow);
-            if (tLevel > 0) {
-                tArrowEntity.setFire(tLevel * 100);
-            }
-            aEvent.bow.damageItem(1, aEvent.entityPlayer);
-            aEvent.bow.getItem();
-
-            new WorldSpawnedEventBuilder.SoundAtEntityEventBuilder().setPitch(0.64893958288F + tSpeed * 0.5F)
-                .setVolume(1f)
-                .setIdentifier(SoundResource.RANDOM_BOW)
-                .setEntity(aEvent.entityPlayer)
-                .setWorld(aEvent.entityPlayer.worldObj)
-                .run();
-
-            tArrowEntity.canBePickedUp = 1;
-            if (!aEvent.entityPlayer.capabilities.isCreativeMode) {
-                aArrow.stackSize -= 1;
-            }
-            if (aArrow.stackSize == 0) {
-                GTUtility.removeNullStacksFromInventory(aEvent.entityPlayer.inventory);
-            }
-            if (!aEvent.entityPlayer.worldObj.isRemote) {
-                aEvent.entityPlayer.worldObj.spawnEntityInWorld(tArrowEntity);
-            }
-            aEvent.setCanceled(true);
-        }
     }
 
     @SubscribeEvent

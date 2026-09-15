@@ -118,9 +118,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.SubTag;
 import gregtech.api.enums.Textures;
-import gregtech.api.interfaces.IProjectileItem;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.item.ItemStackSizeCalculator;
 import gregtech.api.interfaces.metatileentity.IMTE;
@@ -1104,16 +1102,6 @@ public class GTUtility {
         if (aWorld.getBlock(aX, aY, aZ - 1)
             .getCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ - 1) == null)
             aWorld.setBlock(aX, aY, aZ - 1, Blocks.fire);
-    }
-
-    public static ItemStack getProjectile(SubTag aProjectileType, IInventory aInventory) {
-        if (aInventory != null) for (int i = 0, j = aInventory.getSizeInventory(); i < j; i++) {
-            ItemStack rStack = aInventory.getStackInSlot(i);
-            if (isStackValid(rStack) && rStack.getItem() instanceof IProjectileItem
-                && ((IProjectileItem) rStack.getItem()).hasProjectile(aProjectileType, rStack))
-                return updateItemStack(rStack);
-        }
-        return null;
     }
 
     public static void removeNullStacksFromInventory(IInventory aInventory) {

@@ -138,7 +138,7 @@ public class Localized {
         if (player instanceof EntityPlayerMP playerMP) {
             GTValues.NW.sendToPlayer(new GTPacketChat(this), playerMP);
         } else {
-            GTUtility.sendChatToPlayer(player, this.toString());
+            GTUtility.sendChatTrans(player, this.toString());
         }
     }
 
