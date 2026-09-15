@@ -132,11 +132,6 @@ public enum Dyes implements IColorModulationContainer {
         return 0 <= index && index <= 15;
     }
 
-    public static int transformDyeIndex(int index) {
-        if (isDyeIndex(index)) return 15 - index;
-        throw new IllegalArgumentException("Index passed to `transformDyeIndex` must be between 0 and 15");
-    }
-
     @Override
     @Deprecated
     public short @NotNull [] getRGBA() {
