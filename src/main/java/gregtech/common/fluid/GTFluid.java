@@ -15,7 +15,6 @@ import net.minecraftforge.fluids.FluidStack;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.FluidState;
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluid;
 import gregtech.api.interfaces.fluid.IGTRegisteredFluid;
@@ -189,7 +188,6 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
         if (defaultLocalName.contains(oreprefixNameRemovedFormat)) {
             if (String.format(oreprefixName, material.getDefaultLocalName())
                 .equals(defaultLocalName)) {
-                localizedName = () -> OrePrefixes.getLocalizedNameForItem(oreprefixName, "%s", material);
                 return true;
             }
         }

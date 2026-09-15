@@ -8,7 +8,6 @@ import net.minecraft.util.StatCollector;
 import org.jetbrains.annotations.Nullable;
 
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
 
 /**
@@ -45,7 +44,5 @@ public interface IOreMaterial extends ISubTagContainer {
 
     @Nullable
     Materials_OLD getGTMaterial();
-
-    boolean generatesPrefix(OrePrefixes prefix);
 
 }

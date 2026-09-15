@@ -28,7 +28,6 @@ import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
@@ -218,42 +217,6 @@ public class GTPreLoad {
         // noinspection ForLoopReplaceableByForEach
         for (int i = 0, size = mMTTags.size(); i < size; i++) {
             final String reEnable = mMTTags.get(i);
-            OrePrefixes tPrefix = OrePrefixes.getOrePrefix(reEnable);
-            if (tPrefix != null) {
-                Materials_OLD tName = Materials_OLD.get(reEnable.replaceFirst(tPrefix.toString(), ""));
-                tPrefix.mDisabledItems.remove(tName);
-                tPrefix.mGeneratedItems.add(tName);
-                if (tPrefix == OrePrefixes.screw) {
-                    OrePrefixes.bolt.mDisabledItems.remove(tName);
-                    OrePrefixes.bolt.mGeneratedItems.add(tName);
-                    OrePrefixes.stick.mDisabledItems.remove(tName);
-                    OrePrefixes.stick.mGeneratedItems.add(tName);
-                }
-                if (tPrefix == OrePrefixes.round) {
-                    OrePrefixes.nugget.mDisabledItems.remove(tName);
-                    OrePrefixes.nugget.mGeneratedItems.add(tName);
-                }
-                if (tPrefix == OrePrefixes.spring) {
-                    OrePrefixes.stickLong.mDisabledItems.remove(tName);
-                    OrePrefixes.stickLong.mGeneratedItems.add(tName);
-                    OrePrefixes.stick.mDisabledItems.remove(tName);
-                    OrePrefixes.stick.mGeneratedItems.add(tName);
-                }
-                if (tPrefix == OrePrefixes.springSmall) {
-                    OrePrefixes.stick.mDisabledItems.remove(tName);
-                    OrePrefixes.stick.mGeneratedItems.add(tName);
-                }
-                if (tPrefix == OrePrefixes.stickLong) {
-                    OrePrefixes.stick.mDisabledItems.remove(tName);
-                    OrePrefixes.stick.mGeneratedItems.add(tName);
-                }
-                if (tPrefix == OrePrefixes.rotor) {
-                    OrePrefixes.ring.mDisabledItems.remove(tName);
-                    OrePrefixes.ring.mGeneratedItems.add(tName);
-                }
-            } else {
-                GT_FML_LOGGER.info("noPrefix {}", reEnable);
-            }
         }
     }
 

@@ -82,7 +82,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IProjectileItem;
@@ -321,11 +320,6 @@ public class GTProxy implements IFuelHandler {
         ItemList.Dye_Bonemeal.set(new ItemStack(Items.dye, 1, 15));
         ItemList.Dye_SquidInk.set(new ItemStack(Items.dye, 1, 0));
         ItemList.Dye_Cocoa.set(new ItemStack(Items.dye, 1, 3));
-
-        OrePrefixes.bucket.mContainerItem = new ItemStack(Items.bucket, 1);
-        OrePrefixes.cellPlasma.mContainerItem = ItemList.Cell_Empty.get(1L);
-        OrePrefixes.cellMolten.mContainerItem = ItemList.Cell_Empty.get(1L);
-        OrePrefixes.cell.mContainerItem = ItemList.Cell_Empty.get(1L);
 
         // Register chunk manager with Forge
         GTChunkManager.init();

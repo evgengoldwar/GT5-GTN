@@ -1,9 +1,5 @@
 package gregtech.loaders.postload;
 
-import static gregtech.api.enums.OrePrefixes.___placeholder___;
-
-import java.util.Arrays;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,7 +11,6 @@ import com.gtnewhorizons.postea.api.TileEntityReplacementManager;
 import com.gtnewhorizons.postea.utility.BlockInfo;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.OrePrefixes;
 
 public class PosteaTransformers implements Runnable {
 
@@ -59,14 +54,7 @@ public class PosteaTransformers implements Runnable {
         removeWerkstoffTileEntities();
     }
 
-    private static void removeWerkstoffMetaGeneratedItems() {
-        String placeholderName = ___placeholder___.getName();
-        Arrays.stream(OrePrefixes.VALUES)
-            .map(OrePrefixes::getName)
-            .filter(prefix -> !placeholderName.equals(prefix))
-            .map(prefix -> String.format("bartworks:gt.bwMetaGenerated%s", prefix))
-            .forEach(PosteaTransformers::removeWerkstoffItems);
-    }
+    private static void removeWerkstoffMetaGeneratedItems() {}
 
     private static void removeWerkstoffItems(String originalId) {
         for (int removedWerkstoff : WERKSTOFFS_REMOVED_IN_2_9) {

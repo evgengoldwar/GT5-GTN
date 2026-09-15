@@ -1560,37 +1560,7 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
         fillGeneratedMaterialsMap();
     }
 
-    private static void disableUnusedHotIngots() {
-        OrePrefixes.ingotHot.mDisabledItems.addAll(
-            Arrays.stream(Materials_OLD.values())
-                .parallel()
-                .filter(OrePrefixes.ingotHot::doGenerateItem)
-                .filter(m -> m.mBlastFurnaceTemp < 1750 && m.mAutoGenerateBlastFurnaceRecipes)
-                .collect(Collectors.toSet()));
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.Reinforced);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.ConductiveIron);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.FierySteel);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.ElectricalSteel);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.EndSteel);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.Soularium);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.EnergeticSilver);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.Cheese);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.Calcium);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.Flerovium);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.Cobalt);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.RedstoneAlloy);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.Ardite);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.DarkSteel);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.BlackSteel);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.EnergeticAlloy);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.PulsatingIron);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.ClayCompound);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.Netherite);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.HotProtoHalkonite);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.ProtoHalkonite);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.HotExoHalkonite);
-        OrePrefixes.ingotHot.disableComponent(Materials_OLD.ExoHalkonite);
-    }
+    private static void disableUnusedHotIngots() {}
 
     /**
      * Init rendering properties. Will be called at pre init by GT client proxy.
@@ -2071,11 +2041,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
 
     public static boolean isMaterialItem(@NotNull ItemStack stack) {
         return isMaterialItem(stack.getItemDamage());
-    }
-
-    @Override
-    public boolean generatesPrefix(OrePrefixes prefix) {
-        return prefix.doGenerateItem(this);
     }
 
     public boolean hasDustItems() {

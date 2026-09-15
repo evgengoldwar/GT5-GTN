@@ -20,7 +20,6 @@ import com.gtnewhorizon.gtnhlib.util.ItemUtil;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Materials_OLD;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
@@ -134,8 +133,7 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
         // mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
         // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
         // }
-        return new ITexture[] { TextureFactory
-            .of(mMaterial.mIconSet.mTextures[OrePrefixes.pipe.getTextureIndex()], new short[] { 123, 123, 123, 0 }) };
+        return new ITexture[] { TextureFactory.of(mMaterial.mIconSet.mTextures[2], new short[] { 123, 123, 123, 0 }) };
     }
 
     @Override

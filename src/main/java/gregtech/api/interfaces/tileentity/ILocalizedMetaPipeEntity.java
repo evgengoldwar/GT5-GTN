@@ -2,7 +2,6 @@ package gregtech.api.interfaces.tileentity;
 
 import java.util.List;
 
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IOreMaterial;
 
 /**
@@ -42,10 +41,6 @@ public interface ILocalizedMetaPipeEntity {
         final IOreMaterial material = getMaterial();
         if (prefixKey != null && material != null) {
             final String materialKeyOverride = getMaterialKeyOverride();
-            if (materialKeyOverride == null) {
-                return OrePrefixes.getLocalizedNameForItemWithInflection(prefixKey, material);
-            }
-            return OrePrefixes.getLocalizedNameForItemWithInflection(prefixKey, materialKeyOverride);
         }
         return "Unnamed with ILocalizedMetaPipeEntity";
     }

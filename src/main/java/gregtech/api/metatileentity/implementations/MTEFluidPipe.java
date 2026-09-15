@@ -41,7 +41,6 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.ParticleFX;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TextureSet;
@@ -166,25 +165,7 @@ public class MTEFluidPipe extends PipeMTE {
 
     protected static ITexture getBaseTexture(float aThickNess, int aPipeAmount, TextureSet textureSet, short[] rgba,
         boolean connected, int colorIndex) {
-        IIconContainer texture = textureSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()];
-
-        if (!connected) {
-            texture = textureSet.mTextures[OrePrefixes.pipe.getTextureIndex()];
-        } else if (aPipeAmount >= 9) {
-            texture = textureSet.mTextures[OrePrefixes.pipeNonuple.getTextureIndex()];
-        } else if (aPipeAmount >= 4) {
-            texture = textureSet.mTextures[OrePrefixes.pipeQuadruple.getTextureIndex()];
-        } else if (aThickNess < 0.124F) {
-            texture = textureSet.mTextures[OrePrefixes.pipe.getTextureIndex()];
-        } else if (aThickNess < 0.374F) {
-            texture = textureSet.mTextures[OrePrefixes.pipeTiny.getTextureIndex()];
-        } else if (aThickNess < 0.499F) {
-            texture = textureSet.mTextures[OrePrefixes.pipeSmall.getTextureIndex()];
-        } else if (aThickNess < 0.749F) {
-            texture = textureSet.mTextures[OrePrefixes.pipeMedium.getTextureIndex()];
-        } else if (aThickNess < 0.874F) {
-            texture = textureSet.mTextures[OrePrefixes.pipeLarge.getTextureIndex()];
-        }
+        IIconContainer texture = textureSet.mTextures[1];
 
         rgba = Dyes.getModulation(colorIndex, rgba);
 
