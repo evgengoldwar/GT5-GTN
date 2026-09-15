@@ -2,7 +2,6 @@ package gregtech.api.enums;
 
 import static gregtech.api.enums.FluidState.GAS;
 import static gregtech.api.enums.GTValues.M;
-import static gregtech.api.enums.Mods.Thaumcraft;
 import static gregtech.api.util.GTUtility.formatStringSafe;
 
 import java.util.ArrayList;
@@ -1206,7 +1205,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
     public String mCustomID = "null";
     public String mConfigSection = "null";
     public Dyes mColor = Dyes._NULL;
-    public Element mElement = null;
     public Materials_OLD mOreReplacement = this;
     private Supplier<Materials_OLD> mPendingSmeltingInto;
     public Materials_OLD mSmeltInto = this;
@@ -1240,7 +1238,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
         // spotless:off
         String name,
         String defaultLocalName,
-        @Nullable Element element,
         @Nullable String chemicalFormula,
         boolean unifiable,
         TextureSet iconSet,
@@ -1290,17 +1287,9 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
         mDefaultLocalName = defaultLocalName;
         MATERIALS_MAP.put(mName, this);
 
-        // Set element
-        if (element != null) {
-            mElement = element;
-            mElement.mLinkedMaterials.add(this);
-        }
-
         // Set Chemical formula
         if (chemicalFormula != null) {
             mChemicalFormula = chemicalFormula;
-        } else if (element != null) {
-            mChemicalFormula = element.toString();
         } else if (materialList.size() == 1) {
             mChemicalFormula = materialList.get(0)
                 .toString(true);
@@ -1605,15 +1594,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
     }
 
     private static void addToolValues(Materials_OLD aMaterial) {
-        // Moved from GTProxy? (Not sure)
-        aMaterial.mHandleMaterial = (aMaterial == Desh ? aMaterial.mHandleMaterial
-            : aMaterial == Diamond || aMaterial == Thaumium ? Wood
-                : aMaterial.contains(SubTag.BURNING) ? Blaze
-                    : aMaterial.contains(SubTag.MAGICAL) && aMaterial.contains(SubTag.CRYSTAL)
-                        && Thaumcraft.isModLoaded() ? Thaumium
-                            : aMaterial.getMass() > Element.Tc.getMass() * 2 ? TungstenSteel
-                                : aMaterial.getMass() > Element.Tc.getMass() ? Steel : Wood);
-
         if (aMaterial == Materials_OLD.SpaceTime) {
             aMaterial.mHandleMaterial = Materials_OLD.Infinity;
         }
@@ -1747,39 +1727,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
         return mName;
     }
 
-    public long getProtons() {
-        if (mElement != null) return mElement.getProtons();
-        if (mMaterialList.isEmpty()) return Element.Tc.getProtons();
-        long rAmount = 0, tAmount = 0;
-        for (MaterialStack tMaterial : mMaterialList) {
-            tAmount += tMaterial.mAmount;
-            rAmount += tMaterial.mAmount * tMaterial.mMaterial.getProtons();
-        }
-        return (getDensity() * rAmount) / (tAmount * M);
-    }
-
-    public long getNeutrons() {
-        if (mElement != null) return mElement.getNeutrons();
-        if (mMaterialList.isEmpty()) return Element.Tc.getNeutrons();
-        long rAmount = 0, tAmount = 0;
-        for (MaterialStack tMaterial : mMaterialList) {
-            tAmount += tMaterial.mAmount;
-            rAmount += tMaterial.mAmount * tMaterial.mMaterial.getNeutrons();
-        }
-        return (getDensity() * rAmount) / (tAmount * M);
-    }
-
-    public long getMass() {
-        if (mElement != null) return mElement.getMass();
-        if (mMaterialList.isEmpty()) return Element.Tc.getMass();
-        long rAmount = 0, tAmount = 0;
-        for (MaterialStack tMaterial : mMaterialList) {
-            tAmount += tMaterial.mAmount;
-            rAmount += tMaterial.mAmount * tMaterial.mMaterial.getMass();
-        }
-        return (getDensity() * rAmount) / (tAmount * M);
-    }
-
     public long getDensity() {
         return mDensity;
     }
@@ -1822,11 +1769,7 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
     public String getChemicalTooltip(long aMultiplier, boolean aShowQuestionMarks) {
         final String aChemicalFormula = getChemicalFormula();
         if (!aShowQuestionMarks && aChemicalFormula.equals("?")) return "";
-        if (aMultiplier >= M * 2 && !mMaterialList.isEmpty()) {
-            return ((mElement != null || (mMaterialList.size() < 2 && mMaterialList.get(0).mAmount == 1))
-                ? aChemicalFormula
-                : "(" + aChemicalFormula + ")") + aMultiplier;
-        }
+        if (aMultiplier >= M * 2 && !mMaterialList.isEmpty()) {}
         return aChemicalFormula;
     }
 

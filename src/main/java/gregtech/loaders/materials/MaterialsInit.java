@@ -4,7 +4,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.EnumChatFormatting;
 
 import gregtech.api.enums.Dyes;
-import gregtech.api.enums.Element;
 import gregtech.api.enums.MaterialBuilder;
 import gregtech.api.enums.MaterialIconRegistry;
 import gregtech.api.enums.Materials_OLD;
@@ -155,7 +154,7 @@ public class MaterialsInit {
     private static Materials_OLD loadAluminium() {
         return new MaterialBuilder().setName("Aluminium")
             .setDefaultLocalName("Aluminium")
-            .setElement(Element.Al)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeLightBlue)
             .setARGB(0x0080c8f0)
@@ -179,7 +178,7 @@ public class MaterialsInit {
     private static Materials_OLD loadAmericium() {
         return new MaterialBuilder().setName("Americium")
             .setDefaultLocalName("Americium")
-            .setElement(Element.Am)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00c8c8c8)
@@ -197,7 +196,7 @@ public class MaterialsInit {
     private static Materials_OLD loadAntimony() {
         return new MaterialBuilder().setName("Antimony")
             .setDefaultLocalName("Antimony")
-            .setElement(Element.Sb)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00dcdcf0)
@@ -218,7 +217,7 @@ public class MaterialsInit {
     private static Materials_OLD loadArgon() {
         return new MaterialBuilder().setName("Argon")
             .setDefaultLocalName("Argon")
-            .setElement(Element.Ar)
+
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeGreen)
             .setARGB(0xf000ff00)
@@ -232,7 +231,7 @@ public class MaterialsInit {
     private static Materials_OLD loadArsenic() {
         return new MaterialBuilder().setName("Arsenic")
             .setDefaultLocalName("Arsenic")
-            .setElement(Element.As)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeOrange)
             .setMiningLevel(2)
@@ -249,7 +248,7 @@ public class MaterialsInit {
     private static Materials_OLD loadBarium() {
         return new MaterialBuilder().setName("Barium")
             .setDefaultLocalName("Barium")
-            .setElement(Element.Ba)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setMiningLevel(2)
             .addDustItems()
@@ -263,7 +262,7 @@ public class MaterialsInit {
     private static Materials_OLD loadBeryllium() {
         return new MaterialBuilder().setName("Beryllium")
             .setDefaultLocalName("Beryllium")
-            .setElement(Element.Be)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeGreen)
             .setARGB(0x0064b464)
@@ -283,7 +282,7 @@ public class MaterialsInit {
     private static Materials_OLD loadBismuth() {
         return new MaterialBuilder().setName("Bismuth")
             .setDefaultLocalName("Bismuth")
-            .setElement(Element.Bi)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeCyan)
             .setARGB(0x0064a0a0)
@@ -303,7 +302,7 @@ public class MaterialsInit {
     private static Materials_OLD loadBoron() {
         return new MaterialBuilder().setName("Boron")
             .setDefaultLocalName("Boron")
-            .setElement(Element.B)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00d2fad2)
@@ -317,7 +316,7 @@ public class MaterialsInit {
     private static Materials_OLD loadCaesium() {
         return new MaterialBuilder().setName("Caesium")
             .setDefaultLocalName("Caesium")
-            .setElement(Element.Cs)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x00b0c4de)
             .setMiningLevel(2)
@@ -334,7 +333,7 @@ public class MaterialsInit {
     private static Materials_OLD loadCalcium() {
         return new MaterialBuilder().setName("Calcium")
             .setDefaultLocalName("Calcium")
-            .setElement(Element.Ca)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyePink)
             .setARGB(0x00fff5f5)
@@ -349,7 +348,7 @@ public class MaterialsInit {
     private static Materials_OLD loadCarbon() {
         return new MaterialBuilder().setName("Carbon")
             .setDefaultLocalName("Carbon")
-            .setElement(Element.C)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeBlack)
             .setARGB(0x00141414)
@@ -370,7 +369,7 @@ public class MaterialsInit {
     private static Materials_OLD loadCadmium() {
         return new MaterialBuilder().setName("Cadmium")
             .setDefaultLocalName("Cadmium")
-            .setElement(Element.Cd)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeGray)
             .setARGB(0x0032323c)
@@ -385,7 +384,7 @@ public class MaterialsInit {
     private static Materials_OLD loadCerium() {
         return new MaterialBuilder().setName("Cerium")
             .setDefaultLocalName("Cerium")
-            .setElement(Element.Ce)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x007bd490)
             .setMiningLevel(2)
@@ -403,7 +402,7 @@ public class MaterialsInit {
     private static Materials_OLD loadChlorine() {
         return new MaterialBuilder().setName("Chlorine")
             .setDefaultLocalName("Chlorine")
-            .setElement(Element.Cl)
+
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeCyan)
             .addCell()
@@ -415,7 +414,7 @@ public class MaterialsInit {
     private static Materials_OLD loadChrome() {
         return new MaterialBuilder().setName("Chrome")
             .setDefaultLocalName("Chrome")
-            .setElement(Element.Cr)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyePink)
             .setARGB(0x00ffe6e6)
@@ -439,7 +438,7 @@ public class MaterialsInit {
     private static Materials_OLD loadCobalt() {
         return new MaterialBuilder().setName("Cobalt")
             .setDefaultLocalName("Cobalt")
-            .setElement(Element.Co)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x005050fa)
@@ -464,7 +463,7 @@ public class MaterialsInit {
     private static Materials_OLD loadCopper() {
         return new MaterialBuilder().setName("Copper")
             .setDefaultLocalName("Copper")
-            .setElement(Element.Cu)
+
             .setIconSet(
                 TextureSet.SET_DULL.withCustomTextures(
                     "copper",
@@ -495,7 +494,7 @@ public class MaterialsInit {
     private static Materials_OLD loadDesh() {
         return new MaterialBuilder().setName("Desh")
             .setDefaultLocalName("Desh")
-            .setElement(Element.De)
+
             .setChemicalFormula("De")
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeBlack)
@@ -520,7 +519,7 @@ public class MaterialsInit {
     private static Materials_OLD loadDysprosium() {
         return new MaterialBuilder().setName("Dysprosium")
             .setDefaultLocalName("Dysprosium")
-            .setElement(Element.Dy)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x0069d150)
             .setMiningLevel(2)
@@ -538,7 +537,7 @@ public class MaterialsInit {
     private static Materials_OLD loadEmpty() {
         return new MaterialBuilder().setName("Empty")
             .setDefaultLocalName("Empty")
-            .setElement(Element._NULL)
+
             .setARGB(0xffffffff)
             .addEmpty()
             .addSubTag(SubTag.TRANSPARENT)
@@ -549,7 +548,7 @@ public class MaterialsInit {
     private static Materials_OLD loadErbium() {
         return new MaterialBuilder().setName("Erbium")
             .setDefaultLocalName("Erbium")
-            .setElement(Element.Er)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x00b09851)
             .setMiningLevel(2)
@@ -567,7 +566,7 @@ public class MaterialsInit {
     private static Materials_OLD loadEuropium() {
         return new MaterialBuilder().setName("Europium")
             .setDefaultLocalName("Europium")
-            .setElement(Element.Eu)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x00f6b5ff)
             .setMiningLevel(2)
@@ -586,7 +585,7 @@ public class MaterialsInit {
     private static Materials_OLD loadFlerovium() {
         return new MaterialBuilder().setName("Flerovium_GT5U")
             .setDefaultLocalName("Flerovium")
-            .setElement(Element.Fl)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x00f1edfa)
             .setColor(Dyes.dyeWhite)
@@ -604,7 +603,7 @@ public class MaterialsInit {
     private static Materials_OLD loadFluorine() {
         return new MaterialBuilder().setName("Fluorine")
             .setDefaultLocalName("Fluorine")
-            .setElement(Element.F)
+
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeGreen)
             .setARGB(0x7fffffff)
@@ -618,7 +617,7 @@ public class MaterialsInit {
     private static Materials_OLD loadFrancium() {
         return new MaterialBuilder().setName("Francium_GT5U")
             .setDefaultLocalName("Francium")
-            .setElement(Element.Fr)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeRed)
             .setARGB(0x00ff3900)
@@ -631,7 +630,7 @@ public class MaterialsInit {
     private static Materials_OLD loadGadolinium() {
         return new MaterialBuilder().setName("Gadolinium")
             .setDefaultLocalName("Gadolinium")
-            .setElement(Element.Gd)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x003bba1c)
             .setMiningLevel(2)
@@ -649,7 +648,7 @@ public class MaterialsInit {
     private static Materials_OLD loadGallium() {
         return new MaterialBuilder().setName("Gallium")
             .setDefaultLocalName("Gallium")
-            .setElement(Element.Ga)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00dcdcff)
@@ -667,7 +666,7 @@ public class MaterialsInit {
     private static Materials_OLD loadGold() {
         return new MaterialBuilder().setName("Gold")
             .setDefaultLocalName("Gold")
-            .setElement(Element.Au)
+
             .setIconSet(
                 TextureSet.SET_SHINY.withCustomTextures(
                     "gold",
@@ -701,7 +700,7 @@ public class MaterialsInit {
     private static Materials_OLD loadHolmium() {
         return new MaterialBuilder().setName("Holmium")
             .setDefaultLocalName("Holmium")
-            .setElement(Element.Ho)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x001608a6)
             .setMiningLevel(2)
@@ -719,7 +718,7 @@ public class MaterialsInit {
     private static Materials_OLD loadHydrogen() {
         return new MaterialBuilder().setName("Hydrogen")
             .setDefaultLocalName("Hydrogen")
-            .setElement(Element.H)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeBlue)
             .setARGB(0xf00000ff)
@@ -739,7 +738,7 @@ public class MaterialsInit {
     private static Materials_OLD loadHelium() {
         return new MaterialBuilder().setName("Helium")
             .setDefaultLocalName("Helium")
-            .setElement(Element.He)
+
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeYellow)
             .setARGB(0xf0ffff00)
@@ -754,7 +753,7 @@ public class MaterialsInit {
     private static Materials_OLD loadIndium() {
         return new MaterialBuilder().setName("Indium")
             .setDefaultLocalName("Indium")
-            .setElement(Element.In)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeGray)
             .setARGB(0x00400080)
@@ -771,7 +770,7 @@ public class MaterialsInit {
     private static Materials_OLD loadIridium() {
         return new MaterialBuilder().setName("Iridium")
             .setDefaultLocalName("Iridium")
-            .setElement(Element.Ir)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00f0f0f5)
@@ -796,7 +795,7 @@ public class MaterialsInit {
     private static Materials_OLD loadIron() {
         return new MaterialBuilder().setName("Iron")
             .setDefaultLocalName("Iron")
-            .setElement(Element.Fe)
+
             .setIconSet(
                 TextureSet.SET_METALLIC.withCustomTextures(
                     "iron",
@@ -829,7 +828,7 @@ public class MaterialsInit {
     private static Materials_OLD loadLanthanum() {
         return new MaterialBuilder().setName("Lanthanum")
             .setDefaultLocalName("Lanthanum")
-            .setElement(Element.La)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x008a8a8a)
             .setMiningLevel(2)
@@ -847,7 +846,7 @@ public class MaterialsInit {
     private static Materials_OLD loadLead() {
         return new MaterialBuilder().setName("Lead")
             .setDefaultLocalName("Lead")
-            .setElement(Element.Pb)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyePurple)
             .setARGB(0x008c648c)
@@ -873,7 +872,7 @@ public class MaterialsInit {
     private static Materials_OLD loadLithium() {
         return new MaterialBuilder().setName("Lithium")
             .setDefaultLocalName("Lithium")
-            .setElement(Element.Li)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeLightBlue)
             .setARGB(0x00e1dcff)
@@ -891,7 +890,7 @@ public class MaterialsInit {
     private static Materials_OLD loadLutetium() {
         return new MaterialBuilder().setName("Lutetium")
             .setDefaultLocalName("Lutetium")
-            .setElement(Element.Lu)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x00bc3ec7)
             .setMiningLevel(2)
@@ -909,7 +908,7 @@ public class MaterialsInit {
     private static Materials_OLD loadMagic() {
         return new MaterialBuilder().setName("Magic")
             .setDefaultLocalName("Magic")
-            .setElement(Element.Ma)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyePurple)
             .setARGB(0x006400c8)
@@ -933,7 +932,7 @@ public class MaterialsInit {
     private static Materials_OLD loadMagnesium() {
         return new MaterialBuilder().setName("Magnesium")
             .setDefaultLocalName("Magnesium")
-            .setElement(Element.Mg)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyePink)
             .setARGB(0x00ffc8c8)
@@ -953,7 +952,7 @@ public class MaterialsInit {
     private static Materials_OLD loadManganese() {
         return new MaterialBuilder().setName("Manganese")
             .setDefaultLocalName("Manganese")
-            .setElement(Element.Mn)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00fafafa)
@@ -975,7 +974,7 @@ public class MaterialsInit {
     private static Materials_OLD loadMercury() {
         return new MaterialBuilder().setName("Mercury")
             .setDefaultLocalName("Mercury")
-            .setElement(Element.Hg)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00ffdcdc)
@@ -991,7 +990,7 @@ public class MaterialsInit {
     private static Materials_OLD loadMeteoricIron() {
         return new MaterialBuilder().setName("MeteoricIron")
             .setDefaultLocalName("Meteoric Iron")
-            .setElement(Element.SpFe)
+
             .setChemicalFormula("SpFe")
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeGray)
@@ -1019,7 +1018,7 @@ public class MaterialsInit {
     private static Materials_OLD loadMolybdenum() {
         return new MaterialBuilder().setName("Molybdenum")
             .setDefaultLocalName("Molybdenum")
-            .setElement(Element.Mo)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x00b4b4dc)
@@ -1038,7 +1037,7 @@ public class MaterialsInit {
     private static Materials_OLD loadNaquadah() {
         return new MaterialBuilder().setName("Naquadah")
             .setDefaultLocalName("Naquadah")
-            .setElement(Element.Nq)
+
             .setChemicalFormula("Nq")
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeBlack)
@@ -1064,7 +1063,7 @@ public class MaterialsInit {
     private static Materials_OLD loadNeodymium() {
         return new MaterialBuilder().setName("Neodymium")
             .setDefaultLocalName("Neodymium")
-            .setElement(Element.Nd)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x00646464)
             .setTool(512, 2, 7.0f)
@@ -1087,7 +1086,7 @@ public class MaterialsInit {
     private static Materials_OLD loadNeutronium() {
         return new MaterialBuilder().setName("Neutronium")
             .setDefaultLocalName("Neutronium")
-            .setElement(Element.Nt)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00fafafa)
@@ -1114,7 +1113,7 @@ public class MaterialsInit {
     private static Materials_OLD loadNickel() {
         return new MaterialBuilder().setName("Nickel")
             .setDefaultLocalName("Nickel")
-            .setElement(Element.Ni)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeLightBlue)
             .setARGB(0x00c8c8fa)
@@ -1141,7 +1140,7 @@ public class MaterialsInit {
     private static Materials_OLD loadNiobium() {
         return new MaterialBuilder().setName("Niobium")
             .setDefaultLocalName("Niobium")
-            .setElement(Element.Nb)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x00beb4c8)
             .setMiningLevel(2)
@@ -1159,7 +1158,7 @@ public class MaterialsInit {
     private static Materials_OLD loadNitrogen() {
         return new MaterialBuilder().setName("Nitrogen")
             .setDefaultLocalName("Nitrogen")
-            .setElement(Element.N)
+
             .setIconSet(TextureSet.SET_GEM_HORIZONTAL)
             .setColor(Dyes.dyeCyan)
             .setARGB(0xf00096c8)
@@ -1178,14 +1177,14 @@ public class MaterialsInit {
     private static Materials_OLD loadNULL() {
         return new MaterialBuilder().setName("NULL")
             .setDefaultLocalName("NULL")
-            .setElement(Element._NULL)
+
             .constructMaterial();
     }
 
     private static Materials_OLD loadOriharukon() {
         return new MaterialBuilder().setName("Oriharukon")
             .setDefaultLocalName("Oriharukon")
-            .setElement(Element.Oh)
+
             .setChemicalFormula("Oh")
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeLime)
@@ -1209,7 +1208,7 @@ public class MaterialsInit {
     private static Materials_OLD loadOsmium() {
         return new MaterialBuilder().setName("Osmium")
             .setDefaultLocalName("Osmium")
-            .setElement(Element.Os)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x003232ff)
@@ -1234,7 +1233,7 @@ public class MaterialsInit {
     private static Materials_OLD loadOxygen() {
         return new MaterialBuilder().setName("Oxygen")
             .setDefaultLocalName("Oxygen")
-            .setElement(Element.O)
+
             .setIconSet(TextureSet.SET_GEM_VERTICAL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0xf00064c8)
@@ -1253,7 +1252,7 @@ public class MaterialsInit {
     private static Materials_OLD loadPalladium() {
         return new MaterialBuilder().setName("Palladium")
             .setDefaultLocalName("Palladium")
-            .setElement(Element.Pd)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeGray)
             .setARGB(0xB1B1B1)
@@ -1275,7 +1274,7 @@ public class MaterialsInit {
     private static Materials_OLD loadPhosphorus() {
         return new MaterialBuilder().setName("Phosphorus")
             .setDefaultLocalName("Phosphorus")
-            .setElement(Element.P)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeYellow)
             .setARGB(0x00ffff00)
@@ -1289,7 +1288,7 @@ public class MaterialsInit {
     private static Materials_OLD loadPlatinum() {
         return new MaterialBuilder().setName("Platinum")
             .setDefaultLocalName("Platinum")
-            .setElement(Element.Pt)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeOrange)
             .setARGB(0x00ffffc8)
@@ -1312,7 +1311,7 @@ public class MaterialsInit {
     private static Materials_OLD loadPlutonium() {
         return new MaterialBuilder().setName("Plutonium")
             .setDefaultLocalName("Plutonium 239")
-            .setElement(Element.Pu)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeLime)
             .setARGB(0x00f03232)
@@ -1333,7 +1332,7 @@ public class MaterialsInit {
     private static Materials_OLD loadPotassium() {
         return new MaterialBuilder().setName("Potassium")
             .setDefaultLocalName("Potassium")
-            .setElement(Element.K)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x009aacdf)
@@ -1347,7 +1346,7 @@ public class MaterialsInit {
     private static Materials_OLD loadPraseodymium() {
         return new MaterialBuilder().setName("Praseodymium")
             .setDefaultLocalName("Praseodymium")
-            .setElement(Element.Pr)
+
             .setIconSet(TextureSet.SET_DULL)
             .setARGB(0x0075d681)
             .setMiningLevel(2)
@@ -1365,7 +1364,7 @@ public class MaterialsInit {
     private static Materials_OLD loadPromethium() {
         return new MaterialBuilder().setName("Promethium")
             .setDefaultLocalName("Promethium")
-            .setElement(Element.Pm)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x0024b535)
             .setMiningLevel(2)
@@ -1383,7 +1382,7 @@ public class MaterialsInit {
     private static Materials_OLD loadRadon() {
         return new MaterialBuilder().setName("Radon")
             .setDefaultLocalName("Radon")
-            .setElement(Element.Rn)
+
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyePurple)
             .setARGB(0xf0ff00ff)
@@ -1397,7 +1396,7 @@ public class MaterialsInit {
     private static Materials_OLD loadRubidium() {
         return new MaterialBuilder().setName("Rubidium")
             .setDefaultLocalName("Rubidium")
-            .setElement(Element.Rb)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeRed)
             .setARGB(0x00f01e1e)
@@ -1415,7 +1414,7 @@ public class MaterialsInit {
     private static Materials_OLD loadSamarium() {
         return new MaterialBuilder().setName("Samarium")
             .setDefaultLocalName("Samarium")
-            .setElement(Element.Sm)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00ffffcc)
@@ -1434,7 +1433,7 @@ public class MaterialsInit {
     private static Materials_OLD loadScandium() {
         return new MaterialBuilder().setName("Scandium")
             .setDefaultLocalName("Scandium")
-            .setElement(Element.Sc)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeYellow)
             .setARGB(0x00cccccc)
@@ -1453,7 +1452,7 @@ public class MaterialsInit {
     private static Materials_OLD loadSilicon() {
         return new MaterialBuilder().setName("Silicon")
             .setDefaultLocalName("Raw Silicon")
-            .setElement(Element.Si)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeBlack)
             .setARGB(0x003c3c50)
@@ -1472,7 +1471,7 @@ public class MaterialsInit {
     private static Materials_OLD loadSilver() {
         return new MaterialBuilder().setName("Silver")
             .setDefaultLocalName("Silver")
-            .setElement(Element.Ag)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00dcdcff)
@@ -1497,7 +1496,7 @@ public class MaterialsInit {
     private static Materials_OLD loadSodium() {
         return new MaterialBuilder().setName("Sodium")
             .setDefaultLocalName("Sodium")
-            .setElement(Element.Na)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeBlue)
             .setARGB(0x00000096)
@@ -1511,7 +1510,7 @@ public class MaterialsInit {
     private static Materials_OLD loadStrontium() {
         return new MaterialBuilder().setName("Strontium")
             .setDefaultLocalName("Strontium")
-            .setElement(Element.Sr)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeLightGray)
             .setARGB(0x00c8c8c8)
@@ -1529,7 +1528,7 @@ public class MaterialsInit {
     private static Materials_OLD loadSulfur() {
         return new MaterialBuilder().setName("Sulfur")
             .setDefaultLocalName("Sulfur")
-            .setElement(Element.S)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeYellow)
             .setARGB(0x00c8c800)
@@ -1548,7 +1547,7 @@ public class MaterialsInit {
     private static Materials_OLD loadTantalum() {
         return new MaterialBuilder().setName("Tantalum")
             .setDefaultLocalName("Tantalum")
-            .setElement(Element.Ta)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x0069b7ff)
             .setTool(2_560, 3, 6.0f)
@@ -1569,7 +1568,7 @@ public class MaterialsInit {
     private static Materials_OLD loadTellurium() {
         return new MaterialBuilder().setName("Tellurium")
             .setDefaultLocalName("Tellurium")
-            .setElement(Element.Te)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeGray)
             .setARGB(0x00ceff56)
@@ -1586,7 +1585,7 @@ public class MaterialsInit {
     private static Materials_OLD loadTerbium() {
         return new MaterialBuilder().setName("Terbium")
             .setDefaultLocalName("Terbium")
-            .setElement(Element.Tb)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setMiningLevel(2)
             .addDustItems()
@@ -1603,7 +1602,7 @@ public class MaterialsInit {
     private static Materials_OLD loadThorium() {
         return new MaterialBuilder().setName("Thorium")
             .setDefaultLocalName("Thorium")
-            .setElement(Element.Th)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeBlack)
             .setARGB(0x00001e00)
@@ -1623,7 +1622,7 @@ public class MaterialsInit {
     private static Materials_OLD loadThulium() {
         return new MaterialBuilder().setName("Thulium")
             .setDefaultLocalName("Thulium")
-            .setElement(Element.Tm)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x00596bc2)
             .setMiningLevel(2)
@@ -1641,7 +1640,7 @@ public class MaterialsInit {
     private static Materials_OLD loadTin() {
         return new MaterialBuilder().setName("Tin")
             .setDefaultLocalName("Tin")
-            .setElement(Element.Sn)
+
             .setIconSet(TextureSet.SET_DULL)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00dcdcdc)
@@ -1666,7 +1665,7 @@ public class MaterialsInit {
     private static Materials_OLD loadTitanium() {
         return new MaterialBuilder().setName("Titanium")
             .setDefaultLocalName("Titanium")
-            .setElement(Element.Ti)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyePurple)
             .setARGB(0x00dca0f0)
@@ -1691,7 +1690,7 @@ public class MaterialsInit {
     private static Materials_OLD loadTritanium() {
         return new MaterialBuilder().setName("Tritanium")
             .setDefaultLocalName("Tritanium")
-            .setElement(Element.Tn)
+
             .setChemicalFormula("Tn")
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeWhite)
@@ -1714,7 +1713,7 @@ public class MaterialsInit {
     private static Materials_OLD loadTungsten() {
         return new MaterialBuilder().setName("Tungsten")
             .setDefaultLocalName("Tungsten")
-            .setElement(Element.W)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeBlack)
             .setARGB(0x00323232)
@@ -1740,7 +1739,7 @@ public class MaterialsInit {
     private static Materials_OLD loadUranium() {
         return new MaterialBuilder().setName("Uranium")
             .setDefaultLocalName("Uranium 238")
-            .setElement(Element.U)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeGreen)
             .setARGB(0x0032f032)
@@ -1762,7 +1761,7 @@ public class MaterialsInit {
     private static Materials_OLD loadVanadium() {
         return new MaterialBuilder().setName("Vanadium")
             .setDefaultLocalName("Vanadium")
-            .setElement(Element.V)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeBlack)
             .setARGB(0x00323232)
@@ -1782,7 +1781,7 @@ public class MaterialsInit {
     private static Materials_OLD loadYtterbium() {
         return new MaterialBuilder().setName("Ytterbium")
             .setDefaultLocalName("Ytterbium")
-            .setElement(Element.Yb)
+
             .setIconSet(TextureSet.SET_SHINY)
             .setARGB(0x002cc750)
             .setMiningLevel(2)
@@ -1800,7 +1799,7 @@ public class MaterialsInit {
     private static Materials_OLD loadYttrium() {
         return new MaterialBuilder().setName("Yttrium")
             .setDefaultLocalName("Yttrium")
-            .setElement(Element.Y)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setARGB(0x00dcfadc)
             .setMiningLevel(2)
@@ -1818,7 +1817,7 @@ public class MaterialsInit {
     private static Materials_OLD loadZinc() {
         return new MaterialBuilder().setName("Zinc")
             .setDefaultLocalName("Zinc")
-            .setElement(Element.Zn)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeWhite)
             .setARGB(0x00faf0f0)
@@ -1847,7 +1846,7 @@ public class MaterialsInit {
     private static Materials_OLD loadDeuterium() {
         return new MaterialBuilder().setName("Deuterium")
             .setDefaultLocalName("Deuterium")
-            .setElement(Element.D)
+
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeYellow)
             .setARGB(0xf0ffff00)
@@ -1861,7 +1860,7 @@ public class MaterialsInit {
     private static Materials_OLD loadHelium3() {
         return new MaterialBuilder().setName("Helium_3")
             .setDefaultLocalName("Helium-3")
-            .setElement(Element.He_3)
+
             .setIconSet(TextureSet.SET_FLUID)
             .setColor(Dyes.dyeYellow)
             .setARGB(0xf0ffff00)
@@ -1874,7 +1873,7 @@ public class MaterialsInit {
     private static Materials_OLD loadPlutonium241() {
         return new MaterialBuilder().setName("Plutonium241")
             .setDefaultLocalName("Plutonium 241")
-            .setElement(Element.Pu_241)
+
             .setChemicalFormula(
                 CustomGlyphs.SUPERSCRIPT2 + CustomGlyphs.SUPERSCRIPT4 + CustomGlyphs.SUPERSCRIPT1 + "Pu")
             .setIconSet(TextureSet.SET_SHINY)
@@ -1895,7 +1894,7 @@ public class MaterialsInit {
     private static Materials_OLD loadTritium() {
         return new MaterialBuilder().setName("Tritium")
             .setDefaultLocalName("Tritium")
-            .setElement(Element.T)
+
             .setIconSet(TextureSet.SET_METALLIC)
             .setColor(Dyes.dyeRed)
             .setARGB(0xf0ff0000)
@@ -1909,7 +1908,7 @@ public class MaterialsInit {
     private static Materials_OLD loadUranium235() {
         return new MaterialBuilder().setName("Uranium235")
             .setDefaultLocalName("Uranium 235")
-            .setElement(Element.U_235)
+
             .setChemicalFormula(CustomGlyphs.SUPERSCRIPT2 + CustomGlyphs.SUPERSCRIPT3 + CustomGlyphs.SUPERSCRIPT5 + "U")
             .setIconSet(TextureSet.SET_SHINY)
             .setColor(Dyes.dyeGreen)

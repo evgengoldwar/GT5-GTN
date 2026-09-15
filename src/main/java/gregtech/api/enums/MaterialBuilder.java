@@ -36,7 +36,6 @@ public class MaterialBuilder {
 
     private String name;
     private String defaultLocalName;
-    private Element element;
     private String chemicalFormula;
     private boolean isFormulaNeededLocalized = false;
     private boolean unifiable = true;
@@ -96,7 +95,6 @@ public class MaterialBuilder {
             // spotless:off
             name,
             defaultLocalName,
-            element,
             chemicalFormula,
             unifiable,
             iconSet,
@@ -134,7 +132,7 @@ public class MaterialBuilder {
             pendingSmeltingInto,
             pendingMaceratingInto,
             pendingArcSmeltingInto,
-            pendingArcSmeltingIntoWithGas.isEmpty() ? null : pendingArcSmeltingIntoWithGas,
+            null,
             pendingDirectSmelting,
             subTags,
             hasGlowingOre
@@ -157,11 +155,6 @@ public class MaterialBuilder {
     /** Sets the default localized display name. */
     public MaterialBuilder setDefaultLocalName(String defaultLocalName) {
         this.defaultLocalName = defaultLocalName;
-        return this;
-    }
-
-    public MaterialBuilder setElement(Element element) {
-        this.element = element;
         return this;
     }
 
