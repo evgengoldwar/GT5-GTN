@@ -1,7 +1,6 @@
 package gregtech.api.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -12,7 +11,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.tileentity.IRecipeLockable;
-import gregtech.api.interfaces.tileentity.IVoidable;
 import gregtech.api.objects.XSTR;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -26,7 +24,7 @@ public class ParallelHelper {
     /**
      * Machine used for calculation
      */
-    protected IVoidable machine;
+    // protected IVoidable machine;
     /**
      * Machine used for single recipe locking calculation
      */
@@ -130,24 +128,21 @@ public class ParallelHelper {
 
     public ParallelHelper() {}
 
-    /**
-     * Sets machine, with current configuration for void protection mode.
-     */
-    @Nonnull
-    public ParallelHelper setMachine(IVoidable machine) {
-        return setMachine(machine, machine.protectsExcessItem(), machine.protectsExcessFluid());
-    }
+    // @Nonnull
+    // public ParallelHelper setMachine(IVoidable machine) {
+    // return setMachine(machine, machine.protectsExcessItem(), machine.protectsExcessFluid());
+    // }
 
     /**
      * Sets machine, with void protection mode forcibly.
      */
-    @Nonnull
-    public ParallelHelper setMachine(IVoidable machine, boolean protectExcessItem, boolean protectExcessFluid) {
-        this.protectExcessItem = protectExcessItem;
-        this.protectExcessFluid = protectExcessFluid;
-        this.machine = machine;
-        return this;
-    }
+    // @Nonnull
+    // public ParallelHelper setMachine(IVoidable machine, boolean protectExcessItem, boolean protectExcessFluid) {
+    // this.protectExcessItem = protectExcessItem;
+    // this.protectExcessFluid = protectExcessFluid;
+    // this.machine = machine;
+    // return this;
+    // }
 
     /**
      * Sets the recipe, which will be used for the parallel calculation
@@ -424,12 +419,12 @@ public class ParallelHelper {
             maxParallel = GTUtility.safeInt((long) maxParallel * batchModifier, 0);
         }
 
-        final ItemStack[] truncatedItemOutputs = recipe.mOutputs != null
-            ? Arrays.copyOfRange(recipe.mOutputs, 0, Math.min(machine.getItemOutputLimit(), recipe.mOutputs.length))
-            : GTValues.emptyItemStackArray;
-        final FluidStack[] truncatedFluidOutputs = recipe.mFluidOutputs != null ? Arrays
-            .copyOfRange(recipe.mFluidOutputs, 0, Math.min(machine.getFluidOutputLimit(), recipe.mFluidOutputs.length))
-            : GTValues.emptyFluidStackArray;
+        // final ItemStack[] truncatedItemOutputs = recipe.mOutputs != null
+        // ? Arrays.copyOfRange(recipe.mOutputs, 0, Math.min(machine.getItemOutputLimit(), recipe.mOutputs.length))
+        // : GTValues.emptyItemStackArray;
+        // final FluidStack[] truncatedFluidOutputs = recipe.mFluidOutputs != null ? Arrays
+        // .copyOfRange(recipe.mFluidOutputs, 0, Math.min(machine.getFluidOutputLimit(), recipe.mFluidOutputs.length))
+        // : GTValues.emptyFluidStackArray;
 
         SingleRecipeCheck recipeLock = null;
         SingleRecipeCheck.Builder recipeLockBuilder = null;
@@ -448,29 +443,29 @@ public class ParallelHelper {
 
         // Let's look at how many parallels we can get with void protection
         if (protectExcessItem || protectExcessFluid) {
-            if (machine == null) {
-                throw new IllegalStateException("Tried to calculate void protection, but machine is not set");
-            }
+            // if (machine == null) {
+            // throw new IllegalStateException("Tried to calculate void protection, but machine is not set");
+            // }
+            //
+            // VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper().setMachine(machine)
+            // .setItemOutputs(truncatedItemOutputs)
+            // .setFluidOutputs(truncatedFluidOutputs)
+            // .setOutputChanceGetter(recipe::getOutputChance)
+            // .setFluidOutputChanceGetter(recipe::getFluidOutputChance)
+            // .setOutputChanceMultiplier(chanceMultiplier)
+            // .setMaxParallel(maxParallel)
+            // .build();
 
-            VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper().setMachine(machine)
-                .setItemOutputs(truncatedItemOutputs)
-                .setFluidOutputs(truncatedFluidOutputs)
-                .setOutputChanceGetter(recipe::getOutputChance)
-                .setFluidOutputChanceGetter(recipe::getFluidOutputChance)
-                .setOutputChanceMultiplier(chanceMultiplier)
-                .setMaxParallel(maxParallel)
-                .build();
+            // maxParallel = Math.min(voidProtectionHelper.getMaxParallel(), maxParallel);
 
-            maxParallel = Math.min(voidProtectionHelper.getMaxParallel(), maxParallel);
-
-            if (voidProtectionHelper.isItemFull()) {
-                result = CheckRecipeResultRegistry.ITEM_OUTPUT_FULL;
-                return;
-            }
-            if (voidProtectionHelper.isFluidFull()) {
-                result = CheckRecipeResultRegistry.FLUID_OUTPUT_FULL;
-                return;
-            }
+            // if (voidProtectionHelper.isItemFull()) {
+            // result = CheckRecipeResultRegistry.ITEM_OUTPUT_FULL;
+            // return;
+            // }
+            // if (voidProtectionHelper.isFluidFull()) {
+            // result = CheckRecipeResultRegistry.FLUID_OUTPUT_FULL;
+            // return;
+            // }
         }
 
         maxParallelBeforeBatchMode = Math.min(maxParallel, maxParallelBeforeBatchMode);
@@ -527,10 +522,10 @@ public class ParallelHelper {
         }
 
         // If we want to calculate outputs we do it here
-        if (calculateOutputs && currentParallel > 0) {
-            calculateItemOutputs(truncatedItemOutputs);
-            calculateFluidOutputs(truncatedFluidOutputs);
-        }
+        // if (calculateOutputs && currentParallel > 0) {
+        // calculateItemOutputs(truncatedItemOutputs);
+        // calculateFluidOutputs(truncatedFluidOutputs);
+        // }
         result = CheckRecipeResultRegistry.SUCCESSFUL;
     }
 

@@ -16,7 +16,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.interfaces.tileentity.IRecipeLockable;
-import gregtech.api.interfaces.tileentity.IVoidable;
 import gregtech.api.metatileentity.Hatch.IDualInputInventoryWithPattern;
 import gregtech.api.objects.GTDualInputPattern;
 import gregtech.api.recipe.RecipeMap;
@@ -34,7 +33,7 @@ import gregtech.api.util.ParallelHelper;
 public class ProcessingLogic {
 
     // Traits
-    protected IVoidable machine;
+    // protected IVoidable machine;
     protected IRecipeLockable recipeLockableMachine;
     protected boolean isRecipeLocked;
     protected ItemStack[] inputItems;
@@ -90,10 +89,10 @@ public class ProcessingLogic {
     /**
      * Sets machine used for void protection logic.
      */
-    public ProcessingLogic setMachine(IVoidable machine) {
-        this.machine = machine;
-        return this;
-    }
+    // public ProcessingLogic setMachine(IVoidable machine) {
+    // this.machine = machine;
+    // return this;
+    // }
 
     /**
      * Enables single recipe locking mode.
@@ -562,7 +561,7 @@ public class ProcessingLogic {
             .setItemInputs(inputItems)
             .setFluidInputs(inputFluids)
             .setAvailableEUt(availableVoltage * availableAmperage)
-            .setMachine(machine, protectItems, protectFluids)
+            // .setMachine(machine, protectItems, protectFluids)
             .setRecipeLocked(recipeLockableMachine, isRecipeLocked)
             .setMaxParallel(maxParallel)
             .setEUtModifier(euModifier)
