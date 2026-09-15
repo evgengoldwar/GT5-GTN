@@ -1529,7 +1529,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
     }
 
     public static void init() {
-        new MaterialsIDMap().register();
 
         setToolEnchantments();
         setArmorEnchantments();
