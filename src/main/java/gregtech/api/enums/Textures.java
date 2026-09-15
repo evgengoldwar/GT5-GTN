@@ -4,25 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
-import gregtech.client.iconContainers.blocks.GTBlockIconContainer;
-import gregtech.client.iconContainers.blocks.GTCustomAlphaBlockIconContainer;
-import gregtech.client.iconContainers.blocks.GTCustomAlphaFallbackBlockIconContainer;
-import gregtech.client.iconContainers.blocks.GTCustomBlockIconContainer;
-import gregtech.client.iconContainers.blocks.GTCustomOptionalBlockIconContainer;
-import gregtech.client.iconContainers.blocks.GTOptionalBlockIconContainer;
 
 public class Textures {
 
@@ -99,13 +90,12 @@ public class Textures {
         // spotless:off
         public static final IIconContainer
             VOID = GlobalIcons.VOID, // The Empty Texture
-            RENDERING_ERROR = GlobalIcons.RENDERING_ERROR,
-            HIDDEN_FACE = create("HIDDEN_FACE")
+            RENDERING_ERROR = GlobalIcons.RENDERING_ERROR;
         // semicolon after the comment to reduce merge conflicts
         ;
 
         public static final ITexture[] HIDDEN_TEXTURE = { TextureFactory.builder()
-            .addIcon(HIDDEN_FACE)
+            .addIcon(RENDERING_ERROR)
             .stdOrient()
             .build() };
         public static final ITexture[] ERROR_RENDERING = { TextureFactory.of(Textures.GlobalIcons.RENDERING_ERROR) };
@@ -165,60 +155,6 @@ public class Textures {
             return id == null ? ERROR_TEXTURE_INDEX : id;
         }
 
-        /**
-         * Registers a Custom Block {@link IIconContainer}
-         *
-         * @param aIconName The unique identifier of the icon container.
-         * @return The {@link IIconContainer} instance
-         */
-        public static @NotNull IIconContainer custom(@NotNull String aIconName) {
-            return GTCustomBlockIconContainer.create(aIconName);
-        }
-
-        /**
-         * Registers a Custom Optional Block {@link IIconContainer}
-         *
-         * @param aIconName The unique {@code [<modid>:]path/name} icon identifier<br>
-         *                  (see: {@link IIconRegister#registerIcon}).
-         * @return The {@link IIconContainer} instance
-         */
-        public static @NotNull IIconContainer customOptional(@NotNull String aIconName) {
-            return GTCustomOptionalBlockIconContainer.create(aIconName);
-        }
-
-        /**
-         * Registers a Custom Alpha-blended Block {@link IIconContainer} (to be rendered in pass 1)
-         *
-         * @param aIconName The unique {@code [<modid>:]path/name} icon identifier<br>
-         *                  (see: {@link IIconRegister#registerIcon}).
-         * @return The {@link IIconContainer} instance
-         */
-        public static @NotNull IIconContainer customAlpha(@NotNull String aIconName) {
-            return GTCustomAlphaBlockIconContainer.create(aIconName);
-        }
-
-        /**
-         * Registers a Custom Alpha-blended Block {@link IIconContainer} (to be rendered in pass 1) whose icon and
-         * _OVERLAY textures are both optional, delegating to the given fallback container when neither exists
-         *
-         * @param aIconName The unique {@code [<modid>:]path/name} icon identifier<br>
-         *                  (see: {@link IIconRegister#registerIcon}).
-         * @param fallback  The {@link IIconContainer} to delegate to when no texture exists for this icon.
-         * @return The {@link IIconContainer} instance
-         */
-        public static @NotNull IIconContainer customAlphaFallback(@NotNull String aIconName,
-            @NotNull IIconContainer fallback) {
-            return GTCustomAlphaFallbackBlockIconContainer.create(aIconName, fallback);
-        }
-
-        private static @NotNull IIconContainer create(@NotNull String name) {
-            return GTBlockIconContainer.create(name);
-        }
-
-        private static @NotNull IIconContainer createOptional(@NotNull String name) {
-            return GTOptionalBlockIconContainer.create(name);
-        }
-
         public static ITexture[] createTextureWithCasing(ICasingTextureProvider mte, ForgeDirection side,
             ForgeDirection aFacing, boolean aActive, IIconContainer tex, IIconContainer texGlow,
             IIconContainer texActive, IIconContainer texActiveGlow) {
@@ -245,10 +181,7 @@ public class Textures {
             return new ITexture[] { mte.getCasingTexture() };
         }
 
-        public static void cleanup() {
-            GTCustomBlockIconContainer.cleanup();
-            GTCustomAlphaFallbackBlockIconContainer.cleanup();
-        }
+        public static void cleanup() {}
     }
 
     public static final class ItemIcons {
