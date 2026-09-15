@@ -2,7 +2,6 @@ package gregtech.api.graphs.paths;
 
 import net.minecraft.server.MinecraftServer;
 
-import gregtech.api.enums.TickTime;
 import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.metatileentity.implementations.MTECable;
@@ -20,8 +19,8 @@ public class PowerNodePath extends NodePath {
     int mTick = 0;
     boolean mCountUp = true;
 
-    private final AveragePerTickCounter avgAmperageCounter = new AveragePerTickCounter(TickTime.SECOND);
-    private final AveragePerTickCounter avgVoltageCounter = new AveragePerTickCounter(TickTime.SECOND);
+    private final AveragePerTickCounter avgAmperageCounter = new AveragePerTickCounter(20);
+    private final AveragePerTickCounter avgVoltageCounter = new AveragePerTickCounter(20);
 
     public PowerNodePath(PipeMTE[] aCables) {
         super(aCables);

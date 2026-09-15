@@ -15,7 +15,6 @@ import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.TickTime;
 
 // this is a middleware for block updates
 // Greg's BaseMetaTileEntity uses World::markBlockForUpdate() to update the texture of a machine
@@ -28,8 +27,8 @@ import gregtech.api.enums.TickTime;
 @SideOnly(Side.CLIENT)
 public class BlockUpdateHandler {
 
-    public static final int MIN_UPDATE_COOLDOWN = TickTime.SECOND / 2;
-    public static final int MAX_UPDATE_COOLDOWN = TickTime.SECOND;
+    public static final int MIN_UPDATE_COOLDOWN = 20 / 2;
+    public static final int MAX_UPDATE_COOLDOWN = 20;
 
     public final static BlockUpdateHandler Instance = new BlockUpdateHandler();
 
