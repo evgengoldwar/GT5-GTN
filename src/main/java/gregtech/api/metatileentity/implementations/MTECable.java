@@ -9,6 +9,7 @@ import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -17,9 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import appeng.tile.powersink.IC2;
-import gregtech.api.enums.Dyes;
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.enums.Textures;
 import gregtech.api.graphs.Node;
 import gregtech.api.graphs.NodeList;
 import gregtech.api.graphs.PowerNode;
@@ -131,8 +130,7 @@ public class MTECable extends PipeMTE implements IMTECable {
         // Textures.BlockIcons.INSULATION_HUGE,
         // Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
         // }
-        return new ITexture[] { TextureFactory
-            .of(Textures.BlockIcons.INSULATION_FULL, Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
+        return new ITexture[] { TextureFactory.of(Blocks.stone, 0) };
     }
 
     @Override

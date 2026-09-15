@@ -40,7 +40,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
@@ -265,13 +264,13 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
                 }
             }
         }
-        return Textures.BlockIcons.MACHINE_LV_SIDE.getIcon();
+        return Blocks.stone.getIcon(0, 0);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(int ordinalSide, int aMeta) {
-        return Textures.BlockIcons.MACHINE_LV_SIDE.getIcon();
+        return Blocks.stone.getIcon(0, 0);
     }
 
     @Override
