@@ -4,23 +4,10 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import static gregtech.api.enums.GTValues.ALL_VALID_SIDES;
 import static gregtech.api.enums.Mods.TinkerConstruct;
 import static gregtech.api.enums.Mods.Translocator;
-import static gregtech.api.metatileentity.implementations.MTEFluidPipe.Border.BOTTOM;
-import static gregtech.api.metatileentity.implementations.MTEFluidPipe.Border.LEFT;
-import static gregtech.api.metatileentity.implementations.MTEFluidPipe.Border.RIGHT;
-import static gregtech.api.metatileentity.implementations.MTEFluidPipe.Border.TOP;
 import static gregtech.api.objects.XSTR.XSTR_INSTANCE;
-import static net.minecraftforge.common.util.ForgeDirection.DOWN;
-import static net.minecraftforge.common.util.ForgeDirection.EAST;
-import static net.minecraftforge.common.util.ForgeDirection.NORTH;
-import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
-import static net.minecraftforge.common.util.ForgeDirection.UP;
-import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -36,21 +23,15 @@ import net.minecraftforge.fluids.IFluidHandler;
 import org.apache.commons.lang3.tuple.MutableTriple;
 
 import cpw.mods.fml.common.Optional;
-import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.ParticleFX;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.TextureSet;
-import gregtech.api.enums.Textures;
-import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.PipeMTE;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder.ParticleEventBuilder;
@@ -62,40 +43,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 @IMTE.SkipGenerateDescription
 public class MTEFluidPipe extends PipeMTE {
 
-    protected static final EnumMap<ForgeDirection, EnumMap<Border, ForgeDirection>> FACE_BORDER_MAP = new EnumMap<>(
-        ForgeDirection.class);
-
-    static {
-        FACE_BORDER_MAP.put(DOWN, borderMap(NORTH, SOUTH, EAST, WEST));
-        FACE_BORDER_MAP.put(UP, borderMap(NORTH, SOUTH, WEST, EAST));
-        FACE_BORDER_MAP.put(NORTH, borderMap(UP, DOWN, EAST, WEST));
-        FACE_BORDER_MAP.put(SOUTH, borderMap(UP, DOWN, WEST, EAST));
-        FACE_BORDER_MAP.put(WEST, borderMap(UP, DOWN, NORTH, SOUTH));
-        FACE_BORDER_MAP.put(EAST, borderMap(UP, DOWN, SOUTH, NORTH));
-    }
-
-    protected static final Map<Integer, IIconContainer> RESTR_TEXTURE_MAP = new HashMap<>();
-
-    static {
-        RESTR_TEXTURE_MAP.put(TOP.mask, Textures.BlockIcons.PIPE_RESTRICTOR_UP);
-        RESTR_TEXTURE_MAP.put(BOTTOM.mask, Textures.BlockIcons.PIPE_RESTRICTOR_DOWN);
-        RESTR_TEXTURE_MAP.put(TOP.mask | BOTTOM.mask, Textures.BlockIcons.PIPE_RESTRICTOR_UD);
-        RESTR_TEXTURE_MAP.put(LEFT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_LEFT);
-        RESTR_TEXTURE_MAP.put(TOP.mask | LEFT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_UL);
-        RESTR_TEXTURE_MAP.put(BOTTOM.mask | LEFT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_DL);
-        RESTR_TEXTURE_MAP.put(TOP.mask | BOTTOM.mask | LEFT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_NR); // not right
-        RESTR_TEXTURE_MAP.put(RIGHT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_RIGHT);
-        RESTR_TEXTURE_MAP.put(TOP.mask | RIGHT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_UR);
-        RESTR_TEXTURE_MAP.put(BOTTOM.mask | RIGHT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_DR);
-        RESTR_TEXTURE_MAP.put(TOP.mask | BOTTOM.mask | RIGHT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_NL); // not left
-        RESTR_TEXTURE_MAP.put(LEFT.mask | RIGHT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_LR);
-        RESTR_TEXTURE_MAP.put(TOP.mask | LEFT.mask | RIGHT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_ND); // not down
-        RESTR_TEXTURE_MAP.put(BOTTOM.mask | LEFT.mask | RIGHT.mask, Textures.BlockIcons.PIPE_RESTRICTOR_NU); // not up
-        RESTR_TEXTURE_MAP.put(TOP.mask | BOTTOM.mask | LEFT.mask | RIGHT.mask, Textures.BlockIcons.PIPE_RESTRICTOR);
-    }
-
     public final float mThickNess;
-    public final Materials_OLD mMaterial;
     public final int mCapacity, mHeatResistance, mPipeAmount;
     public final boolean mGasProof;
     public final FluidStack[] mFluids;
@@ -105,16 +53,15 @@ public class MTEFluidPipe extends PipeMTE {
      */
     public byte mDisableInput = 0;
 
-    public MTEFluidPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int capacity,
-        int heatResistance, boolean gasProof) {
-        this(mteArrays, meta, name, size, material, capacity, heatResistance, gasProof, 1);
+    public MTEFluidPipe(MTEArrays mteArrays, int meta, String name, float size, int capacity, int heatResistance,
+        boolean gasProof) {
+        this(mteArrays, meta, name, size, capacity, heatResistance, gasProof, 1);
     }
 
-    public MTEFluidPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int capacity,
-        int heatResistance, boolean gasProof, int fluidTypes) {
+    public MTEFluidPipe(MTEArrays mteArrays, int meta, String name, float size, int capacity, int heatResistance,
+        boolean gasProof, int fluidTypes) {
         super(mteArrays, meta, name, 0);
         mThickNess = size;
-        mMaterial = material;
         mCapacity = capacity;
         mGasProof = gasProof;
         mHeatResistance = heatResistance;
@@ -122,11 +69,9 @@ public class MTEFluidPipe extends PipeMTE {
         mFluids = new FluidStack[mPipeAmount];
     }
 
-    public MTEFluidPipe(String name, float size, Materials_OLD material, int capacity, int heatResistance,
-        boolean gasProof, int fluidTypes) {
+    public MTEFluidPipe(String name, float size, int capacity, int heatResistance, boolean gasProof, int fluidTypes) {
         super(name, 0);
         mThickNess = size;
-        mMaterial = material;
         mCapacity = capacity;
         mGasProof = gasProof;
         mHeatResistance = heatResistance;
@@ -136,7 +81,7 @@ public class MTEFluidPipe extends PipeMTE {
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEFluidPipe(name, mThickNess, mMaterial, mCapacity, mHeatResistance, mGasProof, mPipeAmount);
+        return new MTEFluidPipe(name, mThickNess, mCapacity, mHeatResistance, mGasProof, mPipeAmount);
     }
 
     @Override
@@ -144,38 +89,24 @@ public class MTEFluidPipe extends PipeMTE {
         boolean redstoneLevel) {
         List<ITexture> textures = new ArrayList<>();
 
-        textures.add(getBaseTexture(connected, colorIndex));
-
-        if (mDisableInput != 0) {
-            int borderMask = 0;
-
-            for (Border border : Border.values()) {
-                if (isInputDisabledAtSide(getSideAtBorder(side, border))) borderMask |= border.mask;
-            }
-
-            textures.add(getRestrictorTexture(borderMask));
-        }
+        // textures.add(getBaseTexture(connected, colorIndex));
+        //
+        // if (mDisableInput != 0) {
+        // int borderMask = 0;
+        //
+        // for (Border border : Border.values()) {
+        // if (isInputDisabledAtSide(getSideAtBorder(side, border))) borderMask |= border.mask;
+        // }
+        //
+        // textures.add(getRestrictorTexture(borderMask));
+        // }
 
         return textures.toArray(new ITexture[0]);
     }
 
-    protected ITexture getBaseTexture(boolean connected, int colorIndex) {
-        return getBaseTexture(mThickNess, mPipeAmount, mMaterial.mIconSet, mMaterial.mRGBa, connected, colorIndex);
-    }
-
-    protected static ITexture getBaseTexture(float aThickNess, int aPipeAmount, TextureSet textureSet, short[] rgba,
-        boolean connected, int colorIndex) {
-        IIconContainer texture = textureSet.mTextures[1];
-
-        rgba = Dyes.getModulation(colorIndex, rgba);
-
-        return TextureFactory.of(texture, rgba);
-    }
-
-    protected static ITexture getRestrictorTexture(int borderMask) {
-        final IIconContainer restrictorIcon = RESTR_TEXTURE_MAP.get(borderMask);
-        return restrictorIcon != null ? TextureFactory.of(restrictorIcon) : null;
-    }
+    // protected ITexture getBaseTexture(boolean connected, int colorIndex) {
+    // return getBaseTexture(mThickNess, mPipeAmount, mMaterial.mIconSet, mMaterial.mRGBa, connected, colorIndex);
+    // }
 
     @Override
     public void onValueUpdate(byte value) {
@@ -893,35 +824,6 @@ public class MTEFluidPipe extends PipeMTE {
         if (mPipeAmount > 1) {
             currenttip.add(
                 StatCollector.translateToLocal("GT5U.item.pipe.amount") + ": " + EnumChatFormatting.AQUA + mPipeAmount);
-        }
-    }
-
-    private static EnumMap<Border, ForgeDirection> borderMap(ForgeDirection topSide, ForgeDirection bottomSide,
-        ForgeDirection leftSide, ForgeDirection rightSide) {
-        final EnumMap<Border, ForgeDirection> sideMap = new EnumMap<>(Border.class);
-        sideMap.put(TOP, topSide);
-        sideMap.put(BOTTOM, bottomSide);
-        sideMap.put(LEFT, leftSide);
-        sideMap.put(RIGHT, rightSide);
-        return sideMap;
-    }
-
-    protected static ForgeDirection getSideAtBorder(ForgeDirection side, Border border) {
-        return FACE_BORDER_MAP.get(side)
-            .get(border);
-    }
-
-    protected enum Border {
-
-        TOP(),
-        BOTTOM(),
-        LEFT(),
-        RIGHT();
-
-        public final int mask;
-
-        Border() {
-            mask = 1 << this.ordinal();
         }
     }
 }

@@ -23,8 +23,6 @@ import net.minecraft.world.World;
 
 import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 
-import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 
@@ -37,7 +35,6 @@ public class DebugWriterHelper {
 
     private static final Map<Block, String> VANILLA_BLOCK_NAMES = new IdentityHashMap<>();
     // private static final Casings[] CASINGS_VALUES = Casings.values();
-    private static final Materials_OLD[] MATERIALS_OLD_VALUES = Materials_OLD.values();
 
     static {
         // VanillaBlocks
@@ -75,21 +72,21 @@ public class DebugWriterHelper {
         // });
 
         // Sheet Metal
-        registerBlockAssociation((block, meta, symbol) -> {
-            if (block == GregTechAPI.sBlockSheetmetalGT) {
-                for (Materials_OLD material : MATERIALS_OLD_VALUES) {
-                    if (material.mMetaItemSubID == meta) {
-                        return symbol + "-> "
-                            + "addElement('"
-                            + symbol
-                            + "', ofSheetMetal(Materials."
-                            + material.getName()
-                            + ")";
-                    }
-                }
-            }
-            return null;
-        });
+        // registerBlockAssociation((block, meta, symbol) -> {
+        // if (block == GregTechAPI.sBlockSheetmetalGT) {
+        // for (Materials_OLD material : MATERIALS_OLD_VALUES) {
+        // if (material.mMetaItemSubID == meta) {
+        // return symbol + "-> "
+        // + "addElement('"
+        // + symbol
+        // + "', ofSheetMetal(Materials."
+        // + material.getName()
+        // + ")";
+        // }
+        // }
+        // }
+        // return null;
+        // });
 
         // DebugStructureWriter
         registerSymbolOverride(((world, x, y, z, block, tileEntity) -> {

@@ -5,11 +5,6 @@ import java.util.List;
 import net.minecraft.item.Item;
 import net.minecraft.util.StatCollector;
 
-import org.jetbrains.annotations.Nullable;
-
-import gregtech.api.enums.Materials_OLD;
-import gregtech.api.enums.TextureSet;
-
 /**
  * A temporary material interface to unify the three material systems.
  * Once the new material system is finished, this should be removed and all the code referencing this should be migrated
@@ -39,10 +34,5 @@ public interface IOreMaterial extends ISubTagContainer {
     }
 
     short[] getRGBA();
-
-    TextureSet getTextureSet();
-
-    @Nullable
-    Materials_OLD getGTMaterial();
 
 }

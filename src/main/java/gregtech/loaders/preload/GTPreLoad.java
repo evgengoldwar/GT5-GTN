@@ -27,7 +27,6 @@ import cpw.mods.fml.common.ModContainer;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
@@ -99,16 +98,6 @@ public class GTPreLoad {
             GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
         }
         GTLanguageManager.sEnglishFile.load();
-
-        Materials_OLD.getMaterialsMap()
-            .values()
-            .parallelStream()
-            .filter(Objects::nonNull)
-            .forEach(
-                aMaterial -> {
-                    GTLanguageManager
-                        .addStringLocalization(aMaterial.getLocalizedNameKey(), aMaterial.mDefaultLocalName);
-                });
     }
 
     public static void runMineTweakerCompat() {
@@ -172,17 +161,6 @@ public class GTPreLoad {
                                 if (mIt == 2) tags = prefixes2;
                                 if (mIt == 3) tags = prefixes3;
                                 if (tags == null) tags = GTValues.emptyStringArray;
-                                if (GregTechAPI.S_GENERATED_MATERIALS[material] != null) {
-                                    final String tag;
-                                    if (tags.length > prefix) {
-                                        tag = tags[prefix] + GregTechAPI.S_GENERATED_MATERIALS[material].mName;
-                                    } else {
-                                        tag = GregTechAPI.S_GENERATED_MATERIALS[material].mName;
-                                    }
-                                    if (!oreTags.contains(tag)) oreTags.add(tag);
-                                } else if (material > 0) {
-                                    GT_FML_LOGGER.info("MaterialDisabled: {} {}", material, m.group(1));
-                                }
                             }
                         }
                     }

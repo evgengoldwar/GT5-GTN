@@ -61,7 +61,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GUIColorOverride;
@@ -149,7 +148,6 @@ public class GTClient extends GTProxy {
             .getResourcePackRepository().rprMetadataSerializer
                 .registerMetadataSectionType(new ColorsMetadataSectionSerializer(), ColorsMetadataSection.class);
         mPreference = new GTClientPreference();
-        Materials_OLD.initClient();
 
         ClientCommandHandler.instance.registerCommand(new GTPowerfailCommandClient());
         ClientCommandHandler.instance.registerCommand(new PowerGogglesCommand());

@@ -1,10 +1,8 @@
 package gregtech.loaders.preload;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
-import static gregtech.api.enums.MetaTileEntityIDs.*;
 
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.metatileentity.implementations.MTEItemPipe;
 
 // TODO Some GT MetaTileEntity registrations are done in load/GT_Loader_MetaTileEntities_Recipes.java due to joint
@@ -791,7 +789,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         // new MTEQuantumChest(i, "quantum.chest.tier.09", "Quantum Chest IV", 9, MTEArrays.CABLE).getStackForm(1L);
         // }
 
-        new MTEItemPipe(MTEArrays.CABLE, 1, "CAL", 0.25F, Materials_OLD.Salt, 2, 524288 / 2, false);
+        new MTEItemPipe(MTEArrays.CABLE, 1, "CAL", 0.25F, 2, 524288 / 2, false);
 
         // new MTEHatchMultiInput(
         // QUADRUPLE_INPUT_HATCHES_UV.ID,

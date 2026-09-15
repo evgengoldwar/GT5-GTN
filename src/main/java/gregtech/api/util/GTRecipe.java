@@ -1,7 +1,6 @@
 package gregtech.api.util;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
-import static gregtech.api.enums.GTValues.D2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +22,6 @@ import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.recipe.RecipeCategory;
 import gregtech.api.recipe.RecipeLookupValidator;
@@ -323,25 +321,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
         if (mFluidOutputChances == null) return 10000;
         if (aIndex < 0 || aIndex >= mFluidOutputChances.length) return 10000;
         return mFluidOutputChances[aIndex];
-    }
-
-    public void checkCellBalance() {
-        if (!D2 || mInputs.length < 1) return;
-
-        int tInputAmount = GTModHandler.getCapsuleCellContainerCountMultipliedWithStackSize(mInputs);
-        int tOutputAmount = GTModHandler.getCapsuleCellContainerCountMultipliedWithStackSize(mOutputs);
-
-        if (tInputAmount < tOutputAmount) {
-            if (!Materials_OLD.Tin.contains(mInputs)) {
-                GT_FML_LOGGER.error("You get more Cells, than you put in? There must be something wrong.");
-                GT_FML_LOGGER.error(new Exception());
-            }
-        } else if (tInputAmount > tOutputAmount) {
-            if (!Materials_OLD.Tin.contains(mOutputs)) {
-                GT_FML_LOGGER.error("You get less Cells, than you put in? GT Machines usually don't destroy Cells.");
-                GT_FML_LOGGER.error(new Exception());
-            }
-        }
     }
 
     public GTRecipe copy() {

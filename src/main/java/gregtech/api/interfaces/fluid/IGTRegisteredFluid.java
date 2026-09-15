@@ -4,8 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-import gregtech.api.enums.FluidState;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.IOreMaterial;
 
 public interface IGTRegisteredFluid {
@@ -43,16 +41,6 @@ public interface IGTRegisteredFluid {
      */
     @SuppressWarnings("UnusedReturnValue") // Last call in chain, may not use this returned value
     IGTRegisteredFluid registerPContainers(final ItemStack fullContainer, final ItemStack emptyContainer);
-
-    /**
-     * Updates the {@link Materials_OLD}'s fluids from this {@link IGTRegisteredFluid}'s state
-     *
-     * @param material the {@link Materials_OLD} to configure based on this {@link IGTRegisteredFluid} and
-     *                 {@link FluidState}
-     * @return The {@link IGTRegisteredFluid} for call chaining
-     */
-    @SuppressWarnings("UnusedReturnValue") // Last call in chain, may not use this returned value
-    IGTRegisteredFluid configureMaterials(final Materials_OLD material);
 
     IGTRegisteredFluid addLocalizedName();
 

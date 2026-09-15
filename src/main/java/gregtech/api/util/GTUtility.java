@@ -7,7 +7,6 @@ import static gregtech.api.enums.GTValues.E;
 import static gregtech.api.enums.GTValues.M;
 import static gregtech.api.enums.GTValues.NW;
 import static gregtech.api.enums.GTValues.V;
-import static gregtech.api.enums.Materials_OLD.FLUID_MAP;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
@@ -118,7 +117,6 @@ import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
@@ -684,13 +682,6 @@ public class GTUtility {
 
         ItemStack bottle = new ItemStack(Items.glass_bottle);
 
-        if (fluid.isFluidEqual(Materials_OLD.Water.getFluid(1)) && stack.isItemEqual(bottle)) {
-            if (fluid.amount >= 1000) {
-                return new ItemStack(Items.potionitem, 1, 0);
-            }
-            return null;
-        }
-
         if (checkIFluidContainerItems && stack.getItem() instanceof IFluidContainerItem container
             && container.getFluid(stack) == null
             && container.getCapacity(stack) > 0
@@ -749,7 +740,7 @@ public class GTUtility {
                 .isGaseous(aFluid));
         tNBT.setBoolean("mHideStackSize", aHideStackSize);
         try {
-            tNBT.setString("mFluidMaterialName", FLUID_MAP.get(aFluid.getFluid()).mName);
+            // tNBT.setString("mFluidMaterialName", FLUID_MAP.get(aFluid.getFluid()).mName);
         } catch (Exception ignored) {}
         rStack.setTagCompound(tNBT);
         return rStack;

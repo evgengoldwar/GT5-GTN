@@ -574,9 +574,9 @@ public class HatchElementBuilder<T> {
                 EntityPlayerMP player = GTUtility.getFakePlayer(base);
                 if (player == null) return false;
 
-//                AutoPlaceEnvironment env = AutoPlaceEnvironment
-//                    .fromLegacy(GTCreativeHatchSource.instance, player, chat -> {});
-//                PlaceResult result = survivalPlaceBlock(t, world, x, y, z, trigger, env);
+                // AutoPlaceEnvironment env = AutoPlaceEnvironment
+                // .fromLegacy(GTCreativeHatchSource.instance, player, chat -> {});
+                // PlaceResult result = survivalPlaceBlock(t, world, x, y, z, trigger, env);
 
                 // if (t instanceof MTEMultiBlockBase multi) {
                 // multi.checkStructure(true, base);

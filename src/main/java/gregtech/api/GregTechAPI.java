@@ -21,7 +21,6 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 import gregtech.api.metatileentity.BaseGTE;
@@ -55,8 +54,6 @@ public class GregTechAPI {
     public static final GTHashSet sSolderingToolList = new GTHashSet();
     public static final GTHashSet sSolderingMetalList = new GTHashSet();
     public static final GTHashSet sJackhammerList = new GTHashSet();
-
-    public static final Materials_OLD[] S_GENERATED_MATERIALS = new Materials_OLD[1000];
 
     public static List<Runnable> sGTBlockIconload = new ArrayList<>();
     public static List<Runnable> sGTItemIconload = new ArrayList<>();

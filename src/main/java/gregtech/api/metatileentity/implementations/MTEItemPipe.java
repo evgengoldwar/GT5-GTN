@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -19,7 +20,6 @@ import com.gtnewhorizon.gtnhlib.util.ItemUtil;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
@@ -35,7 +35,6 @@ import gregtech.common.covers.Base.Cover;
 public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
 
     public final float mThickNess;
-    public final Materials_OLD mMaterial;
     public final int mStepSize;
     public final int mTickTime;
     public int mTransferredItems = 0;
@@ -45,34 +44,31 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
     private int[] cacheSides;
     private String materialKeyOverride;
 
-    public MTEItemPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int slotCount,
-        int stepSize, boolean isRestrictive, int tickTime) {
+    public MTEItemPipe(MTEArrays mteArrays, int meta, String name, float size, int slotCount, int stepSize,
+        boolean isRestrictive, int tickTime) {
         super(mteArrays, meta, name, slotCount);
         mIsRestrictive = isRestrictive;
         mThickNess = size;
-        mMaterial = material;
         mStepSize = stepSize;
         mTickTime = tickTime;
     }
 
-    public MTEItemPipe(MTEArrays mteArrays, int meta, String name, float size, Materials_OLD material, int slotCount,
-        int stepSize, boolean isRestrictive) {
-        this(mteArrays, meta, name, size, material, slotCount, stepSize, isRestrictive, 20);
+    public MTEItemPipe(MTEArrays mteArrays, int meta, String name, float size, int slotCount, int stepSize,
+        boolean isRestrictive) {
+        this(mteArrays, meta, name, size, slotCount, stepSize, isRestrictive, 20);
     }
 
-    public MTEItemPipe(String name, float size, Materials_OLD material, int slotCount, int stepSize,
-        boolean isRestrictive, int tickTime) {
+    public MTEItemPipe(String name, float size, int slotCount, int stepSize, boolean isRestrictive, int tickTime) {
         super(name, slotCount);
         mIsRestrictive = isRestrictive;
         mThickNess = size;
-        mMaterial = material;
         mStepSize = stepSize;
         mTickTime = tickTime;
     }
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEItemPipe(name, mThickNess, mMaterial, inventory.length, mStepSize, mIsRestrictive, mTickTime);
+        return new MTEItemPipe(name, mThickNess, inventory.length, mStepSize, mIsRestrictive, mTickTime);
     }
 
     @Override
@@ -133,7 +129,7 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
         // mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
         // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
         // }
-        return new ITexture[] { TextureFactory.of(mMaterial.mIconSet.mTextures[2], new short[] { 123, 123, 123, 0 }) };
+        return new ITexture[] { TextureFactory.of(Blocks.grass) };
     }
 
     @Override

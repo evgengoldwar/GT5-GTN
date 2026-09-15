@@ -43,7 +43,6 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import gregtech.GTMaterialSystem.GTMaterials;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.Mods;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.metatileentity.BasePipeGTE;
@@ -260,8 +259,6 @@ public class GTMod {
         GTGuiTheme.registerThemes();
 
         // Load enchantments
-
-        Materials_OLD.init();
 
         GTPreLoad.initLocalization(
             event.getModConfigurationDirectory()

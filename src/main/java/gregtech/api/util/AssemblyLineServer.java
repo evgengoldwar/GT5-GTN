@@ -9,8 +9,6 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials_OLD;
 
 public class AssemblyLineServer {
 
@@ -54,11 +52,6 @@ public class AssemblyLineServer {
                                 entry.getKey()
                                     .length() - ".name".length()));
                     i = i % 1000;
-                    if (GregTechAPI.S_GENERATED_MATERIALS[i] != null) lServerNames.put(
-                        entry.getKey(),
-                        entry.getValue()
-                            .replace("material", GregTechAPI.S_GENERATED_MATERIALS[i].toString()));
-                    else lServerNames.put(entry.getKey(), null);
                 }
             } catch (Exception ignored) {}
         }
@@ -190,40 +183,7 @@ public class AssemblyLineServer {
                                 entry.getKey()
                                     .length() - ".name".length()));
                     i = i % 1000;
-                    if (GregTechAPI.S_GENERATED_MATERIALS[i] != null) lServerNames.put(
-                        entry.getKey(),
-                        entry.getValue()
-                            .replace("material", GregTechAPI.S_GENERATED_MATERIALS[i].toString()));
-                    else lServerNames.put(entry.getKey(), null);
-                } else if (entry.getKey()
-                    .contains("blockmetal")) {
-                        Materials_OLD[] mMats = null;
-                        String t = entry.getKey()
-                            .substring("gt.blockmetal".length());
-                        t = t.substring(0, 1);
-                        int i = Integer.parseInt(t);
-                        t = entry.getKey()
-                            .substring(
-                                "gt.blockmetal1.".length(),
-                                entry.getKey()
-                                    .length() - ".name".length());
-                        i = Integer.parseInt(t);
-                        lServerNames.put(entry.getKey(), "Block of " + mMats[i].toString());
-                    } else if (entry.getKey()
-                        .contains("blockgem")) {
-                            Materials_OLD[] mMats = null;
-                            String t = entry.getKey()
-                                .substring("gt.blockgem".length());
-                            t = t.substring(0, 1);
-                            int i = Integer.parseInt(t);
-                            t = entry.getKey()
-                                .substring(
-                                    "gt.blockgem1.".length(),
-                                    entry.getKey()
-                                        .length() - ".name".length());
-                            i = Integer.parseInt(t);
-                            lServerNames.put(entry.getKey(), "Block of " + mMats[i].toString());
-                        }
+                }
             } catch (Exception ignored) {}
         }
     }

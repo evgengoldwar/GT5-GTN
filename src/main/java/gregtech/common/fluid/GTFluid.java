@@ -14,7 +14,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.FluidState;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluid;
 import gregtech.api.interfaces.fluid.IGTRegisteredFluid;
@@ -149,24 +148,6 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
     @Override
     public IGTRegisteredFluid registerPContainers(final ItemStack fullContainer, final ItemStack emptyContainer) {
         return registerContainers(fullContainer, emptyContainer, 250);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public IGTRegisteredFluid configureMaterials(final Materials_OLD material) {
-        if (material != null) {
-            switch (fluidState) {
-                case SLURRY -> material.mSolid = registeredFluid;
-                case GAS -> material.mGas = registeredFluid;
-                case PLASMA -> material.mPlasma = registeredFluid;
-                case MOLTEN -> material.mStandardMoltenFluid = registeredFluid;
-                default -> material.mFluid = registeredFluid;
-            }
-            Materials_OLD.FLUID_MAP.put(registeredFluid, material);
-        }
-        return this;
     }
 
     /**
