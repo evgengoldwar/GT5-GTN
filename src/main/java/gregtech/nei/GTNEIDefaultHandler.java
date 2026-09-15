@@ -50,13 +50,11 @@ import codechicken.nei.recipe.RecipeCatalysts;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import gregtech.GTMod;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TieredVariant;
 import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IOverclockDescriptionProvider;
-import gregtech.api.objects.ItemData;
 import gregtech.api.objects.overclockdescriber.EUNoOverclockDescriber;
 import gregtech.api.objects.overclockdescriber.OverclockDescriber;
 import gregtech.api.recipe.BasicUIProperties;
@@ -65,7 +63,6 @@ import gregtech.api.recipe.RecipeCategory;
 import gregtech.api.recipe.RecipeCategorySetting;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMapFrontend;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.OverclockCalculator;
@@ -236,16 +233,7 @@ public class GTNEIDefaultHandler extends TemplateRecipeHandler {
     public void loadCraftingRecipes(ItemStack aResult) {
         ArrayList<ItemStack> tResults = new ArrayList<>();
         tResults.add(aResult);
-        tResults.add(GTOreDictUnificator.get(true, aResult));
 
-        // Handle familiar prefixes for GT items
-        ItemData tPrefixMaterial = GTOreDictUnificator.getAssociation(aResult);
-        if ((tPrefixMaterial != null) && (!tPrefixMaterial.mBlackListed)
-            && (!tPrefixMaterial.mPrefix.mFamiliarPrefixes.isEmpty())) {
-            for (OrePrefixes tPrefix : tPrefixMaterial.mPrefix.mFamiliarPrefixes) {
-                tResults.add(GTOreDictUnificator.get(tPrefix, tPrefixMaterial.mMaterial.mMaterial, 1L));
-            }
-        }
         if (aResult.getUnlocalizedName()
             .startsWith("gt.blockores")) {
             for (int i = 0; i < 8; i++) {
@@ -304,15 +292,8 @@ public class GTNEIDefaultHandler extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack aInput) {
-        ItemData tPrefixMaterial = GTOreDictUnificator.getAssociation(aInput);
         ArrayList<ItemStack> tInputs = new ArrayList<>();
         tInputs.add(aInput);
-        tInputs.add(GTOreDictUnificator.get(false, aInput));
-        if ((tPrefixMaterial != null) && (!tPrefixMaterial.mPrefix.mFamiliarPrefixes.isEmpty())) {
-            for (OrePrefixes tPrefix : tPrefixMaterial.mPrefix.mFamiliarPrefixes) {
-                tInputs.add(GTOreDictUnificator.get(tPrefix, tPrefixMaterial.mMaterial.mMaterial, 1L));
-            }
-        }
         addFluidStacks(aInput, tInputs);
         for (CachedDefaultRecipe recipe : getCache()) {
             if (tInputs.stream()
@@ -592,7 +573,7 @@ public class GTNEIDefaultHandler extends TemplateRecipeHandler {
 
         public FixedPositionedStack(CachedDefaultRecipe recipe, Object object, boolean renderRealStackSize, int x,
             int y, int aChance, boolean aUnificate, boolean aIsInput) {
-            super(aUnificate ? GTOreDictUnificator.getNonUnifiedStacks(object) : object, x, y, true);
+            super(object, x, y, true);
             this.recipe = recipe;
             this.chance = aChance;
             this.mIsInput = aIsInput;

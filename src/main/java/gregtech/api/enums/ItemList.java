@@ -1,22 +1,15 @@
 package gregtech.api.enums;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
-import static gregtech.api.enums.GTValues.NI;
-import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
-
-import java.util.Locale;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.fluids.Fluid;
 
+import codechicken.nei.api.API;
 import gregtech.api.interfaces.IItemContainer;
-import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 
 /**
@@ -1262,8 +1255,28 @@ public enum ItemList implements IItemContainer {
 
     @Override
     public IItemContainer hidden() {
-        codechicken.nei.api.API.hideItem(get(1L));
+        API.hideItem(get(1L));
         return this;
+    }
+
+    @Override
+    public IItemContainer registerOre(Object... aOreNames) {
+        return null;
+    }
+
+    @Override
+    public IItemContainer registerWildcardAsOre(Object... aOreNames) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getWithCharge(long aAmount, int aEnergy, Object... aReplacements) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getWithName(long aAmount, String aDisplayName, Object... aReplacements) {
+        return null;
     }
 
     @Override
@@ -1297,7 +1310,8 @@ public enum ItemList implements IItemContainer {
             mWarned = true;
         }
         if (GTUtility.isStackInvalid(aStack)) return false;
-        return GTUtility.areUnificationsEqual((ItemStack) aStack, aWildcard ? getWildcard(1) : get(1), aIgnoreNBT);
+
+        return true;
     }
 
     @Override
@@ -1308,93 +1322,29 @@ public enum ItemList implements IItemContainer {
             GT_FML_LOGGER.debug(new NullPointerException());
             return GTUtility.copyAmount(aAmount, aReplacements);
         }
-        return GTUtility.copyAmount(aAmount, GTOreDictUnificator.get(mStack));
+        return GTUtility.copyAmount(aAmount, mStack);
     }
 
     @Override
     public ItemStack getWildcard(long aAmount, Object... aReplacements) {
-        sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, WILDCARD, GTOreDictUnificator.get(mStack));
+        return null;
     }
 
     @Override
     public ItemStack getUndamaged(long aAmount, Object... aReplacements) {
-        sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, 0, GTOreDictUnificator.get(mStack));
+        return null;
     }
 
     @Override
     public ItemStack getAlmostBroken(long aAmount, Object... aReplacements) {
-        sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, mStack.getMaxDamage() - 1, GTOreDictUnificator.get(mStack));
-    }
-
-    @Override
-    public ItemStack getWithName(long aAmount, String aDisplayName, Object... aReplacements) {
-        ItemStack rStack = get(1, aReplacements);
-        if (GTUtility.isStackInvalid(rStack)) return NI;
-
-        // CamelCase alphanumeric words from aDisplayName
-        StringBuilder tCamelCasedDisplayNameBuilder = new StringBuilder();
-        final String[] tDisplayNameWords = aDisplayName.split("\\W");
-        for (String tWord : tDisplayNameWords) {
-            if (!tWord.isEmpty()) tCamelCasedDisplayNameBuilder.append(
-                tWord.substring(0, 1)
-                    .toUpperCase(Locale.US));
-            if (tWord.length() > 1) tCamelCasedDisplayNameBuilder.append(
-                tWord.substring(1)
-                    .toLowerCase(Locale.US));
-        }
-        if (tCamelCasedDisplayNameBuilder.isEmpty()) {
-            // CamelCased DisplayName is empty, so use hash of aDisplayName
-            tCamelCasedDisplayNameBuilder.append(((Long) (long) aDisplayName.hashCode()));
-        }
-
-        // Construct a translation key from UnlocalizedName and CamelCased DisplayName
-        final String tKey = rStack.getUnlocalizedName() + ".with." + tCamelCasedDisplayNameBuilder + ".name";
-        GTLanguageManager.addStringLocalization(tKey, aDisplayName);
-        rStack.setStackDisplayName(StatCollector.translateToLocal(tKey));
-        return GTUtility.copyAmount(aAmount, rStack);
-    }
-
-    @Override
-    public ItemStack getWithCharge(long aAmount, int aEnergy, Object... aReplacements) {
-        ItemStack rStack = get(1, aReplacements);
-        if (GTUtility.isStackInvalid(rStack)) return null;
-        GTModHandler.chargeElectricItem(rStack, aEnergy, Integer.MAX_VALUE, true, false);
-        return GTUtility.copyAmount(aAmount, rStack);
+        return null;
     }
 
     @Override
     public ItemStack getWithDamage(long aAmount, long aMetaValue, Object... aReplacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, aMetaValue, GTOreDictUnificator.get(mStack));
-    }
-
-    @Override
-    public IItemContainer registerOre(Object... aOreNames) {
-        sanityCheck();
-        for (Object tOreName : aOreNames) GTOreDictUnificator.registerOre(tOreName, get(1));
-        return this;
-    }
-
-    @Override
-    public IItemContainer registerWildcardAsOre(Object... aOreNames) {
-        sanityCheck();
-        for (Object tOreName : aOreNames) GTOreDictUnificator.registerOre(tOreName, getWildcard(1));
-        return this;
-    }
-
-    /**
-     * Returns the internal stack. This method is unsafe. It's here only for quick operations. DON'T CHANGE THE RETURNED
-     * VALUE!
-     */
-    public ItemStack getInternalStack_unsafe() {
-        return mStack;
+        return GTUtility.copyAmountAndMetaData(aAmount, aMetaValue, mStack);
     }
 
     @Override

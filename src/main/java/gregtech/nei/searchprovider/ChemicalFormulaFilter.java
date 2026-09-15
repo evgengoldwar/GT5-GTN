@@ -11,8 +11,6 @@ import com.gtnewhorizon.gtnhlib.util.font.GlyphReplacements;
 
 import codechicken.nei.ItemStackMap;
 import codechicken.nei.api.ItemFilter;
-import gregtech.api.objects.ItemData;
-import gregtech.api.util.GTOreDictUnificator;
 
 public class ChemicalFormulaFilter implements ItemFilter {
 
@@ -91,12 +89,6 @@ public class ChemicalFormulaFilter implements ItemFilter {
     }
 
     private static String getChemicalFormula(ItemStack itemstack) {
-
-        ItemData data = GTOreDictUnificator.getAssociation(itemstack);
-        if (data != null) {
-            return data.mMaterial.mMaterial.getChemicalFormula();
-        }
-
         return "";
     }
 

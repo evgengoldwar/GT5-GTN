@@ -33,7 +33,6 @@ import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.ISubTagContainer;
 import gregtech.api.objects.MaterialStack;
 import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
 import gregtech.common.render.items.CosmicNeutroniumRenderer;
@@ -2219,50 +2218,6 @@ public class Materials_OLD implements IColorModulationContainer, IOreMaterial {
     public boolean isProperSolderingFluid() {
         return mStandardMoltenFluid != null && contains(SubTag.SOLDERING_MATERIAL)
             && !(GregTechAPI.mUseOnlyGoodSolderingMaterials && !contains(SubTag.SOLDERING_MATERIAL_GOOD));
-    }
-
-    public ItemStack getCells(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.cell, this, amount);
-    }
-
-    public ItemStack getDust(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.dust, this, amount);
-    }
-
-    public ItemStack getDustSmall(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.dustSmall, this, amount);
-    }
-
-    public ItemStack getDustTiny(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.dustTiny, this, amount);
-    }
-
-    public ItemStack getGems(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.gem, this, amount);
-    }
-
-    public ItemStack getIngots(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.ingot, this, amount);
-    }
-
-    public ItemStack getNuggets(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.nugget, this, amount);
-    }
-
-    public ItemStack getBlocks(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.block, this, amount);
-    }
-
-    public ItemStack getPlates(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.plate, this, amount);
-    }
-
-    public static Materials_OLD getGtMaterialFromFluid(Fluid fluid) {
-        return FLUID_MAP.get(fluid);
-    }
-
-    public ItemStack getNanite(int amount) {
-        return GTOreDictUnificator.get(OrePrefixes.nanite, this, amount);
     }
 
     public boolean hasGlowingOre() {

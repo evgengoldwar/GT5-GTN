@@ -45,13 +45,11 @@ import org.jetbrains.annotations.Unmodifiable;
 
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.recipe.lookup.GTFluidLookupIngredient;
-import gregtech.api.recipe.lookup.GTItemDataLookupIngredient;
 import gregtech.api.recipe.lookup.GTItemStackLookupIngredient;
 import gregtech.api.recipe.lookup.GTOreDictLookupIngredient;
 import gregtech.api.recipe.lookup.GTRecipeLookup;
 import gregtech.api.recipe.lookup.GTRecipeLookupBuilder;
 import gregtech.api.recipe.lookup.GTRecipeLookupIngredient;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTStreamUtil;
@@ -331,10 +329,6 @@ public class RecipeMapBackend {
 
         GTRecipeLookupBuilder lookupBuilder = new GTRecipeLookupBuilder();
         for (GTRecipe recipe : allRecipes()) {
-            if (reUnificate) {
-                GTOreDictUnificator.setStackArray(true, true, recipe.mInputs);
-                GTOreDictUnificator.setStackArray(true, true, recipe.mOutputs);
-            }
             addToItemMap(recipe);
             lookupBuilder.add(recipe);
         }
@@ -456,11 +450,7 @@ public class RecipeMapBackend {
 
         ItemStack[] items;
         // Unification happens here in case the item input isn't already unificated.
-        if (notUnificated) {
-            items = GTOreDictUnificator.getStackArray(true, (Object[]) rawItems);
-        } else {
-            items = rawItems;
-        }
+        items = rawItems;
 
         // Recipe lookup uses the trie as fast filtering, the trie does not contain amount checks and nbt checking to
         // allow fast trie traversal. The core logic of the recipe check happens inside filterFindRecipe,
@@ -497,7 +487,6 @@ public class RecipeMapBackend {
             if (item == null) continue;
 
             GTItemStackLookupIngredient.fromRuntime(adder, item);
-            GTItemDataLookupIngredient.fromRuntime(adder, item);
             GTOreDictLookupIngredient.fromRuntime(adder, item);
         }
 

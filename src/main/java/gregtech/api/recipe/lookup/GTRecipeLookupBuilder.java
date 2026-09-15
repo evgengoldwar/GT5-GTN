@@ -12,8 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import gregtech.api.objects.ItemData;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -191,16 +189,12 @@ public final class GTRecipeLookupBuilder {
         if (recipeWithAlt != null && recipeWithAlt.mOreDictAlt != null && index < recipeWithAlt.mOreDictAlt.length) {
             ItemStack[] alternatives = recipeWithAlt.mOreDictAlt[index];
             if (alternatives != null && alternatives.length > 0) {
-                for (ItemStack alternative : alternatives) {
-                    addItemIngredient(recipe, alternative, group);
-                }
+                for (ItemStack alternative : alternatives) {}
                 return;
             }
         }
 
-        if (recipe.mInputs != null && index < recipe.mInputs.length) {
-            addItemIngredient(recipe, recipe.mInputs[index], group);
-        }
+        if (recipe.mInputs != null && index < recipe.mInputs.length) {}
     }
 
     private static void addItemAlternativesMissingOreDictId(GTRecipe recipe, GTRecipe.GTRecipe_WithAlt recipeWithAlt,
@@ -222,9 +216,7 @@ public final class GTRecipeLookupBuilder {
 
     private static void addRepresentativeItemIngredient(GTRecipe recipe, int index,
         List<GTRecipeLookupIngredient> group) {
-        if (recipe.mInputs != null && index < recipe.mInputs.length) {
-            addItemIngredient(recipe, recipe.mInputs[index], group);
-        }
+        if (recipe.mInputs != null && index < recipe.mInputs.length) {}
     }
 
     private static void addItemIngredientIfMissingOreDictId(GTRecipe recipe, ItemStack stack, int oreDictId,
@@ -232,7 +224,6 @@ public final class GTRecipeLookupBuilder {
         if (stack == null || hasOreDictId(stack, oreDictId)) {
             return;
         }
-        addItemIngredient(recipe, stack, group);
     }
 
     private static boolean hasOreDictId(ItemStack stack, int oreDictId) {
@@ -246,26 +237,6 @@ public final class GTRecipeLookupBuilder {
             return false;
         }
         return false;
-    }
-
-    private static void addItemIngredient(GTRecipe recipe, ItemStack stack, List<GTRecipeLookupIngredient> group) {
-        if (stack == null) {
-            return;
-        }
-        addIfAbsent(group, GTItemStackLookupIngredient.fromRecipe(stack, recipe.isNBTSensitive));
-        addItemDataIngredient(stack, group);
-        ItemStack unified = GTOreDictUnificator.get_nocopy(true, stack);
-        if (unified != null) {
-            addIfAbsent(group, GTItemStackLookupIngredient.fromRecipe(unified, recipe.isNBTSensitive));
-            addItemDataIngredient(unified, group);
-        }
-    }
-
-    private static void addItemDataIngredient(ItemStack stack, List<GTRecipeLookupIngredient> group) {
-        ItemData itemData = GTOreDictUnificator.getAssociation(stack);
-        if (itemData != null && itemData.hasValidPrefixMaterialData()) {
-            addIfAbsent(group, GTItemDataLookupIngredient.fromItemData(itemData));
-        }
     }
 
     private static void flattenFluidInputs(GTRecipe recipe, List<List<GTRecipeLookupIngredient>> ingredients) {

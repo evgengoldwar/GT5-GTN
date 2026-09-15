@@ -3,7 +3,6 @@ package gregtech.api.util;
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +14,6 @@ import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import org.jetbrains.annotations.Contract;
 
@@ -24,7 +22,6 @@ import com.LazyFlesh.variablehorizons.variants.VariantNames;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
 import gregtech.api.interfaces.IRecipeMap;
-import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.recipe.RecipeCategory;
 import gregtech.api.recipe.RecipeMetadataKey;
@@ -164,11 +161,6 @@ public class GTRecipeBuilder {
     }
 
     // region helper methods
-
-    private static ItemStack[] fixItemArray(ItemStack[] inputs, boolean aUnsafe) {
-        return GTOreDictUnificator.setStackArray(true, aUnsafe, ArrayExt.removeTrailingNulls(inputs));
-    }
-
     public static GTRecipeBuilder builder() {
         return new GTRecipeBuilder();
     }
@@ -320,8 +312,7 @@ public class GTRecipeBuilder {
         if (skip) return this;
         if (debugNull() && containsNull(inputs)) handleNullRecipeComponents("itemInputs");
 
-        ItemStack[] itemInputs = fixItemArray(inputs, false);
-        inputsBasic = applyPendingCircuit(itemInputs);
+        inputsBasic = applyPendingCircuit(inputs);
 
         inputsOreDict = null;
         alts = null;
@@ -345,8 +336,7 @@ public class GTRecipeBuilder {
         if (skip) return this;
         if (debugNull() && containsNull(inputs)) handleNullRecipeComponents("itemInputs");
 
-        ItemStack[] itemInputs = fixItemArray(inputs, true);
-        inputsBasic = applyPendingCircuit(itemInputs);
+        inputsBasic = applyPendingCircuit(inputs);
 
         inputsOreDict = null;
         alts = null;
@@ -361,86 +351,6 @@ public class GTRecipeBuilder {
         if (skip) return this;
         this.inputChances = chances;
         return itemInputsUnsafe(inputs);
-    }
-
-    /**
-     * OreDicted item inputs. Currently only used for assline recipes adder.
-     */
-    public GTRecipeBuilder itemInputs(Object... inputs) {
-        if (skip) return this;
-        inputsOreDict = inputs;
-        alts = new ItemStack[inputs.length][];
-        altOreIds = new int[inputs.length];
-        Arrays.fill(altOreIds, -1);
-        for (int i = 0, inputsLength = inputs.length; i < inputsLength; i++) {
-            Object input = inputs[i];
-            switch (input) {
-                case ItemStack stack -> alts[i] = new ItemStack[]{stack};
-                case ItemStack[] inputArr -> {
-                    if (debugNull() && containsNull(inputArr)) handleNullRecipeComponents("itemInputs");
-                    alts[i] = inputArr.clone();
-                }
-                case OreDictItemStack ods -> {
-                    altOreIds[i] = OreDictionary.getOreID(ods.mOreName);
-                    ArrayList<ItemStack> ores = GTOreDictUnificator.getOres(ods.mOreName);
-                    if (ores.isEmpty()) {
-                        alts[i] = GTValues.emptyItemStackArray;
-                        GT_FML_LOGGER.error("Warning: OreDict entry \"{}\" is empty; recipe will be skipped.", ods.mOreName);
-                        if (debugNull()) handleNullRecipeComponents("itemInputs empty ore dict");
-                        continue;
-                    }
-                    ArrayList<ItemStack> list = new ArrayList<>(ores.size());
-                    // noinspection ForLoopReplaceableByForEach
-                    for (int j = 0, oresSize = ores.size(); j < oresSize; j++) {
-                        ItemStack itemStack = GTUtility.copyAmount(ods.mAmount, ores.get(j));
-                        if (GTUtility.isStackValid(itemStack)) list.add(itemStack);
-                    }
-                    if (debugNull() && list.isEmpty()) handleNullRecipeComponents("itemInputs no valid ore dict item");
-                    alts[i] = list.toArray(new ItemStack[0]);
-                }
-                case Object[] arr -> {
-                    if (arr.length != 2) continue;
-                    altOreIds[i] = OreDictionary.getOreID(arr[0].toString());
-                    ArrayList<ItemStack> ores = GTOreDictUnificator.getOres(arr[0]);
-                    if (ores.isEmpty()) {
-                        alts[i] = GTValues.emptyItemStackArray;
-                        GT_FML_LOGGER.error("Warning: OreDict entry \"{}\" is empty; recipe will be skipped.", arr[0]);
-                        if (debugNull()) handleNullRecipeComponents("itemInputs empty ore dict");
-                        continue;
-                    }
-                    int size = ((Number) arr[1]).intValue();
-                    ArrayList<ItemStack> list = new ArrayList<>(ores.size());
-                    // noinspection ForLoopReplaceableByForEach
-                    for (int j = 0, oresSize = ores.size(); j < oresSize; j++) {
-                        ItemStack itemStack = GTUtility.copyAmount(size, ores.get(j));
-                        if (GTUtility.isStackValid(itemStack)) list.add(itemStack);
-                    }
-                    if (debugNull() && list.isEmpty()) handleNullRecipeComponents("itemInputs no valid ore dict item");
-                    alts[i] = list.toArray(new ItemStack[0]);
-                }
-                case null -> {
-                    if (debugNull()) handleNullRecipeComponents("recipe oredict input");
-                    alts[i] = GTValues.emptyItemStackArray;
-                }
-                default -> throw new IllegalArgumentException("index " + i + ", unexpected type: " + input.getClass());
-            }
-        }
-        ArrayList<ItemStack> list = new ArrayList<>(alts.length);
-        for (final ItemStack[] ss : alts) list.add(ss.length > 0 ? ss[0] : null);
-        ItemStack[] itemInputs = list.isEmpty() ? GTValues.emptyItemStackArray : list.toArray(new ItemStack[0]);
-        inputsBasic = applyPendingCircuit(itemInputs);
-
-        checkLength(inputChances, inputs, "Item input");
-        return this;
-    }
-
-    /**
-     * Not intended to be used by recipe authors. Intended for recipe rewrite middlewares.
-     */
-    public GTRecipeBuilder itemInputs(Object[] inputs, int[] chances) {
-        if (skip) return this;
-        this.inputChances = chances;
-        return itemInputs(inputs);
     }
 
     public GTRecipeBuilder itemOutputs(ItemStack... outputs) {
@@ -1100,11 +1010,6 @@ public class GTRecipeBuilder {
                     recipeCategory,
                     special,
                     duration)));
-    }
-
-    public GTRecipeBuilder forceOreDictInput() {
-        if (inputsOreDict != null || inputsBasic == null) return this;
-        return itemInputs((Object[]) inputsBasic);
     }
 
     public Optional<GTRecipe.GTRecipe_WithAlt> buildWithAlt() {

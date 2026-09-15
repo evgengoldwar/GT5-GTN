@@ -218,9 +218,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
         if (aFluidOutputs == null) aFluidOutputs = GTValues.emptyFluidStackArray;
         else aFluidOutputs = ArrayExt.removeNullFluids(aFluidOutputs);
 
-        GTOreDictUnificator.setStackArray(true, true, aInputs);
-        GTOreDictUnificator.setStackArray(true, true, aOutputs);
-
         for (final ItemStack s : aOutputs) GTUtility.updateItemStack(s);
 
         for (int i = 0; i < aFluidInputs.length; i++) aFluidInputs[i] = aFluidInputs[i].copy();
@@ -539,9 +536,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
         }
 
         final ItemData[] unifiedProvidedInputs = new ItemData[itemInputs.length];
-        for (int i = 0; i < itemInputs.length; i++) {
-            unifiedProvidedInputs[i] = GTOreDictUnificator.getAssociation(itemInputs[i]);
-        }
         final @NotNull RecipeItemInput @NotNull [] combinedInputs = getCachedCombinedItemInputs();
 
         for (final RecipeItemInput recipeItemCost : combinedInputs) {
@@ -649,9 +643,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
             }
 
             final ItemData[] unifiedProvidedInputs = new ItemData[aInputs.length];
-            for (int i = 0; i < aInputs.length; i++) {
-                unifiedProvidedInputs[i] = GTOreDictUnificator.getAssociation(aInputs[i]);
-            }
 
             recipeItemLoop: for (final RecipeItemInput combinedInput : combinedInputs) {
                 double remainingCost = combinedInput.inputAmount * currentParallel;
@@ -888,8 +879,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
     /** A single recipe input, used for an internal cache to speed up recipe matching */
     public static final class RecipeItemInput {
 
-        /** Item count is ignored on this stack, do not mutate it either */
-        public final ItemStack unifiedStack;
         /** Number of input items required */
         public long inputAmount;
         /** True if the input is NBT-sensitive */
@@ -919,14 +908,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
 
             final boolean stackNeedsNBT = GTRecipe.shouldCheckNBT(stack);
             this.usesNbtMatching = recipeIsNBTSensitive | stackNeedsNBT;
-            if (stackNeedsNBT) {
-                this.unifiedStack = stack;
-            } else {
-                this.unifiedStack = GTOreDictUnificator.get_nocopy(true, stack);
-                if (!this.usesNbtMatching) {
-                    this.unifiedStack.setTagCompound(null);
-                }
-            }
         }
 
         /**
@@ -940,7 +921,6 @@ public class GTRecipe implements Comparable<GTRecipe> {
         public RecipeItemInput(int oreDictId, ItemStack representative, long amount, boolean nbtSensitive,
             ItemStack[] alternativeStacks) {
             this.oreDictId = oreDictId;
-            this.unifiedStack = representative != null ? GTOreDictUnificator.get_nocopy(true, representative) : null;
             this.inputAmount = amount;
             this.chanceWeightedAmount = amount;
             this.usesNbtMatching = nbtSensitive;
@@ -956,7 +936,7 @@ public class GTRecipe implements Comparable<GTRecipe> {
             if (oreDictId >= 0) {
                 return hasOreDictId(other, oreDictId) || matchesAlternativeStack(other);
             }
-            return GTUtility.areStacksEqual(this.unifiedStack, other, !usesNbtMatching);
+            return GTUtility.areStacksEqual(other, other, !usesNbtMatching);
         }
 
         /**
@@ -968,10 +948,9 @@ public class GTRecipe implements Comparable<GTRecipe> {
                 return hasOreDictId(other, oreDictId) || matchesAlternativeStack(other);
             }
             if (usesNbtMatching) {
-                return GTUtility.areStacksEqual(this.unifiedStack, other, false);
-            } else {
-                return GTOreDictUnificator.isInputStackEqual(other, oredictOther, unifiedStack);
-            }
+                return GTUtility.areStacksEqual(other, other, false);
+            } else {}
+            return false;
         }
 
         private boolean matchesAlternativeStack(final ItemStack other) {

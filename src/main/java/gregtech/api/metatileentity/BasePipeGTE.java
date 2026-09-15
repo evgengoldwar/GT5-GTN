@@ -40,7 +40,6 @@ import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IPipeRenderedTileEntity;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 import io.netty.buffer.ByteBuf;
@@ -351,8 +350,7 @@ public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
     public void setInventorySlotContents(int aIndex, ItemStack aStack) {
         markDirty();
         mInventoryChanged = true;
-        if (canAccessData()) mMetaTileEntity
-            .setInventorySlotContents(aIndex, worldObj.isRemote ? aStack : GTOreDictUnificator.setStack(true, aStack));
+        if (canAccessData()) mMetaTileEntity.setInventorySlotContents(aIndex, worldObj.isRemote ? aStack : null);
     }
 
     @Override
@@ -994,7 +992,6 @@ public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
             setInventorySlotContents(aIndex, aStack);
             return true;
         }
-        aStack = GTOreDictUnificator.get(aStack);
         if (GTUtility.areStacksEqual(tStack, aStack)
             && tStack.stackSize + aStack.stackSize <= Math.min(aStack.getMaxStackSize(), getInventoryStackLimit())) {
             markDirty();

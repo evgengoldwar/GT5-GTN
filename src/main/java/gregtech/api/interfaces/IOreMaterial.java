@@ -3,7 +3,6 @@ package gregtech.api.interfaces;
 import java.util.List;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import org.jetbrains.annotations.Nullable;
@@ -11,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
-import gregtech.api.util.GTOreDictUnificator;
 
 /**
  * A temporary material interface to unify the three material systems.
@@ -50,13 +48,4 @@ public interface IOreMaterial extends ISubTagContainer {
 
     boolean generatesPrefix(OrePrefixes prefix);
 
-    default ItemStack getPart(OrePrefixes prefix, int amount) {
-        Materials_OLD gt = getGTMaterial();
-
-        if (gt != null) {
-            return GTOreDictUnificator.get(prefix, gt, amount);
-        } else {
-            return GTOreDictUnificator.get(prefix.get(this.getInternalName()), amount);
-        }
-    }
 }

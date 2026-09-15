@@ -136,9 +136,6 @@ import gregtech.api.objects.GTItemStack;
 import gregtech.api.threads.RunnableSound;
 import gregtech.common.items.ItemIntegratedCircuit;
 import gregtech.nei.FluidDisplayStackMode;
-import ic2.api.recipe.ICannerBottleRecipeManager;
-import ic2.api.recipe.IRecipeInput;
-import ic2.api.recipe.RecipeOutput;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenCustomHashMap;
@@ -657,13 +654,6 @@ public class GTUtility {
         return (stack1 == null && stack2 == null) || GTUtility.areStacksEqual(stack1, stack2);
     }
 
-    public static boolean areUnificationsEqual(ItemStack aStack1, ItemStack aStack2, boolean aIgnoreNBT) {
-        return areStacksEqual(
-            GTOreDictUnificator.get_nocopy(aStack1),
-            GTOreDictUnificator.get_nocopy(aStack2),
-            aIgnoreNBT);
-    }
-
     public static String getFluidName(Fluid aFluid, boolean aLocalized) {
         if (aFluid == null) return E;
         if (!aLocalized) return aFluid.getUnlocalizedName();
@@ -868,53 +858,6 @@ public class GTUtility {
 
     public static Iterable<NBTTagCompound> getCompoundTagList(NBTTagCompound tag, String name) {
         return tag.getTagList(name, NBT.TAG_COMPOUND).tagList;
-    }
-
-    public static synchronized boolean removeIC2BottleRecipe(ItemStack aContainer, ItemStack aInput,
-        Map<ICannerBottleRecipeManager.Input, RecipeOutput> aRecipeList, ItemStack aOutput) {
-        if ((isStackInvalid(aInput) && isStackInvalid(aOutput) && isStackInvalid(aContainer)) || aRecipeList == null)
-            return false;
-        boolean rReturn = false;
-        Iterator<Map.Entry<ICannerBottleRecipeManager.Input, RecipeOutput>> tIterator = aRecipeList.entrySet()
-            .iterator();
-        aOutput = GTOreDictUnificator.get(aOutput);
-        while (tIterator.hasNext()) {
-            Map.Entry<ICannerBottleRecipeManager.Input, RecipeOutput> tEntry = tIterator.next();
-            if (aInput == null || tEntry.getKey()
-                .matches(aContainer, aInput)) {
-                List<ItemStack> tList = tEntry.getValue().items;
-                if (tList != null) for (ItemStack tOutput : tList)
-                    if (aOutput == null || areStacksEqual(GTOreDictUnificator.get(tOutput), aOutput)) {
-                        tIterator.remove();
-                        rReturn = true;
-                        break;
-                    }
-            }
-        }
-        return rReturn;
-    }
-
-    public static synchronized boolean removeSimpleIC2MachineRecipe(ItemStack aInput,
-        Map<IRecipeInput, RecipeOutput> aRecipeList, ItemStack aOutput) {
-        if ((isStackInvalid(aInput) && isStackInvalid(aOutput)) || aRecipeList == null) return false;
-        boolean rReturn = false;
-        Iterator<Map.Entry<IRecipeInput, RecipeOutput>> tIterator = aRecipeList.entrySet()
-            .iterator();
-        aOutput = GTOreDictUnificator.get(aOutput);
-        while (tIterator.hasNext()) {
-            Map.Entry<IRecipeInput, RecipeOutput> tEntry = tIterator.next();
-            if (aInput == null || tEntry.getKey()
-                .matches(aInput)) {
-                List<ItemStack> tList = tEntry.getValue().items;
-                if (tList != null) for (ItemStack tOutput : tList)
-                    if (aOutput == null || areStacksEqual(GTOreDictUnificator.get(tOutput), aOutput)) {
-                        tIterator.remove();
-                        rReturn = true;
-                        break;
-                    }
-            }
-        }
-        return rReturn;
     }
 
     public static boolean doSoundAtClient(String aSoundName, int aTimeUntilNextSound, float aSoundStrength) {
@@ -1370,12 +1313,8 @@ public class GTUtility {
         if (tRawStack != null && aNBT.hasKey("Count", NBT.TAG_INT)) {
             tRealStackSize = aNBT.getInteger("Count");
             tRawStack.stackSize = tRealStackSize;
-        } else if (tRawStack != null) {
-            tRealStackSize = tRawStack.stackSize;
         }
-        ItemStack tRet = GTOreDictUnificator.get(true, tRawStack);
-        if (tRet != null) tRet.stackSize = tRealStackSize;
-        return tRet;
+        return tRawStack;
     }
 
     public static void saveItem(NBTTagCompound aParentTag, String aTagName, ItemStack aStack) {
@@ -1817,11 +1756,6 @@ public class GTUtility {
             };
         }
         return new String(chars);
-    }
-
-    public static boolean isPartOfMaterials(ItemStack aStack, Materials_OLD aMaterialsOLD) {
-        return GTOreDictUnificator.getAssociation(aStack) != null
-            && GTOreDictUnificator.getAssociation(aStack).mMaterial.mMaterial.equals(aMaterialsOLD);
     }
 
     /**

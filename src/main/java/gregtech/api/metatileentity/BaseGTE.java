@@ -64,7 +64,6 @@ import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.shutdown.ShutDownReason;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
@@ -791,9 +790,7 @@ public class BaseGTE extends CommonGTE
         mInventoryChanged = true;
         if (canAccessData()) {
             markDirty();
-            mte.setInventorySlotContents(
-                aIndex,
-                worldObj.isRemote ? aStack : GTOreDictUnificator.setStack(true, aStack));
+            mte.setInventorySlotContents(aIndex, aStack);
         }
     }
 
@@ -1911,7 +1908,7 @@ public class BaseGTE extends CommonGTE
             setInventorySlotContents(slotIndex, stack);
             return true;
         }
-        final ItemStack fromStack = GTOreDictUnificator.get(stack);
+        final ItemStack fromStack = stack;
         if (GTUtility.areStacksEqual(toStack, fromStack) && toStack.stackSize + fromStack.stackSize
             <= Math.min(fromStack.getMaxStackSize(), getInventoryStackLimit())) {
             toStack.stackSize += fromStack.stackSize;

@@ -82,14 +82,12 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials_OLD;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
 import gregtech.api.interfaces.IProjectileItem;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.objects.GTChunkManager;
-import gregtech.api.objects.ItemData;
 import gregtech.api.threads.RunnableCableUpdate;
 import gregtech.api.threads.RunnableMachineUpdate;
 import gregtech.api.util.GTBlockMap;
@@ -97,7 +95,6 @@ import gregtech.api.util.GTChunkAssociatedData;
 import gregtech.api.util.GTClientPreference;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
@@ -365,10 +362,6 @@ public class GTProxy implements IFuelHandler {
         // This needs to happen late enough that all of the fluids we need have been registered.
         // onInitialization() seems to be too early, as the New Horizons Core Mod registers some fluids in post-load.
         // MetaGeneratedItem98.init();
-
-        GTOreDictUnificator.addItemData(new ItemStack(Items.iron_door, 1), new ItemData(Materials_OLD.Iron, 21772800L));
-        GTOreDictUnificator
-            .addItemData(new ItemStack(Items.wooden_door, 1, 32767), new ItemData(Materials_OLD.Wood, 21772800L));
         for (FluidContainerRegistry.FluidContainerData tData : FluidContainerRegistry
             .getRegisteredFluidContainerData()) {
             if ((tData.filledContainer.getItem() == Items.potionitem) && (tData.filledContainer.getItemDamage() == 0)) {
@@ -575,11 +568,6 @@ public class GTProxy implements IFuelHandler {
         if (aEvent.entity.worldObj.isRemote) {
             return;
         }
-
-        if ((aEvent.entity instanceof EntityItem)) {
-            ((EntityItem) aEvent.entity)
-                .setEntityItemStack(GTOreDictUnificator.get(true, ((EntityItem) aEvent.entity).getEntityItem(), true));
-        }
     }
 
     @SubscribeEvent
@@ -649,8 +637,6 @@ public class GTProxy implements IFuelHandler {
             && (aFluidEvent.data.filledContainer.getItemDamage() == 0)) {
             aFluidEvent.data.fluid.amount = 0;
         }
-        GTOreDictUnificator.addToBlacklist(aFluidEvent.data.emptyContainer);
-        GTOreDictUnificator.addToBlacklist(aFluidEvent.data.filledContainer);
         GTUtility.insertInFluidToContainersMap(aFluidEvent.data);
     }
 

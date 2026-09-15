@@ -33,7 +33,6 @@ import com.google.gson.JsonPrimitive;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.api.objects.ItemData;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.mixin.interfaces.accessors.IRecipeMutableAccess;
 
@@ -286,11 +285,6 @@ public final class RecipeChangeAudit {
                 + Item.getIdFromItem(stackItem) : identifier.toString());
         result.addProperty("damage", stack.getItemDamage());
         result.addProperty("amount", stack.stackSize);
-        ItemData association = GTOreDictUnificator.getAssociation(stack);
-        if (association != null && association.mPrefix != null && association.mMaterial != null) {
-            result.addProperty("prefix", association.mPrefix.getName());
-            result.addProperty("material", association.mMaterial.mMaterial.mName);
-        }
         if (stack.hasTagCompound()) result.addProperty(
             "nbt",
             stack.getTagCompound()
