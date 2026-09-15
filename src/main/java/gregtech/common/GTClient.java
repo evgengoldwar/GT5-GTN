@@ -40,12 +40,9 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.input.Keyboard;
 
-import com.gtnewhorizons.navigator.api.NavigatorApi;
-
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -61,7 +58,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Mods;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.FallbackableSteamTexture;
@@ -84,7 +80,6 @@ import gregtech.api.util.client.DynamicLangManager;
 import gregtech.api.util.client.ResourceUtils;
 import gregtech.client.BlockOverlayRenderer;
 import gregtech.client.GTMouseEventHandler;
-import gregtech.client.GTPowerfailRenderer;
 import gregtech.client.GTWorkAreaRenderer;
 import gregtech.client.SeekingOggCodec;
 import gregtech.client.renderer.entity.RenderPowderBarrel;
@@ -92,7 +87,6 @@ import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Client;
 import gregtech.common.entity.EntityPowderBarrelPrimed;
-import gregtech.common.misc.GTPowerfailCommandClient;
 import gregtech.common.networkanalyzer.events.WorldOverlayRenderer;
 import gregtech.common.powergoggles.PowerGogglesCommand;
 import gregtech.common.render.BaseMetaTileEntityRenderer;
@@ -100,7 +94,6 @@ import gregtech.common.render.FluidDisplayStackRenderer;
 import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.GTRendererCasing;
 import gregtech.common.render.RenderInit;
-import gregtech.crossmod.navigator.PowerfailLayerManager;
 import gregtech.loaders.ExtraIcons;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.nei.NEIGTConfig;
@@ -110,7 +103,6 @@ import paulscode.sound.SoundSystemException;
 
 public class GTClient extends GTProxy {
 
-    public GTPowerfailRenderer powerfailRenderer;
     public KeyBinding shakeLockKey;
     public final boolean fixedBottomFaceUV;
     private long mAnimationTick;
@@ -149,17 +141,7 @@ public class GTClient extends GTProxy {
                 .registerMetadataSectionType(new ColorsMetadataSectionSerializer(), ColorsMetadataSection.class);
         mPreference = new GTClientPreference();
 
-        ClientCommandHandler.instance.registerCommand(new GTPowerfailCommandClient());
         ClientCommandHandler.instance.registerCommand(new PowerGogglesCommand());
-
-        if (Mods.Navigator.isModLoaded()) {
-            registerMapLayers();
-        }
-    }
-
-    @Optional.Method(modid = Mods.ModIDs.NAVIGATOR)
-    private void registerMapLayers() {
-        NavigatorApi.registerLayerManager(PowerfailLayerManager.INSTANCE);
     }
 
     @Override
@@ -178,8 +160,6 @@ public class GTClient extends GTProxy {
         MinecraftForge.EVENT_BUS.register(new BlockOverlayRenderer());
         MinecraftForge.EVENT_BUS.register(new GTWorkAreaRenderer());
         WorldOverlayRenderer.init();
-        powerfailRenderer = new GTPowerfailRenderer();
-        MinecraftForge.EVENT_BUS.register(powerfailRenderer);
         shakeLockKey = new KeyBinding("GTPacketInfiniteSpraycan.Action.TOGGLE_SHAKE_LOCK", Keyboard.KEY_NONE, "Gregtech");
         ClientRegistry.registerKeyBinding(shakeLockKey);
 

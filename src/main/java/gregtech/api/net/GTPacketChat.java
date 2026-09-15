@@ -5,7 +5,6 @@ import net.minecraft.world.IBlockAccess;
 import com.google.common.io.ByteArrayDataInput;
 
 import gregtech.GTMod;
-import gregtech.api.enums.ChatMessage;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.Localized;
 import io.netty.buffer.ByteBuf;
@@ -27,10 +26,6 @@ public class GTPacketChat extends GTPacket {
 
     public GTPacketChat(String key, Object... args) {
         this.message = new Localized(key, args);
-    }
-
-    public GTPacketChat(ChatMessage message, Object... args) {
-        this.message = new Localized(message, args);
     }
 
     @Override

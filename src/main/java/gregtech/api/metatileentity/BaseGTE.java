@@ -49,7 +49,6 @@ import appeng.api.util.DimensionalCoord;
 import appeng.helpers.ICustomNameObject;
 import appeng.me.helpers.AENetworkProxy;
 import appeng.me.helpers.IGridProxyable;
-import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
@@ -1398,9 +1397,7 @@ public class BaseGTE extends CommonGTE
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sSoftMalletList)) {
                         if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, player)) {
                             if (!mWorks) {
-                                if (isServerSide()) {
-                                    GTMod.proxy.powerfailTracker.removePowerfailEvents(this);
-                                }
+                                if (isServerSide()) {}
                                 enableWorking();
                             } else if (mWorks) {
                                 disableWorking();

@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import com.google.common.io.ByteArrayDataInput;
 
 import gregtech.GTLoggers;
-import gregtech.api.enums.ChatMessage;
 import gregtech.api.enums.GTValues;
 import gregtech.api.net.GTPacketChat;
 import io.netty.buffer.ByteBuf;
@@ -24,7 +23,6 @@ import io.netty.buffer.ByteBuf;
  * of {@link gregtech.api.net.GTPacketChat} is recommended.
  *
  * @see GTPacketChat
- * @see ChatMessage
  * @see GTUtility#processFormatStacks(String)
  * @see gregtech.api.util.GTTextBuilder
  */
@@ -49,12 +47,6 @@ public class Localized {
         this.args = args;
     }
 
-    /** Localizes a ChatMessage, which may have additional processing on the client */
-    public Localized(ChatMessage key, Object... args) {
-        this.key = key;
-        this.args = args;
-    }
-
     /**
      * Sets the base colour for this entry. Does not clobber the previous style, if the output of
      * {@link #localize(ArgProcessor)} is ran through {@link GTUtility#processFormatStacks(String)}.
@@ -68,13 +60,8 @@ public class Localized {
     private static final byte KEY_LANG = 1;
 
     public void encode(ByteBuf buffer) {
-        if (key instanceof ChatMessage message) {
-            buffer.writeByte(KEY_CHAT);
-            buffer.writeInt(message.ordinal());
-        } else {
-            buffer.writeByte(KEY_LANG);
-            encodeString(buffer, (String) key);
-        }
+        buffer.writeByte(KEY_LANG);
+        encodeString(buffer, (String) key);
 
         buffer.writeByte(baseColour == null ? -1 : baseColour.ordinal());
 
@@ -87,7 +74,6 @@ public class Localized {
 
     public void decode(ByteArrayDataInput buffer) {
         this.key = switch (buffer.readByte()) {
-            case KEY_CHAT -> GTDataUtils.getIndexSafe(ChatMessage.values(), buffer.readInt());
             case KEY_LANG -> decodeString(buffer);
             default -> null;
         };
@@ -120,13 +106,7 @@ public class Localized {
         String colour = baseColour == null ? "" : baseColour.toString();
 
         // §s and §t are format stack codes, see processFormatStacks for more info
-        if (key instanceof ChatMessage message) {
-            return "§s" + colour + message.localize(args) + "§t";
-        } else {
-            return "§s" + colour
-                + StatCollector.translateToLocalFormatted((String) key, argProcessor.process(args))
-                + "§t";
-        }
+        return "§s" + colour + StatCollector.translateToLocalFormatted((String) key, argProcessor.process(args)) + "§t";
     }
 
     @Override

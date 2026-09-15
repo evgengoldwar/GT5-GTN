@@ -9,7 +9,6 @@ import net.minecraft.util.EnumChatFormatting;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.enums.ChatMessage;
 import gregtech.api.interfaces.tileentity.IWorldAccessor;
 import gregtech.api.net.GTPacketChat;
 
@@ -18,7 +17,6 @@ import gregtech.api.net.GTPacketChat;
  * localization keys should just include the text. All values are converted to strings when localized. Localization is
  * deferred as long as possible, and may be deferred to the client if {@link #toLocalized()} is used.
  *
- * @see gregtech.api.enums.ChatMessage
  * @see GTPacketChat
  * @see Localized
  * @see GTUtility#processFormatStacks(String)
@@ -35,10 +33,6 @@ public class GTTextBuilder {
 
     public GTTextBuilder(String langKey) {
         this.key = langKey;
-    }
-
-    public GTTextBuilder(ChatMessage message) {
-        this.key = message;
     }
 
     public GTTextBuilder setBase(EnumChatFormatting base) {
