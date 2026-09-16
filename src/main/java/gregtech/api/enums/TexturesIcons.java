@@ -7,10 +7,13 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.client.iconContainers.blocks.GTBlockIconContainer;
+import gregtech.client.iconContainers.items.GTItemIconContainer;
 
 public enum TexturesIcons implements IIconContainer {
+    // Default path for Items: gregtech:textures/items/
+    // Default path for Blocks: gregtech:textures/blocks/
 
-    ;
+    ARBOREAL_CASING(createBlockIcon("2"));
 
     private final IIconContainer container;
 
@@ -35,5 +38,17 @@ public enum TexturesIcons implements IIconContainer {
 
     private static IIconContainer createBlockIcon(String path, String name) {
         return GTBlockIconContainer.create(path, name);
+    }
+
+    private static IIconContainer createBlockIcon(String name) {
+        return createBlockIcon("", name);
+    }
+
+    private static IIconContainer createItemIcon(String path, String name) {
+        return GTItemIconContainer.create(path, name);
+    }
+
+    private static IIconContainer createItemIcon(String name) {
+        return createItemIcon("", name);
     }
 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -20,6 +19,7 @@ import com.gtnewhorizon.gtnhlib.util.ItemUtil;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
+import gregtech.api.enums.TexturesIcons;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
@@ -129,7 +129,7 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
         // mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
         // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
         // }
-        return new ITexture[] { TextureFactory.of(Blocks.grass) };
+        return new ITexture[] { TextureFactory.of(TexturesIcons.ARBOREAL_CASING) };
     }
 
     @Override
