@@ -1,4 +1,4 @@
-package gregtech.client.iconContainers.items;
+package gregtech.client.iconContainers;
 
 import static gregtech.api.enums.Mods.GregTech;
 import static gregtech.api.util.GTUtility.INVISIBLE_ICON;
@@ -7,6 +7,7 @@ import static gregtech.api.util.GTUtility.getMissingNo;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
@@ -14,7 +15,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.util.client.ResourceUtils;
 
-public class GTItemIconContainer extends AbstractItemIconContainer implements Runnable {
+public class GTItemIconContainer implements IIconContainer, Runnable {
 
     private static final Map<String, GTItemIconContainer> INSTANCES = new ConcurrentHashMap<>();
     private static final String OVERLAY_SUFFIX = "_OVERLAY";
@@ -41,6 +42,11 @@ public class GTItemIconContainer extends AbstractItemIconContainer implements Ru
     @Override
     public IIcon getOverlayIcon() {
         return overlay;
+    }
+
+    @Override
+    public ResourceLocation getTextureFile() {
+        return TextureMap.locationItemsTexture;
     }
 
     @Override

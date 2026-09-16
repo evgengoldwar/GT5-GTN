@@ -6,8 +6,8 @@ import net.minecraft.util.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.interfaces.IIconContainer;
-import gregtech.client.iconContainers.blocks.GTBlockIconContainer;
-import gregtech.client.iconContainers.items.GTItemIconContainer;
+import gregtech.client.iconContainers.GTBlockIconContainer;
+import gregtech.client.iconContainers.GTItemIconContainer;
 
 public enum TexturesIcons implements IIconContainer {
     // Default path for Items: gregtech:textures/items/
