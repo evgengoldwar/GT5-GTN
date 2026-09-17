@@ -45,7 +45,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.GTMod;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.TexturesIcons;
+import gregtech.api.enums.Textures;
 import gregtech.api.gui.modularui.GUITextureSet;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
@@ -207,7 +207,7 @@ public abstract class CoverableGTE extends GTE implements ICoverable, IGregtechW
         if (!cover.isValid()) return null;
         if (GTMod.GT.isClientSide() && GTMod.clientProxy()
             .shouldHideThings()) {
-            return TextureFactory.of(TexturesIcons.INVISIBLE); // See through
+            return TextureFactory.of(Textures.INVISIBLE); // See through
         }
         final ITexture coverTexture = this instanceof BasePipeGTE ? cover.getSpecialFaceTexture()
             : cover.getOverlayTexture();

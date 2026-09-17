@@ -34,7 +34,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.enums.TexturesIcons;
+import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IMTE;
@@ -452,12 +452,12 @@ public abstract class PipeMTE extends CommonMTE implements IConnectable {
     @Override
     public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex, boolean active,
         boolean redstoneLevel) {
-        return new ITexture[] { TextureFactory.of(TexturesIcons.MISSING) };
+        return new ITexture[] { TextureFactory.of(Textures.MISSING) };
     }
 
     public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection, int connections, int colorIndex,
         boolean active, boolean redstoneLevel) {
-        return new ITexture[] { TextureFactory.of(TexturesIcons.MISSING) };
+        return new ITexture[] { TextureFactory.of(Textures.MISSING) };
     }
 
     @Override

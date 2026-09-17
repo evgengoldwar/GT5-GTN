@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.TexturesIcons;
+import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.render.ISBRWorldContext;
 import gregtech.api.render.SBRContextHolder;
@@ -58,7 +58,7 @@ public interface IRenderedBlock {
     class ErrorRenderer implements IRenderedBlockSideCheck, IRenderedBlock {
 
         public static final ErrorRenderer INSTANCE = new ErrorRenderer();
-        public ITexture[] mErrorTexture = new ITexture[] { TextureFactory.of(TexturesIcons.MISSING) };
+        public ITexture[] mErrorTexture = new ITexture[] { TextureFactory.of(Textures.MISSING) };
         private final SBRContextHolder contextHolder = new SBRContextHolder();
 
         @Override

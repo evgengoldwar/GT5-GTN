@@ -44,7 +44,7 @@ import gregtech.GTMaterialSystem.GTMaterials;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.TexturesIcons;
+import gregtech.api.enums.Textures;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.modularui2.GTGuiTextures;
@@ -292,7 +292,7 @@ public class GTMod {
     @Mod.EventHandler
     public void onInitialization(FMLInitializationEvent event) {
         IconContainer.init();
-        TexturesIcons.init();
+        Textures.init();
 
         DataRegistry.registerDataManager(new ClientMetaManager(), 1000);
 

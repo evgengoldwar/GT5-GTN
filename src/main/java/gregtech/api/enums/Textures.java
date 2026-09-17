@@ -14,7 +14,7 @@ import gregtech.client.iconContainers.GTBlockIconContainer;
 import gregtech.client.iconContainers.GTItemIconContainer;
 import gregtech.client.iconContainers.IconContainer;
 
-public enum TexturesIcons implements IIconContainer {
+public enum Textures implements IIconContainer {
 
     // spotless:off
     // Default path for Items: gregtech:textures/items/
@@ -26,10 +26,10 @@ public enum TexturesIcons implements IIconContainer {
     ;
     // spotless:on
 
-    public static final List<TexturesIcons> ALL_ICONS = new ArrayList<>();
+    public static final List<Textures> ALL_ICONS = new ArrayList<>();
     private final IIconContainer container;
 
-    TexturesIcons(@NotNull IIconContainer container) {
+    Textures(@NotNull IIconContainer container) {
         this.container = container;
     }
 
@@ -49,7 +49,7 @@ public enum TexturesIcons implements IIconContainer {
     }
 
     public static void init() {
-        ALL_ICONS.addAll(Arrays.asList(TexturesIcons.values()));
+        ALL_ICONS.addAll(Arrays.asList(Textures.values()));
     }
 
     private static IIconContainer createBlockIcon(String path, String name) {

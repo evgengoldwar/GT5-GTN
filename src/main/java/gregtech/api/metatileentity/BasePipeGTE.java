@@ -31,7 +31,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.TexturesIcons;
+import gregtech.api.enums.Textures;
 import gregtech.api.graphs.Lock;
 import gregtech.api.graphs.Node;
 import gregtech.api.graphs.paths.NodePath;
@@ -607,7 +607,7 @@ public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
 
     @Override
     public ITexture[] getTextureUncovered(ForgeDirection sideDirection) {
-        if (!hasValidMetaTileEntity()) return new ITexture[] { TextureFactory.of(TexturesIcons.MISSING) };
+        if (!hasValidMetaTileEntity()) return new ITexture[] { TextureFactory.of(Textures.MISSING) };
         final int tConnections, connexions = mConnections;
         tConnections = switch (connexions) {
             case IConnectable.CONNECTED_WEST, IConnectable.CONNECTED_EAST -> IConnectable.CONNECTED_WEST

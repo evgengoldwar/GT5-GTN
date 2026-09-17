@@ -53,7 +53,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.TexturesIcons;
+import gregtech.api.enums.Textures;
 import gregtech.api.graphs.GenerateNodeMap;
 import gregtech.api.graphs.GenerateNodeMapPower;
 import gregtech.api.graphs.Node;
@@ -1139,7 +1139,7 @@ public class BaseGTE extends CommonGTE
         final ITexture coverTexture = getCoverTexture(side);
         final ITexture[] textureUncovered = hasValidMetaTileEntity()
             ? mte.getTexture(this, side, mFacing, getColorization(), mActive, getOutputRedstoneSignal(side) > 0)
-            : new ITexture[] { TextureFactory.of(TexturesIcons.MISSING) };
+            : new ITexture[] { TextureFactory.of(Textures.MISSING) };
         final ITexture[] textureCovered;
         if (coverTexture != null) {
             textureCovered = Arrays.copyOf(textureUncovered, textureUncovered.length + 1);

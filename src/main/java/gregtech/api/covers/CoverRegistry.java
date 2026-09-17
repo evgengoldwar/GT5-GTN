@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.GTMod;
-import gregtech.api.enums.TexturesIcons;
+import gregtech.api.enums.Textures;
 import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
@@ -69,7 +69,7 @@ public final class CoverRegistry {
     }
 
     private static ITexture sanitizeTexture(ITexture coverTexture) {
-        return coverTexture == null || !coverTexture.isValidTexture() ? TextureFactory.of(TexturesIcons.MISSING)
+        return coverTexture == null || !coverTexture.isValidTexture() ? TextureFactory.of(Textures.MISSING)
             : coverTexture;
     }
 
