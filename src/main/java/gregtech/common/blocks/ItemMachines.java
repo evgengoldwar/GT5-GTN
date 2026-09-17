@@ -36,6 +36,7 @@ import net.minecraftforge.fluids.IFluidContainerItem;
 import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 
 import appeng.me.helpers.AENetworkProxy;
+import codechicken.nei.api.API;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
@@ -73,6 +74,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
         setMaxDamage(0);
         setHasSubtypes(true);
         setCreativeTab(GregTechAPI.TAB_GREGTECH);
+        API.hideItem(new ItemStack(this, 0));
     }
 
     public static IMTE getMetaTileEntity(ItemStack itemStack) {
