@@ -1,6 +1,6 @@
 package gregtech.common.render.items;
 
-import static gregtech.api.enums.Textures.InvisibleIcon.INVISIBLE_ICON;
+import static gregtech.client.iconContainers.IconContainer.INVISIBLE_ICON;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;

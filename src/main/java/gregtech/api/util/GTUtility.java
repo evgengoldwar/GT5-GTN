@@ -118,8 +118,6 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
-import gregtech.api.enums.Textures;
-import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.item.ItemStackSizeCalculator;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
@@ -1110,23 +1108,6 @@ public class GTUtility {
             if (tStack != null && (tStack.stackSize == 0 || tStack.getItem() == null))
                 aInventory.setInventorySlotContents(i, null);
         }
-    }
-
-    /**
-     * Initializes new empty texture page for casings page 0 is old CASING_BLOCKS
-     * <p>
-     * Then casings should be registered like this: for (byte i = MIN_USED_META; i < MAX_USED_META; i = (byte) (i + 1))
-     * { Textures.BlockIcons.casingTexturePages[PAGE][i+START_INDEX] = new GT_CopiedBlockTexture(this, 6, i); }
-     *
-     * @param page 0 to 127
-     * @return true if it made empty page, false if one already existed...
-     */
-    public static boolean addTexturePage(byte page) {
-        if (Textures.BlockIcons.casingTexturePages[page] == null) {
-            Textures.BlockIcons.casingTexturePages[page] = new ITexture[128];
-            return true;
-        }
-        return false;
     }
 
     public static ItemStack setStack(ItemStack aSetStack, ItemStack aToStack) {

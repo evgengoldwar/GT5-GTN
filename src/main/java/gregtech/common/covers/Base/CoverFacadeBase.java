@@ -22,7 +22,7 @@ import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.covers.CoverPlacementPredicate;
-import gregtech.api.enums.Textures;
+import gregtech.api.enums.TexturesIcons;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.ICoverable;
@@ -260,9 +260,9 @@ public abstract class CoverFacadeBase extends Cover {
 
     @Override
     public ITexture getSpecialFaceTexture() {
-        if (GTUtility.isStackInvalid(mStack)) return Textures.BlockIcons.ERROR_RENDERING[0];
+        if (GTUtility.isStackInvalid(mStack)) return TextureFactory.of(TexturesIcons.MISSING);
         Block block = getTargetBlock(mStack);
-        if (block == null) return Textures.BlockIcons.ERROR_RENDERING[0];
+        if (block == null) return TextureFactory.of(TexturesIcons.MISSING);
         return TextureFactory.blockBuilder()
             .setFromBlock(block, getTargetMeta(mStack))
             .useWorldCoord()

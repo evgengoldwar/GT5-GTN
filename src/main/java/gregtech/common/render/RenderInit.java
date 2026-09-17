@@ -12,7 +12,6 @@ import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.GTLoggers;
-import gregtech.api.enums.Textures;
 import gregtech.common.render.shader.ShaderProfile;
 import gregtech.common.render.shader.SharedShaders;
 
@@ -54,7 +53,6 @@ public final class RenderInit implements IResourceManagerReloadListener {
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Post event) {
         if (event.map.getTextureType() != 0) return;
-        Textures.GlobalIcons.invalidateMissingIconCache();
         pending = true;
     }
 

@@ -34,7 +34,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.enums.Textures;
+import gregtech.api.enums.TexturesIcons;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IMTE;
@@ -43,6 +43,7 @@ import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.render.ISBRInventoryContext;
 import gregtech.api.render.ISBRWorldContext;
+import gregtech.api.render.TextureFactory;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.common.covers.Base.Cover;
 
@@ -451,12 +452,12 @@ public abstract class PipeMTE extends CommonMTE implements IConnectable {
     @Override
     public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex, boolean active,
         boolean redstoneLevel) {
-        return Textures.BlockIcons.ERROR_RENDERING;
+        return new ITexture[] { TextureFactory.of(TexturesIcons.MISSING) };
     }
 
     public ITexture[] getTexture(IGTE baseMetaTileEntity, ForgeDirection sideDirection, int connections, int colorIndex,
         boolean active, boolean redstoneLevel) {
-        return Textures.BlockIcons.ERROR_RENDERING;
+        return new ITexture[] { TextureFactory.of(TexturesIcons.MISSING) };
     }
 
     @Override

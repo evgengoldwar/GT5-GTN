@@ -44,7 +44,6 @@ import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -58,7 +57,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Textures;
 import gregtech.api.gui.GUIColorOverride;
 import gregtech.api.gui.modularui.FallbackableSteamTexture;
 import gregtech.api.hazards.Hazard;
@@ -188,13 +186,6 @@ public class GTClient extends GTProxy {
         RenderInit.register();
         ModuleRegistrar.instance()
             .registerTooltipRenderer("waila.gt.progress", new TTRenderGTProgressBar());
-    }
-
-    @Override
-    public void onLoadComplete(FMLLoadCompleteEvent event) {
-        super.onLoadComplete(event);
-
-        Textures.BlockIcons.cleanup();
     }
 
     @SideOnly(Side.CLIENT)

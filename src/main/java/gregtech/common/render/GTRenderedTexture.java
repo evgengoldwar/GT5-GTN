@@ -1,8 +1,8 @@
 package gregtech.common.render;
 
 import static gregtech.api.enums.Mods.Angelica;
-import static gregtech.api.enums.Textures.InvisibleIcon.INVISIBLE_ICON;
 import static gregtech.api.render.ISBRWorldContext.MAX_BRIGHTNESS;
+import static gregtech.client.iconContainers.IconContainer.INVISIBLE_ICON;
 
 import javax.annotation.Nullable;
 
