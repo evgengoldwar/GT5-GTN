@@ -45,7 +45,6 @@ import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.common.blocks.ItemMachines;
-import gregtech.common.misc.GTStructureChannels;
 
 public class HatchElementBuilder<T> {
 
@@ -622,12 +621,12 @@ public class HatchElementBuilder<T> {
                 if (!StructureLibAPI.isBlockTriviallyReplaceable(world, x, y, z, env.getActor()))
                     return PlaceResult.REJECT;
                 if (mReject != null && mReject.test(t)) return PlaceResult.REJECT;
-                if (!GTStructureChannels.HATCH.hasValue(trigger) && !mExclusive) {
-                    String type = getHint();
-                    env.getChatter()
-                        .accept(new ChatComponentTranslation("GT5U.autoplace.error.no_placeable", type));
-                    return PlaceResult.REJECT;
-                }
+                // if (!GTStructureChannels.HATCH.hasValue(trigger) && !mExclusive) {
+                // String type = getHint();
+                // env.getChatter()
+                // .accept(new ChatComponentTranslation("GT5U.autoplace.error.no_placeable", type));
+                // return PlaceResult.REJECT;
+                // }
                 ItemStack taken = env.getSource()
                     .takeOne(mHatchItemFilter.apply(t, trigger), true);
                 if (GTUtility.isStackInvalid(taken)) {

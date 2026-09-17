@@ -27,7 +27,6 @@ import com.gtnewhorizon.structurelib.StructureLibAPI;
 
 import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
-import gregtech.api.structure.IStructureChannels;
 import gregtech.api.util.tooltip.MarkdownTooltipLoader;
 import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.api.util.tooltip.TooltipTier;
@@ -1555,30 +1554,6 @@ public class MultiblockTooltipBuilder {
      */
     public MultiblockTooltipBuilder addMasterChannel(String effect) {
         sLines.add(translateToLocalFormatted("GT5U.MBTT.masterchannel", effect));
-        return this;
-    }
-
-    /**
-     * Use this method to add non-standard structural info:<br>
-     * (indent)Subchannel [channel] determines [channel.tooltip]
-     *
-     * @param channel Name of subchannel
-     * @return Instance this method was called on.
-     */
-    public MultiblockTooltipBuilder addSubChannel(IStructureChannels channel) {
-        sLines.add(translateToLocalFormatted("GT5U.MBTT.subchannel", channel.get(), channel.getDefaultTooltip()));
-        return this;
-    }
-
-    /**
-     * Use this method to add non-standard structural info:<br>
-     * (indent)Subchannel [channel] determines [channel.tooltip]
-     *
-     * @param channel Name of subchannel
-     * @return Instance this method was called on.
-     */
-    public MultiblockTooltipBuilder addSubChannelUsage(IStructureChannels channel) {
-        sLines.add(translateToLocalFormatted("GT5U.MBTT.subchannel", channel.get(), channel.getDefaultTooltip()));
         return this;
     }
 
