@@ -92,7 +92,6 @@ import gregtech.common.handlers.OffhandToolFunctionalityHandler;
 import gregtech.common.misc.GlobalEnergyWorldSavedData;
 import gregtech.common.misc.WirelessChargerManager;
 import gregtech.common.misc.spaceprojects.SpaceProjectWorldSavedData;
-import gregtech.common.networkanalyzer.events.NetworkAnalyzerPlayerTracker;
 import gregtech.common.powergoggles.PowerGogglesWorldSavedData;
 import gregtech.common.powergoggles.handlers.PowerGogglesEventHandler;
 import gregtech.nei.GTNEIDefaultHandler;
@@ -322,7 +321,6 @@ public class GTProxy implements IFuelHandler {
         MinecraftForge.EVENT_BUS.register(new PowerGogglesWorldSavedData());
         MinecraftForge.EVENT_BUS.register(PowerGogglesEventHandler.getInstance());
         MinecraftForge.EVENT_BUS.register(new OffhandToolFunctionalityHandler());
-        NetworkAnalyzerPlayerTracker.init();
         CTRL_KEYBIND = SyncedKeybind.create(Keyboard.KEY_LCONTROL);
 
         GregTechAPI.sLoadStarted = true;

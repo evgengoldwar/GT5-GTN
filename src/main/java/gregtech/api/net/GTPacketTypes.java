@@ -2,8 +2,6 @@ package gregtech.api.net;
 
 import java.util.Arrays;
 
-import gregtech.common.networkanalyzer.net.GTPacketNetworkAnalyzer;
-import gregtech.common.networkanalyzer.net.GTPacketNetworkAnalyzerMode;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
 /**
@@ -26,8 +24,6 @@ public enum GTPacketTypes {
     SEND_WIRELESS_EU(33, new GTPacketUpdatePowerGoggles()),
     OVERWRITE_POWER_GOGGLES_MEASUREMENTS(34, new GTPacketOverwritePowerGogglesMeasurements()),
     CHAT(39, new GTPacketChat()),
-    NETWORK_ANALYZER(44, new GTPacketNetworkAnalyzer()),
-    NETWORK_ANALYZER_MODE(45, new GTPacketNetworkAnalyzerMode()),
     SYNC_TILE_RENDER_DATA_TO_CLIENT(46, new GTPacketClientMTERendererData()),
 
     // merge conflict prevention comment, keep a trailing comma above

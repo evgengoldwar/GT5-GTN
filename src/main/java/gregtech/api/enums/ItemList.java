@@ -22,7 +22,6 @@ public enum ItemList implements IItemContainer {
 
     Tool_Vajra,
     Vajra_Core,
-    NetworkAnalyzer,
     Magnetron,
     Item_Power_Goggles,
     Shape_Empty,
