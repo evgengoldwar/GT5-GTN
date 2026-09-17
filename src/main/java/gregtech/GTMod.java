@@ -56,6 +56,7 @@ import gregtech.api.util.AssemblyLineServer;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTRecipe;
+import gregtech.client.iconContainers.IconContainer;
 import gregtech.common.GTClient;
 import gregtech.common.GTDummyWorld;
 import gregtech.common.GTNetwork;
@@ -237,8 +238,6 @@ public class GTMod {
 
     @Mod.EventHandler
     public void onPreInitialization(FMLPreInitializationEvent event) {
-
-        TexturesIcons.values();
         GTMaterials.init();
 
         Locale.setDefault(Locale.ENGLISH);
@@ -292,6 +291,9 @@ public class GTMod {
 
     @Mod.EventHandler
     public void onInitialization(FMLInitializationEvent event) {
+        IconContainer.init();
+        TexturesIcons.init();
+
         DataRegistry.registerDataManager(new ClientMetaManager(), 1000);
 
         // GTModHandler.addCraftingRecipe(

@@ -129,7 +129,7 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
         // mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
         // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
         // }
-        return new ITexture[] { TextureFactory.of(TexturesIcons.ARBOREAL_CASING) };
+        return new ITexture[] { TextureFactory.of(TexturesIcons.MISING_INVISIBLE) };
     }
 
     @Override

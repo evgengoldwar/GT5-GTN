@@ -1,8 +1,6 @@
 package gregtech.client.iconContainers;
 
 import static gregtech.api.enums.Mods.GregTech;
-import static gregtech.api.util.GTUtility.INVISIBLE_ICON;
-import static gregtech.api.util.GTUtility.getMissingNo;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,13 +52,13 @@ public class GTItemIconContainer implements IIconContainer, Runnable {
         if (ResourceUtils.resourceExists(iconResource)) {
             icon = GregTechAPI.sItemIcons.registerIcon(iconName);
         } else {
-            icon = getMissingNo();
+            icon = IconContainer.MISSING_ICON;
         }
 
         if (ResourceUtils.resourceExists(overlayResource)) {
             overlay = GregTechAPI.sItemIcons.registerIcon(overlayName);
         } else {
-            overlay = INVISIBLE_ICON;
+            overlay = IconContainer.INVISIBLE_ICON;
         }
     }
 
