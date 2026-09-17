@@ -18,8 +18,6 @@ import com.gtnewhorizons.modularui.api.math.Pos2d;
 import com.gtnewhorizons.modularui.api.math.Size;
 import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
-import gregtech.api.gui.modularui.FallbackableSteamTexture;
-import gregtech.api.gui.modularui.SteamTexture;
 import gregtech.api.util.FieldsAreNonnullByDefault;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 
@@ -50,9 +48,7 @@ public final class BasicUIProperties {
             .maxFluidInputs(maxFluidInputs)
             .maxFluidOutputs(maxFluidOutputs)
             .slotOverlays(slotOverlays)
-            .slotOverlaysSteam(slotOverlaysSteam)
             .progressBarTexture(progressBarTexture)
-            .progressBarTextureSteam(progressBarTextureSteam)
             .progressBarDirection(progressBarDirection)
             .progressBarSize(progressBarSize)
             .progressBarPos(progressBarPos)
@@ -61,7 +57,6 @@ public final class BasicUIProperties {
             .neiTransferRect(neiTransferRect)
             .neiTransferRectId(neiTransferRectId)
             .specialTextures(specialTextures)
-            .specialTexturesSteam(specialTexturesSteam)
             .logo(logo)
             .logoSize(logoSize)
             .logoPos(logoPos)
@@ -72,9 +67,7 @@ public final class BasicUIProperties {
             .fluidOutputPositionsGetter(fluidOutputPositionsGetter)
             .amperage(amperage)
             .slotOverlaysMUI2(slotOverlaysMUI2)
-            .slotOverlaysSteamMUI2(slotOverlaysSteamMUI2)
             .progressBarTextureMUI2(progressBarMUI2)
-            .progressBarTextureSteamMUI2(progressBarTextureSteamMUI2)
             .progressBarDirectionMUI2(progressBarDirectionMUI2)
             .progressBarSizeMUI2(progressBarWidthMUI2, progressBarHeightMUI2);
     }
@@ -101,18 +94,12 @@ public final class BasicUIProperties {
     public final int maxFluidOutputs;
 
     private final SlotOverlayGetter<IDrawable> slotOverlays;
-    private final SlotOverlayGetter<SteamTexture> slotOverlaysSteam;
 
     /**
      * Progressbar used for BasicMachine GUI and NEI.
      */
     @Nullable
     public final FallbackableUITexture progressBarTexture;
-    /**
-     * Progressbar used for steam machine GUI.
-     */
-    @Nullable
-    public final FallbackableSteamTexture progressBarTextureSteam;
     /**
      * Direction of progressbar animation.
      */
@@ -154,10 +141,6 @@ public final class BasicUIProperties {
      * Additional textures shown on GUI.
      */
     public final List<Pair<IDrawable, Pair<Size, Pos2d>>> specialTextures;
-    /**
-     * Additional textures shown on steam machine GUI.
-     */
-    public final List<Pair<SteamTexture, Pair<Size, Pos2d>>> specialTexturesSteam;
 
     /**
      * Logo shown on GUI. GregTech logo by default.
@@ -179,9 +162,7 @@ public final class BasicUIProperties {
     public final IntFunction<List<Pos2d>> fluidOutputPositionsGetter;
 
     public final SlotOverlayGetter<com.cleanroommc.modularui.api.drawable.IDrawable> slotOverlaysMUI2;
-    public final SlotOverlayGetter<gregtech.common.modularui2.util.SteamTexture> slotOverlaysSteamMUI2;
     public final UITexture progressBarMUI2;
-    public final gregtech.common.modularui2.util.SteamTexture progressBarTextureSteamMUI2;
     public final ProgressWidget.Direction progressBarDirectionMUI2;
     public final int progressBarWidthMUI2;
     public final int progressBarHeightMUI2;
@@ -193,20 +174,16 @@ public final class BasicUIProperties {
     public final int amperage;
 
     BasicUIProperties(int maxItemInputs, int maxItemOutputs, int maxFluidInputs, int maxFluidOutputs,
-        SlotOverlayGetter<IDrawable> slotOverlays, SlotOverlayGetter<SteamTexture> slotOverlaysSteam,
-        @Nullable FallbackableUITexture progressBarTexture, @Nullable FallbackableSteamTexture progressBarTextureSteam,
+        SlotOverlayGetter<IDrawable> slotOverlays, @Nullable FallbackableUITexture progressBarTexture,
         ProgressBar.Direction progressBarDirection, Size progressBarSize, Pos2d progressBarPos, boolean useProgressBar,
         boolean useSpecialSlot, List<Rectangle> neiTransferRect, @Nullable String neiTransferRectId,
-        List<Pair<IDrawable, Pair<Size, Pos2d>>> specialTextures,
-        List<Pair<SteamTexture, Pair<Size, Pos2d>>> specialTexturesSteam, IDrawable logo, Size logoSize, Pos2d logoPos,
+        List<Pair<IDrawable, Pair<Size, Pos2d>>> specialTextures, IDrawable logo, Size logoSize, Pos2d logoPos,
         IntFunction<List<Pos2d>> itemInputPositionsGetter, IntFunction<List<Pos2d>> itemOutputPositionsGetter,
         Supplier<Pos2d> specialItemPositionGetter, IntFunction<List<Pos2d>> fluidInputPositionsGetter,
         IntFunction<List<Pos2d>> fluidOutputPositionsGetter, int amperage,
         SlotOverlayGetter<com.cleanroommc.modularui.api.drawable.IDrawable> slotOverlaysMUI2,
-        SlotOverlayGetter<gregtech.common.modularui2.util.SteamTexture> slotOverlaysSteamMUI2,
-        com.cleanroommc.modularui.drawable.UITexture progressBarMUI2,
-        gregtech.common.modularui2.util.SteamTexture progressBarTextureSteamMUI2,
-        ProgressWidget.Direction progressBarDirectionMUI2, int progressBarWidthMUI2, int progressBarHeightMUI2) {
+        com.cleanroommc.modularui.drawable.UITexture progressBarMUI2, ProgressWidget.Direction progressBarDirectionMUI2,
+        int progressBarWidthMUI2, int progressBarHeightMUI2) {
         if (maxItemInputs < 0 || maxItemOutputs < 0 || maxFluidInputs < 0 || maxFluidOutputs < 0) {
             throw new IllegalArgumentException(
                 "maxItemInputs, maxItemOutputs, maxFluidInputs and maxFluidOutputs cannot be negative");
@@ -219,9 +196,7 @@ public final class BasicUIProperties {
         this.maxFluidInputs = maxFluidInputs;
         this.maxFluidOutputs = maxFluidOutputs;
         this.slotOverlays = slotOverlays;
-        this.slotOverlaysSteam = slotOverlaysSteam;
         this.progressBarTexture = progressBarTexture;
-        this.progressBarTextureSteam = progressBarTextureSteam;
         this.progressBarDirection = progressBarDirection;
         this.progressBarSize = progressBarSize;
         this.progressBarPos = progressBarPos;
@@ -230,7 +205,6 @@ public final class BasicUIProperties {
         this.neiTransferRect = neiTransferRect;
         this.neiTransferRectId = neiTransferRectId;
         this.specialTextures = specialTextures;
-        this.specialTexturesSteam = specialTexturesSteam;
         this.logo = logo;
         this.logoSize = logoSize;
         this.logoPos = logoPos;
@@ -241,9 +215,7 @@ public final class BasicUIProperties {
         this.fluidOutputPositionsGetter = fluidOutputPositionsGetter;
         this.amperage = amperage;
         this.slotOverlaysMUI2 = slotOverlaysMUI2;
-        this.slotOverlaysSteamMUI2 = slotOverlaysSteamMUI2;
         this.progressBarMUI2 = progressBarMUI2;
-        this.progressBarTextureSteamMUI2 = progressBarTextureSteamMUI2;
         this.progressBarDirectionMUI2 = progressBarDirectionMUI2;
         this.progressBarWidthMUI2 = progressBarWidthMUI2;
         this.progressBarHeightMUI2 = progressBarHeightMUI2;
@@ -261,14 +233,6 @@ public final class BasicUIProperties {
     @Nullable
     public IDrawable getOverlayForSlot(int index, boolean isFluid, boolean isOutput, boolean isSpecial) {
         return slotOverlays.apply(index, isFluid, isOutput, isSpecial);
-    }
-
-    /**
-     * Retrieves overlay for slot of steam machines, with given matching conditions.
-     */
-    @Nullable
-    public SteamTexture getOverlayForSlotSteam(int index, boolean isFluid, boolean isOutput, boolean isSpecial) {
-        return slotOverlaysSteam.apply(index, isFluid, isOutput, isSpecial);
     }
 
     public interface SlotOverlayGetter<T> {

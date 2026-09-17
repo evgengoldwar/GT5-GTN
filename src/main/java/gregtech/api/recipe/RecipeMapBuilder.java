@@ -1,7 +1,5 @@
 package gregtech.api.recipe;
 
-import static gregtech.api.enums.Mods.GregTech;
-
 import java.awt.Rectangle;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,9 +21,7 @@ import com.gtnewhorizons.modularui.api.math.Size;
 import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
 import codechicken.nei.recipe.HandlerInfo;
-import gregtech.api.gui.modularui.FallbackableSteamTexture;
 import gregtech.api.gui.modularui.GTUITextures;
-import gregtech.api.gui.modularui.SteamTexture;
 import gregtech.api.objects.overclockdescriber.OverclockDescriber;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeBuilder;
@@ -199,14 +195,6 @@ public final class RecipeMapBuilder<B extends RecipeMapBackend> {
         return this;
     }
 
-    /**
-     * Sets function to get overlay for slots of steam machines.
-     */
-    public RecipeMapBuilder<B> slotOverlaysSteam(BasicUIProperties.SlotOverlayGetter<SteamTexture> slotOverlaysSteam) {
-        uiPropertiesBuilder.slotOverlaysSteam(slotOverlaysSteam);
-        return this;
-    }
-
     // ensures the value input is never null
     public RecipeMapBuilder<B> slotOverlaysMUI2(
         BasicUIProperties.SlotOverlayGetter<com.cleanroommc.modularui.api.drawable.IDrawable> slotOverlaysMUI2) {
@@ -214,16 +202,6 @@ public final class RecipeMapBuilder<B extends RecipeMapBackend> {
             com.cleanroommc.modularui.api.drawable.IDrawable drawable = slotOverlaysMUI2
                 .apply(index, isFluid, isOutput, isSpecial);
             return drawable == null ? com.cleanroommc.modularui.api.drawable.IDrawable.NONE : drawable;
-        });
-        return this;
-    }
-
-    public RecipeMapBuilder<B> slotOverlaysSteamMUI2(
-        BasicUIProperties.SlotOverlayGetter<gregtech.common.modularui2.util.SteamTexture> slotOverlaysSteamMUI2) {
-        uiPropertiesBuilder.slotOverlaysSteamMUI2((index, isFluid, isOutput, isSpecial) -> {
-            gregtech.common.modularui2.util.SteamTexture texture = slotOverlaysSteamMUI2
-                .apply(index, isFluid, isOutput, isSpecial);
-            return texture == null ? gregtech.common.modularui2.util.SteamTexture.NONE : texture;
         });
         return this;
     }
@@ -251,12 +229,6 @@ public final class RecipeMapBuilder<B extends RecipeMapBackend> {
      */
     public RecipeMapBuilder<B> progressBarMUI2(com.cleanroommc.modularui.drawable.UITexture progressBarTextureMUI2) {
         return progressBarMUI2(progressBarTextureMUI2, ProgressWidget.Direction.RIGHT);
-    }
-
-    public RecipeMapBuilder<B> progressBarTextureSteamMUI2(
-        gregtech.common.modularui2.util.SteamTexture progressBarTextureSteamMUI2) {
-        uiPropertiesBuilder.progressBarTextureSteamMUI2(progressBarTextureSteamMUI2);
-        return this;
     }
 
     public RecipeMapBuilder<B> progressBarSizeMUI2(int progressBarWidthMUI2, int progressBarHeightMUI2) {
@@ -294,24 +266,6 @@ public final class RecipeMapBuilder<B extends RecipeMapBackend> {
         ProgressBar.Direction direction) {
         uiPropertiesBuilder.progressBarTexture(texture)
             .progressBarDirection(direction);
-        return this;
-    }
-
-    /**
-     * Sets progressbar texture for steam machines.
-     * <p>
-     * Unless specified, size should be (20, 36), consisting of two parts; First is (20, 18) size of "empty" image at
-     * the top, Second is (20, 18) size of "filled" image at the bottom.
-     */
-    public RecipeMapBuilder<B> progressBarSteam(SteamTexture texture) {
-        return progressBarSteamWithFallback(
-            new FallbackableSteamTexture(
-                SteamTexture.fullImage(GregTech.ID, "gui/progressbar/" + unlocalizedName + "_%s"),
-                texture));
-    }
-
-    private RecipeMapBuilder<B> progressBarSteamWithFallback(FallbackableSteamTexture texture) {
-        uiPropertiesBuilder.progressBarTextureSteam(texture);
         return this;
     }
 
@@ -371,14 +325,6 @@ public final class RecipeMapBuilder<B extends RecipeMapBackend> {
      */
     public RecipeMapBuilder<B> addSpecialTexture(int x, int y, int width, int height, IDrawable texture) {
         uiPropertiesBuilder.addSpecialTexture(new Size(width, height), new Pos2d(x, y), texture);
-        return this;
-    }
-
-    /**
-     * Adds additional textures shown on steam machine GUI.
-     */
-    public RecipeMapBuilder<B> addSpecialTextureSteam(int x, int y, int width, int height, SteamTexture texture) {
-        uiPropertiesBuilder.addSpecialTextureSteam(new Size(width, height), new Pos2d(x, y), texture);
         return this;
     }
 

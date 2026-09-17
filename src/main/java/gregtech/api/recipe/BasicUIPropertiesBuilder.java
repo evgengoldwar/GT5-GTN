@@ -22,9 +22,7 @@ import com.gtnewhorizons.modularui.api.math.Pos2d;
 import com.gtnewhorizons.modularui.api.math.Size;
 import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
-import gregtech.api.gui.modularui.FallbackableSteamTexture;
 import gregtech.api.gui.modularui.GTUITextures;
-import gregtech.api.gui.modularui.SteamTexture;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 import gregtech.common.gui.modularui.UIHelper;
@@ -40,12 +38,9 @@ public final class BasicUIPropertiesBuilder {
     private int maxItemInputs, maxItemOutputs, maxFluidInputs, maxFluidOutputs;
 
     private BasicUIProperties.SlotOverlayGetter<IDrawable> slotOverlays = (_, _, _, _) -> null;
-    private BasicUIProperties.SlotOverlayGetter<SteamTexture> slotOverlaysSteam = (_, _, _, _) -> null;
 
     @Nullable
     private FallbackableUITexture progressBarTexture;
-    @Nullable
-    private FallbackableSteamTexture progressBarTextureSteam;
     private ProgressBar.Direction progressBarDirection = ProgressBar.Direction.RIGHT;
     private Size progressBarSize = new Size(20, 18);
     private Pos2d progressBarPos = new Pos2d(78, 24);
@@ -59,8 +54,6 @@ public final class BasicUIPropertiesBuilder {
     private String neiTransferRectId;
 
     private final ImmutableList.Builder<Pair<IDrawable, Pair<Size, Pos2d>>> specialTextures = ImmutableList.builder();
-    private final ImmutableList.Builder<Pair<SteamTexture, Pair<Size, Pos2d>>> specialTexturesSteam = ImmutableList
-        .builder();
 
     private IDrawable logo = GTUITextures.PICTURE_GT_LOGO_17x17_TRANSPARENT;
     private Size logoSize = new Size(17, 17);
@@ -76,11 +69,8 @@ public final class BasicUIPropertiesBuilder {
 
     private BasicUIProperties.SlotOverlayGetter<com.cleanroommc.modularui.api.drawable.IDrawable> slotOverlaysMUI2 = (_,
         _, _, _) -> com.cleanroommc.modularui.api.drawable.IDrawable.NONE;
-    private BasicUIProperties.SlotOverlayGetter<gregtech.common.modularui2.util.SteamTexture> slotOverlaysSteamMUI2 = (
-        _, _, _, _) -> null;
 
     private UITexture progressBarTextureMUI2 = GTGuiTextures.PROGRESSBAR_ARROW_STANDARD;
-    private gregtech.common.modularui2.util.SteamTexture progressBarTextureSteamMUI2;
     private ProgressWidget.Direction progressBarDirectionMUI2 = ProgressWidget.Direction.RIGHT;
     private int progressBarWidthMUI2 = 20;
     private int progressBarHeightMUI2 = 36;
@@ -106,9 +96,7 @@ public final class BasicUIPropertiesBuilder {
             maxFluidInputs,
             maxFluidOutputs,
             slotOverlays,
-            slotOverlaysSteam,
             progressBarTexture,
-            progressBarTextureSteam,
             progressBarDirection,
             progressBarSize,
             progressBarPos,
@@ -117,7 +105,6 @@ public final class BasicUIPropertiesBuilder {
             builtNEITransferRect,
             neiTransferRectId,
             specialTextures.build(),
-            specialTexturesSteam.build(),
             logo,
             logoSize,
             logoPos,
@@ -128,9 +115,7 @@ public final class BasicUIPropertiesBuilder {
             fluidOutputPositionsGetter,
             amperage,
             slotOverlaysMUI2,
-            slotOverlaysSteamMUI2,
             progressBarTextureMUI2,
-            progressBarTextureSteamMUI2,
             progressBarDirectionMUI2,
             progressBarWidthMUI2,
             progressBarHeightMUI2);
@@ -161,20 +146,8 @@ public final class BasicUIPropertiesBuilder {
         return this;
     }
 
-    public BasicUIPropertiesBuilder slotOverlaysSteam(
-        BasicUIProperties.SlotOverlayGetter<SteamTexture> slotOverlaysSteam) {
-        this.slotOverlaysSteam = slotOverlaysSteam;
-        return this;
-    }
-
     public BasicUIPropertiesBuilder progressBarTexture(@Nullable FallbackableUITexture progressBarTexture) {
         this.progressBarTexture = progressBarTexture;
-        return this;
-    }
-
-    public BasicUIPropertiesBuilder progressBarTextureSteam(
-        @Nullable FallbackableSteamTexture progressBarTextureSteam) {
-        this.progressBarTextureSteam = progressBarTextureSteam;
         return this;
     }
 
@@ -233,16 +206,6 @@ public final class BasicUIPropertiesBuilder {
         return this;
     }
 
-    public BasicUIPropertiesBuilder addSpecialTextureSteam(Size size, Pos2d pos, SteamTexture texture) {
-        this.specialTexturesSteam.add(new ImmutablePair<>(texture, new ImmutablePair<>(size, pos)));
-        return this;
-    }
-
-    BasicUIPropertiesBuilder specialTexturesSteam(List<Pair<SteamTexture, Pair<Size, Pos2d>>> specialTextures) {
-        this.specialTexturesSteam.addAll(specialTextures);
-        return this;
-    }
-
     public BasicUIPropertiesBuilder logo(IDrawable logo) {
         this.logo = logo;
         return this;
@@ -294,20 +257,8 @@ public final class BasicUIPropertiesBuilder {
         return this;
     }
 
-    public BasicUIPropertiesBuilder slotOverlaysSteamMUI2(
-        BasicUIProperties.SlotOverlayGetter<gregtech.common.modularui2.util.SteamTexture> slotOverlaysSteamMUI2) {
-        this.slotOverlaysSteamMUI2 = slotOverlaysSteamMUI2;
-        return this;
-    }
-
     public BasicUIPropertiesBuilder progressBarTextureMUI2(UITexture progressBarTextureMUI2) {
         this.progressBarTextureMUI2 = progressBarTextureMUI2;
-        return this;
-    }
-
-    public BasicUIPropertiesBuilder progressBarTextureSteamMUI2(
-        gregtech.common.modularui2.util.SteamTexture progressBarTextureSteamMUI2) {
-        this.progressBarTextureSteamMUI2 = progressBarTextureSteamMUI2;
         return this;
     }
 

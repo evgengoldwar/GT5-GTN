@@ -1,10 +1,5 @@
 package gregtech.api.modularui2;
 
-import static gregtech.common.gui.modularui.widget.SteamGaugeWidget.GAUGE_CONNECTOR_SIZE;
-import static gregtech.common.gui.modularui.widget.SteamGaugeWidget.GAUGE_NEEDLE_HEIGHT;
-import static gregtech.common.gui.modularui.widget.SteamGaugeWidget.GAUGE_NEEDLE_WIDTH;
-import static gregtech.common.gui.modularui.widget.SteamGaugeWidget.GAUGE_SIZE;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -24,8 +19,7 @@ import gregtech.common.modularui2.theme.ProgressbarWidgetTheme;
 
 /**
  * Holds and registers all the {@link WidgetTheme}s used in GT. It can be used to customize the appearance of specific
- * widget while keeping the overall {@link GTGuiTheme} the same. The primary use case is for bronze/steel/primitive
- * machines, but it also can be used for other "base" machines to allow individual derivatives to have custom "themed"
+ * widget while keeping the overall {@link GTGuiTheme} the same, allowing individual derivatives to have custom "themed"
  * textures while keeping the GUI layout consistent.
  * <p>
  * To use existing widget theme, simply pass the widget theme ID to {@link Widget#widgetTheme}.
@@ -107,27 +101,6 @@ public final class GTWidgetThemes {
         .defaultTheme(new ProgressbarWidgetTheme(GTGuiTextures.PROGRESSBAR_FUEL_STANDARD, 14))
         .defaultHoverTheme(null)
         .register();
-    public static WidgetThemeKey<WidgetTheme> STEAM_GAUGE = themeApi
-        .widgetThemeKeyBuilder("steamGauge", WidgetTheme.class)
-        .defaultTheme(
-            new WidgetTheme(
-                GAUGE_SIZE + GAUGE_CONNECTOR_SIZE,
-                GAUGE_SIZE,
-                GTGuiTextures.STEAM_GAUGE_BG,
-                Color.WHITE.main,
-                Color.WHITE.main,
-                false,
-                0))
-        .defaultHoverTheme(null)
-        .register();
-    public static WidgetThemeKey<WidgetTheme> STEAM_GAUGE_NEEDLE = themeApi
-        .widgetThemeKeyBuilder("steamGaugeNeedle", WidgetTheme.class)
-        .defaultTheme(
-            new WidgetTheme(GAUGE_NEEDLE_WIDTH, GAUGE_NEEDLE_HEIGHT, null, Color.BROWN.main, 0xFF404040, false, 0))
-        .defaultHoverTheme(null)
-        .parser(noInheritanceParser(WidgetTheme.class))
-        .register();
-
     public static WidgetThemeKey<WidgetTheme> BUTTON_COVER_TAB_ENABLED = registerThemedButton("buttonCoverTabEnabled");
     public static WidgetThemeKey<WidgetTheme> BUTTON_COVER_TAB_DISABLED = registerThemedButton(
         "buttonCoverTabDisabled");

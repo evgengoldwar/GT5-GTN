@@ -84,11 +84,6 @@ public final class GTGuiTextures {
         .name(GTTextureIds.PROGRESSBAR_FUEL_STANDARD)
         .build();
 
-    public static final UITexture STEAM_GAUGE_BG = UITexture.builder()
-        .fullImage()
-        .location(GregTech.ID, "gui/background/steam_dial")
-        .build();
-
     // endregion progressbar
 
     // region button

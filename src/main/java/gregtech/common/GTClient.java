@@ -58,7 +58,6 @@ import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.gui.GUIColorOverride;
-import gregtech.api.gui.modularui.FallbackableSteamTexture;
 import gregtech.api.hazards.Hazard;
 import gregtech.api.hazards.HazardProtection;
 import gregtech.api.hazards.HazardProtectionTooltip;
@@ -178,7 +177,6 @@ public class GTClient extends GTProxy {
                 @Override
                 public void onResourceManagerReload(IResourceManager l) {
                     GUIColorOverride.onResourceManagerReload();
-                    FallbackableSteamTexture.reload();
                     CoverRegistry.reloadCoverColorOverrides();
                     DynamicLangManager.reload();
                 }

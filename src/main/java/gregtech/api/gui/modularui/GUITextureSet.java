@@ -1,16 +1,11 @@
 package gregtech.api.gui.modularui;
 
-import java.util.function.Function;
-
 import com.gtnewhorizons.modularui.api.ModularUITextures;
 import com.gtnewhorizons.modularui.api.drawable.AdaptableUITexture;
 import com.gtnewhorizons.modularui.api.drawable.UITexture;
 
-import gregtech.api.enums.TieredVariant;
-
 /**
- * Set of textures that is commonly used for GUI but can vary depending on "style" of machines, e.g. bronze steam or
- * steel steam. <br>
+ * Set of textures that is commonly used for GUI. <br>
  * This has builder pattern; Textures you didn't specify will fall back to default ones.
  */
 public class GUITextureSet {
@@ -36,20 +31,6 @@ public class GUITextureSet {
         .setCoverTab(GTUITextures.TAB_COVER_NORMAL, GTUITextures.TAB_COVER_HIGHLIGHT, GTUITextures.TAB_COVER_DISABLED)
         .setTitleTab(GTUITextures.TAB_TITLE, GTUITextures.TAB_TITLE_DARK, GTUITextures.TAB_TITLE_ANGULAR)
         .setGregTechLogo(GTUITextures.PICTURE_GT_LOGO_17x17_TRANSPARENT);
-
-    public static final Function<TieredVariant, GUITextureSet> STEAM = steamVariant -> new GUITextureSet()
-        .setMainBackground(GTUITextures.BACKGROUND_STEAM.get(steamVariant))
-        .setItemSlot(GTUITextures.SLOT_ITEM_STEAM.get(steamVariant))
-        .setFluidSlot(GTUITextures.SLOT_FLUID_STEAM.get(steamVariant))
-        .setCoverTab(
-            GTUITextures.TAB_COVER_STEAM_NORMAL.get(steamVariant),
-            GTUITextures.TAB_COVER_STEAM_HIGHLIGHT.get(steamVariant),
-            GTUITextures.TAB_COVER_STEAM_DISABLED.get(steamVariant))
-        .setTitleTab(
-            GTUITextures.TAB_TITLE_STEAM.getAdaptable(steamVariant),
-            GTUITextures.TAB_TITLE_DARK_STEAM.getAdaptable(steamVariant),
-            GTUITextures.TAB_TITLE_ANGULAR_STEAM.getAdaptable(steamVariant))
-        .setGregTechLogo(GTUITextures.PICTURE_GT_LOGO_17x17_TRANSPARENT_STEAM.get(steamVariant));
 
     public GUITextureSet() {}
 
