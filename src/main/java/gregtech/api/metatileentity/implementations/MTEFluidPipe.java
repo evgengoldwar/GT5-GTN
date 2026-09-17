@@ -32,7 +32,6 @@ import gregtech.api.metatileentity.PipeMTE;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
-import gregtech.common.covers.CoverFluidRegulator;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
@@ -553,8 +552,7 @@ public class MTEFluidPipe extends PipeMTE {
         if (fTileEntity != null) {
             final FluidTankInfo[] tInfo = fTileEntity.getTankInfo(oppositeSide);
             if (tInfo != null) {
-                return tInfo.length > 0 || (Translocator.isModLoaded() && isTranslocator(tileEntity))
-                    || gTileEntity != null && gTileEntity.getCoverAtSide(oppositeSide) instanceof CoverFluidRegulator;
+                return tInfo.length > 0 || (Translocator.isModLoaded() && isTranslocator(tileEntity));
             }
         }
         return false;

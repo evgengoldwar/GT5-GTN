@@ -1,18 +1,11 @@
 package gregtech.crossmod.ae2;
 
-import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
-
-import net.minecraft.item.ItemStack;
-
 import appeng.api.AEApi;
 import appeng.api.features.IBlockingModeIgnoreItemRegistry;
 import appeng.api.features.IInterfaceTerminalRegistry;
 import appeng.api.storage.IExternalStorageRegistry;
-import gregtech.api.covers.CoverPlacer;
-import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.ItemList;
 import gregtech.api.objects.AE2DigitalChestHandler;
-import gregtech.common.covers.CoverFacadeAE;
 
 public final class AE2Compat {
 
@@ -23,29 +16,8 @@ public final class AE2Compat {
     }
 
     public static void onPostInit() {
-        registerCover();
         registerExternalStorage();
         // registerBlockingModeIgnoreItems();
-    }
-
-    private static void registerCover() {
-        ItemStack facade = AEApi.instance()
-            .definitions()
-            .items()
-            .facade()
-            .maybeItem()
-            .transform(i -> new ItemStack(i, 1, WILDCARD))
-            .orNull();
-        if (facade != null) {
-            CoverRegistry.registerCover(
-                facade,
-                null,
-                CoverFacadeAE::new,
-                CoverPlacer.builder()
-                    .allowOnPrimitiveBlock()
-                    .onlyPlaceIf(CoverFacadeAE.isCoverPlaceable)
-                    .build());
-        }
     }
 
     private static void registerExternalStorage() {
