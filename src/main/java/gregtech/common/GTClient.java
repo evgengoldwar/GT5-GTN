@@ -78,11 +78,9 @@ import gregtech.api.util.client.ResourceUtils;
 import gregtech.client.BlockOverlayRenderer;
 import gregtech.client.GTMouseEventHandler;
 import gregtech.client.SeekingOggCodec;
-import gregtech.client.renderer.entity.RenderPowderBarrel;
 import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Client;
-import gregtech.common.entity.EntityPowderBarrelPrimed;
 import gregtech.common.powergoggles.PowerGogglesCommand;
 import gregtech.common.render.BaseMetaTileEntityRenderer;
 import gregtech.common.render.FluidDisplayStackRenderer;
@@ -155,9 +153,6 @@ public class GTClient extends GTProxy {
         MinecraftForge.EVENT_BUS.register(new BlockOverlayRenderer());
         shakeLockKey = new KeyBinding("GTPacketInfiniteSpraycan.Action.TOGGLE_SHAKE_LOCK", Keyboard.KEY_NONE, "Gregtech");
         ClientRegistry.registerKeyBinding(shakeLockKey);
-
-
-        RenderManager.instance.entityRenderMap.put(EntityPowderBarrelPrimed.class, new RenderPowderBarrel());
         // spotless:on
     }
 
