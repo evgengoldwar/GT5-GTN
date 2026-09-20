@@ -19,9 +19,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import gregtech.commands.GTBaseCommand;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
 
-/**
- * @author BlueWeabo
- */
 public class SPCommand extends GTBaseCommand {
 
     private static final Set<Pair<EntityPlayerMP, EntityPlayerMP>> invite = Collections

@@ -71,7 +71,6 @@ import gregtech.common.config.Worldgen;
 import gregtech.common.items.ItemFluidDisplay;
 import gregtech.common.misc.GTMiscCommand;
 import gregtech.common.misc.spaceprojects.commands.SPCommand;
-import gregtech.common.misc.spaceprojects.commands.SPMCommand;
 import gregtech.common.misc.spaceprojects.commands.SpaceProjectCommand;
 import gregtech.common.powergoggles.handlers.PowerGogglesConfigHandler;
 import gregtech.crossmod.ae2.AE2Compat;
@@ -389,7 +388,6 @@ public class GTMod {
 
         event.registerServerCommand(new GTMiscCommand());
         event.registerServerCommand(new SPCommand());
-        event.registerServerCommand(new SPMCommand());
         event.registerServerCommand(new SpaceProjectCommand());
     }
 
