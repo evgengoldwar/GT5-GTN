@@ -92,8 +92,6 @@ import gregtech.common.handlers.OffhandToolFunctionalityHandler;
 import gregtech.common.misc.GlobalEnergyWorldSavedData;
 import gregtech.common.misc.WirelessChargerManager;
 import gregtech.common.misc.spaceprojects.SpaceProjectWorldSavedData;
-import gregtech.common.powergoggles.PowerGogglesWorldSavedData;
-import gregtech.common.powergoggles.handlers.PowerGogglesEventHandler;
 import gregtech.nei.GTNEIDefaultHandler;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
@@ -318,8 +316,6 @@ public class GTProxy implements IFuelHandler {
 
         MinecraftForge.EVENT_BUS.register(new SpaceProjectWorldSavedData());
         MinecraftForge.EVENT_BUS.register(new GlobalEnergyWorldSavedData(""));
-        MinecraftForge.EVENT_BUS.register(new PowerGogglesWorldSavedData());
-        MinecraftForge.EVENT_BUS.register(PowerGogglesEventHandler.getInstance());
         MinecraftForge.EVENT_BUS.register(new OffhandToolFunctionalityHandler());
         CTRL_KEYBIND = SyncedKeybind.create(Keyboard.KEY_LCONTROL);
 
@@ -431,8 +427,6 @@ public class GTProxy implements IFuelHandler {
         PLAYERS_BY_UUID = null;
         UUID_BY_NAME = null;
         // spotless:on
-        PowerGogglesEventHandler.getInstance()
-            .onServerStopped(event);
         GTChunkManager.instance.onServerStopped();
 
     }

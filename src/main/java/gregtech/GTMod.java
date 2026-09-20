@@ -72,7 +72,6 @@ import gregtech.common.items.ItemFluidDisplay;
 import gregtech.common.misc.GTMiscCommand;
 import gregtech.common.misc.spaceprojects.commands.SPCommand;
 import gregtech.common.misc.spaceprojects.commands.SpaceProjectCommand;
-import gregtech.common.powergoggles.handlers.PowerGogglesConfigHandler;
 import gregtech.crossmod.ae2.AE2Compat;
 import gregtech.crossmod.chunkapi.ClientMetaManager;
 import gregtech.crossmod.holoinventory.HoloInventory;
@@ -242,8 +241,6 @@ public class GTMod {
         if (GregTechAPI.sPreloadStarted) {
             return;
         }
-
-        PowerGogglesConfigHandler.init(new File(event.getModConfigurationDirectory() + "/GregTech/Goggles.cfg"));
 
         proxy.onPreInitialization(event);
 
