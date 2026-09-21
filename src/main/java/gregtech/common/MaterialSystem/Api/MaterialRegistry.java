@@ -25,9 +25,9 @@ public final class MaterialRegistry {
 
     private final Map<MaterialType, BlockMetaMaterial> blocks = new EnumMap<>(MaterialType.class);
 
-    private final Map<Integer, Material> materials = new HashMap<>();
-
     private final Map<Integer, Fluid> fluids = new HashMap<>();
+
+    private final Map<Integer, Material> materials = new HashMap<>();
 
     private MaterialRegistry() {}
 
