@@ -69,7 +69,6 @@ import gregtech.crossmod.chunkapi.ClientMetaManager;
 import gregtech.crossmod.holoinventory.HoloInventory;
 import gregtech.crossmod.waila.Waila;
 import gregtech.loaders.postload.GTPostLoad;
-import gregtech.loaders.postload.PosteaTransformers;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
 import gregtech.loaders.preload.LoaderMetaTileEntities;
@@ -268,9 +267,6 @@ public class GTMod {
         proxy.onPostInitialization(event);
 
         AE2Compat.onPostInit();
-
-        // Register postea transformers
-        new PosteaTransformers().run();
 
         /*
          * Until this point most crafting recipe additions, and removals, have been buffered. Go through, execute the
