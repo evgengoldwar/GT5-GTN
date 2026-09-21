@@ -18,24 +18,23 @@ import gregtech.common.modularui2.factory.SelectItemGuiBuilder;
 public class IntegratedCircuitGui {
 
     private final PlayerInventoryGuiData data;
-    private final ItemStack configurator;
 
-    public IntegratedCircuitGui(PlayerInventoryGuiData data, ItemStack configurator) {
+    public IntegratedCircuitGui(PlayerInventoryGuiData data) {
         this.data = data;
-        this.configurator = configurator;
 
         ItemStack usedItemStack = data.getUsedItemStack();
 
-        if (!(usedItemStack.getItem() instanceof ItemIntegratedCircuit)) throw new RuntimeException(
-            "Tried to open the integrated circuit GUI with no circuit in main hand or offhand");
+        if (!(usedItemStack.getItem() instanceof ItemIntegratedCircuit)) {
+            throw new RuntimeException(
+                "Tried to open the integrated circuit GUI with no circuit in main hand or offhand");
+        }
 
     }
 
     public ModularPanel build() {
         return new SelectItemGuiBuilder(
             GTGuis.createPopUpPanel("programmed_circuit"),
-            ItemIntegratedCircuit.ALL_VARIANTS).setHeaderItem(configurator)
-                .setTitle(IKey.lang("GT5U.item.programmed_circuit.select.header"))
+            ItemIntegratedCircuit.ALL_VARIANTS).setTitle(IKey.lang("GT5U.item.programmed_circuit.select.header"))
                 .setSelected(
                     data.getUsedItemStack()
                         .getItemDamage())

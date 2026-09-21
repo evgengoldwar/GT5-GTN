@@ -13,15 +13,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.oredict.OreDictionary;
 
 import com.cleanroommc.modularui.api.IGuiHolder;
 import com.cleanroommc.modularui.factory.GuiFactories;
@@ -40,22 +36,16 @@ import gregtech.api.interfaces.INetworkUpdatableItem;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.modularui2.GTGuiThemes;
 import gregtech.api.modularui2.GTModularScreen;
-import gregtech.api.objects.XSTR;
 import gregtech.common.gui.modularui.item.IntegratedCircuitGui;
 import gregtech.crossmod.backhand.Backhand;
-import ic2.core.IC2;
-import ic2.core.IHasGui;
-import ic2.core.item.ItemToolbox;
 
 public class ItemIntegratedCircuit extends GTGenericItem
     implements INetworkUpdatableItem, IGuiHolder<PlayerInventoryGuiData> {
 
     public static final int MAX_CIRCUIT_NUMBER = 24;
     public static final List<ItemStack> NON_ZERO_VARIANTS = new ArrayList<>(MAX_CIRCUIT_NUMBER);
-
-    private static final String aTextEmptyRow = "   ";
     public static final List<ItemStack> ALL_VARIANTS = new ArrayList<>(MAX_CIRCUIT_NUMBER + 1);
-    protected final IIcon[] mIconDamage = new IIcon[25];
+    protected final IIcon[] iconDamage = new IIcon[25];
 
     public ItemIntegratedCircuit() {
         super("integrated_circuit", "Programmed Circuit", "");
@@ -72,8 +62,8 @@ public class ItemIntegratedCircuit extends GTGenericItem
         }
     }
 
-    private static String getModeString(int aMetaData) {
-        return switch ((byte) (aMetaData >>> 8)) {
+    private static String getModeString(int meta) {
+        return switch ((byte) (meta >>> 8)) {
             case 0 -> "==";
             case 1 -> "<=";
             case 2 -> ">=";
@@ -83,43 +73,43 @@ public class ItemIntegratedCircuit extends GTGenericItem
         };
     }
 
-    private static String getConfigurationString(int aMetaData) {
-        return getModeString(aMetaData) + " " + (byte) (aMetaData & 0xFF);
+    private static String getConfigurationString(int meta) {
+        return getModeString(meta) + " " + (byte) (meta & 0xFF);
     }
 
     @Override
-    public void addAdditionalToolTips(List<String> aList, ItemStack aStack, EntityPlayer aPlayer) {
-        super.addAdditionalToolTips(aList, aStack, aPlayer);
-        aList.add(
+    public void addAdditionalToolTips(List<String> list, ItemStack stack, EntityPlayer player) {
+        super.addAdditionalToolTips(list, stack, player);
+        list.add(
             StatCollector.translateToLocalFormatted(
                 "GT5U.item.programmed_circuit.tooltip.0",
-                getConfigurationString(getDamage(aStack))));
-        aList.add(StatCollector.translateToLocal("GT5U.item.programmed_circuit.tooltip.1"));
-        aList.add(StatCollector.translateToLocal("GT5U.item.programmed_circuit.tooltip.2"));
+                getConfigurationString(getDamage(stack))));
+        list.add(StatCollector.translateToLocal("GT5U.item.programmed_circuit.tooltip.1"));
+        list.add(StatCollector.translateToLocal("GT5U.item.programmed_circuit.tooltip.2"));
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack aStack) {
+    public String getUnlocalizedName(ItemStack itemStack) {
         return getUnlocalizedName();
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public final void getSubItems(Item aItem, CreativeTabs aCreativeTab, List<ItemStack> aList) {
-        aList.add(new ItemStack(this, 1, 0));
+    public final void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
+        list.add(new ItemStack(this, 1, 0));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister aIconRegister) {
-        super.registerIcons(aIconRegister);
-        for (int i = 0; i < mIconDamage.length; i++) {
-            mIconDamage[i] = aIconRegister.registerIcon(GregTech.getResourcePath(getUnlocalizedName() + "/" + i));
+    public void registerIcons(IIconRegister iconRegister) {
+        super.registerIcons(iconRegister);
+        for (int i = 0; i < iconDamage.length; i++) {
+            iconDamage[i] = iconRegister.registerIcon(GregTech.getResourcePath(getUnlocalizedName() + "/" + i));
         }
         if (GregTechAPI.sPostloadFinished) {
             GT_FML_LOGGER.debug("GTMod: Starting Item Icon Load Phase");
             GT_FML_LOGGER.info("GTMod: Starting Item Icon Load Phase");
-            GregTechAPI.sItemIcons = aIconRegister;
+            GregTechAPI.sItemIcons = iconRegister;
             for (Runnable tRunnable : GregTechAPI.sGTItemIconload) {
                 try {
                     tRunnable.run();
@@ -133,139 +123,35 @@ public class ItemIntegratedCircuit extends GTGenericItem
     }
 
     @Override
-    public IIcon getIconFromDamage(int aMetaData) {
-        byte circuitMode = ((byte) (aMetaData & 0xFF)); // Mask out the MSB Comparison Mode Bits. See: getModeString
-        return mIconDamage[circuitMode < mIconDamage.length ? circuitMode : 0];
+    public IIcon getIconFromDamage(int meta) {
+        byte circuitMode = ((byte) (meta & 0xFF)); // Mask out the MSB Comparison Mode Bits. See: getModeString
+        return iconDamage[circuitMode < iconDamage.length ? circuitMode : 0];
     }
 
     @Override
-    public boolean receive(ItemStack stack, EntityPlayerMP player, NBTTagCompound tag) {
+    public boolean receive(ItemStack itemStack, EntityPlayerMP player, NBTTagCompound tag) {
         int meta = tag.hasKey("meta", Constants.NBT.TAG_BYTE) ? tag.getByte("meta") : -1;
-        if (meta < 0 || meta > 24) return true;
-
-        if (!player.capabilities.isCreativeMode) {
-            try {
-                findConfiguratorInInv(player, true); // damage the tool
-            } catch (IllegalStateException e) {
-                player.addChatComponentMessage(
-                    new ChatComponentText("Error while trying to configure circuit: " + e.getMessage()));
-                return true;
-            }
+        if (meta < 0 || meta > 24) {
+            return true;
         }
-        stack.setItemDamage(meta);
-
+        itemStack.setItemDamage(meta);
         return true;
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (!(player instanceof FakePlayer) && !world.isRemote) {
-            // check if any screwdriver
-            if (!player.capabilities.isCreativeMode && findConfiguratorInInv(player, false) == null) {
-                int count;
-                try {
-                    count = Integer
-                        .parseInt(StatCollector.translateToLocal("GT5U.item.programmed_circuit.no_screwdriver.count"));
-                } catch (NumberFormatException e) {
-                    player.addChatComponentMessage(
-                        new ChatComponentText(
-                            "Error in translation GT5U.item.programmed_circuit.no_screwdriver.count: "
-                                + e.getMessage()));
-                    count = 1;
-                }
-                player.addChatComponentMessage(
-                    new ChatComponentTranslation(
-                        "GT5U.item.programmed_circuit.no_screwdriver." + XSTR.XSTR_INSTANCE.nextInt(count)));
-                return super.onItemRightClick(stack, world, player);
-            }
 
-            // open gui
-            if (stack == Backhand.getOffhandItem(player)) GuiFactories.playerInventory()
-                .openFromPlayerInventory(player, Backhand.getOffhandSlot(player));
-            else GuiFactories.playerInventory()
-                .openFromMainHand(player);
-        }
-
-        return super.onItemRightClick(stack, world, player);
-    }
-
-    private static final int screwdriverOreId = OreDictionary.getOreID("craftingToolScrewdriver");
-
-    /**
-     * Test a player's inventory for a circuit configuring item.
-     *
-     * @param player   The player whose inventory will be tested.
-     * @param doDamage Whether a found item should be damaged.
-     *
-     * @return A display stack representing the item that was found. Do not modify this item!
-     */
-    public static ItemStack findConfiguratorInInv(EntityPlayer player, boolean doDamage) {
-        ItemStack[] mainInventory = player.inventory.mainInventory;
-        for (int i = 0; i < mainInventory.length; i++) {
-            ItemStack potentialStack = mainInventory[i];
-            if (potentialStack == null || potentialStack.getItem() == null || potentialStack.stackSize <= 0) continue;
-
-            // Circuit Configurator
-
-            // Toolbox with Screwdriver inside
-            if (potentialStack.getItem() instanceof ItemToolbox toolbox) {
-                IHasGui toolboxInventory = toolbox.getInventory(player, potentialStack);
-                if (!IC2.platform.isSimulating()) {
-                    populateToolboxInventory(toolboxInventory, potentialStack);
-                }
-                for (int j = 0; j < toolboxInventory.getSizeInventory(); j++) {
-                    ItemStack toolboxStack = toolboxInventory.getStackInSlot(j);
-                    if (toolboxStack == null || toolboxStack.getItem() == null || toolboxStack.stackSize <= 0) continue;
-
-                    for (int id : OreDictionary.getOreIDs(toolboxStack)) {
-                        if (id == screwdriverOreId) {
-                            if (doDamage) {
-                                toolboxStack = toolboxStack.getItem()
-                                    .getContainerItem(toolboxStack);
-                                if (toolboxStack != null && toolboxStack.stackSize <= 0) {
-                                    toolboxInventory.setInventorySlotContents(j, null);
-                                } else {
-                                    toolboxInventory.setInventorySlotContents(j, toolboxStack);
-                                }
-                            }
-                            return potentialStack; // return the toolbox for display
-                        }
-                    }
-                }
-            }
-
-            // Screwdriver
-            for (int id : OreDictionary.getOreIDs(potentialStack)) {
-                if (id == screwdriverOreId) {
-                    if (doDamage) {
-                        potentialStack = potentialStack.getItem()
-                            .getContainerItem(potentialStack);
-                        if (potentialStack != null && potentialStack.stackSize <= 0) {
-                            mainInventory[i] = null;
-                        } else {
-                            mainInventory[i] = potentialStack;
-                        }
-                    }
-                    return potentialStack;
-                }
+            if (itemStack == Backhand.getOffhandItem(player)) {
+                GuiFactories.playerInventory()
+                    .openFromPlayerInventory(player, Backhand.getOffhandSlot(player));
+            } else {
+                GuiFactories.playerInventory()
+                    .openFromMainHand(player);
             }
         }
-        return null;
-    }
 
-    // Because for some reason, the toolbox inventory refuses to read the itemstack nbt
-    // on the client (according to IC2 this is in fact intentional).
-    private static void populateToolboxInventory(IHasGui toolboxInventory, ItemStack toolbox) {
-        NBTTagCompound nbt = toolbox.getTagCompound();
-        if (nbt == null) return;
-        NBTTagList stacks = nbt.getTagList("Items", 10);
-        for (int i = 0; i < stacks.tagCount(); i++) {
-            NBTTagCompound slotNbt = stacks.getCompoundTagAt(i);
-            int slot = slotNbt.getByte("Slot");
-            if (slot >= 0 && slot < toolboxInventory.getSizeInventory()) {
-                toolboxInventory.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(slotNbt));
-            }
-        }
+        return super.onItemRightClick(itemStack, world, player);
     }
 
     @Override
@@ -276,10 +162,6 @@ public class ItemIntegratedCircuit extends GTGenericItem
 
     @Override
     public ModularPanel buildUI(PlayerInventoryGuiData data, PanelSyncManager syncManager, UISettings settings) {
-        EntityPlayer player = data.getPlayer();
-
-        return new IntegratedCircuitGui(
-            data,
-            player.capabilities.isCreativeMode ? null : findConfiguratorInInv(data.getPlayer(), false)).build();
+        return new IntegratedCircuitGui(data).build();
     }
 }
