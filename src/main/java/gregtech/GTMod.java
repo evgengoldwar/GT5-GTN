@@ -64,9 +64,6 @@ import gregtech.common.MaterialSystem.Materials;
 import gregtech.common.RecipeAdder;
 import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
-import gregtech.common.config.MachineStats;
-import gregtech.common.config.Other;
-import gregtech.common.config.Worldgen;
 import gregtech.common.items.ItemFluidDisplay;
 import gregtech.common.misc.GTMiscCommand;
 import gregtech.common.misc.spaceprojects.commands.SPCommand;
@@ -136,15 +133,6 @@ public class GTMod {
 
             // GregTech.cfg
             ConfigurationManager.registerConfig(Gregtech.class);
-
-            // MachineStats.cfg
-            ConfigurationManager.registerConfig(MachineStats.class);
-
-            // Other
-            ConfigurationManager.registerConfig(Other.class);
-
-            // WorldGeneration
-            ConfigurationManager.registerConfig(Worldgen.class);
 
         } catch (ConfigException e) {
             throw new RuntimeException(e);

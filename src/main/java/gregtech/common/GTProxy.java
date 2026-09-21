@@ -8,7 +8,6 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -24,7 +23,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -48,7 +46,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.lwjgl.input.Keyboard;
 
-import com.google.common.collect.ImmutableSet;
 import com.gtnewhorizon.gtnhlib.keybind.SyncedKeybind;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -177,8 +174,6 @@ public class GTProxy implements IFuelHandler {
     public boolean mWailaTransformerVoltageTier = true;
     /** This enables showing the cpu load in nanoseconds via waila. */
     public boolean wailaAverageNS = false;
-
-    public Set<Item> toolboxBans = ImmutableSet.of();
 
     private static final Map<String, Integer> oreDictBurnTimes = new Object2IntOpenHashMap<>();
 
