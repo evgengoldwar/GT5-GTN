@@ -30,7 +30,6 @@ import gregtech.common.covers.Base.CoverPosition;
 public class GregTechAPI {
 
     public static final CreativeTabs TAB_GREGTECH = new GTCreativeTab("Main", "Main");
-    public static final CreativeTabs TAB_GREGTECH_MATERIALS = new GTCreativeTab("Materials", "Materials");
 
     public static final IMTE[] MULTIBLOCK_HATCH_META_TILE_ENTITIES = new IMTE[Short.MAX_VALUE - 1];
 
@@ -64,28 +63,6 @@ public class GregTechAPI {
 
     public static Block sBlockMachines;
     public static Block sBlockCable;
-
-    public static Block sBlockReinforced;
-    public static Block sBlockSheetmetalGT;
-    public static Block sBlockCasings1;
-    public static Block sBlockCasings2;
-    public static Block sBlockCasings3;
-    public static Block sBlockCasings4;
-    public static Block sBlockCasings5;
-    public static Block sBlockCasings6;
-    public static Block sBlockCasings8;
-    public static Block sBlockCasings9;
-    public static Block sBlockCasings10;
-    public static Block sBlockCasings11;
-    public static Block sBlockCasings12;
-    public static Block sBlockCasings13;
-    public static Block sBlockCasings14;
-    public static Block sSolenoidCoilCasings;
-    public static Block sBlockCasingsNH;
-    public static Block sBlockCasingsFoundry;
-    public static Block sBlockCasingsBEC;
-    public static Block sBlockGlass1;
-    public static Block sBlockTintedGlass;
 
     public static boolean sMultiThreadedSounds = false;
     public static boolean sDoShowAllItemsInCreative = false;
