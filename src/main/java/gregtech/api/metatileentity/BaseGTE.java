@@ -62,7 +62,6 @@ import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.shutdown.ShutDownReason;
@@ -497,10 +496,8 @@ public class BaseGTE extends CommonGTE
         // thunders without raining, but I don't know if this is true or not.
         if (worldObj.isRaining() && isRainExposed()) {
             if (getRandomNumber(10) == 0) {
-                GTLog.writeExplosionLog(this, this.getLocalName(), "explosion due to rain!");
                 doEnergyExplosion();
             } else {
-                GTLog.writeExplosionLog(this, this.getLocalName(), "set to fire due to rain!");
                 setOnFire();
             }
         }
@@ -513,7 +510,6 @@ public class BaseGTE extends CommonGTE
         if (getRandomNumber(3) != 0 || !isRainExposed()) {
             return true;
         }
-        GTLog.writeExplosionLog(this, this.getLocalName(), "explosion due to thunderstorm!");
         doEnergyExplosion();
         return hasValidMetaTileEntity();
     }
@@ -1234,12 +1230,6 @@ public class BaseGTE extends CommonGTE
 
     public void doEnergyExplosion() {
         if (getUniversalEnergyCapacity() > 0 && getUniversalEnergyStored() >= getUniversalEnergyCapacity() / 5) {
-            String reason = "Energy Explosion, injected " + getUniversalEnergyStored()
-                + "EU >= "
-                + getUniversalEnergyCapacity() / 5D
-                + "Capacity of the Machine!";
-            GTLog.writeExplosionLog(this, this.getLocalName(), reason);
-
             doExplosion(
                 oldOutput * (getUniversalEnergyStored() >= getUniversalEnergyCapacity() ? 4
                     : getUniversalEnergyStored() >= getUniversalEnergyCapacity() / 2 ? 2 : 1));
@@ -1696,9 +1686,6 @@ public class BaseGTE extends CommonGTE
             || getStoredEU() >= getEUCapacity()
             || mte.maxAmperesIn() <= mAcceptedAmperes) return 0;
         if (aVoltage > getInputVoltage()) {
-            GTLog.writeExplosionLog(
-                this.mte,
-                "Energy Explosion, injected " + aVoltage + "EU/t in a " + getInputVoltage() + "EU/t Machine!");
             doExplosion(aVoltage);
             return 0;
         }

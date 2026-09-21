@@ -1,8 +1,5 @@
 package gregtech.api.util;
 
-import static gregtech.GTLoggers.GT_EXPLOSION_LOGGER;
-import static gregtech.GTLoggers.GT_ICON_LOGGER;
-import static gregtech.GTLoggers.GT_ORE_DICT_LOGGER;
 import static gregtech.GTLoggers.GT_RECIPE_REMOVAL_LOGGER;
 import static gregtech.GTLoggers.GT_RECIPE_REMOVAL_LOGGER_ENABLED;
 
@@ -19,10 +16,6 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 
-import gregtech.api.interfaces.metatileentity.IMTE;
-import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.common.config.Gregtech;
-
 /** GregTech's dedicated logger configuration and explosion logging helpers. */
 public class GTLog {
 
@@ -30,48 +23,6 @@ public class GTLog {
         Logger logger = LogManager.getLogger(name);
         configureLogger(logger, false);
         return logger;
-    }
-
-    public static void configureExplosionLogger(File parentFile) {
-        configureRollingLogger(
-            GT_EXPLOSION_LOGGER,
-            Gregtech.general.loggingExplosions,
-            new File(parentFile, "logs/explosions.log"),
-            new File(parentFile, "logs/explosions-%i.log"),
-            "GregTechExplosionFile");
-    }
-
-    public static void configureOreDictLogger(File parentFile) {
-        boolean configured = configureRollingLogger(
-            GT_ORE_DICT_LOGGER,
-            Gregtech.general.loggingOreDict,
-            new File(parentFile, "logs/OreDict.log"),
-            new File(parentFile, "logs/OreDict-%i.log"),
-            "GregTechOreDictFile");
-        if (!configured) return;
-
-        GT_ORE_DICT_LOGGER.info("******************************************************************************");
-        GT_ORE_DICT_LOGGER.info("* This is the complete log of the GT5-Unofficial OreDictionary Handler. It   *");
-        GT_ORE_DICT_LOGGER.info("* processes all OreDictionary entries and can sometimes cause errors. All    *");
-        GT_ORE_DICT_LOGGER.info("* entries and errors are being logged. If you see an error please raise an   *");
-        GT_ORE_DICT_LOGGER.info("* issue at https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues.  *");
-        GT_ORE_DICT_LOGGER.info("******************************************************************************");
-    }
-
-    public static void configureIconLogger(File parentFile) {
-        boolean configured = configureRollingLogger(
-            GT_ICON_LOGGER,
-            Gregtech.debug.logRegisterIcons,
-            new File(parentFile, "logs/RegisterIcon.log"),
-            new File(parentFile, "logs/RegisterIcon-%i.log"),
-            "GregTechIconFile");
-        if (!configured) return;
-
-        GT_ICON_LOGGER.info("*****************************************************************");
-        GT_ICON_LOGGER.info("* This is the log of texture icons registered in GT5-Unofficial *");
-        GT_ICON_LOGGER.info("* First column R|O tells if resource is (Required or Optional)  *");
-        GT_ICON_LOGGER.info("* Second column is the resource path                            *");
-        GT_ICON_LOGGER.info("*****************************************************************");
     }
 
     public static void configureRecipeRemovalLogger(File parentFile) {
@@ -135,39 +86,4 @@ public class GTLog {
         configureLogger(apiLogger, true);
         return true;
     }
-
-    public static void writeExplosionLog(String dimension, int x, int y, int z, String blockName, String ownerName,
-        String details) {
-        GT_EXPLOSION_LOGGER
-            .info("DIM {} ({},{},{}): {} (built by {}) {}", dimension, x, y, z, blockName, ownerName, details);
-    }
-
-    public static void writeExplosionLog(IMTE tileEntity, String details) {
-        if (tileEntity == null) {
-            GT_EXPLOSION_LOGGER.info(details);
-            return;
-        }
-        IGTE baseTileEntity = tileEntity.getGTE();
-        if (baseTileEntity == null) {
-            GT_EXPLOSION_LOGGER.info(details);
-            return;
-        }
-        writeExplosionLog(baseTileEntity, tileEntity.getLocalName(), details);
-    }
-
-    public static void writeExplosionLog(IGTE baseTileEntity, String name, String details) {
-        if (baseTileEntity != null) {
-            writeExplosionLog(
-                baseTileEntity.getWorld().provider.getDimensionName(),
-                baseTileEntity.getXCord(),
-                baseTileEntity.getYCord(),
-                baseTileEntity.getZCord(),
-                name,
-                baseTileEntity.getOwnerName(),
-                details);
-        } else {
-            GT_EXPLOSION_LOGGER.info(details);
-        }
-    }
-
 }

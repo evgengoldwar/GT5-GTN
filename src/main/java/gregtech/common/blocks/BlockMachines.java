@@ -53,7 +53,6 @@ import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.CoverableGTE;
 import gregtech.api.metatileentity.GTE;
-import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 import gregtech.common.render.GTRendererBlock;
@@ -449,7 +448,6 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
     public void onBlockExploded(World aWorld, int aX, int aY, int aZ, Explosion aExplosion) {
         final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
         if (tTileEntity instanceof BaseGTE baseTE) {
-            GTLog.writeExplosionLog(baseTE, this.getUnlocalizedName(), "exploded due to near explosion");
             baseTE.doEnergyExplosion();
         }
         super.onBlockExploded(aWorld, aX, aY, aZ, aExplosion);
@@ -583,7 +581,6 @@ public abstract class BlockMachines extends GTGenericBlock implements ITileEntit
             final TileEntity tTileEntity = aWorld.getTileEntity(aX, aY, aZ);
             if (tTileEntity != null && (chance < 1.0F)) {
                 if (tTileEntity instanceof BaseGTE bmte && (GregTechAPI.sMachineNonWrenchExplosions)) {
-                    GTLog.writeExplosionLog(bmte, this.getUnlocalizedName(), "exploded due to NonWrench picking/Rain!");
                     bmte.doEnergyExplosion();
                 }
             } else {

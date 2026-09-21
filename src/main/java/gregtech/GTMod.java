@@ -1,7 +1,6 @@
 package gregtech;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
-import static gregtech.GTLoggers.GT_ORE_DICT_LOGGER;
 import static gregtech.GT_Version.VERSION_MAJOR;
 import static gregtech.GT_Version.VERSION_MINOR;
 import static gregtech.GT_Version.VERSION_PATCH;
@@ -140,21 +139,6 @@ public class GTMod {
 
         File minecraftHome = Launch.minecraftHome == null ? new File(".") : Launch.minecraftHome;
         try {
-            GTLog.configureExplosionLogger(minecraftHome);
-        } catch (RuntimeException e) {
-            GT_FML_LOGGER.error("Failed to configure explosion logger", e);
-        }
-        try {
-            GTLog.configureOreDictLogger(minecraftHome);
-        } catch (RuntimeException e) {
-            GT_FML_LOGGER.error("Failed to configure ore dictionary logger", e);
-        }
-        try {
-            GTLog.configureIconLogger(minecraftHome);
-        } catch (RuntimeException e) {
-            GT_FML_LOGGER.error("Failed to configure icon logger", e);
-        }
-        try {
             GTLog.configureRecipeRemovalLogger(minecraftHome);
         } catch (RuntimeException e) {
             GT_FML_LOGGER.error("Failed to configure recipe removal logger", e);
@@ -237,8 +221,6 @@ public class GTMod {
         GTGuiTextures.init();
         GTGuiTheme.registerThemes();
 
-        // Load enchantments
-
         GTPreLoad.initLocalization(
             event.getModConfigurationDirectory()
                 .getParentFile());
@@ -248,8 +230,6 @@ public class GTMod {
 
         GTPreLoad.runMineTweakerCompat();
 
-        // new LoaderGTOreDictionary().run();
-        // new LoaderGTItemData().run();
         new LoaderGTBlockFluid().run();
         new LoaderMetaTileEntities().run();
 
@@ -259,7 +239,6 @@ public class GTMod {
         GTPreLoad.sortToTheEnd();
         GregTechAPI.sPreloadFinished = true;
         GT_FML_LOGGER.debug("GTMod: Preload-Phase finished!");
-        GT_ORE_DICT_LOGGER.info("GTMod: Preload-Phase finished!");
 
         GTUIInfos.init();
 
@@ -274,16 +253,6 @@ public class GTMod {
         Textures.init();
 
         DataRegistry.registerDataManager(new ClientMetaManager(), 1000);
-
-        // GTModHandler.addCraftingRecipe(
-        // Materials.Bronze.get(MaterialType.INGOT, 1),
-        // new Object[] {
-        // "PPP",
-        // "PPP",
-        // "PPP",
-        // 'P', new ItemStack(Items.stick)
-        // }
-        // );
 
         if (GregTechAPI.sLoadStarted) {
             return;
@@ -333,7 +302,6 @@ public class GTMod {
         GTLanguageManager.sEnglishFile.save();
         GregTechAPI.sPostloadFinished = true;
         GT_FML_LOGGER.debug("GTMod: PostLoad-Phase finished!");
-        GT_ORE_DICT_LOGGER.info("GTMod: PostLoad-Phase finished!");
 
         new GTPostLoad().run();
 

@@ -56,40 +56,10 @@ public class Gregtech {
         @Config.DefaultBoolean(false)
         @Config.RequiresMcRestart
         public boolean debugChunkloaders;
-
-        @Config.Comment("Enables logging of icons registration. (May help resource-pack creators)")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean logRegisterIcons;
     }
 
     @Config.LangKey("GT5U.gui.config.gregtech.features")
     public static class Features {
-
-        @Config.Comment("Controls the stacksize of tree related blocks.")
-        @Config.DefaultInt(64)
-        @Config.RequiresMcRestart
-        public int maxLogStackSize;
-
-        @Config.Comment("Controls the stacksize of every oredicted prefix based items used for blocks (if that even makes sense)")
-        @Config.DefaultInt(64)
-        @Config.RequiresMcRestart
-        public int maxOtherBlocksStackSize;
-
-        @Config.Comment("Controls the stacksize of oredicted planks.")
-        @Config.DefaultInt(64)
-        @Config.RequiresMcRestart
-        public int maxPlankStackSize;
-
-        @Config.Comment("Controls the stacksize of oredicted items used in ore treatment.")
-        @Config.DefaultInt(64)
-        @Config.RequiresMcRestart
-        public int maxOreStackSize;
-
-        @Config.Comment("Controls the stacksize of IC2 overclocker upgrades.")
-        @Config.DefaultInt(4)
-        @Config.RequiresMcRestart
-        public int upgradeStackSize;
 
         @Config.Comment("Speed up machine update thread by skipping cables. Warning: this can cause weird side effects.")
         @Config.DefaultBoolean(false)
@@ -99,15 +69,6 @@ public class Gregtech {
 
     @Config.LangKey("GT5U.gui.config.gregtech.general")
     public static class General {
-
-        @Config.Comment("if true, batch mode will initially be enabled when multiblocks are placed in the world.")
-        @Config.DefaultBoolean(true)
-        public boolean batchModeInitialValue;
-
-        @Config.Comment("Control percentage of filled 3x3 chunks. Lower number means less oreveins spawn.")
-        @Config.DefaultInt(100)
-        @Config.RequiresMcRestart
-        public int oreveinPercentage;
 
         @Config.Comment("Control number of attempts to find a valid orevein. Generally this maximum limit isn't hit, selecting a vein is cheap")
         @Config.DefaultInt(64)
@@ -144,60 +105,10 @@ public class Gregtech {
         @Config.RequiresMcRestart
         public int maxEqualEntitiesAtOneSpot;
 
-        @Config.Comment("The chance of success to start a fire from the flint and steel.")
-        @Config.DefaultInt(30)
-        @Config.RequiresMcRestart
-        public int flintChance;
-
         @Config.Comment("Entity despawn time.")
         @Config.DefaultInt(6000)
         @Config.RequiresMcRestart
         public int itemDespawnTime;
-
-        @Config.Comment("If true, allows small boiler automation.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean allowSmallBoilerAutomation;
-
-        @Config.Comment("If true, increases dungeon loots in vanilla structures.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean increaseDungeonLoot;
-
-        @Config.Comment("If true, spawns an axe at the start in adventure mode. Does nothing if the advanture mode isn't forced.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean axeWhenAdventure;
-
-        @Config.Comment("If true, forces the survival map into adventure mode.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean survivalIntoAdventure;
-
-        @Config.Comment("If true, enables the item oredification of the items in the inventory.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean inventoryUnification;
-
-        @Config.Comment("if true, enables GT5U and GT++ bees.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean GTBees;
-
-        @Config.Comment("if true, enables crafting unification.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean craftingUnification;
-
-        @Config.Comment("If true, nerfs planks recipes.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean nerfedWoodPlank;
-
-        @Config.Comment("if true, enables GT5U achievements.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean achievements;
 
         @Config.Comment("Controls the amount of tick over the lag averaging is done with the scanner.")
         @Config.DefaultInt(25)
@@ -208,81 +119,6 @@ public class Gregtech {
         @Config.DefaultInt(100)
         @Config.RequiresMcRestart
         public int millisecondThesholdUntilLagWarning;
-
-        @Config.Comment("if true, drops the content of the machine inventory before exploding.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean explosionItemDrop;
-
-        @Config.Comment("if true, enables the cleanroom multi.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean enableCleanroom;
-
-        @Config.Comment("if true, enables low gravity requirement in some crafts. Is forced to false if GalactiCraft is not present.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean lowGravProcessing;
-
-        @Config.Comment("if yes, allows the automatic interactions with the maintenance hatches.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean autoMaintenaceHatchesInteraction;
-
-        @Config.Comment("if true, mixed ores only yields the equivalent of 2/3 of the pure ores.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean mixedOreOnlyYieldsTwoThirdsOfPureOre;
-
-        @Config.Comment("if true, rich ores yield twice as much as normal ores.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean richOreYieldMultiplier;
-
-        @Config.Comment("if true, nether ores yield twice as much as normal ores.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean netherOreYieldMultiplier;
-
-        @Config.Comment("if true, end ores yield twice as much as normal ores.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean endOreYieldMultiplier;
-
-        @Config.Comment("if true, enables GT6 styled pipe connections.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean gt6Pipe;
-
-        @Config.Comment("if true, enables GT6 styled wire connections.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean gt6Cable;
-
-        @Config.Comment("if true, allows GT5U cables to be IC2 power sources.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean ic2EnergySourceCompat;
-
-        @Config.Comment("if true, wires will require soldering material to be connected.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean costlyCableConnection;
-
-        @Config.Comment("if true, enables cable multi-connection using a wire cutter.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean cableMultiConnectEnabled;
-
-        @Config.Comment("Maximum number of cables to check during multi-connect before stopping.")
-        @Config.DefaultInt(10000)
-        @Config.RequiresMcRestart
-        public int cableMultiConnectLimit;
-
-        @Config.Comment("if true, crashes on null recipe input.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean crashOnNullRecipeInput;
 
         @Config.Comment("if true, enable placeholder for material names in lang file.")
         @Config.DefaultBoolean(true)
@@ -303,16 +139,6 @@ public class Gregtech {
         @Config.DefaultStringList({ "team.chisel.block.BlockCarvable", "team.chisel.block.BlockCarvableGlass" })
         @Config.RequiresMcRestart
         public String[] CTMWhitelist;
-
-        @Config.Comment("if true, logs all the oredict in logs/OreDict.log.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean loggingOreDict;
-
-        @Config.Comment("if true, logs all the explosions in logs/explosions.log.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean loggingExplosions;
 
         @Config.Comment("The maximum number of nanoseconds that the cooperative scheduler will run for each tick.")
         @Config.DefaultInt(10_000_000) // 10 ms

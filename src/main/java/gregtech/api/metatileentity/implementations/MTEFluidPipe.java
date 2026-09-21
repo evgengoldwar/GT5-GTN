@@ -29,7 +29,6 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.PipeMTE;
-import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -195,19 +194,8 @@ public class MTEFluidPipe extends PipeMTE {
             final int tTemperature = tFluid.getFluid()
                 .getTemperature(tFluid);
             if (tTemperature > mHeatResistance) {
-                if (aBaseMetaTileEntity.getRandomNumber(100) == 0) {
-                    // Poof
-                    GTLog.writeExplosionLog(aBaseMetaTileEntity, name, "set to fire due to low heat resistance");
-                    aBaseMetaTileEntity.setToFire();
-                    return true;
-                }
                 // Mmhmm, Fire
                 aBaseMetaTileEntity.setOnFire();
-
-                GTLog.writeExplosionLog(
-                    aBaseMetaTileEntity,
-                    name,
-                    "set blocks around to fire due to low heat resistance");
             }
             if (!mGasProof && tFluid.getFluid()
                 .isGaseous(tFluid)) {
