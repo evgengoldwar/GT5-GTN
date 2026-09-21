@@ -43,8 +43,6 @@ public class NEIGTConfig implements IConfigureNEI {
 
     private static ListMultimap<RecipeCategory, RecipeMapWorkable> RECIPE_CATALYST_INDEX;
 
-    private static final GTNEIMacerationStackConversion MACERATOR_UPGRADE_HANDLER = new GTNEIMacerationStackConversion();
-
     public static boolean sIsAdded = true;
 
     private static void addHandler(TemplateRecipeHandler handler) {
@@ -77,9 +75,6 @@ public class NEIGTConfig implements IConfigureNEI {
             .map(GTNEIDefaultHandler::new)
             .sorted(RECIPE_MAP_HANDLER_COMPARATOR)
             .forEach(NEIGTConfig::addHandler);
-
-        GuiCraftingRecipe.craftinghandlers.add(MACERATOR_UPGRADE_HANDLER);
-        GuiUsageRecipe.usagehandlers.add(MACERATOR_UPGRADE_HANDLER);
     }
 
     private void registerCatalysts() {
