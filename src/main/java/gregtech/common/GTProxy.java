@@ -158,8 +158,6 @@ public class GTProxy implements IFuelHandler {
      * decrement
      */
     public boolean invertCircuitScrollDirection = false;
-    /** Whether to show seconds or ticks on NEI */
-    public boolean mNEIRecipeSecondMode = true;
     /** This enables "Recipe by" display on NEI */
     public boolean mNEIRecipeOwner = false;
     /** This enables showing stack traces where the recipe was added. Reboot needed */

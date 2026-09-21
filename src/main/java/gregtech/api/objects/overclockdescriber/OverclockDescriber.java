@@ -64,7 +64,7 @@ public abstract class OverclockDescriber {
 
         String textToDraw;
 
-        if (GTMod.proxy.mNEIRecipeSecondMode && getDurationSeconds(recipeInfo.calculator) > 1.0d) {
+        if (getDurationSeconds(recipeInfo.calculator) > 1.0d) {
             textToDraw = getDurationStringSeconds(recipeInfo.calculator);
         } else {
             textToDraw = getDurationStringTicks(recipeInfo.calculator);

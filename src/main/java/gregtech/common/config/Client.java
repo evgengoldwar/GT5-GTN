@@ -216,10 +216,6 @@ public class Client {
     @Config.LangKey("GT5U.gui.config.client.nei")
     public static class NEI {
 
-        @Config.Comment("if true, shows the recipes using seconds (as opposed to ticks).")
-        @Config.DefaultBoolean(true)
-        public boolean NEIRecipeSecondMode;
-
         @Config.Comment("if true, shows the mod which added the recipe.")
         @Config.DefaultBoolean(false)
         public boolean NEIRecipeOwner;

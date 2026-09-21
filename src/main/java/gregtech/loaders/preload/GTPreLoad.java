@@ -280,7 +280,6 @@ public class GTPreLoad {
 
         GTMod.proxy.invertCircuitScrollDirection = Client.preference.invertCircuitScrollDirection;
 
-        GTMod.proxy.mNEIRecipeSecondMode = Client.nei.NEIRecipeSecondMode;
         GTMod.proxy.mNEIRecipeOwner = Client.nei.NEIRecipeOwner;
         GTMod.proxy.mNEIRecipeOwnerStackTrace = Client.nei.NEIRecipeOwnerStackTrace;
         GTMod.proxy.mNEIOriginalVoltage = Client.nei.NEIOriginalVoltage;
