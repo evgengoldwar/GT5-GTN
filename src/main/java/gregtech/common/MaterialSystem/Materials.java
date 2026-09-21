@@ -1,10 +1,10 @@
 package gregtech.common.MaterialSystem;
 
+import java.util.Random;
+
 import gregtech.common.MaterialSystem.Api.Material;
 import gregtech.common.MaterialSystem.Api.MaterialBuilder;
 import gregtech.common.MaterialSystem.Api.MaterialRegistry;
-
-import java.util.Random;
 
 public class Materials {
 

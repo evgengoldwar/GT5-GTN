@@ -28,11 +28,6 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
     private Fluid registeredFluid;
     private Supplier<String> localizedName;
 
-    /**
-     * Constructs this {@link IGTFluid} implementation from an {@link GTFluidBuilder} instance
-     *
-     * @param builder The {@link GTFluidBuilder} instance to construct this {@link IGTFluid} implementation
-     */
     protected GTFluid(@Nonnull final GTFluidBuilder builder) {
         super(builder.fluidName);
         this.defaultLocalName = builder.defaultLocalName;
@@ -45,42 +40,26 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
         setGaseous(false).setViscosity(1000);
     }
 
-    // ----- Fluid implementations -----
-
-    /**
-     * @inheritDoc
-     */
     @Override
     public int getColor() {
-        return (Math.max(0, Math.min(255, colorRGBA[0])) << 16) | (Math.max(0, Math.min(255, colorRGBA[1])) << 8)
-            | Math.max(0, Math.min(255, colorRGBA[2]));
+        return (Math.clamp(colorRGBA[0], 0, 255) << 16) | (Math.clamp(colorRGBA[1], 0, 255) << 8)
+            | Math.clamp(colorRGBA[2], 0, 255);
     }
-
-    // ----- IGTFluid interface implementations -----
 
     @Override
     public IGTRegisteredFluid addFluid() {
         if (FluidRegistry.registerFluid(GTFluid.this)) {
-            // Registered as a new Fluid
             registeredFluid = this;
         } else {
-            // Fluid already registered, get it from the registry
             registeredFluid = FluidRegistry.getFluid(GTFluid.this.fluidName);
-            // Sets temperature of already registered fluids if they use the default (temperature = 300)
             if (registeredFluid.getTemperature() == new Fluid("test").getTemperature()) {
                 registeredFluid.setTemperature(GTFluid.this.temperature);
             }
         }
-        // Schedules the fluid for the block icons loader run() tasks
         GregTechAPI.sGTBlockIconload.add(this);
         return this;
     }
 
-    // ----- IGT_RegisteredFluid interface implementations -----
-
-    /**
-     * @inheritDoc
-     */
     @Override
     public IGTRegisteredFluid registerContainers(final ItemStack fullContainer, final ItemStack emptyContainer,
         final int containerSize) {
@@ -99,25 +78,16 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
         return this;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public IGTRegisteredFluid registerBContainers(final ItemStack fullContainer, final ItemStack emptyContainer) {
         return registerContainers(fullContainer, emptyContainer, 1000);
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public IGTRegisteredFluid registerPContainers(final ItemStack fullContainer, final ItemStack emptyContainer) {
         return registerContainers(fullContainer, emptyContainer, 250);
     }
 
-    /**
-     * Adds a server-side localized-name
-     */
     @Override
     public IGTRegisteredFluid addLocalizedName() {
         GTLanguageManager.addStringLocalization(getUnlocalizedName(), defaultLocalName);
@@ -140,25 +110,6 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
         return false;
     }
 
-    /**
-     * Check if the localized name matches the material name, or if it matches any of the oreprefix formatted material
-     * names. If neither matches, add a key for localized.
-     *
-     * @param material material from GT/BW/GT++
-     *
-     * @implNote The method checks for the following oreprefix patterns:
-     *           <ul>
-     *           <li>Molten %s</li>
-     *           <li>%s Plasma</li>
-     *           <li>Lightly Hydro-Cracked %s</li>
-     *           <li>Lightly Steam-Cracked %s</li>
-     *           <li>Moderately Hydro-Cracked %s</li>
-     *           <li>Moderately Steam-Cracked %s</li>
-     *           <li>Severely Hydro-Cracked %s</li>
-     *           <li>Severely Steam-Cracked %s</li>
-     *           </ul>
-     *           If a pattern matches, it uses formatted localization with the appropriate oreprefix key.
-     */
     @Override
     public IGTRegisteredFluid addLocalizedName(IOreMaterial material) {
         if (material == null) return addLocalizedName();
@@ -177,23 +128,11 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
         return this;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public Fluid asFluid() {
         return registeredFluid;
     }
 
-    // ----- Runnable interface implementations -----
-
-    /**
-     * This {@link Runnable#run()} implementation is scheduled within the {@link GregTechAPI#sGTBlockIconload} to
-     * load
-     * this {@link IGTFluid}'s texture icons.
-     *
-     * @see Runnable#run()
-     */
     @Override
     public void run() {
         if (iconsFrom instanceof GTFluid) {
