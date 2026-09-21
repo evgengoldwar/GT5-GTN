@@ -211,7 +211,6 @@ public class GTMod {
         setItemStacks();
 
         GTPreLoad.sortToTheEnd();
-        GregTechAPI.sPreloadFinished = true;
         GT_FML_LOGGER.debug("GTMod: Preload-Phase finished!");
 
         GTUIInfos.init();
@@ -240,8 +239,6 @@ public class GTMod {
         if (Mods.HoloInventory.isModLoaded()) {
             HoloInventory.init();
         }
-
-        GregTechAPI.sLoadFinished = true;
     }
 
     @Mod.EventHandler

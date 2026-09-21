@@ -90,11 +90,6 @@ public class Gregtech {
         @Config.RequiresMcRestart
         public int oreveinPlacerOresMultiplier;
 
-        @Config.Comment("if true, shows all the metaitems in creative and in NEI.")
-        @Config.DefaultBoolean(false)
-        @Config.RequiresMcRestart
-        public boolean doShowAllItemsInCreative;
-
         @Config.Comment("if true, makes the GT5U sounds multi-threaded.")
         @Config.DefaultBoolean(false)
         @Config.RequiresMcRestart

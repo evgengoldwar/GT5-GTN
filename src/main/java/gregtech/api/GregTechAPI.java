@@ -65,7 +65,6 @@ public class GregTechAPI {
     public static Block sBlockCable;
 
     public static boolean sMultiThreadedSounds = false;
-    public static boolean sDoShowAllItemsInCreative = false;
     public static boolean sColoredGUI = true;
     public static boolean sMachineMetalGUI = false;
     public static boolean sMachineExplosions = true;
@@ -77,9 +76,7 @@ public class GregTechAPI {
     public static boolean sMachineWireFire = true;
     public static boolean mServerStarted = false;
     public static boolean sPreloadStarted = false;
-    public static boolean sPreloadFinished = false;
     public static boolean sLoadStarted = false;
-    public static boolean sLoadFinished = false;
     public static boolean sPostloadStarted = false;
     public static boolean sPostloadFinished = false;
     public static boolean sFullLoadFinished = false;
