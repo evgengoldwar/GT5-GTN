@@ -1,4 +1,4 @@
-package gregtech.MaterialSystem.Api;
+package gregtech.common.MaterialSystem.Api;
 
 public class MaterialUtils {
 

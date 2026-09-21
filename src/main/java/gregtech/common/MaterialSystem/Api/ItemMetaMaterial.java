@@ -1,78 +1,84 @@
-package gregtech.MaterialSystem.Api;
+package gregtech.common.MaterialSystem.Api;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockMetaMaterial extends Block {
+public class ItemMetaMaterial extends Item {
 
     private final Map<Integer, Material> materialMap = new HashMap<>();
-
     private final MaterialType materialType;
 
     private IIcon icon;
-
     private final String texturePath;
 
-    public BlockMetaMaterial(MaterialType materialType) {
-        super(net.minecraft.block.material.Material.iron);
+    public ItemMetaMaterial(MaterialType materialType) {
         this.materialType = materialType;
-        this.texturePath = MaterialUtils.getTextureBlockPath(materialType);
-        setHardness(5.0F);
-        setResistance(10.0F);
+        this.texturePath = MaterialUtils.getTextureItemPath(materialType);
+        this.setHasSubtypes(true);
+        this.setMaxStackSize(64);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister register) {
+    public void registerIcons(IIconRegister register) {
         icon = register.registerIcon(texturePath);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
+    public IIcon getIconFromDamage(int meta) {
         return icon;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-
-        Material material = materialMap.get(meta);
+    public int getColorFromItemStack(ItemStack stack, int renderPass) {
+        Material material = materialMap.get(stack.getItemDamage());
 
         if (material != null) {
             return material.getColor();
         }
 
         return 0xFFFFFF;
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        Material material = materialMap.get(stack.getItemDamage());
+
+        if (material != null) {
+            return "item." + material.getName()
+                .toLowerCase()
+                + "_"
+                + materialType.name()
+                    .toLowerCase();
+        }
+
+        return super.getUnlocalizedName(stack);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public int getRenderColor(int meta) {
-        Material material = materialMap.get(meta);
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
 
-        if (material != null) {
-            return material.getColor();
+        for (Map.Entry<Integer, Material> entry : materialMap.entrySet()) {
+
+            Material material = entry.getValue();
+
+            if (material.hasType(materialType)) {
+                list.add(new ItemStack(this, 1, entry.getKey()));
+            }
         }
-
-        return 0xFFFFFF;
-    }
-
-    @Override
-    public int damageDropped(int meta) {
-        return meta;
     }
 
     public void registerMaterial(Material material) {
@@ -93,15 +99,8 @@ public class BlockMetaMaterial extends Block {
         return materialMap.get(meta);
     }
 
-    public void addSubItems(Item item, List<ItemStack> list) {
-        for (Map.Entry<Integer, Material> entry : materialMap.entrySet()) {
-
-            Material material = entry.getValue();
-
-            if (material.hasType(materialType)) {
-                list.add(new ItemStack(item, 1, entry.getKey()));
-            }
-        }
+    public boolean hasMaterial(int meta) {
+        return materialMap.containsKey(meta);
     }
 
     public MaterialType getMaterialType() {

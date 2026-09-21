@@ -1,8 +1,8 @@
-package gregtech.MaterialSystem;
+package gregtech.common.MaterialSystem;
 
-import gregtech.MaterialSystem.Api.Material;
-import gregtech.MaterialSystem.Api.MaterialBuilder;
-import gregtech.MaterialSystem.Api.MaterialRegistry;
+import gregtech.common.MaterialSystem.Api.Material;
+import gregtech.common.MaterialSystem.Api.MaterialBuilder;
+import gregtech.common.MaterialSystem.Api.MaterialRegistry;
 
 public class Materials {
 

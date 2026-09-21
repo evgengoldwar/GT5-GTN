@@ -1,4 +1,4 @@
-package gregtech.MaterialSystem.Api;
+package gregtech.common.MaterialSystem.Api;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -7,10 +7,10 @@ import java.util.Map;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.MaterialSystem.Blocks.MaterialBlock;
-import gregtech.MaterialSystem.Blocks.MaterialCasing;
-import gregtech.MaterialSystem.Items.MaterialIngot;
-import gregtech.MaterialSystem.Items.MaterialPlate;
+import gregtech.common.MaterialSystem.Blocks.MaterialBlock;
+import gregtech.common.MaterialSystem.Blocks.MaterialCasing;
+import gregtech.common.MaterialSystem.Items.MaterialIngot;
+import gregtech.common.MaterialSystem.Items.MaterialPlate;
 
 public final class MaterialRegistry {
 
