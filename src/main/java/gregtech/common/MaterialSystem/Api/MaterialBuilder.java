@@ -50,6 +50,11 @@ public class MaterialBuilder {
         return this;
     }
 
+    public MaterialBuilder addFluid() {
+        types.add(MaterialType.FLUID);
+        return this;
+    }
+
     public Material build() {
         if (meta < 0 || meta > MaterialUtils.MAX_MATERIAL_META) {
             throw new IllegalStateException("Invalid material meta: " + meta);

@@ -2,11 +2,16 @@ package gregtech.common.MaterialSystem.Api;
 
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.api.fluid.GTFluidFactory;
 import gregtech.common.MaterialSystem.Blocks.MaterialBlock;
 import gregtech.common.MaterialSystem.Blocks.MaterialCasing;
 import gregtech.common.MaterialSystem.Items.MaterialIngot;
@@ -21,6 +26,8 @@ public final class MaterialRegistry {
     private final Map<MaterialType, BlockMetaMaterial> blocks = new EnumMap<>(MaterialType.class);
 
     private final Map<Integer, Material> materials = new HashMap<>();
+
+    private final Map<Integer, Fluid> fluids = new HashMap<>();
 
     private MaterialRegistry() {}
 
@@ -67,6 +74,10 @@ public final class MaterialRegistry {
 
         materials.put(meta, material);
 
+        if (material.hasType(MaterialType.FLUID)) {
+            registerFluid(material);
+        }
+
         for (MaterialType type : MaterialType.values()) {
 
             if (!material.hasType(type)) {
@@ -87,6 +98,24 @@ public final class MaterialRegistry {
         }
     }
 
+    private void registerFluid(Material material) {
+        Fluid fluid = GTFluidFactory.builder(
+            material.getName()
+                .toLowerCase(Locale.ENGLISH))
+            .withDefaultLocalName(material.getName())
+            .withColorRGBA(MaterialUtils.getColorRGBA(material.getColor()))
+            .withStillIconResourceLocation(new ResourceLocation(MaterialUtils.getTextureFluidPath(MaterialType.FLUID)))
+            .buildAndRegister()
+            .addLocalizedName()
+            .asFluid();
+
+        fluids.put(material.getMeta(), fluid);
+    }
+
+    public Fluid getFluid(int meta) {
+        return fluids.get(meta);
+    }
+
     public ItemMetaMaterial getItem(MaterialType type) {
         return items.get(type);
     }
@@ -105,7 +134,7 @@ public final class MaterialRegistry {
         return new ItemStack(item, amount, meta);
     }
 
-    public ItemStack getBlock(MaterialType type, int meta, int amount) {
+    public ItemStack getBlockStack(MaterialType type, int meta, int amount) {
         BlockMetaMaterial block = blocks.get(type);
 
         if (block == null || block.getMaterial(meta) == null) {
@@ -113,6 +142,16 @@ public final class MaterialRegistry {
         }
 
         return new ItemStack(block, amount, meta);
+    }
+
+    public Block getBlock(MaterialType type, int meta) {
+        BlockMetaMaterial block = blocks.get(type);
+
+        if (block == null || block.getMaterial(meta) == null) {
+            return null;
+        }
+
+        return block;
     }
 
     public Material getMaterial(int meta) {

@@ -5,7 +5,8 @@ public enum MaterialType {
     INGOT("ingot"),
     PLATE("plate"),
     BLOCK("block"),
-    CASING("casing");
+    CASING("casing"),
+    FLUID("fluid");
 
     private final String textureName;
 

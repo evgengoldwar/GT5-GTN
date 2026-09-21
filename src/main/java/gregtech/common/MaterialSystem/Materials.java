@@ -30,11 +30,13 @@ public class Materials {
             .addBlock()
             .addPlate()
             .addCasing()
+            .addFluid()
             .build();
 
         Bronze = new MaterialBuilder("Bronze").meta(1)
-            .color(100, 100, 100)
+            .color(255, 128, 0)
             .addIngot()
+            .addFluid()
             .addBlock()
             .build();
     }
