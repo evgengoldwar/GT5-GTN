@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.interfaces.IColorModulationContainer;
 import gregtech.api.util.GTUtility;
-import gregtech.common.config.Client;
 
 public enum Dyes implements IColorModulationContainer {
 
@@ -41,10 +40,9 @@ public enum Dyes implements IColorModulationContainer {
 
     /** Constructs the configured gui metal color. */
     private static int guiMetal() {
-        final Client.ColorModulation.GuiMetal metal = Client.colorModulation.guiMetal;
-        final int r = GTUtility.clamp(metal.red, 0, 255);
-        final int g = GTUtility.clamp(metal.green, 0, 255);
-        final int b = GTUtility.clamp(metal.blue, 0, 255);
+        final int r = GTUtility.clamp(210, 0, 255);
+        final int g = GTUtility.clamp(220, 0, 255);
+        final int b = GTUtility.clamp(255, 0, 255);
         return (r << 16) | (g << 8) | b;
     }
 

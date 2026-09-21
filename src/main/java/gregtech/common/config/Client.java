@@ -9,9 +9,6 @@ import gregtech.api.enums.Mods;
 @Config.LangKey("GT5U.gui.config.client")
 public class Client {
 
-    @Config.Comment("Color Modulation section")
-    public static final ColorModulation colorModulation = new ColorModulation();
-
     @Config.Comment("Interface section")
     public static final Interface iface = new Interface();
 
@@ -32,29 +29,6 @@ public class Client {
 
     public static void save() {
         ConfigurationManager.save(Client.class);
-    }
-
-    @Config.LangKey("GT5U.gui.config.client.color_modulation")
-    public static class ColorModulation {
-
-        @Config.Comment("RGB values for the gui metal color modulation (default GUI color).")
-        public GuiMetal guiMetal = new GuiMetal();
-
-        @Config.LangKey("GT5U.gui.config.client.color_modulation.gui_metal")
-        public static class GuiMetal {
-
-            @Config.DefaultInt(210)
-            @Config.RangeInt(min = 0, max = 255)
-            public int red;
-
-            @Config.DefaultInt(220)
-            @Config.RangeInt(min = 0, max = 255)
-            public int green;
-
-            @Config.DefaultInt(255)
-            @Config.RangeInt(min = 0, max = 255)
-            public int blue;
-        }
     }
 
     @Config.LangKey("GT5U.gui.config.client.interface")
