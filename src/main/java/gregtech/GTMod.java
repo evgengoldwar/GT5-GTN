@@ -37,11 +37,13 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.modularui.GTUIInfos;
+import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTGuiTheme;
@@ -149,20 +151,6 @@ public class GTMod {
         GTValues.DW = new GTDummyWorld();
         GTValues.NW = new GTNetwork();
         GTValues.RA = new RecipeAdder();
-
-        // TEs that can be wrenched.
-        for (int i = 0; i < 4; i++) {
-            GregTechAPI.registerTileEntityConstructor(i, i2 -> GregTechAPI.constructBaseMetaTileEntity());
-        }
-
-        // TEs that can be mined.
-        for (int i = 12; i < 16; i++) {
-            GregTechAPI.registerTileEntityConstructor(i, i2 -> GregTechAPI.constructBaseMetaTileEntity());
-        }
-
-        for (int i = 4; i < 12; i++) {
-            GregTechAPI.registerTileEntityConstructor(i, i2 -> new BasePipeGTE());
-        }
     }
 
     public static GTClient clientProxy() {
@@ -181,10 +169,6 @@ public class GTMod {
         return proxy.getThePlayer();
     }
 
-    public static int calculateTotalGTVersion(int majorVersion, int minorVersion) {
-        return calculateTotalGTVersion(majorVersion, minorVersion, 0);
-    }
-
     public static int calculateTotalGTVersion(int majorVersion, int minorVersion, int patchVersion) {
         return majorVersion * 1000000 + minorVersion * 1000 + patchVersion;
     }
@@ -192,6 +176,8 @@ public class GTMod {
     @Mod.EventHandler
     public void onPreInitialization(FMLPreInitializationEvent event) {
         Materials.init();
+        GameRegistry.registerTileEntity(BaseGTE.class, "baseGTE");
+        GameRegistry.registerTileEntity(BasePipeGTE.class, "BasePipeGTE");
 
         Locale.setDefault(Locale.ENGLISH);
         if (GregTechAPI.sPreloadStarted) {

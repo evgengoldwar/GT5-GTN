@@ -72,7 +72,7 @@ public abstract class MTE extends CommonMTE implements ICraftingIconProvider {
 
     public MTE(MTEArrays mteArrays, int meta, String name, int slotCount) {
         super(mteArrays, meta, name, slotCount);
-        setGTE(GregTechAPI.constructBaseMetaTileEntity());
+        setGTE(new BaseGTE());
         getGTE().setMeta((short) meta);
 
         inventoryHandler = new MTEItemStackHandler(inventory, this);

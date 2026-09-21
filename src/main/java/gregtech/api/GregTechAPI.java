@@ -1,6 +1,5 @@
 package gregtech.api;
 
-import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.B;
 
 import java.util.ArrayList;
@@ -9,26 +8,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.IntFunction;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
-import gregtech.api.metatileentity.BaseGTE;
 import gregtech.api.objects.GTHashSet;
 import gregtech.api.threads.RunnableCableUpdate;
 import gregtech.api.threads.RunnableMachineUpdate;
 import gregtech.api.util.GTCreativeTab;
-import gregtech.api.util.GTUtility;
 import gregtech.common.GTDummyWorld;
 import gregtech.common.covers.Base.CoverPosition;
 
@@ -112,9 +107,6 @@ public class GregTechAPI {
     public static boolean sPostloadFinished = false;
     public static boolean sFullLoadFinished = false;
 
-    @SuppressWarnings("unchecked")
-    private static final IntFunction<TileEntity>[] teCreators = new IntFunction[16];
-
     private static final Set<Class<?>> dummyWorlds = new HashSet<>();
 
     static {
@@ -170,44 +162,8 @@ public class GregTechAPI {
         return false;
     }
 
-    public static BaseGTE constructBaseMetaTileEntity() {
-        try {
-            return new BaseGTE();
-        } catch (Exception e) {
-            GT_FML_LOGGER.error("GTMod: Fatal Error occurred while initializing TileEntities, crashing Minecraft.");
-            GT_FML_LOGGER.error(e);
-            throw new RuntimeException(e);
-        }
-    }
-
     @SideOnly(Side.CLIENT)
     public static void setBlockIconRegister(IIconRegister iconRegister) {
         sBlockIcons = iconRegister;
-    }
-
-    public static void registerTileEntityConstructor(int meta, IntFunction<TileEntity> constructor) {
-        if (meta < 0 || meta > 15) {
-            throw new IllegalArgumentException("Invalid meta: " + meta + " (must be " + 0 + "-" + 15 + ")");
-        }
-
-        if (constructor == null) {
-            throw new IllegalArgumentException("Constructor cannot be null");
-        }
-
-        IntFunction<TileEntity> existing = teCreators[meta];
-
-        if (existing != null) {
-            throw new IllegalStateException("Constructor already registered for meta " + meta);
-        }
-
-        teCreators[meta] = constructor;
-    }
-
-    public static TileEntity createTileEntity(int meta) {
-        meta = GTUtility.clamp(meta, 0, 15);
-        if (teCreators[meta] == null) {
-            return null;
-        }
-        return teCreators[meta].apply(meta);
     }
 }
