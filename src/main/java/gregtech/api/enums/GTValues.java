@@ -18,7 +18,6 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.oredict.OreDictionary;
 
-import gregtech.api.fluid.GTFluidTank;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.internal.IGTRecipeAdder;
 import gregtech.api.net.IGT_NetworkHandler;
@@ -399,8 +398,6 @@ public class GTValues {
     public static final int[] emptyIntArray = new int[0];
     public static final long[] emptyLongArray = new long[0];
 
-    public static final IFluidTank[] emptyFluidTank = new IFluidTank[0];
-    public static final GTFluidTank[] emptyFluidTankGT = new GTFluidTank[0];
     public static final FluidTankInfo[] emptyFluidTankInfo = new FluidTankInfo[0];
     public static final FluidStack[] emptyFluidStackArray = new FluidStack[0];
     public static final ItemStack[] emptyItemStackArray = new ItemStack[0];
