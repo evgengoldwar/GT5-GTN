@@ -59,7 +59,6 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
-import gregtech.common.config.Client;
 import gregtech.crossmod.backhand.Backhand;
 
 public abstract class ItemMachines extends ItemBlock implements IFluidContainerItem {
@@ -128,12 +127,10 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
                                 "gt.tileentity.amperage",
                                 TooltipHelper.ampText(gte.getOutputAmperage())));
                     }
-                    if (Client.tooltip.showEnergyCapacity) {
-                        list.add(
-                            translateToLocalFormatted(
-                                "gt.tileentity.eup_store",
-                                TooltipHelper.euCapacityText(gte.getEUCapacity())));
-                    }
+                    list.add(
+                        translateToLocalFormatted(
+                            "gt.tileentity.eup_store",
+                            TooltipHelper.euCapacityText(gte.getEUCapacity())));
                 }
             }
             final NBTTagCompound nbt = itemStack.getTagCompound();

@@ -1,12 +1,9 @@
 package gregtech.common.config;
 
-import static gregtech.api.recipe.RecipeCategorySetting.ENABLE;
-
 import com.gtnewhorizon.gtnhlib.config.Config;
 import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
 
 import gregtech.api.enums.Mods;
-import gregtech.api.recipe.RecipeCategorySetting;
 
 @Config(modid = Mods.ModIDs.GREG_TECH, category = "client", configSubDirectory = "GregTech", filename = "Client")
 @Config.LangKey("GT5U.gui.config.client")
@@ -32,9 +29,6 @@ public class Client {
 
     @Config.Comment("NEI section")
     public static final NEI nei = new NEI();
-
-    @Config.Comment("Tooltip section")
-    public static final Tooltip tooltip = new Tooltip();
 
     public static void save() {
         ConfigurationManager.save(Client.class);
@@ -263,29 +257,5 @@ public class Client {
         @Config.Comment("if true, show original voltage when overclocked.")
         @Config.DefaultBoolean(false)
         public boolean NEIOriginalVoltage;
-    }
-
-    @Config.LangKey("GT5U.gui.config.client.tooltip")
-    public static class Tooltip {
-
-        @Config.Comment("Enabled show energy capacity of machines")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Energy Capacity")
-        public boolean showEnergyCapacity;
-
-        @Config.Comment("Enabled show Fluid Amount")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Fluid Amount")
-        public boolean showFluidAmount;
-
-        @Config.Comment("Enabled show Fluid Temperature")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Fluid Temperature")
-        public boolean showFluidTemperature;
-
-        @Config.Comment("Enabled show Fluid State")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Fluid State")
-        public boolean showFluidState;
     }
 }

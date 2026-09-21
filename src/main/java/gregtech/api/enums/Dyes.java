@@ -39,7 +39,6 @@ public enum Dyes implements IColorModulationContainer {
     GUI_METAL(   -4,    guiMetal(),    "Gui Metal");
     // spotless:on
 
-
     /** Constructs the configured gui metal color. */
     private static int guiMetal() {
         final Client.ColorModulation.GuiMetal metal = Client.colorModulation.guiMetal;

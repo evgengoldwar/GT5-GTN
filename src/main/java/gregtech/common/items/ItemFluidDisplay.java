@@ -30,7 +30,6 @@ import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.util.GTUtility;
-import gregtech.common.config.Client;
 
 public class ItemFluidDisplay extends GTGenericItem implements IFluidContainerItem {
 
@@ -59,30 +58,25 @@ public class ItemFluidDisplay extends GTGenericItem implements IFluidContainerIt
         NBTTagCompound aNBT = aStack.getTagCompound();
 
         if (aNBT != null) {
-            if (Client.tooltip.showFluidAmount) {
-                long tToolTipAmount = aNBT.getLong("mFluidDisplayAmount");
-                if (tToolTipAmount > 0L) {
-                    aList.add(
-                        EnumChatFormatting.BLUE
-                            + StatCollector
-                                .translateToLocalFormatted("GT5U.tooltip.fluid.amount", formatFluid(tToolTipAmount))
-                            + EnumChatFormatting.GRAY);
-                }
-            }
-            if (Client.tooltip.showFluidTemperature) {
+            long tToolTipAmount = aNBT.getLong("mFluidDisplayAmount");
+            if (tToolTipAmount > 0L) {
                 aList.add(
-                    EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
-                        "GT5U.tooltip.fluid.temperature",
-                        formatNumber(aNBT.getLong("mFluidDisplayHeat"))) + EnumChatFormatting.GRAY);
+                    EnumChatFormatting.BLUE
+                        + StatCollector
+                            .translateToLocalFormatted("GT5U.tooltip.fluid.amount", formatFluid(tToolTipAmount))
+                        + EnumChatFormatting.GRAY);
             }
-            if (Client.tooltip.showFluidState) {
-                aList.add(
-                    EnumChatFormatting.GREEN + StatCollector.translateToLocalFormatted(
+            aList.add(
+                EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
+                    "GT5U.tooltip.fluid.temperature",
+                    formatNumber(aNBT.getLong("mFluidDisplayHeat"))) + EnumChatFormatting.GRAY);
+            aList.add(
+                EnumChatFormatting.GREEN
+                    + StatCollector.translateToLocalFormatted(
                         "GT5U.tooltip.fluid.stat",
                         aNBT.getBoolean("mFluidState") ? StatCollector.translateToLocal("GT5U.tooltip.fluid.stat.gas")
                             : StatCollector.translateToLocal("GT5U.tooltip.fluid.stat.liquid"))
-                        + EnumChatFormatting.GRAY);
-            }
+                    + EnumChatFormatting.GRAY);
         }
     }
 
