@@ -37,8 +37,6 @@ import com.gtnewhorizon.gtnhlib.item.ItemStackNBT;
 
 import appeng.me.helpers.AENetworkProxy;
 import codechicken.nei.api.API;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.MTEArrays;
@@ -54,7 +52,6 @@ import gregtech.api.metatileentity.GTE;
 import gregtech.api.metatileentity.MTE;
 import gregtech.api.metatileentity.implementations.MTEFluidPipe;
 import gregtech.api.util.GTItsNotMyFaultException;
-import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
@@ -199,43 +196,6 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
         } else {
             Collections.addAll(list, GTSplit.split(translated));
         }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void registerDescription(int meta) {
-        if (meta >= mteArray.length) {
-            return;
-        }
-        if (mteArray[meta] != null) {
-            final IMTE mte = mteArray[meta].getGTE()
-                .getMTE();
-            if (isSkipGenerateDescription(mte)) return;
-            String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip";
-            if (mte instanceof ISecondaryDescribable secondaryDescribable) {
-                final String[] secondaryDescription = secondaryDescribable.getSecondaryDescription();
-                registerDescription(secondaryDescription, key + "_secondary", meta);
-            }
-            registerDescription(mte.getDescription(), key, meta);
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    private void registerDescription(@Nullable String[] description, String key, int meta) {
-        if (description == null) {
-            return;
-        }
-
-        String collected = Arrays.stream(description)
-            .filter(GTUtility::isStringValid)
-            .collect(Collectors.joining(GTSplit.LB));
-        if (collected.contains("%%%")) {
-            collected = collected.replaceAll("%%%.*?%%%", "%s");
-        }
-        if (GTLanguageManager.hasGTLocalizationKey(key)) {
-            GTLanguageManager.addStringLocalization(key + "." + meta, collected);
-            return;
-        }
-        GTLanguageManager.addStringLocalization(key, collected);
     }
 
     @Override

@@ -69,7 +69,6 @@ import gregtech.crossmod.chunkapi.ClientMetaManager;
 import gregtech.crossmod.holoinventory.HoloInventory;
 import gregtech.crossmod.waila.Waila;
 import gregtech.loaders.postload.GTPostLoad;
-import gregtech.loaders.postload.MachineTooltipsLoader;
 import gregtech.loaders.postload.PosteaTransformers;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
@@ -288,7 +287,6 @@ public class GTMod {
         GT_FML_LOGGER.debug("restarting recipe removal buffering for NHCore...");
 
         GT_FML_LOGGER.debug("GTMod: Saving Lang File.");
-        new MachineTooltipsLoader().run();
         GTLanguageManager.sEnglishFile.save();
         GregTechAPI.sPostloadFinished = true;
         GT_FML_LOGGER.debug("GTMod: PostLoad-Phase finished!");
