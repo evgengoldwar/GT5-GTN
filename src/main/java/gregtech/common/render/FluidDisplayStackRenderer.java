@@ -5,6 +5,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -42,25 +43,22 @@ public class FluidDisplayStackRenderer implements IItemRenderer {
         GL11.glEnable(GL11.GL_ALPHA_TEST);
 
         Fluid fluid = FluidRegistry.getFluid(item.getItemDamage());
-        // if (associatedFluidMaterial.renderer == null
-        // || !associatedFluidMaterial.renderer.renderFluidDisplayItem(type, item, data)) {
-        // IIcon icon = item.getItem()
-        // .getIconFromDamage(item.getItemDamage());
-        // int tint;
-        // tint = fluid != null ? fluid.getColor() : 0xFFFFFF;
-        // GL11.glColor3ub((byte) (tint >> 16 & 0xFF), (byte) (tint >> 8 & 0xFF), (byte) (tint & 0xFF));
-        // tess.startDrawingQuads();
-        // // draw a simple rectangle for the inventory icon
-        // final float x_min = icon.getMinU();
-        // final float x_max = icon.getMaxU();
-        // final float y_min = icon.getMinV();
-        // final float y_max = icon.getMaxV();
-        // tess.addVertexWithUV(0, 16, 0, x_min, y_max);
-        // tess.addVertexWithUV(16, 16, 0, x_max, y_max);
-        // tess.addVertexWithUV(16, 0, 0, x_max, y_min);
-        // tess.addVertexWithUV(0, 0, 0, x_min, y_min);
-        // tess.draw();
-        // }
+        IIcon icon = item.getItem()
+            .getIconFromDamage(item.getItemDamage());
+        int tint;
+        tint = fluid != null ? fluid.getColor() : 0xFFFFFF;
+        GL11.glColor3ub((byte) (tint >> 16 & 0xFF), (byte) (tint >> 8 & 0xFF), (byte) (tint & 0xFF));
+        tess.startDrawingQuads();
+        // draw a simple rectangle for the inventory icon
+        final float x_min = icon.getMinU();
+        final float x_max = icon.getMaxU();
+        final float y_min = icon.getMinV();
+        final float y_max = icon.getMaxV();
+        tess.addVertexWithUV(0, 16, 0, x_min, y_max);
+        tess.addVertexWithUV(16, 16, 0, x_max, y_max);
+        tess.addVertexWithUV(16, 0, 0, x_max, y_min);
+        tess.addVertexWithUV(0, 0, 0, x_min, y_min);
+        tess.draw();
 
         if (item.getTagCompound() == null) {
             GL11.glDisable(GL11.GL_BLEND);
