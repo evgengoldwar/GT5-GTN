@@ -7,14 +7,12 @@ import static gregtech.GT_Version.VERSION_PATCH;
 import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.util.GTRecipe.setItemStacks;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Locale;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.launchwrapper.Launch;
 
 import org.apache.logging.log4j.Logger;
 
@@ -52,7 +50,6 @@ import gregtech.api.recipe.RecipeLookupValidator;
 import gregtech.api.recipe.RecipeMapBackend;
 import gregtech.api.util.AssemblyLineServer;
 import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTLog;
 import gregtech.api.util.GTRecipe;
 import gregtech.client.iconContainers.IconContainer;
 import gregtech.common.GTClient;
@@ -135,13 +132,6 @@ public class GTMod {
 
         } catch (ConfigException e) {
             throw new RuntimeException(e);
-        }
-
-        File minecraftHome = Launch.minecraftHome == null ? new File(".") : Launch.minecraftHome;
-        try {
-            GTLog.configureRecipeRemovalLogger(minecraftHome);
-        } catch (RuntimeException e) {
-            GT_FML_LOGGER.error("Failed to configure recipe removal logger", e);
         }
     }
 
