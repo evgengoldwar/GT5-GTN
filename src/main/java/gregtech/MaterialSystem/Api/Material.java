@@ -1,22 +1,22 @@
-package gregtech.GTMaterialSystem.Api;
+package gregtech.MaterialSystem.Api;
 
 import java.util.Set;
 
 import net.minecraft.item.ItemStack;
 
-public class GTMaterial {
+public class Material {
 
     private final String name;
     private final int meta;
     private final int color;
-    private final Set<GTMaterialType> types;
+    private final Set<MaterialType> types;
 
     // spotless:off
-    public GTMaterial(
+    public Material(
         String name,
         int meta,
         int color,
-        Set<GTMaterialType> types
+        Set<MaterialType> types
     ) {
         this.name = name;
         this.meta = meta;
@@ -25,7 +25,7 @@ public class GTMaterial {
     }
     // spotless:on
 
-    public boolean hasType(GTMaterialType type) {
+    public boolean hasType(MaterialType type) {
         return types.contains(type);
     }
 
@@ -41,12 +41,12 @@ public class GTMaterial {
         return color;
     }
 
-    public ItemStack get(GTMaterialType type, int amount) {
+    public ItemStack get(MaterialType type, int amount) {
         if (!hasType(type)) {
             throw new IllegalArgumentException("Material " + name + " does not have component " + type);
         }
 
-        GTMaterialRegistry registry = GTMaterialRegistry.getInstance();
+        MaterialRegistry registry = MaterialRegistry.getInstance();
 
         if (registry.getBlock(type) != null) {
             return registry.getBlock(type, meta, amount);

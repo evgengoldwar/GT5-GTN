@@ -40,7 +40,7 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import gregtech.GTMaterialSystem.GTMaterials;
+import gregtech.MaterialSystem.Materials;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
@@ -235,7 +235,7 @@ public class GTMod {
 
     @Mod.EventHandler
     public void onPreInitialization(FMLPreInitializationEvent event) {
-        GTMaterials.init();
+        Materials.init();
 
         Locale.setDefault(Locale.ENGLISH);
         if (GregTechAPI.sPreloadStarted) {

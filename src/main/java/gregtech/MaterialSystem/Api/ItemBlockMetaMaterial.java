@@ -1,4 +1,4 @@
-package gregtech.GTMaterialSystem.Api;
+package gregtech.MaterialSystem.Api;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemBlockMetaGTMaterial extends ItemBlock {
+public class ItemBlockMetaMaterial extends ItemBlock {
 
-    private final BlockMetaGTMaterial block;
+    private final BlockMetaMaterial block;
 
-    public ItemBlockMetaGTMaterial(Block block) {
+    public ItemBlockMetaMaterial(Block block) {
         super(block);
-        this.block = (BlockMetaGTMaterial) block;
+        this.block = (BlockMetaMaterial) block;
         setHasSubtypes(true);
         setMaxDamage(0);
     }
@@ -37,7 +37,7 @@ public class ItemBlockMetaGTMaterial extends ItemBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        GTMaterial material = block.getMaterial(stack.getItemDamage());
+        Material material = block.getMaterial(stack.getItemDamage());
 
         if (material != null) {
             return material.getColor();
@@ -47,7 +47,7 @@ public class ItemBlockMetaGTMaterial extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        GTMaterial material = block.getMaterial(stack.getItemDamage());
+        Material material = block.getMaterial(stack.getItemDamage());
 
         if (material != null) {
             return "tile." + material.getName()
