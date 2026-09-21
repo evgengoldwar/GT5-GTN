@@ -7,7 +7,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 
@@ -24,8 +23,6 @@ public class GTFluidBuilder implements IGTFluidBuilder {
     short[] colorRGBA = Dyes._NULL.getRGBA();
     Block fluidBlock = null;
     int temperature;
-    IIcon stillIcon;
-    IIcon flowingIcon;
     Fluid iconsFrom;
 
     public GTFluidBuilder(final String fluidName) {
