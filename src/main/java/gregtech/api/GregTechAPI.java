@@ -104,13 +104,6 @@ public class GregTechAPI {
     public static boolean sMachineFireExplosions = true;
     public static boolean sMachineWireFire = true;
     public static boolean mServerStarted = false;
-
-    public static int mEUtoRF = 360;
-    public static int mRFtoEU = 20;
-
-    public static boolean mUseOnlyGoodSolderingMaterials = false;
-
-    public static boolean sUnificationEntriesRegistered = false;
     public static boolean sPreloadStarted = false;
     public static boolean sPreloadFinished = false;
     public static boolean sLoadStarted = false;

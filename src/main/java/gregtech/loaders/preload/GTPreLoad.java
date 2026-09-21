@@ -31,7 +31,6 @@ import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
-import gregtech.common.config.OPStuff;
 
 public class GTPreLoad {
 
@@ -258,10 +257,6 @@ public class GTPreLoad {
 
         // client
         loadClientConfig();
-
-        // OverpoweredStuff.cfg
-        GregTechAPI.mEUtoRF = OPStuff.howMuchRFWith100EUInInput;
-        GregTechAPI.mRFtoEU = OPStuff.howMuchEUWith100RFInInput;
     }
 
     public static void loadClientConfig() {

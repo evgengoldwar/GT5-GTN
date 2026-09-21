@@ -85,7 +85,6 @@ import gregtech.api.util.GTClientPreference;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
-import gregtech.common.config.OPStuff;
 import gregtech.common.data.WirelessEnergyHatchManager;
 import gregtech.common.handlers.OffhandToolFunctionalityHandler;
 import gregtech.common.misc.GlobalEnergyWorldSavedData;
@@ -105,7 +104,6 @@ public class GTProxy implements IFuelHandler {
         OreGenEvent.GenerateMinable.EventType.LAPIS,
         OreGenEvent.GenerateMinable.EventType.QUARTZ);
     public final GTBlockMap<Boolean> mCTMBlockCache = new GTBlockMap<>();
-    public boolean mIgnoreTcon = true;
     public int mMaxEqualEntitiesAtOneSpot = 3;
     public int mItemDespawnTime = 6000;
 
@@ -275,7 +273,6 @@ public class GTProxy implements IFuelHandler {
         GT_FML_LOGGER.debug("GTMod: Preload-Phase started!");
 
         GregTechAPI.sPreloadStarted = true;
-        this.mIgnoreTcon = OPStuff.ignoreTinkerConstruct;
         for (FluidContainerRegistry.FluidContainerData tData : FluidContainerRegistry.getRegisteredFluidContainerData()) {
             if ((tData.filledContainer.getItem() == Items.potionitem) && (tData.filledContainer.getItemDamage() == 0)) {
                 tData.fluid.amount = 0;

@@ -65,7 +65,6 @@ import gregtech.common.RecipeAdder;
 import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
 import gregtech.common.config.MachineStats;
-import gregtech.common.config.OPStuff;
 import gregtech.common.config.Other;
 import gregtech.common.config.Worldgen;
 import gregtech.common.items.ItemFluidDisplay;
@@ -140,9 +139,6 @@ public class GTMod {
 
             // MachineStats.cfg
             ConfigurationManager.registerConfig(MachineStats.class);
-
-            // OverPoweredStuff
-            ConfigurationManager.registerConfig(OPStuff.class);
 
             // Other
             ConfigurationManager.registerConfig(Other.class);
