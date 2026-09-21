@@ -33,9 +33,6 @@ public class Client {
     @Config.Comment("NEI section")
     public static final NEI nei = new NEI();
 
-    @Config.Comment("Chat message section")
-    public static final Chat chat = new Chat();
-
     @Config.Comment("Tooltip section")
     public static final Tooltip tooltip = new Tooltip();
 
@@ -46,46 +43,8 @@ public class Client {
     @Config.LangKey("GT5U.gui.config.client.color_modulation")
     public static class ColorModulation {
 
-        @Config.Comment("RGB values for the cable insulation color modulation.")
-        public CableInsulation cableInsulation = new CableInsulation();
-
-        @Config.Comment("RGB values for the machine metal color modulation.")
-        public MachineMetal machineMetal = new MachineMetal();
-
         @Config.Comment("RGB values for the gui metal color modulation (default GUI color).")
         public GuiMetal guiMetal = new GuiMetal();
-
-        @Config.LangKey("GT5U.gui.config.client.color_modulation.cable_insulation")
-        public static class CableInsulation {
-
-            @Config.DefaultInt(64)
-            @Config.RangeInt(min = 0, max = 255)
-            public int red;
-
-            @Config.DefaultInt(64)
-            @Config.RangeInt(min = 0, max = 255)
-            public int green;
-
-            @Config.DefaultInt(64)
-            @Config.RangeInt(min = 0, max = 255)
-            public int blue;
-        }
-
-        @Config.LangKey("GT5U.gui.config.client.color_modulation.machine_metal")
-        public static class MachineMetal {
-
-            @Config.DefaultInt(255)
-            @Config.RangeInt(min = 0, max = 255)
-            public int red;
-
-            @Config.DefaultInt(255)
-            @Config.RangeInt(min = 0, max = 255)
-            public int green;
-
-            @Config.DefaultInt(255)
-            @Config.RangeInt(min = 0, max = 255)
-            public int blue;
-        }
 
         @Config.LangKey("GT5U.gui.config.client.color_modulation.gui_metal")
         public static class GuiMetal {
@@ -166,10 +125,6 @@ public class Client {
         @Config.RangeInt(min = 28, max = 2048)
         @Config.RequiresMcRestart
         public int maxNumSounds = 512;
-
-        @Config.Comment("Which cape to use")
-        @Config.DefaultString("cape_mc")
-        public String selectedCape;
     }
 
     @Config.LangKey("GT5U.gui.config.client.blockoverlay")
@@ -240,35 +195,10 @@ public class Client {
         @Config.DefaultBoolean(false)
         public boolean useBlockUpdateHandler;
 
-        @Config.Comment("Disables coil lighting. Requires world reload (f3 + a or relog).")
-        @Config.DefaultBoolean(false)
-        @Config.Name("Use Old Coil Textures")
-        public boolean useOldCoils;
-
         @Config.Comment("Render lines to MagLev Pylons when tethering")
         @Config.DefaultBoolean(true)
         @Config.Name("Render MagLev Tethers")
         public boolean renderMagLevTethers;
-
-        @Config.DefaultBoolean(true)
-        @Config.Name("Render Powerfail Notifications")
-        public boolean renderPowerfailNotifications;
-
-        @Config.DefaultFloat(1.0f)
-        @Config.Name("Powerfail Icon Size")
-        @Config.RangeFloat(min = 0.1f, max = 10f)
-        public float powerfailIconSize;
-
-        @Config.Comment("When >0, powerfail notifications will stop rendering after this many seconds.")
-        @Config.DefaultInt(0)
-        @Config.Name("Powerfail Notification Timeout")
-        public int powerfailNotificationTimeout;
-
-        @Config.Comment("Detrav scanner ore markers (right-click an ore in the scan) disappear after this many seconds. 0 = never.")
-        @Config.DefaultInt(120)
-        @Config.Name("Detrav Ore Marker Timeout")
-        @Config.RangeInt(min = 0, max = 3600)
-        public int detravOreMarkerTimeout;
 
         @Config.Comment("Enables or disables Trans Metal rendering, also impacts motors, pistons etc with same rendering. Accessibility option.")
         @Config.DefaultBoolean(true)
@@ -294,9 +224,6 @@ public class Client {
     @Config.LangKey("GT5U.gui.config.client.waila")
     public static class Waila {
 
-        /**
-         * This enables showing voltage tier of transformer for Waila, instead of raw voltage number
-         */
         @Config.Comment("if true, enables showing voltage tier of transformer for Waila, instead of raw voltage number.")
         @Config.DefaultBoolean(true)
         public boolean wailaTransformerVoltageTier;
@@ -321,9 +248,6 @@ public class Client {
     @Config.LangKey("GT5U.gui.config.client.nei")
     public static class NEI {
 
-        @Config.Comment("Recipe category section")
-        public final RecipeCategories recipeCategories = new RecipeCategories();
-
         @Config.Comment("if true, shows the recipes using seconds (as opposed to ticks).")
         @Config.DefaultBoolean(true)
         public boolean NEIRecipeSecondMode;
@@ -339,60 +263,6 @@ public class Client {
         @Config.Comment("if true, show original voltage when overclocked.")
         @Config.DefaultBoolean(false)
         public boolean NEIOriginalVoltage;
-
-        @Config.LangKey("GT5U.gui.config.client.nei.recipe_categories")
-        public static class RecipeCategories {
-
-            @Config.LangKey("gt.recipe.category.arc_furnace_recycling")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting arcFurnaceRecycling = ENABLE;
-
-            @Config.LangKey("gt.recipe.category.macerator_recycling")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting maceratorRecycling = ENABLE;
-
-            @Config.LangKey("gt.recipe.category.fluid_extractor_recycling")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting fluidExtractorRecycling = ENABLE;
-
-            @Config.LangKey("gt.recipe.category.alloy_smelter_recycling")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting alloySmelterRecycling = ENABLE;
-
-            @Config.LangKey("gt.recipe.category.alloy_smelter_molding")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting alloySmelterMolding = ENABLE;
-
-            @Config.LangKey("gt.recipe.category.forge_hammer_recycling")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting forgeHammerRecycling = ENABLE;
-
-            @Config.LangKey("gt.recipe.category.tic_part_extruding")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting ticPartExtruding = ENABLE;
-
-            @Config.LangKey("gt.recipe.category.tic_bolt_molding")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting ticBoltMolding = ENABLE;
-
-            @Config.LangKey("gt.recipe.category.abs_non_alloy_recipes")
-            @Config.DefaultEnum("ENABLE")
-            public RecipeCategorySetting absNonAlloyRecipes = ENABLE;
-        }
-    }
-
-    @Config.LangKey("GT5U.gui.config.client.chat")
-    public static class Chat {
-
-        @Config.Comment("Displays a chat message when a powerfail occurs.")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Print Powerfail Notifications")
-        public boolean powerfailNotifications;
-
-        @Config.Comment("Prints the powerfail command help text when receiving a powerfail. The message is only printed once per game session.")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Print Powerfail Help Text")
-        public boolean printPowerfailHelpText;
     }
 
     @Config.LangKey("GT5U.gui.config.client.tooltip")
@@ -402,16 +272,6 @@ public class Client {
         @Config.DefaultBoolean(true)
         @Config.Name("Show Energy Capacity")
         public boolean showEnergyCapacity;
-
-        @Config.Comment("Enabled show Formula")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Formula")
-        public boolean showFormula;
-
-        @Config.Comment("Enabled show Flavor Text")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Flavor Text")
-        public boolean showFlavorText;
 
         @Config.Comment("Enabled show Fluid Amount")
         @Config.DefaultBoolean(true)
@@ -427,35 +287,5 @@ public class Client {
         @Config.DefaultBoolean(true)
         @Config.Name("Show Fluid State")
         public boolean showFluidState;
-
-        @Config.Comment("Enabled show Radioactive Text")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Radioactive Text")
-        public boolean showRadioactiveText;
-
-        @Config.Comment("Enabled show Hot Ingot Text")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Hot Ingot Text")
-        public boolean showHotIngotText;
-
-        @Config.Comment("Enabled show Toxic Text")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show Toxic Text")
-        public boolean showToxicText;
-
-        @Config.Comment("Enabled show GT++ Ctrl Text")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show GT++ Ctrl Text")
-        public boolean showCtrlText;
-
-        @Config.Comment("Enabled show GT++ Ore contains Text")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show GT++ Ore contains Text")
-        public boolean showOreContainsText;
-
-        @Config.Comment("Enabled show GT++ Mining Level Text")
-        @Config.DefaultBoolean(true)
-        @Config.Name("Show GT++ Mining Level Text")
-        public boolean showMiningLevelText;
     }
 }
