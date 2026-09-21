@@ -76,7 +76,6 @@ import gregtech.api.util.client.ResourceUtils;
 import gregtech.client.BlockOverlayRenderer;
 import gregtech.client.GTMouseEventHandler;
 import gregtech.client.SeekingOggCodec;
-import gregtech.client.renderer.waila.TTRenderGTProgressBar;
 import gregtech.common.blocks.ItemMachines;
 import gregtech.common.config.Client;
 import gregtech.common.render.BaseMetaTileEntityRenderer;
@@ -87,7 +86,6 @@ import gregtech.common.render.RenderInit;
 import gregtech.loaders.ExtraIcons;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.nei.NEIGTConfig;
-import mcp.mobius.waila.api.impl.ModuleRegistrar;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
 
@@ -168,8 +166,6 @@ public class GTClient extends GTProxy {
                 }
             });
         RenderInit.register();
-        ModuleRegistrar.instance()
-            .registerTooltipRenderer("waila.gt.progress", new TTRenderGTProgressBar());
     }
 
     @SideOnly(Side.CLIENT)
