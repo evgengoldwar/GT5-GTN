@@ -2,8 +2,6 @@ package gregtech.api.metatileentity;
 
 import static gregtech.api.enums.GTValues.E;
 import static gregtech.api.enums.GTValues.NW;
-import static gregtech.api.util.GTLanguageManager.FACES;
-import static gregtech.api.util.GTLanguageManager.getTranslation;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 import java.util.ArrayList;
@@ -555,11 +553,11 @@ public abstract class CoverableGTE extends GTE implements ICoverable, IGregtechW
 
             final ItemStack coverStack = cover.asItemStack();
             if (coverStack != null) {
-                aList.add(
-                    StatCollector.translateToLocalFormatted(
-                        "GT5U.interface.coverTabs.cover_on",
-                        getTranslation(FACES[sideValue]),
-                        coverStack.getDisplayName()));
+                // aList.add(
+                // StatCollector.translateToLocalFormatted(
+                // "GT5U.interface.coverTabs.cover_on",
+                // getTranslation(FACES[sideValue]),
+                // coverStack.getDisplayName()));
             }
         }
 

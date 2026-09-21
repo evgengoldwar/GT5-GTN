@@ -16,7 +16,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluid;
 import gregtech.api.interfaces.fluid.IGTRegisteredFluid;
-import gregtech.api.util.GTLanguageManager;
 
 public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runnable {
 
@@ -90,7 +89,6 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
 
     @Override
     public IGTRegisteredFluid addLocalizedName() {
-        GTLanguageManager.addStringLocalization(getUnlocalizedName(), defaultLocalName);
         return this;
     }
 

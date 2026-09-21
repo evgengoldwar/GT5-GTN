@@ -14,8 +14,7 @@ public enum Mixin implements IMixins {
         .setPhase(Phase.EARLY)),
     StringTranslateMixin(new MixinBuilder("Keep track of currently translating mods")
         .addCommonMixins(
-            "minecraft.StringTranslateMixin",
-            "minecraft.LanguageRegistryMixin")
+            "minecraft.StringTranslateMixin")
         .setPhase(Phase.EARLY)),
     LocaleMixin(new MixinBuilder("Keep track of currently translating client mods")
         .addClientMixins("minecraft.LocaleMixin")
@@ -33,7 +32,6 @@ public enum Mixin implements IMixins {
             "minecraft.accessors.EntityPlayerMPMixin",
             "minecraft.accessors.WeightedRandomFishableMixin",
             "minecraft.accessors.EntityMixin",
-            "minecraft.accessors.LanguageRegistryMixin",
             "minecraft.accessors.EntityItemMixin")
         .addClientMixins(
             "minecraft.accessors.GuiTextFieldMixin",

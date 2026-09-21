@@ -17,7 +17,6 @@ import com.gtnewhorizon.structurelib.structure.IStructureElement;
 
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.IGTHatchAdder;
 
@@ -30,7 +29,6 @@ public interface IHatchElement<T> {
     String name();
 
     default String getDisplayName() {
-        GTLanguageManager.addStringLocalization("hatch_type_" + name().toLowerCase(), name());
         return StatCollector.translateToLocal("hatch_type_" + name().toLowerCase());
     }
 

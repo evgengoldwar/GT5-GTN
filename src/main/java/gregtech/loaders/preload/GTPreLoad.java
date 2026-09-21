@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
-import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,7 +26,6 @@ import cpw.mods.fml.common.ModContainer;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
-import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
 import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
@@ -73,29 +71,19 @@ public class GTPreLoad {
                 .getLanguageManager()
                 .getCurrentLanguage()
                 .getLanguageCode();
-            GTLanguageManager.LanguageCode = userLang;
             GT_FML_LOGGER.info("User lang is {}", userLang);
             if (userLang.equals("en_US")) {
                 GT_FML_LOGGER.info("Loading GregTech.lang");
-                GTLanguageManager.isEN_US = true;
-                GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
             } else {
                 String l10nFileName = "GregTech_" + userLang + ".lang";
                 File l10nFile = new File(languageDir, l10nFileName);
                 if (l10nFile.isFile()) {
                     GT_FML_LOGGER.info("Loading l10n file: {}", l10nFileName);
-                    GTLanguageManager.sEnglishFile = new Configuration(l10nFile);
                 } else {
                     GT_FML_LOGGER.info("Cannot find l10n file {}, fallback to GregTech.lang", l10nFileName);
-                    GTLanguageManager.isEN_US = true;
-                    GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
                 }
             }
-        } else {
-            GTLanguageManager.isEN_US = true;
-            GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
-        }
-        GTLanguageManager.sEnglishFile.load();
+        } else {}
     }
 
     public static void runMineTweakerCompat() {
@@ -228,7 +216,6 @@ public class GTPreLoad {
         GregTechAPI.sMultiThreadedSounds = Gregtech.general.multiThreadedSounds;
         GTMod.proxy.mMaxEqualEntitiesAtOneSpot = Gregtech.general.maxEqualEntitiesAtOneSpot;
         GTMod.proxy.mItemDespawnTime = Gregtech.general.itemDespawnTime;
-        GTLanguageManager.i18nPlaceholder = Gregtech.general.i18nPlaceholder;
         GTValues.mCTMEnabledBlock.addAll(Arrays.asList(Gregtech.general.CTMWhitelist));
         GTValues.mCTMDisabledBlock.addAll(Arrays.asList(Gregtech.general.CTMBlacklist));
         if (Gregtech.general.harderMobSpawner) {

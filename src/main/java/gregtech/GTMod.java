@@ -50,8 +50,6 @@ import gregtech.api.modularui2.GTGuiTheme;
 import gregtech.api.modularui2.GTGuis;
 import gregtech.api.recipe.RecipeLookupValidator;
 import gregtech.api.recipe.RecipeMapBackend;
-import gregtech.api.util.AssemblyLineServer;
-import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTRecipe;
 import gregtech.client.iconContainers.IconContainer;
 import gregtech.common.GTClient;
@@ -214,10 +212,6 @@ public class GTMod {
         GT_FML_LOGGER.debug("GTMod: Preload-Phase finished!");
 
         GTUIInfos.init();
-
-        if (FMLCommonHandler.instance()
-            .getEffectiveSide()
-            .isServer()) AssemblyLineServer.fillMap(event);
     }
 
     @Mod.EventHandler
@@ -266,7 +260,6 @@ public class GTMod {
         GT_FML_LOGGER.debug("restarting recipe removal buffering for NHCore...");
 
         GT_FML_LOGGER.debug("GTMod: Saving Lang File.");
-        GTLanguageManager.sEnglishFile.save();
         GregTechAPI.sPostloadFinished = true;
         GT_FML_LOGGER.debug("GTMod: PostLoad-Phase finished!");
 

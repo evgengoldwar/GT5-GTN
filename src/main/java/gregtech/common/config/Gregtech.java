@@ -115,11 +115,6 @@ public class Gregtech {
         @Config.RequiresMcRestart
         public int millisecondThesholdUntilLagWarning;
 
-        @Config.Comment("if true, enable placeholder for material names in lang file.")
-        @Config.DefaultBoolean(true)
-        @Config.RequiresMcRestart
-        public boolean i18nPlaceholder;
-
         @Config.Comment("if true, sets the hardness of the mobspawers to 500 and their blast resistance to 6 000 000.")
         @Config.DefaultBoolean(true)
         @Config.RequiresMcRestart
