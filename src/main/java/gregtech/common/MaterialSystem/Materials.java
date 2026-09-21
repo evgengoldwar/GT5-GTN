@@ -4,6 +4,8 @@ import gregtech.common.MaterialSystem.Api.Material;
 import gregtech.common.MaterialSystem.Api.MaterialBuilder;
 import gregtech.common.MaterialSystem.Api.MaterialRegistry;
 
+import java.util.Random;
+
 public class Materials {
 
     public static Material Steel;
@@ -13,31 +15,21 @@ public class Materials {
         MaterialRegistry.getInstance()
             .init();
 
-        // for (int i = 0; i < 25_000; i++) {
-        // int color = i / 98;
-        // new MaterialBuilder("Name" + i)
-        // .color(color,color,color)
-        // .meta(i)
-        // .addBlock()
-        // .addPlate()
-        // .addIngot()
-        // .build();
-        // }
+        Random random = new Random();
 
-        Steel = new MaterialBuilder("Steel").meta(0)
-            .color(200, 200, 200)
-            .addIngot()
-            .addBlock()
-            .addPlate()
-            .addCasing()
-            .addFluid()
-            .build();
+        for (int i = 1; i < 5_000; i++) {
+            int r = random.nextInt(256);
+            int g = random.nextInt(256);
+            int b = random.nextInt(256);
 
-        Bronze = new MaterialBuilder("Bronze").meta(1)
-            .color(255, 128, 0)
-            .addIngot()
-            .addFluid()
-            .addBlock()
-            .build();
+            new MaterialBuilder("Steel_" + i).meta(i)
+                .color(r, g, b)
+                .addIngot()
+                .addPlate()
+                .addBlock()
+                .addCasing()
+                .addFluid()
+                .build();
+        }
     }
 }

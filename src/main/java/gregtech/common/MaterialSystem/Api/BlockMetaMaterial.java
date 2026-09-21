@@ -27,7 +27,7 @@ public class BlockMetaMaterial extends Block {
     public BlockMetaMaterial(MaterialType materialType) {
         super(net.minecraft.block.material.Material.iron);
         this.materialType = materialType;
-        this.texturePath = MaterialUtils.getTextureBlockPath(materialType);
+        this.texturePath = MaterialUtils.getTexturePath(materialType);
         setHardness(5.0F);
         setResistance(10.0F);
     }

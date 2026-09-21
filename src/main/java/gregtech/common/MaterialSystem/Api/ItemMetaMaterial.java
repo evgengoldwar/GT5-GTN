@@ -23,7 +23,7 @@ public class ItemMetaMaterial extends Item {
 
     public ItemMetaMaterial(MaterialType materialType) {
         this.materialType = materialType;
-        this.texturePath = MaterialUtils.getTextureItemPath(materialType);
+        this.texturePath = MaterialUtils.getTexturePath(materialType);
         this.setHasSubtypes(true);
         this.setMaxStackSize(64);
     }

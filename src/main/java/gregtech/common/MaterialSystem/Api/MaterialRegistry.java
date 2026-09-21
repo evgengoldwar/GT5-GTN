@@ -12,10 +12,6 @@ import net.minecraftforge.fluids.Fluid;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.fluid.GTFluidFactory;
-import gregtech.common.MaterialSystem.Blocks.MaterialBlock;
-import gregtech.common.MaterialSystem.Blocks.MaterialCasing;
-import gregtech.common.MaterialSystem.Items.MaterialIngot;
-import gregtech.common.MaterialSystem.Items.MaterialPlate;
 
 public final class MaterialRegistry {
 
@@ -36,11 +32,13 @@ public final class MaterialRegistry {
     }
 
     public void init() {
-        registerItem(MaterialType.INGOT, new MaterialIngot());
-        registerItem(MaterialType.PLATE, new MaterialPlate());
-
-        registerBlock(MaterialType.BLOCK, new MaterialBlock());
-        registerBlock(MaterialType.CASING, new MaterialCasing());
+        for (MaterialType type : MaterialType.values()) {
+            switch (type.getKind()) {
+                case ITEM -> registerItem(type, new ItemMetaMaterial(type));
+                case BLOCK -> registerBlock(type, new BlockMetaMaterial(type));
+                case FLUID -> {}
+            }
+        }
     }
 
     private void registerItem(MaterialType type, ItemMetaMaterial item) {
@@ -104,7 +102,7 @@ public final class MaterialRegistry {
                 .toLowerCase(Locale.ENGLISH))
             .withDefaultLocalName(material.getName())
             .withColorRGBA(MaterialUtils.getColorRGBA(material.getColor()))
-            .withStillIconResourceLocation(new ResourceLocation(MaterialUtils.getTextureFluidPath(MaterialType.FLUID)))
+            .withStillIconResourceLocation(new ResourceLocation(MaterialUtils.getTexturePath(MaterialType.FLUID)))
             .buildAndRegister()
             .addLocalizedName()
             .asFluid();

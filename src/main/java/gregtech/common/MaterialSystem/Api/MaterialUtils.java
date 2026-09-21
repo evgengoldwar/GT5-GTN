@@ -4,16 +4,8 @@ public class MaterialUtils {
 
     public static final int MAX_MATERIAL_META = 32_767;
 
-    public static String getTextureItemPath(MaterialType materialType) {
-        return "gregtech:MaterialSystems/Items/" + materialType.getTextureName();
-    }
-
-    public static String getTextureBlockPath(MaterialType materialType) {
-        return "gregtech:MaterialSystems/Blocks/" + materialType.getTextureName();
-    }
-
-    public static String getTextureFluidPath(MaterialType materialType) {
-        return "gregtech:MaterialSystems/Fluids/" + materialType.getTextureName();
+    public static String getTexturePath(MaterialType materialType) {
+        return "gregtech:MaterialSystems/" + materialType.getFolder() + "/" + materialType.getTextureName();
     }
 
     public static short[] getColorRGBA(int color) {
