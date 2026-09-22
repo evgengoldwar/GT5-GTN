@@ -80,7 +80,6 @@ import gregtech.common.render.FluidDisplayStackRenderer;
 import gregtech.common.render.GTRendererBlock;
 import gregtech.common.render.GTRendererCasing;
 import gregtech.common.render.RenderInit;
-import gregtech.loaders.ExtraIcons;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.nei.NEIGTConfig;
 import paulscode.sound.SoundSystemConfig;
@@ -118,7 +117,6 @@ public class GTClient extends GTProxy {
     public void onPreInitialization(FMLPreInitializationEvent event) {
         super.onPreInitialization(event);
         SoundSystemConfig.setNumberNormalChannels(Client.preference.maxNumSounds);
-        MinecraftForge.EVENT_BUS.register(new ExtraIcons());
         RenderInit.registerEarly();
         Minecraft.getMinecraft()
             .getResourcePackRepository().rprMetadataSerializer
