@@ -76,7 +76,11 @@ public enum ItemList implements IItemContainer {
             return false;
         }
 
-        return !GTUtility.isStackInvalid(itemStack);
+        return GTUtility.stackEqual(this.itemStack, itemStack, ignoreMeta, ignoreNBT);
+    }
+
+    public boolean isStackEqual(ItemStack itemStack) {
+        return isStackEqual(itemStack, false, false);
     }
 
     @Override
