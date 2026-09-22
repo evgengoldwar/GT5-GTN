@@ -1,4 +1,4 @@
-package gregtech.common.misc.spaceprojects.commands;
+package gregtech.commands;
 
 public class SpaceProjectCommand extends SPCommand {
 

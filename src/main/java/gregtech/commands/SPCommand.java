@@ -1,4 +1,4 @@
-package gregtech.common.misc.spaceprojects.commands;
+package gregtech.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,6 @@ import net.minecraft.util.EnumChatFormatting;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import gregtech.commands.GTBaseCommand;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
 
 public class SPCommand extends GTBaseCommand {

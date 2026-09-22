@@ -1,4 +1,4 @@
-package gregtech.common.misc;
+package gregtech.commands;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static gregtech.common.misc.WirelessNetworkManager.addEUToGlobalEnergyMap;
@@ -24,7 +24,6 @@ import com.gtnewhorizon.structurelib.StructureLib;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Mods;
 import gregtech.api.objects.GTChunkManager;
-import gregtech.commands.GTBaseCommand;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
 
 public final class GTMiscCommand extends GTBaseCommand {
