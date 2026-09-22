@@ -623,10 +623,10 @@ public class GTProxy implements IFuelHandler {
         if (burnTime > 0) return burnTime;
 
         // Otherwise, a few more checks
-        if (GTUtility.areStacksEqual(stack, new ItemStack(Blocks.wooden_button, 1))) return 150;
-        else if (GTUtility.areStacksEqual(stack, new ItemStack(Blocks.ladder, 1))) return 100;
-        else if (GTUtility.areStacksEqual(stack, new ItemStack(Items.sign, 1))) return 600;
-        else if (GTUtility.areStacksEqual(stack, new ItemStack(Items.wooden_door, 1))) return 600;
+        if (GTUtility.stackEqual(stack, new ItemStack(Blocks.wooden_button, 1))) return 150;
+        else if (GTUtility.stackEqual(stack, new ItemStack(Blocks.ladder, 1))) return 100;
+        else if (GTUtility.stackEqual(stack, new ItemStack(Items.sign, 1))) return 600;
+        else if (GTUtility.stackEqual(stack, new ItemStack(Items.wooden_door, 1))) return 600;
 
         return 0;
     }

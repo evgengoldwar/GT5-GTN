@@ -671,7 +671,7 @@ public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
             final ItemStack tCurrentItem = player.inventory.getCurrentItem();
             if (tCurrentItem != null) {
                 if (getColorization() >= 0
-                    && GTUtility.areStacksEqual(new ItemStack(Items.water_bucket, 1), tCurrentItem)) {
+                    && GTUtility.stackEqual(new ItemStack(Items.water_bucket, 1), tCurrentItem)) {
                     mMetaTileEntity.markDirty();
                     tCurrentItem.func_150996_a(Items.bucket);
                     setColorization((byte) -1);
@@ -993,7 +993,7 @@ public class BasePipeGTE extends CommonGTE implements IPipeRenderedTileEntity {
             setInventorySlotContents(aIndex, aStack);
             return true;
         }
-        if (GTUtility.areStacksEqual(tStack, aStack)
+        if (GTUtility.stackEqual(tStack, aStack)
             && tStack.stackSize + aStack.stackSize <= Math.min(aStack.getMaxStackSize(), getInventoryStackLimit())) {
             markDirty();
             tStack.stackSize += aStack.stackSize;

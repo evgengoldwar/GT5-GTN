@@ -312,21 +312,6 @@ public class GTUtility {
         return GTUtility.COVER_DIRECTION_NAMES[side.ordinal()];
     }
 
-    public static boolean areStacksEqual(ItemStack aStack1, ItemStack aStack2) {
-        return areStacksEqual(aStack1, aStack2, false);
-    }
-
-    public static boolean areStacksEqual(ItemStack aStack1, ItemStack aStack2, boolean aIgnoreNBT) {
-        return aStack1 != null && aStack2 != null
-            && aStack1.getItem() == aStack2.getItem()
-            && (Items.feather.getDamage(aStack1) == Items.feather.getDamage(aStack2)
-                || Items.feather.getDamage(aStack1) == WILDCARD
-                || Items.feather.getDamage(aStack2) == WILDCARD)
-            && (aIgnoreNBT || (((aStack1.getTagCompound() == null) == (aStack2.getTagCompound() == null))
-                && (aStack1.getTagCompound() == null || aStack1.getTagCompound()
-                    .equals(aStack2.getTagCompound()))));
-    }
-
     public static boolean stackEqual(ItemStack left, ItemStack right, boolean ignoreDamage, boolean ignoreNBT) {
         if (left == null || right == null) {
             return false;
@@ -355,12 +340,16 @@ public class GTUtility {
         return true;
     }
 
+    public static boolean stackEqual(ItemStack left, ItemStack right, boolean ignoreNBT) {
+        return stackEqual(left, right, false, ignoreNBT);
+    }
+
     public static boolean stackEqual(ItemStack left, ItemStack right) {
         return stackEqual(left, right, false, false);
     }
 
     public static boolean areStacksEqualOrNull(ItemStack stack1, ItemStack stack2) {
-        return (stack1 == null && stack2 == null) || GTUtility.areStacksEqual(stack1, stack2);
+        return (stack1 == null && stack2 == null) || GTUtility.stackEqual(stack1, stack2);
     }
 
     public static String getFluidName(Fluid aFluid, boolean aLocalized) {
@@ -522,7 +511,7 @@ public class GTUtility {
             && ((IFluidContainerItem) aStack.getItem()).getCapacity(aStack) > 0) {
             ItemStack tStack = copyAmount(1, aStack);
             ((IFluidContainerItem) aStack.getItem()).drain(tStack, Integer.MAX_VALUE, true);
-            if (!areStacksEqual(aStack, tStack)) return tStack;
+            if (!stackEqual(aStack, tStack)) return tStack;
             return null;
         }
 
@@ -1128,7 +1117,7 @@ public class GTUtility {
         if (isStackInvalid(aStack)) return -1;
         for (int i = 0, aStacksSize = aStacks.size(); i < aStacksSize; i++) {
             ItemStack tStack = aStacks.get(i);
-            if (areStacksEqual(aStack, tStack)) return i;
+            if (stackEqual(aStack, tStack)) return i;
         }
         return -1;
     }
@@ -1267,7 +1256,7 @@ public class GTUtility {
         if (itemStack == null) return false;
         ItemStack tStack = ItemList.Cell_Empty.get(1);
         tStack.stackSize = itemStack.stackSize;
-        return GTUtility.areStacksEqual(itemStack, tStack);
+        return GTUtility.stackEqual(itemStack, tStack);
     }
 
     public static FluidStack convertCellToFluid(ItemStack itemStack) {
@@ -1299,7 +1288,7 @@ public class GTUtility {
         if ((a == null) != (b == null)) return false;
         if (a.length != b.length) return false;
         for (int i = 0; i < a.length; i++) {
-            if (!areStacksEqual(a[i], b[i], false)) return false;
+            if (!stackEqual(a[i], b[i], false)) return false;
         }
         return true;
     }

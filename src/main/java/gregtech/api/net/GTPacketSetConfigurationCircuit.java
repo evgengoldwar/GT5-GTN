@@ -103,7 +103,7 @@ public class GTPacketSetConfigurationCircuit extends GTPacket {
         if (!machine.allowSelectCircuit()) return;
         GTUtility.getAllIntegratedCircuits()
             .stream()
-            .filter(stack -> GTUtility.areStacksEqual(stack, circuit))
+            .filter(stack -> GTUtility.stackEqual(stack, circuit))
             .findFirst()
             .ifPresent(stack -> ((IInventory) tile).setInventorySlotContents(machine.getCircuitSlot(), stack));
     }

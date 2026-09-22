@@ -389,7 +389,7 @@ public abstract class CommonMTE implements IMTE {
     public boolean canInsertItem(int index, ItemStack itemStack, int ordinalSide) {
         return isValidSlot(index) && itemStack != null
             && index < inventory.length
-            && (inventory[index] == null || GTUtility.areStacksEqual(itemStack, inventory[index]))
+            && (inventory[index] == null || GTUtility.stackEqual(itemStack, inventory[index]))
             && allowPutStack(getGTE(), index, ForgeDirection.getOrientation(ordinalSide), itemStack);
     }
 

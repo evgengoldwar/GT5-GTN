@@ -57,7 +57,7 @@ public class GTItemStack {
 
         @Override
         public boolean equals(ItemStack a, ItemStack b) {
-            return GTUtility.areStacksEqual(a, b, false);
+            return GTUtility.stackEqual(a, b, false);
         }
     };
 
@@ -92,11 +92,11 @@ public class GTItemStack {
     }
 
     public final boolean isStackEqual(ItemStack aStack) {
-        return GTUtility.areStacksEqual(toStack(), aStack);
+        return GTUtility.stackEqual(toStack(), aStack);
     }
 
     public final boolean isStackEqual(GTItemStack aStack) {
-        return GTUtility.areStacksEqual(toStack(), aStack.toStack());
+        return GTUtility.stackEqual(toStack(), aStack.toStack());
     }
 
     @Override

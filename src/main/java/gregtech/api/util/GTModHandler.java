@@ -239,7 +239,7 @@ public class GTModHandler {
             return 0;
         }
 
-        if (GTUtility.areStacksEqual(GTUtility.getContainerForFilledItem(aStack, true), ItemList.Cell_Empty.get(1))) {
+        if (GTUtility.stackEqual(GTUtility.getContainerForFilledItem(aStack, true), ItemList.Cell_Empty.get(1))) {
             return 1;
         }
 

@@ -904,13 +904,13 @@ public class GTRecipe implements Comparable<GTRecipe> {
             if (oreDictId >= 0) {
                 return hasOreDictId(other, oreDictId) || matchesAlternativeStack(other);
             }
-            return GTUtility.areStacksEqual(other, other, !usesNbtMatching);
+            return GTUtility.stackEqual(other, other, !usesNbtMatching);
         }
 
         private boolean matchesAlternativeStack(final ItemStack other) {
             if (alternativeStacks == null) return false;
             for (ItemStack alternative : alternativeStacks) {
-                if (GTUtility.areStacksEqual(alternative, other, !usesNbtMatching)) return true;
+                if (GTUtility.stackEqual(alternative, other, !usesNbtMatching)) return true;
             }
             return false;
         }

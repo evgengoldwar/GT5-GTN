@@ -601,7 +601,7 @@ public final class RecipeLookupValidator {
 
     private boolean sameQftCatalyst(ItemStack queryCatalyst, GTRecipe candidate) {
         ItemStack candidateCatalyst = candidate.getMetadata(GTRecipeConstants.QFT_CATALYST);
-        return GTUtility.areStacksEqual(queryCatalyst, candidateCatalyst, false);
+        return GTUtility.stackEqual(queryCatalyst, candidateCatalyst, false);
     }
 
     private void addRecipeConflict(RecipeLookupValidationTarget target, List<GTRecipe> recipes, GTRecipe queryRecipe,

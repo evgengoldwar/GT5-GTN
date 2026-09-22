@@ -1330,7 +1330,7 @@ public class BaseGTE extends CommonGTE
                     final boolean isHardHammer = GTUtility.isStackInList(tCurrentItem, GregTechAPI.sHardHammerList);
                     final boolean isJackhammer = GTUtility.isStackInList(tCurrentItem, GregTechAPI.sJackhammerList);
                     if (getColorization() >= 0
-                        && GTUtility.areStacksEqual(new ItemStack(Items.water_bucket, 1), tCurrentItem)) {
+                        && GTUtility.stackEqual(new ItemStack(Items.water_bucket, 1), tCurrentItem)) {
                         tCurrentItem.func_150996_a(Items.bucket);
                         setColorization((byte) (getColorization() >= 16 ? -2 : -1));
                         return true;
@@ -1894,7 +1894,7 @@ public class BaseGTE extends CommonGTE
             return true;
         }
         final ItemStack fromStack = stack;
-        if (GTUtility.areStacksEqual(toStack, fromStack) && toStack.stackSize + fromStack.stackSize
+        if (GTUtility.stackEqual(toStack, fromStack) && toStack.stackSize + fromStack.stackSize
             <= Math.min(fromStack.getMaxStackSize(), getInventoryStackLimit())) {
             toStack.stackSize += fromStack.stackSize;
             markDirty();

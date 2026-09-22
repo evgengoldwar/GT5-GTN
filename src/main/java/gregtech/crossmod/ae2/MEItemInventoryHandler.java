@@ -109,7 +109,7 @@ public class MEItemInventoryHandler<T extends IMTE & IMEAwareItemInventory> impl
         final long toAdd = input.getStackSize();
         final ItemStack storedStack = machine.getItemStack();
 
-        if (storedStack != null && !GTUtility.areStacksEqual(storedStack, inputStack)) {
+        if (storedStack != null && !GTUtility.stackEqual(storedStack, inputStack)) {
             // Can't stack with existing item, just return the input.
             return input;
         }
@@ -154,7 +154,7 @@ public class MEItemInventoryHandler<T extends IMTE & IMEAwareItemInventory> impl
             final ItemStack storedItemStack = machine.getItemStack();
             final ItemStack storedExtraItemStack = machine.getExtraItemStack();
             final int storedItemCount = machine.getItemCount();
-            final boolean isExtraItemSameType = GTUtility.areStacksEqual(storedItemStack, storedExtraItemStack);
+            final boolean isExtraItemSameType = GTUtility.stackEqual(storedItemStack, storedExtraItemStack);
             // Also account for extra inv if it's the same item
             final int extraItemCount = isExtraItemSameType ? storedExtraItemStack.stackSize : 0;
             final long totalItemCount = (long) storedItemCount + extraItemCount;

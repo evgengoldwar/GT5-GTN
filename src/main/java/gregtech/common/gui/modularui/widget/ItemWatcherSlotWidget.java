@@ -33,7 +33,7 @@ public class ItemWatcherSlotWidget extends SlotWidget {
     @Override
     public void detectAndSendChanges(boolean init) {
         ItemStack target = getter.get();
-        if (init || !GTUtility.areStacksEqual(lastItem, target)) {
+        if (init || !GTUtility.stackEqual(lastItem, target)) {
             ItemStack toPut;
             if (target != null) {
                 toPut = target.copy();
