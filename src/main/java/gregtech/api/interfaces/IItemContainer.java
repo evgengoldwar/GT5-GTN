@@ -13,11 +13,11 @@ public interface IItemContainer {
 
     Block getBlock();
 
-    boolean isStackEqual(Object itemStack, boolean wildCard, boolean ignoreNBT);
+    boolean isStackEqual(ItemStack itemStack, boolean ignoreMeta, boolean ignoreNBT);
 
-    ItemStack get(long amount, Object... replacements);
+    ItemStack get(long amount, ItemStack... replacements);
 
-    ItemStack getWithDamage(long amount, long meta, Object... replacements);
+    ItemStack getWithDamage(long amount, long meta, ItemStack... replacements);
 
     IItemContainer set(Item item);
 

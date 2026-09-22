@@ -327,6 +327,38 @@ public class GTUtility {
                     .equals(aStack2.getTagCompound()))));
     }
 
+    public static boolean stackEqual(ItemStack left, ItemStack right, boolean ignoreDamage, boolean ignoreNBT) {
+        if (left == null || right == null) {
+            return false;
+        }
+
+        if (left.getItem() != right.getItem()) {
+            return false;
+        }
+
+        if (!ignoreDamage) {
+            int leftDamage = Items.feather.getDamage(left);
+            int rightDamage = Items.feather.getDamage(right);
+
+            if (leftDamage != rightDamage && leftDamage != WILDCARD && rightDamage != WILDCARD) {
+                return false;
+            }
+        }
+
+        if (!ignoreNBT) {
+            NBTTagCompound leftTag = left.getTagCompound();
+            NBTTagCompound rightTag = right.getTagCompound();
+
+            return Objects.equals(leftTag, rightTag);
+        }
+
+        return true;
+    }
+
+    public static boolean stackEqual(ItemStack left, ItemStack right) {
+        return stackEqual(left, right, false, false);
+    }
+
     public static boolean areStacksEqualOrNull(ItemStack stack1, ItemStack stack2) {
         return (stack1 == null && stack2 == null) || GTUtility.areStacksEqual(stack1, stack2);
     }

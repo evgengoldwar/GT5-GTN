@@ -3,7 +3,6 @@ package gregtech.api.enums;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.IItemRenderer;
 
 import codechicken.nei.api.API;
 import gregtech.api.interfaces.IItemContainer;
@@ -72,12 +71,16 @@ public enum ItemList implements IItemContainer {
     }
 
     @Override
-    public boolean isStackEqual(Object itemStack, boolean wildCard, boolean ignoreNBT) {
+    public boolean isStackEqual(ItemStack itemStack, boolean ignoreMeta, boolean ignoreNBT) {
+        if (GTUtility.isStackInvalid(itemStack)) {
+            return false;
+        }
+
         return !GTUtility.isStackInvalid(itemStack);
     }
 
     @Override
-    public ItemStack get(long amount, Object... replacements) {
+    public ItemStack get(long amount, ItemStack... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(itemStack)) {
             return GTUtility.copyAmount(amount, replacements);
@@ -86,7 +89,7 @@ public enum ItemList implements IItemContainer {
     }
 
     @Override
-    public ItemStack getWithDamage(long amount, long meta, Object... replacements) {
+    public ItemStack getWithDamage(long amount, long meta, ItemStack... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(itemStack)) return GTUtility.copyAmount(amount, replacements);
         return GTUtility.copyAmountAndMetaData(amount, meta, itemStack);
