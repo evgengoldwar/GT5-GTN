@@ -91,7 +91,6 @@ import paulscode.sound.SoundSystemException;
 
 public class GTClient extends GTProxy {
 
-    public KeyBinding shakeLockKey;
     public final boolean fixedBottomFaceUV;
     private long mAnimationTick;
     private GTClientPreference mPreference;
@@ -144,8 +143,6 @@ public class GTClient extends GTProxy {
         MinecraftForge.EVENT_BUS.register(new NEIGTConfig());
         MinecraftForge.EVENT_BUS.register(new GTMouseEventHandler());
         MinecraftForge.EVENT_BUS.register(new BlockOverlayRenderer());
-        shakeLockKey = new KeyBinding("GTPacketInfiniteSpraycan.Action.TOGGLE_SHAKE_LOCK", Keyboard.KEY_NONE, "Gregtech");
-        ClientRegistry.registerKeyBinding(shakeLockKey);
         // spotless:on
     }
 
