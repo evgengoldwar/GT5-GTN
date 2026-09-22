@@ -279,10 +279,6 @@ public class GTProxy implements IFuelHandler {
         ItemList.Cell_Lava.set(GTModHandler.getIC2Item("lavaCell", 1L, GTModHandler.getIC2Item("cellLava", 1L)));
         ItemList.Cell_Air.set(GTModHandler.getIC2Item("airCell", 1L, GTModHandler.getIC2Item("cellAir", 1L, GTModHandler.getIC2Item("cellOxygen", 1L))));
 
-        ItemList.Dye_Bonemeal.set(new ItemStack(Items.dye, 1, 15));
-        ItemList.Dye_SquidInk.set(new ItemStack(Items.dye, 1, 0));
-        ItemList.Dye_Cocoa.set(new ItemStack(Items.dye, 1, 3));
-
         // Register chunk manager with Forge
         GTChunkManager.init();
         // spotless:on
