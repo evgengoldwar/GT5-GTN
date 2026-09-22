@@ -51,7 +51,7 @@ public enum ItemList implements IItemContainer {
 
     @Override
     public IItemContainer hidden() {
-        API.hideItem(get(1L));
+        API.hideItem(get());
         return this;
     }
 
@@ -84,7 +84,7 @@ public enum ItemList implements IItemContainer {
     }
 
     @Override
-    public ItemStack get(long amount, ItemStack... replacements) {
+    public ItemStack get(int amount, ItemStack replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(itemStack)) {
             return GTUtility.copyAmount(amount, replacements);
@@ -92,11 +92,29 @@ public enum ItemList implements IItemContainer {
         return GTUtility.copyAmount(amount, itemStack);
     }
 
+    public ItemStack get(int amount) {
+        return get(amount, null);
+    }
+
+    public ItemStack get() {
+        return get(1);
+    }
+
     @Override
-    public ItemStack getWithDamage(long amount, long meta, ItemStack... replacements) {
+    public ItemStack getWithDamage(int amount, int meta, ItemStack replacements) {
         sanityCheck();
-        if (GTUtility.isStackInvalid(itemStack)) return GTUtility.copyAmount(amount, replacements);
+        if (GTUtility.isStackInvalid(itemStack)) {
+            return GTUtility.copyAmount(amount, replacements);
+        }
         return GTUtility.copyAmountAndMetaData(amount, meta, itemStack);
+    }
+
+    public ItemStack getWithDamage(int amount, int meta) {
+        return getWithDamage(amount, meta, null);
+    }
+
+    public ItemStack getWithDamage(int meta) {
+        return getWithDamage(1, meta);
     }
 
     private void sanityCheck() {

@@ -15,9 +15,9 @@ public interface IItemContainer {
 
     boolean isStackEqual(ItemStack itemStack, boolean ignoreMeta, boolean ignoreNBT);
 
-    ItemStack get(long amount, ItemStack... replacements);
+    ItemStack get(int amount, ItemStack replacements);
 
-    ItemStack getWithDamage(long amount, long meta, ItemStack... replacements);
+    ItemStack getWithDamage(int amount, int meta, ItemStack replacements);
 
     IItemContainer set(Item item);
 
@@ -32,7 +32,7 @@ public interface IItemContainer {
     }
 
     default @Nonnull String getDisplayName() {
-        ItemStack stack = get(1);
+        ItemStack stack = get(1, null);
 
         if (stack == null) {
             return "null";

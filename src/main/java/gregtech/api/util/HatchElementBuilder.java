@@ -381,7 +381,7 @@ public class HatchElementBuilder<T> {
             List<String> keys = new ArrayList<>(copy.length);
             for (IItemContainer item : copy) {
                 keys.add(
-                    item.get(1)
+                    item.get(1, null)
                         .getUnlocalizedName() + ".name");
             }
             return keys;

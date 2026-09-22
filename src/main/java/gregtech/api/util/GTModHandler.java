@@ -31,7 +31,7 @@ public class GTModHandler {
             sIC2ItemMap.put(aItem, tStack);
             if (tStack == null && D1) GT_FML_LOGGER.error("{} is not found in the IC2 Items!", aItem);
         }
-        return GTUtility.copyAmount(aAmount, sIC2ItemMap.get(aItem), aReplacement);
+        return GTUtility.copyAmount(Math.toIntExact(aAmount), sIC2ItemMap.get(aItem));
     }
 
     public static ItemStack getIC2Item(String aItem, long aAmount) {

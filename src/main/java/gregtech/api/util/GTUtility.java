@@ -819,28 +819,6 @@ public class GTUtility {
         return rStack;
     }
 
-    @Deprecated
-    private static ItemStack firstStackOrNull(Object... aStacks) {
-        for (Object tStack : aStacks) if (tStack instanceof ItemStack stack) return stack;
-        return null;
-    }
-
-    /**
-     * @deprecated use {@link #copyAmount(int, ItemStack)} instead
-     */
-    @Deprecated
-    public static ItemStack copyAmount(long aAmount, Object... aStacks) {
-        return copyAmount(aAmount, firstStackOrNull(aStacks));
-    }
-
-    /**
-     * @deprecated use {@link #copyAmount(int, ItemStack)} instead
-     */
-    @Deprecated
-    public static ItemStack copyAmount(long aAmount, ItemStack aStack) {
-        return copyAmount((int) aAmount, aStack);
-    }
-
     @Contract("_, null -> null")
     public static ItemStack copyAmount(int aAmount, ItemStack aStack) {
         ItemStack rStack = copy(aStack);
