@@ -41,7 +41,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.enums.Mods;
-import gregtech.api.interfaces.ISecondaryDescribable;
 import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IFluidContainerItemMetaTile;
 import gregtech.api.interfaces.metatileentity.IMTE;
@@ -163,15 +162,7 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
 
         final String suffix;
 
-        if (mte instanceof ISecondaryDescribable secondaryDescribable) {
-            if (secondaryDescribable.isDisplaySecondaryDescription()) {
-                suffix = "_secondary";
-            } else {
-                suffix = "";
-            }
-        } else {
-            suffix = "";
-        }
+        suffix = "";
 
         String key = "gt.blockmachines." + mte.getMetaName() + ".tooltip" + suffix;
         if (StatCollector.canTranslate(key + "." + meta)) {
