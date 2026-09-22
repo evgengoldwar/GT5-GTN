@@ -150,16 +150,6 @@ public class GTUtility {
         return null;
     }
 
-    public static String getClassName(Object aObject) {
-        if (aObject == null) return "null";
-        return aObject.getClass()
-            .getName()
-            .substring(
-                aObject.getClass()
-                    .getName()
-                    .lastIndexOf(".") + 1);
-    }
-
     /**
      * Gets the voltage tier corresponding to an amount of EU, capped to 15 (MAX+)
      *
@@ -1188,12 +1178,6 @@ public class GTUtility {
             if (l > first) first = l;
         }
         return first;
-    }
-
-    public static long ceilDiv(long lhs, long rhs) {
-        if (rhs == 0) throw new ArithmeticException("/ by zero");
-
-        return lhs / rhs + ((lhs ^ rhs) > 0 && lhs % rhs != 0 ? 1 : 0);
     }
 
     public static int mod(int value, int divisor) {
