@@ -46,7 +46,6 @@ import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IFluidContainerItemMetaTile;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.metatileentity.CoverableGTE;
 import gregtech.api.metatileentity.GTE;
 import gregtech.api.metatileentity.MTE;
@@ -100,9 +99,6 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
             if (mteArray[meta] != null) {
                 final IGTE gte = mteArray[meta].getGTE();
                 final IMTE mte = gte.getMTE();
-                if (mte instanceof ILocalizedMetaPipeEntity localizedMetaPipeEntity) {
-                    localizedMetaPipeEntity.addMaterialTooltip(list);
-                }
                 addDescription(list, mte, meta);
                 mte.addAdditionalTooltipInformation(itemStack, list);
                 if (gte.getEUCapacity() > 0L) {
@@ -215,11 +211,11 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
         String displayName = super.getItemStackDisplayName(itemStack);
         final short meta = (short) getDamage(itemStack);
         final IMTE mte = mteArray[meta];
-        if (mte != null) {
-            if (mte instanceof ILocalizedMetaPipeEntity localMetaTE) {
-                return localMetaTE.getLocalizedName();
-            }
-        }
+        // if (mte != null) {
+        // if (mte instanceof ILocalizedMetaPipeEntity localMetaTE) {
+        // return localMetaTE.getLocalizedName();
+        // }
+        // }
         return displayName;
     }
 

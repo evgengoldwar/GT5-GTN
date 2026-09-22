@@ -27,7 +27,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.items.GTGenericItem;
 import gregtech.api.util.GTUtility;
 
@@ -44,10 +43,6 @@ public class ItemFluidDisplay extends GTGenericItem implements IFluidContainerIt
 
     @Override
     protected void addAdditionalToolTips(List<String> aList, ItemStack aStack, EntityPlayer aPlayer) {
-        if (FluidRegistry.getFluid(aStack.getItemDamage()) != null) {
-            addTooltipForFluid(FluidRegistry.getFluid(aStack.getItemDamage()), aList);
-        }
-
         if (GTValues.D1 || Minecraft.getMinecraft().gameSettings.advancedItemTooltips) {
             Fluid tFluid = FluidRegistry.getFluid(aStack.getItemDamage());
             if (tFluid != null) {
@@ -120,19 +115,6 @@ public class ItemFluidDisplay extends GTGenericItem implements IFluidContainerIt
             return GTUtility.getFluidName(FluidRegistry.getFluid(aStack.getItemDamage()), true);
         }
         return "";
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static IOreMaterial getMaterial(Fluid fluid) {
-        return null;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static void addTooltipForFluid(Fluid fluid, List<String> list) {
-        IOreMaterial material = getMaterial(fluid);
-        if (material != null) {
-            material.addTooltips(list);
-        }
     }
 
     @Override

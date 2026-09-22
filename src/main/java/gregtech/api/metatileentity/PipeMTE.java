@@ -40,7 +40,6 @@ import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IColoredTileEntity;
 import gregtech.api.interfaces.tileentity.IGTE;
-import gregtech.api.interfaces.tileentity.ILocalizedMetaPipeEntity;
 import gregtech.api.render.ISBRInventoryContext;
 import gregtech.api.render.ISBRWorldContext;
 import gregtech.api.render.TextureFactory;
@@ -77,9 +76,6 @@ public abstract class PipeMTE extends CommonMTE implements IConnectable {
 
     @Override
     public String getLocalName() {
-        if (this instanceof ILocalizedMetaPipeEntity localizedPipe) {
-            return localizedPipe.getLocalizedName();
-        }
         return StatCollector.translateToLocal("gt.blockmachines." + name + ".name");
     }
 
