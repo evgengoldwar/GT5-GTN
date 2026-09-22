@@ -1,6 +1,5 @@
 package gregtech.common.fluid;
 
-import java.util.Arrays;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -13,7 +12,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluid;
 import gregtech.api.interfaces.fluid.IGTRegisteredFluid;
 
@@ -78,51 +76,7 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
     }
 
     @Override
-    public IGTRegisteredFluid registerBContainers(final ItemStack fullContainer, final ItemStack emptyContainer) {
-        return registerContainers(fullContainer, emptyContainer, 1000);
-    }
-
-    @Override
-    public IGTRegisteredFluid registerPContainers(final ItemStack fullContainer, final ItemStack emptyContainer) {
-        return registerContainers(fullContainer, emptyContainer, 250);
-    }
-
-    @Override
     public IGTRegisteredFluid addLocalizedName() {
-        return this;
-    }
-
-    private boolean addLocalizedNameHasOreprefix(IOreMaterial material, String[] oreprefixNames) {
-        return Arrays.stream(oreprefixNames)
-            .anyMatch(oreprefixName -> addLocalizedNameHasOreprefix(material, oreprefixName));
-    }
-
-    private boolean addLocalizedNameHasOreprefix(IOreMaterial material, String oreprefixName) {
-        final String oreprefixNameRemovedFormat = oreprefixName.replace("%s", "");
-        if (defaultLocalName.contains(oreprefixNameRemovedFormat)) {
-            if (String.format(oreprefixName, material.getDefaultLocalName())
-                .equals(defaultLocalName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public IGTRegisteredFluid addLocalizedName(IOreMaterial material) {
-        if (material == null) return addLocalizedName();
-        if (!material.getDefaultLocalName()
-            .equals(defaultLocalName)) {
-            if (addLocalizedNameHasOreprefix(
-                material,
-                new String[] { "Molten %s", "%s Plasma", "Lightly Hydro-Cracked %s", "Lightly Steam-Cracked %s",
-                    "Moderately Hydro-Cracked %s", "Moderately Steam-Cracked %s", "Severely Hydro-Cracked %s",
-                    "Severely Steam-Cracked %s" })) {
-                return this;
-            }
-            return addLocalizedName();
-        }
-        localizedName = material::getLocalizedName;
         return this;
     }
 
