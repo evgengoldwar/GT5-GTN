@@ -1,7 +1,5 @@
 package gregtech.api.enums;
 
-import static gregtech.GTLoggers.GT_FML_LOGGER;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,27 +25,28 @@ public enum ItemList implements IItemContainer {
     // semicolon after the comment to reduce merge conflicts
     ;
 
-    private ItemStack mStack;
-    private boolean mHasNotBeenSet;
-    private boolean mWarned;
+    private ItemStack itemStack;
+    private boolean isSet;
 
     ItemList() {
-        mHasNotBeenSet = true;
+        isSet = true;
     }
 
     @Override
-    public IItemContainer set(Item aItem) {
-        mHasNotBeenSet = false;
-        if (aItem == null) return this;
-        ItemStack aStack = new ItemStack(aItem, 1, 0);
-        mStack = GTUtility.copyAmount(1, aStack);
+    public IItemContainer set(Item item) {
+        isSet = false;
+        if (item == null) {
+            return this;
+        }
+        ItemStack stack = new ItemStack(item, 1, 0);
+        itemStack = GTUtility.copyAmount(1, stack);
         return this;
     }
 
     @Override
-    public IItemContainer set(ItemStack aStack) {
-        mHasNotBeenSet = false;
-        mStack = GTUtility.copyAmount(1, aStack);
+    public IItemContainer set(ItemStack itemStack) {
+        isSet = false;
+        this.itemStack = GTUtility.copyAmount(1, itemStack);
         return this;
     }
 
@@ -58,30 +57,12 @@ public enum ItemList implements IItemContainer {
     }
 
     @Override
-    public IItemContainer registerOre(Object... aOreNames) {
-        return null;
-    }
-
-    @Override
-    public IItemContainer registerWildcardAsOre(Object... aOreNames) {
-        return null;
-    }
-
-    @Override
-    public ItemStack getWithCharge(long aAmount, int aEnergy, Object... aReplacements) {
-        return null;
-    }
-
-    @Override
-    public ItemStack getWithName(long aAmount, String aDisplayName, Object... aReplacements) {
-        return null;
-    }
-
-    @Override
     public Item getItem() {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return null;
-        return mStack.getItem();
+        if (GTUtility.isStackInvalid(itemStack)) {
+            return null;
+        }
+        return itemStack.getItem();
     }
 
     @Override
@@ -91,72 +72,29 @@ public enum ItemList implements IItemContainer {
     }
 
     @Override
-    public final boolean hasBeenSet() {
-        return !mHasNotBeenSet;
+    public boolean isStackEqual(Object itemStack, boolean wildCard, boolean ignoreNBT) {
+        return !GTUtility.isStackInvalid(itemStack);
     }
 
     @Override
-    public boolean isStackEqual(Object aStack) {
-        return isStackEqual(aStack, false, false);
-    }
-
-    @Override
-    public boolean isStackEqual(Object aStack, boolean aWildcard, boolean aIgnoreNBT) {
-        if (!mWarned) {
-            GT_FML_LOGGER.error(new Exception(this + " is now deprecated"));
-            // warn only once
-            mWarned = true;
-        }
-        if (GTUtility.isStackInvalid(aStack)) return false;
-
-        return true;
-    }
-
-    @Override
-    public ItemStack get(long aAmount, Object... aReplacements) {
+    public ItemStack get(long amount, Object... replacements) {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) {
-            GT_FML_LOGGER.debug("Object in the ItemList is null at:");
-            GT_FML_LOGGER.debug(new NullPointerException());
-            return GTUtility.copyAmount(aAmount, aReplacements);
+        if (GTUtility.isStackInvalid(itemStack)) {
+            return GTUtility.copyAmount(amount, replacements);
         }
-        return GTUtility.copyAmount(aAmount, mStack);
+        return GTUtility.copyAmount(amount, itemStack);
     }
 
     @Override
-    public ItemStack getWildcard(long aAmount, Object... aReplacements) {
-        return null;
-    }
-
-    @Override
-    public ItemStack getUndamaged(long aAmount, Object... aReplacements) {
-        return null;
-    }
-
-    @Override
-    public ItemStack getAlmostBroken(long aAmount, Object... aReplacements) {
-        return null;
-    }
-
-    @Override
-    public ItemStack getWithDamage(long aAmount, long aMetaValue, Object... aReplacements) {
+    public ItemStack getWithDamage(long amount, long meta, Object... replacements) {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, aMetaValue, mStack);
-    }
-
-    @Override
-    public IItemContainer setRender(IItemRenderer aRenderer) {
-        return this;
+        if (GTUtility.isStackInvalid(itemStack)) return GTUtility.copyAmount(amount, replacements);
+        return GTUtility.copyAmountAndMetaData(amount, meta, itemStack);
     }
 
     private void sanityCheck() {
-        if (mHasNotBeenSet)
+        if (isSet) {
             throw new IllegalAccessError("The Enum '" + name() + "' has not been set to an Item at this time!");
-        if (!mWarned) {
-            GT_FML_LOGGER.error(new Exception(this + " is now deprecated"));
-            // warn only once
-            mWarned = true;
         }
     }
 }

@@ -13,37 +13,19 @@ public interface IItemContainer {
 
     Block getBlock();
 
-    boolean isStackEqual(Object aStack);
+    boolean isStackEqual(Object itemStack, boolean wildCard, boolean ignoreNBT);
 
-    boolean isStackEqual(Object aStack, boolean aWildcard, boolean aIgnoreNBT);
+    ItemStack get(long amount, Object... replacements);
 
-    ItemStack get(long aAmount, Object... aReplacements);
+    ItemStack getWithDamage(long amount, long meta, Object... replacements);
 
-    ItemStack getWildcard(long aAmount, Object... aReplacements);
+    IItemContainer set(Item item);
 
-    ItemStack getUndamaged(long aAmount, Object... aReplacements);
-
-    ItemStack getAlmostBroken(long aAmount, Object... aReplacements);
-
-    ItemStack getWithDamage(long aAmount, long aMetaValue, Object... aReplacements);
-
-    IItemContainer set(Item aItem);
-
-    IItemContainer set(ItemStack aStack);
+    IItemContainer set(ItemStack itemStack);
 
     default IItemContainer hidden() {
         return this;
     }
-
-    IItemContainer registerOre(Object... aOreNames);
-
-    IItemContainer registerWildcardAsOre(Object... aOreNames);
-
-    ItemStack getWithCharge(long aAmount, int aEnergy, Object... aReplacements);
-
-    ItemStack getWithName(long aAmount, String aDisplayName, Object... aReplacements);
-
-    boolean hasBeenSet();
 
     default IItemContainer setRender(IItemRenderer aRender) {
         return this;
@@ -52,7 +34,9 @@ public interface IItemContainer {
     default @Nonnull String getDisplayName() {
         ItemStack stack = get(1);
 
-        if (stack == null) return "null";
+        if (stack == null) {
+            return "null";
+        }
 
         return stack.getDisplayName();
     }
