@@ -14,14 +14,12 @@ import net.minecraftforge.fluids.IFluidHandler;
 import com.gtnewhorizon.gtnhlib.capability.CapabilityProvider;
 
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.interfaces.IDescribable;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.modularui.IGetGUITextureSet;
 import gregtech.api.util.shutdown.ShutDownReason;
 
-public interface IGTE
-    extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable, IGregTechDeviceInformation, IUpgradableMachine,
-    IDescribable, IMachineBlockUpdateable, IGregtechWailaProvider, IGetGUITextureSet, CapabilityProvider {
+public interface IGTE extends ITexturedTileEntity, ICoverable, IFluidHandler, ITurnable, IGregTechDeviceInformation,
+    IUpgradableMachine, IMachineBlockUpdateable, IGregtechWailaProvider, IGetGUITextureSet, CapabilityProvider {
 
     int getMeta();
 

@@ -614,12 +614,6 @@ public abstract class CommonGTE extends CoverableGTE implements IGTE, IInterface
     abstract void refreshMetaTileEntityValidity();
 
     @Override
-    public String[] getDescription() {
-        if (canAccessData()) return getMTE().getDescription();
-        return GTValues.emptyStringArray;
-    }
-
-    @Override
     public boolean isStillValid() {
         return hasValidMetaTileEntity();
     }
