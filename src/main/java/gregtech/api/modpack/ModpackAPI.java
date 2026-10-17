@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
-import gregtech.api.modpack.hatch.Hatches;
 import gregtech.common.MaterialSystem.Api.MaterialRegistry;
 import gregtech.common.MaterialSystem.Materials;
 
@@ -96,7 +95,6 @@ public final class ModpackAPI {
         forEach("registerItems", IModpackModule::registerItems);
         forEach("registerCovers", IModpackModule::registerCovers);
         forEach("registerPipes", IModpackModule::registerPipes);
-        Hatches.registerDefaults();
         forEach("registerMachines", IModpackModule::registerMachines);
     }
 

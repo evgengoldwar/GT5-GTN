@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -15,34 +16,61 @@ import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.MTE;
 import gregtech.api.modpack.machine.MachineTextures;
+import gregtech.api.modpack.util.Lang;
 import gregtech.api.modpack.util.ResourceIcon;
 import gregtech.api.render.TextureFactory;
 
 /**
- * Base of all multiblock hatches. When the hatch is part of a formed multiblock it takes the casing texture of the
- * multiblock ({@link #setCasingTexture(int)}), otherwise it renders as a tiered hull.
- * <p>
- * Overlay texture: {@code assets/gregtech/textures/blocks/machines/hatches/overlay_<type>.png}.
+ * Base of all multiblock hatches (like {@code MTEHatch} in GTNH). Every hatch is its own class with two constructors:
+ *
+ * <pre>{@code
+ * public class MTEHatchSteamInput extends MTEHatchInput {
+ *
+ *     // prototype: registers the hatch under its id
+ *     public MTEHatchSteamInput(int id, String name, String localName, int tier) {
+ *         super(id, name, localName, tier);
+ *     }
+ *
+ *     // copy for every placed block
+ *     public MTEHatchSteamInput(String name, int tier) {
+ *         super(name, tier);
+ *     }
+ *
+ *     public IMTE newMTE(IGTE gte) {
+ *         return new MTEHatchSteamInput(name, tier);
+ *     }
+ * }
+ *
+ * // registration (LoaderMetaTileEntities or IModpackModule.registerMachines):
+ * new MTEHatchSteamInput(5000, "hatch.steam_input", "Steam Input Hatch", 1).getStackForm(1);
+ * }</pre>
+ *
+ * When the hatch is part of a formed multiblock it takes the casing texture of the multiblock
+ * ({@link #setCasingTexture(int)}), otherwise it renders as a tiered hull. Overlay texture:
+ * {@code assets/gregtech/textures/blocks/machines/hatches/overlay_<type>.png}.
  */
 @IMTE.SkipGenerateDescription
 public abstract class MTEHatch extends MTE {
 
-    protected final HatchType type;
-    protected final int tier;
-    protected final String localName;
+    public final int tier;
     private int casingTextureId;
 
-    protected MTEHatch(HatchType type, int tier, String id, String localName, int slots) {
-        super(id, slots);
-        this.mteArrays = MTEArrays.HATCH;
-        this.type = type;
+    /** Prototype constructor: registers the hatch under {@code id} and its english name. */
+    protected MTEHatch(int id, String name, String localName, int tier, int slots) {
+        super(MTEArrays.HATCH, id, name, slots);
         this.tier = tier;
-        this.localName = localName;
+        Lang.add(getLocalNameKey(), localName);
     }
 
-    public HatchType getType() {
-        return type;
+    /** Copy constructor, used in {@link #newMTE(IGTE)}. */
+    protected MTEHatch(String name, int tier, int slots) {
+        super(name, slots);
+        this.mteArrays = MTEArrays.HATCH;
+        this.tier = tier;
     }
+
+    /** What kind of hatch this is, used by multiblock structure elements. */
+    public abstract HatchType getType();
 
     public int getTier() {
         return tier;
@@ -79,6 +107,13 @@ public abstract class MTEHatch extends MTE {
         casingTextureId = buffer.readInt();
     }
 
+    /** Front overlay, override for custom hatches. */
+    protected ITexture getOverlay() {
+        return TextureFactory.of(
+            ResourceIcon.blockOptional(
+                "machines/hatches/overlay_" + getType().textureName));
+    }
+
     @Override
     public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex, boolean active,
         boolean redstoneLevel) {
@@ -87,8 +122,7 @@ public abstract class MTEHatch extends MTE {
         if (side != facing) {
             return new ITexture[] { base };
         }
-        return new ITexture[] { base,
-            TextureFactory.of(ResourceIcon.blockOptional("machines/hatches/overlay_" + type.textureName)) };
+        return new ITexture[] { base, getOverlay() };
     }
 
     // endregion
@@ -96,6 +130,16 @@ public abstract class MTEHatch extends MTE {
     @Override
     public boolean isFacingValid(ForgeDirection facing) {
         return true;
+    }
+
+    @Override
+    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
+        return false;
     }
 
     @Override
@@ -120,7 +164,7 @@ public abstract class MTEHatch extends MTE {
     }
 
     protected void addDescription(List<String> lines) {
-        lines.add("Multiblock part: " + type.localName);
+        lines.add("Multiblock part: " + getType().localName);
     }
 
     @Override

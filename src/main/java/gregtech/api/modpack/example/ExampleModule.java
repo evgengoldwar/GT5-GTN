@@ -1,7 +1,5 @@
 package gregtech.api.modpack.example;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,27 +12,23 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.ItemList;
 import gregtech.api.modpack.IModpackModule;
 import gregtech.api.modpack.block.BlockBuilder;
 import gregtech.api.modpack.block.SimpleBlock;
 import gregtech.api.modpack.cover.CoverBehaviors;
 import gregtech.api.modpack.cover.CoverBuilder;
-import gregtech.api.modpack.hatch.HatchType;
-import gregtech.api.modpack.hatch.Hatches;
+import gregtech.api.modpack.example.machines.MTEExampleBigFurnace;
+import gregtech.api.modpack.example.machines.MTEExampleCombustionGenerator;
+import gregtech.api.modpack.example.machines.MTEExampleCrusher;
+import gregtech.api.modpack.example.machines.MTEExampleMixer;
+import gregtech.api.modpack.example.machines.MTEExampleSolarCrusher;
 import gregtech.api.modpack.item.ItemData;
 import gregtech.api.modpack.item.ItemEntry;
 import gregtech.api.modpack.item.MetaItem;
-import gregtech.api.modpack.machine.MTEBasicMachine;
-import gregtech.api.modpack.machine.MachineBuilder;
-import gregtech.api.modpack.machine.MachineLogic;
-import gregtech.api.modpack.multiblock.MTEConfigurableMultiblock;
-import gregtech.api.modpack.multiblock.MultiblockBuilder;
-import gregtech.api.modpack.multiblock.MultiblockElements;
-import gregtech.api.modpack.multiblock.MultiblockLogic;
 import gregtech.api.modpack.pipe.Pipes;
 import gregtech.api.modpack.recipe.CraftingRecipes;
 import gregtech.api.modpack.recipe.RecipeMapFactory;
-import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMapBackend;
 import gregtech.common.MaterialSystem.Api.MaterialType;
@@ -66,11 +60,11 @@ public class ExampleModule implements IModpackModule {
     public static ItemEntry SOLAR_COVER, CONVEYOR_COVER, PUMP_COVER, ACTIVITY_COVER, CONTROLLER_COVER;
 
     // machines
-    public static List<MTEBasicMachine> CRUSHERS;
-    public static MTEBasicMachine MIXER_LV;
-    public static MTEBasicMachine COMBUSTION_GENERATOR;
-    public static MTEBasicMachine SOLAR_CRUSHER;
-    public static MTEConfigurableMultiblock BIG_FURNACE_CONTROLLER;
+    public static ItemStack CRUSHER_LV, CRUSHER_MV, CRUSHER_HV;
+    public static ItemStack MIXER_LV, MIXER_MV;
+    public static ItemStack COMBUSTION_GENERATOR_LV;
+    public static ItemStack SOLAR_CRUSHER;
+    public static ItemStack BIG_FURNACE_CONTROLLER;
 
     @Override
     public String getName() {
@@ -297,91 +291,27 @@ public class ExampleModule implements IModpackModule {
 
     @Override
     public void registerMachines() {
-        // LV..EV crushers -> metas 1000..1003
-        CRUSHERS = MachineBuilder.create("crusher")
-            .name("%s Crusher")
-            .recipeMap(CRUSHER)
-            .items(1, 2)
-            .overlay("machines/crusher")
-            .description("Crushes things into dust")
-            .tiers(1, 4)
-            .startMeta(1000)
-            .register();
+        // one line per machine, like GTNH: new MTEClass(id, unlocalized name, english name, tier)
+        CRUSHER_LV = new MTEExampleCrusher(1000, "basicmachine.crusher.tier.01", "Basic Crusher", 1).getStackForm(1);
+        CRUSHER_MV = new MTEExampleCrusher(1001, "basicmachine.crusher.tier.02", "Advanced Crusher", 2)
+            .getStackForm(1);
+        CRUSHER_HV = new MTEExampleCrusher(1002, "basicmachine.crusher.tier.03", "Advanced Crusher II", 3)
+            .getStackForm(1);
 
-        // fluids + circuit + custom logic hooks without a subclass
-        MIXER_LV = MachineBuilder.create("mixer")
-            .name("Basic Mixer")
-            .recipeMap(MIXER)
-            .items(4, 1)
-            .fluids(2, 1)
-            .circuitSlot()
-            .overlay("machines/mixer")
-            .logic(new MachineLogic() {
+        MIXER_LV = new MTEExampleMixer(1010, "basicmachine.mixer.tier.01", "Basic Mixer", 1).getStackForm(1);
+        MIXER_MV = new MTEExampleMixer(1011, "basicmachine.mixer.tier.02", "Advanced Mixer", 2).getStackForm(1);
 
-                @Override
-                public void modifyLogic(MTEBasicMachine machine, ProcessingLogic logic) {
-                    // twice as fast at night
-                    if (!machine.getGTE()
-                        .getWorld()
-                        .isDaytime()) {
-                        logic.setSpeedBonus(0.5);
-                    }
-                }
-            })
-            .tier(1)
-            .startMeta(1010)
-            .register()
-            .get(0);
+        COMBUSTION_GENERATOR_LV = new MTEExampleCombustionGenerator(
+            1020,
+            "basicgenerator.combustion.tier.01",
+            "Basic Combustion Generator",
+            1).getStackForm(1);
 
-        // generator: recipes of COMBUSTION_FUELS produce EU
-        COMBUSTION_GENERATOR = MachineBuilder.create("combustion_generator")
-            .name("Basic Combustion Generator")
-            .recipeMap(COMBUSTION_FUELS)
-            .items(0, 0)
-            .fluids(1, 0)
-            .generator()
-            .overlay("machines/combustion_generator")
-            .tier(1)
-            .startMeta(1020)
-            .register()
-            .get(0);
+        SOLAR_CRUSHER = new MTEExampleSolarCrusher(1030, "basicmachine.solar_crusher", "Solar Crusher", 1)
+            .getStackForm(1);
 
-        // subclass with own logic
-        SOLAR_CRUSHER = MachineBuilder.create("solar_crusher")
-            .name("Solar Crusher")
-            .recipeMap(CRUSHER)
-            .items(1, 2)
-            .factory(MTESolarCrusher::new)
-            .description("Works only during the day")
-            .tier(1)
-            .startMeta(1030)
-            .register()
-            .get(0);
-
-        // multiblock without a class
-        BIG_FURNACE_CONTROLLER = MultiblockBuilder.create("big_furnace")
-            .name("Big Furnace")
-            .shape(
-                new String[][] { { "CCC", "CCC", "CCC" }, { "H~H", "G-G", "CCC" }, { "HHH", "HHH", "HHH" } })
-            .casing('C', ExampleMaterials.Iron)
-            .hatchOrCasing('H', ExampleMaterials.Iron, HatchType.PROCESSING)
-            .element('G', MultiblockElements.block(Blocks.glass, 0))
-            .minCasings(8)
-            .requireHatches(HatchType.ENERGY, HatchType.INPUT_BUS, HatchType.OUTPUT_BUS)
-            .recipeMap(BIG_FURNACE)
-            .parallel(8)
-            .speed(2.0)
-            .overlay("machines/big_furnace")
-            .description("Smelts 8 items at once", "3x3x3, Iron Machine Casings, glass on the sides")
-            .logic(new MultiblockLogic() {
-
-                @Override
-                public void addInfo(MTEConfigurableMultiblock machine, List<String> info) {
-                    info.add("Casings: " + machine.getCasingCount());
-                }
-            })
-            .meta(1100)
-            .register();
+        BIG_FURNACE_CONTROLLER = new MTEExampleBigFurnace(1100, "multimachine.big_furnace", "Big Furnace")
+            .getStackForm(1);
     }
 
     // endregion
@@ -422,8 +352,7 @@ public class ExampleModule implements IModpackModule {
 
         // crafting table recipes
         CraftingRecipes.shaped(
-            CRUSHERS.get(0)
-                .getStackForm(1),
+            CRUSHER_LV,
             "PMP",
             "CHC",
             "PMP",
@@ -434,7 +363,7 @@ public class ExampleModule implements IModpackModule {
             'C',
             "circuitBasic",
             'H',
-            Hatches.get(HatchType.ENERGY, 1, 1));
+            ItemList.Hatch_Energy_LV.get(1));
         CraftingRecipes.shapeless(ExampleMaterials.Iron.getNugget(9), "ingotIron");
         CraftingRecipes.shaped(MARBLE.getStack(4), "SS", "SS", 'S', new ItemStack(Blocks.stone));
         CraftingRecipes.smelting(COKE.get(), new ItemStack(Items.coal), 0.1F);

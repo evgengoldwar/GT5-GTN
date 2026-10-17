@@ -10,7 +10,9 @@ public enum HatchType {
     INPUT_HATCH("Input Hatch", "input_hatch"),
     OUTPUT_HATCH("Output Hatch", "output_hatch"),
     ENERGY("Energy Hatch", "energy"),
-    DYNAMO("Dynamo Hatch", "dynamo");
+    DYNAMO("Dynamo Hatch", "dynamo"),
+    /** Your own hatch kinds (muffler, coolant, ...): override {@code addHatch} in the multiblock to handle them. */
+    OTHER("Hatch", "other");
 
     public final String localName;
     public final String textureName;

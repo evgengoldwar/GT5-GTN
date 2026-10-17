@@ -2,8 +2,18 @@ package gregtech.loaders.preload;
 
 import static gregtech.GTLoggers.GT_FML_LOGGER;
 
+import static gregtech.api.enums.ItemList.*;
+
+import gregtech.api.enums.GTValues;
+import gregtech.api.enums.ItemList;
 import gregtech.api.enums.MTEArrays;
 import gregtech.api.metatileentity.implementations.MTEItemPipe;
+import gregtech.api.modpack.hatch.MTEHatchDynamo;
+import gregtech.api.modpack.hatch.MTEHatchEnergy;
+import gregtech.api.modpack.hatch.MTEHatchInput;
+import gregtech.api.modpack.hatch.MTEHatchInputBus;
+import gregtech.api.modpack.hatch.MTEHatchOutput;
+import gregtech.api.modpack.hatch.MTEHatchOutputBus;
 
 // TODO Some GT MetaTileEntity registrations are done in load/GT_Loader_MetaTileEntities_Recipes.java due to joint
 // registration+recipe methods, they should be split and brought here to register all in preload.
@@ -753,9 +763,44 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
     // 14).getStackForm(1L));
     // }
 
+
+    // spotless:off
+    private static final ItemList[] INPUT_BUSES   = { Hatch_Input_Bus_ULV, Hatch_Input_Bus_LV, Hatch_Input_Bus_MV, Hatch_Input_Bus_HV, Hatch_Input_Bus_EV, Hatch_Input_Bus_IV, Hatch_Input_Bus_LuV, Hatch_Input_Bus_ZPM, Hatch_Input_Bus_UV };
+    private static final ItemList[] OUTPUT_BUSES  = { Hatch_Output_Bus_ULV, Hatch_Output_Bus_LV, Hatch_Output_Bus_MV, Hatch_Output_Bus_HV, Hatch_Output_Bus_EV, Hatch_Output_Bus_IV, Hatch_Output_Bus_LuV, Hatch_Output_Bus_ZPM, Hatch_Output_Bus_UV };
+    private static final ItemList[] INPUT_HATCHES = { Hatch_Input_ULV, Hatch_Input_LV, Hatch_Input_MV, Hatch_Input_HV, Hatch_Input_EV, Hatch_Input_IV, Hatch_Input_LuV, Hatch_Input_ZPM, Hatch_Input_UV };
+    private static final ItemList[] OUTPUT_HATCHES = { Hatch_Output_ULV, Hatch_Output_LV, Hatch_Output_MV, Hatch_Output_HV, Hatch_Output_EV, Hatch_Output_IV, Hatch_Output_LuV, Hatch_Output_ZPM, Hatch_Output_UV };
+    private static final ItemList[] ENERGY_HATCHES = { Hatch_Energy_ULV, Hatch_Energy_LV, Hatch_Energy_MV, Hatch_Energy_HV, Hatch_Energy_EV, Hatch_Energy_IV, Hatch_Energy_LuV, Hatch_Energy_ZPM, Hatch_Energy_UV };
+    private static final ItemList[] DYNAMO_HATCHES = { Hatch_Dynamo_ULV, Hatch_Dynamo_LV, Hatch_Dynamo_MV, Hatch_Dynamo_HV, Hatch_Dynamo_EV, Hatch_Dynamo_IV, Hatch_Dynamo_LuV, Hatch_Dynamo_ZPM, Hatch_Dynamo_UV };
+    // spotless:on
+
+    /**
+     * Multiblock hatches ULV..UV. IDs 32000+ of the machine block are reserved for them:
+     * {@code 32000 + kind * 20 + tier}.
+     */
+    private static void registerHatches() {
+        for (int tier = 0; tier < INPUT_BUSES.length; tier++) {
+            String t = GTValues.VN[tier];
+            String n = t.toLowerCase();
+            INPUT_BUSES[tier].set(
+                new MTEHatchInputBus(32000 + tier, "hatch.input_bus." + n, t + " Input Bus", tier).getStackForm(1));
+            OUTPUT_BUSES[tier].set(
+                new MTEHatchOutputBus(32020 + tier, "hatch.output_bus." + n, t + " Output Bus", tier).getStackForm(1));
+            INPUT_HATCHES[tier].set(
+                new MTEHatchInput(32040 + tier, "hatch.input." + n, t + " Input Hatch", tier).getStackForm(1));
+            OUTPUT_HATCHES[tier].set(
+                new MTEHatchOutput(32060 + tier, "hatch.output." + n, t + " Output Hatch", tier).getStackForm(1));
+            ENERGY_HATCHES[tier].set(
+                new MTEHatchEnergy(32080 + tier, "hatch.energy." + n, t + " Energy Hatch", tier).getStackForm(1));
+            DYNAMO_HATCHES[tier].set(
+                new MTEHatchDynamo(32100 + tier, "hatch.dynamo." + n, t + " Dynamo Hatch", tier).getStackForm(1));
+        }
+    }
+
     @Override
     public void run() {
         GT_FML_LOGGER.debug("GTMod: Registering MetaTileEntities.");
+
+        registerHatches();
         // registerMachineHull();
         // registerTransformer();
         // registerDynamoHatch();

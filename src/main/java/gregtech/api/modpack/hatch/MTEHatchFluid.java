@@ -2,7 +2,6 @@ package gregtech.api.modpack.hatch;
 
 import java.util.List;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
@@ -16,44 +15,38 @@ import com.cleanroommc.modularui.value.sync.FluidSlotSyncHandler;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.widgets.slot.FluidSlot;
 
-import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modpack.util.InventoryUtil;
 import gregtech.api.modularui2.GTGuis;
 
 /**
- * Input or output hatch with one tank of {@code 8000 * 2^tier} L.
+ * Common code of {@link MTEHatchInput} and {@link MTEHatchOutput}: one tank of {@link #getCapacityForTier(int)} L.
  */
-public class MTEHatchFluid extends MTEHatch {
+public abstract class MTEHatchFluid extends MTEHatch {
 
     protected final FluidTank tank;
 
-    public MTEHatchFluid(HatchType type, int tier, String id, String localName) {
-        super(type, tier, id, localName, 0);
-        if (type != HatchType.INPUT_HATCH && type != HatchType.OUTPUT_HATCH) {
-            throw new IllegalArgumentException("Fluid hatch must be INPUT_HATCH or OUTPUT_HATCH");
-        }
-        this.tank = new FluidTank(capacityForTier(tier));
+    protected MTEHatchFluid(int id, String name, String localName, int tier) {
+        super(id, name, localName, tier, 0);
+        this.tank = new FluidTank(getCapacityForTier(tier));
     }
 
-    public static int capacityForTier(int tier) {
+    protected MTEHatchFluid(String name, int tier) {
+        super(name, tier, 0);
+        this.tank = new FluidTank(getCapacityForTier(tier));
+    }
+
+    /** 8000 L * 2^tier. */
+    public static int getCapacityForTier(int tier) {
         return (int) Math.min(Integer.MAX_VALUE, 8000L << Math.max(0, Math.min(tier, 18)));
     }
 
-    @Override
-    public IMTE newMTE(IGTE gte) {
-        return new MTEHatchFluid(type, tier, name, localName);
-    }
-
-    public boolean isInput() {
-        return type == HatchType.INPUT_HATCH;
-    }
+    public abstract boolean isInput();
 
     public FluidTank getTank() {
         return tank;
     }
 
-    /** Fluid stored, the multiblock consumes it in place. */
     @Override
     public FluidStack getFluid() {
         return tank.getFluid();
@@ -69,7 +62,7 @@ public class MTEHatchFluid extends MTEHatch {
         return tank.getFluidAmount();
     }
 
-    /** Output hatch: inserts from the multiblock. */
+    /** Used by multiblocks to put their fluid outputs into output hatches. */
     public int fillFromMachine(FluidStack fluid, boolean doFill) {
         int filled = tank.fill(fluid, doFill);
         if (doFill && filled > 0) {
@@ -114,16 +107,6 @@ public class MTEHatchFluid extends MTEHatch {
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection side) {
         return new FluidTankInfo[] { tank.getInfo() };
-    }
-
-    @Override
-    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
-        return false;
-    }
-
-    @Override
-    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
-        return false;
     }
 
     @Override

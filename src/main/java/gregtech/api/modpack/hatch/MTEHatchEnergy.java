@@ -3,7 +3,6 @@ package gregtech.api.modpack.hatch;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.enums.GTValues;
@@ -12,27 +11,41 @@ import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modpack.machine.MachineTextures;
 
 /**
- * Energy hatch (accepts EU from cables on its front) or dynamo hatch (emits EU from its front).
+ * Energy hatch: accepts EU from cables on its front, the multiblock takes it from here. {@link MTEHatchDynamo} is the
+ * output version.
  */
 public class MTEHatchEnergy extends MTEHatch {
 
-    protected final long amperage;
+    public final long amperage;
 
-    public MTEHatchEnergy(HatchType type, int tier, String id, String localName, long amperage) {
-        super(type, tier, id, localName, 0);
-        if (type != HatchType.ENERGY && type != HatchType.DYNAMO) {
-            throw new IllegalArgumentException("Energy hatch must be ENERGY or DYNAMO");
-        }
+    /** 2A hatch like in GregTech. */
+    public MTEHatchEnergy(int id, String name, String localName, int tier) {
+        this(id, name, localName, tier, 2);
+    }
+
+    /** Multi amp hatch (4A, 16A...). */
+    public MTEHatchEnergy(int id, String name, String localName, int tier, long amperage) {
+        super(id, name, localName, tier, 0);
+        this.amperage = amperage;
+    }
+
+    public MTEHatchEnergy(String name, int tier, long amperage) {
+        super(name, tier, 0);
         this.amperage = amperage;
     }
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEHatchEnergy(type, tier, name, localName, amperage);
+        return new MTEHatchEnergy(name, tier, amperage);
+    }
+
+    @Override
+    public HatchType getType() {
+        return HatchType.ENERGY;
     }
 
     public boolean isDynamo() {
-        return type == HatchType.DYNAMO;
+        return false;
     }
 
     public long getAmperage() {
@@ -87,16 +100,6 @@ public class MTEHatchEnergy extends MTEHatch {
     @Override
     public long getMinimumStoredEU() {
         return isDynamo() ? getVoltage() : 512;
-    }
-
-    @Override
-    public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
-        return false;
-    }
-
-    @Override
-    public boolean allowPullStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
-        return false;
     }
 
     @Override

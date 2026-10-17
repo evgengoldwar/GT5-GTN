@@ -11,11 +11,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * name ({@code "plateSteel"}).
  *
  * <pre>{@code
- * CraftingRecipes.shaped(MyMachines.CRUSHER_LV.getStackForm(1),
+ * CraftingRecipes.shaped(MyMachines.CRUSHER_LV,
  *     "PGP",
  *     "MHM",
  *     "CWC",
- *     'P', "plateSteel", 'G', "gearGtSteel", 'H', Hatches.get(HatchType.ENERGY, 1, 1),
+ *     'P', "plateSteel", 'G', "gearGtSteel", 'H', ItemList.Hatch_Energy_LV.get(1),
  *     'M', MyItems.MOTOR_LV.get(), 'C', "circuitBasic", 'W', Pipes.getCable(Materials.Copper, CableSize.X1, 1));
  *
  * CraftingRecipes.shapeless(Materials.Iron.getNugget(9), "ingotIron");

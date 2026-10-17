@@ -12,21 +12,21 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.widgets.slot.ItemSlot;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 
-import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.modpack.util.InventoryUtil;
 import gregtech.api.modularui2.GTGuis;
 
 /**
- * Input or output bus. Slots: {@code (tier + 1)^2}, max 16.
+ * Common code of {@link MTEHatchInputBus} and {@link MTEHatchOutputBus}. Slots: {@code (tier + 1)^2}, max 16.
  */
-public class MTEHatchItems extends MTEHatch {
+public abstract class MTEHatchItems extends MTEHatch {
 
-    public MTEHatchItems(HatchType type, int tier, String id, String localName) {
-        super(type, tier, id, localName, slotsForTier(tier));
-        if (type != HatchType.INPUT_BUS && type != HatchType.OUTPUT_BUS) {
-            throw new IllegalArgumentException("Item hatch must be INPUT_BUS or OUTPUT_BUS");
-        }
+    protected MTEHatchItems(int id, String name, String localName, int tier) {
+        super(id, name, localName, tier, slotsForTier(tier));
+    }
+
+    protected MTEHatchItems(String name, int tier) {
+        super(name, tier, slotsForTier(tier));
     }
 
     public static int slotsForTier(int tier) {
@@ -34,14 +34,7 @@ public class MTEHatchItems extends MTEHatch {
         return side * side;
     }
 
-    @Override
-    public IMTE newMTE(IGTE gte) {
-        return new MTEHatchItems(type, tier, name, localName);
-    }
-
-    public boolean isInput() {
-        return type == HatchType.INPUT_BUS;
-    }
+    public abstract boolean isInput();
 
     @Override
     public boolean allowPutStack(IGTE gte, int index, ForgeDirection side, ItemStack itemStack) {
@@ -53,7 +46,7 @@ public class MTEHatchItems extends MTEHatch {
         return !isInput() && side == gte.getFrontFacing();
     }
 
-    /** Output bus: inserts a stack, returns the amount that did not fit. */
+    /** Inserts a stack (used by multiblocks on output buses), returns the amount that did not fit. */
     public int insert(ItemStack stack, boolean simulate) {
         int left = InventoryUtil.insert(inventory, 0, inventory.length, stack, getInventoryStackLimit(), simulate);
         if (!simulate) {

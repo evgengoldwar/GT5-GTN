@@ -38,6 +38,7 @@ import gregtech.api.modpack.hatch.MTEHatchFluid;
 import gregtech.api.modpack.hatch.MTEHatchItems;
 import gregtech.api.modpack.machine.MachineOverlay;
 import gregtech.api.modpack.util.InventoryUtil;
+import gregtech.api.modpack.util.Lang;
 import gregtech.api.modularui2.GTGuis;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -47,11 +48,11 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.MultiblockTooltipBuilder;
 
 /**
- * Base class for GregTech style multiblocks built with StructureLib.
- * <p>
- * Minimal custom multiblock:
+ * Base class of GregTech style multiblocks (like {@code MTEExtendedPowerMultiBlockBase} in GTNH), built with
+ * StructureLib. Every multiblock is its own class:
  *
  * <pre>{@code
  * public class MTEBigFurnace extends MTEMultiblockBase {
@@ -68,8 +69,12 @@ import gregtech.api.util.GTUtility;
  *         .addElement('H', MultiblockElements.hatchOrCasing(Materials.Steel, HatchType.PROCESSING))
  *         .build();
  *
- *     public MTEBigFurnace(String id) {
- *         super(id);
+ *     public MTEBigFurnace(int id, String name, String localName) {  // prototype
+ *         super(id, name, localName);
+ *     }
+ *
+ *     public MTEBigFurnace(String name) {                              // copy
+ *         super(name);
  *     }
  *
  *     public IMTE newMTE(IGTE gte) {
@@ -80,7 +85,7 @@ import gregtech.api.util.GTUtility;
  *         return STRUCTURE;
  *     }
  *
- *     protected boolean checkStructure() {
+ *     protected boolean checkMachine() {
  *         // controller offset: column 1, layer 1, row 0 of the '~'
  *         return checkPiece(MAIN_PIECE, 1, 1, 0) && getCasingCount() >= 12 && !getEnergyHatches().isEmpty();
  *     }
@@ -97,17 +102,22 @@ import gregtech.api.util.GTUtility;
  *         return MyRecipeMaps.BIG_FURNACE;
  *     }
  *
- *     public String[] getDescription() {
- *         return new String[] { "Smelts a lot", "3x3x3 of Steel Casings" };
+ *     protected MultiblockTooltipBuilder createTooltip() {
+ *         return new MultiblockTooltipBuilder().addMachineType("Furnace")
+ *             .addInfo("Smelts a lot")
+ *             .beginStructureBlock(3, 3, 3, true)
+ *             .addController("Front center")
+ *             .addCasingInfoMin("Steel Machine Casing", 12, false)
+ *             .addEnergyHatch("Any casing", 1)
+ *             .addInputBus("Any casing", 1)
+ *             .addOutputBus("Any casing", 1)
+ *             .toolTipFinisher();
  *     }
  * }
  *
- * // in registerMachines():
- * Prototypes.register(new MTEBigFurnace("big_furnace"), 600);
- * Lang.add("gt.blockmachines.big_furnace.name", "Big Furnace");
+ * // registration (IModpackModule.registerMachines):
+ * BIG_FURNACE = new MTEBigFurnace(10000, "multimachine.big_furnace", "Big Furnace").getStackForm(1);
  * }</pre>
- *
- * Without a subclass use {@link MultiblockBuilder}.
  */
 @IMTE.SkipGenerateDescription
 public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable, IConstructable {
@@ -129,16 +139,53 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
     protected int maxProgress;
     /** EU/t used (or produced for generators) while working */
     protected long eut;
-    protected boolean generator;
     protected ItemStack[] pendingItemOutputs;
     protected FluidStack[] pendingFluidOutputs;
     protected CheckRecipeResult lastResult = CheckRecipeResultRegistry.NONE;
     protected ProcessingLogic processingLogic;
 
-    protected MTEMultiblockBase(String id) {
-        super(id, 0);
+    private MultiblockTooltipBuilder tooltip;
+
+    /** Prototype constructor: registers the controller under {@code id} and its english name. */
+    protected MTEMultiblockBase(int id, String name, String localName) {
+        super(MTEArrays.HATCH, id, name, 0);
+        Lang.add(getLocalNameKey(), localName);
+    }
+
+    /** Copy constructor, used in {@link #newMTE(IGTE)}. */
+    protected MTEMultiblockBase(String name) {
+        super(name, 0);
         this.mteArrays = MTEArrays.HATCH;
     }
+
+    /** Generator multiblock: recipes produce their EU/t into the dynamo hatches. */
+    public boolean isGenerator() {
+        return false;
+    }
+
+    // region Tooltip
+
+    /** Item tooltip and hologram projector description, like {@code createTooltip()} in GTNH. */
+    protected abstract MultiblockTooltipBuilder createTooltip();
+
+    protected MultiblockTooltipBuilder getTooltip() {
+        if (tooltip == null) {
+            tooltip = createTooltip();
+        }
+        return tooltip;
+    }
+
+    @Override
+    public String[] getDescription() {
+        return getTooltip().getInformation();
+    }
+
+    @Override
+    public String[] getStructureDescription(ItemStack trigger) {
+        return getTooltip().getStructureInformation();
+    }
+
+    // endregion
 
     // region Structure
 
@@ -149,7 +196,7 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
      * Checks the structure. Hatch lists and the casing counter are cleared before. Use {@link #checkPiece} and add
      * your own conditions (casing count, required hatches, coil tier...).
      */
-    protected abstract boolean checkStructure();
+    protected abstract boolean checkMachine();
 
     /** Texture id of the casing for the controller faces, see {@link CasingTextures}. */
     protected abstract int getCasingTextureId();
@@ -188,15 +235,10 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
 
     /**
      * Builds the structure with the StructureLib hologram projector. Call {@link #buildPiece} with the same offsets as
-     * {@link #checkStructure()}.
+     * {@link #checkMachine()}.
      */
     @Override
     public abstract void construct(ItemStack trigger, boolean hintsOnly);
-
-    @Override
-    public String[] getStructureDescription(ItemStack trigger) {
-        return getDescription();
-    }
 
     /** Called by casing elements. */
     public void onCasingFound() {
@@ -221,6 +263,10 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
             case OUTPUT_HATCH -> outputHatches.add((MTEHatchFluid) hatch);
             case ENERGY -> energyHatches.add((MTEHatchEnergy) hatch);
             case DYNAMO -> dynamoHatches.add((MTEHatchEnergy) hatch);
+            // own hatch kinds: override addHatch, handle them and call super for the rest
+            case OTHER -> {
+                return false;
+            }
         }
         return true;
     }
@@ -376,7 +422,7 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
             protected @Nonnull OverclockCalculator createOverclockCalculator(@Nonnull GTRecipe recipe) {
                 // generators produce the recipe EU/t as is, they never overclock
                 return super.createOverclockCalculator(recipe)
-                    .setNoOverclock(generator);
+                    .setNoOverclock(isGenerator());
             }
 
             @Override
@@ -496,8 +542,8 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
         if (map == null) {
             return CheckRecipeResultRegistry.NO_RECIPE;
         }
-        long voltage = generator ? GTValues.V[GTValues.V.length - 1] : getMaxInputVoltage();
-        if (!generator && voltage <= 0) {
+        long voltage = isGenerator() ? GTValues.V[GTValues.V.length - 1] : getMaxInputVoltage();
+        if (!isGenerator() && voltage <= 0) {
             return SimpleCheckRecipeResult.ofFailure("no_energy_hatch");
         }
         ProcessingLogic logic = getProcessingLogic();
@@ -575,7 +621,7 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
         if (structureChanged || tick % 100 == 0) {
             structureChanged = false;
             clearStructure();
-            boolean formed = checkStructure();
+            boolean formed = checkMachine();
             if (formed != structureFormed) {
                 structureFormed = formed;
                 markDirty();
@@ -592,7 +638,7 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
 
         if (maxProgress > 0) {
             boolean powered;
-            if (generator) {
+            if (isGenerator()) {
                 addEnergyToDynamos(eut);
                 powered = true;
             } else {
@@ -697,7 +743,7 @@ public abstract class MTEMultiblockBase extends MTE implements RecipeMapWorkable
         List<String> info = new ArrayList<>();
         info.add(structureFormed ? "Structure: formed" : "Structure: incomplete");
         info.add("Progress: " + progress / 20 + " / " + maxProgress / 20 + " s");
-        info.add((generator ? "Producing: " : "Using: ") + eut + " EU/t");
+        info.add((isGenerator() ? "Producing: " : "Using: ") + eut + " EU/t");
         info.add("Energy: " + getStoredEnergy() + " EU");
         if (!lastResult.wasSuccessful() && maxProgress <= 0) {
             info.add(lastResult.getDisplayString());

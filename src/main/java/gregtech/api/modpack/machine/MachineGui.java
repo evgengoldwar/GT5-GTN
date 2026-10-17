@@ -31,12 +31,11 @@ public final class MachineGui {
         UISettings uiSettings) {
         ModularPanel panel = GTGuis.mteTemplatePanelBuilder(machine, data, syncManager, uiSettings)
             .build();
-        MachineConfig config = machine.getConfig();
 
         // inputs: right aligned grid ending left of the arrow
-        int inputColumns = Math.min(COLUMNS, Math.max(1, config.itemInputs));
+        int inputColumns = Math.min(COLUMNS, Math.max(1, machine.itemInputs));
         int inputX = 78 - 4 - inputColumns * SLOT;
-        for (int i = 0; i < config.itemInputs; i++) {
+        for (int i = 0; i < machine.itemInputs; i++) {
             panel.child(
                 new ItemSlot().slot(new ModularSlot(machine.getInventoryHandler(), machine.getInputSlotStart() + i))
                     .pos(inputX + (i % COLUMNS) * SLOT, 16 + (i / COLUMNS) * SLOT));
@@ -54,7 +53,7 @@ public final class MachineGui {
                 .pos(78, 25));
 
         int outputX = 78 + 20 + 4;
-        for (int i = 0; i < config.itemOutputs; i++) {
+        for (int i = 0; i < machine.itemOutputs; i++) {
             panel.child(
                 new ItemSlot()
                     .slot(
@@ -65,12 +64,12 @@ public final class MachineGui {
 
         // tanks under the slots
         int tankY = 16 + 2 * SLOT + 4;
-        for (int i = 0; i < config.fluidInputs; i++) {
+        for (int i = 0; i < machine.fluidInputs; i++) {
             panel.child(
                 new FluidSlot().syncHandler(new FluidSlotSyncHandler(machine.getInputTanks()[i]))
                     .pos(inputX + i * SLOT, tankY));
         }
-        for (int i = 0; i < config.fluidOutputs; i++) {
+        for (int i = 0; i < machine.fluidOutputs; i++) {
             panel.child(
                 new FluidSlot().syncHandler(
                     new FluidSlotSyncHandler(machine.getOutputTanks()[i]).canFillSlot(false))

@@ -1,6 +1,7 @@
 package gregtech.api.modpack.machine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -30,7 +31,7 @@ import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.MTE;
 import gregtech.api.modpack.util.InventoryUtil;
-import gregtech.api.modpack.util.Prototypes;
+import gregtech.api.modpack.util.Lang;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
@@ -38,34 +39,60 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.OverclockCalculator;
 
 /**
- * GregTech style single block machine: tiered hull, energy input, item and fluid slots, recipe map processing,
- * auto output to the front face (toggle with a screwdriver) and a ModularUI 2 GUI.
+ * Base class of GregTech style single block machines, like {@code MTEBasicMachineWithRecipe} in GTNH: tiered hull,
+ * energy input, item slots, fluid tanks, programmed circuit slot, recipe map processing with overclocks, auto output
+ * to the front face (screwdriver toggles items, shift + screwdriver fluids) and a ModularUI 2 GUI.
  * <p>
- * Use it as is through {@link MachineBuilder}, give it custom hooks with {@link MachineLogic}, or extend it:
+ * Every machine is its own class with two constructors, registration is one line:
  *
  * <pre>{@code
- * public class MTESolarCrusher extends MTEBasicMachine {
+ * public class MTECrusher extends MTEBasicMachine {
  *
- *     public MTESolarCrusher(MachineConfig config) {
- *         super(config);
+ *     private static final MachineOverlay OVERLAY = MachineOverlay.of("machines/crusher");
+ *
+ *     // prototype: registers the machine under its id
+ *     public MTECrusher(int id, String name, String localName, int tier) {
+ *         super(id, name, localName, tier, new String[] { "Crushes ores into dust" }, 1, 2, 0, 0);
  *     }
  *
- *     // only works during the day
- *     protected CheckRecipeResult checkProcessing() {
- *         if (!getGTE().getWorld().isDaytime()) return SimpleCheckRecipeResult.ofFailure("night");
- *         return super.checkProcessing();
+ *     // copy for every placed block
+ *     public MTECrusher(String name, int tier, String[] description) {
+ *         super(name, tier, description, 1, 2, 0, 0);
+ *     }
+ *
+ *     public IMTE newMTE(IGTE gte) {
+ *         return new MTECrusher(name, tier, description);
+ *     }
+ *
+ *     public RecipeMap<?> getRecipeMap() {
+ *         return MyRecipeMaps.CRUSHER;
+ *     }
+ *
+ *     protected MachineOverlay getOverlay() {
+ *         return OVERLAY;
  *     }
  * }
  *
- * MachineBuilder.create("solar_crusher").factory(MTESolarCrusher::new)...
+ * // registration (IModpackModule.registerMachines):
+ * CRUSHER_LV = new MTECrusher(1000, "basicmachine.crusher.tier.01", "Basic Crusher", 1).getStackForm(1);
+ * CRUSHER_MV = new MTECrusher(1001, "basicmachine.crusher.tier.02", "Advanced Crusher", 2).getStackForm(1);
  * }</pre>
  *
+ * Things to override: {@link #getRecipeMap()}, {@link #getOverlay()}, {@link #isGenerator()},
+ * {@link #getAmperage()}, {@link #modifyLogic}, {@link #validateRecipe}, {@link #checkProcessing()} (machines
+ * without recipes), {@link #onWorkTick()}, {@link #onRecipeStart}, {@link #onRecipeFinished()}, {@link #buildUI}.
+ * <p>
  * Slot layout: {@code [inputs][outputs][circuit]}.
  */
 @IMTE.SkipGenerateDescription
-public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigurationCircuitSupport {
+public abstract class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigurationCircuitSupport {
 
-    protected final MachineConfig config;
+    public final int tier;
+    public final String[] description;
+    public final int itemInputs;
+    public final int itemOutputs;
+    public final int fluidInputs;
+    public final int fluidOutputs;
 
     protected final FluidTank[] inputTanks;
     protected final FluidTank[] outputTanks;
@@ -87,24 +114,39 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
     protected ProcessingLogic processingLogic;
 
     /**
-     * The only constructor: used for the prototype (then {@link #asPrototype(int)} is called by the builder) and for
-     * every placed machine (from {@link #newMTE(IGTE)}).
+     * Prototype constructor: registers the machine under {@code id} in the GregTech machine block and its english
+     * name.
+     *
+     * @param name      unique lower case name, e.g. {@code "basicmachine.crusher.tier.01"}
+     * @param localName english name
      */
-    public MTEBasicMachine(MachineConfig config) {
-        super(config.id, config.getSlotCount());
-        this.mteArrays = MTEArrays.HATCH;
-        this.config = config;
-        this.inputTanks = createTanks(config.fluidInputs, config.tankCapacity);
-        this.outputTanks = createTanks(config.fluidOutputs, config.tankCapacity);
+    protected MTEBasicMachine(int id, String name, String localName, int tier, String[] description, int itemInputs,
+        int itemOutputs, int fluidInputs, int fluidOutputs) {
+        super(MTEArrays.HATCH, id, name, itemInputs + itemOutputs + 1);
+        this.tier = tier;
+        this.description = description;
+        this.itemInputs = itemInputs;
+        this.itemOutputs = itemOutputs;
+        this.fluidInputs = fluidInputs;
+        this.fluidOutputs = fluidOutputs;
+        this.inputTanks = createTanks(fluidInputs, getTankCapacity());
+        this.outputTanks = createTanks(fluidOutputs, getTankCapacity());
+        Lang.add(getLocalNameKey(), localName);
     }
 
-    /**
-     * Registers this instance as the prototype for {@code meta} in the {@link MTEArrays#HATCH} array (what the
-     * {@code MTE(MTEArrays, int, String, int)} constructor does for hand written machines).
-     */
-    public final MTEBasicMachine asPrototype(int meta) {
-        Prototypes.register(this, meta);
-        return this;
+    /** Copy constructor, call it from your copy constructor used in {@link #newMTE(IGTE)}. */
+    protected MTEBasicMachine(String name, int tier, String[] description, int itemInputs, int itemOutputs,
+        int fluidInputs, int fluidOutputs) {
+        super(name, itemInputs + itemOutputs + 1);
+        this.mteArrays = MTEArrays.HATCH;
+        this.tier = tier;
+        this.description = description;
+        this.itemInputs = itemInputs;
+        this.itemOutputs = itemOutputs;
+        this.fluidInputs = fluidInputs;
+        this.fluidOutputs = fluidOutputs;
+        this.inputTanks = createTanks(fluidInputs, getTankCapacity());
+        this.outputTanks = createTanks(fluidOutputs, getTankCapacity());
     }
 
     private static FluidTank[] createTanks(int count, int capacity) {
@@ -115,17 +157,38 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
         return tanks;
     }
 
-    @Override
-    public IMTE newMTE(IGTE gte) {
-        return config.factory.create(config);
+    // region Settings to override
+
+    /**
+     * Capacity of every tank. Called from the constructor: return a constant or compute it from the tier only.
+     */
+    protected int getTankCapacity() {
+        return 16_000;
     }
 
-    public MachineConfig getConfig() {
-        return config;
+    /** Front overlay textures. Create it once in a static field: {@code MachineOverlay.of("machines/crusher")}. */
+    protected MachineOverlay getOverlay() {
+        return MachineOverlay.NONE;
     }
+
+    /** Generator: recipes produce their EU/t instead of consuming it, EU is emitted from the front face. */
+    public boolean isGenerator() {
+        return false;
+    }
+
+    /** Amperes usable by a recipe (one more is accepted from cables). */
+    public long getAmperage() {
+        return 1;
+    }
+
+    public long getVoltage() {
+        return GTValues.V[MachineTextures.clampTier(tier)];
+    }
+
+    // endregion
 
     public int getTier() {
-        return config.tier;
+        return tier;
     }
 
     // region Slots
@@ -135,11 +198,11 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
     }
 
     public int getOutputSlotStart() {
-        return config.itemInputs;
+        return itemInputs;
     }
 
     public int getOutputSlotEnd() {
-        return config.itemInputs + config.itemOutputs;
+        return itemInputs + itemOutputs;
     }
 
     public ItemStack getInputStack(int index) {
@@ -160,12 +223,12 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
 
     @Override
     public int getCircuitSlot() {
-        return config.circuitSlot ? getOutputSlotEnd() : -1;
+        return getOutputSlotEnd();
     }
 
     @Override
     public boolean allowSelectCircuit() {
-        return config.circuitSlot;
+        return getRecipeMap() != null;
     }
 
     @Override
@@ -288,52 +351,52 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
 
     @Override
     public boolean isEnetInput() {
-        return !config.generator;
+        return !isGenerator();
     }
 
     @Override
     public boolean isEnetOutput() {
-        return config.generator;
+        return isGenerator();
     }
 
     @Override
     public boolean isInputFacing(ForgeDirection side) {
-        return !config.generator && side != getGTE().getFrontFacing();
+        return !isGenerator() && side != getGTE().getFrontFacing();
     }
 
     @Override
     public boolean isOutputFacing(ForgeDirection side) {
-        return config.generator && side == getGTE().getFrontFacing();
+        return isGenerator() && side == getGTE().getFrontFacing();
     }
 
     @Override
     public long maxEUInput() {
-        return config.generator ? 0 : config.getVoltage();
+        return isGenerator() ? 0 : getVoltage();
     }
 
     @Override
     public long maxEUOutput() {
-        return config.generator ? config.getVoltage() : 0;
+        return isGenerator() ? getVoltage() : 0;
     }
 
     @Override
     public long maxAmperesIn() {
-        return config.amperage + 1;
+        return getAmperage() + 1;
     }
 
     @Override
     public long maxAmperesOut() {
-        return config.amperage;
+        return getAmperage();
     }
 
     @Override
     public long maxEUStore() {
-        return config.euStorage > 0 ? config.euStorage : 512 + config.getVoltage() * 64;
+        return 512 + getVoltage() * 64;
     }
 
     @Override
     public long getMinimumStoredEU() {
-        return config.generator ? config.getVoltage() : 512;
+        return isGenerator() ? getVoltage() : 512;
     }
 
     // endregion
@@ -342,7 +405,7 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
 
     @Override
     public RecipeMap<?> getRecipeMap() {
-        return config.recipeMap;
+        return null;
     }
 
     /**
@@ -359,19 +422,19 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
                 if (!canOutputFluids(recipe)) {
                     return CheckRecipeResultRegistry.FLUID_OUTPUT_FULL;
                 }
-                return config.logic.validateRecipe(MTEBasicMachine.this, recipe);
+                return MTEBasicMachine.this.validateRecipe(recipe);
             }
 
             @Override
             protected @Nonnull OverclockCalculator createOverclockCalculator(@Nonnull GTRecipe recipe) {
                 // generators produce the recipe EU/t as is, they never overclock
                 return super.createOverclockCalculator(recipe)
-                    .setNoOverclock(config.generator);
+                    .setNoOverclock(isGenerator());
             }
 
             @Override
             protected @Nonnull CheckRecipeResult onRecipeStart(@Nonnull GTRecipe recipe) {
-                config.logic.onRecipeStart(MTEBasicMachine.this, recipe);
+                MTEBasicMachine.this.onRecipeStart(recipe);
                 return CheckRecipeResultRegistry.SUCCESSFUL;
             }
         };
@@ -422,7 +485,7 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
                 stacks.add(inventory[i]);
             }
         }
-        if (config.circuitSlot && inventory[getCircuitSlot()] != null) {
+        if (allowSelectCircuit() && inventory[getCircuitSlot()] != null) {
             stacks.add(inventory[getCircuitSlot()]);
         }
         return stacks.toArray(new ItemStack[0]);
@@ -445,20 +508,18 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
      * Override for machines without recipe map (generators with custom fuel logic, pumps, miners...).
      */
     protected CheckRecipeResult checkProcessing() {
-        if (config.recipeMap == null) {
+        RecipeMap<?> recipeMap = getRecipeMap();
+        if (recipeMap == null) {
             return CheckRecipeResultRegistry.NO_RECIPE;
         }
         ProcessingLogic logic = getProcessingLogic();
         logic.clear();
-        logic.setRecipeMap(config.recipeMap)
+        logic.setRecipeMap(recipeMap)
             .setInputItems(getRecipeInputItems())
             .setInputFluids(getRecipeInputFluids())
-            .setAvailableVoltage(config.getVoltage())
-            .setAvailableAmperage(config.amperage);
-        if (config.perfectOverclock) {
-            logic.enablePerfectOverclock();
-        }
-        config.logic.modifyLogic(this, logic);
+            .setAvailableVoltage(getVoltage())
+            .setAvailableAmperage(getAmperage());
+        modifyLogic(logic);
 
         CheckRecipeResult result = logic.process();
         if (!result.wasSuccessful()) {
@@ -511,18 +572,25 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
     }
 
     /** Called every tick while a recipe runs, energy is already used. */
-    protected void onWorkTick() {
-        config.logic.onWorkTick(this);
+    protected void onWorkTick() {}
+
+    protected void onRecipeFinished() {}
+
+    /** Tweak the logic before every recipe search: overclocks, speed, EU discount, parallels. */
+    protected void modifyLogic(ProcessingLogic logic) {}
+
+    /** Extra condition for a found recipe, return a failure to block it. */
+    protected CheckRecipeResult validateRecipe(GTRecipe recipe) {
+        return CheckRecipeResultRegistry.SUCCESSFUL;
     }
 
-    protected void onRecipeFinished() {
-        config.logic.onRecipeFinish(this);
-    }
+    /** Recipe started, inputs are already consumed. */
+    protected void onRecipeStart(GTRecipe recipe) {}
 
     /** Uses (or for generators produces) the energy of one tick. */
     protected boolean drainEnergyForTick() {
         IGTE gte = getGTE();
-        if (config.generator) {
+        if (isGenerator()) {
             gte.increaseStoredEnergyUnits(eut, true);
             return true;
         }
@@ -535,7 +603,6 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
         if (!gte.isServerSide()) {
             return;
         }
-        config.logic.onTick(this, tick);
 
         if (maxProgress > 0) {
             if (drainEnergyForTick()) {
@@ -578,7 +645,7 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
 
         if (tick % 20 == 0) {
             ForgeDirection front = gte.getFrontFacing();
-            if (autoOutputItems && config.itemOutputs > 0) {
+            if (autoOutputItems && itemOutputs > 0) {
                 InventoryUtil.pushToNeighbour(
                     inventory,
                     getOutputSlotStart(),
@@ -624,14 +691,6 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
     // region Interaction
 
     @Override
-    public boolean onRightClick(IGTE gte, EntityPlayer player, ForgeDirection side, float x, float y, float z) {
-        if (config.logic.onRightClick(this, player, side)) {
-            return true;
-        }
-        return super.onRightClick(gte, player, side, x, y, z);
-    }
-
-    @Override
     public boolean onRightClick(IGTE gte, EntityPlayer player) {
         if (gte.isClientSide()) {
             return true;
@@ -667,25 +726,24 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
     @Override
     public String[] getInfoData() {
         List<String> info = new ArrayList<>();
-        info.add(config.localName);
+        info.add(getLocalName());
         info.add("Progress: " + progress / 20 + " / " + maxProgress / 20 + " s");
         info.add("Energy: " + getGTE().getStoredEU() + " / " + maxEUStore() + " EU");
         if (maxProgress > 0) {
-            info.add((config.generator ? "Producing: " : "Using: ") + eut + " EU/t");
+            info.add((isGenerator() ? "Producing: " : "Using: ") + eut + " EU/t");
         }
         if (lastResult != null && !lastResult.wasSuccessful() && maxProgress <= 0) {
             info.add(lastResult.getDisplayString());
         }
-        config.logic.addInfo(this, info);
         return info.toArray(new String[0]);
     }
 
     @Override
     public String[] getDescription() {
-        List<String> lines = new ArrayList<>(config.description);
-        lines.add((config.generator ? "Output: " : "Input: ") + GTValues.V[MachineTextures.clampTier(config.tier)]
+        List<String> lines = new ArrayList<>(Arrays.asList(description));
+        lines.add((isGenerator() ? "Output: " : "Input: ") + GTValues.V[MachineTextures.clampTier(tier)]
             + " EU/t ("
-            + GTValues.VN[MachineTextures.clampTier(config.tier)]
+            + GTValues.VN[MachineTextures.clampTier(tier)]
             + ")");
         return lines.toArray(new String[0]);
     }
@@ -697,8 +755,8 @@ public class MTEBasicMachine extends MTE implements RecipeMapWorkable, IConfigur
     @Override
     public ITexture[] getTexture(IGTE gte, ForgeDirection side, ForgeDirection facing, int colorIndex, boolean active,
         boolean redstoneLevel) {
-        ITexture hull = MachineTextures.hull(config.tier, side);
-        ITexture overlay = config.overlay.get(side, facing, active);
+        ITexture hull = MachineTextures.hull(tier, side);
+        ITexture overlay = getOverlay().get(side, facing, active);
         return overlay == null ? new ITexture[] { hull } : new ITexture[] { hull, overlay };
     }
 

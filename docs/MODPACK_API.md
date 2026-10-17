@@ -43,7 +43,7 @@ public class MyPack implements IModpackModule {
     @Override public void registerItems()      { /* MetaItem.create(...).add(...)         */ }
     @Override public void registerCovers()     { /* CoverBuilder.of(...)                  */ }
     @Override public void registerPipes()      { /* Pipes.cable(...) / fluidPipe / ...    */ }
-    @Override public void registerMachines()   { /* MachineBuilder / MultiblockBuilder    */ }
+    @Override public void registerMachines()   { /* new MTEMyMachine(id, name, local, tier) */ }
     @Override public void registerRecipes()    { /* GTValues.RA.stdBuilder()... crafting  */ }
 }
 ```
@@ -63,7 +63,7 @@ public static void register() {
 
 | Фаза FML | Метод модуля |
 |---|---|
-| preInit | `registerMaterials` → `registerRecipeMaps` → `registerBlocks` → `registerItems` → `registerCovers` → `registerPipes` → *(стандартные хэтчи)* → `registerMachines` |
+| preInit | `registerMaterials` → *(стандартные хэтчи, `LoaderMetaTileEntities`)* → `registerRecipeMaps` → `registerBlocks` → `registerItems` → `registerCovers` → `registerPipes` → `registerMachines` |
 | init | `init` |
 | postInit | `registerRecipes` → `postInit` |
 
@@ -368,11 +368,11 @@ GTValues.RA.stdBuilder()
 Крафты верстака/печки:
 
 ```java
-CraftingRecipes.shaped(CRUSHER_LV.getStackForm(1),
+CraftingRecipes.shaped(CRUSHER_LV,
     "PMP",
     "CHC",
     "PMP",
-    'P', "plateIron", 'M', LV_MOTOR.get(), 'C', "circuitBasic", 'H', Hatches.get(HatchType.ENERGY, 1, 1));
+    'P', "plateIron", 'M', LV_MOTOR.get(), 'C', "circuitBasic", 'H', ItemList.Hatch_Energy_LV.get(1));
 CraftingRecipes.shapeless(Iron.getNugget(9), "ingotIron");
 CraftingRecipes.smelting(Iron.getDust(1), Iron.getIngot(1), 0.1F);
 ```
@@ -381,215 +381,206 @@ CraftingRecipes.smelting(Iron.getDust(1), Iron.getIngot(1), 0.1F);
 
 ## 7. Одноблочные машины
 
-`MachineBuilder` делает GregTech-машину: корпус по тиру, приём энергии с проводов (со всех сторон,
-кроме лицевой), предметные слоты, баки, работа по карте рецептов, оверклоки, GUI, автовыгрузка в
-лицевую сторону (отвёртка — вкл/выкл предметы, Shift+отвёртка — жидкости), ключ — повернуть.
+Как в GTNH: **каждая машина — отдельный класс**, наследник `MTEBasicMachine`, с двумя конструкторами:
+
+- **прототип** `(id, name, localName, tier)` — регистрирует машину под номером `id` в блоке машин;
+- **копия** `(name, tier, description)` — из неё создаются все поставленные в мире блоки (`newMTE`).
+
+База уже умеет: корпус по тиру, приём энергии со всех сторон кроме лицевой, слоты, баки, слот программной
+схемы, поиск рецептов с оверклоками, GUI, автовыгрузку в лицевую сторону (отвёртка — предметы,
+Shift+отвёртка — жидкости), поворот ключом.
 
 ```java
-// LV..EV дробилки: 4 машины, meta 1000..1003, названия "LV Crusher" ... "EV Crusher"
-List<MTEBasicMachine> crushers = MachineBuilder.create("crusher")
-    .name("%s Crusher")                 // %s -> LV, MV, HV...
-    .recipeMap(CRUSHER)
-    .items(1, 2)                        // 1 вход, 2 выхода
-    .overlay("machines/crusher")        // текстуры лицевой стороны, см. §12
-    .description("Crushes things into dust")
-    .tiers(1, 4)                        // 1 = LV ... 14 = MAX
-    .startMeta(1000)
-    .register();
+public class MTECrusher extends MTEBasicMachine {
 
-ItemStack lvCrusher = crushers.get(0).getStackForm(1);
+    private static final MachineOverlay OVERLAY = MachineOverlay.of("machines/crusher");
+    private static final String[] DESCRIPTION = { "Crushes ores into dust" };
+
+    // прототип                                        вх. предм, вых. предм, вх. жидк, вых. жидк
+    public MTECrusher(int id, String name, String localName, int tier) {
+        super(id, name, localName, tier, DESCRIPTION, 1, 2, 0, 0);
+    }
+
+    // копия
+    public MTECrusher(String name, int tier, String[] description) {
+        super(name, tier, description, 1, 2, 0, 0);
+    }
+
+    @Override
+    public IMTE newMTE(IGTE gte) {
+        return new MTECrusher(name, tier, description);
+    }
+
+    @Override
+    public RecipeMap<?> getRecipeMap() {
+        return MyRecipeMaps.CRUSHER;
+    }
+
+    @Override
+    protected MachineOverlay getOverlay() {
+        return OVERLAY;
+    }
+}
 ```
 
-Настройки:
+Регистрация — одна строка на машину (в `registerMachines()` модуля):
 
-| Метод | Что делает |
+```java
+public static ItemStack CRUSHER_LV, CRUSHER_MV;
+
+CRUSHER_LV = new MTECrusher(1000, "basicmachine.crusher.tier.01", "Basic Crusher", 1).getStackForm(1);
+CRUSHER_MV = new MTECrusher(1001, "basicmachine.crusher.tier.02", "Advanced Crusher", 2).getStackForm(1);
+```
+
+Что можно переопределить:
+
+| Метод | Зачем |
 |---|---|
-| `.items(in, out)` | количество предметных слотов (удобно до 6+6) |
-| `.fluids(in, out)` / `.tankCapacity(l)` | баки |
-| `.circuitSlot()` | слот программной схемы |
-| `.amperage(a)` | сколько ампер можно тратить на рецепт |
-| `.euStorage(eu)` | буфер энергии |
-| `.perfectOverclock()` | идеальный оверклок (x4 скорость) |
-| `.generator()` | генератор: рецепт **даёт** свой EU/t, энергия выходит из лицевой стороны |
-| `.tier(t)` / `.tiers(min, max)` | тиры |
+| `getRecipeMap()` | карта рецептов |
+| `getOverlay()` | текстуры лицевой стороны |
+| `getTankCapacity()` | объём баков (вызывается из конструктора — используйте только константы и `tier`) |
+| `isGenerator()` | генератор: рецепт **даёт** свой EU/t, энергия выходит из лицевой стороны |
+| `getAmperage()` | сколько ампер можно тратить на рецепт |
+| `allowSelectCircuit()` | слот программной схемы (по умолчанию есть, если есть карта рецептов) |
+| `maxEUStore()`, `getVoltage()` | буфер и напряжение |
+| `modifyLogic(logic)` | бонусы перед поиском рецепта: `setSpeedBonus`, `setEuModifier`, `enablePerfectOverclock`, `setMaxParallel` |
+| `validateRecipe(recipe)` | своё условие для найденного рецепта |
+| `checkProcessing()` | **полностью своя логика**: машины без рецептов (насосы, буры, генераторы на своём топливе) — выставьте `maxProgress`, `eut`, `pendingItemOutputs`, `pendingFluidOutputs` |
+| `onWorkTick()`, `onRecipeStart(recipe)`, `onRecipeFinished()`, `outputProducts()` | события работы |
+| `onRightClick`, `buildUI`, `getInfoData`, `getTexture` | клик, свой GUI (ModularUI2), сканер/WAILA, текстуры |
+| `saveNBTData/loadNBTData` | свои данные (не забудьте `super`) |
 
-### Своя логика без своего класса — `MachineLogic`
-
-```java
-MachineBuilder.create("mixer").name("Basic Mixer").recipeMap(MIXER)
-    .items(4, 1).fluids(2, 1).circuitSlot()
-    .logic(new MachineLogic() {
-        @Override
-        public void modifyLogic(MTEBasicMachine machine, ProcessingLogic logic) {
-            if (!machine.getGTE().getWorld().isDaytime()) logic.setSpeedBonus(0.5);  // ночью в 2 раза быстрее
-        }
-
-        @Override
-        public CheckRecipeResult validateRecipe(MTEBasicMachine machine, GTRecipe recipe) {
-            return machine.getGTE().getWorld().provider.dimensionId == -1
-                ? CheckRecipeResultRegistry.SUCCESSFUL
-                : SimpleCheckRecipeResult.ofFailure("only_nether");
-        }
-
-        @Override
-        public void onRecipeFinish(MTEBasicMachine machine) { /* звук, частицы, ... */ }
-    })
-    .tier(1).startMeta(1010).register();
-```
-
-Хуки: `onTick`, `onWorkTick`, `modifyLogic`, `validateRecipe`, `onRecipeStart`, `onRecipeFinish`,
-`onRightClick`, `addInfo`.
-
-### Полностью своя логика — подкласс
+Примеры своей логики:
 
 ```java
-public class MTESolarCrusher extends MTEBasicMachine {
-
-    public MTESolarCrusher(MachineConfig config) {   // единственный нужный конструктор
-        super(config);
-    }
-
-    @Override
-    protected CheckRecipeResult checkProcessing() {  // поиск/старт рецепта
-        if (!getGTE().getWorld().isDaytime()) return SimpleCheckRecipeResult.ofFailure("night");
-        return super.checkProcessing();
-    }
+// миксер: баки зависят от тира, ночью работает в 2 раза быстрее
+public class MTEMixer extends MTEBasicMachine {
+    public MTEMixer(int id, String name, String localName, int tier) { super(id, name, localName, tier, DESC, 4, 1, 2, 1); }
+    public MTEMixer(String name, int tier, String[] description)      { super(name, tier, description, 4, 1, 2, 1); }
+    @Override public IMTE newMTE(IGTE gte) { return new MTEMixer(name, tier, description); }
+    @Override public RecipeMap<?> getRecipeMap() { return MyRecipeMaps.MIXER; }
+    @Override protected int getTankCapacity() { return 8_000 * (tier + 1); }
 
     @Override
-    protected void onWorkTick() {                     // каждый тик работы
-        super.onWorkTick();
-        if (getGTE().getBiome().biomeName.contains("Desert")) progress++;  // в пустыне x2
+    protected void modifyLogic(ProcessingLogic logic) {
+        if (!getGTE().getWorld().isDaytime()) logic.setSpeedBonus(0.5);
     }
 }
 
-MachineBuilder.create("solar_crusher").name("Solar Crusher").recipeMap(CRUSHER).items(1, 2)
-    .factory(MTESolarCrusher::new)
-    .tier(1).startMeta(1030).register();
+// наследование от другой машины: дробилка, которая работает только днём
+public class MTESolarCrusher extends MTECrusher {
+    // ...конструкторы и newMTE как выше...
+    @Override
+    protected CheckRecipeResult checkProcessing() {
+        if (!getGTE().getWorld().isDaytime()) return SimpleCheckRecipeResult.ofFailure("night");
+        return super.checkProcessing();
+    }
+}
+
+// генератор
+public class MTECombustionGenerator extends MTEBasicMachine {
+    // ...конструкторы: 0 предметов, 1 бак входа: (..., 0, 0, 1, 0)
+    @Override public RecipeMap<?> getRecipeMap() { return MyRecipeMaps.FUELS; }
+    @Override public boolean isGenerator() { return true; }
+    @Override public boolean allowSelectCircuit() { return false; }
+}
 ```
 
 Как в GregTech, машины под дождём могут загореться/взорваться (конфиг `sMachineRainExplosions`);
-чтобы отключить для своей машины — переопределите `willExplodeInRain()` и верните `false`.
+отключается переопределением `willExplodeInRain()` → `false`.
 
-Что можно переопределять: `checkProcessing()` (машины без карты рецептов — насосы, буры, генераторы
-на своём топливе: выставьте `maxProgress`, `eut`, `pendingItemOutputs`, `pendingFluidOutputs`),
-`onWorkTick`, `outputProducts`, `onRecipeFinished`, `createProcessingLogic`, `getTexture`, `buildUI`
-(свой GUI на ModularUI2), `onRightClick`, `saveNBTData/loadNBTData` (не забудьте `super`).
+Готовые примеры: `gregtech.api.modpack.example.machines` (`MTEExampleCrusher`, `MTEExampleMixer`,
+`MTEExampleCombustionGenerator`, `MTEExampleSolarCrusher`).
 
 ---
 
 ## 8. Хэтчи
 
-Стандартные хэтчи создаются автоматически для тиров ULV..UV (0..8):
+Хэтчи — тоже отдельные классы с теми же двумя конструкторами:
 
-| `HatchType` | Что это |
+| Класс | Что это |
 |---|---|
-| `INPUT_BUS` / `OUTPUT_BUS` | предметы, слотов (tier+1)², максимум 16 |
-| `INPUT_HATCH` / `OUTPUT_HATCH` | жидкость, бак 8000·2^tier L |
-| `ENERGY` / `DYNAMO` | приём / отдача энергии (2A) |
+| `MTEHatchInputBus` / `MTEHatchOutputBus` | предметы, слотов (tier+1)², максимум 16 |
+| `MTEHatchInput` / `MTEHatchOutput` | жидкость, бак 8000·2^tier L |
+| `MTEHatchEnergy` / `MTEHatchDynamo` | приём / отдача энергии, по умолчанию 2A, есть конструктор с амперажем |
+
+Стандартные хэтчи ULV..UV регистрируются в `gregtech.loaders.preload.LoaderMetaTileEntities`
+(как в GTNH) и доступны через `ItemList`:
 
 ```java
-ItemStack lvBus = Hatches.get(HatchType.INPUT_BUS, 1, 1);
+ItemStack lvBus = ItemList.Hatch_Input_Bus_LV.get(1);
+ItemStack hvEnergy = ItemList.Hatch_Energy_HV.get(1);
 ```
 
-Свой хэтч (например 4A энергетический):
+Регистрация (так это выглядит в лоадере, так же регистрируйте свои):
 
 ```java
-Hatches.register(5000, new MTEHatchEnergy(HatchType.ENERGY, 3, "hatch.energy4a.hv", "HV 4A Energy Hatch", 4));
+ItemList.Hatch_Input_Bus_LV.set(new MTEHatchInputBus(32001, "hatch.input_bus.lv", "LV Input Bus", 1).getStackForm(1));
+// свой 4A энергохэтч
+ENERGY_4A_HV = new MTEHatchEnergy(5000, "hatch.energy4a.hv", "HV 4A Energy Hatch", 3, 4).getStackForm(1);
 ```
 
-Хэтч в собранном мультиблоке принимает текстуру корпуса мультиблока.
+Свой вид хэтча:
+
+```java
+public class MTEHatchCoolant extends MTEHatchInput {
+
+    public MTEHatchCoolant(int id, String name, String localName, int tier) { super(id, name, localName, tier); }
+    public MTEHatchCoolant(String name, int tier) { super(name, tier); }
+
+    @Override public IMTE newMTE(IGTE gte) { return new MTEHatchCoolant(name, tier); }
+
+    @Override public HatchType getType() { return HatchType.OTHER; }   // свой тип
+
+    @Override
+    public int fill(ForgeDirection side, FluidStack fluid, boolean doFill) {
+        return fluid.getFluid() == FluidRegistry.WATER ? super.fill(side, fluid, doFill) : 0;  // только вода
+    }
+}
+```
+
+В мультиблоке такой хэтч принимается переопределением `addHatch` (см. ниже). В собранном мультиблоке
+хэтч берёт текстуру его корпуса.
 
 ---
 
 ## 9. Мультиблоки
 
-### Вариант 1: без своего класса — `MultiblockBuilder`
-
-Форма пишется **послойно сверху вниз**, каждый слой — ряды **от лицевой стороны (где контроллер) назад**,
-как будто смотришь сверху. Символы: `~` контроллер, `-` воздух, пробел — что угодно.
-
-```java
-MultiblockBuilder.create("big_furnace")
-    .name("Big Furnace")
-    .shape(new String[][] {
-        { "CCC", "CCC", "CCC" },          // верхний слой
-        { "H~H", "G-G", "CCC" },          // средний: контроллер спереди по центру, внутри воздух
-        { "HHH", "HHH", "HHH" } })        // нижний слой
-    .casing('C', Iron)                                    // корпус материала (MaterialType.CASING)
-    .hatchOrCasing('H', Iron, HatchType.PROCESSING)       // корпус или любой хэтч обработки
-    .element('G', MultiblockElements.block(Blocks.glass, 0))
-    .minCasings(8)
-    .requireHatches(HatchType.ENERGY, HatchType.INPUT_BUS, HatchType.OUTPUT_BUS)
-    .recipeMap(BIG_FURNACE)
-    .parallel(8)                    // 8 рецептов за раз
-    .speed(2.0)                     // в 2 раза быстрее
-    .euModifier(0.8)                // -20% энергии
-    .overlay("machines/big_furnace")
-    .description("Smelts 8 items at once")
-    .meta(1100)
-    .register();
-```
-
-Элементы структуры (`MultiblockElements`): `casing(block, meta)` / `casing(material)` (считается в
-`getCasingCount`), `hatchOrCasing(...)`, `block(block, meta)`, `air()`, `any()`, `anyOf(a, b, ...)`,
-а также любые элементы StructureLib (`StructureUtility.ofBlocksTiered` для катушек и т.п.).
-
-Голографический проектор StructureLib строит такой мультиблок автоматически.
-Энергия: напряжение = максимальное у энергохэтчей, ампер = количество энергохэтчей (как в GregTech).
-`.generator()` — мультиблок-генератор: EU/t рецепта уходит в динамо-хэтчи.
-
-Своя логика без класса:
-
-```java
-.logic(new MultiblockLogic() {
-    @Override
-    public boolean checkStructure(MTEConfigurableMultiblock m) {      // доп. условия структуры
-        return m.getInputHatches().size() <= 2;
-    }
-
-    @Override
-    public void modifyLogic(MTEConfigurableMultiblock m, ProcessingLogic logic) {   // бонус за лишние корпуса
-        logic.setSpeedBonus(1.0 / Math.min(2.0, 1.0 + (m.getCasingCount() - 8) * 0.1));
-    }
-
-    @Override
-    public void addInfo(MTEConfigurableMultiblock m, List<String> info) {
-        info.add("Casings: " + m.getCasingCount());
-    }
-})
-```
-
-Также можно `.factory(MyMultiblock::new)` с подклассом `MTEConfigurableMultiblock`.
-
-### Вариант 2: свой класс — `MTEMultiblockBase`
-
-Для мультиблоков с несколькими частями структуры, переменной высотой, тирами катушек и т.д.:
+Каждый мультиблок — класс-наследник `MTEMultiblockBase`, как в GTNH: структура StructureLib,
+`checkMachine()`, `construct()` для голографического проектора, `createTooltip()` через
+`MultiblockTooltipBuilder`.
 
 ```java
 public class MTEBigFurnace extends MTEMultiblockBase {
 
     // static-поля создаются при загрузке класса (preInit) — одинаково на клиенте и сервере
     private static final int CASING = CasingTextures.register(Iron.getCasing(), Iron.getMeta());
+    private static final MachineOverlay OVERLAY = MachineOverlay.of("machines/big_furnace");
+
+    // Форма: слои сверху вниз, в слое ряды от лицевой стороны назад.
+    // '~' контроллер, '-' воздух, ' ' что угодно.
     private static final IStructureDefinition<MTEMultiblockBase> STRUCTURE = StructureDefinition
         .<MTEMultiblockBase>builder()
         .addShape(MAIN_PIECE, StructureUtility.transpose(new String[][] {
             { "CCC", "CCC", "CCC" },
-            { "H~H", "C-C", "CCC" },
-            { "CCC", "CCC", "CCC" } }))
+            { "H~H", "G-G", "CCC" },
+            { "HHH", "HHH", "HHH" } }))
         .addElement('C', MultiblockElements.casing(Iron))
         .addElement('H', MultiblockElements.hatchOrCasing(Iron, HatchType.PROCESSING))
+        .addElement('G', MultiblockElements.block(Blocks.glass, 0))
         .build();
 
-    public MTEBigFurnace(String id) { super(id); }
+    public MTEBigFurnace(int id, String name, String localName) { super(id, name, localName); }  // прототип
+    public MTEBigFurnace(String name) { super(name); }                                          // копия
 
     @Override public IMTE newMTE(IGTE gte) { return new MTEBigFurnace(name); }
-
     @Override public IStructureDefinition<MTEMultiblockBase> getStructureDefinition() { return STRUCTURE; }
 
     @Override
-    protected boolean checkStructure() {
+    protected boolean checkMachine() {
         // смещение контроллера: столбец 1, слой 1, ряд 0 (позиция '~')
-        return checkPiece(MAIN_PIECE, 1, 1, 0) && getCasingCount() >= 12 && !getEnergyHatches().isEmpty();
+        return checkPiece(MAIN_PIECE, 1, 1, 0) && getCasingCount() >= 8
+            && !getEnergyHatches().isEmpty() && !getInputBuses().isEmpty() && !getOutputBuses().isEmpty();
     }
 
     @Override
@@ -598,20 +589,68 @@ public class MTEBigFurnace extends MTEMultiblockBase {
     }
 
     @Override protected int getCasingTextureId() { return CASING; }
-    @Override public RecipeMap<?> getRecipeMap() { return BIG_FURNACE; }
-    @Override protected int getMaxParallel() { return 4; }
-    @Override public String[] getDescription() { return new String[] { "Smelts a lot" }; }
+    @Override protected MachineOverlay getOverlay() { return OVERLAY; }
+    @Override public RecipeMap<?> getRecipeMap() { return MyRecipeMaps.BIG_FURNACE; }
+    @Override protected int getMaxParallel() { return 8; }
+
+    @Override
+    protected void modifyLogic(ProcessingLogic logic) {
+        logic.setSpeedBonus(1.0 / (2.0 + 0.1 * getInputBuses().size()));   // x2 и +10% за каждую входную шину
+    }
+
+    @Override
+    protected MultiblockTooltipBuilder createTooltip() {
+        return new MultiblockTooltipBuilder().addMachineType("Furnace")
+            .addInfo("Smelts 8 items at once")
+            .beginStructureBlock(3, 3, 3, true)
+            .addController("Front center")
+            .addCasingInfoMin("Iron Machine Casing", 8, false)
+            .addEnergyHatch("Any casing", 1)
+            .addInputBus("Any casing", 1)
+            .addOutputBus("Any casing", 1)
+            .toolTipFinisher();
+    }
 }
 
-// registerMachines():
-Prototypes.register(new MTEBigFurnace("big_furnace"), 600);
-Lang.add("gt.blockmachines.big_furnace.name", "Big Furnace");
+// регистрация
+BIG_FURNACE = new MTEBigFurnace(10000, "multimachine.big_furnace", "Big Furnace").getStackForm(1);
 ```
 
-Переопределяемые методы: `checkProcessing` (своя логика без рецептов), `validateRecipe`, `modifyLogic`,
-`onRecipeStart`, `onRecipeFinished`, `onWorkTick`, `addHatch` (свои типы деталей), `getOverlay`,
-`buildUI`, `getInfoData`. Доступ к деталям: `getInputBuses()`, `getOutputBuses()`, `getInputHatches()`,
-`getOutputHatches()`, `getEnergyHatches()`, `getDynamoHatches()`, `drainEnergy(eu)`, `addEnergyToDynamos(eu)`.
+Элементы структуры (`MultiblockElements`): `casing(block, meta)` / `casing(material)` (считаются в
+`getCasingCount()`), `hatchOrCasing(material, HatchType...)`, `block(block, meta)`, `air()`, `any()`,
+`anyOf(a, b, ...)`, а также любые элементы StructureLib (`StructureUtility.ofBlocksTiered` для катушек и т.п.).
+Можно несколько частей структуры (`addShape("top", ...)`) и проверять их в цикле для переменной высоты.
+
+Что можно переопределить: `getMaxParallel()`, `modifyLogic(logic)`, `validateRecipe(recipe)`,
+`onRecipeStart(recipe)`, `onRecipeFinished()`, `onWorkTick()`, `isGenerator()` (EU/t рецепта уходит в
+динамо-хэтчи), `checkProcessing()` (полностью своя логика без карты рецептов), `buildUI`, `getInfoData`.
+
+Доступ к деталям: `getInputBuses()`, `getOutputBuses()`, `getInputHatches()`, `getOutputHatches()`,
+`getEnergyHatches()`, `getDynamoHatches()`, `getStoredEnergy()`, `drainEnergy(eu)`, `addEnergyToDynamos(eu)`.
+Энергия: напряжение = максимальное у энергохэтчей, ампер = количество энергохэтчей (как в GregTech).
+
+Свои хэтчи (тип `OTHER`):
+
+```java
+private final List<MTEHatchCoolant> coolantHatches = new ArrayList<>();
+
+@Override
+public boolean addHatch(MTEHatch hatch, int casingTextureId) {
+    if (hatch instanceof MTEHatchCoolant coolant) {
+        hatch.setCasingTexture(casingTextureId);
+        return coolantHatches.add(coolant);
+    }
+    return super.addHatch(hatch, casingTextureId);
+}
+
+@Override
+protected boolean checkMachine() {
+    coolantHatches.clear();
+    return checkPiece(MAIN_PIECE, 1, 1, 0) && coolantHatches.size() == 1;
+}
+```
+
+Готовый пример: `gregtech.api.modpack.example.machines.MTEExampleBigFurnace`.
 
 ---
 
