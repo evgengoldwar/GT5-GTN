@@ -6,6 +6,7 @@ import static gregtech.api.enums.Mods.TinkerConstruct;
 import static gregtech.api.enums.Mods.Translocator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -75,7 +76,8 @@ public class MTEFluidPipe extends PipeMTE {
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEFluidPipe(name, mThickNess, mCapacity, mHeatResistance, mGasProof, mPipeAmount);
+        return new MTEFluidPipe(name, mThickNess, mCapacity, mHeatResistance, mGasProof, mPipeAmount)
+            .setAppearance(appearance);
     }
 
     @Override
@@ -83,6 +85,7 @@ public class MTEFluidPipe extends PipeMTE {
         boolean redstoneLevel) {
         List<ITexture> textures = new ArrayList<>();
 
+        Collections.addAll(textures, appearance.getTextures(connected, colorIndex));
         // textures.add(getBaseTexture(connected, colorIndex));
         //
         // if (mDisableInput != 0) {

@@ -4,10 +4,13 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -50,14 +53,32 @@ public class ItemBlockMetaMaterial extends ItemBlock {
         Material material = block.getMaterial(stack.getItemDamage());
 
         if (material != null) {
-            return "tile." + material.getName()
-                .toLowerCase()
+            return "tile." + material.getUnlocalizedName()
                 + "_"
                 + block.getMaterialType()
-                    .name()
-                    .toLowerCase();
+                    .getTextureName();
         }
         return super.getUnlocalizedName(stack);
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        String key = getUnlocalizedName(stack) + ".name";
+        if (StatCollector.canTranslate(key)) {
+            return StatCollector.translateToLocal(key);
+        }
+        Material material = block.getMaterial(stack.getItemDamage());
+        return material != null ? block.getMaterialType()
+            .formatLocalName(material) : super.getItemStackDisplayName(stack);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+        Material material = block.getMaterial(stack.getItemDamage());
+        if (material != null && material.getTooltip() != null) {
+            tooltip.add(EnumChatFormatting.YELLOW + material.getTooltip());
+        }
     }
 
     @Override

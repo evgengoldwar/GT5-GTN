@@ -44,6 +44,7 @@ import gregtech.api.enums.Mods;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.metatileentity.BaseGTE;
+import gregtech.api.modpack.ModpackAPI;
 import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTGuiTheme;
@@ -59,7 +60,6 @@ import gregtech.common.GTClient;
 import gregtech.common.GTDummyWorld;
 import gregtech.common.GTNetwork;
 import gregtech.common.GTProxy;
-import gregtech.common.MaterialSystem.Materials;
 import gregtech.common.RecipeAdder;
 import gregtech.common.config.Client;
 import gregtech.common.config.Gregtech;
@@ -72,6 +72,7 @@ import gregtech.loaders.postload.GTPostLoad;
 import gregtech.loaders.preload.GTPreLoad;
 import gregtech.loaders.preload.LoaderGTBlockFluid;
 import gregtech.loaders.preload.LoaderMetaTileEntities;
+import gregtech.loaders.preload.ModpackModules;
 
 @Mod(
     modid = Mods.ModIDs.GREG_TECH,
@@ -149,6 +150,7 @@ public class GTMod {
         GTValues.DW = new GTDummyWorld();
         GTValues.NW = new GTNetwork();
         GTValues.RA = new RecipeAdder();
+        ModpackModules.register();
     }
 
     public static GTClient clientProxy() {
@@ -173,7 +175,7 @@ public class GTMod {
 
     @Mod.EventHandler
     public void onPreInitialization(FMLPreInitializationEvent event) {
-        Materials.init();
+        ModpackAPI.onPreInitMaterials();
         GameRegistry.registerTileEntity(BaseGTE.class, "baseGTE");
         GameRegistry.registerTileEntity(BasePipeGTE.class, "BasePipeGTE");
 
@@ -204,6 +206,7 @@ public class GTMod {
 
         new LoaderGTBlockFluid().run();
         new LoaderMetaTileEntities().run();
+        ModpackAPI.onPreInitContent();
 
         // populate itemstack instance for NBT check in GTRecipe
         setItemStacks();
@@ -226,6 +229,8 @@ public class GTMod {
         }
 
         proxy.onInitialization(event);
+
+        ModpackAPI.onInit();
 
         if (Mods.Waila.isModLoaded()) {
             Waila.init();
@@ -262,6 +267,8 @@ public class GTMod {
         GT_FML_LOGGER.debug("GTMod: Saving Lang File.");
         GregTechAPI.sPostloadFinished = true;
         GT_FML_LOGGER.debug("GTMod: PostLoad-Phase finished!");
+
+        ModpackAPI.onPostInit();
 
         new GTPostLoad().run();
 

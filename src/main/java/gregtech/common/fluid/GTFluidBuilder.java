@@ -22,7 +22,8 @@ public class GTFluidBuilder implements IGTFluidBuilder {
     ResourceLocation stillIconResourceLocation = null, flowingIconResourceLocation = null;
     short[] colorRGBA = Dyes._NULL.getRGBA();
     Block fluidBlock = null;
-    int temperature;
+    int temperature = 295;
+    boolean gaseous = false;
     Fluid iconsFrom;
 
     public GTFluidBuilder(final String fluidName) {
@@ -101,6 +102,18 @@ public class GTFluidBuilder implements IGTFluidBuilder {
         final ResourceLocation flowingIconResourceLocation) {
         this.stillIconResourceLocation = stillIconResourceLocation;
         this.flowingIconResourceLocation = flowingIconResourceLocation;
+        return this;
+    }
+
+    @Override
+    public IGTFluidBuilder withTemperature(final int temperature) {
+        this.temperature = temperature;
+        return this;
+    }
+
+    @Override
+    public IGTFluidBuilder withGaseous(final boolean gaseous) {
+        this.gaseous = gaseous;
         return this;
     }
 

@@ -1,14 +1,17 @@
 package gregtech.common.MaterialSystem.Api;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.fluid.GTFluidFactory;
@@ -21,9 +24,13 @@ public final class MaterialRegistry {
 
     private final Map<MaterialType, BlockMetaMaterial> blocks = new EnumMap<>(MaterialType.class);
 
-    private final Map<Integer, Fluid> fluids = new HashMap<>();
+    private final Map<MaterialType, Map<Integer, Fluid>> fluids = new EnumMap<>(MaterialType.class);
 
-    private final Map<Integer, Material> materials = new HashMap<>();
+    private final Map<Integer, Material> materials = new TreeMap<>();
+
+    private final Map<String, Material> materialsByName = new HashMap<>();
+
+    private boolean initialized = false;
 
     private MaterialRegistry() {}
 
@@ -32,11 +39,16 @@ public final class MaterialRegistry {
     }
 
     public void init() {
+        if (initialized) {
+            return;
+        }
+        initialized = true;
+
         for (MaterialType type : MaterialType.values()) {
             switch (type.getKind()) {
                 case ITEM -> registerItem(type, new ItemMetaMaterial(type));
                 case BLOCK -> registerBlock(type, new BlockMetaMaterial(type));
-                case FLUID -> {}
+                case FLUID -> fluids.put(type, new HashMap<>());
             }
         }
     }
@@ -56,6 +68,11 @@ public final class MaterialRegistry {
             return;
         }
 
+        if (!initialized) {
+            throw new IllegalStateException(
+                "MaterialRegistry is not initialized yet, create materials in IModpackModule.registerMaterials()");
+        }
+
         int meta = material.getMeta();
 
         if (meta < 0 || meta > MaterialUtils.MAX_MATERIAL_META) {
@@ -70,11 +87,12 @@ public final class MaterialRegistry {
                         .getName());
         }
 
-        materials.put(meta, material);
-
-        if (material.hasType(MaterialType.FLUID)) {
-            registerFluid(material);
+        if (materialsByName.containsKey(material.getName())) {
+            throw new IllegalStateException("Material name " + material.getName() + " is already registered");
         }
+
+        materials.put(meta, material);
+        materialsByName.put(material.getName(), material);
 
         for (MaterialType type : MaterialType.values()) {
 
@@ -82,36 +100,43 @@ public final class MaterialRegistry {
                 continue;
             }
 
-            ItemMetaMaterial item = items.get(type);
-
-            if (item != null) {
-                item.registerMaterial(material);
+            switch (type.getKind()) {
+                case ITEM -> items.get(type)
+                    .registerMaterial(material);
+                case BLOCK -> blocks.get(type)
+                    .registerMaterial(material);
+                case FLUID -> registerFluid(material, type);
             }
 
-            BlockMetaMaterial block = blocks.get(type);
-
-            if (block != null) {
-                block.registerMaterial(material);
+            if (!type.isFluid() && !type.getOreDictPrefix()
+                .isEmpty()) {
+                OreDictionary.registerOre(material.getOreDictName(type), material.getStack(type, 1));
             }
         }
     }
 
-    private void registerFluid(Material material) {
-        Fluid fluid = GTFluidFactory.builder(
-            material.getName()
-                .toLowerCase(Locale.ENGLISH))
-            .withDefaultLocalName(material.getName())
-            .withColorRGBA(MaterialUtils.getColorRGBA(material.getColor()))
-            .withStillIconResourceLocation(new ResourceLocation(MaterialUtils.getTexturePath(MaterialType.FLUID)))
+    private void registerFluid(Material material, MaterialType type) {
+        Fluid fluid = GTFluidFactory.builder(type.getFluidName(material))
+            .withDefaultLocalName(type.formatLocalName(material))
+            .withColorRGBA(material.getRGBA())
+            .withStillIconResourceLocation(new ResourceLocation(MaterialUtils.getTexturePath(type)))
+            .withTemperature(material.getFluidTemperature(type))
+            .withGaseous(type == MaterialType.GAS || type == MaterialType.PLASMA)
             .buildAndRegister()
             .addLocalizedName()
             .asFluid();
 
-        fluids.put(material.getMeta(), fluid);
+        fluids.get(type)
+            .put(material.getMeta(), fluid);
+    }
+
+    public Fluid getFluid(MaterialType type, int meta) {
+        Map<Integer, Fluid> map = fluids.get(type);
+        return map == null ? null : map.get(meta);
     }
 
     public Fluid getFluid(int meta) {
-        return fluids.get(meta);
+        return getFluid(MaterialType.FLUID, meta);
     }
 
     public ItemMetaMaterial getItem(MaterialType type) {
@@ -154,5 +179,16 @@ public final class MaterialRegistry {
 
     public Material getMaterial(int meta) {
         return materials.get(meta);
+    }
+
+    public Material getMaterial(String name) {
+        return materialsByName.get(name);
+    }
+
+    /**
+     * All materials sorted by meta.
+     */
+    public Collection<Material> getMaterials() {
+        return Collections.unmodifiableCollection(materials.values());
     }
 }

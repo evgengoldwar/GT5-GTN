@@ -201,7 +201,13 @@ public abstract class ItemMachines extends ItemBlock implements IFluidContainerI
     public String getItemStackDisplayName(ItemStack itemStack) {
         String displayName = super.getItemStackDisplayName(itemStack);
         final short meta = (short) getDamage(itemStack);
+        if (meta < 0 || meta >= mteArray.length) {
+            return displayName;
+        }
         final IMTE mte = mteArray[meta];
+        if (mte != null && StatCollector.canTranslate(mte.getLocalNameKey())) {
+            return StatCollector.translateToLocal(mte.getLocalNameKey());
+        }
         // if (mte != null) {
         // if (mte instanceof ILocalizedMetaPipeEntity localMetaTE) {
         // return localMetaTE.getLocalizedName();

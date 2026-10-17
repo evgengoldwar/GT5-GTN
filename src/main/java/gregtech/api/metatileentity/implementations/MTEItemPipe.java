@@ -19,14 +19,12 @@ import com.gtnewhorizon.gtnhlib.util.ItemUtil;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.MTEArrays;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.metatileentity.IMTEItemPipe;
 import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.PipeMTE;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTItemTransfer;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.Base.Cover;
@@ -68,7 +66,8 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTEItemPipe(name, mThickNess, inventory.length, mStepSize, mIsRestrictive, mTickTime);
+        return new MTEItemPipe(name, mThickNess, inventory.length, mStepSize, mIsRestrictive, mTickTime)
+            .setAppearance(appearance);
     }
 
     @Override
@@ -129,7 +128,7 @@ public class MTEItemPipe extends PipeMTE implements IMTEItemPipe {
         // mMaterial.mIconSet.mTextures[OrePrefixes.pipeHuge.getTextureIndex()],
         // Dyes.getModulation(aColorIndex, mMaterial.mRGBa)) };
         // }
-        return new ITexture[] { TextureFactory.of(Textures.ARBOREAL_CASING) };
+        return appearance.getTextures(aConnected, aColorIndex);
     }
 
     @Override

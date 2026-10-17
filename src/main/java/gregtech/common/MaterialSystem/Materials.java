@@ -2,7 +2,6 @@ package gregtech.common.MaterialSystem;
 
 import gregtech.common.MaterialSystem.Api.Material;
 import gregtech.common.MaterialSystem.Api.MaterialBuilder;
-import gregtech.common.MaterialSystem.Api.MaterialRegistry;
 
 public class Materials {
 
@@ -10,9 +9,7 @@ public class Materials {
     public static Material Bronze;
 
     public static void init() {
-        MaterialRegistry.getInstance()
-            .init();
-
+        // MaterialRegistry.init() is called by ModpackAPI before this method.
         Steel = new MaterialBuilder("Steel").meta(1)
             .color(128, 128, 0)
             .addIngot()

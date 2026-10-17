@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -34,7 +35,10 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
         this.block = builder.fluidBlock;
         this.colorRGBA = builder.colorRGBA;
         this.temperature = builder.temperature;
-        setGaseous(false).setViscosity(1000);
+        setGaseous(builder.gaseous).setViscosity(builder.gaseous ? 200 : 1000);
+        if (builder.gaseous) {
+            setDensity(-100);
+        }
     }
 
     @Override
@@ -109,7 +113,8 @@ public class GTFluid extends Fluid implements IGTFluid, IGTRegisteredFluid, Runn
 
     @Override
     public String getLocalizedName() {
-        if (localizedName == null) return super.getLocalizedName();
-        return localizedName.get();
+        if (localizedName != null) return localizedName.get();
+        if (defaultLocalName != null && !StatCollector.canTranslate(getUnlocalizedName())) return defaultLocalName;
+        return super.getLocalizedName();
     }
 }

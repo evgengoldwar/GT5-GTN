@@ -40,6 +40,7 @@ import gregtech.api.interfaces.metatileentity.IConnectable;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.IColoredTileEntity;
 import gregtech.api.interfaces.tileentity.IGTE;
+import gregtech.api.modpack.pipe.PipeAppearance;
 import gregtech.api.render.ISBRInventoryContext;
 import gregtech.api.render.ISBRWorldContext;
 import gregtech.api.render.TextureFactory;
@@ -57,6 +58,12 @@ public abstract class PipeMTE extends CommonMTE implements IConnectable {
     private IGTE gte;
 
     private MTEArrays mteArrays;
+
+    /**
+     * Textures and color of this pipe, set by {@link gregtech.api.modpack.pipe.Pipes}. Copied to every placed instance
+     * in {@code newMTE}.
+     */
+    protected PipeAppearance appearance = PipeAppearance.DEFAULT;
 
     public PipeMTE(MTEArrays mteArrays, int meta, String name, int slotCount) {
         super(mteArrays, meta, name, slotCount);
@@ -79,9 +86,18 @@ public abstract class PipeMTE extends CommonMTE implements IConnectable {
         return StatCollector.translateToLocal("gt.blockmachines." + name + ".name");
     }
 
+    public PipeAppearance getAppearance() {
+        return appearance;
+    }
+
+    public PipeMTE setAppearance(PipeAppearance appearance) {
+        this.appearance = appearance == null ? PipeAppearance.DEFAULT : appearance;
+        return this;
+    }
+
     @Override
     public String getInventoryName() {
-        IMTE prototype = mteArrays.getMteArray()[getGTE().getMeta()];
+        IMTE prototype = MTEArrays.CABLE.getMteArray()[getGTE().getMeta()];
         if (prototype != null) {
             return prototype.getLocalName();
         }
@@ -488,7 +504,7 @@ public abstract class PipeMTE extends CommonMTE implements IConnectable {
 
     @Override
     public ItemStack getStackForm(long amount) {
-        return new ItemStack(GregTechAPI.sBlockMachines, (int) amount, getGTE().getMeta());
+        return new ItemStack(GregTechAPI.sBlockCable, (int) amount, getGTE().getMeta());
     }
 
     @Override

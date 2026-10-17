@@ -9,7 +9,6 @@ import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -33,7 +32,6 @@ import gregtech.api.interfaces.tileentity.IGTE;
 import gregtech.api.interfaces.tileentity.IGregTechDeviceInformation;
 import gregtech.api.metatileentity.BasePipeGTE;
 import gregtech.api.metatileentity.PipeMTE;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
@@ -75,7 +73,8 @@ public class MTECable extends PipeMTE implements IMTECable {
 
     @Override
     public IMTE newMTE(IGTE gte) {
-        return new MTECable(name, mThickNess, mCableLossPerMeter, mAmperage, mVoltage, mInsulated, mCanShock);
+        return new MTECable(name, mThickNess, mCableLossPerMeter, mAmperage, mVoltage, mInsulated, mCanShock)
+            .setAppearance(appearance);
     }
 
     @Override
@@ -130,7 +129,7 @@ public class MTECable extends PipeMTE implements IMTECable {
         // Textures.BlockIcons.INSULATION_HUGE,
         // Dyes.getModulation(colorIndex, Dyes.CABLE_INSULATION.getRGBA())) };
         // }
-        return new ITexture[] { TextureFactory.of(Blocks.stone, 0) };
+        return appearance.getTextures(active, colorIndex);
     }
 
     @Override

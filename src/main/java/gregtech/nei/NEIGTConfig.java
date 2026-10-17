@@ -25,7 +25,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.GTMod;
-import gregtech.api.GregTechAPI;
+import gregtech.api.enums.MTEArrays;
 import gregtech.api.interfaces.metatileentity.IMTE;
 import gregtech.api.interfaces.tileentity.RecipeMapWorkable;
 import gregtech.api.recipe.RecipeCategory;
@@ -168,8 +168,9 @@ public class NEIGTConfig implements IConfigureNEI {
         ImmutableListMultimap.Builder<RecipeCategory, RecipeMapWorkable> builder = new ImmutableListMultimap.Builder<>();
         builder
             .orderValuesBy(Comparator.comparing(recipeMapWorkable -> -recipeMapWorkable.getRecipeCatalystPriority()));
-        for (int i = 1; i < GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES.length; i++) {
-            IMTE mte = GregTechAPI.MULTIBLOCK_HATCH_META_TILE_ENTITIES[i];
+        IMTE[] machines = MTEArrays.HATCH.getMteArray();
+        for (int i = 1; i < machines.length; i++) {
+            IMTE mte = machines[i];
             if (!(mte instanceof RecipeMapWorkable recipeMapWorkable)) continue;
             for (RecipeMap<?> recipeMap : recipeMapWorkable.getAvailableRecipeMaps()) {
                 for (RecipeCategory recipeCategory : recipeMap.getAssociatedCategories()) {

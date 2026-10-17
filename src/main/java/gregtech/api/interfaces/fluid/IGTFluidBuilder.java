@@ -87,6 +87,20 @@ public interface IGTFluidBuilder {
      *
      * @return the built {@link IGTFluid}
      */
+    /**
+     * Sets the fluid temperature in Kelvin (used by fluid pipes to check heat resistance).
+     */
+    default IGTFluidBuilder withTemperature(final int temperature) {
+        return this;
+    }
+
+    /**
+     * Marks the fluid as a gas (fluid pipes without gas proofing will leak it).
+     */
+    default IGTFluidBuilder withGaseous(final boolean gaseous) {
+        return this;
+    }
+
     IGTFluid build();
 
     /**
